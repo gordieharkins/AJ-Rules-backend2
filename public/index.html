@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html>
-
-  <head>
-    <title>NodeJS Starter Application</title>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AOTC</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="stylesheets/style.css">
-  </head>
+    <link rel="stylesheet" href="bundles/styles.9fda9b38f90e4d3402f4.bundle.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.dataTables.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="assets/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/buttons.jqueryui.min.css">
+    <link rel="stylesheet" href="assets/css/buttons.dataTables.min.css">
+    <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyA3YdzkKmJMsp2dAR0PtBXtiI77yiFN4tw'></script>
+    <script src="/assets/js/libs/jquery-1.12.4.min.js"></script>
+    <script src="/assets/js/libs/jquery-ui-1.12.1.min.js"></script>
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body ng-app="AOTC">
+    <div id="preloader">
+        <div id="status"> <img src="assets/img/preloader.gif" height="64" width="64" alt=""> </div>
+    </div>
+    <div class="alert-box success" id="popup_success"> <i class="fa fa-check-circle" aria-hidden="true"></i> Survey submitted successfully </div>
+    <div class="alert-box dangerr" id="error_main"> Unable to upload files </div>
+    <ui-view></ui-view>
 
-  <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="images/newapp-icon.png">
-        </td>
-        <td>
-          <h1 id="message">Hello World!</h1>
-          <p class='description'></p> Thanks for creating a <span class = "blue">NodeJS Starter Application</span>.
-        </td>
-      </tr>
-    </table>
-  </body>
+    <!--
+            MY LIBRARIES
+     -->
+<<<<<<< HEAD
+=======
+     <script type="text/javascript" src="bundles/vendor.9fda9b38f90e4d3402f4.bundle.js"></script>
+>>>>>>> ebe944d69901df6510bf2c870593665ce23dfba3
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+    <script src="/assets/js/libs/angular-datatables.min.js"></script>
+    <script type="text/javascript" src="/assets/js/libs/datatables.min.js"></script>
+    <script type="text/javascript" src="/assets/js/libs/dataTables.responsive.min.js"></script>
+    <script src="assets/js/vendor/column-filter.js"></script>
+    <script src="/assets/js/libs/angular-datatables.columnfilter.js"></script>
+    <script src="/assets/js/libs/dataTables.buttons.min.js"></script>
+    <script src="/assets/js/libs/buttons.colVis.min.js"></script>
+    <script src="/assets/js/libs/buttons.flash.min.js"></script>
+    <script src="/assets/js/libs/buttons.html5.min.js"></script>
+    <script src="/assets/js/libs/buttons.print.min.js"></script>
+    <script src="/assets/js/libs/angular-datatables.buttons.min.js"></script>
+    <script src="/assets/js/libs/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/assets/js/libs/date-euro.js"></script>
+    <script type="text/javascript" src="https://cdn.ckeditor.com/4.7.1/standard-all/ckeditor.js"></script>
+    <script src="bower_components/ag-grid/dist/ag-grid.min.js?ignore=notused34"></script>
+<<<<<<< HEAD
+    <script  src="bundles/vendor.d11376c7cfc2e5d35872.bundle.js"></script>
 
+    <script  src="bundles/app.d11376c7cfc2e5d35872.bundle.js"></script>
+=======
+    
+    <script type="text/javascript" src="bundles/app.9fda9b38f90e4d3402f4.bundle.js"></script>
+>>>>>>> ebe944d69901df6510bf2c870593665ce23dfba3
+    
+</body>
 </html>

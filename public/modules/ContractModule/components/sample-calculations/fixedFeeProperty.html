@@ -1,0 +1,20 @@
+    <div class="panel panel-primary filterable">
+        <div class="pricing_header">
+            <h2>Fixed Fee Property</h2>
+            <div class="space"></div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="filters">
+                <th><input type="text" class="form-control" placeholder="Property Names" disabled></th>
+                <th><input type="text" class="form-control" placeholder="Fee" disabled></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="data in getPropertyList">
+                <td ng-if="data.check && !data.disabled">{{data.propertyName}}</td>
+                <td ng-if="data.check && !data.disabled"><input  type="number" ng-model="data.assessment.fixedRate"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>

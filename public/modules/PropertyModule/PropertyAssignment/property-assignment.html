@@ -1,0 +1,399 @@
+<style>
+    .nav-tabs>li {
+        float: left;
+        margin-bottom: -1px;
+        width: 50%;
+    }
+
+    .with-nav-tabs.panel-default .nav-tabs>li>a,
+    .with-nav-tabs.panel-default .nav-tabs>li>a:hover,
+    .with-nav-tabs.panel-default .nav-tabs>li>a:focus {
+        color: #fff;
+    }
+
+    .nav>li>a {
+        position: relative;
+        display: block;
+        /* padding: 11px; */
+        color: #fff;
+        width: 100%;
+        border-bottom: none;
+        margin: 0px auto;
+    }
+
+    .panel.with-nav-tabs .panel-heading {
+        padding: 0px 0px 0px 0px;
+    }
+
+    .with-nav-tabs.panel-default .nav-tabs>li.active>a,
+    .with-nav-tabs.panel-default .nav-tabs>li.active>a:hover,
+    .with-nav-tabs.panel-default .nav-tabs>li.active>a:focus {
+        color: #555;
+        background-color: #fff;
+        border-color: #fff;
+        border-bottom-color: transparent;
+    }
+
+    .with-nav-tabs.panel-default .nav-tabs>.open>a,
+    .with-nav-tabs.panel-default .nav-tabs>.open>a:hover,
+    .with-nav-tabs.panel-default .nav-tabs>.open>a:focus,
+    .with-nav-tabs.panel-default .nav-tabs>li>a:hover,
+    .with-nav-tabs.panel-default .nav-tabs>li>a:focus {
+        color: #fff;
+        background-color: #000d36;
+        border-color: transparent;
+    }
+
+    .container-fluid-2 {
+        width: 92%;
+        margin: 0px auto;
+    }
+
+    .panel-body {
+        padding: 15px;
+        overflow: auto;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .tableheightproblem {
+        position: relative;
+        vertical-align: sub !important;
+        margin-top: 40px;
+        line-height: 46px !important;
+    }
+
+    .input-fields-nopad {
+        padding: 0px !Important;
+        vertical-align: middle !important;
+    }
+
+    #tableone tr td {
+        vertical-align: middle!important;
+    }
+
+    .footer-btns {
+        width: 300px;
+    }
+
+    .dropdown ul.dropdown-menu:before {
+        content: "";
+        border-bottom: 10px solid #4285f4;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        position: absolute;
+        top: -10px;
+        left: 16px !important;
+        z-index: 10;
+        display: none;
+    }
+
+    .dropdown ul.dropdown-menu:after {
+        display: none;
+    }
+
+    .checkbox {
+        padding: 10px !important;
+    }
+
+    .checkbox input[type=checkbox] {
+        margin: -10px !important;
+    }
+</style>
+<header></header>
+<div class="prop-fixd text-center">
+    <ul>
+        <li>
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            <b> Tax Account Number:</b> {{$ctrl.property.taxAccountNo ? $ctrl.property.taxAccountNo : 'Not Specified'}}
+        </li>
+        <li>
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            <b> Property Name:</b> {{$ctrl.property.propertyName ? $ctrl.property.propertyName : 'Not Specified'}}
+        </li>
+        <li>
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            <b> Property Address:</b> {{$ctrl.property.streetAddress ? $ctrl.property.streetAddress : 'Not Specified'}}
+        </li>
+        <li>
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            <b> Owner Name:</b> {{$ctrl.property.recordOwnerName ? $ctrl.property.recordOwnerName : 'Not Specified'}}
+        </li>
+    </ul>
+</div>
+<div class="data-red">
+    <br>
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="row" style="padding: 0px 35px 0px">
+            <div class='col-md-2 required' style="padding:0px;">
+                <label> Choose Option</label>
+                <div class="input-group-btn">
+                    <select style="margin: 0px;" class="form-control btn btn-default" ng-model="$ctrl.someValue" ng-change="$ctrl.getDatas($ctrl.someValue)">
+                        <option value="selected" disabled selected="selected">Select </option>
+                        <option value="Asset Mgr"> Asset Mgr</option>
+                        <option value="External Property Mgr"> External Property Mgr</option>
+                        <option value="Appeal Agent"> Appeal Agent</option>
+                        <option value="Leasing Agent"> Leasing Agent</option>
+                        <option value="Sales Agent"> Sales Agent</option>
+                    </select>
+                </div>
+            </div>
+            <div class='col-md-2  required' style="padding:23px 0px 0px 20px">
+            </div>
+            <div class='col-md-4  required' style="padding:23px 10px 0px 20px">
+                <button style="min-width:100px;" class="btn btn-default pull-right" ui-sref="assignedUsersList">
+                    <i class="fa fa-arrow-left"></i> Go Back</button>
+                <button style="min-width:100px;margin-right: 10px;" class="btn btn-success pull-right" ng-click="$ctrl.saveData()">
+                    <i class="fa fa-check"></i> Save</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="row" style="padding: 20px">
+            <div class="col-md-4 col-offset-md-1">
+                <div class="tableheading" style="padding: 5px 16px 4px 16px;">
+                    <span class="pull-left">
+                        <h5>Users</h5>
+                    </span>
+                    <!-- <button style="border:0;" class="btn-formats btn-formats-active pull-right" permission-per-property="editValuationForm" behaviour-type="hide"
+                        data-toggle="modal" data-target="#mySaveModal" ng-click()="$ctrl.formName = ''">
+                        <i class="fa fa-plus fa-1x"></i> Create New </button> -->
+                    <div class="clearfix"></div>
+                </div>
+                <table ng-show="$ctrl.userByRole.length > 0" class="table table-striped table-bordered table-condensed " class="display responsive no-wrap"
+                    cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4">Name</th>
+                            <th class="col-md-2">Role</th>
+                            <th class="col-md-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="singleuser in $ctrl.userByRole track by $index">
+                            <td>{{singleuser.user.properties.name}}</td>
+                            <td>{{singleuser.user.properties.role}}</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="singleuser.user.properties.status" type="checkbox" name="replace_{{$index}}" ng-change="$ctrl.addToselectedUsers(singleuser.user._id, singleuser.user.properties.status)">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="background-color: #efefef;padding: 10px 0px 20px;" ng-show="$ctrl.userByRole.length == 0">
+                    <center>
+                        <br>
+                        <label>No Record Found</label>
+                        <br>
+                    </center>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tableheading" style="padding: 5px 16px 4px 16px;">
+                    <span class="pull-left">
+                        <h5>Roles</h5>
+                    </span>
+                    <!-- <button style="border:0;" class="btn-formats btn-formats-active pull-right" permission-per-property="editValuationForm" behaviour-type="hide"
+                        data-toggle="modal" data-target="#mySaveModal" ng-click()="$ctrl.formName = ''">
+                        <i class="fa fa-plus fa-1x"></i> Create New </button> -->
+                    <div class="clearfix"></div>
+                </div>
+                <table ng-show="$ctrl.userByRole.length > 0" class="table table-striped table-bordered table-condensed " class="display responsive no-wrap"
+                    cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4">Name</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>View Property Public Data</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewPropertyPublicData" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Unlink Property Data</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.unlinkPropertyData" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Rent Rolls</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewRentRolls" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Attach Files To Property</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.attachFilesToProperty" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Income Expense</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewIncomeExpense" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Edit Valuation Workspace</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.editValuationWorkspace" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Edit Valuation Form</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.editValuationForm" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Valuation Workspace</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewValuationWorkspace" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Edit Property Image</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.editPropertyImage" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Comparables</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewComparables" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Valuation Form</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewValuationForm" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Property Details</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewPropertyDetails" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View Tax Bills</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.viewTaxBills" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Assign Property</td>
+                            <td>
+                                <span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                                    <div class="checkbox checkboxChange">
+                                        <input style="margin:0px;" ng-model="$ctrl.rolesForSelectedUsers.assignProperty" type="checkbox" name="replace_">
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="background-color: #efefef;padding: 10px 0px 20px;" ng-show="$ctrl.userByRole.length == 0">
+                    <center>
+                        <br>
+                        <label>No Record Found</label>
+                        <br>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="myModal" class="modal fade" data-keyboard="false" data-backdrop="static"> -->
+        <div id="myModal" class="modal fade" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: #ffffff; color: #555;">
+                    <div class="modal-header" style=" background: #000c35 !important;">
+                        <h5 class="modal-title text-ce nter" style="color:#fff; ">Please select.
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class='col-md-12 form-group required pull-right' style="padding:0px;">
+                            <label> Choose Option</label>
+                            <div class="input-group-btn">
+                                <select class="form-control btn btn-default" ng-model="$ctrl.someValue" ng-change="$ctrl.getDatas($ctrl.someValue)">
+                                    <option value="selected" disabled selected="selected">Select </option>
+                                    <option value="Asset Mgr"> Asset Mgr</option>
+                                    <option value="External Property Mgr"> External Property Mgr</option>
+                                    <option value="Appeal Agent"> Appeal Agent</option>
+                                    <option value="Leasing Agent"> Leasing Agent</option>
+                                    <option value="Sales Agent"> Sales Agent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>

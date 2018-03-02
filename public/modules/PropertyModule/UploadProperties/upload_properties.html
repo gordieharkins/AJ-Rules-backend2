@@ -1,0 +1,148 @@
+<style>
+.drop-file ul {
+    list-style: none;
+}
+
+.drop-file li {
+    position: relative;
+}
+
+.drop-file li:before {
+    position: absolute;
+    top: -2px;
+    margin: 8px 0 0 -12px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    content: "";
+}
+
+</style>
+<header></header>
+<div class="container">
+    <div class="alert-box dangerr"> Unable to upload files </div>
+    <div class="alert-box success"> Data Saved Successfully </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5> <i class="fa fa-group" aria-hidden="true"></i> <strong> Upload Properties Data </strong></h5>
+                </div>
+                <div class="panel-body drop-file">
+                    <ul style="padding: 12px;" ng-show="Properties.showFileUploadFields">
+                        <li> Upload an <span style="color:green;">Excel File <i class="fa fa-file-excel-o" aria-hidden="true"></i></span> detailing the information of at least one property.</li>
+                        <li> Before the details of the properties are listed down, a row should contain headers for each data field.</li>
+                        <li> Property information should be in one & only one row spanning as many data fields columns as may be needed.</li>
+                        <br><i>*Only the address data field of a property is mandatory.</i>
+                        <br>
+                    </ul>
+                    <strong ng-show="Properties.showFileUploadFields">Select a file from your system </strong>
+                    <br>
+                    <br>
+                    <!-- <form action="" method="post" enctype="multipart/form-data" id="js-upload-form"> -->
+                    <div class="form-inline" ng-show="Properties.showFileUploadFields">
+                        <!-- <input type="file" name="file-1[]" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple style="display: none;" /> -->
+                        <input type="file" class="inputfile inputfile-1" style="display:none" name="file-1[]" id="file-1" onchange="angular.element(this).scope().fileUploaded()" />
+                        <!-- <div>{{fileContent}}</div> -->
+                        <label for="file-1">
+                            <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file&hellip;</span>
+                        </label>
+                    </div>
+                    <!-- </form> -->
+                    <!-- Drop Zone -->
+                    <h5><strong ng-show="Properties.showFileUploadFields">Or drag and drop a file below</strong></h5>
+                    <div class="upload-drop-zone" id="drop-zone" ng-show="Properties.showFileUploadFields">
+                        <upload to="asd" ng-model="object.id"></upload>
+                    </div>
+                    <div id="dropbox" class="dropbox" ng-class="dropClass" ng-show="Properties.showFileUploadFields">
+                        <span>{{dropText}}</span></div>
+                    <br>
+                    <!-- Upload Finished -->
+                    <div id="data" class="js-upload-finished" ng-show="Properties.showTableRelatedDivs">
+                        <h5><strong>Processed File </strong></h5>
+                        <div class="list-group">
+                            <a href="" class="list-group-item list-group-item-success">{{Properties.onlyFileName}}</a>
+                        </div>
+                    </div>
+                    <div class="user-reg">
+                        <div class="row" ng-show="Properties.showTableRelatedDivs">
+                            <h5><strong>Please validate the data below </strong></h5>
+                            <div class="col-md-12 well  up-sec parsefile">
+                                <table id="example" datatable="ng" dt-options="Properties.dtOptions" dt-column-defs="Properties.dtColumnDefs" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-center" ng-click="Properties.toggleCheckAll()">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" ng-checked="Properties.checkAll">
+                                                    </label>
+                                                </div>
+                                            </th>
+                                            <th>Property Name</th>
+                                            <th>Owner Name</th>
+                                            <th>Address</th>
+                                            <th>Tax Account No.</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="property in  Properties.propertiesToBeRegistered">
+                                            <td> </td>
+                                            <td class="text-center" ng-click="Properties.toggleState(property)">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" ng-checked="property.state" value="property.state">
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td contenteditable='true'>{{property.propertyName}}</td>
+                                            <td contenteditable='true'>{{property.recordOwnerName}}</td>
+                                            <td contenteditable='true'>{{property.streetAddress}}</td>
+                                            <td contenteditable='true'>{{property.taxAccountNo}}</td>
+                                            <td contenteditable='true'><a href="" style="cursor:pointer;">View Details</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <pre>{{Properties.usersToBeRegistered}}</pre> -->
+                            </div>
+                            <button ng-click="Properties.SavePropertiesList()" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-user pull-right" style="margin-right: 20px;">Save Data</button>
+                            
+                            <button ng-click="Properties.MapData()" type="button" class="btn btn-user pull-right" style="margin-right: 20px;">View Data Mapping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalPropertyExists" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="background-color: #ffffff; color: #555;">
+                <div class="modal-header" style=" background: #000c35 !important;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h5 class="modal-title text-center" style="color:#fff;">Files already exist!</h5> </div>
+                <div class="modal-body">
+                    <h5>Target files already exist, you cannot upload these files again.</h5>
+                    <br>
+                    <div class="clearfix"></div>
+                    <div class="js-upload-finished text-left">
+                        <div class=" list-group list-group-item list-group-item-danger" style="margin-bottom:10px;"> <a href="# ">AOTC_Name.pdf</a>
+                            <a href=""> </a>
+                        </div>
+                        <div class=" list-group list-group-item list-group-item-danger" style="margin-bottom:10px;"> <a href="# ">AOTC_Name.pdf</a>
+                            <a href=""> </a>
+                        </div>
+                    </div>
+                    <button data-dismiss="modal" type="button" class="btn btn-user  pull-right" style="margin: 12px; z-index:111; ">Ok</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

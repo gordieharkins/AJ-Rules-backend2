@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="modules/SurveyModule/EditSurvey/editSurveyWizard/editSurveyWizard.component.css">
+<header></header>
+
+<div class='breadcrumbs'>
+    <div class='inner'>
+        <ul class='cf' style="    margin-top: 0px;">
+            <li ng-click="createSurvey()">
+                <a>
+                    <label ng-show="createSurveyRoute"> <span style="background: #46bcff;color: white">1</span> <span style="color: #46bcff">Select Questions </span></label>
+                    <span ng-hide="createSurveyRoute"><span>1</span> <span>Select Questions </span></span>
+
+
+                </a>
+            </li>
+            <li ng-click="arrangeQuestions()">
+                <a>
+                    <label ng-show="arrangeQuestionsRoute"><span style="background: #46bcff;color: white">2</span> <span style="color: #46bcff">Arrange Questions</span> </label>
+                    <span ng-hide="arrangeQuestionsRoute"><span>2</span> <span>Arrange Questions</span> </span>
+
+                </a>
+
+            </li>
+            <li ng-click="viewSurvey()">
+                <a>
+                    <label ng-show="viewSurveyRoute"><span style="background: #46bcff; color: white">3</span> <span style="color: #46bcff">View Questions</span></label>
+                    <span ng-hide="viewSurveyRoute"><span>3</span> <span>View Questions</span></span>
+
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div ng-if="viewSurveyRoute">
+    <edit-view-survey-component></edit-view-survey-component>
+
+</div>
+<div ng-if="arrangeQuestionsRoute">
+
+    <edit-arrange-survey-component></edit-arrange-survey-component>
+    <button ui-sref="SurveyList" type="button" class="btn btn-primary pull-right" style="margin-right: 10px;">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+    </button>
+    <button ng-click="viewSurvey()" type="button" class="btn btn-user pull-right" style="margin-right: 20px;">
+        <i class="fa fa-eye" aria-hidden="true"></i> View Questions
+    </button>
+</div>
+<div ng-if="createSurveyRoute">
+    <edit-create-survey-component></edit-create-survey-component>
+    <button ui-sref="SurveyList" type="button" class="btn btn-primary pull-right" style="margin-right: 10px;"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+    <button ng-click="arrangeQuestions()" type="button" class="btn btn-user pull-right" style="margin-right: 20px;"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Arrange Questions</button>
+
+</div>
+
+
+
+<div ui-view></div>
+
+
+<footer style="margin-top: 40px;" class="text-center">Copyright - 2017</footer>

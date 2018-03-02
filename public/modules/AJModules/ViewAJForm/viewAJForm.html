@@ -1,0 +1,537 @@
+<style>
+body {
+    min-height: 500px;
+    background-image: url(assets/img/BG.png) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f5f5f5;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #d2d2d2;
+}
+
+.dataTables_wrapper .ui-toolbar {
+    padding: 0px;
+    BACKGROUND: #f5f5f5;
+}
+
+
+/*******************************
+            * Does not work properly if "in" is added after "collapse".
+            * Get free snippets on bootpen.com
+            *******************************/
+
+.panel-group .panel {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #EEEEEE;
+}
+
+.panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #FAFAFA;
+    border-color: #EEEEEE;
+}
+
+.panel-title {
+    font-size: 14px;
+}
+
+.panel-title > a {
+    display: block;
+    color: #fff;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.more-less {
+    float: right;
+    color: #fff;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #EEEEEE;
+}
+</style>
+<!-- <div class="row header-signup">
+    <div class="col-xs-12 col-md-6">
+        <div class="logo">
+            <a href="index.html"> <img src="assets/img/logo.png" alt="IBM" class="img-responsive" /> </a>
+        </div>
+    </div>
+</div> -->
+
+<!-- <ajheader></ajheader> -->
+<header></header>
+
+<br>
+<br>
+<!-- Page Content -->
+<div class="container-fluid" style="padding:0px 40px 0 40px;">
+    <div class="row centered-form">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                                <a href="" class="text-center" >
+                                    {{viewAJForm.AJData.assessingAuthName}} Survey Form
+                                </a>
+                            </h4>
+                </div>
+                <div class="panel-body">
+                    <h5></h5>
+                    <p></p>
+                    <div class="demo AJ-form">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading1">
+                                    <h4 class="panel-title">
+                                                <a  href="#collapse1" >
+                                                    Survey Details
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-8">
+                                                <div class="form-group">
+                                                    <label>Interviewee Office Address </label>
+                                                    <input ng-model="viewAJForm.AJData.intervieweeOfficeAddress" readonly placeholder="" type="text" name="password" id="password" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label>List Relevant Websites </label>
+                                                    <input ng-model="viewAJForm.AJData.listRelevantWebsites" readonly placeholder="" type="text" name="password" id="password" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree" ng-click="maximize1 = !maximize1; maximize2= false;maximize3= false ;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" 
+                                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    <i 
+                                                    ng-class="maximize1 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                    Assessment Details
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="1">How often is real property re-assessed (or revalued)? </label>
+                                                <p id="1" readonly placeholder="" class="form-control wrap-text-p-tag" rows="2"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="2">When are new assessment notices sent out? </label>
+                                                <p id="2" readonly placeholder="" Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="3">What is the valuation date regarding the value on the new notice? </label>
+                                                <p id="3" readonly placeholder="" Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is the tax bill due date relative to the value on the new notice? </label>
+                                                <p id="4" placeholder="" readonly Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2"></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading2" ng-click="maximize2 = !maximize2; maximize1= false;maximize3= false ;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" 
+                                                data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                    <i 
+                                                    ng-class="maximize2 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                    Income Survey
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Does the jurisdiction have an income survey process? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input disabled ng-model="viewAJForm.AJQuestions[42].answer" type="radio" id="yes" name="optradio" value="yes">Yes</label> &nbsp; &nbsp; &nbsp;
+                                                        <label>
+                                                            <input disabled ng-model="viewAJForm.AJQuestions[42].answer" type="radio" id="no" name="optradio" value="no" checked="">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="survey">
+                                                <div class="form-group">
+                                                    <label for="comment">Is there a survey form? </label>
+                                                    <p id="5" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How can we obtain a copy? </label>
+                                                    <p id="6" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is a survey form sent out to each taxpayer? </label>
+                                                    <p id="7" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How is it sent(mail, email, other)? </label>
+                                                    <p id="8" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is it sent? </label>
+                                                    <p id="9" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is it due? </label>
+                                                    <p id="10" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is there a penalty to the taxpayer for not returning a timely response? </label>
+                                                    <p id="11" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">What is the penalty? </label>
+                                                    <p id="12" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How can the taxpayer submit the survey response package (mail, email, other)?</label>
+                                                    <p id="13" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading3" ng-click="maximize3 = !maximize3; maximize2= false;maximize1= false ;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                                        <i 
+                                                    ng-class="maximize3 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Appeal Process
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                                    <div class="panel-body">
+                                        <h4 class="ap-head"> First Level Appeal</h4>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="comment">What is the First level of appeal (perhaps to the assessor)? </label>
+                                                <p id="14" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal deadline for the First level of appeal?</label>
+                                                <p id="15" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">If the taxpayer wishes to obtain from the assessor the assessor’s income approach derivation, how does the taxpayer do that?</label>
+                                                <p id="16" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">If the taxpayer wishes to obtain from the assessor the assessor’s comparable sales, how does the taxpayer do that?</label>
+                                                <p id="17" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is due for submission on this deadline (perhaps just a form notifying of the petitioner’s appeal or more)?</label>
+                                                <p id="18" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How can we obtain a copy of the first level appeal form (email, fax, mail, posted on web)?</label>
+                                                <p id="19" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the evidence related to the appeal due?</label>
+                                                <p id="20" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal decision rendered by the first level?</label>
+                                                <p id="21" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is the appeal decision communicated to the appellant?</label>
+                                                <p id="22" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is it sent?</label>
+                                                <p id="23" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <h4 class="ap-head">Second Level Appeal</h4>
+                                            <div class="form-group">
+                                                <label for="comment">What is the second level of appeal called (assuming there is one)?</label>
+                                                <p id="24" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal deadline for the second level of appeal?</label>
+                                                <p id="25" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is due for submission on this deadline (perhaps just a form notifying of the petitioner’s appeal or more)?</label>
+                                                <p id="26" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How can we obtain a copy of the second level appeal form (email, fax, mail, posted on web)?</label>
+                                                <p id="27" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the evidence related to the appeal due?</label>
+                                                <p id="28" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Are there special rules related to evidence at the board? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input ng-model="viewAJForm.AJQuestions[43].answer" value="yes" disabled type="radio" id="yesrules" name="optradio1">Yes</label> &nbsp &nbsp &nbsp
+                                                        <label>
+                                                            <input ng-model="viewAJForm.AJQuestions[43].answer" value="no" disabled type="radio" id="norules" name="optradio1">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="surveyrules">
+                                                <div class="form-group">
+                                                    <label for="comment">What are the special rules?</label>
+                                                    <p id="29" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is the appeal decision communicated to the appellant?</label>
+                                                <p id="30" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is it sent?</label>
+                                                <p id="31" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <h4 class="ap-head">Third Level Appeal</h4>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Is there a third level of appeal? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input ng-model="viewAJForm.AJQuestions[44].answer" value="yes" disabled type="radio" id="yesap" name="optradio2">Yes</label> &nbsp &nbsp &nbsp
+                                                        <label>
+                                                            <input ng-model="viewAJForm.AJQuestions[44].answer" value="no" disabled type="radio" id="noap" name="optradio2">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="surveyap">
+                                                <div class="form-group">
+                                                    <label for="comment">What is the third level of appeal called (assuming there is one)?</label>
+                                                    <p id="32" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is the appeal deadline for the third level of appeal?</label>
+                                                    <p id="33" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is it required that an attorney file to this level?</label>
+                                                    <p id="34" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is the appeal deadline for the third level of appeal?</label>
+                                                    <p id="35" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is it required that an attorney file to this level?</label>
+                                                    <p id="36" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading4" ng-click="maximize4 = !maximize4; maximize2= false;maximize3= false ;maximize1= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                                        <i 
+                                                    ng-class="maximize4 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Tax Authority
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="comment">Who sends tax bills?</label>
+                                                <p id="37" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <!--  <div class="form-group">
+                                                <label for="comment">When is tax bill due?</label>
+                                                <p id="38" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div>
+                                                        <label> Number of tax bills</label>
+                                                        <input readonly style="width: inherit;" ng-model="viewAJForm.numberOfBills.length" min="0" placeholder=" " type="number" name="number" id="" class="form-control ">
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-repeat="bill in viewAJForm.numberOfBills">
+                                                    <label for="comment">Tax bill {{$index+1}} due date?</label>
+                                                    <textarea readonly ng-model="bill.billDate" class="form-control" rows="1" id="comment"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is on bill?</label>
+                                                <p id="39" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="comment">Fiscal year start date?</label>
+                                                        <p id="40a" ng-model="viewAJForm.fiscalYearStartDate" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="comment">Fiscal year end date?</label>
+                                                        <p id="40b" ng-model="viewAJForm.fiscalYearEndDate" placeholder="" readonly placeholder="Lorem ipsum dolor sit amet " Curabitur placerat ultrices est. Suspendisse tortor magna, eleifend et euismod eget, dignissim nec ante. class="form-control wrap-text-p-tag" rows="2" id="comment"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading5" ng-click="maximize5 = !maximize5; maximize2= false;maximize3= false ;maximize4= false;maximize1= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                                        <i 
+                                                    ng-class="maximize5 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Contact Information
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <h4 class="ap-head">Assessor Offices</h4>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                                    <div class="form-group">
+                                                        <label> Number of Assessor Offices </label>
+                                                        <input id="41" readonly placeholder="" type="number" name="number" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-hide="viewAJForm.hideAssessorOfficeGrid">
+                                                <div class="col-md-12" style="padding: 0px;">
+                                                    <table id="example" class="invite display" datatable="ng" dt-options="viewAJForm.dtOptions" dt-column-defs="viewAJForm.dtColumnDefs" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Address</th>
+                                                                <th>Email Address</th>
+                                                                <th>Phone</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="assessor in viewAJForm.assessorContacts">
+                                                                <td>{{assessor.address}}</td>
+                                                                <td>{{assessor.email}}</td>
+                                                                <td>{{assessor.phone}} </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row" ng-repeat="assessor in viewAJForm.assessorContacts">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <label> Address of Assessor Offices </label>
+                                                        <input ng-value="assessor.address" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <label> Email </label>
+                                                        <input ng-value="assessor.email" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <label> Phone </label>
+                                                        <input ng-value="assessor.phone" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <h4 class="ap-head">Board Offices</h4>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                                    <div class="form-group">
+                                                        <label> Number of Board Offices </label>
+                                                        <input id="42" readonly placeholder=" " type="number" name="number" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-hide="viewAJForm.hideBoardOfficeGrid">
+                                                <div class="col-md-12" style="padding: 0px;">
+                                                    <table id="example" class="invite display" datatable="ng" dt-options="viewAJForm.dtOptions" dt-column-defs="viewAJForm.dtColumnDefs" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Address</th>
+                                                                <th>Email Address</th>
+                                                                <th>Phone</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="assessor in viewAJForm.boardContacts">
+                                                                <td>{{assessor.address}}</td>
+                                                                <td>{{assessor.email}}</td>
+                                                                <td>{{assessor.phone}} </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row" ng-repeat="board in viewAJForm.boardContacts">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <label> Address of Board Offices </label>
+                                                        <input ng-value="board.address" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <label> Email </label>
+                                                        <input ng-value="board.email" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <label> Phone </label>
+                                                        <input ng-value="board.phone" readonly placeholder="Lorem ipsum dolor sit amet " type="text" name="password" id="password" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Content -->
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

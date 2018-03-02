@@ -1,0 +1,107 @@
+<style>
+body {
+    min-height: 500px;
+    background-image: url(assets/img/BG.png) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #d2d2d2;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/modules/login/login.css">
+<nav class="navbar" role="navigation" style="height:63px">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand">Assessor on the <span style="color:#47bcff;">cloud</span></a>
+        </div>
+</nav>
+<br>
+<br>
+<!-- Page Content -->
+<div class="container-fluid sign-up" style="padding:0px 10px 0 10px;">
+    <div class="row centered-form">
+        <div class="col-md-4" style="co lor:#fff; borde r-top: 6px solid #47bcff;  back round: rgba(0, 13, 54, 0.45);     padding: 0px 50px 40px 50px;">
+            <h2> Assessor on the Cloud</h2>
+            <h3 style="font-size:16px; font-weight: 300;color:#47bcff;"> The Portal for Assessing your Properties </h3>
+            <p style="text-align:justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                <br> It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            <br>
+            <button type="button" ui-sref="signup" class="btn btn-user sign-up-button-new" style="width:100%;height:37px;font-size:18px;">Register</button>
+            <!--
+                <button type="button" class="btn btn-user  sign-up-button-new" style="width:49%;">Request for Invitation</button>
+
+-->
+        </div>
+        <div class="col-md-8" class="login-body">
+            <article class="container-login center-block">
+                <section>
+                    <ul id="top-bar" class="nav nav-tabs nav-justified">
+                        <li class="active"><a href="#home" data-toggle="tab"><i class="glyphicon glyphicon-log-in"></i> Login</a></li>
+                        <li>
+                            <a href="#profile" data-toggle="tab"> <i class="fa fa-key" aria-hidden="true"></i> Forgot Password</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane active in" id="home">
+                            <form id="login_form" name="login_form" ng-submit="login_form.$valid && login.loginUser()" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" novalidate>
+                                <div class="form-group ">
+                                    <label for="login"> <i class="fa fa-envelope" aria-hidden="true"></i> Email ID</label>
+                                    <input ng-model="login.credentials.email" type="email" class="form-control" id="login" name="login" placeholder="Enter Email ID" tabindex="1" required />
+                                    <label style="color: red;" ng-show="(login_form.$submitted && login_form.login.$invalid) || 
+                                    (login_form.login.$touched && login_form.login.$invalid)">
+                                        Please write a valid email.
+                                    </label>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="password"><i class="fa fa-key" aria-hidden="true"></i> Password</label>
+                                    <input ng-model="login.credentials.password" type="password" class="form-control" name="password" id="password" placeholder="Enter Password" tabindex="2" required />
+                                    <label style="color: red;" ng-show="(login_form.$submitted && login_form.password.$invalid) || 
+                                    (login_form.password.$touched && login_form.password.$invalid)">This is required.
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label ng-init="login.rememberMe = false" class="control-label lblRemember" for="remember_me">
+                                        <input type="checkbox" class="lblRememberChk" ng-model="login.rememberMe" style="border: 2px solid #0c84e4; border-radius: 5px;"/> Remember me
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label style="color:red;"> {{login.errorLogin}}
+                                    </label>
+                                </div>
+                                <br/>
+                                <div class="form-group ">
+                                    <button type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg ">Login Now</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <form id="tab2">
+                                <div class="form-group ">
+                                    <label for="email" cla ss="sr-only"> <i class="fa fa-envelope" aria-hidden="true"></i> Registred Email ID</label>
+                                    <input type="Email" class="form-control" name="Email" id="Email" placeholder="Email ID" value="" tabindex="2" />
+                                </div>
+                                <br/>
+                                <div class="form-group ">
+                                    <button type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg">Recover Password</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+</div>
+<!-- Page Content -->
+<!-- Footer -->
+<!--<footer style="width: 100%; position: fixed; bottom: 0px;" class="text-center">Copyrights - 2017</footer>-->

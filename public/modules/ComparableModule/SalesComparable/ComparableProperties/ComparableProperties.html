@@ -1,0 +1,159 @@
+<link rel="stylesheet" type="text/css" href="modules/ComparableModule/SalesComparable/ComparableProperties/ComparableProperties.css">
+<header></header>
+<div class="top-bar-comps">
+   <h5> Comparable Properties to {{ComparableProperties.address}} 
+      <span id="nav_list" class="pull-right" style="margin-right:30px;">
+      Filter <i class="fa fa-filter" aria-hidden="true"></i>    
+      </span> 
+   </h5>
+</div>
+<div class="main-wrapper">
+   <nav class="pushmenu pushmenu-left">
+      <h3>FILTER RESULTS:</h3>
+      <ul>
+         <li>
+            <label>Property Address:</label>
+            <form id="nlk-search-form" method="get" action="/" target="_self">
+               <div class="input-group input-group-sm">
+                  <input name="s" type="text" maxlength="100" class="form-control" placeholder="Search Property" data-def="Zadejte dotaz" required> <span class="input-group-btn"> 
+                  <button class="btn btn-primary" type="button" >
+                  <i class="glyphicon glyphicon-search"></i>
+                  </button> 
+                  </span> 
+               </div>
+            </form>
+         </li>
+         <li>
+            <label>Rent Estimate:</label>
+            <div class="range  range-warning">
+               <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+               <output id="range">$500.00</output>
+            </div>
+         </li>
+         <li>
+            <label>Year Built:</label>
+            <div id="sandbox-container">
+               <div class='input-group date'>
+                  <input type='text' placeholder="Click here to choose date" class="form-control" /> <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span> </span>
+               </div>
+            </div>
+         </li>
+         <li>
+            <label>Comp Score:</label>
+            <form id="nlk-search-form" method="get" action="/" target="_self">
+               <div class="input-group input-group-sm">
+                  <input name="s" type="number" maxlength="100" class="form-control" placeholder="Enter Comp Score" data-def="Zadejte dotaz" required> 
+               </div>
+            </form>
+         </li>
+         <li>
+            <label>Zestimate related data:</label>
+         </li>
+         <li>
+            <label>Zestimate related data:</label>
+         </li>
+         <li>
+            <label>Zestimate (in $):</label>
+         </li>
+         <li>
+            <label>Last updated:</label>
+         </li>
+         <li>
+            <label>30-day change (in $):</label>
+         </li>
+         <li>
+            <label>Percentile Value:</label>
+         </li>
+         <li>
+            <label>30-day change (in $):</label>
+         </li>
+         <li>
+            <label>lotsizeSqFt:</label>
+         </li>
+         <li>
+            <label>finishedSqFt:</label>
+         </li>
+         <li>
+            <label>Bathrooms :</label>
+         </li>
+         <li>
+            <label>LastSoldDate :</label>
+         </li>
+         <li>
+            <label>LastSoldPrice :</label>
+         </li>
+      </ul>
+   </nav>
+   <div class="row grid">
+      <div class="col-md-3"  ng-repeat="Property in ComparableProperties.zillowData.comparables">
+         <div class="card" id="card_{{$index}}" style="height:230px !important;">
+
+            <div class="front">
+                  <!-- <img spinkit-image-preloader='cube-grid-spinner' ng-src="{{ComparableProperties.imageArr[$index]}}" class="img-responsive"> -->
+
+                  <div id="mydiv" ng-hide="Property.imageFileName">
+                     <img  src="../../../../assets/img/squares.gif" class="image-display"/>
+                  </div>
+               <div class="relative">
+                  <img ng-src="{{Property.imageFileName}}" class="img-responsive">
+                  <p class="absolute-text">
+                     <span class="col-md-10" style="padding:0px;">
+                     {{Property.address}}
+                     </span>
+                     <span class="col-md-2 checkbox" style="padding:0px; margin-top: 0px;">
+                     <label style="float: right;">
+                     <input type="checkbox" ng-checked="Property.selection" ng-click="Property.selection = !Property.selection">
+                     </label>
+                     </span>
+                  </p>
+               </div>
+               <ul class="card-list">
+                  <li>Rent Estimate: <span class="pull-right">${{Property.rentAmount | number:0}}</span></li>
+                  <li>Year Built: <span class="pull-right">{{Property.yearBuilt}}</span></li>
+                  <li>Val. Range: <span class="pull-right">${{Property.valuationRangeLow | number:0}} - ${{Property.valuationRangeHigh | number:0}}</span></li>
+                  <li>Comp. Score: <span class="pull-right">{{Property.compScore}}</span></li>
+                  <a class="pull-right" ng-click="ComparableProperties.flipFront('#card_'+$index)" style="cursor: pointer;"> View More  </a>
+               </ul>
+            </div>
+            <div class="back">
+               <ul class="card-list">
+                  <li><strong>Zestimate Data: </strong></li>
+                  <li>Zestimate: <span class="pull-right">${{Property.amount | number:0}}</span></li>
+                  <li>Last Updated:<span class="pull-right">{{Property.lastUpdate}}</span></li>
+                  <li>Value Change: <span class="pull-right">${{Property.valueChange | number:0}}</span></li>
+                  <li>Value Change Duration: <span class="pull-right">{{Property.valueChangeDuration}}  Days</span></li>
+                  <li>Percentile Value:<span class="pull-right">{{Property.percentile}}</span></li>
+                  <!-- <li>30-day change (in $):<span class="pull-right">${{Property.compScore | number:0}}</span></li> -->
+                  <li><strong>Rent Zestimate Data: </strong></li>
+                  <li>Last Updated:<span class="pull-right">{{Property.rentLastUpdate}}</span></li>
+                  <li>Value Change: <span class="pull-right">${{Property.rentValueChange | number:0}}</span></li>
+                  <li>Value Change Duration: <span class="pull-right">{{Property.valueChangeDuration}} Days</span></li>
+                  <!--
+                     <li>30-day change (in $):<span class="pull-right">{{Property.compScore}}</span></li> -->
+                  <li>Tax Assessment Year :<span class="pull-right">{{Property.taxAssessmentYear}}</span></li>
+                  <li>Tax Assessment :<span class="pull-right">{{Property.taxAssessment}}</span></li>
+                  <li>Lot Size SF:<span class="pull-right">{{Property.lotSizeSqFt}}</span></li>
+                  <li>Finished SF :<span class="pull-right">{{Property.finishedSqFt}}</span></li>
+                  <li>Last Sold Date:<span class="pull-right">{{Property.lastSoldDate}}</span></li>
+                  <li>Last Sold Price:<span class="pull-right">${{Property.lastSoldPrice | number:0}}</span></li>
+                  <li>Bathrooms :<span class="pull-right">{{Property.bathrooms}}</span></li>
+                  <li>Bedrooms:<span class="pull-right">{{Property.bedrooms}}</span></li>
+                  <a ng-click="ComparableProperties.flipBack('#card_'+$index)" class="pull-right" style="cursor: pointer;">View Less</a>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<span class="pull-right footer-btns" style="width: 27%;">
+<button class="btn btn-success" ui-sref="PropertyList.private_property_list">
+<i class="fa fa-list-alt" aria-hidden="true"></i> Properties List
+</button>  &nbsp; &nbsp;
+<button class="btn btn-info" style="background:#9c27b0;" ng-click="ComparableProperties.addComparables()">
+<i class="fa fa-plus" aria-hidden="true"></i> Add Comparable(s)
+</button>
+</span>
+<footer class="text-center" class="footer-bottom">
+   © copyright 2017 Software Productivity Strategists, Inc. All rights reserved.
+</footer>

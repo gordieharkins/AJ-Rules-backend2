@@ -1,0 +1,119 @@
+
+<style>
+  .dataTables_wrapper .ui-toolbar {
+      padding: 0px;
+      BACKGROUND: #f5f5f5;
+  }
+  
+  
+  /*******************************
+  * Does not work properly if "in" is added after "collapse".
+  * Get free snippets on bootpen.com
+  *******************************/
+  
+  .panel-group .panel {
+      border-radius: 0;
+      box-shadow: none;
+      border-color: #EEEEEE;
+  }
+  
+  .panel-default > .panel-heading {
+      padding: 0;
+      border-radius: 0;
+      color: #212121;
+      background-color: #FAFAFA;
+      border-color: #EEEEEE;
+  }
+  
+  .panel-title {
+      font-size: 14px;
+  }
+  
+  .panel-title > a {
+      display: block;
+      color: #fff;
+      padding: 15px;
+      text-decoration: none;
+  }
+  
+  .more-less {
+      float: right;
+      color: #fff;
+  }
+  
+  .panel-default > .panel-heading + .panel-collapse > .panel-body {
+      border-top-color: #EEEEEE;
+  }
+  /* ----- v CAN BE DELETED v ----- */
+  body {
+      background-color: #f5f5f5;
+  }
+  
+  .demo {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  </style>
+  <header></header>
+  <div>
+     <div class="panel-body drop-file prop-fixd">
+        <ul>
+           <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> {{PublicPropertyDetailsTab.propertyDetails.taxAccountNo ? PublicPropertyDetailsTab.propertyDetails.taxAccountNo : 'Not Specified'}}
+           </li>
+           <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> {{PublicPropertyDetailsTab.propertyDetails.propertyName ?PublicPropertyDetailsTab.propertyDetails.propertyName : 'Not Specified'}}</li>
+           <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> {{PublicPropertyDetailsTab.propertyDetails.streetAddress ? PublicPropertyDetailsTab.propertyDetails.streetAddress : 'Not Specified'}}</li>
+           <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> {{PublicPropertyDetailsTab.propertyDetails.recordOwnerName ? PublicPropertyDetailsTab.propertyDetails.recordOwnerName : 'Not Specified'}}</li>
+        </ul>
+     </div>
+     <br>
+     <div class="row">
+        <div class="col-md-12">
+           <div class="panel panel-primary IE_RR">
+              <!-- <div  class="tableheading"> <span class="pull-left">  Valuation</span>
+                 <div class="clearfix"></div>
+                 </div> -->
+              <div class="user-reg IE_RRR">
+                 <div class="row">
+                    <div class="col-md-12" style="padding: 0px;">
+                       <div class="panel with-nav-tabs panel-primary" style=" margin-bottom: 0px;">
+                          <div class="panel-heading">
+                              <ul class="nav nav-tabs public-tabs">
+                                  <li  class="pointer-cursor active" >
+                                     <a  href="#PropInfo">
+                                     Property Info
+                                     </a>
+                                    </li>
+                                    <li  class="pointer-cursor">
+                                      <a href="#PropDetail">
+                                      Property Details
+                                      </a>
+                                     </li>
+                               </ul>
+                          </div>
+                          <div class="tab-content panel-body">
+                             <div class="tab-pane fade in active" id="PropInfo">
+                            
+                              <div ng-include="'modules/PropertyModule/IE_RR_Module/View_IE_RR/tabs/public_property_details/publicPropertyInfoTab.html'"></div>
+                               
+                             </div>
+                             <div class="tab-pane fade" id="PropDetail">
+                              <div ng-include="'modules/PropertyModule/IE_RR_Module/View_IE_RR/tabs/public_property_details/publicPropertyDetailsTab.html'"></div>
+                               
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  
+  
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+<link rel="stylesheet" type="text/css" href="modules/SurveyModule/Wizards/CreateSurvey/CreateSurvey.css">
+<div class="wrapper-survey">
+    <div class="row">
+        <div class="panel panel-primary IE_RR">
+
+            <div class="panel-heading clearfix">
+
+                <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
+                    <strong>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        Select Questions
+                    </strong>
+                </h4>
+
+
+                <h4 class="panel-title pull-right" style="padding-top: 7.5px;">
+                    <button ng-click="addNewQuestion()"
+                            type="button" class="btn btn-user pull-right" style="    margin-top: -6px; margin-right: 20px;">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Question
+                    </button>
+                </h4>
+
+
+                <div class="input-group pull-right" style="width: 200px;margin-right: 38px;top: 1px;">
+                    <input type="text" ng-model="searchText" class="form-control input-borders" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12 checkbox checkboxChange" style="left: 45px;padding-top: 2%;padding-bottom: 2%">
+                <input type="checkbox" value="" ng-model="selectAll" ng-change="selectAllQuestions(selectAll)">
+                <span><strong>Select All Question</strong></span>
+            </div>
+
+            <div class="row Survey-ques" ng-repeat="q in CreateSurveyCtrl.data | filter: searchText">
+
+                <div class="col-md-12 ">
+                    <span class="checkbox" style="margin-left: 10px;">
+                        <input class="col-md-2" style="color:black" type="checkbox" ng-model="q.check" ng-change="CreateSurveyCtrl.selectedCheckbox(q, q.check, $index)" value="">
+
+                        <span class="col-md-1" class="pull-left"><strong> Version: </strong>{{q.version}} </span>
+
+                        <label class="col-md-8">{{q.questionText}}</label>
+
+                        <div class="col-md-3  pull-right" ">
+                            <a ng-click="deleteQuestions(q)" tooltip-placement="left" uib-tooltip="Delete Question"
+                               style="cursor: pointer; margin-left: 10px;float: right;">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                            <a tooltip-placement="left" uib-tooltip=" Edit Question" data-toggle="modal" data-target="#myModal" style="cursor: pointer; margin-left: 10px;float: right;" ng-click="editQuestion(q)">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+
+                        </div>
+
+                    </span>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <br>
+        </div>
+    </div>
+</div>

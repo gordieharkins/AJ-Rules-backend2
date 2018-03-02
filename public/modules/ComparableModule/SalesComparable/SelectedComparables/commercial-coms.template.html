@@ -1,0 +1,753 @@
+<link rel="stylesheet" type="text/css" href="modules/ComparableModule/SalesComparable/SelectedComparables/SelectedComparables.css">
+<header></header>
+<div class="pushmenu-push">
+    <div class="Comps-my-prop">
+        <!--top bar for toggle/collapse-->
+        <div class=" selected-comps top-bar-comps">
+            <div class="row">
+
+                <div class="col-xs-12 " style="margin-top: 2px;">
+                    <ul class="nav nav-tabs pull-right" role="tablist">
+                        <li style="margin: 0px -20px;" role="presentation" ng-click="SelectedComparable.ShowPropertyDetail=!SelectedComparable.ShowPropertyDetail">
+                            <a aria-controls="home" role="tab" data-toggle="tab">
+                                <i data-ng-if="SelectedComparable.ShowPropertyDetail" class="fa fa-plus"></i>
+                                <i data-ng-if="!SelectedComparable.ShowPropertyDetail" class="fa fa-minus"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <ul data-ng-if="!SelectedComparable.ShowPropertyDetail" style="width: 100%" class="zillow-data">
+
+
+            <li style="padding: 0px;width: 30%;background-color: #2c176b">
+                <div class="relative">
+                    <img class="img-responsive" src="./assets/img/prop.jpg" style="width: 100%;height: 100%;">
+                    <p class="absolute-text" data-ng-bind="SelectedComparable.selectedComparables.subjectProperty.ownerAddress">2302 2nd Ave N, Seattle, WA, 98109</p>
+                </div>
+            </li>
+            <li style="width: 70%">
+                <!--style="width: 17.5%"-->
+
+                <table class="table table-condensed comps-main-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;"></th>
+                            <th>
+                                Owner Data <span style="margin-left:2px;margin-right:3px" class="glyphicon glyphicon-edit" data-ng-click="SelectedComparable.EditJurisdictionData=!SelectedComparable.EditJurisdictionData"></span>
+                                <button data-ng-click="SelectedComparable.SaveJurisdictionData(SelectedComparable.PrinciplePropDataDetail.PO)" data-ng-if="SelectedComparable.EditJurisdictionData" class=" btn btn-sm btn-success" style="margin-top: -2px;">
+                                    Save
+                                </button>
+                            </th>
+                            <th>Jurisdiction Data</th>
+                            <th>Zillow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Year Built: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <input type="text" placeholder="" data-ng-model="SelectedComparable.PrinciplePropDataDetail.PO.yearBuilt">
+                            </td>
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.yearBuilt}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.yearBuilt}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.yearBuilt}}</td>
+                        </tr>
+                        <tr>
+                            <td>Building Area: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <input type="text" placeholder="" data-ng-model="SelectedComparable.PrinciplePropDataDetail.PO.buildingArea">
+                            </td>
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.buildingArea | number:0}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.buildingArea | number:0}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.buildingArea | number:0}}</td>
+                        </tr>
+                        <tr>
+                            <td>Bedrooms: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <input type="text" placeholder="" data-ng-model="SelectedComparable.PrinciplePropDataDetail.PO.bedrooms">
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.bedrooms}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.bedrooms}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.bedrooms}}</td>
+                        </tr>
+                        <tr>
+                            <td>Baths: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <input type="text" placeholder="" data-ng-model="SelectedComparable.PrinciplePropDataDetail.PO.bathrooms">
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.bathrooms}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.bathrooms}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.bathrooms}}</td>
+                        </tr>
+                        <tr>
+                            <td>Waterfront/Waterview: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <select ng-model="SelectedComparable.PrinciplePropDataDetail.PO.waterFront">
+                                    <option value="Waterfront">Waterfront</option>
+                                    <option value="Waterview">Waterview</option>
+                                    <option value="None">None</option>
+
+                                    <option ng-hide="true" value="Waterfront (PO)">Waterfront (PO)</option>
+                                    <option ng-hide="true" value="Waterview (PO)">Waterview (PO)</option>
+                                    <option ng-hide="true" value="None (PO)">None (PO)</option>
+                                </select>
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.waterFront}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.waterFront}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.waterFront}}</td>
+                        </tr>
+                        <tr>
+                            <td>Area: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <select ng-model="SelectedComparable.PrinciplePropDataDetail.PO.area">
+                                    <option value="Rural">Rural</option>
+                                    <option value="Urban">Urban</option>
+                                    <option value="SubUrban">Sub-Urban</option>
+
+                                    <option ng-hide="true" value="Rural (PO)">Rural (PO)</option>
+                                    <option ng-hide="true" value="Urban (PO)">Urban (PO)</option>
+                                    <option ng-hide="true" value="SubUrban (PO)">SubUrban (PO)</option>
+
+                                </select>
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.area}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.area}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.area}}</td>
+                        </tr>
+                        <tr>
+                            <td>Located in a community that has a similar inventory of houses: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <select ng-model="SelectedComparable.PrinciplePropDataDetail.PO.location">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option ng-hide="true" value="Yes (PO)">Yes (PO)</option>
+                                    <option ng-hide="true" value="No (PO)">No (PO)</option>
+                                </select>
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">{{SelectedComparable.PrinciplePropDataDetail.PO.location}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.location}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.location}}</td>
+                        </tr>
+                        <tr>
+                            <td>Select yes if a home improvement in excess of $10,000 was completed in last 5 years </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <select ng-model="SelectedComparable.PrinciplePropDataDetail.PO.improvement.value"
+                                        data-ng-change="SelectedComparable.popup.CheckYes('improvement', SelectedComparable.PrinciplePropDataDetail.PO.improvement.value)">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option ng-hide="true" value="Yes (PO)">Yes (PO)</option>
+                                    <option ng-hide="true" value="No (PO)">No (PO)</option>
+                                </select>
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">
+                                {{SelectedComparable.PrinciplePropDataDetail.PO.improvement.value}}
+                                <i class="fa fa-list-alt"
+                                   data-ng-if="SelectedComparable.PrinciplePropDataDetail.PO.improvement.value.indexOf('Yes')!=-1"
+                                   data-ng-click="SelectedComparable.popup.OpenDialogue('improvement')"></i>
+                            </td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.improvement}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.improvement}}</td>
+                        </tr>
+                        <tr>
+                            <td>Select yes if deferred maintenance: </td>
+                            <td data-ng-if="SelectedComparable.EditJurisdictionData">
+                                <select ng-model="SelectedComparable.PrinciplePropDataDetail.PO.expenditure.value"
+                                        data-ng-change="SelectedComparable.popup.CheckYes('expenditure', SelectedComparable.PrinciplePropDataDetail.PO.expenditure.value)">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option ng-hide="true" value="Yes (PO)">Yes (PO)</option>
+                                    <option ng-hide="true" value="No (PO)">No (PO)</option>
+                                </select>
+                            </td>
+
+                            <td data-ng-if="!SelectedComparable.EditJurisdictionData">
+                                {{SelectedComparable.PrinciplePropDataDetail.PO.expenditure.value}}
+                                <i class="fa fa-list-alt"
+                                   data-ng-if="SelectedComparable.PrinciplePropDataDetail.PO.expenditure.value.indexOf('Yes')!=-1"
+                                   data-ng-click="SelectedComparable.popup.OpenDialogue('expenditure')"></i>
+                            </td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Jurisdiction.expenditure}}</td>
+                            <td>{{SelectedComparable.PrinciplePropDataDetail.Zillow.expenditure}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+    <nav class="pushmenu pushmenu-left">
+        <h3>FILTER RESULTS:</h3>
+        <ul>
+            <li>
+                <label>Property Address:</label>
+                <form id="nlk-search-form" method="get" action="/" target="_self">
+                    <div class="input-group input-group-sm">
+                        <input name="s" type="text" maxlength="100" class="form-control" placeholder="Search Property" data-def="Zadejte dotaz" required> <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                    </div>
+                </form>
+            </li>
+            <li>
+                <label>Rent Estimate:</label>
+                <div class="range  range-warning">
+                    <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                    <output id="range">$500.00</output>
+                </div>
+            </li>
+            <li>
+                <label>Year Built:</label>
+                <div id="sandbox-container">
+                    <div class='input-group date'>
+                        <input type='text' placeholder="Click here to choose date" class="form-control" /> <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label>Comp Score:</label>
+                <form id="nlk-search-form" method="get" action="/" target="_self">
+                    <div class="input-group input-group-sm">
+                        <input name="s" type="number" maxlength="100" class="form-control" placeholder="Enter Comp Score" data-def="Zadejte dotaz" required>
+                    </div>
+                </form>
+            </li>
+            <li>
+                <label>Zestimate related data:</label>
+            </li>
+            <li>
+                <label>Zestimate related data:</label>
+            </li>
+            <li>
+                <label>Zestimate (in $):</label>
+            </li>
+            <li>
+                <label>Last updated:</label>
+            </li>
+            <li>
+                <label>30-day change (in $):</label>
+            </li>
+            <li>
+                <label>Percentile Value:</label>
+            </li>
+            <li>
+                <label>30-day change (in $):</label>
+            </li>
+            <li>
+                <label>lotsizeSqFt:</label>
+            </li>
+            <li>
+                <label>finishedSqFt:</label>
+            </li>
+            <li>
+                <label>Bathrooms :</label>
+            </li>
+            <li>
+                <label>LastSoldDate :</label>
+            </li>
+            <li>
+                <label>LastSoldPrice :</label>
+            </li>
+        </ul>
+    </nav>
+    <div class=" selected-comps top-bar-comps">
+        <div class="row">
+            <span class="col-md-2" style="line-height: 23px;
+               color: #4285f4;">SELECTED SALE COMPARABLE</span>
+            <div class="col-md-3 " style="margin-top: -8px;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active" ng-click="SelectedComparable.clickShowGrid()">
+                        <a aria-controls="home" role="tab" data-toggle="tab">
+                            <img src="assets/img/2.png">
+                        </a>
+                    </li>
+                    <li role="presentation" ng-click="SelectedComparable.clickshowPropertyMap()">
+                        <a aria-controls="profile" role="tab" data-toggle="tab">
+                            <img src="assets/img/mark.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-select" style="margin-top: -5px;">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" style="border: 1px solid #4285f4;">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            Select Columns({{checkboxCount}})
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu sale-comparable">
+                            <li class="row">
+                                <label for="value1" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3">
+                                        <input type="checkbox" id="value1" ng-change="SelectedComparable.ColumnAddRemove('District Number', 'districtNumber', 110, 'streetName', checkboxModel.value1)" ng-model="checkboxModel.value1">
+                                    </span>
+                                    <span class="col-md-9">District Number </span>
+                                </label>
+                            </li>
+                            <li class="row">
+                                <label for="value2" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3">
+                                        <input id="value2" type="checkbox" ng-change="SelectedComparable.ColumnAddRemove('Tax Account No', 'taxAccountNo', 110, 'streetName', checkboxModel.value2)" ng-model="checkboxModel.value2">
+                                    </span>
+                                    <span class="col-md-9">
+                                        Tax Account No
+                                    </span>
+                                </label>
+                            </li>
+
+                            <li class="row">
+                                <label for="value3" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3">
+                                        <input id="value3" type="checkbox" ng-change="SelectedComparable.ColumnAddRemove('Record Owner Name', 'recordOwnerName', 110, 'taxAccountNo', checkboxModel.value3)" ng-model="checkboxModel.value3">
+                                    </span>
+                                    <span class="col-md-9">
+                                        Record Owner Name
+                                    </span>
+                                </label>
+                            </li>
+
+                            <li class="row">
+                                <label for="value4" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3"><input id="value4" ng-change="SelectedComparable.ColumnAddRemove('Owner City', 'ownerCity', 110, 'recordOwnerName', checkboxModel.value4)" ng-model="checkboxModel.value4" type="checkbox"></span><span class="col-md-9">Owner City</span>
+                                </label>
+                            </li>
+
+                            <li class="row">
+                                <label for="value5" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3"><input id="value5" type="checkbox" ng-change="SelectedComparable.ColumnAddRemove('Owner State', 'ownerState', 110, 'ownerCity', checkboxModel.value5)" ng-model="checkboxModel.value5"></span><span class="col-md-9">Owner State</span>
+                                </label>
+                            </li>
+
+                            <li class="row">
+                                <label for="value6" ng-click="SelectedComparable.checkBoxSelection()">
+                                    <span class="col-md-3"><input id="value6" type="checkbox" ng-change="SelectedComparable.ColumnAddRemove('Zip Code', 'zipCode', 80, 'recordOwnerName', checkboxModel.value6)" ng-model="checkboxModel.value6"></span><span class="col-md-9">Zip Code</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-3 new-comp" style="margin-top: -5px;cursor:pointer">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" style="border: 1px solid #4285f4;">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            Select Comparison Criteria
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li data-ng-click="SelectedComparable.updateComsData('1')">
+                                <a>
+                                    Jurisdiction Value Per Sq Ft
+
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li data-ng-click="SelectedComparable.updateComsData('2')">
+                                <a>
+                                    Jurisdiction Value
+
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li data-ng-click="SelectedComparable.updateComsData('3')">
+                                <a>
+                                    Sales Value
+
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li data-ng-click="SelectedComparable.updateComsData('4')">
+                                <a>
+                                    Sales Value Per Sq Ft
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li data-ng-click="SelectedComparable.updateComsData('5')">
+                                <a>
+                                    Jurisdiction Value for Reval Year
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li data-ng-click="SelectedComparable.updateComsData('6')">
+                                <a>
+                                    Jurisdiction Value Per Sq Ft for Reval Year
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li data-ng-click="SelectedComparable.updateComsData('7')">
+                                <a>
+                                    Building Area
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li data-ng-click="SelectedComparable.updateComsData('8')">
+                                <a>
+                                    Zillow Comparables
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 new-comp" style="margin-top: -5px;">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" style="border: 1px solid #4285f4;">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-ng-show="false">
+                            Add New Comparables
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-show="SelectedComparable.showResidentialProps">
+                                <a ui-sref="comparableProperties">
+                                    <img src="assets/img/comps-res.png" style="width:30px;">
+                                    SEARCH PROPERTIES
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="SelectedComparable.showResidentialProps"></li>
+                            <li ng-show="!SelectedComparable.showResidentialProps">
+                                <a>
+                                    <img src="assets/img/comps-res.png" style="width:30px;">
+                                    SEARCH PROPERTIES
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="!SelectedComparable.showResidentialProps"></li>
+                            <li>
+                                <a>
+                                    <img src="assets/img/comps-upload.png" style="width:30px;">
+                                    UPLOAD COMPARABLES
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li ng-click="SelectedComparable.createComparables()">
+                                <a>
+                                    <img src="assets/img/comps-form.png" style="width:30px;">
+                                    CREATE COMPARABLES
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <span class="col-md-1 pull-right" id="nav_list" style="text-align:right">
+                Filter <i class="fa fa-filter" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="tab-content" style="background: #2c176b;">
+        <div role="tabpanel" ng-show="SelectedComparable.showGrid" style="overflow-x: auto;">
+            <br>
+            <span class="pull-right forward-back-btns">
+            </span>
+            <br>
+            <br>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 comps-right-table " id="container" style="overflow: auto;">
+                    <div id="myGridContracts" class="ag-bootstrap props-grid" style="height: 570px !important;"></div>
+                    <br><br><br><br><br><br><br><br><br>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" ng-show="SelectedComparable.showCards">
+            <div class="row grid main-wrapper">
+                <div class="col-md-3" ng-repeat="Property in SelectedComparable.selectedComparables">
+                    <div class="card" id="card_{{$index}}" style="height:230px !important;">
+                        <div class="front">
+                            <div class="relative">
+                                <img spinkit-image-preloader='cube-grid-spinner' ng-src="{{Property.imageFileName}}" class="img-responsive">
+                                <p class="absolute-text">
+                                    <span class="col-md-10" style="padding:0px;">
+                                        {{Property.address}}
+                                    </span>
+                                    <span class="col-md-2 checkbox" style="padding:0px; margin-top: 0px;cursor: pointer" ng-click="SelectedComparable.deleteConfirmation(Property)" data-toggle="modal" data-target="#ConfirmModalquestion" data-placement="right" title="Delete">
+                                        <i style="    font-size: 17px;" class="fa fa-trash-o fa-2x pull-right bin-color" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <ul class="card-list">
+                                <li>Rent Estimate: <span class="pull-right">${{Property.rentAmount | number:0}}</span></li>
+                                <li>Year Built: <span class="pull-right">{{Property.yearBuilt}}</span></li>
+                                <li>Val. Range: <span class="pull-right">${{Property.valuationRangeLow | number:0}} - ${{Property.valuationRangeHigh | number:0}}</span></li>
+                                <li>Comp. Score: <span class="pull-right">{{Property.compScore}}</span></li>
+                                <li class="pull-right" ng-click="SelectedComparable.flipFront('#card_'+$index)" style="cursor: pointer;"><a> View More</a>  </li>
+                            </ul>
+                        </div>
+                        <div class="back">
+                            <ul class="card-list">
+                                <li><strong>Zestimate Data: </strong></li>
+                                <li>Zestimate: <span class="pull-right">${{Property.amount | number:0}}</span></li>
+                                <li>Last updated:<span class="pull-right">{{Property.lastUpdate}}</span></li>
+                                <li>Value Change: <span class="pull-right">${{Property.valueChange | number:0}}</span></li>
+                                <li>Value Change Duration: <span class="pull-right">{{Property.valueChangeDuration}}  Days</span></li>
+                                <li>Percentile Value:<span class="pull-right">{{Property.percentile}}</span></li>
+                                <li><strong>Rent Zestimate Data: </strong></li>
+                                <li>Last updated:<span class="pull-right">{{Property.rentLastUpdate}}</span></li>
+                                <li>Value Change: <span class="pull-right">${{Property.rentValueChange | number:0}}</span></li>
+                                <li>Value Change Duration: <span class="pull-right">{{Property.valueChangeDuration}} Days</span></li>
+                                <li>Tax assessment year :<span class="pull-right">{{Property.taxAssessmentYear}}</span></li>
+                                <li>Tax assessment :<span class="pull-right">{{Property.taxAssessment}}</span></li>
+                                <li>Lot Size SqFt:<span class="pull-right">{{Property.lotSizeSqFt}}</span></li>
+                                <li>Finished SqFt :<span class="pull-right">{{Property.finishedSqFt}}</span></li>
+                                <li>Last Sold Date:<span class="pull-right">{{Property.lastSoldDate}}</span></li>
+                                <li>Last Sold Price:<span class="pull-right">${{Property.lastSoldPrice | number:0}}</span></li>
+                                <li>Bathrooms :<span class="pull-right">{{Property.bathrooms}}</span></li>
+                                <li>Bedrooms:<span class="pull-right">{{Property.bedrooms}}</span></li>
+                                <a ng-click="SelectedComparable.flipBack('#card_'+$index)" class="pull-right" style="cursor: pointer;">View Less</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" ng-if="SelectedComparable.showPropertyMap">
+            <div class="row grid main-wrapper">
+                <div class="col-xs-12">
+                    <ui-gmap-google-map center='SelectedComparable.map.center' zoom='SelectedComparable.map.zoom' options="SelectedComparable.mapOptions">
+                        <ui-gmap-window closeClick="SelectedComparable.closeMarkerWindow()" options='SelectedComparable.windowOptions' coords="SelectedComparable.selectedMarker.coords" show="SelectedComparable.markerWindowShow">
+                            <div>
+                                <p>
+                                    <label>Address :</label>
+                                    {{SelectedComparable.selectedMarker.description.propertyName}}
+                                </p>
+                                <p>
+                                    <label>Amount :</label>
+                                    {{SelectedComparable.selectedMarker.description.amount}}
+                                </p>
+                            </div>
+                        </ui-gmap-window>
+                        <ui-gmap-markers models="SelectedComparable.locations" icon="'icon'" click="SelectedComparable.markerClick" coords="'coords'" fit="true">
+                        </ui-gmap-markers>
+                    </ui-gmap-google-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="pull-right footer-btns" style="width: 27%;">
+        <button class="btn btn-success" ui-sref="PropertyList.private_property_list">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Properties List
+        </button>  &nbsp; &nbsp;
+        <button class="btn btn-info" style="background:#9c27b0;"
+                ng-click="SelectedComparable.saveComparables()">
+            <i class="fa fa-paperclip" aria-hidden="true"></i> Save Comparable(s)
+        </button>
+    </span>
+</div>
+<div id="ConfirmModalquestion" class="modal fade" style="z-index:111111111">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="background-color: #ffffff; color: #555">
+            <div class="modal-header" style="background-color:#337ab7!important">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-left" style="color:#fff;"> <img height="35" src="assets/img/error.png"> {{SelectedComparable.modelMessage.title}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="js-upload-finished text-left">
+                    <h5> {{SelectedComparable.modelMessage.message}}</h5>
+                </div>
+                <button data-dismiss="modal" type="button" class="btn btn-danger  pull-right" style="margin: 12px; z-index:111; ">No</button>
+                <button data-dismiss="modal" ng-click="SelectedComparable.myModelCheck()" type="button" class="btn btn-success  pull-right" style="margin: 12px; z-index:111; ">Yes</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="text-center">
+    © copyright 2017 Software Productivity Strategists, Inc. All rights reserved.
+</footer>
+
+
+
+
+<div id="myModalEvidence" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;"> Home Improvement </h5>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-x: hidden; overflow-y: auto;">
+                <div class="clearfix"></div>
+                <hr style="margin-top: 7px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary pull-right clearfix" data-ng-click="SelectedComparable.AddNewDescriptionRow()" style="padding: 4px 6px;">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Add More
+                            </button>
+                            <label style="margin-left:35px;color: #000c35;font-size: 17px;margin-left: 0px;"><i class="fa fa-files-o" aria-hidden="true" style="color:#555 !important; "></i>  Add Evidences</label>
+                            <hr>
+                        </div>
+                        <ul class="files-list">
+                            <li data-ng-repeat="expenditure in SelectedComparable.PrinciplePropDataDetail.PO[SelectedComparable.selectedPropCaption].options track by $index" style="margin-bottom: 12px;border-bottom: 0px solid #ccc;padding-bottom: 0px;">
+                                <textarea style="width: 80%" ng-model="expenditure.explanation" class="form-control pull-left" rows="1" id="Description"></textarea>
+                                <button style="width: initial;margin-bottom: 0px;height: initial;padding: 8px 10px;margin-left: 0px;" class="btn-viewprpdetails pull-right clearfix" data-ng-click="SelectedComparable.OpenEvidenceModal(expenditure)">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Evidence
+                                </button>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #f2f2f2;">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--dialogue-->
+<div id="myModalEvidence2" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;"> Attach Evidence </h5>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-x: hidden; overflow-y: auto;">
+                <div class="form-group pull-left" style="width: 50%;">
+                    <label for="comment">
+                        <i class="fa fa-sticky-note" aria-hidden="true"></i> Attach Note:
+                    </label>
+                    <textarea ng-model="SelectedComparable.attachNotes[SelectedComparable.attachFileSelection].text" class="form-control" rows="1" id="Description"></textarea>
+                </div>
+                <div class="clearfix"></div>
+                <hr style="margin-top: 7px;">
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid #ccc;">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary pull-right clearfix" data-toggle="collapse" data-target="#filter-panelsearc" style="padding: 4px 6px;">
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </button>
+                            <label style="margin-left:35px;     color: #000c35;  font-size: 17px;"><i class="fa fa-files-o" aria-hidden="true" style="color:#555 !important; "></i> Selected Files</label>
+                            <div id="filter-panelsearc" class="collapse filter-panel">
+                                <form class="form-inline" role="form" style="width:100% !important; ">
+                                    <div class="input-group">
+                                        <div class="input-group-btn search-panel" style="    width: 35%;">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <span id="search_concept">
+                                                    <i class="fa fa-sort-amount-asc"
+                                                       aria-hidden="true"></i> Sort
+                                                </span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li ng-click="SelectedComparable.sortBySelected('createdDate')">
+                                                    <a>Date</a>
+                                                </li>
+                                                <li ng-click="SelectedComparable.sortBySelected('fileName')">
+                                                    <a>Name</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <input type="hidden" name="search_param" value="all" id="search_param">
+                                        <input type="text" class="form-control" name="x" placeholder="Search file..." ng-model="SelectedComparable.searchWordSelectedFile">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                        </div>
+                        <ul class="files-list">
+                            <li data-ng-if="selectedEvidence" ng-repeat="selectedEvidence in SelectedComparable.currentPropSelected.evidenceId track by $index">
+                                <i class="fa fa-arrow-circle-right  pull-left" ng-click="SelectedComparable.removeFromSelectedFiles(selectedEvidence)" aria-hidden="true"></i>
+                                {{selectedEvidence}}
+                                <div class="StayOpen" style="float: left;margin-top: 1px;margin-right: 4px;">
+                                    <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+                                    <div id="theBox_3">
+                                        <label style="border-bottom:1px solid #ccc; text-align:center !important; font-weight:bold;">
+                                            {{selectedEvidence}}
+                                        </label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <button class="btn-viewprpdetails pull-right clearfix">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                                </button>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary pull-right clearfix" data-toggle="collapse" data-target="#filter-panel" style="padding: 4px 6px;">
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </button>
+                            <label style="margin-left:35px;  font-size: 17px;     color: #000c35;">
+                                <i class="fa fa-files-o" aria-hidden="true" style="color:#555 !important; "></i> All Files
+                            </label>
+                            <small style="color: #326b9c;     color: #000c35;">(Showing all Files)</small>
+                            <div id="filter-panel" class="collapse filter-panel">
+                                <form class="form-inline" role="form" style="width:100% !important; ">
+                                    <div class="input-group">
+                                        <div class="input-group-btn search-panel" style="    width: 35%;">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <span id="search_concept">
+                                                    <i class="fa fa-sort-amount-asc"
+                                                       aria-hidden="true"></i> Sort
+                                                </span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li ng-click="SelectedComparable.sortBy('createdDate')">
+                                                    <a>Date</a>
+                                                </li>
+                                                <li ng-click="SelectedComparable.sortBy('fileName')"><a>Name</a></li>
+                                            </ul>
+                                        </div>
+                                        <input type="hidden" name="search_param" value="all" id="search_param">
+                                        <input type="text" class="form-control" name="x" placeholder="Search file..." ng-model="SelectedComparable.searchWordAllFile">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                        </div>
+                        <ul class="files-list">
+                            <li data-ng-if="evidence._id" ng-repeat="evidence in SelectedComparable.sortedAndSearchedEvidences() track by $index">
+                                <i class="fa fa-arrow-circle-left pull-left" ng-click="SelectedComparable.addToSelectedFiles(evidence)" aria-hidden="true"></i>
+                                {{ evidence._id   }}
+                                <div class="StayOpen" style="float: left;margin-top: 1px;margin-right: 4px;">
+                                    <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+                                    <div id="theBox_3">
+                                        <label style="border-bottom:1px solid #ccc; text-align:center !important; font-weight:bold;">
+                                            {{ evidence._id}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <button class="btn-viewprpdetails pull-right clearfix">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                                </button>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #f2f2f2;">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,289 @@
+.input-border-red {
+    border-color: red !important;
+}
+
+.footer-btns {
+    width: 21% !important;
+}
+
+.form-control {
+    width: 86% !important;
+    float: left;
+}
+
+.fa-times-circle {
+    cursor: pointer;
+    color: #fb7d0c;
+    cursor: pointer;
+}
+.input-symbol-euro {
+    position: relative;
+}
+.input-symbol-euro input {
+    padding-left:18px;
+}
+.input-symbol-euro:before {
+    position: absolute;
+    top: 0;
+    content: "$";
+    right: 68px;
+    top: 1px;
+    color: black
+}
+.input-symbol-percentage {
+    position: relative;
+}
+.input-symbol-percentage input {
+    padding-left:18px;
+}
+.input-symbol-percentage:before {
+    position: absolute;
+    content: "%";
+    right: 5px;
+    top: 1px;
+    color: black;
+}
+.input-symbol-hero:after {
+    position: absolute;
+    content: "%";
+    right: 5px;
+    top: 1px;
+    color: black;
+
+}
+.symbol-dollar {
+    position: relative;
+}
+.symbol-dollar input {
+    padding-left:18px;
+}
+.symbol-dollar:before{
+    position: absolute;
+    /* top: -12px; */
+    content: "$";
+    /* right: 68px; */
+    left: 15px;
+    top: 14px;
+    color: black;
+
+}
+
+.symbol-percentage {
+    position: relative;
+}
+.symbol-percentage input {
+    padding-left:20px;
+}
+.symbol-percentage:before{
+    position: absolute;
+    content: "%";
+    left: 77px;
+    top: 15px;
+    color: black;
+}
+.currencyinput {
+    border: 1px inset #ccc;
+}
+.currencyinput input {
+    border: 0;
+}
+/*.left-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -168px ;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}*/
+
+/*//=====================================================================Drag DIV CSS===========================*/
+/*.abca{
+    border-right: 10px solid black;
+}*/
+
+/** {
+  box-sizing: border-box;
+}
+*/
+/*
+nav {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2.5em 1.75em;
+  background: #fff;
+  width: 260px;
+  max-width: 300px;
+  min-width: 165px;
+}
+*/
+/*main {
+  display: flex;
+  height: 100%;
+  padding-bottom: 70px;
+  background: #fff;
+}*/
+
+/*.content {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-content: space-around;
+  padding: 7px;
+}*/
+
+.sensitivity-tables{
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+
+.resizable {
+  position: relative;
+}
+.resizable.no-transition {
+  transition: none !important;
+}
+
+.rg-right, .rg-left, .rg-top, .rg-bottom {
+  display: block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  position: absolute;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.rg-right span, .rg-left span, .rg-top span, .rg-bottom span {
+  position: absolute;
+  box-sizing: border-box;
+  display: block;
+  border: 1px solid #fff;
+}
+
+.rg-right span, .rg-left span {
+    border-width: 198px -26px;
+    /* top: 87%; */
+    /* margin-top: -10px; */
+    /* margin: 86px 0 0 3.5px; */
+    height: 100%;
+    width: 7px;
+}
+.rg-right {
+    cursor: col-resize;
+    height: 2px;
+    /* padding: 21px; */
+    right: 0;
+    /* top: 0; */
+    bottom: 13px;
+    margin-right: 0px;
+}
+.dollar-background {
+    background: url('../../../../../assets/img/dollar-symbol.png') no-repeat scroll 7px 7px;
+    padding-left:30px;
+    color: white;
+    background-size: 10% 40%;
+    background-attachment: fixed;
+}
+
+.dollar-background:before {
+    content: '$';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    z-index: 1;
+}
+.test {
+    position: relative;
+    background-color: #dedede;
+    display: inline;
+}
+right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 10px;
+}
+.right-inner-addon span {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+    color: black;
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;
+}
+.left-inner-addon span {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+    color: black;
+}
+.font-set{
+    font-size: 12px;
+
+}
+
+.test {
+    position: relative;
+    background-color: #dedede;
+    display: inline;
+}
+
+.test:before {
+    content: '$';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    z-index: 1;
+    float: left;
+    color: black;
+}
+
+
+
+.my {
+
+      position:relative;
+  }
+.image-resize {
+    position: absolute;
+    left: 0px;
+    top: 12px;
+    float: left;
+    height: 12px;
+    width: 12px;
+    opacity: 2;
+}
+.image-percent{
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    height: 12px;
+    width: 12px;
+    opacity: 2;
+}

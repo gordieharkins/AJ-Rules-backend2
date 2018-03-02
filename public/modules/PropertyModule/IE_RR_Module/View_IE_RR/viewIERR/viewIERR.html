@@ -1,0 +1,170 @@
+<style>
+.dataTables_wrapper .ui-toolbar {
+    padding: 0px;
+    BACKGROUND: #f5f5f5;
+}
+
+
+/*******************************
+* Does not work properly if "in" is added after "collapse".
+* Get free snippets on bootpen.com
+*******************************/
+
+.panel-group .panel {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #EEEEEE;
+}
+
+.panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #FAFAFA;
+    border-color: #EEEEEE;
+}
+
+.panel-title {
+    font-size: 14px;
+}
+
+.panel-title > a {
+    display: block;
+    color: #fff;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.more-less {
+    float: right;
+    color: #fff;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #EEEEEE;
+}
+/* ----- v CAN BE DELETED v ----- */
+body {
+    background-color: #f5f5f5;
+}
+
+.demo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.IE_RRR .nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+    width: 16.667%;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.IE_RRR .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 6px 0px;
+    color: #fff;
+    width: 95%;
+    border-bottom: none;
+    margin: 0px auto;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+</style>
+<header></header>
+<div>
+   <div class="panel-body drop-file prop-fixd">
+      <ul>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> {{viewIERR.IERRProperty.taxAccountNo ? viewIERR.IERRProperty.taxAccountNo : 'Not Specified'}}
+         </li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> {{viewIERR.IERRProperty.propertyName ?viewIERR.IERRProperty.propertyName : 'Not Specified'}}</li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> {{viewIERR.IERRProperty.streetAddress ? viewIERR.IERRProperty.streetAddress : 'Not Specified'}}</li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> {{viewIERR.IERRProperty.recordOwnerName ? viewIERR.IERRProperty.recordOwnerName : 'Not Specified'}}</li>
+      </ul>
+   </div>
+   <br>
+   <div class="row">
+      <div class="col-md-12">
+         <div class="panel panel-primary IE_RR">
+            <!-- <div  class="tableheading"> <span class="pull-left">  Valuation</span>
+               <div class="clearfix"></div>
+               </div> -->
+            <div class="user-reg IE_RRR">
+               <div class="row">
+                  <div class="col-md-12" style="padding: 0px;">
+                     <div class="panel with-nav-tabs panel-primary" style=" margin-bottom: 0px;">
+                        <div class="panel-heading">
+                           <ul class="nav nav-tabs">
+                              <li  class="pointer-cursor" ng-class="{ active: viewIERR.isActive('/viewIERR/property-details-tab')}">
+                                 <a data-toggle="tab" ng-click="viewIERR.showPropertyDetails()">
+                                 Property Details
+                                 </a>
+                              </li>
+                              <li  ng-if="viewIERR.IERRProperty.publicData" class="pointer-cursor" ng-class="{ active: viewIERR.isActive('/viewIERR/public-property-tab')}">
+                                <a data-toggle="tab" ng-click="viewIERR.showPublicProperty()">
+                                Public Property
+                                </a>
+                             </li>
+                              <li permission-per-property="viewIncomeExpense"
+                              behaviour-type="hide" 
+                              class="pointer-cursor" ng-if="viewIERR.hideTabs" ng-class="{ active: viewIERR.isActive('/viewIERR/income_expense')}">
+                                 <a data-toggle="tab" ng-href="" ng-click="viewIERR.showIncomeExpense()">
+                                 Income Expense Statement(s)
+                                 </a>
+                              </li>
+                              <li permission-per-property="viewRentRolls"
+                              behaviour-type="hide"
+                              class="pointer-cursor" ng-if="viewIERR.hideTabs" ng-class="{ active: viewIERR.isActive('/viewIERR/rent_roll')}">
+                                 <a data-toggle="tab" ng-href="" ng-click="viewIERR.showRentRole()">
+                                 Rent Roll(s) 
+                                 </a>
+                              </li>
+                              <li permission-per-property="viewTaxBills"
+                              behaviour-type="hide"
+                              class="pointer-cursor" ng-if="viewIERR.hideTabs" ng-class="{ active: viewIERR.isActive('/viewIERR/tax_bills')}">
+                                 <a data-toggle="tab" ng-href="" ng-click="viewIERR.showTaxBills()">
+                                 Tax Bill(s) 
+                                 </a>
+                              </li>
+                              <li class="pointer-cursor" ng-if="viewIERR.hideTabs" ng-class="{ active: viewIERR.isActive('/viewIERR/other_files')}">
+                                 <a data-toggle="tab" ng-href="" ng-click="viewIERR.showOtherFiles()">
+                                 More File(s) 
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
+                        <div class="panel-body">
+                           <div class="tab-content">
+                              <div class="tab-pane fade in active">
+                                 <ui-view></ui-view>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <span class="pull-right footer-btns">
+      <button permission-per-property="attachFilesToProperty" behaviour-type="disable" class="btn btn-success " ui-sref="updateIERR" style="background: #009688; margin-right: 4px; border: none;"> <i class="fa fa-paperclip fa-lg"></i>  Attach File</button>
+      <button permission-per-property="viewValuationForm" behaviour-type="disable" class="btn btn-info " ui-sref="propertyValuation"  style="background: #9c27b0; border: none;"><i class="fa fa-list-alt fa-lg"></i> Valuation</button>
+      <!-- <button ng-click="PropList.uploadIERRData( PropList.allProperties[23135] )" class="btn btn-info pull-right" style="margin-right: 18px; background: #009688;
+         border: none;    padding: 4px;" data-toggle="tooltip" data-placement="right" title="Attach files">
+         <i class="fa fa-paperclip fa-lg"></i> Attach files</button>
+         
+         
+         
+         
+         <button class="btn btn-info pull-right" style="margin-right: 18px; background: #9c27b0;
+         border: none;    padding: 4px;" data-toggle="tooltip" data-placement="right" title="Valuation">
+         <i class="fa fa-list-alt fa-lg"></i> Valuation </button>
+         
+         -->
+   </span>
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

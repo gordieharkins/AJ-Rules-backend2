@@ -1,0 +1,55 @@
+var REPLY_MSG = {};
+REPLY_MSG.NO_ACCESS = "You are not authorized to access this page.";
+REPLY_MSG.SAVE_SUCCESS = "Record saved successfully.";
+REPLY_MSG.SAVE_FAIL = "Unable to save record.";
+REPLY_MSG.DELETE_SUCCESS = "Record deleted successfully.";
+REPLY_MSG.DELETE_FAIL = "Unable to delete record.";
+REPLY_MSG.FILES_UPLOAD_SUCCESS = "File(s) uploaded successfully.";
+REPLY_MSG.FILES_UPLOAD_FAIL = "Unable to upload file(s).";
+REPLY_MSG.FILES_PARSE_SUCCESS = "File(s) parsed successfully.";
+REPLY_MSG.FILES_PARSE_FAIL = "Unable to parse file(s).";
+REPLY_MSG.GET_DATA_FAIL = "Unable to get data.";
+REPLY_MSG.GET_DATA_SUCCESS = "Get data successful.";
+REPLY_MSG.EMAIL_SENDING_FAIL = "User(s) added but unable to send email.";
+REPLY_MSG.EMAIL_SENDING_SUCCESS = "User(s) added and emails sent successful.";
+REPLY_MSG.LOG_IN_FAIL = "Username or Password incorrect.";
+REPLY_MSG.LOG_IN_SUCCESS = "Logged in successfully.";
+REPLY_MSG.INVALID_DATA = "Invalid Data.";
+REPLY_MSG.UPDATE_SUCCESS = "Record updated successfully.";
+REPLY_MSG.UPDATE_FAIL = "Unable to update record.";
+REPLY_MSG.NO_FILE_UPLOADED = "No file uploaded.";
+REPLY_MSG.TOKEN_EXPIRED = "Authorization token Expired";
+REPLY_MSG.LINK_SUCCESS = "Data linked successfully.";
+REPLY_MSG.LINK_FAIL = "Data linking failed."
+REPLY_MSG.UNLINK_SUCCESS = "Data unlinked successfully.";
+REPLY_MSG.UNLINK_FAIL = "Data unlinking failed."
+REPLY_MSG.No_DATA_FOUND = "No Data Found.";
+REPLY_MSG.FIELDS_NOT_FOUND = "We didn't find required fields in this file.";
+REPLY_MSG.FIELDS_NOT_FOUND_SHEET = "We didn't find required fields in sheet.";
+REPLY_MSG.CORRUPT_FILE = "This file is corrupted.";
+REPLY_MSG.PARSING_IN_PROGRESS = "Parsing in progress.";
+REPLY_MSG.QUEUED_FOR_PARSING = "Queued for Parsing.";
+REPLY_MSG.PARSED_SUCCESSFULLY = "File saved successfully.";
+REPLY_MSG.PARSED_LINKED_SUCCESSFULLY = "File parsed and linked with property successfully.";
+REPLY_MSG.PARSED_LINKED_UNSUCCESSFULLY = "Unable to link data with any property.";
+REPLY_MSG.MULTIPART_ERROR = "Error in multipart properties calculations.";
+REPLY_MSG.PROPS_ADDED = " properties added out of "; // Complete message after concatenation in BLL/properties file.
+REPLY_MSG.LAT_LNG = "We did not find Lat/Lng for "; // Complete message after concatenation in BLL/properties file.
+REPLY_MSG.NO_PROPERTIES = "No properties found.";
+REPLY_MSG.ERROR_PROPS = "Error in processing properties.";
+REPLY_MSG.ALREADY_EXISTS = "Record already exists.";
+REPLY_MSG.ZILLOW_ID_NA = "zpid Not Found.";
+REPLY_MSG.APPEAL_SUCCESS = "Submitted for appeal successfully.";
+REPLY_MSG.APPEAL_FAIL = "Error in submitting for appeal.";
+REPLY_MSG.PROPERTY_ASSIGNED_SUCCESS = "Property successfully assigned to agent.";
+REPLY_MSG.PROPERTY_ASSIGNED_FAIL = "Failed to assign property to agent.";
+
+exports.REPLY_MSG = REPLY_MSG;
+
+exports.sendResponse = function(isSuccess, message, result, res) {
+    var response = {};
+    response.success = isSuccess;
+    response.message = message;
+    response.result = result;
+    res.send(response);
+};

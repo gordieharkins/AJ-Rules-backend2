@@ -1,0 +1,310 @@
+<style>
+body {
+    background-color: #f5f5f5;
+}
+
+.drop-file ul {
+    list-style: none;
+}
+
+.drop-file li {
+    position: relative;
+}
+
+.drop-file li:before {
+    position: absolute;
+    top: -2px;
+    margin: 8px 0 0 -12px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    content: "";
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: 0.8;
+}
+</style>
+<header></header>
+<div class="prop-fixd text-center">
+    <ul>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> 
+        {{manualIE.property.taxAccountNo ? manualIE.property.taxAccountNo  : 'Not Specified'}}
+        </li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> 
+        {{manualIE.property.propertyName  ? manualIE.property.propertyName  : 'Not Specified'}}</li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> 
+        {{manualIE.property.streetAddress ? manualIE.property.streetAddress  : 'Not Specified'}}</li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> 
+        {{manualIE.property.recordOwnerName ? manualIE.property.recordOwnerName : 'Not Specified'}}</li>
+    </ul>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary IE_RR">
+            <div class="panel-heading">
+                <h5> <i class="fa fa-user" aria-hidden="true"></i> 
+                              <strong>   Income and Expense Statement </strong>
+                                <button style="display: none;" onclick="location.href = '22-UploadManual.html';" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-user pull-right" style="margin-top: -6px; margin-right: 20px;"><i class="fa fa-user-plus" aria-hidden="true"></i> Upload More Files Or Data
+                                </button>
+                          </h5></div>
+                <div class="panel-body drop-file">
+                    <div class="row ">
+                        <div class="col-md-12 submit-data">
+                            <div class="welll">
+                                <form id="manualForm" name="manualForm" ng-submit="manualForm.$valid && manualIE.submitManualData()" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div id="sandbox-container">
+                                                <label>Choose Year/Date</label>
+                                                <div class='input-group date'>
+                                                    <input 
+                                                    uib-datepicker-popup="{{manualIE.dateFormat}}" 
+                                                    ng-click="manualIE.openDatePicker('asOfDate')"
+                                                    is-open="manualIE.datePickers.asOfDate"    
+                                                    type='text' name="yearDate" id="yearDate" required ng-model="manualIE.formData.IEYear" placeholder="Click here to choose date" class="form-control" />
+                                                    <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span> 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.yearDate.$invalid) || (
+                                                    manualForm.yearDate.$touched && manualForm.yearDate.$invalid)">This is required.</span>
+                                                    <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Base Rent</label>
+                                                <input ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="baseRent" id="baseRent" required ng-model="manualIE.formData.baseRent" type='text' placeholder="Enter Base Rent">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.baseRent.$invalid) || (
+                                                    manualForm.baseRent.$touched && manualForm.baseRent.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Income</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="totalIncome" id="totalIncome" required ng-model="manualIE.formData.totalIncome" type='text' placeholder="Enter Total Income">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalIncome.$invalid) || (
+                                                    manualForm.totalIncome.$touched && manualForm.totalIncome.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Maintenance</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="totalMaintenance" id="totalMaintenance" required ng-model="manualIE.formData.totalMaintenance" type='text' placeholder="Enter Total Maintenance">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalMaintenance.$invalid) || (
+                                                    manualForm.totalMaintenance.$touched && manualForm.totalMaintenance.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Operating Exp-recoverable</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' type='text' id="totalOperatingExpRecoverable" name="totalOperatingExpRecoverable" required ng-model="manualIE.formData.totalOperatingExpRecoverable" placeholder="Enter Total Operating Exp-recoverable">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalOperatingExpRecoverable.$invalid) || (
+                                                    manualForm.totalOperatingExpRecoverable.$touched && manualForm.TotalOperatingExpRecoverable.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Rental Income</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="rentalIncome" id="rentalIncome" required ng-model="manualIE.formData.rentalIncome" type='text' placeholder="Enter Rental Income">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.rentalIncome.$invalid) || (
+                                                    manualForm.rentalIncome.$touched && manualForm.rentalIncome.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Personnel</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="totalPersonnel" id="totalPersonnel" required ng-model="manualIE.formData.totalPersonnel" type='text' placeholder="Enter Total Personnel">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalPersonnel.$invalid) || (
+                                                    manualForm.totalPersonnel.$touched && manualForm.totalPersonnel.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Total Administrative</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="totalAdministrative" id="totalAdministrative" required ng-model="manualIE.formData.totalAdministrative" type='text' placeholder="Enter Total Administrative">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalAdministrative.$invalid) || (
+                                                    manualForm.totalAdministrative.$touched && manualForm.totalAdministrative.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Total Operating Exp-unrecoverable</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="totalOperatingExpUnRecoverable" id="totalOperatingExpUnRecoverable" required ng-model="manualIE.formData.totalOperatingExpUnRecoverable" type='text' placeholder="Enter Total Operating Exp-unrecoverable">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalOperatingExpUnRecoverable.$invalid) || (
+                                                    manualForm.totalOperatingExpUnRecoverable.$touched && manualForm.totalOperatingExpUnRecoverable.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Miscellaneous Income</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="miscellaneousIncome" id="miscellaneousIncome" required ng-model="manualIE.formData.miscellaneousIncome" type='text' placeholder="Enter Miscellaneous Income">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.miscellaneousIncome.$invalid) || (
+                                                    manualForm.miscellaneousIncome.$touched && manualForm.miscellaneousIncome.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Utilities</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="totalUtilities" id="totalUtilities" required ng-model="manualIE.formData.totalUtilities" type='text' placeholder="Enter Total Utilities">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalUtilities.$invalid) || (
+                                                    manualForm.totalUtilities.$touched && manualForm.totalUtilities.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Real Estate Taxes</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="realEstateTaxes" id="realEstateTaxes" required ng-model="manualIE.formData.realEstateTaxes" type='text' placeholder="Enter Real Estate Taxes">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.realEstateTaxes.$invalid) || (
+                                                    manualForm.realEstateTaxes.$touched && manualForm.realEstateTaxes.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label>Total Expenses</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="totalExpenses" id="totalExpenses" required ng-model="manualIE.formData.totalExpenses" type='text' placeholder="Enter Total Expenses">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalExpenses.$invalid) || (
+                                                    manualForm.totalExpenses.$touched && manualForm.totalExpenses.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Parking Income</label>
+                                                <input  ui-money-mask="0"  ui-hide-space class='form-control alldisable' name="parkingIncome" id="parkingIncome" required ng-model="manualIE.formData.parkingIncome" type='text' placeholder="Enter Parking Income">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.parkingIncome.$invalid) || (
+                                                    manualForm.parkingIncome.$touched && manualForm.parkingIncome.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Total Contracted Services</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="totalContractedServices" id="totalContractedServices" required ng-model="manualIE.formData.totalContractedServices" type='text' placeholder="Enter Total Contracted Services">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalContractedServices.$invalid) || (
+                                                    manualForm.totalContractedServices.$touched && manualForm.totalContractedServices.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Total Taxes and Insurance</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="totalTaxesAndInsurance" id="totalTaxesAndInsurance" required ng-model="manualIE.formData.totalTaxesAndInsurance" type='text' placeholder="Enter Total Taxes and Insurance">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.totalTaxesAndInsurance.$invalid) || (
+                                                    manualForm.totalTaxesAndInsurance.$touched && manualForm.totalTaxesAndInsurance.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class='form-group required'>
+                                                <label> Cash Flow - Net Income</label>
+                                                <input  ui-money-mask="0"  ui-hide-space  class='form-control alldisable' name="cashFlowNetIncome" id="cashFlowNetIncome" required ng-model="manualIE.formData.cashFlowNetIncome" type='text' placeholder="Enter Cash Flow - Net Income">
+                                                <span style="color: red;" ng-show="
+                                                    (manualForm.$submitted &&
+                                                    manualForm.cashFlowNetIncome.$invalid) || (
+                                                    manualForm.cashFlowNetIncome.$touched && manualForm.cashFlowNetIncome.$invalid)">This is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="clearfix"></div>
+                                    <button type="submit" data-toggle="modal" class="btn btn-user pull-right" style="margin: 12px; z-index:111; margin-top: -20px;" id="success-btn">Submit</button>
+                                    <button ng-click="manualIE.resetForm()" type="button" class="btn btn-user pull-right" style="margin: 12px; z-index:111; margin-top: -20px;" id="success-btn">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Do you want to add more files/data ? </h5>
+            </div>
+            <div class="modal-body text-center">
+                <h4 style="color:#0fad00">Success</h4>
+                <img height="50" src="http://osmhotels.com//assets/check-true.jpg">
+                <h4>Do you want to add more data ?</h4>
+                <button ng-click="manualIE.gotoPropertyDetails()" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; background: #F44336; !Important">No</button>
+                <button ng-click="manualIE.modalYesbutton()" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; ">Yes</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

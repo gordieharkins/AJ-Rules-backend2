@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="../ComparableProperties/ComparableProperties.css">
+<header></header>
+<div class="Comps-my-prop">
+   <ul>
+      <li style="padding: 0px;">
+         <div class="relative">
+            <img ng-src="{{ComparableSelection.mainImage}}" class="img-responsive" style="width: 213px;height: 123px;">
+            <p class="absolute-text">{{ComparableSelection.PrinciplePropData.address}}</p>
+         </div>
+      </li>
+      <li>
+         <h6> Rent Estimate: <span class="pull-right">${{ComparableSelection.PrinciplePropData.rentAmount | number:0}}</span>
+         </h6>
+         <h6>Zestimate: <span class="pull-right">${{ComparableSelection.PrinciplePropData.amount | number:0}}</span></h6>
+      </li>
+      <li>
+         <h6>Valuation Range High: <span class="pull-right">
+            ${{ComparableSelection.PrinciplePropData.valuationRangeHigh | number:0}}
+            </span>
+         </h6>
+         <h6>Valuation Range Low: <span class="pull-right"> 
+            ${{ComparableSelection.PrinciplePropData.valuationRangeLow | number:0}}
+            </span>
+         </h6>
+      </li>
+      <li>
+         <h6>Value Change: <span class="pull-right">${{ComparableSelection.PrinciplePropData.valueChange | number:0}}</span></h6>
+         <h6>Value Change Duration: <span class="pull-right">{{ComparableSelection.PrinciplePropData.valueChangeDuration}}</span></h6>
+      </li>
+      <li>
+         <h6>Year Built: <span class="pull-right">{{ComparableSelection.PrinciplePropData.yearBuilt}}</span>  
+         </h6>
+         <h6>Lot Size SF: <span class="pull-right">{{ComparableSelection.PrinciplePropData.lotSizeSqFt | number:0}}</span></h6>
+      </li>
+      <li>
+         <h6>Last Sold Date: <span class="pull-right">{{ComparableSelection.PrinciplePropData.lastSoldDate}}</span></h6>
+         <h6>Last Sold Price: <span class="pull-right">${{ComparableSelection.PrinciplePropData.lastSoldPrice | number:0}}</span></h6>
+      </li>
+   </ul>
+</div>
+<br>
+<div class="contatiner-metro row  comps-metro text-center">
+   <div class="col-sm-4" ng-show="!ComparableSelection.showResidentialProps" ng-click="ComparableSelection.gotoResidentialProps()">
+      <div class="tile Residentail" >
+         <img src="assets/img/comps-res.png" width="70px;">
+         <br>
+         <br>
+         <h3 class="title">Residential Properties </h3>
+         <p>Search related residential properties using Zillow API.</p>
+      </div>
+   </div>
+   <div class="col-sm-4" ng-show="ComparableSelection.showResidentialProps">
+      <div class="tile Commercial">
+         <img src="assets/img/comps-res.png" width="70px;">
+         <br>
+         <br>
+         <h3 class="title">Commercial Properties</h3>
+         <p>Search related Commercial properties using AJ Data.</p>
+      </div>
+   </div>
+   <div class="col-sm-4">
+      <div class="tile Upload">
+         <img src="assets/img/comps-upload.png" width="70px;">
+         <br>
+         <br>
+         <h3 class="title">Upload Comparables</h3>
+         <p>Upload a new Sale Comparables.</p>
+      </div>
+   </div>
+   <div class="col-sm-4" ng-click="ComparableSelection.gotoCreateComprables()">
+      <div class="tile Comparables" >
+         <img src="assets/img/comps-form.png" width="70px;">
+         <br>
+         <br>
+         <h3 class="title">Create Comparables</h3>
+         <p>Create a new Sale Comparables.</p>
+      </div>
+   </div>
+</div>
+<footer class="text-center" class="footer-bottom">
+   © copyright 2017 Software Productivity Strategists, Inc. All rights reserved.
+</footer>

@@ -1,0 +1,102 @@
+.filterable {
+    margin-top: 15px;
+}
+
+    .filterable .panel-heading .pull-right {
+        margin-top: -20px;
+    }
+
+    .filterable .filters input[disabled] {
+        background-color: transparent;
+        border: none;
+        cursor: auto;
+        box-shadow: none;
+        padding: 0;
+        height: auto;
+    }
+
+        .filterable .filters input[disabled]::-webkit-input-placeholder {
+            color: #333;
+        }
+
+        .filterable .filters input[disabled]::-moz-placeholder {
+            color: #333;
+        }
+
+        .filterable .filters input[disabled]:-ms-input-placeholder {
+            color: #333;
+        }
+
+.panel-title {
+    font-size: 15px;
+    padding-left: 1%;
+}
+
+.font-set {
+    font-weight: 700;
+    min-width: 230px;
+}
+
+.panel {
+    margin-top: -1%;
+    overflow: auto;
+    height: 445px;
+}
+
+.options {
+    font-weight: 700;
+    padding: 2%;
+    line-height: 0.428571;
+}
+
+.fa {
+    padding-left: 2%;
+    color: #337ab7;
+}
+
+.pricing_header {
+    background: none repeat scroll 0% 0% #337ab7;
+    margin-top: 5%;
+    border-radius: 5px 5px 0px 0px;
+    transition: background 0.4s ease-out 0s;
+}
+
+    .pricing_header h2 {
+        text-align: center;
+        line-height: 25px;
+        padding: 15px 0px;
+        margin-top: 4%;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 400;
+        color: white;
+    }
+
+.space {
+    height: 0px;
+}
+
+.question-height {
+    min-height: 25px;
+    display: inline-block
+}
+
+.btn {
+    margin-left: 3%;
+}
+
+.div-buttons {
+    margin: 2%;
+}
+
+.empty {
+    padding-left: 3%;
+    font-weight: 600;
+}
+
+.value {
+    padding-right: 2%;
+}
+
+.ag-bootstrap .ag-body {
+    background-color: #ececec;
+}

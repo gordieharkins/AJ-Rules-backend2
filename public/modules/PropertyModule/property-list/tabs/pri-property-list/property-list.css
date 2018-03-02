@@ -1,0 +1,38 @@
+.ag-blue .ag-header-select-all {
+    padding: 5px 0px 0px 3px;
+    line-height: 0;
+     
+}
+
+div div.ag-header-container :nth-child(2) :nth-child(7){
+    background-color: white;
+}
+
+div span.ag-header-icon {
+    background-color: #5b9bd5 !important;
+}
+
+.abv-buttons {
+    margin-right: 4px !important;
+    width: 25px;
+    border: none;
+    padding: 4px;
+}
+
+.my-center {
+    margin: auto;
+    padding: 10px
+}
+.topPanel {
+    width: 100%;
+    margin: 15px 0px 0 -15px;
+}
+
+.btn-info:disabled, .btn-info[disabled] {
+    background-color: gray !important;
+}
+
+
+.panel-body {
+    padding: 0px !important;
+}

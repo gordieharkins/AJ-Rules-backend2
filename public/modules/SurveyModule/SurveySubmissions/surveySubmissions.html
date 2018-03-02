@@ -1,0 +1,344 @@
+<link rel="stylesheet" href="/modules/SurveyModule/SurveySubmissions/surveySubmissions.css">
+<header></header>
+<div>
+    <div class="container-fluid" style="margin-left: -100px;margin-right: 10%">
+        <div style="margin-top:30px;">
+            <div class="col-md-12 col-md-offset-1" ng-init="fetchData()">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a href="" style="    padding: 25px;">
+                                <strong> <i class="fa fa-file-text-o" aria-hidden="true"></i></strong>
+                                <span>Survey Submission</span>
+                                <span style="padding-left: 30%;">Survey Name: {{submissionData.surveyName}}</span>
+                                <span class="pull-right" style="margin-right: 10px;    margin-top: 0px;">
+                                    <span>
+                                        Update &nbsp&nbsp
+                                        <toggle ng-model="enableEdit" size="btn-sm">></toggle>
+                                    </span>
+                                </span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom: 20px;padding-right: : 10px;">
+                        <h5></h5>
+                        <p></p>
+                        <div class="demo AJ-form">
+                            <form name="infoForm" id="infoForm" ng-submit="UpdateSurveyMetaData(infoForm)" novalidate>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Interviewer">Interviewer:</label>
+                                        <input required ng-readonly="!enableEdit" ng-model="submissionData.information.interviewer" type="text" class="form-control" id="interviewer" name="interviewer">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.interviewer.$invalid) || (infoForm.interviewer.$invalid && infoForm.interviewer.$dirty)">
+                                            <span autofocus="true">This is required</span>
+                                        </span>
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label for="Interviewee">Interviewee:</label>
+                                        <input required ng-readonly="!enableEdit" ng-model="submissionData.information.interviewee" type="text" class="form-control" id="Interviewee" name="Interviewee">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.Interviewee.$invalid) || (infoForm.Interviewee.$invalid && infoForm.Interviewee.$dirty)">
+                                            This is required
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label for="Phone">Phone Number Called:</label>
+                                        <input required ng-readonly="!enableEdit" phone-input ng-model="submissionData.information.phoneNumberCalled" type="text" class="form-control" id="phone" name="phone">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.phone.$invalid) || (infoForm.phone.$invalid && infoForm.phone.$dirty)">
+                                            This is required
+                                        </span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Tax">Tax Assessor Main Website:</label>
+                                        <input ng-readonly="!enableEdit" required ng-model="submissionData.information.taxAssessorMainWebsite" type="text" class="form-control" id="Tax" name="Tax">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.Tax.$invalid) || (infoForm.Tax.$invalid && infoForm.Tax.$dirty)">
+                                            This is required
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label for="State">State:</label>
+                                        <br>
+                                        <div auto-close="outsideClick" class="btn-group " uib-dropdown dropdown-append-to-body>
+                                            <button ng-disabled="!enableEdit" id="dropMenu" class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: black;background: #ffffff;color: black;border-radius: 4px;width: 100%;" type="button" data-toggle="dropdown" uib-dropdown-toggle>
+                                                <span ng-if="submissionData.information.state">{{submissionData.information.state}}</span>
+                                                <span ng-if="!submissionData.information.state">Select Options</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul id="menu" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body" style="width: 150px">
+                                                <li role="menuitem">
+                                                    <input class="form-control" type="text" placeholder="Search" ng-model="searchSS" name="">
+                                                </li>
+                                                <li style="background-color: #8190ad;" ng-repeat="state in states | filter : {States: searchSS}">
+                                                    <a ng-click="dropDownClose(submissionData,state.States)">{{state.States}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Assessing">Assessing Jurisdiction:</label>
+                                        <input required ng-readonly="!enableEdit" ng-model="submissionData.information.assessingJurisdiction" type="text" class="form-control" id="Assessing" name="Assessing">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.Assessing.$invalid) || (infoForm.Assessing.$invalid && infoForm.Assessing.$dirty)">
+                                            This is required
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label for="Interviewee">Email:</label>
+                                        <input required ng-readonly="!enableEdit" ng-model="submissionData.information.email" type="email" class="form-control" id="email" name="email">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.email.$error.required) || (infoForm.email.$error.required && infoForm.email.$dirty)">
+                                            This is required
+                                        </span>
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.email.$error.email) || (infoForm.email.$error.email && infoForm.email.$dirty)">
+                                            Invalid Email
+                                        </span>
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label for="Interviewee">Date Called:</label>
+                                        <p class="input-group">
+                                            <input readonly style="cursor: pointer;" required type="text" class="form-control" id="dateCalled" name="dateCalled" ng-disabled="!enableEdit" ng-model="submissionData.information.dateCalled" ng-click="opened = !opened" uib-datepicker-popup="{{dateFormat}}" show-button-bar="false" is-open="opened" datepicker-options="availableDateOptions" />
+                                            <span class="input-group-btn">
+                                                <button ng-disabled="!enableEdit" type="button" class="btn btn-default" ng-click="opened = !opened">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.dateCalled.$error.required) || (infoForm.dateCalled.$error.required && infoForm.dateCalled.$dirty)">
+                                            This is required
+                                        </span>
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.dateCalled.$error.date) || (infoForm.dateCalled.$error.dateCalled && infoForm.dateCalled.$dirty)">
+                                            Invalid Date
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label for="Office">Interviewee Office Address:</label>
+                                        <input required ng-readonly="!enableEdit" ng-model="submissionData.information.intervieweeOfficeAddress" type="text" class="form-control" id="Office" name="Office">
+                                        <span class="error-req" ng-show="(infoForm.$submitted && infoForm.Office.$invalid) || (infoForm.Office.$invalid && infoForm.Office.$dirty)">
+                                            This is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="section in submissionData.sections">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="heading1">
+                                        <h4 class="panel-title">
+                                            <a>{{section.name}}</a>
+                                        </h4>
+                                    </div>
+                                    <div class="panel-body" ng-repeat="question in section.questions" style="margin-top: 1%">
+                                        <form role="form">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>{{question.questionText}} </label>
+                                                        </div>
+                                                        <div>
+                                                            <div class="panel-options" ng-repeat="data in question.options  track by $index">
+                                                                <div class="options-panel" ng-if="data.id==0">
+                                                                    <input ng-readonly="!enableEdit" type="{{data.type}}" ng-model="data.answer.value">
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==1">
+                                                                    <!-- onclick="return {{enableEdit}};" -->
+                                                                    <label class="options-label radio-inline" ng-click="setActive(data, question.options)">
+                                                                        <input ng-disabled="!enableEdit" type="radio" ng-click="setActive(data, question.options)" ng-checked="data.answer.state">
+                                                                        {{data.radioLabel}}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==2">
+                                                                    <input ng-disabled="!enableEdit" type="checkbox" ng-model="data.answer.state">
+                                                                    <span class="options-label" style="padding-left: 1%">{{data.checkboxLabel}}</span>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==3">
+                                                                    <label ng-click="setActive(data, question.options)" style="margin-left: 2%;max-width: 80%;" class="options-label radio-inline">
+                                                                        <input type="radio" ng-click="setActive(data, question.options)" ng-disabled="!enableEdit" ng-checked="data.answer.state">
+                                                                        {{data.radioLabel}}
+                                                                    </label>
+                                                                    <input type="{{data.type}}" ng-model="data.answer.value" ng-readonly="!enableEdit">
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==4">
+                                                                    <label ng-click="setActive(data, question.options)" class="options-label radio-inline">
+                                                                        <input type="radio" ng-click="setActive(data, question.options)" ng-disabled="!enableEdit" ng-checked="data.answer.state">
+                                                                        {{data.radioLabel1}}
+                                                                    </label>
+                                                                    <input type="{{data.type}}" ng-model="data.answer.value" ng-readonly="!enableEdit">
+                                                                    <label style="padding-left: 1%">{{data.radioLabel2}}</label>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==5">
+                                                                    <label class="options-label radio-inline" ng-click="setActive(data, question.options)">
+                                                                        <input type="radio" ng-click="setActive(data, question.options)" ng-disabled="!enableEdit" ng-checked="data.answer.state">
+                                                                        {{data.radioLabel}}
+                                                                    </label>
+                                                                    <span class="btn-drop">
+                                                                        <span class="dropdown">
+                                                                            <button ng-disabled="!enableEdit" class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: black;" type="button" data-toggle="dropdown">
+                                                                                <span ng-if="data.answer.value">{{data.answer.value}}</span>
+                                                                                <span ng-if="!data.answer.value">Not Specified</span>
+                                                                                <span class="caret"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li ng-repeat="opt in data.dropDownOptions"><a ng-click="data.answer.value=opt.value">{{opt.value}}</a></li>
+                                                                            </ul>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==6">
+                                                                    <label class="checkbox-label">
+                                                                        <input type="checkbox" ng-model="data.answer.state" ng-disabled="!enableEdit">
+                                                                        <span class="dropdown-label">{{data.checkboxLabel}}</span>
+                                                                        <span class="dropdown">
+                                                                            <button ng-disabled="!enableEdit" class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: black;" type="button" data-toggle="dropdown">
+                                                                                <span ng-if="data.answer.value">{{data.answer.value}}</span>
+                                                                                <span ng-if="!data.answer.value">Not Specified</span>
+                                                                                <span class="caret"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li ng-repeat="opt in data.dropDownOptions">
+                                                                                    <a ng-click="data.answer.value=opt.value">{{opt.value}}</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==7">
+                                                                    <div class="row">
+                                                                        <div class="pull-left">
+                                                                            {{data.label}}
+                                                                        </div>
+                                                                        <div class="pull-left" style="margin-left: 25px;">
+                                                                            <p class="input-group" style="width: 200px;">
+                                                                                <input readonly style="cursor: pointer;" type="text" class="form-control" ng-model="data.answer.value" ng-init="data.answer.value = Date(data.answer.value)" is-open="data.opened" datepicker-options="availableDateOptions" uib-datepicker-popup="{{dateFormat}}" show-button-bar="false" ng-disabled="!enableEdit" ng-click="data.opened = !data.opened" ng-init="data.opened" />
+                                                                                <span class="input-group-btn">
+                                                                                    <button ng-disabled="!enableEdit" type="button" class="btn btn-default" ng-click="data.opened = !data.opened">
+                                                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==8">
+                                                                    <span style="font-weight: 700">Calendar Count:</span>
+                                                                    <br>
+                                                                    <input type="number" ng-init="numberOfFields = data.answer.options.length" ng-model="numberOfFields" ng-change="addCalenderFields(numberOfFields, data.answer.options)" />
+                                                                    <div ng-repeat="cal in  data.answer.options track by $index" ng-init="cal.value = Date(cal.value)" style="padding-top: 10px">
+                                                                        <span style="font-weight: 700">Enter Date</span>
+                                                                        <p class="input-group" style="width: 200px;">
+                                                                            <input readonly style="cursor: pointer;" type="text" class="form-control" ng-disabled="!enableEdit" uib-datepicker-popup="{{dateFormat}}" ng-click="cal.opened =! cal.opened" ng-model="cal.value" show-button-bar="false" is-open="cal.opened" datepicker-options="availableDateOptions" />
+                                                                            <span class="input-group-btn">
+                                                                                <button type="button" class="btn btn-default" ng-disabled="!enableEdit" ng-click="cal.opened =! cal.opened">
+                                                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==9">
+                                                                    <div class="row">
+                                                                        <div class="checkboxChange">
+                                                                            <div style="padding: 0">
+                                                                                <span class="form-group">
+                                                                                    <span style="font-weight: 700;float: left;max-width: 80%;">{{data.label}}</span>
+                                                                                    <span class="col-md-3">
+                                                                                        <label style="font-weight: 700;" class="options-label2 radio-inline">
+                                                                                            <input ng-disabled="!enableEdit" type="radio" name="eight_{{$index}}" ng-model="data.answer.value" ng-value="data.radioLabel1">
+                                                                                            {{data.radioLabel1}}
+                                                                                        </label>
+                                                                                        <br>
+                                                                                        <label style="font-weight: 700;" class="options-label2 radio-inline">
+                                                                                            <input ng-disabled="!enableEdit" type="radio" name="eight_{{$index}}" ng-model="data.answer.value" ng-value="data.radioLabel2">
+                                                                                            {{data.radioLabel2}}
+                                                                                        </label>
+                                                                                    </span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="options-panel" ng-if="data.id==10">
+                                                                    <div class="row">
+                                                                        <div class="checkboxChange">
+                                                                            <div style="padding: 0">
+                                                                                <div class="form-group">
+                                                                                    <span style="float:left;font-weight: 700;">{{data.label1}}</span>
+                                                                                    <input style="float:left;" type="text" ng-model="data.answer.inputValue" ng-readonly="!enableEdit">
+                                                                                    <span style="float:left;font-weight: 700;">{{data.label2}}</span>
+                                                                                    <span class="col-lg-3">
+                                                                                        <label style="font-weight: 700;" class="options-label2 radio-inline">
+                                                                                            <input ng-disabled="!enableEdit" type="radio" ng-model="data.answer.value" ng-value="data.radioLabel1">
+                                                                                            {{data.radioLabel1}}
+                                                                                        </label>
+                                                                                        <br>
+                                                                                        <span style="font-weight: 700;" class="options-label2 radio-inline">
+                                                                                            <input ng-disabled="!enableEdit" type="radio" ng-model="data.answer.value" ng-value="data.radioLabel2">
+                                                                                            {{data.radioLabel2}}
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--  <div >
+                                                           <div class="options-panel">
+                                                              <input   type="text">
+                                                           </div>
+                                                           </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <button ng-click="AddNewSurveyMetaData()" ng-if="enableEdit" style="min-width: 146px; margin-right: 19px;" class="btn btn-primary">
+                        Save New Information
+                    </button>
+                    <button form="infoForm" type="submit" ng-if="enableEdit" style="min-width: 146px; margin-right: 19px;; min-width: 146px; margin-right: 19px;" class="btn btn-primary">
+                        Update Submission
+                    </button>
+                    <a style="margin-right: 14px;min-width: 146px;" class="btn btn-primary" ui-sref="SubmissionList({id:surveyId})">
+                        Back
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<div id="myModalquestion" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-left" style="color:#fff;">
+                    Enter Submission Name
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="AddNewSurveyMetaData(name)">
+                    <div class="js-upload-finished text-left">
+                        <input ng-model="name" type="text" class="form-control" required autofocus>
+                    </div>
+                    <button type="submit" class="btn btn-success  pull-right" style="margin: 12px; z-index:111; ">Save</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer style="margin-top: 40px;" class="text-center">Copyright - 2017</footer>

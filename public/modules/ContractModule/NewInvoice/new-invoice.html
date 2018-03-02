@@ -1,0 +1,198 @@
+<link rel="stylesheet" type="text/css" href="modules/ContractModule/NewInvoice/new-invoice.css">
+<header style="margin-bottom: 1%"></header>
+<div class="container invoice-container">
+    <div class="col-xs-12">
+        <h4>
+            <label for="inputEmail3" class="col-sm-12 col-form-label">Invoice Spreadsheet</label><hr>
+        </h4>
+        <br>
+        <br>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Total Properties</label>
+            <div class="col-sm-4">
+                <div class="form-control label-readonly">{{$ctrl.invoiceData.master.totalProperties}}</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Total Fee</label>
+            <div class="col-sm-4">
+                <div class="form-control label-readonly">{{$ctrl.invoiceData.master.totalFee | currency:"$"}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Agent Name</label>
+            <div class="col-sm-4">
+                <div class="form-control label-readonly">{{$ctrl.invoiceData.master.AgentName}}</div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Date</label>
+            <div class="col-sm-4">
+                <div class="form-control label-readonly">{{$ctrl.invoiceData.master.Date}}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span><span>  Invoice List</span>
+                    <div class="pull-right action-buttons">
+                        <div class="btn-group pull-right">
+                            <ul class="dropdown-menu slidedown">
+                                <li><a><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a style="color: white;cursor: pointer" data-ng-if="$ctrl.showGrid" class="pull-right" ng-click="$ctrl.toggleView('detail')"><i class="fa fa-toggle-on" style="padding-right: 5px" aria-hidden="true"></i>View Detail</a>
+                    <a style="color: white;cursor: pointer" data-ng-if="!$ctrl.showGrid" class="pull-right" ng-click="$ctrl.toggleView('grid')"><i class="fa fa-toggle-off" style="padding-right: 5px" aria-hidden="true"></i>View Grid</a>
+
+                </div>
+                <div class="panel-body" data-ng-if="$ctrl.showGrid">
+                    <div id="myGrid" class="ag-bootstrap"></div>
+                </div>
+                <div class="panel-body" data-ng-if="!$ctrl.showGrid">
+                    <form>
+                        <div class="col-md-7">
+                            <h4>
+                                <label for="inputEmail3" class="col-sm-12 col-form-label">Invoice Spreadsheet</label><hr>
+                            </h4>
+                            <br>
+                            <br>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-6 col-form-label">Original Base Value before Re-Assessment</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.originalValue | currency:"$"}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-6 col-form-label">New Value as of Re-Assessment (Pre-Appeal)</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.newValue | currency:"$"}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-6 col-form-label">Value post Level 1 Appeal (Assessor Appeal)</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.postLevel1 | currency:"$"}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-6 col-form-label">Value post Level 2 Appeal (Board Appeal)</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.postLevel2 | currency:"$"}}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-6 col-form-label">Tax Rate</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.taxRate | currency:"$"}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-6 col-form-label">Fee %</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.feePercent }}</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-6 col-form-label">Tax Bill Due Date</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control label-readonly">{{$ctrl.singlePropertyData.taxBillDate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <h4>
+                                <label for="inputEmail3" class="col-sm-12 col-form-label">Compare to RE Tax Bill and confirm calculation</label><hr>
+                            </h4>
+                            <br>
+                            <br>
+                            <div class="form-group row">
+                                <table class="table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Tax Bill</th>
+                                            <td>
+                                                <div class="form-control label-readonly">{{$ctrl.singlePropertyData.taxBill | currency:"$"}}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Less Solid Waste</th>
+                                            <td>
+                                                <div class="form-control label-readonly">{{$ctrl.singlePropertyData.lessSolidWaste | currency:"$"}}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Water Quality Protect Chg</th>
+                                            <td>
+                                                <div class="form-control label-readonly">{{$ctrl.singlePropertyData.waterQuality | currency:"$"}}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Net Bill</th>
+                                            <td>
+                                                <div class="form-control label-readonly">{{$ctrl.singlePropertyData.netBill}}</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Taxes Owed (Pre-Appeal)</th>
+                                        <th>Taxes Owed (Post Level 1 (Assessor))</th>
+                                        <th>Taxes Owed (Post Level 1 (Board))</th>
+                                        <th>Tax Savings (Level 1)</th>
+                                        <th>Tax Savings (Level 2)</th>
+                                        <th>Fee Owed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span>{{$ctrl.singlePropertyData.taxPreAppeal | currency:"$"}}</span></td>
+                                        <td><span>{{$ctrl.singlePropertyData.taxLevel1 | currency:"$"}}</span></td>
+                                        <td><span>{{$ctrl.singlePropertyData.taxLevel2 | currency:"$"}}</span></td>
+                                        <td><span>{{$ctrl.singlePropertyData.taxSavingLevel1 | currency:"$"}}</span></td>
+                                        <td><span>{{$ctrl.singlePropertyData.taxSavingLevel2 | currency:"$"}}</span></td>
+                                        <td><span>{{$ctrl.singlePropertyData.feeOwed | currency:"$"}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12" data-ng-if="!$ctrl.showGrid">
+                            <div>Showing<strong> {{$ctrl.PageStartCount}} - {{$ctrl.PageEndCount}} of {{$ctrl.totalItems}} Results </strong></div>
+                            <div>
+                                <ul uib-pagination="" data-ng-model="$ctrl.currentPage" data-total-items="$ctrl.totalItems" data-max-size="4" data-boundary-links="true" data-previous-text="&lsaquo;" data-next-text="&rsaquo;" data-first-text="&laquo;" data-last-text="&raquo;" boundary-link-numbers="true"
+                                    data-items-per-page="$ctrl.pageSize" rotate="false" data-ng-change="$ctrl.pageChanged($ctrl.currentPage, $ctrl.pageSize)"></ul>
+                            </div>
+                        </div>
+                        <div data-ng-if="$ctrl.showGrid">
+                            <div class="col-md-12">
+                                <h6>
+                                    Total Count <span class="label label-info">{{$ctrl.totalItems}}</span>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="modules/SurveyModule/SubmissionList/submission-list.css">
+<header></header>
+<div ng-init="getSubmissions()">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-list"></span><span>Submission List</span>
+                        <div class="pull-right action-buttons">
+                            <div class="btn-group pull-right">
+                                <ul class="dropdown-menu slidedown">
+                                    <li><a><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a style="color: white;cursor: pointer" class="pull-right" ng-click="gotoSurveyAnswers()"><i class="fa fa-plus" style="padding-right: 5px" aria-hidden="true"></i>Add Submission</a>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <!--<th>Name</th>-->
+                            <th>Interviewee</th>
+                            <th>Interviewer</th>
+                            <th>Date Submitted</th>
+                            <th>Jurisdiction</th>
+                            <th>Website</th>
+                            <th>Phone #</th>
+                            <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in submissionData">
+                                    <!--<td>{{data.submissionName ? data.submissionName : 'Not Specified'}}</td>-->
+                                    <td>{{data.interviewee}}</td>
+                                    <td>{{data.interviewer}}</td>
+                                    <td>{{data.dateCalled | date : 'MM-dd-yyyy'}}</td>
+                                    <td>{{data.assessingJurisdiction}}</td>
+                                    <td>{{data.taxAssessorMainWebsite}}</td>
+                                    <td>{{data.phoneNumberCalled | tel}}</td>
+                                    <td style="text-align: center;cursor: pointer;">
+                                        <a ng-click="GotoSurveySubmission(data)" tooltip-placement="left" uib-tooltip="View Submissions">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-click="GotoSurveyDeletion(data)" tooltip-placement="left" uib-tooltip="Delete Submissions" style="margin-left: 7px;color: #ef2f2f">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>
+                                    Total Count <span class="label label-info">{{submissionData.length}}</span>
+                                </h6>
+                            </div>
+                            <div class="col-md-12">
+                                <a style="min-width: 146px;" class="btn btn-primary pull-right" ui-sref="SurveyList">
+                                    Back
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<footer style="margin-top: 40px;" class="text-center">Copyright - 2017</footer>

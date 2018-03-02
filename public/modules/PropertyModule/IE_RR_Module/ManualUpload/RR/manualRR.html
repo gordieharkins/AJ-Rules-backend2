@@ -1,0 +1,421 @@
+<style>
+body {
+    background-color: #f5f5f5;
+}
+
+.drop-file ul {
+    list-style: none;
+}
+
+.drop-file li {
+    position: relative;
+}
+
+.drop-file li:before {
+    position: absolute;
+    top: -2px;
+    margin: 8px 0 0 -12px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    content: "";
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: 0.8;
+}
+
+.datepicker_recurring_start {
+    font-size: 11px !important;
+    padding: 0 7px 0 2px;
+}
+
+
+/*
+  .modal-backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #000d36;
+  }
+  */
+
+.dataTables_wrapper .ui-toolbar {
+    padding: 0px;
+    BACKGROUND: #f5f5f5;
+}
+</style>
+<header></header>
+<div class="prop-fixd text-center">
+    <ul>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> {{manualRR.property.taxAccountNo ? manualRR.property.taxAccountNo : 'Not Specified'}}
+        </li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> {{manualRR.property.propertyName ? manualRR.property.propertyName : 'Not Specified'}}</li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> {{manualRR.property.streetAddress ? manualRR.property.streetAddress : 'Not Specified'}}</li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> {{manualRR.property.recordOwnerName ? manualRR.property.recordOwnerName : 'Not Specified'}}</li>
+    </ul>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary IE_RR">
+            <div class="panel-heading">
+                <h5>
+            <i class="fa fa-user" aria-hidden="true"></i> 
+            <strong>  Rent Role Report </strong>
+            <button type="button" ng-show="false" data-toggle="modal" data-target="#myModal" class="btn btn-user pull-right" style="  display: hidden;  margin-top: -6px; margin-right: 20px;"><i class="fa fa-user-plus" aria-hidden="true"></i> Upload More Files Or Data</button>
+            <h5>
+            </div>
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #ffffff; color: #555;">
+                    <div class="modal-header" style=" background: #000c35 !important;">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h5 class="modal-title text-ce nter" style="color:#fff;">Add one or more files or enter data manually</h5>
+            </div>
+            <div class="modal-body">
+                <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-group" style="    width: 100%; background:#47bcff; 
+                          border: none;">
+                            <label class="input-group-btn text-center"> <span class="btn" style="color:#fff; text-align: center;"> Upload Files from System&hellip;
+                            <input type="file" style="display: none;" multiple>
+                        </span> </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center"> OR </div>
+                    <div class="col-md-5">
+                        <button data-dismiss="modal" type="button" class="btn btn-success  " style="    width: 100%; background:#47bcff; 
+                  border: none;">Enter Data Manually &nbsp </button>
+                    </div>
+                </div>
+                <br>
+                <div class="clearfix"></div>
+                <div class="js-upload-finished text-left">
+                    <div class=" list-group list-group-item list-group-item-success" style="margin-bottom:10px;">
+                        <a href="# ">AOTC_Name.pdf</a>
+                        <a href=""><i class="fa fa-times pull-right" aria-hidden="true"></i></a>
+                    </div>
+                    <div class=" list-group list-group-item list-group-item-success" style="margin-bottom:10px;">
+                        <a href="# ">AOTC_Name.pdf</a>
+                        <a href=""><i class="fa fa-times pull-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <button data-toggle="modal" data-target="#myModalquestion" type="button" class="btn btn-user  pull-right" style="margin: 12px; z-index:111;  " id="success-btn">Submit</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModalquestion" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Do you want to add more files/data ? </h5>
+            </div>
+            <div class="modal-body text-center">
+                <h4 style="color:#0fad00">Success</h4>
+                <img height="50" src="http://osmhotels.com//assets/check-true.jpg">
+                <h4>Do you want to add more files/data ?</h4>
+                <button onclick="location.href = '22-UploadManual.html';" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; background: #F44336; !Important">No</button>
+                <button data-dismiss="modal" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; ">Yes</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-body drop-file">
+    <div class="row ">
+        <div class="col-md-12 submit-data">
+            <div class="welll" style=" margin-bottom: 20px !important">
+                <form name="rentRollForm" id="rentRollForm" ng-submit="rentRollForm.$valid && manualRR.submitRRForm()" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="sandbox-container">
+                                <label>Choose Year/Date</label>
+                                <div class='input-group date'>
+                                    <input ng-model="manualRR.formData.asOfDate" 
+                                    type='text' 
+                                    uib-datepicker-popup="{{manualRR.dateFormat}}" 
+                                    ng-click="manualRR.openDatePicker('asOfDate')"
+                                    is-open="manualRR.datePickers.asOfDate"
+                                    placeholder="Click here to choose date" 
+                                    class="form-control" name="date" id="date" required />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <span style="color: red;" ng-show="(rentRollForm.$submitted && rentRollForm.date.$invalid) || 
+                                        (rentRollForm.date.$touched && rentRollForm.date.$invalid)">
+                                        This is required.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Base Rent</label>
+                                <input ui-money-mask="0" ui-hide-space class='form-control alldisable' name="rent" id="rent" required type='text' ng-model="manualRR.formData.baseRent" placeholder="Enter Base Rent">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.rent.$invalid) || (
+                                                    rentRollForm.rent.$touched && rentRollForm.rent.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="sandbox-container">
+                                <label>Report Creation Date</label>
+                                <div class='input-group date'>
+                                    <input 
+                                    uib-datepicker-popup="{{manualRR.dateFormat}}" 
+                                    ng-click="manualRR.openDatePicker('reportCreationDate')"
+                                    is-open="manualRR.datePickers.reportCreationDate"                                    
+                                    class='form-control alldisable' type='text' name="creation" id="creation" ng-model="manualRR.formData.reportCreationDate" required placeholder="Enter Report Creation Date">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.creation.$invalid) || (
+                                                    rentRollForm.creation.$touched && rentRollForm.creation.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Gross Rent Monthly</label>
+                                <input ui-money-mask="0" ui-hide-space class='form-control alldisable' name="gm" id="gm" ng-model="manualRR.formData.totalGrossRentMonthly" required type='text' placeholder="Enter Gross Rent Monthly">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.gm.$invalid) || (
+                                                    rentRollForm.gm.$touched && rentRollForm.gm.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Gross Rent Per SF/Year</label>
+                                <input ui-money-mask="0" ui-hide-space ng-model="manualRR.formData.totalGrossRentPerSquareFeetPerYear" class='form-control alldisable' name="grsf" id="grsf" required type='text' placeholder="Enter Gross Rent Per SF/Year">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.grsf.$invalid) || (
+                                                    rentRollForm.grsf.$touched && rentRollForm.grsf.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Total SF</label>
+                                <input ui-money-mask="0" ui-hide-space ng-model="manualRR.formData.totalSF" class='form-control alldisable' name="totalSF" id="totalSF" required type='text' placeholder="Enter Total SF">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.totalSF.$invalid) || (
+                                                    rentRollForm.totalSF.$touched && rentRollForm.totalSF.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Vacant SF</label>
+                                <input ui-money-mask="0" ui-hide-space ng-model="manualRR.formData.vacantSF" class='form-control alldisable' name="vacantSF" id="vacantSF" required type='text' placeholder="Enter Vacant SF">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.vacantSF.$invalid) || (
+                                                    rentRollForm.vacantSF.$touched && rentRollForm.vacantSF.$invalid)">This is required.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class='form-group required'>
+                                <label>Vacant Percentage</label>
+                                <input ng-model="manualRR.formData.vacantPercentage" class='form-control alldisable' name="vacantPer" id="vacantPer" required type='text' min="0" max="100" ui-percentage-mask="0" ui-percentage-value placeholder="Enter Vacant Percentage">
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && 
+                                                    rentRollForm.vacantPer.$error.required) || (
+                                                    rentRollForm.vacantPer.$touched && rentRollForm.vacantPer.$error.required)">This is required.</span>
+                                <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && (rentRollForm.vacantPer.$error.max || rentRollForm.vacantPer.$error.min )  ) || 
+                                                    (rentRollForm.vacantPer.$touched && (rentRollForm.vacantPer.$error.max || rentRollForm.vacantPer.$error.min ) )">Percentage range is 0 to 100.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+                <form name="tenantForm" id="tenantForm" ng-submit="tenantForm.$valid && manualRR.addNewTenant()" novalidate>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input ng-show="manualRR.showRemoveButton" type="button" class="btn btn-danger pull-lft" ng-click="manualRR.removeTenant()" value="Remove" style="margin-left:20px;background: #e91e63;border: none;">
+                                <input type="submit" class="btn btn-primary addnew pull-left" value="Add tenant" style="     background: #47bcff;
+                              border: none;;">
+                                <div class="clearfix"></div>
+                            </div>
+                            <br>
+                            <table ng-show="manualRR.tenants.length>0" class="table table-striped table-bordered" style="margin-bottom:20px; !important">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" ng-click="manualRR.selectAll()" ng-checked="manualRR.allSelected" value="manualRR.allSelected" />
+                                        </th>
+                                        <th>Unit</th>
+                                        <th>Tenant</th>
+                                        <th>Square Feet</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Base Rent Monthly</th>
+                                        <th>Base Rent Annualized</th>
+                                        <th>Base Rent SF</th>
+                                        <th>% Rent Bump</th>
+                                        <th>Rolling 12 Months</th>
+                                        <th>Rolling Per SF/Yr</th>
+                                        <th>Gross Rent Monthly</th>
+                                        <th>Gross Rent SF/Yr</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="tenant in manualRR.tenants">
+                                        <td>
+                                            <input type="checkbox" ng-click="manualRR.toggleSelection(tenant)" ng-checked="tenant.selected" value="tenant.selected" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="unit_{{$index}}" id="unit_{{$index}}" class="form-control" ng-model="tenant.unit" required/>
+                                            <span style="color: red;" ng-show="
+                                                    (tenantForm.unit_{{$index}}.$touched && tenantForm.unit_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.unit_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input required type="text" name="tenant_{{$index}}" id="tenant_{{$index}}" class="form-control" ng-model="tenant.tenant" />
+                                            <span style="color: red;" ng-show="
+                                                    (tenantForm.tenant_{{$index}}.$touched && tenantForm.tenant_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted  && tenantForm.tenant_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-number-mask="0" ui-hide-space required type="text" name="squareFeet_{{$index}}" id="squareFeet_{{$index}}" class="form-control" ng-model="tenant.squareFeet" />
+                                            <span style="color: red;" ng-show="
+                                                   (tenantForm.squareFeet_{{$index}}.$touched && tenantForm.squareFeet_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted  && tenantForm.squareFeet_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input required type="text" name="startDate_{{$index}}" id="startDate_{{$index}}" class="form-control datepicker_recurring_start" ng-model="tenant.startDate" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.startDate_{{$index}}.$touched && tenantForm.startDate_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.startDate_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input required type="text" name="endDate_{{$index}}" id="endDate_{{$index}}" class="form-control datepicker_recurring_start" ng-model="tenant.endDate" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.endDate_{{$index}}.$touched && tenantForm.endDate_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted  && tenantForm.endDate_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="baseRentMonthly_{{$index}}" id="baseRentMonthly_{{$index}}" class="form-control" ng-model="tenant.baseRentMonthly" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.baseRentMonthly_{{$index}}.$touched && tenantForm.baseRentMonthly_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.baseRentMonthly_{{$index}}.$invalid) ">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="baseRentAnnualized_{{$index}}" id="baseRentAnnualized_{{$index}}" class="form-control" ng-model="tenant.baseRentAnnualized" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.baseRentAnnualized_{{$index}}.$touched && tenantForm.baseRentAnnualized_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.baseRentAnnualized_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="baseRentPerSquareFeetPerYear_{{$index}}" id="baseRentPerSquareFeetPerYear_{{$index}}" class="form-control" ng-model="tenant.baseRentPerSquareFeetPerYear" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.baseRentPerSquareFeetPerYear_{{$index}}.$touched && tenantForm.baseRentPerSquareFeetPerYear_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.baseRentPerSquareFeetPerYear_{{$index}}.$invalid) ">Required</span>
+                                        </td>
+                                        <td>
+                                            <input min="0" max="100" ui-percentage-mask="0" ui-percentage-value required type="text" name="rent_bump_{{$index}}" id="rent_bump_{{$index}}" class="form-control" ng-model="tenant.baseRentPercentRentBump" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.rent_bump_{{$index}}.$touched && tenantForm.rent_bump_{{$index}}.$error.required) || 
+                                                    (tenantForm.$submitted  && tenantForm.rent_bump_{{$index}}.$error.required)">Required</span>
+
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.rent_bump_{{$index}}.$touched && (tenantForm.rent_bump_{{$index}}.$error.max || tenantForm.rent_bump_{{$index}}.$error.min)
+                                                    ) || 
+                                                    (tenantForm.$submitted  && (tenantForm.rent_bump_{{$index}}.$error.max || tenantForm.rent_bump_{{$index}}.$error.min))">Unbound</span>
+
+                                            <span style="color: red;" ng-show="
+                                                    (rentRollForm.$submitted && (rentRollForm.vacantPer.$error.max || rentRollForm.vacantPer.$error.min )  ) || 
+                                                    (rentRollForm.vacantPer.$touched && (rentRollForm.vacantPer.$error.max || rentRollForm.vacantPer.$error.min ) )">Percentage range is 0 to 100.</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="rolling12Months_{{$index}}" id="rolling12Months_{{$index}}" class="form-control" ng-model="tenant.rolling12Months" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.rolling12Months_{{$index}}.$touched && tenantForm.rolling12Months_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted  && tenantForm.rolling12Months_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="rollingPerSquareFeetPerYear_{{$index}}" id="rollingPerSquareFeetPerYear_{{$index}}" class="form-control" ng-model="tenant.rollingPerSquareFeetPerYear" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.rollingPerSquareFeetPerYear_{{$index}}.$touched && tenantForm.rollingPerSquareFeetPerYear_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.rollingPerSquareFeetPerYear_{{$index}}.$invalid) ">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="grossRentMonthly_{{$index}}" id="grossRentMonthly_{{$index}}" class="form-control" ng-model="tenant.grossRentMonthly" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.grossRentMonthly_{{$index}}.$touched && tenantForm.grossRentMonthly_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.grossRentMonthly_{{$index}}.$invalid)">Required</span>
+                                        </td>
+                                        <td>
+                                            <input ui-money-mask="0" ui-hide-space required type="text" name="grossRentPerSquareFeetPerYear_{{$index}}" id="grossRentPerSquareFeetPerYear_{{$index}}" class="form-control" ng-model="tenant.grossRentPerSquareFeetPerYear" />
+                                            <span style="color: red;" ng-show="(
+                                                    tenantForm.grossRentPerSquareFeetPerYear_{{$index}}.$touched && tenantForm.grossRentPerSquareFeetPerYear_{{$index}}.$invalid) || 
+                                                    (tenantForm.$submitted && tenantForm.grossRentPerSquareFeetPerYear_{{$index}}.$invalid) ">Required</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="clearfix"></div>
+                    <div class="alert-box successa text-center">
+                        <p style="text-algin: center !important;">
+                            <i class="fa fa-3x fa-spinner text-center" aria-hidden="true"></i>
+                            <br> AOTC is uploading your files to <a href="24-TaskManager.html" style="color: #28ffbb; text-decoration: underline;     font-size: 15px;">  Task manager section </a>
+                            <br> meanwhile you can add more files or data.
+                            <br>
+                        </p>
+                    </div>
+                </form>
+                <button form="rentRollForm" type="submit" class="btn btn-user pull-right" style="margin: 12px; z-index:111; margin-top: -20px;" id="success-btn">Submit</button>
+                <button ng-click="manualRR.resetForm()" type="button" class="btn btn-user pull-right" style="margin: 12px; z-index:111; margin-top: -20px;" id="success-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- modal -->
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Do you want to add more data ? </h5>
+            </div>
+            <div class="modal-body text-center">
+                <h4 style="color:#0fad00">Success</h4>
+                <img height="50" src="http://osmhotels.com//assets/check-true.jpg">
+                <h4>Do you want to add more files/data ?</h4>
+                <button ng-click="manualRR.gotoPropertyDetails()" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; background: #F44336; !Important">No</button>
+                <button ng-click="manualRR.resetForm()" modal-dismiss="modal" type="button" class="btn btn-user  pull-center" style="margin: 12px; z-index:111; ">Yes</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

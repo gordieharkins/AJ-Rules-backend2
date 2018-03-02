@@ -1,0 +1,664 @@
+<link rel="stylesheet" type="text/css" href="modules/SurveyModule/Wizards/ArrangeSurvey/ArrangeSurvey.css">
+<header></header>
+<div class="wrapper-survey" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel  panel-primary" ng-show="contractList">
+                <div class="row" style="padding: 20px">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="tableheading" style="padding: 5px 16px 4px 16px;">
+                            <span class="pull-left">
+                     <h5>Contracts</h5>
+                  </span>
+                            <button style="border:0;" class="btn-formats btn-formats-active pull-right" ng-click="addNewContract()"><i class="fa fa-plus fa-1x"></i> Create New </button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <table ng-show="contracts.length > 0" class="table table-striped table-bordered table-condensed " class="display responsive no-wrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-4">Contract ID</th>
+                                    <th class="col-md-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in contracts">
+                                    <td>{{data.contractId}}</td>
+                                    <td><span style="margin-left: 10px; margin-top: 4px;" class="pull-left">
+                           <button class="btn btn-info pull-right" style="margin-right: 10px; background: #107dda;
+                              border: none;    padding: 4px;" data-toggle="tooltip"
+                              data-placement="right" title="View details">
+                           <i class="fa  fa-eye fa-lg"></i> </button>
+                           <button class="btn btn-info pull-right" style="margin-right: 10px; background: #ec2f21;
+                              border: none; padding: 4px;"
+                              data-placement="right" title="Delete Form">
+                           <i class="fa fa-trash-o fa-lg"></i> </button>
+                           <button class="btn btn-info pull-right" style="margin-right: 10px; background: green;
+                              border: none; padding: 4px;"
+                              data-placement="right" title="Workspace">
+                           <i class="fa fa-briefcase fa-lg"></i> </button>
+                           </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span ng-show="contracts.length == 0">
+                  <hr>
+                  <center  ><br><br><label>No Record Found</label></center>
+               </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel  panel-primary" ng-hide="contractList">
+                <div class=" panel-heading">
+                    <h5>
+               <strong> <i class="fa fa-sort" aria-hidden="true"></i></strong>
+               <button  ng-click="addContract();" type="button"  class="btn btn-user pull-right" style="margin-top: -7px; margin-right: 30px;"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Section </button>
+               <button  ng-click="saveContract(models.lists);addNewContract();" ng-show="addContractFlag" type="button"  class="btn btn-user pull-right" style="margin-top: -7px; margin-right: 30px;">  Save Contract </button>
+            </h5>
+                </div>
+                <div>
+                    <div class="col-md-7 button-save" ng-if="models.lists.length>0">
+                        <button class="btn btn-primary pull-right btn-gap" ng-click="editContract(models.lists)">Edit All</button>
+                        <button class="btn btn-primary pull-right " ng-click="saveContract(models.lists)">Save All</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="simpleDemo row">
+                        <br>
+                        <div class="col-md-7" my-sortable id="sortable">
+                            <div class="panel panel-info " ng-repeat="data in models.lists">
+                                <span ng-if="data.editable==true">
+                        <div class="col-md-12 custom-head">
+                           <h4 class="text-center col-md-7" style="padding-left:25% " >Section</h4>
+                           <div class="col-md-5">
+                              <button class="btn btn-primary pull-right btn-upd" ng-click="saveSingleContract($index,models.lists)">Save</button>
+                              <a  class="btn-upd pull-right"  style="font-size: 15px;margin-top: 2%;padding: 1%;cursor: pointer">Save as Template</a>
+                           </div>
+                        </div>
+                        <ul style="padding: 0px">
+                           <li class="contract-section">
+                              <div class="contract-section-panel">
+                                 <label >{{data.title}}</label><span  onaftersave="saveEditLabel()"   editable-text="data.title "><i class="fa fa-pencil-square-o " aria-hidden="true"></i></span></i>
+                            </div>
+                            </li>
+                            <li class="contract-section">
+                                <div class="contract-section-panel">
+                                    <label>{{data.label}}</label><span editable-text="data.label "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></i>
+                                </div>
+                            </li>
+                            <li class="contract-section">
+                                <div class="contract-section-panel">
+                                    <label>{{data.type}}</label>
+                                    <span class="fakespace"> </span>
+                                    <span class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: #555" type="button" data-toggle="dropdown">{{data.type}}
+                                    <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a ng-click="selectOptions($index,'Standard Clause')">Standard Clause</a></li>
+                                        <li><a ng-click="selectOptions($index,'Cost')">Cost</a></li>
+                                        <li><a ng-click="selectOptions($index,'Signature Block')">Signature Block</a></li>
+                                        <li><a ng-click="selectOptions($index,'Appendix')">Appendix</a></li>
+                                    </ul>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="contract-section">
+                                <div class="contract-section-panel">
+                                    <textarea type="text" placeholder="Enter Text " ng-model="data.data" class="form-control" rows="5" id="comment"></textarea>
+                                </div>
+                            </li>
+                            </ul>
+                            </span>
+                            <span ng-if="data.editable==false">
+                        <!-- <<<<<<< HEAD -->
+                        <div class="panel-heading">
+                           <h4 ng-if="data.name" class="text-center" >{{ data.name || 'empty' }}
+                           </h4>
+                        </div>
+                        <div class="panel-button ">
+                           <button class="btn btn-primary pull-right " ng-click="editSingleContract($index,models.lists)">Edit</button>
+                        </div>
+                        <ul style="padding: 0px">
+                           <li class="contract-section">
+                              <div class="contract-section-panel">
+                                 <label >{{data.title}}</label>
+                              </div>
+                           </li>
+                           <li class="contract-section">
+                              <div  class="contract-section-panel" >
+                                 <label >{{data.label}}</label>
+                              </div>
+                           </li>
+                           <li class="contract-section">
+                              <div class="contract-section-panel">
+                                 <label>{{data.type}}</label>
+                              </div>
+                           </li>
+                           <li class="contract-section">
+                              <div class="contract-section-panel">
+                                 <label>{{data.text}}</label>
+                              </div>
+                           </li>
+                        </ul>
+                     </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 set-val">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Templates</h3>
+                        </div>
+                        <div>
+                            <!--<ul ng-repeat="data in templateData" >-->
+                            <!--<li my-draggable="#sortable" class="ui-state-highlight">{{data}}</li>-->
+                            <!--</ul>-->
+                            <!--</div>-->
+                            <!--<ul>-->
+                            </ul>
+                            <!-- ======= -->
+                            <!-- <div class="col-md-12 custom-head">
+                        <h4 class="text-center col-md-7" style="padding-left:25%">Section</h4>
+                        <div class="col-md-5">
+                           <button class="btn btn-primary pull-right btn-upd" ng-click="editSingleContract($index,models.lists)">Edit</button>
+                           <a  class="btn-upd pull-right"  style="font-size: 15px;margin-top: 2%;padding: 1%;cursor: pointer">Save as Template</a>
+                        </div>
+                        </div>
+                        <ul style="padding: 0px">
+                        <li class="contract-section">
+                           <div class="contract-section-panel">
+                              <label >{{data.title}}</label>
+                           </div>
+                        </li>
+                        <li class="contract-section">
+                           <div  class="contract-section-panel" >
+                              <label >{{data.label}}</label>
+                           </div>
+                        </li>
+                        <li class="contract-section">
+                           <div class="contract-section-panel">
+                              <label>{{data.type}}</label>
+                           </div>
+                        </li>
+                        <li class="contract-section">
+                           <div class="contract-section-panel">
+                              <label>{{data.data}}</label>
+                           </div>
+                        </li>
+                        </ul>
+                        </span>
+                        </div> -->
+                            <!-- >>>>>>> e65ac551618b72212c4e657594384e63e73be30c -->
+                        </div>
+                        <!--<div class="col-md-5 set-val" >-->
+                        <!--<div class="panel-heading">-->
+                        <!--<h3 class="panel-title">Templates</h3>-->
+                        <!--</div>-->
+                        <!--<div  >-->
+                        <!--<ul ng-repeat="data in templateData" >-->
+                        <!--<li my-draggable="#sortable" class="ui-state-highlight">{{data}}</li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--<ul>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                    </div>
+                    <div view-source="simple"></div>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="mySaveModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">New Contract</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form name="saveForm" role="form">
+                        <div class="form-group">
+                            <!--<label for="inputName" class="control-label">Please Enter Valuation Form Name</label>-->
+                            <input type="text" class="form-control" id="inputName" input-focus-function="focusOnSaveInput" placeholder="Enter a name for new contract" ng-model="PropValuation.formName" required autofocus>
+                        </div>
+                        <span ng-show="PropValuation.alreadyExists" style="color:red; margin-top: -12px;" class="pull-left">Valuation Form name already exist.</span>
+                        <br>
+                        <div class="form-group" ng-show="PropValuation.alreadyExists">
+                            <label for="inputEmail" class="control-label">Do you want to replace this Valuation Form with existing?</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="replace" ng-model="PropValuation.isReplace" value="1">Yes</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="replace" ng-click="focusOnSaveInput()" ng-model="PropValuation.isReplace" value="0">No</label>
+                            </div>
+                        </div>
+                        <div class="form-group pull-right">
+                            <button type="submit" data-dismiss="modal" class="btn btn-danger" ng-click="PropValuation.cancel()">Cancel</button>
+                            <button type="submit" form="saveForm" ng-disabled="saveForm.$invalid" class="btn btn-success" ng-click="PropValuation.saveForm()">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Load files. -->
+<!-- 
+<div>
+  <div ckeditor="options" ng-model="content" ready="onReady()"></div>
+</div> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Paste from Word</title>
+    <script src="http://cdn.ckeditor.com/4.7.1/standard-all/ckeditor.js"></script>
+    <style type="text/css">
+    /* Minimal styling to center the editor in this sample */
+
+    .container {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .inner-container {
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <textarea cols="80" id="editor1" name="editor1" rows="10">&lt;h1 style="text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;&lt;spanstyle="color:#006699"&gt;Recognition of Achievement&lt;/span&gt;&lt;/span&gt;&lt;/h1&gt;&lt;p style="text-align:justify"&gt;&lt;span style="font-family:Georgia,serif"&gt;This letter acknowledges the invaluable input &lt;strong&gt;you&lt;/strong&gt;, as a memberof our &lt;em&gt;Innovation Team&lt;/em&gt;,&amp;nbsp;have provided in the &amp;ldquo;Implement Rich Text Editor&amp;rdquo;&amp;nbsp;project. The Management would like to hereby thank you for this great accomplishment that was delivered in a timely fashion, up to the highest company standards, and with great results:&lt;/span&gt;&lt;/p&gt;&lt;table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;width:100%" summary="Project Schedule"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th scope="col" style="background-color:#cccccc"&gt;&lt;span style="font-family:Georgia,serif"&gt;Project Phase&lt;/span&gt;&lt;/th&gt;&lt;th scope="col" style="background-color:#cccccc"&gt;&lt;span style="font-family:Georgia,serif"&gt;Deadline&lt;/span&gt;&lt;/th&gt;&lt;th scope="col" style="background-color:#cccccc"&gt;&lt;span style="font-family:Georgia,serif"&gt;Status&lt;/span&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;span style="font-family:Georgia,serif"&gt;Phase 1: Market research&lt;/span&gt;&lt;/td&gt;&lt;td style="text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;2016-10-15&lt;/span&gt;&lt;/td&gt;&lt;td style="text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;&lt;span style="color:#19b159"&gt;✓&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="background-color:#eeeeee"&gt;&lt;span style="font-family:Georgia,serif"&gt;Phase 2: Editor implementation&lt;/span&gt;&lt;/td&gt;&lt;td style="background-color:#eeeeee; text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;2016-10-20&lt;/span&gt;&lt;/td&gt;&lt;td style="background-color:#eeeeee; text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;&lt;span style="color:#19b159"&gt;✓&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;span style="font-family:Georgia,serif"&gt;Phase 3: Rollout to Production&lt;/span&gt;&lt;/td&gt;&lt;td style="text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;2016-10-22&lt;/span&gt;&lt;/td&gt;&lt;td style="text-align:center"&gt;&lt;span style="font-family:Georgia,serif"&gt;&lt;span style="color:#19b159"&gt;✓&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style="text-align:justify"&gt;&lt;span style="font-family:Georgia,serif"&gt;The project that you participated in is of utmost importance to the future success of our platform. &amp;nbsp;We are very proud to share that&amp;nbsp;the&amp;nbsp;CKEditor implementation was a huge success and brought congratulations from both the key Stakeholders and the Customers:&lt;/span&gt;&lt;/p&gt;&lt;p style="text-align:center"&gt;&lt;em&gt;&lt;span style="font-family:Georgia,serif"&gt;This new editor has totally changed our content creation experience!&lt;/em&gt;&lt;/p&gt;&lt;p style="text-align:center"&gt;&lt;em&gt;&lt;span style="font-family:Georgia,serif"&gt;&amp;mdash; John F. Smith, CEO, The New Web&lt;/em&gt;&lt;/p&gt;&lt;p style="text-align:justify"&gt;&lt;span style="font-family:Georgia,serif"&gt;This letter recognizes that much of our success is directly attributable to your efforts.&amp;nbsp;You deserve to be proud of your achievement. May your future efforts be equally successful and rewarding.&lt;/span&gt;&lt;/p&gt;&lt;p style="text-align:justify"&gt;&lt;span style="font-family:Georgia,serif"&gt;I am sure we will be seeing and hearing a great deal more about your accomplishments in the future. Keep up the good work!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;span style="font-family:Georgia,serif"&gt;Best regards,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style="font-family:Georgia,serif"&gt;&lt;em&gt;The Management&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
+            </textarea>
+        </div>
+    </div>
+    <script>
+    CKEDITOR.replace('editor1', {
+        // Define the toolbar: http://docs.ckeditor.com/#!/guide/dev_toolbar
+        // The full preset from CDN which we used as a base provides more features than we need.
+        // Also by default it comes with a 3-line toolbar. Here we put all buttons in two rows.
+        toolbar: [
+            { name: 'clipboard', items: ['PasteFromWord', '-', 'Undo', 'Redo'] },
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript'] },
+            { name: 'links', items: ['Link', 'Unlink'] },
+            { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+            { name: 'insert', items: ['Image', 'Table'] },
+            { name: 'editing', items: ['Scayt'] },
+            '/',
+
+            { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
+            { name: 'colors', items: ['TextColor', 'BGColor', 'CopyFormatting'] },
+            { name: 'align', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+            { name: 'document', items: ['Print', 'Source'] }
+        ],
+
+        // Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
+        // One HTTP request less will result in a faster startup time.
+        // For more information check http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-customConfig
+        customConfig: '',
+
+        // Upload images to a CKFinder connector (note that the response type is set to JSON).
+        uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+
+        // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+        filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+        filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?type=Images',
+        filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+
+        // Sometimes applications that convert HTML to PDF prefer setting image width through attributes instead of CSS styles.
+        // For more information check:
+        //  - About Advanced Content Filter: http://docs.ckeditor.com/#!/guide/dev_advanced_content_filter
+        //  - About Disallowed Content: http://docs.ckeditor.com/#!/guide/dev_disallowed_content
+        //  - About Allowed Content: http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules
+        disallowedContent: 'img{width,height,float}',
+        extraAllowedContent: 'img[width,height,align];span{background}',
+
+        // Enabling extra plugins, available in the full-all preset: http://ckeditor.com/presets-all
+        extraPlugins: 'colorbutton,font,justify,print,tableresize,uploadimage,uploadfile,pastefromword,liststyle',
+
+        /*********************** File management support ***********************/
+        // In order to turn on support for file uploads, CKEditor has to be configured to use some server side
+        // solution with file upload/management capabilities, like for example CKFinder.
+        // For more information see http://docs.ckeditor.com/#!/guide/dev_ckfinder_integration
+
+        // Uncomment and correct these lines after you setup your local CKFinder instance.
+        // filebrowserBrowseUrl: 'http://example.com/ckfinder/ckfinder.html',
+        // filebrowserUploadUrl: 'http://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        /*********************** File management support ***********************/
+
+        // Make the editing area bigger than default.
+        height: 1000,
+        width: 940,
+
+        // An array of stylesheets to style the WYSIWYG area.
+        // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
+        contentsCss: [CKEDITOR.basePath + 'contents.css', 'http://sdk.ckeditor.com/samples/assets/css/pastefromword.css'],
+
+        // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
+        bodyClass: 'document-editor',
+
+        // Reduce the list of block elements listed in the Format dropdown to the most commonly used.
+        format_tags: 'p;h1;h2;h3;pre',
+
+        // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
+        removeDialogTabs: 'image:advanced;link:advanced',
+
+        // Define the list of styles which should be available in the Styles dropdown list.
+        // If the "class" attribute is used to style an element, make sure to define the style for the class in "mystyles.css"
+        // (and on your website so that it rendered in the same way).
+        // Note: by default CKEditor looks for styles.js file. Defining stylesSet inline (as below) stops CKEditor from loading
+        // that file, which means one HTTP request less (and a faster startup).
+        // For more information see http://docs.ckeditor.com/#!/guide/dev_styles
+        stylesSet: [
+            /* Inline Styles */
+            { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+            { name: 'Cited Work', element: 'cite' },
+            { name: 'Inline Quotation', element: 'q' },
+
+            /* Object Styles */
+            {
+                name: 'Special Container',
+                element: 'div',
+                styles: {
+                    padding: '5px 10px',
+                    background: '#eee',
+                    border: '1px solid #ccc'
+                }
+            },
+            {
+                name: 'Compact table',
+                element: 'table',
+                attributes: {
+                    cellpadding: '5',
+                    cellspacing: '0',
+                    border: '1',
+                    bordercolor: '#ccc'
+                },
+                styles: {
+                    'border-collapse': 'collapse'
+                }
+            },
+            { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+            { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+        ]
+    });
+    </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Drag and Drop Integration</title>
+    <script src="http://cdn.ckeditor.com/4.7.1/standard-all/ckeditor.js"></script>
+    <style>
+    .columns {
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #E7E7E7;
+    }
+
+    .columns:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+
+    .columns>.editor {
+        float: left;
+        width: 65%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .columns>.contacts {
+        float: right;
+        width: 35%;
+        box-sizing: border-box;
+        padding: 0 0 0 20px;
+    }
+
+    #contactList {
+        list-style-type: none;
+        margin: 0 !important;
+        padding: 0;
+    }
+
+    #contactList li {
+        background: #FAFAFA;
+        margin-bottom: 1px;
+        height: 56px;
+        line-height: 56px;
+        cursor: pointer;
+    }
+
+    #contactList li:nth-child(2n) {
+        background: #F3F3F3;
+    }
+
+    #contactList li:hover {
+        background: #FFFDE3;
+        border-left: 5px solid #DCDAC1;
+        margin-left: -5px;
+    }
+
+    .contact {
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .contact .u-photo {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    #editor1 .h-card {
+        background: #FFFDE3;
+        padding: 3px 6px;
+        border-bottom: 1px dashed #ccc;
+    }
+
+    #editor1 {
+        border: 1px solid #E7E7E7;
+        padding: 0 20px;
+        background: #fff;
+        position: relative;
+    }
+
+    #editor1 .h-card .p-tel {
+        font-style: italic;
+    }
+
+    #editor1 .h-card .p-tel::before,
+    #editor1 .h-card .p-tel::after {
+        font-style: normal;
+    }
+
+    #editor1 .h-card .p-tel::before {
+        content: "(☎ ";
+    }
+
+    #editor1 .h-card .p-tel::after {
+        content: ")";
+    }
+
+    #editor1 h1 {
+        text-align: center;
+    }
+
+    #editor1 hr {
+        border-style: dotted;
+        border-color: #DCDCDC;
+        border-width: 1px 0 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="columns">
+        <div class="editor">
+            <div cols="10" id="editor1" name="editor1" rows="10" contenteditable="true">
+                <h1>The Annual Meeting of Fictional Characters</h1>
+                <h3>Technical Announcement</h3>
+                <p>We hereby have the pleasure to announce that the theme of this year's meeting is "<strong>E–ink Technology and Classical Fairy Tales</strong>". As every year, the event will be hosted in <em>The Wonderland</em> by <span class="h-card"><a class="p-name u-email" href="mailto:alice@example.com">Alice</a> <span class="p-tel">+20 4345 234 235</span></span>and starts tomorrow at 8:00 GMT.</p>
+                <h3>Speakers and Agenda</h3>
+                <p>TBA.</p>
+                <h3>Venue</h3>
+                <p>For detailed information, please contact <span class="h-card"><a class="p-name u-email" href="mailto:h.finn@example.com">Huckleberry Finn</a> <span class="p-tel">+48 1345 234 235</span></span>.</p>
+                <h3>Accommodation</h3>
+                <p>Many thanks to <span class="h-card"><a class="p-name u-email" href="mailto:r.crusoe@example.com">Robinson Crusoe</a> <span class="p-tel">+45 2345 234 235</span></span>who kindly offered his island to the guests of the annual meeting.</p>
+                <hr>
+                <p style="text-align: right;"><span class="h-card"><a class="p-name u-email" href="mailto:lrrh@example.com">Little Red Riding Hood</a> <span class="p-tel">+45 2345 234 235</span></span>
+                </p>
+            </div>
+        </div>
+        <div class="contacts">
+            <h3>List of Droppable Contacts</h3>
+            <ul id="contactList">
+                <li>
+                    <div class="contact h-card" data-contact="0" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/hfin.png" alt="avatar" class="u-photo">Huckleberry Finn</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="1" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/dartagnan.png" alt="avatar" class="u-photo">D'Artagnan</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="2" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/pfog.png" alt="avatar" class="u-photo">Phileas Fogg</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="3" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/alice.png" alt="avatar" class="u-photo">Alice</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="4" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/lrrh.png" alt="avatar" class="u-photo">Little Red Riding Hood</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="5" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/winetou.png" alt="avatar" class="u-photo">Winnetou</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="6" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/edantes.png" alt="avatar" class="u-photo">Edmond Dantès</div>
+                </li>
+                <li>
+                    <div class="contact h-card" data-contact="7" draggable="true" tabindex="0">
+                        <img src="http://sdk.ckeditor.com/samples/assets/draganddrop/img/rcrusoe.png" alt="avatar" class="u-photo">Robinson Crusoe</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+    'use strict';
+
+    var CONTACTS = [
+        { name: 'Huckleberry Finn', tel: '+48 1345 234 235', email: 'h.finn@example.com', avatar: 'hfin' },
+        { name: 'D\'Artagnan', tel: '+45 2345 234 235', email: 'dartagnan@example.com', avatar: 'dartagnan' },
+        { name: 'Phileas Fogg', tel: '+44 3345 234 235', email: 'p.fogg@example.com', avatar: 'pfog' },
+        { name: 'Alice', tel: '+20 4345 234 235', email: 'alice@example.com', avatar: 'alice' },
+        { name: 'Little Red Riding Hood', tel: '+45 2345 234 235', email: 'lrrh@example.com', avatar: 'lrrh' },
+        { name: 'Winnetou', tel: '+44 3345 234 235', email: 'winnetou@example.com', avatar: 'winetou' },
+        { name: 'Edmond Dantès', tel: '+20 4345 234 235', email: 'count@example.com', avatar: 'edantes' },
+        { name: 'Robinson Crusoe', tel: '+45 2345 234 235', email: 'r.crusoe@example.com', avatar: 'rcrusoe' }
+    ];
+
+    CKEDITOR.disableAutoInline = true;
+
+    // Implements a simple widget that represents contact details (see http://microformats.org/wiki/h-card).
+    CKEDITOR.plugins.add('hcard', {
+        requires: 'widget',
+
+        init: function(editor) {
+            editor.widgets.add('hcard', {
+                allowedContent: 'span(!h-card); a[href](!u-email,!p-name); span(!p-tel)',
+                requiredContent: 'span(h-card)',
+                pathName: 'hcard',
+
+                upcast: function(el) {
+                    return el.name == 'span' && el.hasClass('h-card');
+                }
+            });
+
+            // This feature does not have a button, so it needs to be registered manually.
+            editor.addFeature(editor.widgets.registered.hcard);
+
+            // Handle dropping a contact by transforming the contact object into HTML.
+            // Note: All pasted and dropped content is handled in one event - editor#paste.
+            editor.on('paste', function(evt) {
+                var contact = evt.data.dataTransfer.getData('contact');
+                if (!contact) {
+                    return;
+                }
+
+                evt.data.dataValue =
+                    '<span class="h-card">' +
+                    '<a href="mailto:' + contact.email + '" class="p-name u-email">' + contact.name + '</a>' +
+                    ' ' +
+                    '<span class="p-tel">' + contact.tel + '</span>' +
+                    '</span>';
+            });
+        }
+    });
+
+    CKEDITOR.on('instanceReady', function() {
+        // When an item in the contact list is dragged, copy its data into the drag and drop data transfer.
+        // This data is later read by the editor#paste listener in the hcard plugin defined above.
+        CKEDITOR.document.getById('contactList').on('dragstart', function(evt) {
+            // The target may be some element inside the draggable div (e.g. the image), so get the div.h-card.
+            var target = evt.data.getTarget().getAscendant('div', true);
+
+            // Initialization of the CKEditor data transfer facade is a necessary step to extend and unify native
+            // browser capabilities. For instance, Internet Explorer does not support any other data type than 'text' and 'URL'.
+            // Note: evt is an instance of CKEDITOR.dom.event, not a native event.
+            CKEDITOR.plugins.clipboard.initDragDataTransfer(evt);
+
+            var dataTransfer = evt.data.dataTransfer;
+
+            // Pass an object with contact details. Based on it, the editor#paste listener in the hcard plugin
+            // will create the HTML code to be inserted into the editor. You could set 'text/html' here as well, but:
+            // * It is a more elegant and logical solution that this logic is kept in the hcard plugin.
+            // * You do not know now where the content will be dropped and the HTML to be inserted
+            // might vary depending on the drop target.
+            dataTransfer.setData('contact', CONTACTS[target.data('contact')]);
+
+            // You need to set some normal data types to backup values for two reasons:
+            // * In some browsers this is necessary to enable drag and drop into text in the editor.
+            // * The content may be dropped in another place than the editor.
+            dataTransfer.setData('text/html', target.getText());
+
+            // You can still access and use the native dataTransfer - e.g. to set the drag image.
+            // Note: IEs do not support this method... :(.
+            if (dataTransfer.$.setDragImage) {
+                dataTransfer.$.setDragImage(target.findOne('img').$, 0, 0);
+            }
+        });
+    });
+
+    // Initialize the editor with the hcard plugin.
+    CKEDITOR.inline('editor1', {
+        extraPlugins: 'hcard,sourcedialog,justify'
+    });
+    </script>
+</body>
+
+</html> -->

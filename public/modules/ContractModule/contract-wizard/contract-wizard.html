@@ -1,0 +1,134 @@
+<link rel="stylesheet" type="text/css" href="modules/SurveyModule/Wizards/ArrangeSurvey/ArrangeSurvey.css">
+
+
+<div  class="wrapper-survey" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel  panel-primary">
+                <div class=" panel-heading">
+                    <h5>
+                        <strong> <i class="fa fa-sort" aria-hidden="true"></i></strong>
+                        <button  ng-click="addContract()" type="button"  class="btn btn-user pull-right" style="margin-top: -7px; margin-right: 30px;"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Section </button>
+                        </h5>
+                 </div>
+                <div >
+                <div class="col-md-7 button-save" ng-if="models.lists.length>0">
+                    <button class="btn btn-primary pull-right btn-gap" ng-click="editContract(models.lists)">Edit All</button>
+                    <button class="btn btn-primary pull-right " ng-click="saveContract(models.lists)">Save All</button>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="simpleDemo row" >
+                        <br>
+                        <div class="col-md-7" my-sortable id="sortable" >
+                            <div class="panel panel-info"  ng-repeat="data in models.lists" >
+                                <span ng-if="data.editable==true">
+                                <div class="panel-heading">
+                                    <h4 ng-if="data.name" class="text-center" >{{ data.name || 'empty' }} <span      editable-text="data.name"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></h4>
+                                </div>
+                                <div class="panel-button ">
+                                    <button class="btn btn-primary pull-right " ng-click="saveSingleContract($index,models.lists)">Save</button>
+
+                                </div>
+                                <ul style="padding: 0px">
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                              <label >{{data.title}}</label><span  onaftersave="saveEditLabel()"   editable-text="data.title "><i class="fa fa-pencil-square-o " aria-hidden="true"></i></span></i>
+                                      </div>
+                                    </li>
+                                    <li class="contract-section">
+                                        <div  class="contract-section-panel" >
+                                              <label >{{data.label}}</label><span      editable-text="data.label "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></i>
+                                      </div>
+                                    </li>
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                            <label>{{data.type}}</label>
+                                            <span class="fakespace"> </span>
+                                            <span class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{data.type}}
+
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a ng-click="selectOptions($index,'Standard Clause')" >Standard Clause</a></li>
+                                                <li><a ng-click="selectOptions($index,'Cost')">Cost</a></li>
+                                                <li><a ng-click="selectOptions($index,'Signature Block')">Signature Block</a></li>
+                                                <li><a ng-click="selectOptions($index,'Appendix')">Appendix</a></li>
+                                            </ul>
+                                        </span>
+                                        </div>
+
+                                    </li>
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                            <textarea type="text"  placeholder="Enter Text " ng-model="sectionData.sectionText" class="form-control" rows="5" id="comment"></textarea>
+                                      </div>
+                                    </li>
+                                </ul>
+                                </span>
+                                <span ng-if="data.editable==false">
+                                <div class="panel-heading">
+                                    <h4 ng-if="data.name" class="text-center" >{{ data.name || 'empty' }}
+                                    </h4>
+                                </div>
+                                <div class="panel-button ">
+                                    <button class="btn btn-primary pull-right " ng-click="editSingleContract($index,models.lists)">Edit</button>
+
+                                </div>
+                                <ul style="padding: 0px">
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                            <label >{{data.title}}</label>
+                                        </div>
+                                    </li>
+                                    <li class="contract-section">
+                                        <div  class="contract-section-panel" >
+                                            <label >{{data.label}}</label>
+                                        </div>
+                                    </li>
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                            <label>{{data.type}}</label>
+
+                                        </div>
+
+                                    </li>
+                                    <li class="contract-section">
+                                        <div class="contract-section-panel">
+                                            <label>{{data.text}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                </span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 set-val" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Templates</h3>
+                            </div>
+                            <div  >
+                            <!--<ul ng-repeat="data in templateData" >-->
+                                <!--<li my-draggable="#sortable" class="ui-state-highlight">{{data}}</li>-->
+                            <!--</ul>-->
+                            <!--</div>-->
+                            <!--<ul>-->
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div view-source="simple"></div>
+
+                </div>
+
+
+
+                <div class="clearfix"></div>
+                <br> </div>
+        </div>
+    </div>
+</div>

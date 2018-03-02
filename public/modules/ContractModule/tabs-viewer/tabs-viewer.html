@@ -1,0 +1,185 @@
+<style>
+    .dataTables_wrapper .ui-toolbar {
+        padding: 0px;
+        BACKGROUND: #f5f5f5;
+    }
+
+
+    /*******************************
+    * Does not work properly if "in" is added after "collapse".
+    * Get free snippets on bootpen.com
+    *******************************/
+
+    .panel-group .panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+    }
+
+    .panel-default > .panel-heading {
+        padding: 0;
+        border-radius: 0;
+        color: #212121;
+        background-color: #FAFAFA;
+        border-color: #EEEEEE;
+    }
+
+    .panel-title {
+        font-size: 14px;
+    }
+
+    .panel-title > a {
+        display: block;
+        color: #fff;
+        padding: 15px;
+        text-decoration: none;
+    }
+
+    .more-less {
+        float: right;
+        color: #fff;
+    }
+
+    .panel-default > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #EEEEEE;
+    }
+
+
+    /* ----- v CAN BE DELETED v ----- */
+
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .demo {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+
+    .tab-view > li {
+        width: 33% !important;
+    }
+
+    
+</style>
+<header></header>
+<div>
+<div class="panel-body drop-file prop-fixd text-center">
+    <div id="newFormat" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #ffffff; color: #555;">
+                <div class="modal-header" style=" background: #000c35 !important;">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                    <h5 class="modal-title text-ce nter" style="color:#fff;">New Contract</h5>
+                </div>
+                <div class="modal-body" style="position: relative; padding: 15px; max-height: 500px; overflow: auto;">
+                    <form name="contractForm" ng-submit="contractForm.$valid && saveContract(contractName, agentName)">
+                        <br>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="usr">Name:</label>
+                            <input required ng-model="contractName" type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Agent Name:</label>
+                            <input required ng-model="agentName" type="text" class="form-control" id="usr">
+                        </div>
+
+
+                        <!--  <div class="js-upload-finished text-left">
+                                 <input type="text" id="input" name="">
+                                     <label for="input" style="color:#555; font-weight: 700; ">File Name:</label> {{file.name}}
+                         </div> -->
+
+                        <button type="submit" class="btn btn-user  pull-right" style="margin: 12px; z-index:111;" id="success-btn">Save</button>
+                        <div class="clearfix"></div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+      <ul>
+          <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Agent Name:</b> {{agentName}}</li>
+          <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Contract Name:</b> {{contractName}} </li>
+         <!--<li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Client:</b> XYZ Realty Group</li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Properties included in contract :</b> 20 </li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Assessed Value:</b>  $550,000,000</li>
+         <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Jursidiction:</b> MD - State</li>-->
+      </ul>
+   </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary IE_RR">
+                <div class="user-reg IE_RRR">
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 0px;">
+                            <div class="panel with-nav-tabs panel-primary" style=" margin-bottom: 0px;">
+                                <div  class="panel-heading">
+                                    <ul class="nav nav-tabs tab-view">
+                                        <li class="pointer-cursor col-md-4"
+                                            ng-class="{ active: viewContractEditor}">
+                                            <a data-toggle="tab" ng-href="" ng-click="ViewContractEditor()">
+                                              <i class="fa fa-file-word-o" aria-hidden="true"></i>   Contract Builder
+                                            </a>
+                                        </li>
+
+                                        <li class="pointer-cursor col-md-4"
+                                            ng-class="{ active: !viewContractEditor && !viewSampleCalculations}">
+                                            <a data-toggle="tab" ng-click="ViewContractTerms()">
+                                              <i class="fa fa-list" aria-hidden="true"></i>  Non-Financial Contract Terms
+                                            </a>
+                                        </li>
+
+                                        <li class="pointer-cursor col-md-4"
+                                            ng-class="{ active: viewSampleCalculations}">
+                                            <a data-toggle="tab" ng-click="ViewSampleCalculations()">
+                                                <i class="fa fa-list" aria-hidden="true"></i>  Financial Contract Terms
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active">
+                                             <div ng-show="viewContractEditor">
+                                                  <contract-editor></contract-editor>
+                                              </div>
+
+                                              <div ng-show="!viewContractEditor && !viewSampleCalculations">
+                                                  <contract-terms></contract-terms>
+                                              </div>
+
+                                              <div ng-show="viewSampleCalculations">
+                                                <view-sample-calculations></view-sample-calculations>
+                                                </div>
+
+                                            <!-- <ui-view></ui-view> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<span class="footer-btns-contracts" data-ng-if="!IsViewMode">
+    <button class="btn btn-danger" ui-sref="SavedContractList">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Cancel
+    </button>
+    <button class="btn btn-success" style="margin-right:10px;" ng-click="openContractModel()" ng-disabled="content.length < 0">
+        <i class="fa fa-plus" aria-hidden="true"></i> Save Contract
+    </button>
+</span>
+
+
+ <!--Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->

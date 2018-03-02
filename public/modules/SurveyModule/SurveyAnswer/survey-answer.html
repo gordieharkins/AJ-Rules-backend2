@@ -1,0 +1,189 @@
+<link rel="stylesheet" href="modules/SurveyModule/SurveyAnswer/survey-answer.css">
+<header></header>
+<div class="container-fluid" style="margin-left: -100px;margin-right: 10%">
+    <div>
+        <div class="col-md-12 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+
+                        <a href="" style="    padding: 25px;">
+                            <strong> <i class="fa fa-file-text-o" aria-hidden="true"></i></strong>
+                            <span>Survey Name: {{viewQuestions.surveyName}}</span>
+
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-body" style="padding-bottom: 20px;padding-right: 10px;">
+                    <h5></h5>
+                    <p></p>
+                    <div class="demo AJ-form">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="form in viewQuestions.sections">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading1">
+                                    <h4 class="panel-title">
+                                        <a>{{form.name}}</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-body" ng-repeat="question in form.questions track by $index">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div>
+                                                    <div class="form-group" style="    margin-top: 1%;">
+                                                        <label><strong>Question: </strong>{{question.questionText}} </label>
+                                                    </div>
+                                                    <div>
+                                                        <!-- {{value.options | json}} -->
+                                                        <div class="panel-options" ng-repeat="data in question.options  track by $index"
+                                                             ng-init="data.answer={value:'' , state:false , options:[] };">
+
+                                                            <div class="options-panel" ng-if="data.id==0">
+                                                                <input type="text" ng-model="data.answer.value">
+                                                            </div>
+
+
+                                                            <div class="options-panel" ng-if="data.id==1">
+                                                                <input type="radio" ng-click="setActive(data, question.options)" ng-checked="data.answer.state">
+                                                                <label class="options-label">{{data.radioLabel}}</label>
+                                                            </div>
+
+
+                                                            <div class="options-panel" ng-if="data.id==2">
+                                                                <input type="checkbox" ng-model="data.answer.state">
+                                                                <label style="margin-left: 1%">{{data.checkboxLabel}}</label>
+                                                            </div>
+
+
+                                                            <div class="options-panel" ng-if="data.id==3">
+                                                                <input type="radio" ng-click="setActive(data, question.options)" ng-checked="data.answer.state">
+                                                                <label class="options-label" style="margin-left: 2px">{{data.radioLabel}}</label>
+                                                                <input type="text" ng-model="data.answer.value">
+                                                            </div>
+
+
+                                                            <div class="options-panel" ng-if="data.id==4">
+                                                                <input type="radio" ng-click="setActive(data, question.options)" ng-checked="data.answer.state">
+                                                                <label class="options-label">{{data.radioLabel1}}</label>
+                                                                <input type="text" ng-model="data.answer.value">
+                                                                <label style="margin-left: 1%">{{data.radioLabel2}}</label>
+                                                            </div>
+
+
+                                                            <div class="options-panel" ng-if="data.id==5">
+                                                                <input type="radio" ng-click="setActive(data, question.options)" ng-checked="data.answer.state">
+                                                                <label class="options-label">{{data.radioLabel}}</label>
+                                                                <span class="btn-drop">
+                                                                    <span class="dropdown">
+                                                                        <button class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: black;" type="button" data-toggle="dropdown">
+                                                                            <span ng-if="data.answer.value">{{data.answer.value}}</span>
+                                                                            <span ng-if="!data.answer.value">Select Options</span>
+                                                                            <span class="caret"></span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li ng-repeat="opt in data.dropDownOptions"><a ng-click="data.answer.value=opt.value">{{opt.value}}</a></li>
+                                                                        </ul>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="options-panel" ng-if="data.id==6">
+                                                                <input type="checkbox" ng-model="data.answer.state"><label style="margin-left: 1%">{{data.checkboxLabel}}</label>
+                                                                <span class="btn-drop">
+                                                                    <span class="dropdown">
+                                                                        <button class="btn btn-primary dropdown-toggle" style="background: #ffffff;color: black;" type="button" data-toggle="dropdown">
+                                                                            <span ng-if="data.answer.value">{{data.answer.value}}</span>
+                                                                            <span ng-if="!data.answer.value">Select Options</span>
+
+                                                                            <span class="caret"></span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li ng-repeat="opt in data.dropDownOptions"><a ng-click="data.answer.value=opt.value">{{opt.value}}</a></li>
+                                                                        </ul>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="options-panel" ng-if="data.id==7">
+                                                                <p class="input-group" style="width: 200px;">
+                                                                    <input type="text" class="form-control" ng-model="data.answer.value"
+                                                                           uib-datepicker-popup="{{dateFormat}}" show-button-bar="false"
+                                                                           ng-init="data.opened" is-open="data.opened" datepicker-options="availableDateOptions" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="data.opened = !data.opened">
+                                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="options-panel" ng-if="data.id==8">
+                                                                <span style="font-weight: 700">Calender Count:</span> <br><input type="number" ng-init="numberOfFields = 0"
+                                                                                                                                 ng-change="addCalenderFields(numberOfFields, data.answer.options)" ng-model="numberOfFields" />
+                                                                <div ng-repeat="cal in  data.answer.options" ng-init="cal.opened=false; cal.value='';" style="padding-top: 10px">
+                                                                    <span style="font-weight: 700">Enter Date/Number Of Days</span>
+                                                                    <p class="input-group" style="width: 200px;">
+                                                                        <input type="text" class="form-control"
+                                                                               uib-datepicker-popup="{{dateFormat}}"
+                                                                               ng-model="cal.value" show-button-bar="false"
+                                                                               is-open="cal.opened" datepicker-options="availableDateOptions" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default"
+                                                                                    ng-click="cal.opened =! cal.opened">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="options-panel" ng-if="data.id==9">
+                                                                <div class="row">
+                                                                    <div class="checkbox checkboxChange">
+                                                                        <div class="col-md-2" style="padding-right: 1%;">
+                                                                            <span style="font-weight: 700;">{{data.label}}</span>
+                                                                        </div>
+                                                                        <div class="col-md-3" style="padding: 0">
+                                                                            <div class="form-group">
+                                                                                <input type="radio" name="eight_{{$index}}" ng-model="data.answer.value" ng-value="data.radioLabel1">
+                                                                                <span style="font-weight: 700;" class="options-label2">
+                                                                                    {{data.radioLabel1}}
+                                                                                </span><br>
+                                                                                <input type="radio" name="eight_{{$index}}" ng-model="data.answer.value" ng-value="data.radioLabel2">
+                                                                                <span style="font-weight: 700;" class="options-label2">
+                                                                                    {{data.radioLabel2}}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--  <div >
+                                                        <div class="options-panel">
+                                                           <input   type="text">
+                                                        </div>
+                                                     </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+
+
+                        <a style="margin-right: 14px;min-width: 146px;" class="btn btn-primary" ui-sref="viewSurvey">
+                            Back
+                        </a>
+
+                        <a style="min-width: 146px; margin-right: 19px;" class="btn btn-primary" ng-click="saveSurveySubmission();">
+                            Save Submission
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<footer style="margin-top: 40px;" class="text-center">Copyrights - 2017</footer>-->

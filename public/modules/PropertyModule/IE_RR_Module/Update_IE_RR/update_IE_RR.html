@@ -1,0 +1,117 @@
+<header>abc</header>
+<div class="prop-fixd text-center">
+    <ul>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> {{updateIERR.property.taxAccountNo ? updateIERR.property.taxAccountNo : 'Not Specified'}}
+        </li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> {{updateIERR.property.propertyName ? updateIERR.property.propertyName : 'Not Specified'}}
+        </li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> {{updateIERR.property.streetAddress ? updateIERR.property.streetAddress : 'Not Specified'}}
+        </li>
+        <li> <i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> {{updateIERR.property.recordOwnerName ? updateIERR.property.recordOwnerName : 'Not Specified'}}
+        </li>
+    </ul>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary IE_RR">
+            <div class="panel-heading">
+                <h5>  <i class="fa fa-upload" aria-hidden="true"></i> <strong> Upload Data </strong></h5>
+            </div>
+            <div class="panel-body drop-file">
+                <div class="alert-box successa text-center">
+                    <p style="text-algin: center !important;">
+                        <i class="fa fa-3x fa-spinner text-center" aria-hidden="true"></i>
+                        <br> AOTC is uploading your files to <a href="24-TaskManager.html" style="color: #28ffbb; text-decoration: underline;     font-size: 15px;">  Task manager section </a>
+                        <br> meanwhile you can add more files or data.
+                        <br>
+                    </p>
+                </div>
+                <table class="table table-striped table-bordered tex t-center" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>Income Expense Statement(s)</td>
+                            <td align="right">
+                                <button data-toggle="modal" ng-click="updateIERR.showMyModal(0)" class="btn-uploadIERR"> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rent Roll Report(s)</td>
+                            <td align="right">
+                                <button data-toggle="modal" ng-click="updateIERR.showMyModal(1)" class="btn-uploadIERR"> <i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax Bill(s)</td>
+                            <td align="right">
+                                <button data-toggle="modal" ng-click="updateIERR.showMyModal(3)" class="btn-uploadIERR"> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>More File(s)</td>
+                            <td align="right">
+                                <button data-toggle="modal" ng-click="updateIERR.showMyModal(4)" class="btn-uploadIERR"> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Add one or more {{modalHeading}}.</h5>
+            </div>
+            <div class="modal-body" style=" position: relative; padding: 15px; max-height: 500px; overflow: auto;">
+                <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-group" style="width: 100%; background:#47bcff;border: none;">
+                            <label class="input-group-btn text-center">
+                                <span class="btn" style="color:#fff; text-align: center;">
+                     <i class="fa fa-upload" aria-hidden="true"></i>
+                     {{uploadFileLabel}}&hellip;
+                     <input type="file"
+                        name="file-1[]" id="file-1" 
+                        onchange="angular.element(this).scope().fileUploaded(this)" 
+                        style="display: none;" multiple>
+                     </span> </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center" style="margin-top: 8px;" ng-hide="updateIERR.hideModalFormFillButton"> OR </div>
+                    <div class="col-md-5" ng-hide="updateIERR.hideModalFormFillButton">
+                        <button ng-click="updateIERR.gotoManualUpload()" type="button" class="btn btn-success" style="width: 100%; background:#47bcff;border: none;">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> {{formFillLabel}} &nbsp
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="clearfix"></div>
+                <div class="js-upload-finished text-left">
+                    <div ng-repeat="file in updateIERR.FileNames" class="list-group list-group-item" ng-class="file.uploadStatus ? 'list-group-item-success':'list-group-item-danger'" style="margin-bottom:10px;">
+                        <a>
+                            <label style="color:#555; font-weight: 700; ">File Name:</label> {{file.name}}
+                        </a>
+                        <!-- <a> </a> -->
+                        <div class="form-group">
+                            <label for="comment" style="color:#555; font-weight: 700; ">Description:</label>
+                            <textarea class="form-control" ng-model="file.description" rows="1" id="Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button ng-show="updateIERR.FileNames.length > 0" ng-click="updateIERR.uploadData()" type="button" class="btn btn-user  pull-right" style="margin: 12px; z-index:111;  " id="success-btn">Upload</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="alert-box success" id="uploadsuccess"> <i class="fa fa-check-circle" aria-hidden="true"></i> File uploaded successfully. </div> -->
+<!-- Footer -->
+<!--<footer class="text-center" style=" width: 100%;-->
+   <!--bottom: 0px;-->
+   <!--position: fixed;">Copyrights - 2017</footer>-->

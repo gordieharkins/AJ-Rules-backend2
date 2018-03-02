@@ -1,0 +1,51 @@
+<div class="panel panel-primary filterable">
+    <div class="pricing_header">
+        <h2>Fee Schedule</h2>
+        <div class="space"></div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="filters">
+            <th><input type="text" class="form-control" placeholder="Property Names" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Fee" disabled></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in getPropertyList">
+            <td ng-if="data.check && !data.disabled">{{data.propertyName}}</td>
+            <td ng-if="data.check && !data.disabled"><input  type="number" ng-model="data.assessment.fixedRate"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+
+        <thead>
+        <tr class="filters">
+            <th><input type="text" class="form-control" placeholder="Appeal Merit" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Level1" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Level2" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Level3" disabled></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="font-set">Poor</td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.poor.level1" /></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.poor.level2"/></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.poor.level3"/></span></td>
+        </tr>
+        <tr>
+            <td class="font-set">Good</td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.good.level1" /></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.good.level2"/></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.good.level3"/></span></td>
+        </tr>
+        <tr>
+            <td class="font-set">Very Good</td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.vgood.level1" /></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.vgood.level2"/></span></td>
+            <td><span class="input-symbol-euro"><input class="input-control" type="number" ng-model="scheduleFee.vgood.level3"/></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

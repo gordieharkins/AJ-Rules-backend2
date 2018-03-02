@@ -1,0 +1,79 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/Appeal/TimelineGraphical/timeline-graphical.style.css">
+<header></header>
+<div class="prop-fixd text-center">
+    <ul>
+        <li style="font-size: 16px;">
+            <i class="fa fa-list-alt" aria-hidden="true" style="margin-right:10px;"></i><b>   Jurisdiction Timeline:</b>
+        </li>
+    </ul>
+</div>
+<div class="data-red">
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <div>
+                <div class="inline-divs">
+                    <div ><h5 style="font-weight: bold;">Please select a format.</h5></div>
+                    <div >
+                        <button class="btn-formats" 
+                                ng-class="{'btn-formats-active': viewFormat=='all-properties' }" 
+                                id="for-1" 
+                                ng-click="viewFormat='all-properties'; showJusrisdiction = false"> All properties</button>
+                        <button style="margin-left:8px;" 
+                                class="btn-formats" 
+                                ng-class="{'btn-formats-active':viewFormat=='by-jurisdiction' }" 
+                                id="for-2" 
+                                ng-click="$ctrl.tabChangeFunc('by-jurisdiction')"> By jurisdiction</button>
+                        <button style="margin-left:8px;" 
+                                class="btn-formats" 
+                                ng-class="{'btn-formats-active':viewFormat=='by-property' }" 
+                                id="for-2"
+                                ng-click="$ctrl.tabChangeFunc('by-property')"> By property</button>
+                    </div>
+                    <div ng-if="viewFormat=='by-jurisdiction'"><h5 style="font-weight: bold;margin-left:40px;">Please select jurisdiction</h5></div>
+                    <div style="margin-left:10px;" ng-if="viewFormat=='by-jurisdiction'">
+                        <span >
+                            <select name="singleSelect" 
+                                    ng-change="$ctrl.getJurisdictionTimeline($ctrl.selectedJurisdiction)" 
+                                    ng-model="$ctrl.selectedJurisdiction" 
+                                    style="background:white;padding: initial;font-size: inherit;height: 25px;border-radius: 3px;">
+                                <option selected disabled >---Please select---</option> 
+                                <option ng-repeat="opt in $ctrl.allJurisdictionNames track by $index" 
+                                        value="{{opt}}">{{opt}}</option> 
+                            </select>
+                        </span>
+                    </div>
+                    <div ng-if="viewFormat=='by-property'"><h5 style="font-weight: bold;margin-left:40px;">Please select property</h5></div>
+                    <div style="margin-left:10px;" ng-if="viewFormat=='by-property'">
+                        <span>
+                            <select name="singleSelect" 
+                                    ng-change="$ctrl.propertiesFromDropdown($ctrl.selectedByproperty)" 
+                                    ng-model="$ctrl.selectedByproperty" 
+                                    style="background:white;padding: initial;font-size: inherit;height: 25px;border-radius: 3px;">
+                                <option selected disabled>---Please select---</option>
+                                <option ng-repeat="allprops in  $ctrl.allPropertiesTimelineStatus track by $index" 
+                                        value="{{allprops.propertyName}}">{{allprops.propertyName}}</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row ">
+            <div class="col-sm-12">
+                <div ng-if="viewFormat=='all-properties'" ng-include="'modules/Appeal/TimelineGraphical/all-properties.template.html'"></div>
+                <div ng-if="viewFormat=='by-jurisdiction'" ng-include="'modules/Appeal/TimelineGraphical/jurisdiction.template.html'"></div>
+                <div ng-if="viewFormat=='by-property'" ng-include="'modules/Appeal/TimelineGraphical/by-property.template.html'"></div>
+
+                
+            </div>
+        </div>
+        <!-- data reduction fields -->
+    </div>
+    <br><br><br>
+</div>
+<div ng-include="'modules/Appeal/TimelineGraphical/select-event-modal.template.html'"></div>
+<div ng-include="'modules/Appeal/TimelineGraphical/new-event-modal.template.html'"></div>
+

@@ -1,0 +1,68 @@
+/*.table-terms{
+    min-height: 400px;
+}
+.table-div {
+	 min-height: 350px;
+	 max-height: 350px;
+	 overflow: auto;
+}
+.form-control {
+    width: 100% !important;
+}
+.table-calculate{
+    min-height: 200px;
+    margin-top: 20px;
+}
+
+.border-setting{
+    margin: 10px 0px 10px 0px;
+    border: #bce8f1 1px;
+    border-style: solid;
+    border-radius: 3px;
+}
+
+.checkbox input[type="checkbox"]:after, .checkbox-inline input[type="checkbox"]:after {
+    color: #555 !important;
+
+}
+.term-list li{
+    margin-bottom: 10px;
+}
+
+.term-list {
+        padding-left: 0;
+}
+
+.term-list label{
+    color: #555 !important;
+
+}
+
+.lists{
+	max-height: 300px;
+	overflow: auto;
+	margin-bottom: 10px
+}
+
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    vertical-align: middle !important;
+}
+
+.modal label{
+    color: #555;
+}
+
+.levelInput input[type="text"]{
+     width: 120px !important;
+}
+
+#newTerm input[type="number"]{
+    width: 100px !important; 
+    display: inline-block;
+}
+
+.leveldesc {
+    /*min-height: 200px;*/
+    /*overflow: auto;*/
+}*/

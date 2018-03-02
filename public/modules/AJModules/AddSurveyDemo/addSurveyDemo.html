@@ -1,0 +1,572 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css">
+<style>
+body {
+    min-height: 500px;
+    background-image: url(assets/img/BG.png) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f5f5f5;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #d2d2d2;
+}
+</style>
+<style>
+.dataTables_wrapper .ui-toolbar {
+    padding: 0px;
+    BACKGROUND: #f5f5f5;
+}
+
+
+/*******************************
+        * Does not work properly if "in" is added after "collapse".
+        * Get free snippets on bootpen.com
+        *******************************/
+
+.panel-group .panel {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #EEEEEE;
+}
+
+.panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #FAFAFA;
+    border-color: #EEEEEE;
+}
+
+.panel-title {
+    font-size: 14px;
+}
+
+.panel-title > a {
+    display: block;
+    color: #fff;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.more-less {
+    float: right;
+    color: #fff;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #EEEEEE;
+}
+</style>
+<div class="row header-signup">
+    <div class="col-xs-12 col-md-6">
+        <div class="logo">
+            <a ui-sref="main"> <img src="assets/img/logo.png" alt="IBM" class="img-responsive" /> </a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<!-- Page Content -->
+<div class="container-fluid" style="padding:0px 40px 0 40px;">
+    <div class="row centered-form">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                                <a href="" class="text-center"  >
+
+                                    Assessment  Jurisdiction Form
+                                </a>
+                            </h4>
+                </div>
+                <div class="panel-body">
+                    <h5>Please fill out the from below.</h5>
+                    <p>Please fill out the form below to capture all the details of the processes in an assessing jurisdiction.</p>
+                    <div class="demo AJ-form">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading1">
+                                    <h4 class="panel-title">
+                                                <a  href="" >
+                                                    Survey Details
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form id="metaData" name="metaData" ng-submit="metaData.$valid && addSurveyDemo.addAJSurvey()">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Assessing Authority Name</label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.assessingAuthName" placeholder=" " type="text" name="first_name" id="first_name" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Interviewer</label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.interviewer" type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder=" ">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Interviewee</label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.interviewee" placeholder=" " type="text" name="password_confirmation" id="password_confirmation" class="form-control  input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div id="sandbox-container">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Date Called</label>
+                                                    <div class='input-group date'>
+                                                        <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.dateCalled" type='text' placeholder="Click here to choose date" class="form-control " />
+                                                        <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Email</label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.intervieweeOfficeEmail" type="email" placeholder=" " name="email" id="email" class="form-control input-sm" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Phone Number Called</label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.phoneNumberCalled" placeholder=" " type="text" name="password" id="password" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-8">
+                                                <div class="form-group">
+                                                    <!-- <label style="color: red;font-size: 13px;">*</label> -->
+                                                    <label>Interviewee Office Address </label>
+                                                    <input required ng-model="addSurveyDemo.surveyData.surveyMetaData.intervieweeOfficeAddress" placeholder=" " type="text" name="password" id="password" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label>List Relevant Websites </label>
+                                                    <input ng-model="addSurveyDemo.surveyData.surveyMetaData.listRelevantWebsites" placeholder=" " type="text" name="password" id="password" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree" ng-click="maximize1 = !maximize1; maximize2= false;maximize3= false ;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" 
+                                                data-parent="#accordion" data-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                    <i 
+                                                    ng-class="maximize1 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                    Assessment Detials
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="comment">How often is real property re-assessed (or revalued)? </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[0].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When are new assessment notices sent out? </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[1].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is the valuation date regarding the value on the new notice? </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[2].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is the tax bill due date relative to the value on the new notice? </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[3].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading2" ng-click="maximize2 =! maximize2; maximize1= false;maximize3= false;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" 
+                                                data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                   <i 
+                                                    ng-class="maximize2 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                    Income Survey
+                                                </a>
+                                            </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Does the jurisdiction have an income survey process? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[42].answer" type="radio" id="yes" name="optradio" value="yes">Yes</label> &nbsp &nbsp &nbsp
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[42].answer" type="radio" id="no" name="optradio" value="no">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="survey">
+                                                <div class="form-group">
+                                                    <label for="comment">Is there a survey form? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[4].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How can we obtain a copy? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[5].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is a survey form sent out to each taxpayer? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[6].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How is it sent (mail, email, other)? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[7].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is it sent? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[8].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is it due? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[9].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is there a penalty to the taxpayer for not returning a timely response? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[10].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">What is the penalty? </label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[11].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">How can the taxpayer submit the survey response package (mail, email, other)?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[12].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading3" ng-click="maximize3=!maximize3; maximize1= false;maximize2= false;maximize4= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                                        <i 
+                                                            ng-class="maximize3 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Appeal Process
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                                    <div class="panel-body">
+                                        <h4 class="ap-head"> 1st Level Appeal</h4>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="comment">What is the 1st level of appeal (perhaps to the Assessor)? </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[13].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal deadline for the 1st level of appeal?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[14].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">If the taxpayer wishes to obtain from the assessor the assessor’s income approach derivation, how does the taxpayer do that?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[15].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">If the taxpayer wishes to obtain from the assessor the assessor’s comparable sales, how does the taxpayer do that?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[16].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is due for submission on this deadline (perhaps just a form notifying of the petitioner’s appeal or more)?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[17].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How can we obtain a copy of the 1st level appeal form (email, fax, mail, posted on web)?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[18].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the evidence related to the appeal due?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[19].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal decision rendered by the 1st level?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[20].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is the appeal decision communicated to the appellant?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[21].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is it sent?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[22].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <!-- 
+                                            
+                                            second level appeal 
+
+                                            -->
+                                            <h4 class="ap-head">Second Level Appeal</h4>
+                                            <div class="form-group">
+                                                <label for="comment">What is the Second level of appeal called (assuming there is one)?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[23].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the appeal deadline for the Second level of appeal?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[24].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is due for submission on this deadline (perhaps just a form notifying of the petitioner’s appeal or more)?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[25].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How can we obtain a copy of the second level appeal form (email, fax, mail, posted on web)?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[26].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">When is the evidence related to the appeal due?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[27].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Are there special rules related to evidence at the board? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[43].answer" value="yes" type="radio" id="yesrules1" name="optradio1">Yes</label>
+                                                        &nbsp &nbsp &nbsp
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[43].answer" value="no" type="radio" id="norules1" name="optradio1">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="surveyrules">
+                                                <div class="form-group">
+                                                    <label for="comment">What are the special rules?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[28].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is the appeal decision communicated to the appellant?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[29].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">How is it sent?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[30].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <!-- third level appeal -->
+                                            <h4 class="ap-head">Third Level Appeal</h4>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label style="padding-left:0px;">Is there a third level of appeal? </label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[44].answer" value="yes" type="radio" id="yesap" name="optradio2">Yes</label> &nbsp &nbsp &nbsp
+                                                        <label>
+                                                            <input ng-model="addSurveyDemo.surveyData.questions[44].answer" value="no" type="radio" id="noap" name="optradio2">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="surveyap">
+                                                <div class="form-group">
+                                                    <label for="comment">What is the third level of appeal called (assuming there is one)?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[31].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is the appeal deadline for the third level of appeal?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[32].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is it required that an attorney file to this level?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[33].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">When is the appeal deadline for the third level of appeal?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[34].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="comment">Is it required that an attorney file to this level?</label>
+                                                    <textarea ng-model="addSurveyDemo.surveyData.questions[35].answer" class="form-control" rows="3" id="comment"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading4" ng-click="maximize4 = !maximize4; maximize1= false;maximize3= false;maximize2= false;maximize5= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                                        <i 
+                                                            ng-class="maximize4 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Tax Authority
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+                                    <div class="panel-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label for="comment">Who sends tax bills?
+                                                </label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[36].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-4">
+                                                        <label> Number of tax bills</label>
+                                                        <input ng-model="numberOfBills" min="0" placeholder=" " type="number" name="number" id="" class="form-control ">
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-repeat="bill in numberOfBillsHtmlFields">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <label for="comment">Tax bill {{$index+1}} due date?</label>
+                                                        <textarea ng-model="bill.billDate" class="form-control" rows="1" id="comment"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">What is on bill?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[38].answer" class="form-control" rows="3" id="comment"></textarea>
+                                            </div>
+                                            <div class="row">
+                                                <!-- <label for="comment">What is fiscal year?</label>
+                                                <textarea ng-model="addSurveyDemo.surveyData.questions[39].answer" class="form-control" rows="3" id="comment"></textarea> -->
+                                                <div class="col-md-6">
+                                                    <div id="sandbox-container">
+                                                        <label>Fiscal year start date?</label>
+                                                        <div class='input-group date'>
+                                                            <input required ng-model="addSurveyDemo.fiscalStartDate" type='text' placeholder="Click here to choose date" class="form-control" />
+                                                            <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div id="sandbox-container">
+                                                        <label>Fiscal year end date?</label>
+                                                        <div class='input-group date'>
+                                                            <input required ng-model="addSurveyDemo.fiscalEndDate" type='text' placeholder="Click here to choose date" class="form-control" />
+                                                            <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading5" ng-click="maximize5 = !maximize5;maximize1= false;maximize3= false;maximize4= false;maximize2= false">
+                                    <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                                        <i 
+                                                            ng-class="maximize5 ? 'more-less glyphicon glyphicon-minus':'more-less glyphicon glyphicon-plus'"></i>
+                                                        Contact Information
+                                                    </a>
+                                                </h4>
+                                </div>
+                                <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+                                    <div class="panel-body">
+                                        <h4 class="ap-head">Assessor Offices</h4>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label> Number of Assessor Offices </label>
+                                                    <input ng-model="typing" min="0" placeholder=" " type="number" name="number" id="" class="form-control ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-repeat="contactDetail in contactDetails">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label> Address of Assessor Offices </label>
+                                                    <input ng-model="contactDetail.address" placeholder="Address" type="text" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                                <div class="form-group">
+                                                    <label> Email </label>
+                                                    <input ng-model="contactDetail.email" placeholder="Email " type="email" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                                <div class="form-group">
+                                                    <label> Phone </label>
+                                                    <input ng-model="contactDetail.phone" placeholder="Phone" type="text" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="ap-head">Board Offices</h4>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label> Number of Board Offices </label>
+                                                    <input ng-model="typing2" min="0" placeholder=" " type="number" name="number" id="" class="form-control ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-repeat="contact in boardContactDetails">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label> Address of Board Offices </label>
+                                                    <input ng-model="contact.address" placeholder="Address" type="text" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                                <div class="form-group">
+                                                    <label> Email </label>
+                                                    <input ng-model="contact.email" placeholder="Email" type="email" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                                <div class="form-group">
+                                                    <label> Phone </label>
+                                                    <input ng-model="contact.phone" placeholder="Phone" type="text" name="password" id="password" class="form-control ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='text-right'>
+                            <button type="button" class="btn btn-danger" style="width: 200px;">Cancel</button>
+                            <input type="submit" form="metaData" value="Submit form" class="btn btn-success" style="width: 200px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Content -->
+</div>
+<!-- Footer -->
+<!--<footer class="text-center">Copyrights - 2017</footer>-->
+<!-- input-sm -->

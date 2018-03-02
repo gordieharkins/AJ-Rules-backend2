@@ -1,0 +1,1335 @@
+<link rel="stylesheet" type="text/css" href="modules/PropertyModule/property-workspace/ScenarioOne/Sensitivity/sensitivity.css">
+<style type="text/css">
+   .td-alignment {
+   text-align: right;
+   }
+   .input-direction {
+   direction: rt l;
+   }
+</style>
+<header></header>
+<div class="prop-fixd text-center">
+   <ul>
+      <li><i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Tax Account Number:</b> {{SensitivityOne.property.taxAccountNo ? SensitivityOne.property.taxAccountNo : 'Not Specified'}}
+      </li>
+      <li><i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Name:</b> {{SensitivityOne.property.propertyName ? SensitivityOne.property.propertyName : 'Not Specified'}}
+      </li>
+      <li><i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Property Address:</b> {{SensitivityOne.property.streetAddress ? SensitivityOne.property.streetAddress : 'Not Specified'}}
+      </li>
+      <li><i class="fa fa-dot-circle-o" aria-hidden="true"></i><b> Owner Name:</b> {{SensitivityOne.property.recordOwnerName ? SensitivityOne.property.recordOwnerName : 'Not Specified'}}
+      </li>
+   </ul>
+</div>
+<div class="Scenarios-top-bar">
+   <ul class="nav nav-tabs" role="tablist">
+      <li class="pointer-cursor" ng-class="{ active: SensitivityOne.showSensitivityTab}">
+         <a data-toggle="tab" ng-click="SensitivityOne.showSensitivity()">
+         Sensitivity Calculation 
+         <span ng-show="SensitivityOne.submitClicked && SensitivityOne.sensitivityNamesCount > 0 "> 
+         {{SensitivityOne.sensitivityNamesCount}}
+         </span>
+         </a>
+      </li>
+      <li class="pointer-cursor" ng-class="{ active: SensitivityOne.showScenarioTab}">
+         <a data-toggle="tab" ng-click="SensitivityOne.showScenario()">
+         Scenario Testing 
+         <span ng-show="SensitivityOne.submitClicked && SensitivityOne.scenarioNamesCount > 0 ">
+         {{SensitivityOne.scenarioNamesCount}}
+         </span>
+         </a>
+      </li>
+   </ul>
+</div>
+<div class="custom-container tab-content">
+   <!-- 
+      //=================================================================Sensitivty==============================================//
+       -->
+   <div role="tabpanel" class="tab-pane" ng-class="{active: SensitivityOne.showSensitivityTab}" ng-show="SensitivityOne.showSensitivityTab">
+      <br>
+      <h5>Choose the parameter on which you want to do Sensitivity Calculation.</h5>
+      <ul class="row">
+         <li class="col-md-{{col}}" ng-class="{'col-md-offset-2' : SensitivityOne.scenarioTwoActive}" style="overflow:inherit;" ng-click="SensitivityOne.toggleMarketRent()">
+            <i class="fa fa-lg" ng-class="{
+               'fa-plus-circle':(!SensitivityOne.marketRentActive),
+               'fa-minus-circle' : (SensitivityOne.marketRentActive) }" aria-hidden="true">
+            </i>
+            <span>   Market Rent Per Sq Ft </span>
+         </li>
+         <li class="col-md-{{col}}" style="overflow:inherit;" ng-click="SensitivityOne.toggleVacancy()">
+            <i class="fa fa-lg" ng-class="{
+               'fa-plus-circle':(!SensitivityOne.vacancyActive),
+               'fa-minus-circle' : (SensitivityOne.vacancyActive) }" aria-hidden="true"></i>
+            <span> Vacancy %</span>
+         </li>
+         <li class="col-md-{{col}}" style="overflow:inherit;">
+            <i ng-click="SensitivityOne.toggleExpense()" class="fa fa-lg" style="float: left;" ng-class="{
+               'fa-plus-circle':(!SensitivityOne.expenseActive),
+               'fa-minus-circle' : (SensitivityOne.expenseActive) }" aria-hidden="true">
+            </i>
+            <span style="float: left;margin-left: 20px;margin-top: -15px;line-height: 1;">
+               <div class="radio">
+                  <label>  
+                  <input ng-click="SensitivityOne.ExpenseSFInput()" 
+                     ng-checked="SensitivityOne.expenseInputActive" type="radio" 
+                     style="margin: 0px 0px 0px -25px;" />Expense $ Per SF
+                  </label>
+               </div>
+               <div class="radio">
+                  <label>  
+                  <input ng-click="SensitivityOne.ExpensePercentageInput()" 
+                     ng-checked="!SensitivityOne.expenseInputActive" type="radio"
+                     style="margin: 0px 0px 0px -25px;" 
+                     />Expense %
+                  </label>
+               </div>
+            </span>
+         </li>
+         <li class="col-md-{{col}}" style="overflow:inherit;" ng-click="SensitivityOne.toggleBaseCapeRate()">
+            <i class="fa fa-lg" ng-class="{
+               'fa-plus-circle':(!SensitivityOne.baseCapeRateActive),
+               'fa-minus-circle' : (SensitivityOne.baseCapeRateActive) }" aria-hidden="true"></i>
+            <span>  Base Cap Rate</span>
+         </li>
+      </ul>
+      <br>
+      <div class="row sensitivity-tables scenario-tables Containera Flipped">  
+             <!-- =======================================Less Details Sensitivity========================================  -->
+             <div class="col-md-{{col}}" ng-show="SensitivityOne.scenarioTwoActive">
+                    <!--Scenario testing  -->
+                    <table id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th style="min-width:170px;">Petitioner Values</th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td>Leasable Sq Ft (SFL)</td>
+                          </tr>
+                          <tr>
+                             <td>Market Rent Per SF (MR)</td>
+                          </tr>
+                          <tr>
+                             <td>Annual Rent (AR)</td>
+                          </tr>
+                          <tr>
+                             <td>Gross Potential Rent (GPR)</td>
+                          </tr>
+                          <tr>
+                             <td>Vacancy % (V%)</td>
+                          </tr>
+                          <tr>
+                             <td>Vacancy $ (V$)</td>
+                          </tr>
+                          <tr>
+                             <td>Effective Rent (ER)</td>
+                          </tr>
+                          <tr>
+                             <td>Expenses % (E%)</td>
+                          </tr>
+                          <tr>
+                             <td>Expenses $ (E$)</td>
+                          </tr>
+                          <tr>
+                             <td>Expenses $ Per SF (E$/sf)</td>
+                          </tr>
+                          <tr>
+                             <td>Other Income (OI)</td>
+                          </tr>
+                          <tr>
+                             <td>Net Operating Income (NOI)</td>
+                          </tr>
+                          <tr>
+                             <td>NOI/SF</td>
+                          </tr>
+                          <tr>
+                             <td>Base Cap Rate (BCR)</td>
+                          </tr>
+                          <tr>
+                             <td>Effective RE Tax Rate (ETR)</td>
+                          </tr>
+                          <tr>
+                             <td>Overall Cap Rate (OCR)</td>
+                          </tr>
+                          <tr>
+                             <td>Value - Direct Cap (VDC)</td>
+                          </tr>
+                          <tr>
+                             <td>Value Per SF</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <br>
+                    <table id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th style="min-width:170px;">Parameters</th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td class="MR">Market Rent Per SF</td>
+                          </tr>
+                          <tr>
+                             <td class="VA">Vacancy % </td>
+                          </tr>
+                          <tr>
+                             <td ng-class="{EX : SensitivityOne.expenseInputActive}">Expenses $ Per SF </td>
+                          </tr>
+                          <tr>
+                             <td ng-class="{EX : !SensitivityOne.expenseInputActive}">Expense % </td>
+                          </tr>
+                          <tr>
+                             <td>NOI Per SF </td>
+                          </tr>
+                          <tr>
+                             <td class="BC">Base Cap Rate</td>
+                          </tr>
+                          <tr>
+                             <td>Value</td>
+                          </tr>
+                          <tr>
+                             <td>Value Per SF</td>
+                          </tr>
+                          <tr>
+                             <td>Assessed Value</td>
+                          </tr>
+                          <tr>
+                             <td>Assessed Value Per SF</td>
+                          </tr>
+                       </tbody>
+                    </table>
+             </div>
+             <!-- =======================================Market Rent Per Sq Ft========================================  -->
+             <div class="col-md-{{col}}" ng-show="SensitivityOne.marketRentActive" resizable r-directions="['right']" r-flex="true" style="padding: 20px;overflow: hidden;">
+                    <table ng-show="SensitivityOne.marketRentActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Petitioner Values</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.marketRentSets">
+                             <span class="dropdown-toggle"> 
+                             {{set.name}}
+                             </span>
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Leasable Sq Ft (SFL)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerLeasableSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF (MR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.petitionerMarketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Annual Rent (AR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerAnnualRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Gross Potential Rent (GPR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.petitionerGPR | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % (V%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerVacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy $ (V$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerVacancy | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective Rent (ER)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerEffectiveRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses % (E%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerExpensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ (E$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.petitionerExpense | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF (E$/sf)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerExpenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Other Income (OI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Net Operating Income (NOI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerNOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI/SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerNOIBySF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate (BCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerBCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective RE Tax Rate (ETR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerETR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Overall Cap Rate (OCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.petitionerOCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value - Direct Cap (VDC)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerVDC | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.petitionerValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <br>
+                    <table ng-show="SensitivityOne.marketRentActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Market Rent Per SF</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.marketRentSets">
+                             <i ng-if="SensitivityOne.marketRentSets.length > 1" class="fa fa-lg fa-times-circle minus-col pull-right" style="margin-left: 4.7em;" aria-hidden="true" ng-click="SensitivityOne.removeMRSet($index)"></i> {{set.name}}
+                          </th>
+                          <th style="border: 1px solid #6abaf4;">
+                             <!-- <i class="fa fa-lg fa-plus-circle" aria-hidden="true" ng-click="SensitivityOne.addMarketRentSet()"></i> -->
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive" class="MR">Market Rent Per SF</td>
+                             <td class="MR" ng-repeat="set in SensitivityOne.marketRentSets">
+                                <div>
+                                   <div class="my">
+                                      <img class="image-resize" src="../../../../../assets/img/dollar-symbol.png"><input ng-change="SensitivityOne.calculateMarketRentSet(set)" type="text"
+                                                                  class="form-control"  disabled ng-model="set.marketRentSF" placeholder="Enter value"
+                                                                          required="">
+
+                                   </div>
+                                <span class="dropdown" style="line-height: 2.5;">
+                                   <span class="dropdown-toggle" id="menu1" > 
+                                   <span class="caret"></span>
+                                   </span>
+                                   <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                      <li role="presentation">
+                                         <a role="menuitem" tabindex="-1" ng-repeat="scenarioSet in SensitivityOne.scenarioSets" ng-click="SensitivityOne.useSetInScenario(set.marketRentSF , scenarioSet , 'marketRentSF')">
+                                         Use in Scenario {{scenarioSet.name}}
+                                         </a>
+                                      </li>
+                                      <li role="presentation" ng-click="SensitivityOne.addScenarioSetWithValues(set.marketRentSF , 'marketRentSF')">
+                                         <a role="menuitem" tabindex="-1">
+                                         Create new Scenario
+                                         </a>
+                                      </li>
+                                   </ul>
+                                </span>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> {{set.vacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.expenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expense % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> {{set.expensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.NOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                {{set.BCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.value | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.valueSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets"> ${{set.assessedValue | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.marketRentSets">
+                                ${{set.assessedValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+             </div>
+             <!--  =======================================      Vacancy  %  ========================================== -->
+             <div class="col-md-{{col}}" ng-show="SensitivityOne.vacancyActive" resizable   r-directions="['right']" r-flex="true" style="padding: 20px;overflow: hidden;">
+                    <table ng-show="SensitivityOne.vacancyActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Petitioner Values</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.vacancySets">
+                             <span class="dropdown-toggle"> 
+                             {{set.name}}
+                             </span>
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive"> Leasable Sq Ft (SFL)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerLeasableSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF (MR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.petitionerMarketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Annual Rent (AR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerAnnualRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Gross Potential Rent (GPR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.petitionerGPR | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % (V%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerVacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy $ (V$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerVacancy | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective Rent (ER)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerEffectiveRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses % (E%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerExpensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ (E$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.petitionerExpense | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF (E$/sf)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerExpenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Other Income (OI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Net Operating Income (NOI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerNOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI/SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerNOIBySF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate (BCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerBCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective RE Tax Rate (ETR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerETR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Overall Cap Rate (OCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.petitionerOCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value - Direct Cap (VDC)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerVDC | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.petitionerValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <br>
+                    <table ng-show="SensitivityOne.vacancyActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Vacancy %</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.vacancySets">
+                             <i ng-if="SensitivityOne.vacancySets.length > 1" style="margin-left: 4.7em;" class="fa fa-lg fa-times-circle minus-col pull-right" aria-hidden="true" ng-click="SensitivityOne.removeVacancySet($index)"></i> {{set.name}}
+                          </th>
+                          <th style="border: 1px solid #6abaf4;">
+                             <!-- <i class="fa fa-lg fa-plus-circle" aria-hidden="true" ng-click="SensitivityOne.addVacancySet()"></i> -->
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.marketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive" class="VA">Vacancy % </td>
+                             <td class="VA" ng-repeat="set in SensitivityOne.vacancySets">
+                                <div class="my">
+                                   <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"> <input maxlength="6" ng-change="SensitivityOne.calculateVacancySet(set)" type="text" class="form-control"  disabled ng-model="set.vacancyPercentage" placeholder="Enter value" required=""></div>
+                                <span class="dropdown" style="line-height: 2.5;">
+                                   <span class="dropdown-toggle" id="menu1" > 
+                                   <span class="caret"></span>
+                                   </span>
+                                   <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                      <li role="presentation">
+                                         <a role="menuitem" tabindex="-1" ng-repeat="scenarioSet in SensitivityOne.scenarioSets" ng-click="SensitivityOne.useSetInScenario(set.vacancyPercentage , scenarioSet , 'vacancyPercentage')">
+                                         Use in Scenario {{scenarioSet.name}}
+                                         </a>
+                                      </li>
+                                      <li role="presentation" ng-click="SensitivityOne.addScenarioSetWithValues(set.vacancyPercentage , 'vacancyPercentage')">
+                                         <a role="menuitem" tabindex="-1">
+                                         Create new Scenario
+                                         </a>
+                                      </li>
+                                   </ul>
+                                </span>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.expenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expense % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> {{set.expensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.NOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                {{set.BCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.value | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.valueSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets"> ${{set.assessedValue | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.vacancySets">
+                                ${{set.assessedValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+             </div>
+             <!--  =======================================      Expense  %    ======================================= -->
+             <div class="col-md-{{col}}" ng-show="SensitivityOne.expenseActive" resizable  r-directions="['right']" r-flex="true" style="padding: 20px;overflow: hidden;">
+                    <table ng-show="SensitivityOne.expenseActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Petitioner Values</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.expenseSets">
+                             <span class="dropdown-toggle"> 
+                             {{set.name}}
+                             </span>
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Leasable Sq Ft (SFL)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerLeasableSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF (MR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.petitionerMarketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Annual Rent (AR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerAnnualRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Gross Potential Rent (GPR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.petitionerGPR | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % (V%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerVacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy $ (V$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerVacancy | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective Rent (ER)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerEffectiveRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses % (E%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerExpensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ (E$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.petitionerExpense | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF (E$/sf)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerExpenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Other Income (OI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Net Operating Income (NOI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerNOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI/SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerNOIBySF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate (BCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerBCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective RE Tax Rate (ETR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerETR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Overall Cap Rate (OCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.petitionerOCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value - Direct Cap (VDC)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerVDC | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.petitionerValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <br>
+                    <table ng-show="SensitivityOne.expenseActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Expense %</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.expenseSets">
+                             <i ng-if="SensitivityOne.expenseSets.length > 1" style="margin-left: 4.7em;" class="fa fa-lg fa-times-circle minus-col pull-right" aria-hidden="true" ng-click="SensitivityOne.removeExpenseSet($index)"></i> {{set.name}}
+                          </th>
+                          <th style="border: 1px solid #6abaf4;">
+                             <!-- <i class="fa fa-lg fa-plus-circle" aria-hidden="true" ng-click="SensitivityOne.addExpenseSet()"></i> -->
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.marketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.vacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive" ng-class="{EX : SensitivityOne.expenseInputActive}">Expenses $ Per SF </td>
+                             <td class="td-alignment" ng-class="{EX : SensitivityOne.expenseInputActive}" ng-repeat="set in SensitivityOne.expenseSets">
+                                <span ng-show="!SensitivityOne.expenseInputActive">${{set.expenseSF | number : 0}}</span>
+                                <span ng-show="SensitivityOne.expenseInputActive">
+                                   <div class="my">
+                                      <img class="image-resize" src="../../../../../assets/img/dollar-symbol.png"><input
+                                      ng-change="SensitivityOne.calculateExpenseSet(set)"
+                                      type="text" class="form-control"  disabled ng-model="set.expenseSF"
+                                      placeholder="Enter value" required=""></div>
+                                   <span class="dropdown" style="line-height: 2.5;">
+                                      <span class="dropdown-toggle" id="menu1" >
+                                      <span class="caret"></span>
+                                      </span>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                         <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" ng-repeat="scenarioSet in SensitivityOne.scenarioSets" ng-click="SensitivityOne.useSetInScenario(set.expenseSF , scenarioSet , 'expenseSF')">
+                                            Use in Scenario {{scenarioSet.name}}
+                                            </a>
+                                         </li>
+                                         <li role="presentation" ng-click="SensitivityOne.addScenarioSetWithValues(set.expenseSF , 'expenseSF')">
+                                            <a role="menuitem" tabindex="-1">
+                                            Create new Scenario
+                                            </a>
+                                         </li>
+                                      </ul>
+                                   </span>
+                                </span>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive" ng-class="{EX : !SensitivityOne.expenseInputActive}">Expense % </td>
+                             <td class="td-alignment" ng-class="{EX : !SensitivityOne.expenseInputActive}" ng-repeat="set in SensitivityOne.expenseSets">
+                                <span ng-show="SensitivityOne.expenseInputActive">
+                                {{set.expensePercentage | number : 0}}%
+                                </span>
+                                <span ng-show="!SensitivityOne.expenseInputActive">
+                                     <div class="my">
+                                      <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"> <input maxlength="6"
+                                      ng-change="SensitivityOne.calculateExpenseSet(set)" type="text" class="form-control"  disabled ng-model="set.expensePercentage" placeholder="Enter value" required=""></span>
+                                   <span class="dropdown" style="line-height: 2.5;">
+                                      <span class="dropdown-toggle" id="menu1" > 
+                                      <span class="caret"></span>
+                                      </span>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                         <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" ng-repeat="scenarioSet in SensitivityOne.scenarioSets" ng-click="SensitivityOne.useSetInScenario(set.expensePercentage , scenarioSet , 'expensePercentage')">
+                                            Use in Scenario {{scenarioSet.name}}
+                                            </a>
+                                         </li>
+                                         <li role="presentation" ng-click="SensitivityOne.addScenarioSetWithValues(set.expensePercentage , 'expensePercentage')">
+                                            <a role="menuitem" tabindex="-1">
+                                            Create new Scenario
+                                            </a>
+                                         </li>
+                                      </ul>
+                                   </span>
+                                </span>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.NOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                {{set.BCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.value | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.valueSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets"> ${{set.assessedValue | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.expenseSets">
+                                ${{set.assessedValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+             </div>
+             <!--  =======================================       Base Cape Rate  ======================================= -->
+             <div class="col-md-{{col}}" ng-show="SensitivityOne.baseCapeRateActive" resizable  r-directions="['right']" r-flex="true" style="padding: 20px;overflow: hidden;">
+                    <table ng-show="SensitivityOne.baseCapeRateActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Petitioner Values</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.BCRSets">
+                             <span class="dropdown-toggle"> 
+                             {{set.name}}
+                             </span>
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Leasable Sq Ft (SFL)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerLeasableSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF (MR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.petitionerMarketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Annual Rent (AR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerAnnualRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Gross Potential Rent (GPR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.petitionerGPR | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % (V%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerVacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy $ (V$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerVacancy | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective Rent (ER)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerEffectiveRent | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses % (E%)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerExpensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ (E$)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.petitionerExpense | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF (E$/sf)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerExpenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Other Income (OI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Net Operating Income (NOI)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerNOI | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI/SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerNOIBySF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Base Cap Rate (BCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerBCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Effective RE Tax Rate (ETR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerETR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Overall Cap Rate (OCR)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.petitionerOCR | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value - Direct Cap (VDC)</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerVDC | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.petitionerValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <br>
+                    <table ng-show="SensitivityOne.baseCapeRateActive" id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                       <thead>
+                          <th ng-show="!SensitivityOne.scenarioTwoActive" style="min-width:170px;">Base Cape Rate</th>
+                          <th class="dropdowna" ng-repeat="set in SensitivityOne.BCRSets">
+                             <i ng-if="SensitivityOne.BCRSets.length > 1" style="margin-left: 4.7em;" class="fa fa-lg fa-times-circle minus-col pull-right" aria-hidden="true" ng-click="SensitivityOne.removeBCRSet($index)"></i> {{set.name}}
+                          </th>
+                          <th style="border: 1px solid #6abaf4;">
+                             <!-- <i class="fa fa-lg fa-plus-circle" aria-hidden="true" ng-click="SensitivityOne.addBCRSet()"></i> -->
+                          </th>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Market Rent Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.marketRentSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Vacancy % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.vacancyPercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expenses $ Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.expenseSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Expense % </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                {{set.expensePercentage | number : 0}}%
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">NOI Per SF </td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.NOI | number : 0}}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-show="!SensitivityOne.scenarioTwoActive" class="BC">Base Cap Rate</td>
+                            <td class="BC" ng-repeat="set in SensitivityOne.BCRSets">
+                               <div class="my">
+                                  <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"><input maxlength="6" max="100" ng-change="SensitivityOne.calculateBCRSet(set)" type="text" class="form-control"  disabled ng-model="set.BCR" placeholder="Enter value" required=""></div>
+
+                                <span class="dropdown" style="line-height: 2.5;">
+                                   <span class="dropdown-toggle" id="menu1" > 
+                                   <span class="caret"></span>
+                                   </span>
+                                   <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                      <li role="presentation">
+                                         <a role="menuitem" tabindex="-1" ng-repeat="scenarioSet in SensitivityOne.scenarioSets" ng-click="SensitivityOne.useSetInScenario(set.BCR , scenarioSet , 'BCR')">
+                                         Use in Scenario {{scenarioSet.name}}
+                                         </a>
+                                      </li>
+                                      <li role="presentation" ng-click="SensitivityOne.addScenarioSetWithValues(set.BCR , 'BCR')">
+                                         <a role="menuitem" tabindex="-1">
+                                         Create new Scenario
+                                         </a>
+                                      </li>
+                                   </ul>
+                                </span>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.value | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.valueSF | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets"> ${{set.assessedValue | number : 0}}
+                             </td>
+                          </tr>
+                          <tr>
+                             <td ng-show="!SensitivityOne.scenarioTwoActive">Assessed Value Per SF</td>
+                             <td class="td-alignment" ng-repeat="set in SensitivityOne.BCRSets">
+                                ${{set.assessedValueSF | number : 0}}
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+             </div>
+      </div>
+   </div>
+   <!-- 
+      //==========================================================SCENARIO==============================================//
+      
+       -->
+   <div role="tabpanel" class="tab-pane" ng-class="{active: SensitivityOne.showScenarioTab}" ng-show="SensitivityOne.showScenarioTab">
+      <h5>Create a scenario for use in valuation.</h5>
+      <br>
+      <div class="row scenario-tables Containera Flipped">
+         <div class="row">
+            <div class="col-md-8">
+               <!--Scenario testing  -->
+               <table id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                  <thead>
+                     <th style="min-width:170px;">Petitioner Values</th>
+                     <th class="dropdowna" ng-repeat="set in SensitivityOne.scenarioSets | orderBy : '-name'">
+                        <span class="dropdown-toggle"> 
+                        {{set.name}}
+                        </span>
+                     </th>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Leasable Sq Ft (SFL)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerLeasableSF | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Market Rent Per SF (MR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets"> ${{set.petitionerMarketRentSF | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Annual Rent (AR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerAnnualRent | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Gross Potential Rent (GPR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets"> ${{set.petitionerGPR | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Vacancy % (V%)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerVacancyPercentage | number : 0}}%
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Vacancy $ (V$)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerVacancy | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Effective Rent (ER)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerEffectiveRent | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Expenses % (E%)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerExpensePercentage | number : 0}}%
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Expenses $ (E$)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets"> ${{set.petitionerExpense | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Expenses $ Per SF (E$/sf)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerExpenseSF | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Other Income (OI)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerOI | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Net Operating Income (NOI)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerNOI | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>NOI/SF</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerNOIBySF | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Base Cap Rate (BCR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerBCR | number : 0}}%
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Effective RE Tax Rate (ETR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerETR | number : 0}}%
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Overall Cap Rate (OCR)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           {{set.petitionerOCR | number : 0}}%
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Value - Direct Cap (VDC)</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerVDC | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Value Per SF</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.petitionerValueSF | number : 0}}
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <br>
+               <table id="tableone" id=table class="Content table table-bordered table-striped table-condensed" style="background: white;">
+                  <thead>
+                     <th style="min-width:170px;">Parameters</th>
+                     <th class="dropdowna" ng-repeat="set in SensitivityOne.scenarioSets">
+                        <i ng-if="SensitivityOne.scenarioSets.length > 1" class="fa fa-lg fa-times-circle minus-col pull-right" aria-hidden="true" ng-click="SensitivityOne.removeScenarioSet($index)"></i>
+                        <input ng-change="SensitivityOne.sensitivityErrorCount()" ng-class="{'input-border-red' : ((!set.name.toString().length) && SensitivityOne.submitClicked) }"  disabled ng-model="set.name" type="text" class="form-control" placeholder="Title" required="" style="max-width: 80px;float: left;">
+                        <span class="dropdown" style="line-height: 2.5;">
+                           <span class="dropdown-toggle" id="menu1" > 
+                           <span class="caret"></span>
+                           </span>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                              <li role="presentation">
+                                 <a role="menuitem" tabindex="-1" ng-click="SensitivityOne.useInValuation(set)">
+                                 Use in valuation
+                                 </a>
+                              </li>
+                              <li role="presentation">
+                                 <a role="menuitem" tabindex="-1">
+                                 Share this scenario
+                                 </a>
+                              </li>
+                           </ul>
+                        </span>
+                     </th>
+                     <th style="border: 1px solid #6abaf4;">
+                        <!-- <i class="fa fa-lg fa-plus-circle" aria-hidden="true" ng-click="SensitivityOne.addScenarioSet()"></i> -->
+                     </th>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td class="MR">Market Rent Per SF</td>
+                        <td class="MR" ng-repeat="set in SensitivityOne.scenarioSets">
+                           <span class="symbol-dollar"><input ng-change="SensitivityOne.calculateScenarioSet(set,'marketRentSF')" type="text" class="form-control"  disabled ng-model="set.marketRentSF" placeholder="Enter value" required=""></span>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="VA">Vacancy % </td>
+                        <td class="VA" ng-repeat="set in SensitivityOne.scenarioSets">
+                           <div class="my">
+                              <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"> <input maxlength="6"  ng-change="SensitivityOne.calculateScenarioSet(set,'vacancyPercentage')" type="text" class="form-control"  disabled ng-model="set.vacancyPercentage" placeholder="Enter value" required=""></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="EX">Expenses $ Per SF </td>
+                        <td class="EX" class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           <span class="symbol-dollar"><input ng-change="SensitivityOne.calculateScenarioSet(set,'expenseSF')" type="text" class="form-control"  disabled ng-model="set.expenseSF" placeholder="Enter value" required=""></span>
+                           <!-- ${{set.expenseSF | number : 0}} -->
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="EX">Expense % </td>
+                        <td class="EX" ng-repeat="set in SensitivityOne.scenarioSets">
+                           <div class="my">
+                              <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"> <input  maxlength="6" ng-change="SensitivityOne.calculateScenarioSet(set,'expensePercentage')" type="text" class="form-control"  disabled ng-model="set.expensePercentage" placeholder="Enter value" required=""></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>NOI Per SF </td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.NOI | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="BC">Base Cap Rate</td>
+                        <td class="BC" ng-repeat="set in SensitivityOne.scenarioSets">
+                           <div class="my">
+                              <img class="image-percent" src="../../../../../assets/img/percentage-symbol.png"><input maxlength="6"  ng-change="SensitivityOne.calculateScenarioSet(set , 'BCR')" type="text" class="form-control"  disabled ng-model="set.BCR" placeholder="Enter value" required=""></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Value</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.value | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Value Per SF</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets"> ${{set.valueSF | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Assessed Value</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets"> ${{set.assessedValue | number : 0}}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Assessed Value Per SF</td>
+                        <td class="td-alignment" ng-repeat="set in SensitivityOne.scenarioSets">
+                           ${{set.assessedValueSF | number : 0}}
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<ul id="options">
+   <li style="cursor: pointer;">
+      <a style="background-color: #3c5a96;" ng-click="showScenarioOne()" data-tooltip="tooltip" data-placement="bottom" title="More Details" ng-show="SensitivityOne.scenarioTwoActive">
+      <img src="assets/img/grid.png" alt="" /></a>
+   </li>
+   <li style="cursor: pointer;" data-tooltip="tooltip" data-placement="bottom" title="Less Details" data-original-title="Less Details">
+      <a style="background-color: #3c5a96;" ng-click="showScenarioTwo()" ng-show="!SensitivityOne.scenarioTwoActive">
+      <img src="assets/img/grid2.png" alt="" /></a>
+   </li>
+   <li style="cursor: pointer;" data-tooltip="tooltip" data-placement="bottom" title="Change View" data-original-title="Change View">
+      <a style="background-color: #3c5a96;" ng-click="showScenarioThree()">
+      <img src="assets/img/grid3.png" /></a>
+   </li>
+</ul>
+<span class="pull-right footer-btns ">
+<a class="btn btn-danger " data-toggle="modal" data-target="#myModalquestion">Go to Valuation</a>
+</span>
+<!--=========================================== Modal ===========================================-->
+<div id="myModalquestion" class="modal fade">
+   <div class="modal-dialog modal-md">
+      <div class="modal-content" style="background-color: #ffffff; color: #555;">
+         <div class="modal-header" style=" background: #000c35 !important;">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h5 class="modal-title text-left" style="color:#fff;">
+               Attention
+            </h5>
+         </div>
+         <div class="modal-body">
+            <div class="js-upload-finished text-left">
+               <h5>Do you want to leave workspace.</h5>
+            </div>
+            <button data-dismiss="modal" type="button" class="btn btn-danger  pull-right" style="margin: 12px; z-index:111; ">No</button>
+            <button data-dismiss="modal" ng-click="SensitivityOne.gotoValuation()" type="button" class="btn btn-success  pull-right" style="margin: 12px; z-index:111; ">Yes</button>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </div>
+</div>
+<!--=========================================== Modal ===========================================-->
+<footer class="text-center"> © copyright 2017 Software Productivity Strategists, Inc. All rights reserved. </footer>

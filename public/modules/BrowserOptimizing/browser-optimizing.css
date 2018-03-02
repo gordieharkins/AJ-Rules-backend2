@@ -1,0 +1,38 @@
+.body{
+    width:60%;
+    margin: 10% 8% 0px 17%;
+    height: 35%;
+    background: #7EC0EE;
+    padding-left: 5%;
+    padding-bottom: 5%;
+}
+
+.browser-support{
+    font-size: 20px;
+    color: black;
+    padding-bottom: 40px;
+}
+
+.icons{
+    width: 60px;
+    height: 60px;
+    margin-right: 2%;
+}
+
+.link-text{
+    padding-left: 15%;
+}
+
+.link-icons{
+    padding-left: 30%;
+    margin-bottom: 5%
+}
+
+.link-footer{
+    font-size: 15px;
+    padding-top: 2%;
+    padding-left: 35%;
+    color:black;
+    cursor: pointer;
+    margin-bottom: -7%;
+}

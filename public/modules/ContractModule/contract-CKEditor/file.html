@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="modules/ContractModule/contract-CKEditor/file.css">
+
+<header></header>
+<div class="columns row">
+	<div class="editor col-md-6">
+	    <textarea ck-editor id="editor1" ng-model="content"></textarea>
+    	 <button ng-click="checkValues()" type="button" class="btn btn-primary pull-right" style="width: 120px; margin-top: 10px">Save Contract</button>
+
+	</div>
+	<div class="contacts col-md-6">
+		<div class="col-md-12 contractDiv">
+			<div class="row">
+
+		    	<h5>Contract Formats
+				        <input multiple type="file" class="inputfile inputfile-1" style="display:none" name="file-1[]" id="file-1" onchange="angular.element(this).scope().fileUploaded()" />
+				        <label style="float: right;" ng-click="clearFile()" for="file-1">
+				            <span style="background-color: white; cursor: pointer; color: #337ab7;font-size: 14px;font-weight: 400;"> 
+				            <i class="fa fa-upload" aria-hidden="true"></i> Upload new format</span>
+				        </label>
+			    </h5>
+			    <hr>
+		    </div>
+		    <div class="list-flow">
+			    <ul id="contactList2">
+			        <li ng-repeat="article in articles">
+			            <div class="contact h-card" data-contact="1" draggable="true" data-contact="0" tabindex="0">
+			                <span class="u-photo">{{article.name}}</span>
+			        </li>
+			    </ul>
+		    </div>
+		</div>
+
+		<div class="col-md-12 clauseDiv">
+		<div class="row">
+		    	<h5>Clause Formats
+				         <a style="float: right;text-decoration: none;">
+				            <span class="labelSetting"> <i class="fa fa-plus" aria-hidden="true"></i> Create new clause</span>
+				        </a>
+			    </h5>
+			    <hr>
+
+		    </div>
+
+		       
+		    <div class="list-flow">
+			    <ul id="contactList">
+			        <li ng-repeat="article in articles">
+			            <div class="contact h-card" data-contact="1" draggable="true" data-contact="0" tabindex="0">
+			                <span class="u-photo">{{article.name}}</span>
+			        </li>
+			    </ul>
+		    </div>
+		</div>
+	    
+    </div>
+</div>
+
+
+<div id="uploadedContracts" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Selected Contracts.</h5>
+            </div>
+            <div class="modal-body" style="position: relative; padding: 15px; max-height: 500px; overflow: auto;">
+                <br>
+                <div class="clearfix"></div>
+                <div class="js-upload-finished text-left">
+                    <div ng-repeat="file in FileNames" class="list-group list-group-item" ng-class="file.uploadStatus ? 'list-group-item-success':'list-group-item-danger'" style="margin-bottom:10px;background-color: #edf8fd;">
+                        <a>
+                            <label style="color:#555; font-weight: 700; ">File Name:</label> {{file.name}}
+                        </a>
+                      <!--   <div class="form-group">
+                            <label for="comment" style="color:#555; font-weight: 700; ">Description:</label>
+                            <textarea class="form-control" ng-model="file.description" rows="1" id="Description"></textarea>
+                        </div> -->
+                    </div>
+                </div>
+                  
+                <button ng-show="FileNames.length > 0" ng-click="uploadSelectedFiles()" type="button" class="btn btn-user  pull-right" style="margin: 12px; z-index:111;" id="success-btn">Upload</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="uploadedContracts" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Selected Contracts.</h5>
+            </div>
+            <div class="modal-body" style="position: relative; padding: 15px; max-height: 500px; overflow: auto;">
+                <br>
+                <div class="clearfix"></div>
+                <div class="js-upload-finished text-left">
+                    <div ng-repeat="file in FileNames" class="list-group list-group-item" ng-class="file.uploadStatus ? 'list-group-item-success':'list-group-item-danger'" style="margin-bottom:10px;background-color: #edf8fd;">
+                        <a>
+                            <label style="color:#555; font-weight: 700; ">File Name:</label> {{file.name}}
+                        </a>
+                      <!--   <div class="form-group">
+                            <label for="comment" style="color:#555; font-weight: 700; ">Description:</label>
+                            <textarea class="form-control" ng-model="file.description" rows="1" id="Description"></textarea>
+                        </div> -->
+                    </div>
+                </div>
+                  
+                <button ng-show="FileNames.length > 0" ng-click="uploadSelectedFiles()" type="button" class="btn btn-user  pull-right" style="margin: 12px; z-index:111;" id="success-btn">Upload</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<footer class="text-center">Copyright - 2017</footer>

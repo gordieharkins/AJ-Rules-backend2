@@ -1,0 +1,158 @@
+<div id="newRightModal" class="modal fade">
+    <style>
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: 5px 10px;
+        }
+
+        .list-group-item .checkbox label {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .list-group-item input[type=checkbox],
+        .list-group-item .checkbox-inline input[type=checkbox] {
+            margin-left: 0px;
+        }
+
+        .checkbox label {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkbox input[type="checkbox"]:after,
+        .checkbox-inline input[type="checkbox"]:after {
+            color: #555 !important;
+        }
+
+        .checkbox input[type="checkbox"]:after,
+        .checkbox-inline input[type="checkbox"]:after {
+            color: #ffffff !important;
+        }
+
+        .checkbox input[type="checkbox"]:after,
+        .checkbox-inline input[type="checkbox"]:after {
+            border: 2px solid;
+            border-radius: 2px;
+            content: '';
+            display: block;
+            height: 16px;
+            transition: 240ms;
+            width: 17px;
+        }
+
+        .checkbox input[type="checkbox"]:after,
+        .checkbox-inline input[type="checkbox"]:after {
+            border: 2px solid;
+            border-radius: 2px;
+            content: '';
+            display: block;
+            height: 18px;
+            transition: 240ms;
+            width: 18px;
+            border-color: #898989;
+        }
+
+        .checkbox-inline input[type=checkbox]:checked:before,
+        .checkbox input[type=checkbox]:checked:before {
+            left: 7px;
+            top: 2px;
+        }
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">New User Right</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form name="$ctrl.saveForm" role="form" ng-submit="$ctrl.addNewRole(uRole, $ctrl.saveForm)">
+                        <div class="col-sm-12" style="">
+                            <!-- <div class="form-group" style="margin-top: 0px;margin-bottom:10px;width:100%">
+                                <button style="width:100%" type="submit" form="saveForm" class="btn btn-primary" ng-click="head.showEventModal()">New Internal Event</button>
+                            </div> -->
+                            <div>
+                                <div class="form-group">
+                                    <label for="email">Role Name:</label>
+                                    <input ng-model="uRole.name" type="text" class="form-control" id="name" required>
+                                </div>
+                                <label for="inputEmail" class="control-label" style="margin-bottom: 15px;">Select user rights new role</label>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.uploadProperties" type="checkbox" name="" >
+                                        <label>Upload Properties </label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.contracts" type="checkbox" name="" >
+                                        <label> Contracts</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.masterSlave" type="checkbox" name="" >
+                                        <label> Master Slave</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.newsFeed" type="checkbox" name="" >
+                                        <label> News Feed</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.properties" type="checkbox" name="" >
+                                        <label> Properties</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.createContract" type="checkbox" name="" >
+                                        <label> Create Contract</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.timeline" type="checkbox" name="" >
+                                        <label> Timeline</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.publicData" type="checkbox" name="" >
+                                        <label> Public Data</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.surveys" type="checkbox" name="" >
+                                        <label> Surveys</label>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="checkbox checkboxChange">
+                                        <input ng-model="uRole.taskManager" type="checkbox" name="" >
+                                        <label> Task Manager</label>
+                                    </div>
+                                </div> 
+
+                            </div>
+                            <br>
+                        </div>
+                        <br>
+                        <br>
+                        <div style="clear:both"></div>
+                        <div class="form-group pull-right" style="margin-top: 20px;">
+                            <button type="submit" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
