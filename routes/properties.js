@@ -137,7 +137,7 @@ router.post('/multiPartLinking', function(req, res, next) {
 // Linking Multipart Properties
 //----------------------------
 router.post('/multiAccountLinking', function(req, res, next) {
-    BLL.multiAccountLinking(req.body.properties, res)
+    BLL.multiAccountLinking(req.body.propIds, res)
 });
 
 //--------------------------------------------
