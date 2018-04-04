@@ -33,6 +33,7 @@ var contracts = require('./routes/contracts');
 var newsFeed = require('./routes/newsFeed');
 var timeline = require('./routes/timeline');
 var admin = require('./routes/admin');
+var appeal = require('./routes/appeal');
 
 var zillow = require('./routes/zillow');
 
@@ -90,6 +91,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/appeal', appeal);
 app.use('/admin', passport.authenticate('jwt', { session: false }), admin);
 app.use('/rentRolls', passport.authenticate('jwt', { session: false }), rentRolls);
 app.use('/otherFiles', passport.authenticate('jwt', { session: false }), otherFiles);
