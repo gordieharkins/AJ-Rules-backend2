@@ -1030,10 +1030,10 @@ BLL.prototype.removeAssignedUser = function(data, res) {
             console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            Response.sendResponse(false, Response.RREPLY_MSG.DELETE_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            Response.sendResponse(true, Response.REPLY_MSG.DELETE_SUCCESS, result, res);
         }
     });
 }
