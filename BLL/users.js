@@ -269,9 +269,9 @@ BLL.prototype.getUserByRole = function(data, res) {
             console.log(error);
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
-            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, result, res);
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
 }
@@ -287,9 +287,9 @@ BLL.prototype.getUserRoles = function(data, res) {
             console.log(error);
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
-            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, result, res);
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
 }

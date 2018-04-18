@@ -8,7 +8,7 @@ var SQL = require('mssql');
 
 module.exports = DAL;
 
-// Class Constructor
+// Class Constructor starts
 function DAL() {
 
 }
