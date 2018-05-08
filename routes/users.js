@@ -8,8 +8,13 @@ var bllFile = require(path.resolve(__dirname, '../BLL/users'));
 var BLL = new bllFile();
 
 
+router.post('/', function(req, res, next) {
+	console.log("Body:", req.body);
+	res.send("Users");
+});
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+
 	res.send("Users");
 });
 

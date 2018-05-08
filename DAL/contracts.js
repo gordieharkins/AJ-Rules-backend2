@@ -255,7 +255,7 @@ DAL.prototype.updateContractTerms = function(data, cb) {
 //     });
 // }
 
-DAL.prototype.addContractTemplate = function(data, cb) {
+DAL.prototype.addContractTemplate = function(data, userId, cb) {
     console.log(data);
     var contract = data.contract;
     // console.log(contract);
@@ -303,7 +303,7 @@ DAL.prototype.addContractTemplate = function(data, cb) {
     // console.log(contractTemp);
     var params = {
         contract: contractTemp,
-        userId: contract.userId
+        userId: userId
     }
 
     // console.log(params);
@@ -335,6 +335,7 @@ DAL.prototype.addContractTemplate = function(data, cb) {
         query: query,
         params: params
     }, function(err, results) {
+        console.log(err);
         console.log(results);
         cb(err, results);
     });

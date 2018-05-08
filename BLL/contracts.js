@@ -238,8 +238,9 @@ BLL.prototype.getContracts = function(data,res,next){
 }
 
 BLL.prototype.addContractTemplate = function(data,res,next){
-    console.log(data);
-    DAL.addContractTemplate(data.body ,function(error, result){
+    // console.log(data);
+    var userId = data.user[0].userId;
+    DAL.addContractTemplate(data.body, userId, function(error, result){
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
