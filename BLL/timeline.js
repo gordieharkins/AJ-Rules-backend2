@@ -20,7 +20,7 @@ var cron = require('node-cron');
 //Create notifications for users everyday
 var task = cron.schedule('30 10 * * *', function() { //min hour
     console.log("notifications extracted");
-    timeline.extractNotifications(); //extract notifications and store them in the DB everyday
+	extractNotifications(); //extract notifications and store them in the DB everyday
 }, false);
 task.start();
 
@@ -273,7 +273,7 @@ function getAllPropertiesTimelineStatus2(userId, role) {
 		});
 	}
 
-BLL.prototype.extractNotifications = function(){
+function extractNotifications() {
 	DAL.getUserIds(function(error, result) {
 		if (error) {
 			console.log(error);

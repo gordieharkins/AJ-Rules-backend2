@@ -85,6 +85,7 @@ function executeQuery(query, cb){
             filter: '',
             return: 'title, text, url, publication_date, main_image_url'
         }, function (err, response) {
+			console.log("response");
             cb(err, response);
         });
 }
