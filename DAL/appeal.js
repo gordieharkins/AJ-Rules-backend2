@@ -85,3 +85,65 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         cb(err, results);
     });
 }
+
+
+//--------------------------------------------------------
+// addPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
+ 
+    var params = {};
+    var query = ``;
+    for(var i = 0; i < data.length; i++){
+        params["propId"+i] = parseInt(data[i].propId);
+        params["year"] = year;
+        query += `MATCH(n`+i+`:property) where id(n`+i+`) = {propId`+i+`}
+                CREATE(t`+i+`:timeline{})
+                CREATE(n`+i+`)-[tRel`+i+`:revalYear{revalYear: {year}}]->(t`+i+`)`;
+
+        for(var j in timeline){
+            params["event" +i+""+j] = timeline[j].main;
+            delete timeline[j].main; 
+            query += `\nCREATE(e`+i+""+j+`:event{event`+i+""+j+`})`;
+            query += `\nCREATE(t`+i+`)-[:Event]->(e`+i+""+j+`)`;
+            for(var k in timeline[j]){
+                params["subevent"+i+j+k+""] = timeline[j][k]
+                query += `\nCREATE(se`+i+j+k+""+`:subEvent{subevent`+i+j+k+""+`})`;
+                query += `\nCREATE(e`+i+""+j+`)-[:subEvent]->(se`+i+j+k+""+`)`;
+            }
+        }
+
+    }
+    console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        console.log(results);
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// getPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
+    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId}
+    OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
+    OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
+    return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
+    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
