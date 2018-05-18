@@ -133,10 +133,31 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
     return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
-    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent`;
+    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent ORDER BY id(event)`;
 
     var params = {
         userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// getPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.updateData = function(data, id, cb) {
+    var query = `MATCH(n) where id(n) = {id} SET n = {data}`;
+
+    var params = {
+        id: id,
+        data: data
     };
 
     // console.log(query);

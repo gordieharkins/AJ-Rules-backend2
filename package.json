@@ -23,6 +23,7 @@
     "cfenv": "1.0.x",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.3",
+    "date-diff": "^0.2.0",
     "dateformat": "^2.0.0",
     "debug": "~2.2.0",
     "docx-builder": "^1.0.4",

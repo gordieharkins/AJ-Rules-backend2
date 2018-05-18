@@ -8,6 +8,7 @@ var AppealDAL = require(path.resolve(__dirname, '../DAL/appeal'));
 var IEDAL = require(path.resolve(__dirname, '../DAL/incomeExpenses'));
 var RRDAL = require(path.resolve(__dirname, '../DAL/rentRolls'));
 var async = require('async');
+var dateDiff = require('date-diff');
 
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
@@ -24,10 +25,11 @@ var marylandTimeline = {
 			tranmitForm: "AOTC",
 			transmitPackage: "AOTC",
 			paradigm: "AOTC",
-			deadline: "5/14/2018",
+			deadline: "6/14/2018",
 			status: "Not Started", 
 			message: "",
-			warning: ""
+			warning: "",
+			order: 1
 		},
 		event1:{
 			name: "Complete Required Information",
@@ -38,6 +40,7 @@ var marylandTimeline = {
 			mandatory: true,
 			buttonText: "Details",
 			button: true,
+			order: 1,
 			a: ["item","IE 2015", "false", "2015", "IE"],
 			b: ["item","IE 2016", "false", "2016", "IE"],
 			c: ["item","IE 2017", "false", "2017", "IE"],
@@ -74,7 +77,8 @@ var marylandTimeline = {
 			flag: false,
 			mandatory: false,
 			buttonText: "Schedule Review",
-			button: true
+			button: true,
+			order: 2
 		},
 
 		event4: {
@@ -84,7 +88,8 @@ var marylandTimeline = {
 			flag: false,
 			buttonText: "Execute Signature",
 			button: true,
-			mandatory: true
+			mandatory: true,
+			order: 3
 		}
 
 
@@ -96,7 +101,8 @@ var marylandTimeline = {
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
 			message: "",
-			warning: ""
+			warning: "",
+			order: 2
 		}
 	},
 	appealMerit:{
@@ -106,7 +112,8 @@ var marylandTimeline = {
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
 			message: "",
-			warning: ""
+			warning: "",
+			order: 3
 		}
 	},
 	appealDecision:{
@@ -116,7 +123,8 @@ var marylandTimeline = {
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
 			message: "",
-			warning: ""
+			warning: "",
+			order: 4
 		}
 	},
 	appealPackage:{
@@ -126,7 +134,8 @@ var marylandTimeline = {
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
 			message: "",
-			warning: ""
+			warning: "",
+			order: 5
 		}
 	},
 	appealSubmission:{
@@ -136,7 +145,8 @@ var marylandTimeline = {
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
 			message: "",
-			warning: ""
+			warning: "",
+			order: 6
 		}
 	}
 }
@@ -268,7 +278,9 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 // ---------------------------------------------
 BLL.prototype.getPropertyTimelineData = function(req, res) {
 	var year = (new Date()).getFullYear();
-	var userId = req.user[0].userId;
+	// var userId = req.user[0].userId;
+	var userId = req.body.userId;
+	
     DAL.getPropertyTimelineData(userId, req.body.appealYear, function(error, result) {
         if (error) {
         	console.log(error);
@@ -282,171 +294,23 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			};
 			var jurisdictionsNames = [];
 			var propertyIds = [];
-			// for(var i = 0; i < result.length; i++){
-
-			// 	if(result[i].event.properties.name == "Income and Expense Survey"){
-			// 		var tempSubEvent = {};
-			// 		var flag = false;
-			// 		for(var j = 0; j < result[i].subEvent.length; j++){
-			// 			if(result[i].subEvent[j].properties.name == "Complete Required Information"){
-			// 				async.series([
-			// 					function(callback) {
-			// 						if(!(result[i].subEvent[j].status == "Done")){
-			// 							checkRequiredItems(result[i].subEvent[j].properties, result[i].propertyId, function(error, requiredItems){
-			// 								if(error){
-			// 									callback(error, null);
-			// 								} else {
-			// 									callback(null, requiredItems);
-			// 								}
-			// 							});
-			// 						}
-			// 					},
-
-			// 					function(callback){
-			// 						callback(null, "1");
-			// 					}
-			// 				],
-			// 				// optional callback
-			// 				function(err, results) {
-			// 					console.log("aaaaaa",result[i]);
-			// 					result[i].subEvent[j].properties = results[0];
-			// 					console.log("#333",result[i].subEvent[j].properties);
-			// 					// result[i].subEvent[j].properties["requiredItems"] = [];
-			// 					// result[i].subEvent[j].properties["dataFields"] = [];
-			// 					for(var element in result[i].subEvent[j].properties){
-			// 						if(element == "requiredItems" || element == "dataFields"){
-			// 							continue;
-			// 						}
-			// 						if(Array.isArray(result[i].subEvent[j].properties[element])){
-			// 							if(result[i].subEvent[j].properties[element][0] == "field"){
-			// 								var temp = {
-			// 									name: result[i].subEvent[j].properties[element][1],
-			// 									value: result[i].subEvent[j].properties[element][2],
-			// 									source: result[i].subEvent[j].properties[element][3]
-			// 								}
-			// 								result[i].subEvent[j].properties.dataFields.push(temp);
-			// 								delete result[i].subEvent[j].properties[element];
-
-			// 							} else {
-			// 								var temp = {
-			// 									name: result[i].subEvent[j].properties[element][1],
-			// 									value: result[i].subEvent[j].properties[element][2]
-			// 								}
-											
-			// 								result[i].subEvent[j].properties.requiredItems.push(temp);
-			// 								delete result[i].subEvent[j].properties[element];
-			// 							}
-			// 						}
-			// 					}
-			// 				});
-							
-			// 			}
-			// 		}
-			// 	} 
-			// 	var event = {
-			// 		eventId: result[i].event._id,
-			// 		properties: result[i].event.properties,
-			// 		subEvents: result[i].subEvent 
-			// 	};
-				
-			// 	var property = {
-			// 		id: result[i].propertyId,
-			// 		name: result[i].propertyName,
-			// 		address: result[i].address,
-			// 		ownerName: result[i].ownerName,
-			// 		events: [event]
-			// 	}
-
-			// 	var jurisdiction = {
-			// 		name: result[i].jurisdiction,
-			// 		properties: [property]		
-			// 	}
-			// 	var jurisdictionIndex = jurisdictionsNames.indexOf(result[i].jurisdiction);
-			// 	if(jurisdictionIndex > -1){
-			// 		var propertyIndex = propertyIds[jurisdictionIndex].indexOf(result[i].propertyId);
-			// 		if(propertyIndex > -1){
-			// 			finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events.push(event);
-			// 		} else {
-			// 			finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
-			// 			propertyIds[jurisdictionIndex].push(result[i].propertyId);
-			// 		}
-			// 	} else {
-			// 		jurisdictionsNames.push(result[i].jurisdiction);
-			// 		propertyIds[jurisdictionsNames.length -1] = [result[i].propertyId];
-			// 		finalResult.jurisdictions.push(jurisdiction);
-			// 	}
-			// }
-
-
-
-			////////////////////////////////////////////////////////////////////////////////////////
 			async.forEachOf(result, function (value, i, callbackMain) {
 					if(value.event.properties.name == "Income and Expense Survey"){
 						var tempSubEvent = {};
 						var flag = false;
-						// for(var j = 0; j < value.subEvent.length; j++){
-						// 	if(value.subEvent[j].properties.name == "Complete Required Information"){
-						// 		async.series([
-						// 			function(callback) {
-						// 				if(!(value.subEvent[j].status == "Done")){
-						// 					checkRequiredItems(value.subEvent[j].properties, value.propertyId, function(error, requiredItems){
-						// 						if(error){
-						// 							callback(error, null);
-						// 						} else {
-						// 							callback(null, requiredItems);
-						// 						}
-						// 					});
-						// 				}
-						// 			},
-	
-						// 			function(callback){
-						// 				callback(null, "1");
-						// 			}
-						// 		],
-						// 		// optional callback
-						// 		function(err, results) {
-						// 			console.log("aaaaaa",value);
-						// 			value.subEvent[j].properties = results[0];
-						// 			console.log("#333",value.subEvent[j].properties);
-						// 			// value.subEvent[j].properties["requiredItems"] = [];
-						// 			// value.subEvent[j].properties["dataFields"] = [];
-						// 			for(var element in value.subEvent[j].properties){
-						// 				if(element == "requiredItems" || element == "dataFields"){
-						// 					continue;
-						// 				}
-						// 				if(Array.isArray(value.subEvent[j].properties[element])){
-						// 					if(value.subEvent[j].properties[element][0] == "field"){
-						// 						var temp = {
-						// 							name: value.subEvent[j].properties[element][1],
-						// 							value: value.subEvent[j].properties[element][2],
-						// 							source: value.subEvent[j].properties[element][3]
-						// 						}
-						// 						value.subEvent[j].properties.dataFields.push(temp);
-						// 						delete value.subEvent[j].properties[element];
-	
-						// 					} else {
-						// 						var temp = {
-						// 							name: value.subEvent[j].properties[element][1],
-						// 							value: value.subEvent[j].properties[element][2]
-						// 						}
-												
-						// 						value.subEvent[j].properties.requiredItems.push(temp);
-						// 						delete value.subEvent[j].properties[element];
-						// 					}
-						// 				}
-						// 			}
-						// 		});
-								
-						// 	}
-						// }
-
-						/////////////////////////////////////////////////////////////////////
+						console.log(value);
+						// console.log("Bbbbbbbbb",value.subEvent);
+						// value.subEvent = value.subEvent.sort(function(a, b) {
+						// 	return parseFloat(a.order) - parseFloat(b.order);
+						// });
+						// console.log("aaaaaaaaaa",value.subEvent);
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 							if(subValue.properties.name == "Complete Required Information"){
 								async.series([
 									function(callback) {
 										if(!(subValue.status == "Done")){
-											checkRequiredItems(subValue.properties, value.propertyId, function(error, requiredItems){
+											console.log("aaaaaaaw22.", value.deadline);
+											checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
 												if(error){
 													callback(error, null);
 												} else {
@@ -598,7 +462,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 // ---------------------END---------------------
 
 
-function checkRequiredItems(requiredItems, propertyId, cb){
+function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
+	console.log("*************", requiredItems);
 	async.parallel([
 		function(callback) {
 			IEDAL.getPropertyIE(propertyId, function(error, result) {
@@ -696,8 +561,46 @@ function checkRequiredItems(requiredItems, propertyId, cb){
 			if(remainingItems > 0){
 				message += remainingItems + " out of " + totalItems+ " items remaining."
 			}
-			requiredItems.message = message;
-			
+
+			if(remainingItems == 0 && remainingFields == 0){
+				requiredItems.message = "All items complete.";
+				requiredItems.button = true;
+				requiredItems.buttonText = "Details";
+				requiredItems.warning = "";
+				requiredItems.status = "Done";
+				requiredItems.flag = true;
+
+			} else {
+				console.log(deadline);
+				var daysRemaining = new dateDiff(new Date(), new Date(deadline));
+				console.log(daysRemaining);
+				daysRemaining = daysRemaining.days();
+				message += daysRemaining+ " days remaining before submission. Please complete the required information. "
+				requiredItems.warning = message;
+				requiredItems.message = "";
+				requiredItems.button = true;
+				requiredItems.buttonText = "Details";
+				requiredItems.status = "In Progress";
+				requiredItems.flag = true;
+
+
+				
+				var notification = {
+					heading: "Complete Required Information",
+					text: daysRemaining+ " days remaining before submission. Please complete the required information."
+				}
+			}
+			DAL.updateData(requiredItems, itemId, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+				} else {
+					console.log("success");
+				}
+			});
+
+			requiredItems['notification'] = notification;
 			requiredItems["requiredItems"] = [];
 			requiredItems["dataFields"] = [];
 			cb(null, requiredItems) ;
