@@ -297,9 +297,12 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			async.forEachOf(result, function (value, i, callbackMain) {
 					if(value.event.properties.name == "Income and Expense Survey"){
 						var tempSubEvent = {};
+						var requireInformationIndex = null;
+						var reviewIEDraftIndex = null;
+						var submitIEDataIndex = null;
 						var flag = false;
-						console.log(value);
-						console.log("Bbbbbbbbb",value.subEvent);
+						// console.log(value);
+						// console.log("Bbbbbbbbb",value.subEvent);
 						// value.subEvent = value.subEvent.sort(function(a, b) {
 						// 	return parseFloat(a.order) - parseFloat(b.order);
 						// });
@@ -309,31 +312,19 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						}
 
 						value.subEvent = tempEvent;
-						console.log("aaaaaaaaaa",value.subEvent);
+						// console.log("aaaaaaaaaa",value.subEvent);
 
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 							if(subValue.properties.name == "Complete Required Information"){
-								async.series([
-									function(callback) {
-										if(!(subValue.status == "Done")){
-											// console.log("aaaaaaaw22.", value.deadline);
-											checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
-												if(error){
-													callback(error, null);
-												} else {
-													callback(null, requiredItems);
-												}
-											});
-										}
-									},
-	
-									function(callback){
-										callback(null, "1");
-									}
-								],
-								// optional callback
-								function(err, results) {
-									subValue.properties = results[0];
+								requireInformationIndex = j;
+///////////////////////////////////////
+								checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
+									if(error){
+										callbackSubMain(error);
+									} else {
+										// callback(null, requiredItems);
+										subValue.properties = requiredItems;
+									// requireInformationCopy = results[0];
 									// subValue.properties["requiredItems"] = [];
 									// subValue.properties["dataFields"] = [];
 									for(var element in subValue.properties){
@@ -363,10 +354,78 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									}
 
 									callbackSubMain();
+									}
+								});
+////////////////////////////////////
+								// async.series([
+								// 	function(callback) {
+								// 		if(!(subValue.status == "Done")){
+								// 			// console.log("aaaaaaaw22.", value.deadline);
+								// 			checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
+								// 				if(error){
+								// 					callback(error, null);
+								// 				} else {
+								// 					callback(null, requiredItems);
+								// 				}
+								// 			});
+								// 		}
+								// 	},
+	
+								// 	function(callback){
+								// 		callback(null, "1");
+								// 	}
+								// ],
+								// // optional callback
+								// function(err, results) {
+								// 	subValue.properties = results[0];
+								// 	requireInformationCopy = results[0];
+								// 	// subValue.properties["requiredItems"] = [];
+								// 	// subValue.properties["dataFields"] = [];
+								// 	for(var element in subValue.properties){
+								// 		if(element == "requiredItems" || element == "dataFields"){
+								// 			continue;
+								// 		}
+								// 		if(Array.isArray(subValue.properties[element])){
+								// 			if(subValue.properties[element][0] == "field"){
+								// 				var temp = {
+								// 					name: subValue.properties[element][1],
+								// 					value: subValue.properties[element][2],
+								// 					source: subValue.properties[element][3]
+								// 				}
+								// 				subValue.properties.dataFields.push(temp);
+								// 				delete subValue.properties[element];
+	
+								// 			} else {
+								// 				var temp = {
+								// 					name: subValue.properties[element][1],
+								// 					value: subValue.properties[element][2]
+								// 				}
+												
+								// 				subValue.properties.requiredItems.push(temp);
+								// 				delete subValue.properties[element];
+								// 			}
+								// 		}
+								// 	}
+
+								// 	callbackSubMain();
+								// });
+///////////////////////////////////////////////////////////								
+							} else if(subValue.properties.name == "Review IE Survey Draft"){
+								reviewIEDraftIndex = j;
+								checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
+									if(error){
+										callbackSubMain(error);
+									} else {
+
+										subValue = reviewStatus;
+										callbackSubMain();
+									}
 								});
 								
-							} else {
+							} else if(subValue.properties.name == "Submit IE Survey Data"){
+								submitIEDataIndex = j;
 								callbackSubMain();
+
 							}
 						}, function (err) {
 							if (err) console.error(err.message);
@@ -452,7 +511,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			}, function (err) {
 				if (err) console.error(err.message);
 				// configs is now a map of JSON data
-				console.log("erere");
+				// console.log("erere");
 				Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 			});
 
@@ -470,7 +529,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 
 
 function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
-	console.log("*************", requiredItems);
+	// console.log("*************", requiredItems);
 	async.parallel([
 		function(callback) {
 			IEDAL.getPropertyIE(propertyId, function(error, result) {
@@ -518,7 +577,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 						totalItems++;
 						if(requiredItems[element][2] == "false"){
 							for(var j = 0;j < results[0].length; j++){
-								console.log(results[0][j].year);
+								// console.log(results[0][j].year);
 								if(results[0][j].year.split(",")[1] == requiredItems[element][3]){
 									requiredItems[element][2] = "true";
 									break;
@@ -539,9 +598,9 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 								// console.log(results[0][j].asOfYear);
 								// var asOfDate = (new Date(results[0][j].asOfYear.split(",")[1]));
 								var asOfDate = new Date(requiredItems[element][3]).getTime();
-								console.log("A",asOfDate);
+								// console.log("A",asOfDate);
 								// console.log(results[1][j].asOfYear);
-								console.log("B",results[1][j].asOfYear.split(",")[1]);
+								// console.log("B",results[1][j].asOfYear.split(",")[1]);
 								if(results[1][j].asOfYear.split(",")[1] == asOfDate){
 									requiredItems[element][2] = "true";
 									break;
@@ -578,9 +637,9 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 				requiredItems.flag = true;
 
 			} else {
-				console.log(deadline);
+				// console.log(deadline);
 				var daysRemaining = new dateDiff(new Date(), new Date(deadline));
-				console.log(daysRemaining);
+				// console.log(daysRemaining);
 				daysRemaining = daysRemaining.days();
 				message += daysRemaining+ " days remaining before submission. Please complete the required information. "
 				requiredItems.warning = message;
@@ -613,4 +672,13 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 			cb(null, requiredItems) ;
 		}
 	});
+}
+function checkReivewStatus(requiredItems, reviewStatus, cb){
+	console.log("Req: ",requiredItems);
+	console.log("Status: ",reviewStatus);
+	if(requiredItems.status == "Done"){
+		reviewStatus.properties.flag = false;
+		reviewStatus.properties.status = "Not Started"
+	}
+	cb(null,reviewStatus);
 }
