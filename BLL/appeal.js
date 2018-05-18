@@ -78,6 +78,7 @@ var marylandTimeline = {
 			mandatory: false,
 			buttonText: "Schedule Review",
 			button: true,
+			reviewResult:true,
 			order: 2
 		},
 
@@ -89,6 +90,7 @@ var marylandTimeline = {
 			buttonText: "Execute Signature",
 			button: true,
 			mandatory: true,
+			// state: "", 
 			order: 3
 		}
 
@@ -288,7 +290,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-
+			// res.send(result);
 			var finalResult = {
 				jurisdictions: []
 			};
@@ -416,16 +418,20 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									if(error){
 										callbackSubMain(error);
 									} else {
-
 										subValue = reviewStatus;
 										callbackSubMain();
 									}
 								});
-								
 							} else if(subValue.properties.name == "Submit IE Survey Data"){
 								submitIEDataIndex = j;
-								callbackSubMain();
-
+								checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], subValue, function(error, surveyData){
+									if(error){
+										callbackSubMain(error);
+									} else {
+										subValue = surveyData;
+										callbackSubMain();
+									}
+								});
 							}
 						}, function (err) {
 							if (err) console.error(err.message);
@@ -444,7 +450,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								ownerName: value.ownerName,
 								events: [event]
 							}
-			
+							
+							console.log()
 							var jurisdiction = {
 								name: value.jurisdiction,
 								properties: [property]		
@@ -455,7 +462,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							if(jurisdictionIndex > -1){
 								var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
 								if(propertyIndex > -1){
-									finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events.push(event);
+									finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
 								} else {
 									finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
 									propertyIds[jurisdictionIndex].push(value.propertyId);
@@ -476,7 +483,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							properties: value.event.properties,
 							subEvents: value.subEvent 
 						};
-						
+						// console.log(event);
 						var property = {
 							id: value.propertyId,
 							name: value.propertyName,
@@ -484,7 +491,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							ownerName: value.ownerName,
 							events: [event]
 						}
-		
+						
 						var jurisdiction = {
 							name: value.jurisdiction,
 							properties: [property]		
@@ -495,7 +502,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						if(jurisdictionIndex > -1){
 							var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
 							if(propertyIndex > -1){
-								finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events.push(event);
+								finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
 							} else {
 								finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
 								propertyIds[jurisdictionIndex].push(value.propertyId);
@@ -514,13 +521,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 				// console.log("erere");
 				Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 			});
-
-
-
-
-
-
-            
         }
 	});
 	
@@ -613,21 +613,14 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 						}
 					} else if(requiredItems[element][0] == "field"){
 						totalFields++;
-						if(requiredItems[element][2] == "abc"){
+						if(requiredItems[element][2] == ""){
 							remainingFields++;
 						}
 					}
 				}
 			}
 			
-			if(remainingFields > 0){
-				message += remainingFields + " out of " + totalFields+ " fields remaining. "
-			}
-
-			if(remainingItems > 0){
-				message += remainingItems + " out of " + totalItems+ " items remaining."
-			}
-
+			
 			if(remainingItems == 0 && remainingFields == 0){
 				requiredItems.message = "All items complete.";
 				requiredItems.button = true;
@@ -639,9 +632,17 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 			} else {
 				// console.log(deadline);
 				var daysRemaining = new dateDiff(new Date(), new Date(deadline));
-				// console.log(daysRemaining);
 				daysRemaining = daysRemaining.days();
-				message += daysRemaining+ " days remaining before submission. Please complete the required information. "
+				message += daysRemaining+ " days remaining before submission."
+				// if(remainingFields > 0){
+				// 	message += remainingFields + " out of " + totalFields+ " fields remaining. "
+				// }
+	
+				if(remainingItems > 0){
+					message += remainingItems + " of " + totalItems+ " items needed for submission."
+				}
+	
+				// console.log(daysRemaining);
 				requiredItems.warning = message;
 				requiredItems.message = "";
 				requiredItems.button = true;
@@ -650,11 +651,17 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 				requiredItems.flag = true;
 
 
-				
 				var notification = {
 					heading: "Complete Required Information",
-					text: daysRemaining+ " days remaining before submission. Please complete the required information."
+					text: ""
 				}
+
+				if(daysRemaining < 15 && daysRemaining > 0){
+					notification.text = daysRemaining+ " days remaining before submission. Please complete the required information."
+				} else if (daysRemaining <= 0 ){
+					notification.text = "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days."
+				}
+				
 			}
 			DAL.updateData(requiredItems, itemId, function(error, result) {
 				if (error) {
@@ -665,7 +672,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 					console.log("success");
 				}
 			});
-
+			
 			requiredItems['notification'] = notification;
 			requiredItems["requiredItems"] = [];
 			requiredItems["dataFields"] = [];
@@ -673,12 +680,25 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 		}
 	});
 }
+
+
 function checkReivewStatus(requiredItems, reviewStatus, cb){
 	console.log("Req: ",requiredItems);
 	console.log("Status: ",reviewStatus);
 	if(requiredItems.status == "Done"){
-		reviewStatus.properties.flag = false;
-		reviewStatus.properties.status = "Not Started"
+		reviewStatus.properties.flag = true;
+		reviewStatus.properties.status = "In Progress"
 	}
 	cb(null,reviewStatus);
+}
+
+
+function checkSubmissionStatus(reviewStatus, submissionStatus, cb){
+	// console.log("Req: ",requiredItems);
+	// console.log("Status: ",reviewStatus);
+	if(reviewStatus.reviewResult){
+		submissionStatus.properties.flag = true;
+		submissionStatus.properties.status = "In Progress"
+	}
+	cb(null,submissionStatus);
 }
