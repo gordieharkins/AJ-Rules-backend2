@@ -299,17 +299,24 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						var tempSubEvent = {};
 						var flag = false;
 						console.log(value);
-						// console.log("Bbbbbbbbb",value.subEvent);
+						console.log("Bbbbbbbbb",value.subEvent);
 						// value.subEvent = value.subEvent.sort(function(a, b) {
 						// 	return parseFloat(a.order) - parseFloat(b.order);
 						// });
-						// console.log("aaaaaaaaaa",value.subEvent);
+						var tempEvent = [];
+						for(var k = 0; k < value.subEvent.length; k++){
+							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
+						}
+
+						value.subEvent = tempEvent;
+						console.log("aaaaaaaaaa",value.subEvent);
+
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 							if(subValue.properties.name == "Complete Required Information"){
 								async.series([
 									function(callback) {
 										if(!(subValue.status == "Done")){
-											console.log("aaaaaaaw22.", value.deadline);
+											// console.log("aaaaaaaw22.", value.deadline);
 											checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
 												if(error){
 													callback(error, null);
