@@ -255,7 +255,7 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 // Add timeline data to property
 // ---------------------------------------------
 BLL.prototype.addPropertyTimelineData = function(data, cb) {
-	console.log("timeline: ",data);
+	// console.log("timeline: ",data);
 	var year = (new Date()).getFullYear();
 	// if(data.jurisdiction == "Maryland"){
 	// 	var timeline
@@ -296,6 +296,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			};
 			var jurisdictionsNames = [];
 			var propertyIds = [];
+
+			// 
 			async.forEachOf(result, function (value, i, callbackMain) {
 					if(value.event.properties.name == "Income and Expense Survey"){
 						var tempSubEvent = {};
@@ -303,115 +305,48 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						var reviewIEDraftIndex = null;
 						var submitIEDataIndex = null;
 						var flag = false;
-						// console.log(value);
-						// console.log("Bbbbbbbbb",value.subEvent);
-						// value.subEvent = value.subEvent.sort(function(a, b) {
-						// 	return parseFloat(a.order) - parseFloat(b.order);
-						// });
 						var tempEvent = [];
 						for(var k = 0; k < value.subEvent.length; k++){
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
 
 						value.subEvent = tempEvent;
-						// console.log("aaaaaaaaaa",value.subEvent);
-
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 							if(subValue.properties.name == "Complete Required Information"){
 								requireInformationIndex = j;
-///////////////////////////////////////
 								checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
 									if(error){
 										callbackSubMain(error);
 									} else {
-										// callback(null, requiredItems);
 										subValue.properties = requiredItems;
-									// requireInformationCopy = results[0];
-									// subValue.properties["requiredItems"] = [];
-									// subValue.properties["dataFields"] = [];
-									for(var element in subValue.properties){
-										if(element == "requiredItems" || element == "dataFields"){
-											continue;
-										}
-										if(Array.isArray(subValue.properties[element])){
-											if(subValue.properties[element][0] == "field"){
-												var temp = {
-													name: subValue.properties[element][1],
-													value: subValue.properties[element][2],
-													source: subValue.properties[element][3]
+										for(var element in subValue.properties){
+											if(element == "requiredItems" || element == "dataFields"){
+												continue;
+											}
+											if(Array.isArray(subValue.properties[element])){
+												if(subValue.properties[element][0] == "field"){
+													var temp = {
+														name: subValue.properties[element][1],
+														value: subValue.properties[element][2],
+														source: subValue.properties[element][3]
+													}
+													subValue.properties.dataFields.push(temp);
+													delete subValue.properties[element];
+		
+												} else {
+													var temp = {
+														name: subValue.properties[element][1],
+														value: subValue.properties[element][2]
+													}
+													
+													subValue.properties.requiredItems.push(temp);
+													delete subValue.properties[element];
 												}
-												subValue.properties.dataFields.push(temp);
-												delete subValue.properties[element];
-	
-											} else {
-												var temp = {
-													name: subValue.properties[element][1],
-													value: subValue.properties[element][2]
-												}
-												
-												subValue.properties.requiredItems.push(temp);
-												delete subValue.properties[element];
 											}
 										}
-									}
-
-									callbackSubMain();
+										callbackSubMain();
 									}
 								});
-////////////////////////////////////
-								// async.series([
-								// 	function(callback) {
-								// 		if(!(subValue.status == "Done")){
-								// 			// console.log("aaaaaaaw22.", value.deadline);
-								// 			checkRequiredItems(subValue.properties, value.propertyId, subValue._id, value.event.properties.deadline, function(error, requiredItems){
-								// 				if(error){
-								// 					callback(error, null);
-								// 				} else {
-								// 					callback(null, requiredItems);
-								// 				}
-								// 			});
-								// 		}
-								// 	},
-	
-								// 	function(callback){
-								// 		callback(null, "1");
-								// 	}
-								// ],
-								// // optional callback
-								// function(err, results) {
-								// 	subValue.properties = results[0];
-								// 	requireInformationCopy = results[0];
-								// 	// subValue.properties["requiredItems"] = [];
-								// 	// subValue.properties["dataFields"] = [];
-								// 	for(var element in subValue.properties){
-								// 		if(element == "requiredItems" || element == "dataFields"){
-								// 			continue;
-								// 		}
-								// 		if(Array.isArray(subValue.properties[element])){
-								// 			if(subValue.properties[element][0] == "field"){
-								// 				var temp = {
-								// 					name: subValue.properties[element][1],
-								// 					value: subValue.properties[element][2],
-								// 					source: subValue.properties[element][3]
-								// 				}
-								// 				subValue.properties.dataFields.push(temp);
-								// 				delete subValue.properties[element];
-	
-								// 			} else {
-								// 				var temp = {
-								// 					name: subValue.properties[element][1],
-								// 					value: subValue.properties[element][2]
-								// 				}
-												
-								// 				subValue.properties.requiredItems.push(temp);
-								// 				delete subValue.properties[element];
-								// 			}
-								// 		}
-								// 	}
-
-								// 	callbackSubMain();
-								// });
-///////////////////////////////////////////////////////////								
 							} else if(subValue.properties.name == "Review IE Survey Draft"){
 								reviewIEDraftIndex = j;
 								checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
@@ -437,83 +372,88 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							if (err) console.error(err.message);
 							// configs is now a map of JSON data
 
-							var event = {
-								eventId: value.event._id,
-								properties: value.event.properties,
-								subEvents: value.subEvent 
-							};
+						// 	var event = {
+						// 		eventId: value.event._id,
+						// 		properties: value.event.properties,
+						// 		subEvents: value.subEvent 
+						// 	};
 							
-							var property = {
-								id: value.propertyId,
-								name: value.propertyName,
-								address: value.address,
-								ownerName: value.ownerName,
-								events: [event]
-							}
+						// 	var property = {
+						// 		id: value.propertyId,
+						// 		name: value.propertyName,
+						// 		address: value.address,
+						// 		ownerName: value.ownerName,
+						// 		events: [event]
+						// 	}
 							
-							console.log()
-							var jurisdiction = {
-								name: value.jurisdiction,
-								properties: [property]		
-							}
+						// 	var jurisdiction = {
+						// 		name: value.jurisdiction,
+						// 		properties: [property]		
+						// 	}
 
-							// console.log(event);
-							var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-							if(jurisdictionIndex > -1){
-								var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
-								if(propertyIndex > -1){
-									finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
-								} else {
-									finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
-									propertyIds[jurisdictionIndex].push(value.propertyId);
-								}
-							} else {
-								jurisdictionsNames.push(value.jurisdiction);
-								propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
-								finalResult.jurisdictions.push(jurisdiction);
-							}
+						// 	console.log("JurisdictionsNames: ",jurisdictionsNames);
+						// 	console.log("Jurisdiction Name: ",value.jurisdiction);
+							
+						// 	var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+						// 	console.log("jurisdictionIndex: ",jurisdictionIndex);
+
+						// 	if(jurisdictionIndex > -1){
+						// 		var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+						// 		if(propertyIndex > -1){
+						// 			finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+						// 		} else {
+						// 			finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+						// 			propertyIds[jurisdictionIndex].push(value.propertyId);
+						// 		}
+						// 	} else {
+						// 		jurisdictionsNames.push(value.jurisdiction);
+						// 		propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+						// 		finalResult.jurisdictions.push(jurisdiction);
+						// 	}
 		
-							callbackMain();
+						// 	callbackMain();
 							
 						});
-					} else {
+					} 
 
-						var event = {
-							eventId: value.event._id,
-							properties: value.event.properties,
-							subEvents: value.subEvent 
-						};
-						// console.log(event);
-						var property = {
-							id: value.propertyId,
-							name: value.propertyName,
-							address: value.address,
-							ownerName: value.ownerName,
-							events: [event]
-						}
-						
-						var jurisdiction = {
-							name: value.jurisdiction,
-							properties: [property]		
-						}
-
-						// console.log(event);
-						var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-						if(jurisdictionIndex > -1){
-							var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
-							if(propertyIndex > -1){
-								finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
-							} else {
-								finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
-								propertyIds[jurisdictionIndex].push(value.propertyId);
-							}
-						} else {
-							jurisdictionsNames.push(value.jurisdiction);
-							propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
-							finalResult.jurisdictions.push(jurisdiction);
-						}
-						callbackMain();
+					var event = {
+						eventId: value.event._id,
+						properties: value.event.properties,
+						subEvents: value.subEvent 
+					};
+					// console.log(event);
+					var property = {
+						id: value.propertyId,
+						name: value.propertyName,
+						address: value.address,
+						ownerName: value.ownerName,
+						events: [event]
 					}
+					
+					var jurisdiction = {
+						name: value.jurisdiction,
+						properties: [property]		
+					}
+
+					console.log("JurisdictionsNames: ",jurisdictionsNames);
+					console.log("Jurisdiction Name: ",value.jurisdiction);
+					
+					var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+					console.log("jurisdictionIndex: ",jurisdictionIndex);
+					if(jurisdictionIndex > -1){
+						var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+						if(propertyIndex > -1){
+							finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+						} else {
+							finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+							propertyIds[jurisdictionIndex].push(value.propertyId);
+						}
+					} else {
+						jurisdictionsNames.push(value.jurisdiction);
+						propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+						finalResult.jurisdictions.push(jurisdiction);
+					}
+					callbackMain();
 					
 			}, function (err) {
 				if (err) console.error(err.message);
@@ -684,7 +624,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 
 function checkReivewStatus(requiredItems, reviewStatus, cb){
 	console.log("Req: ",requiredItems);
-	console.log("Status: ",reviewStatus);
+	// console.log("Status: ",reviewStatus);
 	if(requiredItems.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress"

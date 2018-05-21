@@ -97,24 +97,29 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
     for(var i = 0; i < data.length; i++){
         params["propId"+i] = parseInt(data[i].propId);
         params["year"] = year;
+        var tempTimeline = timeline;
         query += `MATCH(n`+i+`:property) where id(n`+i+`) = {propId`+i+`}
                 CREATE(t`+i+`:timeline{})
                 CREATE(n`+i+`)-[tRel`+i+`:revalYear{revalYear: {year}}]->(t`+i+`)`;
 
-        for(var j in timeline){
-            params["event" +i+""+j] = timeline[j].main;
-            delete timeline[j].main; 
+        for(var j in tempTimeline){
+            
+            params["event" +i+""+j] = tempTimeline[j].main;
+            // delete tempTimeline[j].main; 
             query += `\nCREATE(e`+i+""+j+`:event{event`+i+""+j+`})`;
             query += `\nCREATE(t`+i+`)-[:Event]->(e`+i+""+j+`)`;
-            for(var k in timeline[j]){
-                params["subevent"+i+j+k+""] = timeline[j][k]
+            for(var k in tempTimeline[j]){
+                if(k == "main"){
+                    continue;
+                }
+                params["subevent"+i+j+k+""] = tempTimeline[j][k]
                 query += `\nCREATE(se`+i+j+k+""+`:subEvent{subevent`+i+j+k+""+`})`;
                 query += `\nCREATE(e`+i+""+j+`)-[:subEvent]->(se`+i+j+k+""+`)`;
             }
         }
 
     }
-    console.log(query);
+    console.log(params);
     db.cypher({
         query: query,
         params: params
