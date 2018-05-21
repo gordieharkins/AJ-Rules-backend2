@@ -2,6 +2,8 @@ var path = require('path');
 var InvalidFileFormat = require('../BLL/errors/invalidFileFormat');
 var db = require(path.resolve(__dirname, './graphConnection'));
 var func = require(path.resolve(__dirname, '../BLL/util/functions'));
+var func = require(path.resolve(__dirname, '../BLL/util/functions'));
+var converter = new func();
 
 module.exports = DAL;
 
@@ -163,6 +165,49 @@ DAL.prototype.updateData = function(data, id, cb) {
     var params = {
         id: id,
         data: data
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// generateNotification
+//--------------------------------------------------------
+DAL.prototype.generateNotification = function(notification, userId, cb) {
+    var query = `MATCH(n:user) where id(n) = {userId}
+                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
+                ON MATCH SET rel.count = rel.count + 1
+                ON CREATE SET rel.count = 1`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getNotification
+//--------------------------------------------------------
+DAL.prototype.getNotification = function(userId, cb) {
+    var query = `MATCH(n:user) where id(n) = {userId}
+                MATCH(n)-[rel:notification]->(notification)
+                RETURN notification, rel.count`;
+
+    var params = {
+        userId: userId
     };
 
     // console.log(query);
