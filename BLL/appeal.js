@@ -370,48 +370,90 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							}
 						}, function (err) {
 							if (err) console.error(err.message);
+							//configs is now a map of JSON data
+							console.log("here;", finalResult);
+							var event = {
+								eventId: value.event._id,
+								properties: value.event.properties,
+								subEvents: value.subEvent 
+							};
+							
+							var property = {
+								id: value.propertyId,
+								name: value.propertyName,
+								address: value.address,
+								ownerName: value.ownerName,
+								events: [event]
+							}
+							
+							var jurisdiction = {
+								name: value.jurisdiction,
+								properties: [property]		
+							}
+
+							console.log("JurisdictionsNames: ",jurisdictionsNames);
+							console.log("Jurisdiction Name: ",value.jurisdiction);
+							
+							var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+							console.log("jurisdictionIndex: ",jurisdictionIndex);
+
+							if(jurisdictionIndex > -1){
+								var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+								if(propertyIndex > -1){
+									finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+								} else {
+									finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+									propertyIds[jurisdictionIndex].push(value.propertyId);
+								}
+							} else {
+								jurisdictionsNames.push(value.jurisdiction);
+								propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+								finalResult.jurisdictions.push(jurisdiction);
+							}
+							console.log("here1;", finalResult);
+							callbackMain();
+							
 						});
-					} 
-
-					var event = {
-						eventId: value.event._id,
-						properties: value.event.properties,
-						subEvents: value.subEvent 
-					};
-					// console.log(event);
-					var property = {
-						id: value.propertyId,
-						name: value.propertyName,
-						address: value.address,
-						ownerName: value.ownerName,
-						events: [event]
-					}
-					
-					var jurisdiction = {
-						name: value.jurisdiction,
-						properties: [property]		
-					}
-
-					// console.log("JurisdictionsNames: ",jurisdictionsNames);
-					// console.log("Jurisdiction Name: ",value.jurisdiction);
-					
-					var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-					// console.log("jurisdictionIndex: ",jurisdictionIndex);
-					if(jurisdictionIndex > -1){
-						var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
-						if(propertyIndex > -1){
-							finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
-						} else {
-							finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
-							propertyIds[jurisdictionIndex].push(value.propertyId);
-						}
 					} else {
-						jurisdictionsNames.push(value.jurisdiction);
-						propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
-						finalResult.jurisdictions.push(jurisdiction);
+						var event = {
+							eventId: value.event._id,
+							properties: value.event.properties,
+							subEvents: value.subEvent 
+						};
+						// console.log(event);
+						var property = {
+							id: value.propertyId,
+							name: value.propertyName,
+							address: value.address,
+							ownerName: value.ownerName,
+							events: [event]
+						}
+						
+						var jurisdiction = {
+							name: value.jurisdiction,
+							properties: [property]		
+						}
+	
+						// console.log("JurisdictionsNames: ",jurisdictionsNames);
+						// console.log("Jurisdiction Name: ",value.jurisdiction);
+						
+						var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+						// console.log("jurisdictionIndex: ",jurisdictionIndex);
+						if(jurisdictionIndex > -1){
+							var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+							if(propertyIndex > -1){
+								finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+							} else {
+								finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+								propertyIds[jurisdictionIndex].push(value.propertyId);
+							}
+						} else {
+							jurisdictionsNames.push(value.jurisdiction);
+							propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+							finalResult.jurisdictions.push(jurisdiction);
+						}
+						callbackMain();
 					}
-					callbackMain();
-					
 			}, function (err) {
 				if (err) console.error(err.message);
 				// configs is now a map of JSON data
@@ -580,7 +622,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 
 
 function checkReivewStatus(requiredItems, reviewStatus, cb){
-	console.log("Req: ",requiredItems);
+	// console.log("Req: ",requiredItems);
 	// console.log("Status: ",reviewStatus);
 	if(requiredItems.status == "Done"){
 		reviewStatus.properties.flag = true;
