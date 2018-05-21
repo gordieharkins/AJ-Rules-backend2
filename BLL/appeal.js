@@ -371,7 +371,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						}, function (err) {
 							if (err) console.error(err.message);
 							//configs is now a map of JSON data
-							console.log("here;", finalResult);
+							// console.log("here;", finalResult.jurisdictions[0].properties[0].events);
 							var event = {
 								eventId: value.event._id,
 								properties: value.event.properties,
@@ -383,19 +383,20 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								name: value.propertyName,
 								address: value.address,
 								ownerName: value.ownerName,
-								events: [event]
+								events: []
 							}
+
+							property.events[event.properties.order - 1] = event;
 							
 							var jurisdiction = {
 								name: value.jurisdiction,
 								properties: [property]		
 							}
 
-							console.log("JurisdictionsNames: ",jurisdictionsNames);
-							console.log("Jurisdiction Name: ",value.jurisdiction);
-							
+							// console.log("JurisdictionsNames: ",jurisdictionsNames);
+							// console.log("Jurisdiction Name: ",value.jurisdiction);
 							var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-							console.log("jurisdictionIndex: ",jurisdictionIndex);
+							// console.log("jurisdictionIndex: ",jurisdictionIndex);
 
 							if(jurisdictionIndex > -1){
 								var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
@@ -410,11 +411,13 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
 								finalResult.jurisdictions.push(jurisdiction);
 							}
-							console.log("here1;", finalResult);
+							// console.log("here1;", finalResult.jurisdictions[0].properties[0].events);
 							callbackMain();
 							
 						});
 					} else {
+
+						// console.log("here;", finalResult.jurisdictions[0].properties[0].events);
 						var event = {
 							eventId: value.event._id,
 							properties: value.event.properties,
@@ -426,8 +429,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							name: value.propertyName,
 							address: value.address,
 							ownerName: value.ownerName,
-							events: [event]
+							events: []
 						}
+
+						property.events[event.properties.order - 1] = event;
 						
 						var jurisdiction = {
 							name: value.jurisdiction,
@@ -452,6 +457,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
 							finalResult.jurisdictions.push(jurisdiction);
 						}
+						// console.log("here1;", finalResult.jurisdictions[0].properties[0].events);
 						callbackMain();
 					}
 			}, function (err) {
