@@ -125,4 +125,6 @@ angular.module('AOTC').controller('Map', require('./UploadProperties/map_data/ma
 angular.module('AOTC').controller('PropAssignment', require('./PropertyAssignment/property-assignment.controller'));
 angular.module('AOTC').controller('AssignedUsersListCtrl', require('./PropertyAssignment/AssignedUsers/assigned-users-list.controller'));
 
+//taxAppeal
 
+angular.module('AOTC').controller('TaxAppeal', require('./taxAppeal/tax-appeal.controller'));

@@ -429,7 +429,7 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
             }
         })
         .state('updateIERR', {
-            url: '/update-IERR',
+            url: '/update-IERR/:id',
             templateUrl: 'modules/PropertyModule/IE_RR_Module/Update_IE_RR/update_IE_RR.html',
             controller: 'updateIERR',
             controllerAs: 'updateIERR',
@@ -674,6 +674,13 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
             templateUrl: 'modules/SurveyModule/SurveySubmissions/surveySubmissions.html',
             controller: 'SurveySubmissions',
             controllerAs: 'SurveySubmissions'
+        })
+
+        .state('TaxAppeal', {
+            url: '/appeal',
+            templateUrl: 'modules/PropertyModule/taxAppeal/tax-appeal.html',
+            controller: 'TaxAppeal',
+            controllerAs: 'TaxAppeal'
         })
 
         //Daniyal: to be tested (made by Kumail)

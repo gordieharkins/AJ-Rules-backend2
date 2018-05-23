@@ -190,7 +190,7 @@ var appEnv = cfenv.getAppEnv();
 
 var server = app.listen(4000, '0.0.0.0', function() {
  // app.listen(appEnv.port, '0.0.0.0', function() {
-  console.log("Server starting on " + appEnv.port);
+  console.log("Server starting on " + server.address().port);
 });
 // server.timeout = 100000;
 //

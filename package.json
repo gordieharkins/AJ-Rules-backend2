@@ -52,6 +52,7 @@
     "node-msoffice-pdf": "0.0.7",
     "node-zillow": "^1.0.1",
     "nodemailer": "^2.4.1",
+    "nodemon": "^1.17.5",
     "number-formatter": "^1.2.0",
     "office-converter": "^1.0.2",
     "office-to-pdf": "^4.0.0",
