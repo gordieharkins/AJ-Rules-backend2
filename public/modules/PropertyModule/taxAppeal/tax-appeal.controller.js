@@ -73,10 +73,17 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.openModal = function(data, i){
-        // $scope.modalData = null;
+        // $scope.modalData = null;\
+        $("#myNotificationModal").modal('hide');
         $scope.showModal = true;
         $scope.modalData = data;
         console.log(i)
+    }
+
+    $scope.closeModal = function(){
+        $scope.showModal = false;
+     
+        console.log('hide')
     }
 
      $scope.changeComp = function(event) {
