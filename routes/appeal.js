@@ -64,4 +64,8 @@ router.post('/getPropertyTimelineData', function(req, res, next) {
     BLL.getPropertyTimelineData(req, res);
 });
 
+router.post('/executeSignature', function(req, res, next) {
+    BLL.executeSignature(req, res);
+});
+
 module.exports = router;
