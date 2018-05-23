@@ -71,7 +71,7 @@ li, label{
     color:#355095;
     font-weight: 600;
   }
-  
+
   /******************search***************/
   .address-search {
     height: 30px;
@@ -128,6 +128,7 @@ li, label{
   }
   .jurisd-check {
     margin: 15px 0 0;
+    padding: 0;
   }
   .cart-dropdown {
     position: absolute;
@@ -142,6 +143,7 @@ li, label{
   /******************* appeal dropdown ****************** */
   .appeal-check{
     margin-top: 10px;
+    padding: 0;
   }
   .appeal-check li {
     display: block;
@@ -192,19 +194,19 @@ li, label{
   .juris-icon-two{
     position: absolute;
     right: 20px;
-    top: 44px;
+    top: 37px;
     color: #cccccc;
   }
   .juris-icon-five{
     position: absolute;
     left: 160px;
-    top: 190px;
+    top: 163px;
     color: #cccccc;
   }
   .juris-icon-six{
     position: absolute;
     right: 16px;
-    top: 190px;
+    top: 163px;
     color: #cccccc;
   }
   /************************* show filter ********************/
@@ -240,7 +242,7 @@ li, label{
     color: #d03031;
     font-weight: normal;
   }
-  
+
   /********************************** new row ******************************/
   .advance-filter{
     margin: 10px 0 ;
@@ -263,7 +265,7 @@ li, label{
   input[type='text'] {
     padding: 5px 22px 5px 5px;
     font-size: 12px;
-    height: 36px;
+    height: 27px;
   }
   .property-owner li {
     display: inline-block;
@@ -291,7 +293,7 @@ li, label{
   .select-half input{
     width: 45%;
     float: left;
-  
+
   }
   .appeal-new input {
     float: left;
@@ -318,9 +320,9 @@ li, label{
     top: 203px;
     color: #cccccc;
   }
-  
+
   @media (max-width: 1200px) {
-  
+
     .head-filters li{
       display: inline-block;
       margin: 0 !important;
@@ -385,7 +387,7 @@ li, label{
         top: 90px;
       }
     }
-  
+
   }
   @media (max-width: 767px){
           .show-filter-wrap{
@@ -455,28 +457,39 @@ li, label{
       left: 0;
     }
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   select {
     padding: 0 !important;
   }
-  
+
   .filter-btn:hover + .appeal-wrap {
     display: block !important;
   }
-  
+
   .filter-btn:hover + .property {
     display: block !important;
   }
-  
+
   .filter-btn:hover + .jurisdict {
     display: block !important;
   }
-  
+
   .appeal-wrap:hover, .property:hover, .jurisdict:hover{
     display: block !important;
   }
-  
+
+input[type=checkbox] {
+  display: inline-block
+}
+
+select {
+  margin: 0;
+  -webkit-appearance: menulist-button;
+  -moz-appearance:  menulist-button;
+  appearance:  menulist-button;
+
+}
