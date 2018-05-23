@@ -567,8 +567,8 @@ input:checked + .slider .off
     position: absolute;
     right: 0;
   }
-  
-  
+
+
   .in-progress{
     top: 0;
     background: #0081f3;
@@ -588,4 +588,17 @@ input:checked + .slider .off
 }
 .start-note {
   margin-top: 15px;
+}
+
+.card {
+  height: 100%;
+}
+
+.sidebar-body {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.sidebar {
+    max-height: 453px;
 }
