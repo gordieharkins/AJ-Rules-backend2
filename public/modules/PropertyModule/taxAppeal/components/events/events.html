@@ -1,5 +1,5 @@
 
-<div ng-repeat="item in  subData.data.jurisdictions" >
+<div ng-repeat="item in  subData.data.jurisdictions" ng-init="staticTable(2)" >
     <div class="row main-table-header">
       <div class="col-md-5">
         <span><i class="table-back fa fa-chevron-left"></i>{{item.name}}</span>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="JStableOuter" >
+    <div  class="JStableOuter" >
       <table >
         <thead>
         <tr style="top: 0" >
@@ -111,6 +111,4 @@
     </div>
   </div>
   
-  <!-- <div ng-if="showModal">
-    <div ng-include="'modules/PropertyModule/taxAppeal/components/events/events.html'"></div>
- </div> -->
+  

@@ -13,7 +13,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.subData = null;
     $scope.show = true;
     $scope.showModal = false;
-
+   
+      
   
 
 
@@ -28,7 +29,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-       
+              $scope.staticTable(1);
 
             }, function (result) {
             //some error
@@ -37,6 +38,22 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         });
     }
     getPropertyDetails();
+
+    $scope.staticTable = function(pindex){
+        console.log(pindex)
+         $(document).ready(function() {
+                $('.JStableOuter table').scroll(function(e) {
+              
+                  $('.JStableOuter thead').css("left", -$(".JStableOuter tbody").scrollLeft());
+                  $('.JStableOuter thead th:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft() -0 );
+                  $('.JStableOuter tbody td:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft());
+              
+                  $('.JStableOuter thead').css("top", -$(".JStableOuter tbody").scrollTop());
+                  $('.JStableOuter thead tr th').css("top", $(".JStableOuter table").scrollTop());
+              
+                });
+              });
+            }
     
     $scope.checkMessage = function(type){
        
@@ -91,6 +108,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.subData = {data: $scope.data, prop: event.subEvents};
         console.log($scope.subData)
         $scope.show =  false;
+        // $scope.staticTable(0);
     }
  
 }
