@@ -92,6 +92,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/appeal', appeal);
+// app.use('/appeal', passport.authenticate('jwt', { session: false }), appeal);
 app.use('/admin', passport.authenticate('jwt', { session: false }), admin);
 app.use('/rentRolls', passport.authenticate('jwt', { session: false }), rentRolls);
 app.use('/otherFiles', passport.authenticate('jwt', { session: false }), otherFiles);
@@ -187,7 +188,7 @@ var appEnv = cfenv.getAppEnv();
 
 var server = app.listen(4000, '0.0.0.0', function() {
  // app.listen(appEnv.port, '0.0.0.0', function() {
-  console.log("Server starting on " + appEnv.port);
+  console.log("Server starting on " + server.address().port);
 });
 // server.timeout = 100000;
 //

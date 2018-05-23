@@ -60,4 +60,8 @@ router.post('/updateIESurveyInformation', function(req, res, next) {
     BLL.updateIESurveyInformation(req.body, res);
 });
 
+router.post('/getPropertyTimelineData', function(req, res, next) {
+    BLL.getPropertyTimelineData(req, res);
+});
+
 module.exports = router;

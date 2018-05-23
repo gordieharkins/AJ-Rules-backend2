@@ -2,6 +2,8 @@ var path = require('path');
 var InvalidFileFormat = require('../BLL/errors/invalidFileFormat');
 var db = require(path.resolve(__dirname, './graphConnection'));
 var func = require(path.resolve(__dirname, '../BLL/util/functions'));
+var func = require(path.resolve(__dirname, '../BLL/util/functions'));
+var converter = new func();
 
 module.exports = DAL;
 
@@ -82,6 +84,137 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         params: params
     }, function(err, results) {
         console.log(results);
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// addPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
+ 
+    var params = {};
+    var query = ``;
+    for(var i = 0; i < data.length; i++){
+        params["propId"+i] = parseInt(data[i].propId);
+        params["year"] = year;
+        var tempTimeline = timeline;
+        query += `MATCH(n`+i+`:property) where id(n`+i+`) = {propId`+i+`}
+                CREATE(t`+i+`:timeline{})
+                CREATE(n`+i+`)-[tRel`+i+`:revalYear{revalYear: {year}}]->(t`+i+`)`;
+
+        for(var j in tempTimeline){
+            
+            params["event" +i+""+j] = tempTimeline[j].main;
+            // delete tempTimeline[j].main; 
+            query += `\nCREATE(e`+i+""+j+`:event{event`+i+""+j+`})`;
+            query += `\nCREATE(t`+i+`)-[:Event]->(e`+i+""+j+`)`;
+            for(var k in tempTimeline[j]){
+                if(k == "main"){
+                    continue;
+                }
+                params["subevent"+i+j+k+""] = tempTimeline[j][k]
+                query += `\nCREATE(se`+i+j+k+""+`:subEvent{subevent`+i+j+k+""+`})`;
+                query += `\nCREATE(e`+i+""+j+`)-[:subEvent]->(se`+i+j+k+""+`)`;
+            }
+        }
+
+    }
+    console.log(params);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        console.log(results);
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// getPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
+    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId}
+    OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
+    OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
+    return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
+    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent ORDER BY id(event)`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// getPropertyTimelineData
+//--------------------------------------------------------
+DAL.prototype.updateData = function(data, id, cb) {
+    var query = `MATCH(n) where id(n) = {id} SET n = {data}`;
+
+    var params = {
+        id: id,
+        data: data
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// generateNotification
+//--------------------------------------------------------
+DAL.prototype.generateNotification = function(notification, userId, cb) {
+    var query = `MATCH(n:user) where id(n) = {userId}
+                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
+                ON MATCH SET rel.count = rel.count + 1
+                ON CREATE SET rel.count = 1`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getNotification
+//--------------------------------------------------------
+DAL.prototype.getNotification = function(userId, cb) {
+    var query = `MATCH(n:user) where id(n) = {userId}
+                MATCH(n)-[rel:notification]->(notification)
+                RETURN notification, rel.count`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
         cb(err, results);
     });
 }

@@ -15,6 +15,9 @@ var PropertiesParserBLL = require(path.resolve(__dirname, 'parsers/properties/pr
 var PropertiesParser = new PropertiesParserBLL();
 var PropertiesFilesPath = path.resolve(__dirname, '../public/properties/');
 var TaskManagerDAL = require(path.resolve(__dirname, '../DAL/taskManager'));
+var AppealBLL = require(path.resolve(__dirname, './appeal'));
+var Appeal = new AppealBLL();
+
 var taskManagerDAL = new TaskManagerDAL();
 
 var UtilityFunctions = require(path.resolve(__dirname, '../BLL/util/functions'));
@@ -570,6 +573,7 @@ function parseFiles(file,  mapping, userId) {
                                 DAL.addProperty(propertyArr, file.fileName, userId, function(error, result) {
                                     var i = 0;
                                     var isError = false;
+                                    var propertiesJurisdictions = [];
                                     if (error) {
                                         error.userName = loginUserName;
                                         ErrorLogDAL.addErrorLog(error);
@@ -580,10 +584,24 @@ function parseFiles(file,  mapping, userId) {
                                         if(result[0] !== undefined){
                                             result = result[0];
                                             for (var element in result){
+                                                var tempPropData = result[element].split("||");
+                                                var propertyJurisdiction = {
+                                                    propId: tempPropData[0],
+                                                    jurisdiction: tempPropData[1]
+                                                }
+                                                propertiesJurisdictions.push(propertyJurisdiction);
                                                 propertyArr[i].propertyDBId = result[element];
                                                 i++;
                                                 successPropsCount ++;
                                             }
+                                            // this code snippet adds the timeline data for everyproperty
+                                            Appeal.addPropertyTimelineData(propertiesJurisdictions, function(timelineError){
+                                                if (timelineError) {
+                                                    error.userName = loginUserName;
+                                                    ErrorLogDAL.addErrorLog(error);
+                                                    isError = true;
+                                                }
+                                            });
                                         } else {
                                             isError = true;
                                         }
@@ -594,7 +612,6 @@ function parseFiles(file,  mapping, userId) {
                                     }
 
                                     if(!isError){
-                                        // successPropsCount += i; // Testing
                                         callback();
                                     } else {
                                         callbackMain();
