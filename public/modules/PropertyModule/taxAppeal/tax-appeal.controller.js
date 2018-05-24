@@ -13,9 +13,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.subData = null;
     $scope.show = true;
     $scope.showModal = false;
-   
-      
-  
+    $scope.openSign = false;
+    $scope.uploadModal = false;
 
 
     function getPropertyDetails()  {
@@ -91,24 +90,51 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.openModal = function(data, i){
         // $scope.modalData = null;\
-        $("#myNotificationModal").modal('hide');
-        $scope.showModal = true;
-        $scope.modalData = data;
-        console.log(i)
+ 
+        if(data.buttonText=='Details') {
+            $scope.showModal = true;
+            $scope.modalData = data;
+
+        } else if (data.buttonText=='Schedule Review') {
+
+        } else if (data.buttonText=='Execute Signature') {
+            $scope.openSign = true;
+        }
+        
+        console.log(data)
+    }
+
+    $scope.signModal = function(type){
+        type==1 ? $scope.uploadModal = true : $scope.uploadModal = false ;
+
     }
 
     $scope.closeModal = function(){
         $scope.showModal = false;
+        $scope.openSign = false;
      
         console.log('hide')
     }
 
-     $scope.changeComp = function(event) {
+     $scope.changeComp = function(event,column,pColumn) {
         $scope.subData = null;
-        $scope.subData = {data: $scope.data, prop: event.subEvents};
+        var jProperty =  $scope.data.jurisdictions[pColumn].properties;
+        var extractSubEvents = [];
+        for (var i  = 0 ; i  < jProperty.length;i++) {
+            var subEvents = jProperty[i].events[column].subEvents
+            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName, subEvents: subEvents})
+        }
+        console.log(extractSubEvents)
+
+        $scope.subData = {data: $scope.data, prop: extractSubEvents};
         console.log($scope.subData)
+        
         $scope.show =  false;
         // $scope.staticTable(0);
+    }
+
+    $scope.uplaodFile = function(file) {
+          console.log(file.files)
     }
  
 }
