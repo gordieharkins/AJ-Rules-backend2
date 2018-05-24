@@ -75,11 +75,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-        console.log('note',state)
-      
+       
         if ('warning' in state && state.warning)
             {
-                console.log('red') 
+           
 
                 return 'red-note';
                 
@@ -119,6 +118,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      $scope.changeComp = function(event,column,pColumn) {
         $scope.subData = null;
         var jProperty =  $scope.data.jurisdictions[pColumn].properties;
+        var jName = $scope.data.jurisdictions[pColumn].name
         var extractSubEvents = [];
         for (var i  = 0 ; i  < jProperty.length;i++) {
             var subEvents = jProperty[i].events[column].subEvents
@@ -126,7 +126,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
         console.log(extractSubEvents)
 
-        $scope.subData = {data: $scope.data, prop: extractSubEvents};
+        $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName};
         console.log($scope.subData)
         
         $scope.show =  false;
@@ -135,6 +135,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.uplaodFile = function(file) {
           console.log(file.files)
+    }
+
+    $scope.switchMode = function(){
+        $scope.subData = null;
+        $scope.show =  true;
+        console.log('show class')
     }
  
 }

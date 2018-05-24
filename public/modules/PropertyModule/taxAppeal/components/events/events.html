@@ -1,8 +1,8 @@
 
 <div ng-init="staticTable(2)" >
     <div class="row main-table-header">
-      <div class="col-md-5">
-        <span><i class="table-back fa fa-chevron-left"></i>Name</span>
+      <div class="col-md-5" >
+        <span ng-click="switchMode()"><i class="table-back fa fa-chevron-left"></i>{{subData.jName}}</span>
       </div>
       <div class="table-header-actions col-md-7 clearfix">
         <div class="button-filter">
