@@ -16,7 +16,7 @@
         display: block;
         align-items: center;
         justify-content: center;
-        z-index: 10000;
+        z-index: 2000 !important;
     }
     .modal-dialog{
         max-width: 75%;
@@ -173,7 +173,7 @@
                             <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file…</span>
                         </label>
                     </div>
-                    <button class="black-button">Done</button>
+                    <button ng-click="sendData()" class="black-button">Done</button>
                 </div>
             </div>
         </div>

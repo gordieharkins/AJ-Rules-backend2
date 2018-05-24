@@ -33907,6 +33907,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.openSign = false;
     $scope.uploadModal = false;
     var configId = {property: null, event: null}
+    var configData = {data:null,eventIndex:null};
+    var subEventsDetect = null;
+    var sendFile = null;
 
 
     function getPropertyDetails()  {
@@ -33979,12 +33982,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else  return 'blue-note';
     }
 
-    $scope.openModal = function(data, propId, eventId){
+    $scope.openModal = function(data, prop,subEventIndex){
         // $scope.modalData = null;\
  
-        console.log(propId, eventId)
-        configId.property = propId;
-        configId.event = eventId;
+        
+        configId.property = prop.propertyId;
+        configId.event =    prop.eventId;
+        configData.data = prop;
+        configData.subEventIndex = subEventIndex;
+        console.log(configData)
         if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = data;
@@ -34012,18 +34018,21 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
      $scope.changeComp = function(event,column,pColumn) {
-         if(event.length==0) {
+         if(event.subEvents.sublength==0) {
              return
          }
         $scope.subData = null;
         var jProperty =  $scope.data.jurisdictions[pColumn].properties;
         var jName = $scope.data.jurisdictions[pColumn].name
+        subEventsDetect = {event: event, cloumn: column, pColumn: pColumn} 
         var extractSubEvents = [];
         for (var i  = 0 ; i  < jProperty.length;i++) {
-            var subEvents = jProperty[i].events[column].subEvents
-            var eventId = jProperty[i].events[column].eventId
-            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
-                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId})
+            var subEvents = jProperty[i].events[column].subEvents;
+            var eventId = jProperty[i].events[column].eventId;
+            var index = i;
+             extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId, 
+                 info: subEventsDetect, propertyIndex: index, eventIndex: column})
         }
         console.log(extractSubEvents)
 
@@ -34039,13 +34048,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
           var files = file.files;
           var FileNames = [];
           var selected  = 0;
-  
-          if (selected == 0) { //IE
-              var IEData = files;
-              console.log(IEData)
-              sendData(IEData);
-  
-          } 
+          sendFile = files
+          
     }
 
     $scope.switchMode = function(){
@@ -34055,24 +34059,54 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
       
     }
 
-    function sendData(data){
-      
-            $("#preloader").css("display", "block");
+    function UpdateData(){
+        // 
+        var url = '/appeal/getPropertyTimelineData';
+        var postData = {"appealYear":2018, "userId": 9922606}
+        $("#preloader").css("display", "block");
+        
+        AOTCService.postDataToServer(url, postData)
+            .then(function (result) {
+                $("#preloader").css("display", "none");
+                  console.log(result.data)
+                  $scope.data = result.data.result
+                  $scope.staticTable(1);
+                  $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
+                  $scope.modalData = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
+                  console.log($scope.modalData)
+                  $scope.uploadModal = false
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                $("#preloader").css("display", "none");
+            });
+        
 
+
+
+    }
+
+    $scope.sendData = function(){
+      
+           $("#preloader").css("display", "block");
+        
             var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property  +'&tId='+ configId.event;// backend push
             ////console.log("==>", url);
             ////console.log("vm.IEData==>", vm.IEData);
             ////console.log("==>", url);
             // ////console.log("vm.IEData==>", vm.IEData);
-           console.log('id')
-            AOTCService.uploadFiles(url, data)
+        //    console.log(send)
+            AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
 
                     ////console.log("addPropertyIE", result);
                     $("#preloader").css("display", "none");
                     console.log(result)
-                    
-                    // checkResult();
+                       UpdateData();
+                       $scope.uploadModal = false
+            
+            //         // checkResult();
                 }, function (result) {
                     $("#preloader").css("display", "none");
                     ////console.log(result);

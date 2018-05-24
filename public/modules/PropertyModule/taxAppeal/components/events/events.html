@@ -72,7 +72,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat=" prop in   subData.prop" >
+        <tr ng-repeat=" prop in   subData.prop"  ng-init="propertyIndex=$index">
           <td class="first-col-body">
             <label><input type="checkbox">{{prop.fcolName}}</label>
             <p>{{prop.fcolOwnerName}}</p>
@@ -80,10 +80,10 @@
             <p>N/A</p>
           </td>
             
-          <td class="started-tr" ng-repeat="events in  prop.subEvents">
+          <td class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="eventIndex=$index">
             <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
-            <button type="submit" ng-click="openModal(events.properties,prop.propertyId,prop.eventId)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
+            <button type="submit" ng-click="openModal(events.properties ,prop,eventIndex)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
      </td>
           <!--<td class="done-tr">-->
           <!--<app-appeal-message [type]="'Done'" ></app-appeal-message>-->
