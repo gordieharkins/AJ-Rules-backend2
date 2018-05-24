@@ -15,6 +15,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.showModal = false;
     $scope.openSign = false;
     $scope.uploadModal = false;
+    var configId = {property: null, event: null}
 
 
     function getPropertyDetails()  {
@@ -87,12 +88,16 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else  return 'blue-note';
     }
 
-    $scope.openModal = function(data, i){
+    $scope.openModal = function(data, propId, eventId){
         // $scope.modalData = null;\
  
+        console.log(propId, eventId)
+        configId.property = propId;
+        configId.event = eventId;
         if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = data;
+        
 
         } else if (data.buttonText=='Schedule Review') {
 
@@ -122,7 +127,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         var extractSubEvents = [];
         for (var i  = 0 ; i  < jProperty.length;i++) {
             var subEvents = jProperty[i].events[column].subEvents
-            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName, subEvents: subEvents})
+            var eventId = jProperty[i].events[column].eventId
+            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId})
         }
         console.log(extractSubEvents)
 
@@ -135,12 +142,47 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.uplaodFile = function(file) {
           console.log(file.files)
+          var files = file.files;
+          var FileNames = [];
+          var selected  = 0;
+  
+          if (selected == 0) { //IE
+              var IEData = files;
+              console.log(IEData)
+              sendData(IEData);
+  
+          } 
     }
 
     $scope.switchMode = function(){
         $scope.subData = null;
         $scope.show =  true;
         console.log('show class')
+      
     }
+
+    function sendData(data){
+      
+            $("#preloader").css("display", "block");
+            var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property + configId.event;
+            ////console.log("==>", url);
+            ////console.log("vm.IEData==>", vm.IEData);
+            ////console.log("==>", url);
+            // ////console.log("vm.IEData==>", vm.IEData);
+           console.log('id')
+            AOTCService.uploadFiles(url, data)
+                .then(function (result) {
+
+                    ////console.log("addPropertyIE", result);
+                    $("#preloader").css("display", "none");
+                    console.log(result)
+                    
+                    // checkResult();
+                }, function (result) {
+                    $("#preloader").css("display", "none");
+                    ////console.log(result);
+                });
+        }
+    
  
 }
