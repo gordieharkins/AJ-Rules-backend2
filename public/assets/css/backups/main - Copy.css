@@ -55,12 +55,12 @@ body {
 }
 
 .header-btn ul {
-    margin: 1px 0px 0px 0px;
+    margin: 1px 0 0;
 }
 
 .navbar>.container .navbar-brand,
 .navbar>.container-fluid .navbar-brand {
-    margin-left: 0px;
+    margin-left: 0;
     line-height: 2.6;
     color: #47bcff;
 }
@@ -73,8 +73,8 @@ body {
 }
 
 .container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
     margin-right: auto;
     margin-left: auto;
 }
@@ -83,12 +83,12 @@ footer {
     background: #000d36;
     margin-top: 60px;
     color: #fff;
-    pad ding: 6px;
+    padding: 6px;
     line-height: 3;
 }
 
 .side-filters {
-    padding: 0px;
+    padding: 0;
     color: #fff;
     background-color: #000d36;
     border: 2px solid #47bcff;
@@ -104,12 +104,12 @@ footer {
 
 .sublist-ul li label {
     width: 100%;
-    padding: 0px 0px 0px 25px;
+    padding: 0 0 0 25px;
 }
 
 .row {
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .label-hed {
@@ -130,7 +130,7 @@ footer {
     color: #fff;
     width: 90%;
     border-bottom: 1px solid #ff4757;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 .nav>li>a:hover,
@@ -148,7 +148,7 @@ footer {
 .navbar {
     position: relative;
     min-height: 50px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     background: #000d36;
     border: 1px solid transparent;
 }
@@ -216,7 +216,7 @@ footer {
     background: url("../img/ph.png") no-repeat scroll center center transparent;
     height: 40px;
     width: 100px;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 .welcome {
@@ -243,9 +243,9 @@ input[type="checkbox"]+label span {
     display: inline-block;
     width: 19px;
     height: 19px;
-    margin: 0px 0px 0px 0px;
+    margin: 0;
     position: absolute;
-    right: 0px;
+    right: 0;
     float: right;
     vertical-align: middle;
     background: url(../img/chck.png) left top no-repeat;
@@ -337,16 +337,16 @@ a label {
     left: 6%;
     background: #fff;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-    pad ding: 10px;
-    bo rder: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
 
 .container-brd {
-    posit ion: absolute;
-    bott om: 10%;
-    le ft: 6%;
-    backg round: #fff;
-    padd ing: 7px;
+    position: absolute;
+    bottom: 10%;
+    left: 6%;
+    background: #fff;
+    padding: 7px;
 }
 
 .search .row {
@@ -606,7 +606,7 @@ a#clickme {
     position: absolute;
     text-indent: -9999px;
     top: 30%;
-    right: 0px;
+    right: 0;
 }
 
 
@@ -671,7 +671,7 @@ a#clickme {
 }
 
 .navbar {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .rotatedown {
@@ -749,7 +749,7 @@ a#clickme {
     color: #fff;
     font-weight: 300;
     text-align: left;
-    margin: 0px 0px 0px 0px;
+    margin: 0;
 }
 
 
@@ -805,7 +805,7 @@ div.dt-buttons .dt-button {
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
     color: inherit;
-    padding: 10PX;
+    padding: 10px;
 }
 
 .dataTables_wrapper .ui-toolbar {
@@ -1205,7 +1205,7 @@ ul {
     text-align: center;
 }
 .inner {
-    max-wi dth: 820px;
+    max-width: 820px;
     margin: 0 auto;
 }
 .breadcrumbs {
@@ -1230,7 +1230,7 @@ ul {
     font-size: 12px;
     /* important overrides media queries */
     
-    font-wei ght: bold;
+    font-weight: bold;
     text-align: center;
     color: #aaa;
     cursor: pointer;
@@ -1255,8 +1255,8 @@ ul {
     display: inline-block;
     width: 22px;
     height: 22px;
-    padd ing: 2px;
-    mar gin-right: 5px;
+    padding: 2px;
+    margin-right: 5px;
     border: 2px solid #aaa;
     border-radius: 50%;
     background-color: #fff;
@@ -1400,15 +1400,15 @@ fieldset[disabled] .form-control {
 }
 .prop-fixd ul li {
     display: block;
-    margin-right: 0px;
+    margin-right: 0;
     font-weight: 400;
-    margin-left: 0px;
+    margin-left: 0;
     color: #00568a;
-    padding: 0px 40px 0 40px;
+    padding: 0 40px 0 40px;
 }
 .prop-fixd ul {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: inline-flex;
 }
 .prop-fixd {
@@ -1447,7 +1447,7 @@ fieldset[disabled] .form-control {
     /*Sort of important*/
     
     height: 200px;
-    margin: 0px auto;
+    margin: 0 auto;
     background: #f5f5f5;
     border: 2px dashed rgba(0, 0, 0, .3);
     border-radius: 20px;
@@ -1465,8 +1465,8 @@ fieldset[disabled] .form-control {
     /*Important*/
     
     cursor: pointer;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     opacity: 0;
 }
 
@@ -1502,12 +1502,12 @@ fieldset[disabled] .form-control {
     border-color: #222;
 }
 .drag-filepage .panel-body {
-    padding: 0px;
+    padding:0;
 }
 .drag-filepage .panel-primary {
     border-color: #337ab7;
     width: 96%;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 .user-reg#adv-search2 {
     width: 470px;
@@ -1718,7 +1718,7 @@ svg:not(:root) {
     font-weight: 400;
 }
 .panel input[type="file"] {
-    dis play: none;
+    display: none;
 }
 .custom-file-upload {
     display: inline-block;
@@ -1735,7 +1735,7 @@ svg:not(:root) {
     position: absolute;
     margin-top: 4px \9;
     display: block;
-    MARGIN: -t;
+    /*MARGIN: -t;*/
     margin-left: -20px;
     margin-top: 3px;
 }
@@ -1754,7 +1754,7 @@ svg:not(:root) {
 .header-signup {
     background-color: #000d36;
     background-position: center center;
-    bord er-bottom: 7px solid #47bcff;
+    border-bottom: 7px solid #47bcff;
 }
 .sign-up .panel-body {
     padding: 15px;
@@ -1912,7 +1912,7 @@ svg:not(:root) {
     color: #fff;
     width: 100%;
     border-bottom: 1px solid #ff4757;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 #myTabContent {
     margin-left: 0;
@@ -2001,10 +2001,10 @@ svg:not(:root) {
 }
 .IE_RR .prop-fixd ul li {
     display: block;
-    margin-right: 0px;
+    margin-right:0;
     font-weight: 400;
-    padding: 0px 0px 0px 30px !important;
-    margin-left: 0px;
+    padding: 0 0 0 30px !important;
+    margin-left: 0;
     text-align: left;
     color: #00568a;
 }
@@ -2058,22 +2058,22 @@ svg:not(:root) {
     text-align: center;
 }
 .IE_RRR .panel.with-nav-tabs .panel-heading {
-    padding: 0px 0px 0 0px;
+    padding: 0 0 0 0;
 }
 .IE_RRR .nav>li>a {
     position: relative;
     display: block;
-    padding: 6px 0px;
+    padding: 6px 0;
     color: #fff;
     width: 100%;
     border-bottom: none;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 .IE_RRR .with-nav-tabs.panel-primary .nav-tabs>li.active>a,
 .with-nav-tabs.panel-primary .nav-tabs>li.active>a:hover,
 .with-nav-tabs.panel-primary .nav-tabs>li.active>a:focus {
     color: #428bca;
-    margin: 0px;
+    margin: 0;
     width: 100%;
     background-color: #fff;
     border-color: #fff;
@@ -2190,16 +2190,16 @@ svg:not(:root) {
     background: #fff !important;
 }
 .legends {
-    padding: 17px 0px 50px 0px;
+    padding: 17px 0 50px 0;
 }
 .IE-cons ul li {
     margin-bottom: 10px;
     border-bottom: 1px solid #eee;
 }
 .side-toolbar {
-    pos ition: fixed;
+    position: fixed;
     top: 30%;
-    left: 0px;
+    left: 0;
     z-index: 111111;
 }
 .search {
@@ -2210,7 +2210,7 @@ svg:not(:root) {
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
 }
 .footer-bottom {
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
     position: fixed;
 }
@@ -2219,7 +2219,7 @@ svg:not(:root) {
 }
 table .collapse.in {
     display: table-row;
-    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     z-index: 1;
 }
 .font_custom {
@@ -2240,7 +2240,7 @@ table .collapse.in {
     width: 100%;
 }
 .input-fields-nopad {
-    padding: 0px !Important;
+    padding: 0 !Important;
 }
 .btn-formats {
     text-align: center;
@@ -2249,7 +2249,7 @@ table .collapse.in {
     color: #b1b8c4;
     background-color: #FFF;
     border-radius: 3px;
-    outline: 0px;
+    outline: 0;
     display: inline-block;
     border: solid 1px #ccc;
     margin-right: -6px;
@@ -2512,7 +2512,7 @@ table .collapse.in {
 #filter {
     width: 98%;
     display: -webkit-inline-box;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 .input-group-addon {
     cursor: pointer;
@@ -2532,7 +2532,7 @@ table .collapse.in {
     cursor: pointer;
 }
 .modalbtns .toggle-btn-grp.joint-toggle .toggle-btn {
-    margin: 0px -3px;
+    margin: 0 -3px;
     font-size: 11px;
     font-weight: 100;
     padding: 0.3em 0.7em;
@@ -2541,11 +2541,11 @@ table .collapse.in {
 }
 .modalbtns .toggle-btn-grp.joint-toggle .toggle-btn:first-child {
     margin-left: 2px;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px 0 0 10px;
 }
 .modalbtns .toggle-btn-grp.joint-toggle .toggle-btn:last-child {
     margin-right: 2px;
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0 10px 10px 0;
     border-right: solid 1px #CCC;
 }
 .modalbtns .toggle-btn:hover {
@@ -2588,7 +2588,7 @@ table .collapse.in {
     ;
 }
 .alert-info-custome {
-    padding: 2px 15px 0px 12px;
+    padding: 2px 15px 0 12px;
     margin-top: 20px;
     border: 1px solid transparent;
     border-radius: 3px;
@@ -2651,7 +2651,7 @@ table .collapse.in {
     top: 0;
     bottom: 0;
     left: 0;
-    width: 0%;
+    width: 0;
     font-size: 20px;
     color: #fff;
     text-align: center;
@@ -2662,13 +2662,13 @@ table .collapse.in {
 
 /*SEARCH FORM*/
 .search-form {
-    border-radius: 30px 0px 0px 30px;
+    border-radius: 30px 0 0 30px;
     /*border-radius:Top-left, Top-right, Bottom-right, Bottom-left;*/
 }
 
 /*to cange only one form and not all give unique class name like  class="search-form" */
 .search-btn {
-    border-radius: 0px 30px 30px 0px;
+    border-radius: 0 30px 30px 0;
     cursor: pointer;
 }
 .alert-info {

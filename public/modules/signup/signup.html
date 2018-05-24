@@ -36,6 +36,51 @@
             margin-right: 5px !important;
             float: left;
         }
+        .pin-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: block;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+        }
+        .model-pinbox {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: block;
+            background: #ffffff;
+            width: 170px;
+            height: 50px;
+            padding: 13px 0;
+            text-align: center;
+            border-radius: 2px;
+            top: 35%;
+            border-top: 5px solid #3071ac;
+        }
+        .model-pinbox label {
+            position: relative;
+            color: #3072ac;
+            margin: 0 10px 0 0;
+        }
+        .model-pinbox .fa-times:before {
+            color: #cccccc;
+            margin-left: 0;
+            border: none;
+            border-radius:0;
+            padding:0;
+            cursor: pointer;
+        }
+        .model-pinbox i {
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            cursor: pointer;
+        }
 
     </style>
 
@@ -45,6 +90,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
             <a class="navbar-brand" >Assessor on the <span style="color:#47bcff;">cloud</span></a>
         </div>
+    </div>
 </nav>
 <br>
 <br>
@@ -309,3 +355,11 @@
 <!-- Footer -->
 <!--<footer class="text-center">Copyrights - 2017</footer>-->
 <div class="alert-box success"> Successfuly Registered </div>
+
+<div class="pin-popup">
+    <div class="model-pinbox">
+        <label>Secret Pin: </label>
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <span>14521</span>
+    </div>
+</div>
