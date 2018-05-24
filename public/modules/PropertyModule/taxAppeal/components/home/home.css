@@ -23,12 +23,15 @@ body { padding: 0; margin: 0 }
   position: relative;
   border-right: 1px solid #dddddd;
 }
+.JStableOuter thead th{
+  width: 20%;
+}
 
 .JStableOuter thead th:nth-child(1) {
   position: relative;
   background-color: #f9f9f9;
   z-index: 1064 !important;
-  min-width: 300px;
+  width: 300px;
   border-right: 1px solid #dddddd;
 }
 .JStableOuter thead th{
