@@ -6,7 +6,7 @@
 
    <div class="col-md-9">
    <div ng-if="show">
-     <div ng-repeat="item in  data.jurisdictions">
+     <div ng-repeat="(pIndex,item) in  data.jurisdictions">
        <div class="row main-table-header">
          <div class="col-md-5">
            <span><i class="table-back fa fa-chevron-left"></i>{{item.name}}</span>
@@ -50,7 +50,7 @@
              <th class="first-col-head" >
                <input type="checkbox">Property Name
              </th>
-             <th ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events)">
+             <th ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
                <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
                <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
                <!--<span class="not-mandatory">(Not mandatory)</span>-->
@@ -131,6 +131,12 @@
 
    </div>
  </div>
- <div ng-show="showModal">
+ <div ng-show="showModal && !openSign">
      <div ng-if="modalData" ng-include="'modules/PropertyModule/taxAppeal/components/modal/modal.html'"></div>
  </div>
+ <div ng-show="openSign">
+    <div  ng-include="'modules/PropertyModule/taxAppeal/components/sign/sign.html'"></div>
+</div>
+<div ng-show="uploadModal">
+    <div  ng-include="'modules/PropertyModule/taxAppeal/components/uploadModal/uploadModal.html'"></div>
+</div>

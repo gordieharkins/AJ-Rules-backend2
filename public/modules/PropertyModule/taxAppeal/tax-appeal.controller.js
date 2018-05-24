@@ -13,8 +13,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.subData = null;
     $scope.show = true;
     $scope.showModal = false;
-
-  
+    $scope.openSign = false;
+    $scope.uploadModal = false;
 
 
     function getPropertyDetails()  {
@@ -28,7 +28,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-       
+              $scope.staticTable(1);
 
             }, function (result) {
             //some error
@@ -37,6 +37,22 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         });
     }
     getPropertyDetails();
+
+    $scope.staticTable = function(pindex){
+        console.log(pindex)
+         $(document).ready(function() {
+                $('.JStableOuter table').scroll(function(e) {
+              
+                  $('.JStableOuter thead').css("left", -$(".JStableOuter tbody").scrollLeft());
+                  $('.JStableOuter thead th:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft() -0 );
+                  $('.JStableOuter tbody td:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft());
+              
+                  $('.JStableOuter thead').css("top", -$(".JStableOuter tbody").scrollTop());
+                  $('.JStableOuter thead tr th').css("top", $(".JStableOuter table").scrollTop());
+              
+                });
+              });
+            }
     
     $scope.checkMessage = function(type){
        
@@ -74,23 +90,51 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.openModal = function(data, i){
         // $scope.modalData = null;\
-        $("#myNotificationModal").modal('hide');
-        $scope.showModal = true;
-        $scope.modalData = data;
-        console.log(i)
+ 
+        if(data.buttonText=='Details') {
+            $scope.showModal = true;
+            $scope.modalData = data;
+
+        } else if (data.buttonText=='Schedule Review') {
+
+        } else if (data.buttonText=='Execute Signature') {
+            $scope.openSign = true;
+        }
+        
+        console.log(data)
+    }
+
+    $scope.signModal = function(type){
+        type==1 ? $scope.uploadModal = true : $scope.uploadModal = false ;
+
     }
 
     $scope.closeModal = function(){
         $scope.showModal = false;
+        $scope.openSign = false;
      
         console.log('hide')
     }
 
-     $scope.changeComp = function(event) {
+     $scope.changeComp = function(event,column,pColumn) {
         $scope.subData = null;
-        $scope.subData = {data: $scope.data, prop: event.subEvents};
+        var jProperty =  $scope.data.jurisdictions[pColumn].properties;
+        var extractSubEvents = [];
+        for (var i  = 0 ; i  < jProperty.length;i++) {
+            var subEvents = jProperty[i].events[column].subEvents
+            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName, subEvents: subEvents})
+        }
+        console.log(extractSubEvents)
+
+        $scope.subData = {data: $scope.data, prop: extractSubEvents};
         console.log($scope.subData)
+        
         $scope.show =  false;
+        // $scope.staticTable(0);
+    }
+
+    $scope.uplaodFile = function(file) {
+          console.log(file.files)
     }
  
 }
