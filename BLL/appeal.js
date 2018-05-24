@@ -300,7 +300,7 @@ BLL.prototype.executeSignature = function(req, res) {
 					ErrorLogDAL.addErrorLog(error);
 					Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
 				} else {
-					Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+					Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
 				}
 			});
         }
