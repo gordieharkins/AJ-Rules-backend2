@@ -1,6 +1,19 @@
 .modal {
     display: contents;
   }
+.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+  border: 1px solid #ddd;
+  color: dimgrey;
+}
+thead tr th {
+  min-width: auto;
+  z-index: 1060 !important;
+}
+.modal-body {
+  position: relative;
+  padding: 15px;
+  background: #FFF;
+}
   .modal-content{
     border: 1px solid #cccccc;
   }
@@ -18,8 +31,14 @@
   }
   .modal-dialog{
     max-width: 75%;
-    top: 25%;
+    top: 0%;
+    margin-left: 13% !important;
   }
+.modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+  display: inline-block;
+}
   .black-button{
     min-width: 60px;
     background: #03a4fc;
@@ -31,14 +50,33 @@
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
   /********************************************************NEW MODAL START************************************************************************/
-  
+
   .dialog-box-header {
     background-color: #2f71ab;
     color: #ffffff;
   }
   .modal-dialog{
     width: 1000px;
+    top: 20% !important;
   }
+.fa-close:before, .fa-remove:before, .fa-times:before {
+  content: "\F00D";
+  color: #ff4757;
+  margin-left: 7px;
+  border: none;
+  border-radius: none;
+  padding: 2px 3px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+
+a:focus, a:hover {
+  color: #e0e0e0;
+  text-decoration: none;
+}
   /*.modal-body{*/
     /*padding: 0 !important;*/
   /*}*/

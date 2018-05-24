@@ -1,8 +1,8 @@
 
-<div ng-repeat="item in  subData.data.jurisdictions" >
+<div ng-init="staticTable(2)" >
     <div class="row main-table-header">
       <div class="col-md-5">
-        <span><i class="table-back fa fa-chevron-left"></i>{{item.name}}</span>
+        <span><i class="table-back fa fa-chevron-left"></i>Name</span>
       </div>
       <div class="table-header-actions col-md-7 clearfix">
         <div class="button-filter">
@@ -36,14 +36,14 @@
         </div>
       </div>
     </div>
-    <div class="JStableOuter" >
+    <div  class="JStableOuter" >
       <table >
         <thead>
         <tr style="top: 0" >
           <th class="first-col-head" >
             <input type="checkbox">Property Name
           </th>
-          <th ng-repeat="events in  subData.prop">
+          <th ng-repeat="events in  subData.prop[0].subEvents">
             <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
             <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
             <!--<span class="not-mandatory">(Not mandatory)</span>-->
@@ -72,14 +72,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat=" prop in  item.properties" >
+        <tr ng-repeat=" prop in   subData.prop" >
           <td class="first-col-body">
-            <label><input type="checkbox">{{prop.name}}</label>
-            <p>{{prop.ownerName}}</p>
+            <label><input type="checkbox">{{prop.fcolName}}</label>
+            <p>{{prop.fcolOwnerName}}</p>
             <p>N/A</p>
             <p>N/A</p>
           </td>
-          <td class="started-tr" ng-repeat="events in  subData.prop">
+            
+          <td class="started-tr" ng-repeat="events in  prop.subEvents">
             <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
             <button type="submit" ng-click="openModal(events.properties)"     ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
@@ -111,6 +112,4 @@
     </div>
   </div>
   
-  <!-- <div ng-if="showModal">
-    <div ng-include="'modules/PropertyModule/taxAppeal/components/events/events.html'"></div>
- </div> -->
+  
