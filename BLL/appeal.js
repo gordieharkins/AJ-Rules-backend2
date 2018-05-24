@@ -286,10 +286,10 @@ BLL.prototype.executeSignature = function(req, res) {
         } else {
 			if(result[0].pin == req.body.pin){
 				for(var i = 0; i < req.body.data.length; i++){
-					console.log(req.body.data[i]);
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
 					req.body.data[i].properties.message = "The data will be released to AJ soon."
+					console.log(req.body.data[i]);
 				}
 			}
 
