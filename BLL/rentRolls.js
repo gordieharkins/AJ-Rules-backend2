@@ -102,6 +102,11 @@ BLL.prototype.addPropertyRR = function(data, res) {
     //     return;
     // }
     // console.log("herere");
+    try{
+        var timelineDataid = data.query.tId;
+    } catch(error){ 
+        var timelineDataid = null;
+    }
     var propertyId = data.query.propId;
     var userId = data.user[0].userId;
     var files = [];
@@ -169,9 +174,13 @@ BLL.prototype.addPropertyRR = function(data, res) {
                     console.log("upload fail");
                     Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
                 } else {
-                    // console.log("calling addfiles");
-                    addFiles(files, propertyId, userId);
-                    Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+                    if(timelineDataid == null){
+                        addFiles(files, propertyId, userId, null);
+                        Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+                    } else {
+                        console.log("here is tafkasf44444444444444444444");
+                        addFiles(files, propertyId, userId, res);
+                    }
                 }
             });
         }
@@ -483,7 +492,7 @@ function associatePropertiesRR(userId, rrData, cb) {
 //----------------------------------------------
 // addFiles
 //----------------------------------------------
-function addFiles(files, propertyId, userId) {
+function addFiles(files, propertyId, userId, res) {
     var task = cron.schedule('* * * * * *', function() {
         var parsingFiles = [];
         var counter = 0;
@@ -521,7 +530,10 @@ function addFiles(files, propertyId, userId) {
                 }
             });
         }
-
+        if(res != null){
+            console.log("here is tafkasf44444444====================444444444444");
+            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+        }
         // Destroy the task as we are done
         task.destroy();
     }, false);

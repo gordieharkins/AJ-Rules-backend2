@@ -177,7 +177,6 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
                         Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
                     } else {
                         console.log("here is tafkasf44444444444444444444");
-
                         addFiles(files, propertyId, userId, res);
                     }
                     
