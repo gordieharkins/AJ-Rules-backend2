@@ -16,7 +16,7 @@
     display: block;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: 2000 !important;
   }
   .modal-dialog{
     max-width: 75%;
@@ -118,7 +118,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="fields in modalData.dataFields">
+                    <tr ng-repeat="fields in modalData.data.dataFields">
                       <td>{{fields.name}}</td>
                       <td>{{fields.value}}</td>
                       <td>{{fields.source}}</td>
@@ -143,7 +143,7 @@
                   <!--<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>RR as of Jan 2017<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></a>-->
                   <!--<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>RR as of Jan 2018<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></a>-->
                   <!--</div>-->
-                  <ul class="req-list" ng-repeat="req in modalData.requiredItems">
+                  <ul class="req-list" ng-repeat="req in modalData.data.requiredItems">
                     <li style="color: #a94442;">{{req.name}}
                       <span style="float: right" ng-if="req.value=='false'">
                         <i  class="fa fa-times"></i>&nbsp;<span>Pending</span>
@@ -160,6 +160,27 @@
                   </ul>
     
                 </div>
+                 <span style="color: #2f71ab;font-size: 15px"><i class="fa fa-file-text" style="margin-right: 5px;"></i>Additional documents:</span>
+              
+                <div class="table-wrapper-2">
+                    <!--<div class="list-group">-->
+                    <!--<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>IE 2015<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></a>-->
+                    <!--<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>IE 2016<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></a>-->
+                    <!--<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>IE 2017<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></a>-->
+                    <!--<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>RR as of Jan 2017<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></a>-->
+                    <!--<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>RR as of Jan 2018<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></a>-->
+                    <!--</div>-->
+                    <ul class="req-list" ng-repeat="add in modalData.additionalItems">
+                      <li style="color: #a94442;">{{add.properties.originalName}}
+                    
+                      </li>
+                      <!--<li style="color: #a94442;">IE 2016<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></li>-->
+                      <!--<li style="color: #3c763d;">IE 2017<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></li>-->
+                      <!--<li style="color: #a94442;">RR as of Jan 2017<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></li>-->
+                      <!--<li style="color: #3c763d;">RR as of Jan 2018<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></li>-->
+                    </ul>
+      
+                  </div>
               </div>
     
     
