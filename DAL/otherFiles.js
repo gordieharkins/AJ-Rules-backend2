@@ -19,13 +19,13 @@ DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, 
     propertyId = parseInt(propertyId);
     var params = {
         propertyId:propertyId,
-        tId: timelineDataId
+        tId: parseInt(timelineDataId)
     };
     var query = `MATCH (prop:property) WHERE id(prop) = {propertyId}
         MERGE (prop)-[rel:otherFilesMetaRel]->(metaNode:otherFilesMetaNode)`;
 
     if(timelineDataId != null){
-        query += `MATCH(timeline) where id(timeline) = {tId} `
+        query += ` WITH * MATCH(timeline) where id(timeline) = {tId} `
     }
 
     for(var i = 0;i<otherFileDetails.length;i++){

@@ -311,6 +311,8 @@ BLL.prototype.executeSignature = function(req, res) {
 // get Property timeline data
 // ---------------------------------------------
 BLL.prototype.getPropertyTimelineData = function(req, res) {
+	console.log("Request for timeline data");
+	
 	var year = (new Date()).getFullYear();
 	// var userId = req.user[0].userId;
 	var userId = req.body.userId;
@@ -432,7 +434,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						var event = {
 							eventId: value.event._id,
 							properties: value.event.properties,
-							subEvents: value.subEvent 
+							subEvents: value.subEvent,
+							additionalItems: value.additionalItems
 						};
 						
 						var property = {
@@ -477,7 +480,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					var event = {
 						eventId: value.event._id,
 						properties: value.event.properties,
-						subEvents: value.subEvent 
+						subEvents: value.subEvent,
+						additionalItems: value.additionalItems
 					};
 					// console.log(event);
 					var property = {
@@ -527,6 +531,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						ErrorLogDAL.addErrorLog(error);
 					} else {
 						finalResult["notification"] = result;
+						console.log("Now it is here to send timeline data");
 						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 						
 					}

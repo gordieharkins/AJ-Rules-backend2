@@ -139,8 +139,9 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
     var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId}
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
+    OPTIONAL MATCH (event)-[:additional_item]->(otherFile: otherFileNode)
     return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
-    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent ORDER BY id(event)`;
+    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent, collect(otherFile) as additionalItems ORDER BY id(event)`;
 
     var params = {
         userId: userId

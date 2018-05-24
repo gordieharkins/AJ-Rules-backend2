@@ -96,7 +96,8 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
     data.pipe(busboy);
     var userId = data.user[0].userId;
     var propertyId = data.query.propId;
-    // var timelineDataid = null;
+    console.log(propertyId);
+    console.log(data.query);
     try{
         var timelineDataid = data.query.tId;
     } catch(error){ 
@@ -175,6 +176,8 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
                         addFiles(files, propertyId, userId, null);
                         Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
                     } else {
+                        console.log("here is tafkasf44444444444444444444");
+
                         addFiles(files, propertyId, userId, res);
                     }
                     
@@ -761,6 +764,7 @@ function addFiles(files, propertyId, userId, res) {
 
         // Destroy the task as we are done
         if(res != null){
+            console.log("here is tafkasf44444444====================444444444444");
             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
         }
         task.destroy();

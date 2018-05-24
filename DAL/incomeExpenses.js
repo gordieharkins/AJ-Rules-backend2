@@ -21,6 +21,7 @@ DAL.prototype.addPropertyIE = function(propertyIE, propertyId, userId, cb) {
     // console.log("userId: ",userId);
     // console.log("*********************************************************");
     // console.log(propertyIE);
+    console.log("here is tafkasf");
     userId = parseInt(userId);
     var params = {
         propertyId:parseInt(propertyId)
