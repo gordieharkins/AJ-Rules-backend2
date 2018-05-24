@@ -33912,12 +33912,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var configData = {data:null,eventIndex:null};
     var subEventsDetect = null;
     var sendFile = null;
+    var configSign =  {data:[]}
 
 
     function getPropertyDetails()  {
    
     var url = '/appeal/getPropertyTimelineData';
-    var postData = {"appealYear":2018, "userId": 9922606}
+    var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
     
     AOTCService.postDataToServer(url, postData)
@@ -33972,6 +33973,25 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
      $scope.executeSign = function(pin){
+        //  /executeSignature
+        var url = '/appeal/executeSignature';
+        var data = []
+        data.push( configSign.data)
+        var postData = {"pin":pin, "data": data}
+        $("#preloader").css("display", "block");
+        console.log(postData)
+        
+        AOTCService.postDataToServer(url, postData)
+            .then(function (result) {
+                $("#preloader").css("display", "none");
+                  console.log(result.data)
+                 
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                console.log(result)
+                $("#preloader").css("display", "none");
+            });
          
      }
 
@@ -34007,6 +34027,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
+            configSign.data = prop.subEvents[subEventIndex]
+        
         }
         
         console.log(data)
