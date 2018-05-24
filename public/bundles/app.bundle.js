@@ -34055,7 +34055,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     function sendData(data){
       
             $("#preloader").css("display", "block");
-            var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property +'?tId='+ configId.event;
+
+            var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property  +'&tId='+ configId.event;// backend push
             ////console.log("==>", url);
             ////console.log("vm.IEData==>", vm.IEData);
             ////console.log("==>", url);
