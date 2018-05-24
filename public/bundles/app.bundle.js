@@ -12864,8 +12864,9 @@ function _Signup(AOTCService, $state, $q) {
             AOTCService.postDataToServer(url, vm.signupData)
                 .then(function (result) {
 
-                    ////console.log(result);
-
+                    console.log(result);
+                   
+                    localStorage.setItem('tokenTemp', result.data.result);
                     vm.signupData = {
                         name: "", //done
                         lastName: "", //done
@@ -24337,6 +24338,18 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
     ////console.log("login-in controller");
 
     var vm = this;
+    $scope.passwordCheck = null;
+    var pass = localStorage.getItem("tokenTemp");
+    if(pass) {
+        $scope.passwordCheck = pass;
+        localStorage.removeItem('tokenTemp');
+    }
+
+    $scope.closeModal = function(){
+        $scope.passwordCheck = null;
+    }
+    console.log(pass)
+    
     //vm.deviceDetector = deviceDetector;
     //////console.log("vm.deviceDetector", vm.deviceDetector);
 
@@ -33983,7 +33996,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
                   console.log(result.data)
               
                   UpdateData(2)
@@ -37559,6 +37571,8 @@ module.exports = _AOTCService;
 //   .factory('AOTCService', _AOTCService
 //    );
 function _AOTCService($http, $rootScope) {
+
+    var passwordToken = '123123123';
 
     function getDataFromServer(apiUrl) {
         var token = localStorage.getItem('token');

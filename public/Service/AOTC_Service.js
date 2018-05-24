@@ -8,6 +8,8 @@ module.exports = _AOTCService;
 //    );
 function _AOTCService($http, $rootScope) {
 
+    var passwordToken = '123123123';
+
     function getDataFromServer(apiUrl) {
         var token = localStorage.getItem('token');
         var req = $http({

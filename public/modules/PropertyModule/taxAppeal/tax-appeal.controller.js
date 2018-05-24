@@ -92,7 +92,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
                   console.log(result.data)
               
                   UpdateData(2)
