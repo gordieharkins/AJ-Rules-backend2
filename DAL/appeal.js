@@ -16,7 +16,7 @@ function DAL() {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getFormDataForJurisdiction = function(data, cb) {
-	console.log("here it is00")
+	// console.log("here it is00")
     var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)<-[*]-(user:user)-[:appealForm]->(form)
     			 where id(n) = 115386 return DISTINCT(form), publicProperty.landArea as landArea,
                 publicProperty.buildingArea as buildingArea`;
@@ -41,7 +41,7 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
     // console.log("here it is00");
     // console.log(data.revalYear);
     var revalYear = new Date(data.revalYear).getTime().toString();
-    console.log(revalYear);
+    // console.log(revalYear);
     // console.log(data.propId);
     var query = `MATCH(n:property)-[:revalYear]->(revalNode: revalYear)<-[:OF]-(ie:IEsurvey)<-[:OF]-(data) 
                 where id(n) IN {propId} AND revalNode.year = {revalYear}
@@ -54,7 +54,7 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
             revalYear: revalYear
         }
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }
@@ -83,7 +83,7 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         query: query,
         params: params
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }
@@ -121,12 +121,12 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
         }
 
     }
-    console.log(params);
+    // console.log(params);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }
@@ -160,12 +160,22 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
-    var query = `MATCH(n) where id(n) = {id} SET n = {data}`;
 
-    var params = {
-        id: id,
-        data: data
-    };
+    var params = {};
+    var query = "";
+    if(Array.isArray(data)){
+        for(var i = 0; i < data.length; i++){
+            params['data'+i] = data[i].properties;
+            params['id'+i] = data[i]._id;
+            query += `MATCH(n`+i+`) where id(n`+i+`) = {id`+i+`} SET n = {data`+i+`}\n`;
+        }
+    } else {
+        params = {
+            data: data,
+            id: id
+        }
+        query = `MATCH(n) where id(n) = {id} SET n = {data}`;
+    }
 
     // console.log(query);
     db.cypher({
@@ -205,6 +215,25 @@ DAL.prototype.getNotification = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId}
                 MATCH(n)-[rel:notification]->(notification)
                 RETURN notification, rel.count`;
+
+    var params = {
+        userId: userId
+    };
+
+    // console.log(query);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// executeSignature
+//--------------------------------------------------------
+DAL.prototype.executeSignature = function(userId, cb) {
+    var query = `MATCH(n:user) where id(n) = {userId} return n.pin as pin`;
 
     var params = {
         userId: userId

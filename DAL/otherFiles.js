@@ -15,13 +15,18 @@ function DAL() {
 // ---------------------------------------------
 // uploadOtherFiles
 // ---------------------------------------------
-DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, description, cb) {
+DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, description, timelineDataId, cb) {
     propertyId = parseInt(propertyId);
     var params = {
         propertyId:propertyId,
+        tId: timelineDataId
     };
     var query = `MATCH (prop:property) WHERE id(prop) = {propertyId}
         MERGE (prop)-[rel:otherFilesMetaRel]->(metaNode:otherFilesMetaNode)`;
+
+    if(timelineDataId != null){
+        query += `MATCH(timeline) where id(timeline) = {tId} `
+    }
 
     for(var i = 0;i<otherFileDetails.length;i++){
         var node = "node" + i;
@@ -36,6 +41,10 @@ DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, 
         params['otherFileDetails' + i] = otherFileDetails[i];
         query += `CREATE (` + node + `:otherFileNode{otherFileDetails` + i + `})
             CREATE (` + node + `)-[otherFile` + i + `:otherFile]->(metaNode)`;
+
+        if(timelineDataId != null){
+            query += `CREATE(timeline)-[:additional_item]->(`+ node +`) `;
+        }
     }
     db.cypher({
         query: query,

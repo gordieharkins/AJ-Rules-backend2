@@ -33,6 +33,12 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
     //     return;
     // }
 
+    try{
+        var timelineDataid = data.query.tId;
+    } catch(error){ 
+        var timelineDataid = null;
+    }
+
     var propertyId = data.query.propId;
     var loginUserId = data.user[0].userId;
     var files = [];
@@ -104,7 +110,7 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
                             delete files[i].fileStream;
                         }
 
-                        OtherFilesDAL.uploadOtherFiles(files, propertyId, loginUserId, description, function(error, result) {
+                        OtherFilesDAL.uploadOtherFiles(files, propertyId, loginUserId, description, timelineDataId, function(error, result) {
                             if (error) {
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);

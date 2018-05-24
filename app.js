@@ -36,12 +36,14 @@ var admin = require('./routes/admin');
 var appeal = require('./routes/appeal');
 
 var zillow = require('./routes/zillow');
+// var cors = require('cors');
 
 var app = express();
 //============================================passport-start===================================
 app.use(passport.initialize());
 //And now we can import our JWT passport strategy. Enter this below our mongoose connection:
 
+// app.use(cors());
 // Bring in defined Passport Strategy
 require('./BLL/util/passport')(passport);
 

@@ -249,8 +249,6 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 }
 // ---------------------END---------------------
 
-
-
 // ---------------------------------------------
 // Add timeline data to property
 // ---------------------------------------------
@@ -274,6 +272,40 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 }
 // ---------------------END---------------------
 
+// ---------------------------------------------
+// executeSignature
+// ---------------------------------------------
+BLL.prototype.executeSignature = function(req, res) {
+	var userId = req.user[0].userId;
+    DAL.executeSignature(userId, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+			if(result[0].pin == req.body.pin){
+				for(var i = 0; req.body.data.length; i++){
+					req.body.data[i].properties.button = false;
+					req.body.data[i].properties.buttonText = "";
+					req.body.data[i].properties.message = "The will be released to AJ soon."
+				}
+			}
+
+			DAL.updateData(req.body.data, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+					Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+				} else {
+					Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+				}
+			});
+        }
+    });
+}
+// ---------------------END---------------------
 
 // ---------------------------------------------
 // get Property timeline data
@@ -294,12 +326,9 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			var finalResult = {
 				jurisdictions: []
 			};
+
 			var jurisdictionsNames = [];
 			var propertyIds = [];
-
-			//
-			
-			// ?
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event.properties.name == "Income and Expense Survey"){
 					var tempSubEvent = {};
@@ -340,9 +369,9 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 											} else {
 												var temp = {
 													name: subValue.properties[element][1],
-													value: subValue.properties[element][2]
+													value: subValue.properties[element][2],
+													type: subValue.properties[element][4]
 												}
-												
 												subValue.properties.requiredItems.push(temp);
 												delete subValue.properties[element];
 											}
@@ -374,7 +403,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							});
 						} else if(subValue.properties.name == "Submit IE Survey Data"){
 							submitIEDataIndex = j;
-							checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], subValue, function(error, surveyData){
+							checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
 								if(error){
 									callbackSubMain(error);
 								} else {
@@ -441,7 +470,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						}
 						// console.log("here1;", finalResult.jurisdictions[0].properties[0].events);
 						callbackMain();
-						
 					});
 				} else {
 
@@ -500,6 +528,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					} else {
 						finalResult["notification"] = result;
 						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+						
 					}
 				});
 				
@@ -508,7 +537,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 	});
 }
 // ---------------------END---------------------
-
 
 function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 	// console.log("*************", requiredItems);
@@ -629,10 +657,6 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 					message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
 				}
 				
-				// if(remainingFields > 0){
-				// 	message += remainingFields + " out of " + totalFields+ " fields remaining. "
-				// }
-	
 				if(remainingItems > 0){
 					message += remainingItems + " of " + totalItems+ " items needed for submission."
 				}
@@ -664,10 +688,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 	});
 }
 
-
 function checkReivewStatus(requiredItems, reviewStatus, cb){
-	// console.log("Req: ",requiredItems);
-	// console.log("Status: ",reviewStatus);
 	if(requiredItems.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress"
@@ -675,11 +696,8 @@ function checkReivewStatus(requiredItems, reviewStatus, cb){
 	cb(null,reviewStatus);
 }
 
-
-function checkSubmissionStatus(reviewStatus, submissionStatus, cb){
-	// console.log("Req: ",requiredItems);
-	// console.log("Status: ",reviewStatus);
-	if(reviewStatus.reviewResult){
+function checkSubmissionStatus(reviewStatus, requiredItemsStatus, submissionStatus, cb){
+	if(reviewStatus.reviewResult != false && requiredItemsStatus.status == "Done"){
 		submissionStatus.properties.flag = true;
 		submissionStatus.properties.status = "In Progress"
 	}
