@@ -285,14 +285,15 @@ BLL.prototype.executeSignature = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
 			if(result[0].pin == req.body.pin){
-				for(var i = 0; req.body.data.length; i++){
+				for(var i = 0; i < req.body.data.length; i++){
+					console.log(req.body.data[i]);
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
 					req.body.data[i].properties.message = "The data will be released to AJ soon."
 				}
 			}
 
-			DAL.updateData(req.body.data, function(error, result) {
+			DAL.updateData(req.body.data, null, function(error, result) {
 				if (error) {
 					console.log(error);
 					error.userName = loginUserName;
