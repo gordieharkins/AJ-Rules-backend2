@@ -33905,6 +33905,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.show = true;
     $scope.showModal = false;
     $scope.openSign = false;
+    $scope.uploadRadio = null;
     $scope.uploadModal = false;
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
@@ -34061,7 +34062,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     function UpdateData(){
         // 
-        var url = '/appeal/getPropertyTimelineData';
+        $timeout( function(){
+            var url = '/appeal/getPropertyTimelineData';
         var postData = {"appealYear":2018, "userId": 9922606}
         $("#preloader").css("display", "block");
         
@@ -34081,6 +34083,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 ////console.log(result);
                 $("#preloader").css("display", "none");
             });
+        }, 5000 );
+       
         
 
 
@@ -34102,7 +34106,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
                     ////console.log("addPropertyIE", result);
                     $("#preloader").css("display", "none");
-                    console.log(result)
+                      console.log(result)
                        UpdateData();
                        $scope.uploadModal = false
             
