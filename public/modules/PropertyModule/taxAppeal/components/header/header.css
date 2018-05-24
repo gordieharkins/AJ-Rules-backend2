@@ -121,8 +121,8 @@ i{
 }
 .juris-icon {
   position: absolute;
-  right: 17px;
-  top: 48px;
+  right: 13px;
+  top: 22px;
   color: #cccccc;
 }
 .jurisd-check li{
@@ -226,8 +226,8 @@ i{
 }
 .juris-icon-six{
   position: absolute;
-  right: 16px;
-  top: 216px;
+  right: 14px;
+  top:41px;
   color: #cccccc;
 }
 /************************* show filter ********************/
@@ -286,7 +286,7 @@ i{
 .advance-filter select, .advance-filter input {
   display: block;
   width: 100%;
-  margin:10px 0;
+  margin:10px 0 !important;
   border-radius: 2px;
 }
 .select-one, .select-half{
@@ -296,6 +296,16 @@ i{
   position: absolute;
   right: 4px;
   top: 40px;
+}
+select{
+  margin: 0 !important;
+}
+ul.jurisd-check input[type="checkbox"] {
+  float: right;
+}
+input[type="checkbox"] {
+  display: block;
+  float: left;
 }
 .select-icon-two {
   position: absolute;
