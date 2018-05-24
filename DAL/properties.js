@@ -791,7 +791,7 @@ DAL.prototype.addProperty = function(properties, fileName, userId, cb) {
     query += `\nRETURN `;
 
     for(var j = 0; j < properties.length; j++){
-        var prop = `id(prop` + j + `) AS prop` + j + ``;
+        var prop = `id(prop` + j + `) +"||"+ prop`+ j +`.assessingAuthority  AS prop` + j + ``;
         query += ``+prop;
         if((j+1) !== properties.length){
             query += `,`;
