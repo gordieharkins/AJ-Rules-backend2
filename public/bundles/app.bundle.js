@@ -33906,6 +33906,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.showModal = false;
     $scope.openSign = false;
     $scope.uploadRadio = null;
+    $scope.pin = '';
     $scope.uploadModal = false;
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
@@ -33970,6 +33971,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else return 'blue-button';
      }
 
+     $scope.executeSign = function(pin){
+         
+     }
+
     $scope.noteComp = function(state) {
        
         if ('warning' in state && state.warning)
@@ -33994,7 +33999,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log(configData)
         if(data.buttonText=='Details') {
             $scope.showModal = true;
-            $scope.modalData = data;
+            $scope.modalData = {data: data, additionalItems: prop.additionalItems};
+            console.log($scope.modalData)
         
 
         } else if (data.buttonText=='Schedule Review') {
@@ -34032,7 +34038,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var eventId = jProperty[i].events[column].eventId;
             var index = i;
              extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
-                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId, 
+                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
                  info: subEventsDetect, propertyIndex: index, eventIndex: column})
         }
         console.log(extractSubEvents)
