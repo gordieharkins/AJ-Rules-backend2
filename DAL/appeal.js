@@ -168,7 +168,7 @@ DAL.prototype.updateData = function(data, id, cb) {
         for(var i = 0; i < data.length; i++){
             params['data'+i] = data[i].properties;
             params['id'+i] = data[i]._id;
-            query += `MATCH(n`+i+`) where id(n`+i+`) = {id`+i+`} SET n = {data`+i+`}\n`;
+            query += `MATCH(n`+i+`) where id(n`+i+`) = {id`+i+`} SET n`+i+` = {data`+i+`}\n`;
         }
     } else {
         params = {
