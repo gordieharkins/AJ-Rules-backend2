@@ -46,7 +46,7 @@ body {
     display: inline-flex;
     border-radius: 5px;
     padding: 2px 0px 2px 0px;
-    backgr ound: #205081;
+    background: #205081;
 }
 
 .header-btn ul li:hover {
