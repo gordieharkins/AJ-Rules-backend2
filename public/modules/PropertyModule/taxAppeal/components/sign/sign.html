@@ -33,7 +33,7 @@
     max-width: 75%;
     top: 25%;
   }
-  .black-button{
+  .ok-button{
       right: 15px !important;
       position: absolute;
       min-width: 60px;
@@ -131,14 +131,14 @@
         <!-- Modal content-->
         <div class="modal-content excute-popup">
           <div class="modal-header dialog-box-header">
-            <h5 class="modal-title">Execute Signatures</h5>
+            <h5 class="modal-title">Execute Signature</h5>
             <button ng-click="closeModal()" type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body" style="height: 132px">
             <div class="input-box">
                   <label class="pin-label">Enter Pin</label>
-                <input type="number" class="form-control" placeholder="Enter pin">
-                <button ng-click="executeSign()" type="button" class="black-button">Ok</button>
+                <input type="password" class="form-control" placeholder="Enter pin">
+                <button ng-click="executeSign()" type="button" class="ok-button">Ok</button>
               </div>
 
           </div>
