@@ -288,7 +288,7 @@ BLL.prototype.executeSignature = function(req, res) {
 				for(var i = 0; req.body.data.length; i++){
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
-					req.body.data[i].properties.message = "The will be released to AJ soon."
+					req.body.data[i].properties.message = "The data will be released to AJ soon."
 				}
 			}
 
@@ -314,8 +314,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 	console.log("Request for timeline data");
 	
 	var year = (new Date()).getFullYear();
-	// var userId = req.user[0].userId;
-	var userId = req.body.userId;
+	var userId = req.user[0].userId;
+	// var userId = req.body.userId;
 	
     DAL.getPropertyTimelineData(userId, req.body.appealYear, function(error, result) {
         if (error) {
@@ -694,7 +694,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 }
 
 function checkReivewStatus(requiredItems, reviewStatus, cb){
-	if(requiredItems.status == "Done"){
+	if(requiredItems.properties.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress"
 	}
@@ -702,7 +702,7 @@ function checkReivewStatus(requiredItems, reviewStatus, cb){
 }
 
 function checkSubmissionStatus(reviewStatus, requiredItemsStatus, submissionStatus, cb){
-	if(reviewStatus.reviewResult != false && requiredItemsStatus.status == "Done"){
+	if(reviewStatus.properties.reviewResult != false && requiredItemsStatus.properties.status == "Done"){
 		submissionStatus.properties.flag = true;
 		submissionStatus.properties.status = "In Progress"
 	}
