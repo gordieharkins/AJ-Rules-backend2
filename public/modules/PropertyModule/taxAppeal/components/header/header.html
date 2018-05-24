@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/header/header.css">
 <form>
-    <div class="row page-heading">
+    <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
       <h3 class="page-title">Sub-portfolio1</h3>
       <button ng-click="" class="blue-button">Send Invite<i class="fa fa-caret-down"></i></button>
@@ -74,6 +74,7 @@
               <div class="property-ad clearfix">
                 <div class="select-one">
                   <label>Search by address</label>
+                  <i class="fa fa-caret-down"></i>
                   <select class="form-control">
                     <option>Lorem Ipsum 1</option>
                     <option >Lorem Ipsum 2</option>
@@ -115,127 +116,132 @@
           <button style="display: none" type="button" class="filter-btn">Hide advance filter</button>
         </li>
       </ul>
-  
-  
-  
     </div>
-    <div class="show-filter-wrap" style="display: none">
-      <div class="filter-show clearfix">
-        <h2>Advance Filter <span>(Filter will be applied to all properties)</span></h2>
-        <span class="close-filter"><i class="fa fa-times-circle-o"></i>Clear all filters</span>
+
+</div>
+  <div class="show-filter-wrap">
+    <div class="filter-show clearfix">
+      <h2>Advance Filter <span>(Filter will be applied to all properties)</span></h2>
+      <span class="close-filter"><i class="fa fa-times-circle-o"></i>Clear all filters</span>
+    </div>
+    <div class="row advance-filter clearfix">
+      <div class="col-md-3 header-col col-one">
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <i class="fa fa-caret-down select-icon-one"></i>
+          <select class="form-control">
+            <option>Lorem Ipsum 1</option>
+            <option >Lorem Ipsum 2</option>
+            <option>Lorem Ipsum 3</option>
+            <option>Lorem Ipsum 4</option>
+          </select>
+        </div>
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <i class="fa fa-caret-down select-icon-one"></i>
+          <select class="form-control">
+            <option>Lorem Ipsum 1</option>
+            <option >Lorem Ipsum 2</option>
+            <option>Lorem Ipsum 3</option>
+            <option>Lorem Ipsum 4</option>
+          </select>
+        </div>
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <i class="fa fa-caret-down select-icon-one"></i>
+          <select class="form-control">
+            <option>Lorem Ipsum 1</option>
+            <option >Lorem Ipsum 2</option>
+            <option>Lorem Ipsum 3</option>
+            <option>Lorem Ipsum 4</option>
+          </select>
+        </div>
+
       </div>
-      <div class="row advance-filter clearfix">
-        <div class="col-md-3 col-one">
-         <div class="select-one">
-           <label>Lorem Ipsum</label>
-           <select class="form-control">
-             <option>Lorem Ipsum 1</option>
-             <option >Lorem Ipsum 2</option>
-             <option>Lorem Ipsum 3</option>
-             <option>Lorem Ipsum 4</option>
-           </select>
-         </div>
-          <div class="select-one">
-            <label>Lorem Ipsum</label>
-            <select class="form-control">
-              <option>Lorem Ipsum 1</option>
-              <option >Lorem Ipsum 2</option>
-              <option>Lorem Ipsum 3</option>
-              <option>Lorem Ipsum 4</option>
-            </select>
-          </div>
-          <div class="select-one">
-            <label>Lorem Ipsum</label>
-            <select class="form-control">
-              <option>Lorem Ipsum 1</option>
-              <option >Lorem Ipsum 2</option>
-              <option>Lorem Ipsum 3</option>
-              <option>Lorem Ipsum 4</option>
-            </select>
-          </div>
-  
+      <div class="col-md-3 header-col col-two clearfix">
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <input  type="text" class="form-control search-field-one" placeholder="Search property by name">
+          <i class="fa fa-search advance-search"></i>
         </div>
-        <div class="col-md-3 col-two clearfix">
-          <div class="select-one">
-            <label>Lorem Ipsum</label>
-           <input  type="text" class="form-control search-field-one" placeholder="Search property by name">
-            <i class="fa fa-search advance-search"></i>
-          </div>
-          <div class="select-one">
-            <label>Lorem Ipsum</label>
-            <ul class="property-owner">
-              <li class="clearfix">
-                <label><input type="radio" > All</label>
-              </li>
-              <li class="clearfix">
-                <label><input type="radio"> Agent</label>
-              </li>
-              <li class="clearfix">
-                <label><input type="radio"> Owner</label>
-              </li>
-            </ul>
-            <select class="form-control">
-              <option>Lorem Ipsum 1</option>
-              <option >Lorem Ipsum 2</option>
-              <option>Lorem Ipsum 3</option>
-              <option>Lorem Ipsum 4</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3 col-three clearfix">
-          <div class="select-one">
-            <label>Lorem Ipsum</label>
-            <input type="text"  class="form-control search-field-one" placeholder="Search property by name">
-            <i class="fa fa-search advance-search"></i>
-          </div>
-         <div class="city-area clearfix">
-           <div class="select-half">
-             <label>Lorem Ipsum</label>
-             <select class="form-control">
-               <option>Lorem Ipsum 1</option>
-               <option >Lorem Ipsum 2</option>
-               <option>Lorem Ipsum 3</option>
-               <option>Lorem Ipsum 4</option>
-             </select>
-           </div>
-           <div class="select-half">
-             <label>Lorem Ipsum</label>
-             <select class="form-control">
-               <option>Lorem Ipsum 1</option>
-               <option >Lorem Ipsum 2</option>
-               <option>Lorem Ipsum 3</option>
-               <option>Lorem Ipsum 4</option>
-             </select>
-           </div>
-         </div>
-            <div class="select-one">
-              <label>Lorem Ipsum</label>
-              <input type="text" class="form-control city-search" placeholder="Search property by name">
-              <i class="fa fa-search advance-city"></i>
-            </div>
-          </div>
-  
-        <div class="col-md-3 col-four">
-          <ul class="appeal-check appeal-new">
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <ul class="property-owner">
             <li class="clearfix">
-              <label> <input type="checkbox">Properties with not started status</label>
+              <label><input type="radio" > All</label>
             </li>
             <li class="clearfix">
-              <label> <input type="checkbox">Properties with  in-progress status</label>
+              <label><input type="radio"> Agent</label>
             </li>
             <li class="clearfix">
-              <label> <input type="checkbox">Properties with done status</label>
-            </li>
-            <li class="clearfix">
-              <label> <input type="checkbox">Properties apporching deadline</label>
-            </li>
-            <li class="clearfix">
-              <label> <input type="checkbox">Properties having deadline in between</label>
+              <label><input type="radio"> Owner</label>
             </li>
           </ul>
+          <i class="fa fa-caret-down select-icon-two"></i>
+          <select class="form-control">
+            <option>Lorem Ipsum 1</option>
+            <option >Lorem Ipsum 2</option>
+            <option>Lorem Ipsum 3</option>
+            <option>Lorem Ipsum 4</option>
+          </select>
         </div>
       </div>
+      <div class="col-md-3 header-col col-three clearfix">
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <input type="text"  class="form-control search-field-one" placeholder="Search property by name">
+          <i class="fa fa-search advance-search"></i>
+        </div>
+        <div class="city-area clearfix">
+          <div class="select-half">
+            <label>Lorem Ipsum</label>
+            <i class="fa fa-caret-down select-icon-one"></i>
+            <select class="form-control">
+              <option>Lorem Ipsum 1</option>
+              <option >Lorem Ipsum 2</option>
+              <option>Lorem Ipsum 3</option>
+              <option>Lorem Ipsum 4</option>
+            </select>
+          </div>
+          <div class="select-half">
+            <label>Lorem Ipsum</label>
+            <i class="fa fa-caret-down select-icon-one"></i>
+            <select class="form-control">
+              <option>Lorem Ipsum 1</option>
+              <option >Lorem Ipsum 2</option>
+              <option>Lorem Ipsum 3</option>
+              <option>Lorem Ipsum 4</option>
+            </select>
+          </div>
+        </div>
+        <div class="select-one">
+          <label>Lorem Ipsum</label>
+          <input type="text" class="form-control city-search" placeholder="Search property by name">
+          <i class="fa fa-search advance-city"></i>
+        </div>
+      </div>
+
+      <div class="col-md-3 header-col col-four">
+        <ul class="appeal-check appeal-new">
+          <li class="clearfix">
+            <label> <input type="checkbox">Properties with not started status</label>
+          </li>
+          <li class="clearfix">
+            <label> <input type="checkbox">Properties with  in-progress status</label>
+          </li>
+          <li class="clearfix">
+            <label> <input type="checkbox">Properties with done status</label>
+          </li>
+          <li class="clearfix">
+            <label> <input type="checkbox">Properties apporching deadline</label>
+          </li>
+          <li class="clearfix">
+            <label> <input type="checkbox">Properties having deadline in between</label>
+          </li>
+        </ul>
+      </div>
     </div>
-    </div>
-  </form>
+  </div>
+
+</form>
   

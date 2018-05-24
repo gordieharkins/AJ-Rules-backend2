@@ -186,7 +186,7 @@ var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
 
-var server = app.listen(4000, '0.0.0.0', function() {
+var server = app.listen(4100, '0.0.0.0', function() {
  // app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("Server starting on " + server.address().port);
 });

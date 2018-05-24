@@ -12,14 +12,14 @@
         background-color: #30337f;
         min-height: 360px;
         max-height: 410px;
-        right: 0px;
+        right: 0;
         left: unset;
-        border: 0px;
-        padding-left: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        border-radius: 0px;
-        margin-top: 0px;
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        border-radius: 0;
+        margin-top: 0;
     }
 
     .dropdown-menu.notify-drop .notify-drop-title {
@@ -31,8 +31,8 @@
         min-height: 280px;
         max-height: 330px;
         overflow-y: auto;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
     }
 
     .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar-track {
@@ -50,8 +50,8 @@
 
     .dropdown-menu.notify-drop .drop-content>li {
         border-bottom: 1px solid #cccccc;
-        padding: 0px 0px 12px 0px;
-        border-radius: 0px;
+        padding: 0 0 12px 0;
+        border-radius: 0;
         width: 100%;
         background-color: #fff4aa;
     }
@@ -123,7 +123,7 @@
 
     .dropdown-menu.notify-drop .drop-content>li a {
         color: #2f2877 !important;
-        padding: 0px;
+        padding: 0;
         text-decoration: dotted;
         font-weight: bold;
     }
@@ -144,18 +144,18 @@
     }
 
     .pd-0 {
-        padding: 0px;
+        padding: 0;
     }
 
     .dropdown-menu.notify-drop .drop-content>li p {
         font-size: 11px;
         color: #2c1f70;
         font-weight: normal;
-        margin: 0px;
+        margin: 0;
     }
 
     .dropdown-menu.notify-drop .drop-content>li p.notf-content {
-        margin: 0px;
+        margin: 0;
         max-width: 330px;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -166,7 +166,7 @@
         font-size: 11px;
         font-weight: bold;
         /* top: -6px; */
-        /* margin: 8px 0px 0px 0px; */
+        /* margin: 8px 0 0 0; */
         /* padding: 2px 5px; */
         /* border: 1px solid #f3ffc4; */
         /* position: relative; */
@@ -202,11 +202,11 @@
         margin-top: -5px;
     }
      li{
-        border-radius: 0px;
+        border-radius: 0;
     }
     .header-btn ul.dropdown-menu.notify-drop ul.notification-tabs li a,
     .header-btn ul.dropdown-menu.notify-drop ul.notification-tabs li{
-        border-radius: 0px !important;
+        border-radius: 0 !important;
     }
     .header-btn ul.dropdown-menu.notify-drop ul.notification-tabs li a {
     color: #f5f5f5;
@@ -215,13 +215,13 @@
         /*background: #205081;*/
         /*width: 135px;*/
         /*text-align: left;*/
-        /*padding: 2px 0px 2px 5px;*/
+        /*padding: 2px 0 2px 5px;*/
     /*}*/
     .logout-drop li a:hover{
         background-color: #2c166a !important;
         width: 122px !important;
         text-align: left !important;
-        padding: 0px 0px 0px 10px !important;
+        padding: 0 0 0 10px !important;
     }
 
 </style>
@@ -244,24 +244,25 @@
                 <ul>
                     <li class="metro-header">
                         <a ui-sref="taxAppeal">
-                            <span class="image-lg" style="background-image: url(./assets/img/inventory.png);"></span>
+                            <span class="image-lg" style="background-image: url(../../assets/img/tax.png); background-size: 24%;"></span>
                             <span> Tax appeal</span>
                         </a>
+                    </li>
+                    <li class="metro-header">
                         <a ui-sref="inventory">
-                            <span class="image-lg" style="background-image: url(./assets/img/inventory.png);"></span>
+                            <span class="image-lg" style="background-image: url(../../assets/img/inventory.png);"></span>
                             <span>Inventory</span>
                         </a>
                     </li>
-
                     <li class="metro-header" has-permission="role" permission-object="userObj">
                         <a ui-sref="user-rights">
-                            <span class="image-lg" style="background-image: url(./assets/img/pr-u-right.png);"></span>
+                            <span class="image-lg" style="background-image: url(../../assets/img/pr-u-right.png);"></span>
                             <span>User Rights</span>
                         </a>
                     </li>
                     <li class="metro-header" has-permission='timeline'>
                         <a ui-sref="TimelineGraphical">
-                            <span class="image-lg" style="background-image: url(./assets/img/pr-time.png);"></span>
+                            <span class="image-lg" style="background-image: url(../../assets/img/pr-time.png);"></span>
                             <span>Timeline</span>
                         </a>
                     </li>
@@ -375,7 +376,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                    <h5 style="margin: 0px 0px 5px;color:#2c1f70;font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
+                                                    <h4 style="margin: 0px 0px 5px;color:#2c1f70;font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
                                                         <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
 
                                                 </div>
@@ -411,7 +412,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                            <h5 style="margin: 0px 0px 5px;color:#2c1f70;font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
+                                                            <h4 style="margin: 0 0 5px; color:#2c1f70; font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
                                                                 <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
         
                                                         </div>
@@ -439,7 +440,7 @@
 
                     <!--<li class="dropdown metro-header welcome">-->
                     <li class="dropdown metro-header">
-                        <a class=" dropdown-toggle" data-toggle="dropdown" href="" style="padding: 0px 15px 0px 15px;">
+                        <a class=" dropdown-toggle" data-toggle="dropdown" href="" style="padding: 0 15px;">
                             <span class="image-ph"></span> Welcome {{name}} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu logout-drop">
                             <li>
@@ -581,4 +582,3 @@
             </div>
         </div>
     </div> -->
-</div>
