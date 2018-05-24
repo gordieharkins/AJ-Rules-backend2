@@ -1,5 +1,8 @@
-li, label{
+li{
   margin: 0 !important;
+}
+label{
+  margin: 0 0 5px !important;
 }
 i{
   margin: 0 5px;
@@ -214,21 +217,30 @@ i{
 }
 .juris-icon-two{
   position: absolute;
-  right: 20px;
-  top: 70px;
+  right: 12px;
+  top: 42px;
   color: #cccccc;
 }
 .juris-icon-five{
   position: absolute;
-  left: 151px;
-  top: 216px;
+  left: 156px;
+  top: 191px;
   color: #cccccc;
 }
 .juris-icon-six{
   position: absolute;
   right: 14px;
-  top:41px;
+  top:191px;
   color: #cccccc;
+}
+.property-ad select {
+  padding: 0 5px !important;
+  cursor: pointer;
+}
+.select-dropdown {
+  position: absolute;
+  right: 1px;
+  top: 30px;
 }
 /************************* show filter ********************/
 .header-col{
