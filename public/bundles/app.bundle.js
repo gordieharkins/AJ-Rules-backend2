@@ -34105,7 +34105,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 .then(function (result) {
 
                     ////console.log("addPropertyIE", result);
-                    $("#preloader").css("display", "none");
+                   
                       console.log(result)
                        UpdateData();
                        $scope.uploadModal = false
