@@ -33985,7 +33985,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                 $("#preloader").css("display", "none");
                   console.log(result.data)
-                 
+              
+                  UpdateData(2)
                 }, function (result) {
                 //some error
                 ////console.log(result);
@@ -34089,7 +34090,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
       
     }
 
-    function UpdateData(){
+    function UpdateData(type){
         // 
         $timeout( function(){
             var url = '/appeal/getPropertyTimelineData';
@@ -34103,10 +34104,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.data = result.data.result
                   $scope.staticTable(1);
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
+                  if(type==1){
                   $scope.modalData = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
+                  }
                   console.log($scope.modalData)
                   $scope.uploadModal = false
+                  $scope.openSign = false;
                 }, function (result) {
                 //some error
                 ////console.log(result);
@@ -34137,7 +34141,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                       UpdateData();
+                       UpdateData(1);
                        $scope.uploadModal = false
             
                 }, function (result) {
