@@ -6,7 +6,7 @@
 
    <div class="col-md-9">
    <div ng-if="show">
-     <div ng-repeat="(pIndex,item) in  data.jurisdictions">
+     <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index">
        <div class="row main-table-header">
          <div class="col-md-5">
            <span><i class="table-back fa fa-chevron-left"></i>{{item.name}}</span>
