@@ -157,13 +157,13 @@
                     <div class="radio-box">
                         <form>
                             <label class="radio" style=" padding-right: 15px;">
-                                <input ng-model="uploadRadio" type="radio" name="optradio">Income Expense Statements
+                                <input ng-model="uploadRadio" type="radio" name="1" value="1"> {{uploadRadio}}Income Expense Statements
                             </label>
                             <label class="radio" style="padding-right: 15px;">
-                                <input ng-model="uploadRadio" type="radio" name="optradio">Rent Rolls
+                                <input ng-model="uploadRadio" type="radio" name="2" value="2">Rent Rolls
                             </label>
                             <label class="radio">
-                                <input  ng-model="uploadRadio" type="radio" name="optradio">Additional Document
+                                <input  ng-model="uploadRadio" type="radio"  name="3" value="3">Additional Document
                             </label>
                         </form>
                     </div>
@@ -173,7 +173,7 @@
                             <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file…</span>
                         </label>
                     </div>
-                    <button ng-click="sendData()" class="black-button">Done</button>
+                    <button ng-click="sendData(uploadRadio)" class="black-button">Done</button>
                 </div>
             </div>
         </div>

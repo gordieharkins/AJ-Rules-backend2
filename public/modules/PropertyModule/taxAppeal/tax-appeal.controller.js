@@ -155,6 +155,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.uplaodFile = function(file) {
           console.log(file.files)
+          sendFile = null;
           var files = file.files;
           var FileNames = [];
           var selected  = 0;
@@ -200,26 +201,26 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     }
 
-    $scope.sendData = function(){
+    $scope.sendData = function(radio){
+        console.log(radio)
       
            $("#preloader").css("display", "block");
-        
+           console.log(radio)
+           if(radio==1) {
             var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property  +'&tId='+ configId.event;// backend push
-            ////console.log("==>", url);
-            ////console.log("vm.IEData==>", vm.IEData);
-            ////console.log("==>", url);
-            // ////console.log("vm.IEData==>", vm.IEData);
-        //    console.log(send)
+
+           } else if (radio==2){
+            var url = '/rentRolls/addPropertyRR?propId=' + configId.property  +'&tId='+ configId.event;
+
+           } else if (radio==3) {
+            var url = '/otherFiles/uploadOtherFiles?propId=' + configId.property  +'&tId='+ configId.event;
+           }
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
-
-                    ////console.log("addPropertyIE", result);
-                   
                       console.log(result)
                        UpdateData();
                        $scope.uploadModal = false
             
-            //         // checkResult();
                 }, function (result) {
                     $("#preloader").css("display", "none");
                     ////console.log(result);
