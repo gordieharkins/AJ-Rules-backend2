@@ -121,6 +121,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
      $scope.changeComp = function(event,column,pColumn) {
+         if(event.length==0) {
+             return
+         }
         $scope.subData = null;
         var jProperty =  $scope.data.jurisdictions[pColumn].properties;
         var jName = $scope.data.jurisdictions[pColumn].name
