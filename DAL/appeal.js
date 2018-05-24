@@ -16,7 +16,7 @@ function DAL() {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getFormDataForJurisdiction = function(data, cb) {
-	console.log("here it is00")
+	// console.log("here it is00")
     var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)<-[*]-(user:user)-[:appealForm]->(form)
     			 where id(n) = 115386 return DISTINCT(form), publicProperty.landArea as landArea,
                 publicProperty.buildingArea as buildingArea`;
@@ -41,7 +41,7 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
     // console.log("here it is00");
     // console.log(data.revalYear);
     var revalYear = new Date(data.revalYear).getTime().toString();
-    console.log(revalYear);
+    // console.log(revalYear);
     // console.log(data.propId);
     var query = `MATCH(n:property)-[:revalYear]->(revalNode: revalYear)<-[:OF]-(ie:IEsurvey)<-[:OF]-(data) 
                 where id(n) IN {propId} AND revalNode.year = {revalYear}
@@ -54,7 +54,7 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
             revalYear: revalYear
         }
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }
@@ -83,7 +83,7 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         query: query,
         params: params
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }
@@ -121,12 +121,12 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
         }
 
     }
-    console.log(params);
+    // console.log(params);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log(results);
+        // console.log(results);
         cb(err, results);
     });
 }

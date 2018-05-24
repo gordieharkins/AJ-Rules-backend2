@@ -369,9 +369,9 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 											} else {
 												var temp = {
 													name: subValue.properties[element][1],
-													value: subValue.properties[element][2]
+													value: subValue.properties[element][2],
+													type: subValue.properties[element][4]
 												}
-												
 												subValue.properties.requiredItems.push(temp);
 												delete subValue.properties[element];
 											}
@@ -528,6 +528,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					} else {
 						finalResult["notification"] = result;
 						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+						
 					}
 				});
 				
