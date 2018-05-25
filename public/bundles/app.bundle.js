@@ -18815,6 +18815,7 @@ function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptions
     ////console.log("viewAJData controller", $stateParams);
     var vm = this;
     vm.tableData = [];
+    $scope.$emit('error', "unable to parse")
     vm.dtOptions = DTOptionsBuilder.newOptions()
         .withDisplayLength(20)
         .withOption('lengthMenu', [
@@ -33927,7 +33928,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var sendFile = null;
     var configSign =  {data:[]}
 
-
     function getPropertyDetails()  {
    
     var url = '/appeal/getPropertyTimelineData';
@@ -33940,7 +33940,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.staticTable(1);
-
+             
             }, function (result) {
             //some error
             ////console.log(result);
@@ -33997,8 +33997,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
-              
-                  UpdateData(2)
+                  setTimeout(function(){ UpdateData(2)}, 5000)
+        
+             
+                 
                 }, function (result) {
                 //some error
                 ////console.log(result);
@@ -34104,7 +34106,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     function UpdateData(type){
         
-        $timeout( function(){
+ 
             var url = '/appeal/getPropertyTimelineData';
         var postData = {"appealYear":2018, "userId": 9922606}
         $("#preloader").css("display", "block");
@@ -34132,8 +34134,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 //some error
         //         ////console.log(result);
                 $("#preloader").css("display", "none");
+                $scope.$emit('error', 'Unable to update data')
+
             });
-        }, 5000 );
+        
        
         
 
@@ -34158,11 +34162,14 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                       UpdateData(1);
+                      setTimeout(function(){ UpdateData(1)
+                    }, 5000)
+                    
                        $scope.uploadModal = false
             
                 }, function (result) {
                     $("#preloader").css("display", "none");
+                    $scope.$emit('error', 'File Upload Failed')
                     ////console.log(result);
                 });
         }
