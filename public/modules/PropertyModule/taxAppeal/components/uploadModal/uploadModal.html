@@ -191,13 +191,14 @@
                         </form>
                     </div>
                     <div class="upload-box">
-                        <input onchange="angular.element(this).scope().uplaodFile(this)"  type="file" class="form-control upload-input inputfile inputfile-1" name="file-1[]" id="file-1">
+                        <input onchange="angular.element(this).scope().uplaodFile(this)"  type="file" class="form-control upload-input inputfile inputfile-1" style="display:none" name="file-1[]" id="file-1">
                         <label for="file-1" class="upload-btn">
                             <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file…</span>
+                            <span style="    color: black;
+                            position: absolute;
+                            margin: 10px;">{{fileName}}sss</span>
                         </label>
-                        <span style="    color: black;
-                        position: absolute;
-                        margin: 10px;">{{fileName}}</span>
+                        
                     </div>
                     <button ng-click="sendData(uploadRadio)" class="black-button">Done</button>
                 </div>
