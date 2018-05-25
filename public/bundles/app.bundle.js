@@ -33919,9 +33919,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.show = true;
     $scope.showModal = false;
     $scope.openSign = false;
-    $scope.uploadRadio = null;
+    $scope.uploadRadio = '1';
     $scope.pin = '';
     $scope.uploadModal = false;
+    $scope.fileName = '';
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
     var subEventsDetect = null;
@@ -34089,9 +34090,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
           console.log(file.files)
           sendFile = null;
           var files = file.files;
+          $scope.fileName = files[0].name
           var FileNames = [];
           var selected  = 0;
           sendFile = files
+          $scope.$apply();
           
     }
 
