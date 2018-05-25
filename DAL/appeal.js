@@ -214,7 +214,7 @@ DAL.prototype.generateNotification = function(notification, userId, cb) {
 //--------------------------------------------------------
 DAL.prototype.getNotification = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId}
-                MATCH(n)-[rel:notification]->(notification)
+                MATCH(n)-[rel:notification]->(notification:notification)
                 RETURN notification, rel.count`;
 
     var params = {

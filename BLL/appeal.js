@@ -42,10 +42,10 @@ var marylandTimeline = {
 			button: true,
 			order: 1,
 			a: ["item","IE 2015", "false", "2015", "IE"],
-			b: ["item","IE 2016", "false", "2016", "IE"],
-			c: ["item","IE 2017", "false", "2017", "IE"],
-			d: ["item","RR as of January 1, 2017", "false", "January 1, 2017", "RR"],
-			e: ["item","RR as of January 1, 2018", "false", "January 1, 2018", "RR"],
+			// b: ["item","IE 2016", "false", "2016", "IE"],
+			// c: ["item","IE 2017", "false", "2017", "IE"],
+			// d: ["item","RR as of January 1, 2017", "false", "January 1, 2017", "RR"],
+			// e: ["item","RR as of January 1, 2018", "false", "January 1, 2018", "RR"],
 			f: ["field","A", "abc", "IE 2015"],
 			g: ["field","B", "1", "IE 2015"],
 			h: ["field","C", "2", "IE 2016"],
@@ -326,6 +326,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
 			// res.send(result);
+			
 			var finalResult = {
 				jurisdictions: []
 			};
@@ -334,6 +335,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			var propertyIds = [];
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event.properties.name == "Income and Expense Survey"){
+					console.log("additional itmes: ", value.additionalItems);
+					
 					var tempSubEvent = {};
 					var requireInformationIndex = null;
 					var reviewIEDraftIndex = null;
@@ -350,17 +353,22 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						if(subValue.properties.name == "Complete Required Information"){
 							requireInformationIndex = j;
 							checkRequiredItems(subValue.properties, value.propertyId, 
-												subValue._id, value.event.properties.deadline, function(error, requiredItems){
+												subValue._id, value.event.properties.deadline, value.jurisdiction, function(error, requiredItems){
 								if(error){
 									callbackSubMain(error);
 								} else {
 									subValue.properties = requiredItems;
+									var status = true;
 									for(var element in subValue.properties){
 										if(element == "requiredItems" || element == "dataFields"){
 											continue;
 										}
 										if(Array.isArray(subValue.properties[element])){
 											if(subValue.properties[element][0] == "field"){
+												if(subValue.properties[element][2] == ""){
+													status = false;													
+												}
+
 												var temp = {
 													name: subValue.properties[element][1],
 													value: subValue.properties[element][2],
@@ -370,6 +378,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												subValue.properties.dataFields.push(temp);
 												delete subValue.properties[element];
 											} else {
+												if(subValue.properties[element][2] == "false"){
+													status = false;													
+												}
+
 												var temp = {
 													name: subValue.properties[element][1],
 													value: subValue.properties[element][2],
@@ -380,6 +392,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 											}
 										}
 									}
+
+									if(status){
+										subValue.properties.status = "Done";
+									}	
 
 									if(subValue.properties.notification != undefined){
 										generateNotification(subValue.properties.notification, userId);
@@ -432,6 +448,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 
 							generateNotification(notification, userId);
 						}
+
 						var event = {
 							eventId: value.event._id,
 							properties: value.event.properties,
@@ -544,7 +561,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 }
 // ---------------------END---------------------
 
-function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
+function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdiction, cb){
 	// console.log("*************", requiredItems);
 	async.parallel([
 		function(callback) {
@@ -646,20 +663,23 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 				requiredItems.flag = true;
 
 			} else {
-				// console.log(deadline);
-				var daysRemaining = new dateDiff(new Date(), new Date(deadline));
+				console.log("deadline",deadline);
+				var daysRemaining = new dateDiff(new Date(deadline), new Date());
+				
+				
 				daysRemaining = parseInt(daysRemaining.days());
+				console.log("daysRemaining",daysRemaining);
 				var notification = {
 					heading: "Complete Required Information",
 					text: "",
 					type: "warning"
 				}
 
-				if(daysRemaining < 15 && daysRemaining > 0){
-					notification.text = daysRemaining+ " days remaining before submission. Please complete the required information."
+				if(daysRemaining < 30 && daysRemaining > 0){
+					notification.text = daysRemaining+ " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
 					message += daysRemaining+ " days remaining before submission. "
 				} else if (daysRemaining <= 0 ){
-					notification.text = "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. Please complete the required information.";
+					notification.text = "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " daysfor "+jurisdiction+" properties. Please complete the required information.";
 					message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
 				}
 				
@@ -695,6 +715,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, cb){
 }
 
 function checkReivewStatus(requiredItems, reviewStatus, cb){
+	console.log("items: ", requiredItems);
 	if(requiredItems.properties.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress"

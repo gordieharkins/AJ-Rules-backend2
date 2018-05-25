@@ -272,21 +272,21 @@ function getAllPropertiesTimelineStatus2(userId, role) {
 	});
 }
 
-function extractNotifications() {
-	DAL.getUserIds(function(error, result) {
-		if (error) {
-			console.log(error);
-			error.userName = loginUserName;
-			ErrorLogDAL.addErrorLog(error);
-		} else {
-			// console.log("user ids: ", result);
-			for(var i = 0; i < result.length; i++){
-				getAllPropertiesTimelineStatus2(result[i].id, result[i].role);
-			}
+// function extractNotifications() {
+// 	DAL.getUserIds(function(error, result) {
+// 		if (error) {
+// 			console.log(error);
+// 			error.userName = loginUserName;
+// 			ErrorLogDAL.addErrorLog(error);
+// 		} else {
+// 			// console.log("user ids: ", result);
+// 			for(var i = 0; i < result.length; i++){
+// 				getAllPropertiesTimelineStatus2(result[i].id, result[i].role);
+// 			}
 		
-		}
-	});
-}
+// 		}
+// 	});
+// }
 
 
 BLL.prototype.markAsRead = function(data,res){

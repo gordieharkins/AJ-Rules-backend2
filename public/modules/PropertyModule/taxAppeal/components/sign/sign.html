@@ -67,9 +67,12 @@
   }
   thead tr th{
     text-align: center !important;
-    background-color: #2f71ab !important;
+    background-color: #f5f5f5 !important;
     color: #ffffff !important;
     font-size: 13px !important;
+  }
+  thead tr th span{
+      color: #3c3c3c;
   }
   .table-wrapper-2 {
     display: block;
@@ -136,9 +139,10 @@
           </div>
           <div class="modal-body" style="height: 132px">
             <div class="input-box">
-                  <label class="pin-label">Enter Pin</label>
-                <input type="password" ng-model="pin" class="form-control" placeholder="Enter pin">
-                <button ng-click="executeSign(pin)" type="button" class="ok-button">Ok</button>
+
+                  <label class="pin-label">Enter Token</label>
+                <input type="password" class="form-control" placeholder="Enter pin">
+                <button ng-click="executeSign()" type="button" class="ok-button">Ok</button>
               </div>
 
           </div>
