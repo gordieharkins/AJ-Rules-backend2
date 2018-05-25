@@ -89,6 +89,8 @@
              <td class="started-tr" ng-repeat="events in  prop.events">
                <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
                <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
+               <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message || 'N/A'}}</span></p>
+
                <!--<p class="pull-left">Event will start on: {{events.value.properties.startDate}}</p>-->
              <span class="bottom-icons">
                      <i class="fa fa-mobile mobile-icon"></i>
