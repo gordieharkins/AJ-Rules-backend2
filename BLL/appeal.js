@@ -335,8 +335,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			var propertyIds = [];
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event.properties.name == "Income and Expense Survey"){
-					console.log("additional itmes: ", value.additionalItems);
-					
 					var tempSubEvent = {};
 					var requireInformationIndex = null;
 					var reviewIEDraftIndex = null;
@@ -437,7 +435,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					}, function (err) {
 						if (err) console.error(err.message);
 						//configs is now a map of JSON data
-						// console.log("here;", finalResult.jurisdictions[0].properties[0].events);
 						if(!isComplete){
 							var notification = {
 								heading: value.jurisdiction + " Properties",
@@ -471,11 +468,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							properties: [property]		
 						}
 
-						// console.log("JurisdictionsNames: ",jurisdictionsNames);
-						// console.log("Jurisdiction Name: ",value.jurisdiction);
 						var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-						// console.log("jurisdictionIndex: ",jurisdictionIndex);
-
 						if(jurisdictionIndex > -1){
 							var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
 							if(propertyIndex > -1){
@@ -489,19 +482,17 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
 							finalResult.jurisdictions.push(jurisdiction);
 						}
-						// console.log("here1;", finalResult.jurisdictions[0].properties[0].events);
 						callbackMain();
 					});
 				} else {
 
-					// console.log("here;", finalResult.jurisdictions[0].properties[0].events);
 					var event = {
 						eventId: value.event._id,
 						properties: value.event.properties,
 						subEvents: value.subEvent,
 						additionalItems: value.additionalItems
 					};
-					// console.log(event);
+
 					var property = {
 						id: value.propertyId,
 						name: value.propertyName,
@@ -517,11 +508,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						properties: [property]		
 					}
 
-					// console.log("JurisdictionsNames: ",jurisdictionsNames);
-					// console.log("Jurisdiction Name: ",value.jurisdiction);
-					
 					var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-					// console.log("jurisdictionIndex: ",jurisdictionIndex);
 					if(jurisdictionIndex > -1){
 						var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
 						if(propertyIndex > -1){
@@ -535,13 +522,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
 						finalResult.jurisdictions.push(jurisdiction);
 					}
-					// console.log("here1;", finalResult.jurisdictions[0].properties[0].events);
 					callbackMain();
 				}
 			}, function (err) {
 				if (err) console.error(err.message);
 				// configs is now a map of JSON data
-				// console.log("erere");
 				DAL.getNotification(userId, function(error, result) {
 					if (error) {
 						console.log(error);
@@ -549,7 +534,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						ErrorLogDAL.addErrorLog(error);
 					} else {
 						finalResult["notification"] = result;
-						console.log("Now it is here to send timeline data");
 						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 						
 					}
@@ -562,7 +546,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 // ---------------------END---------------------
 
 function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdiction, cb){
-	// console.log("*************", requiredItems);
 	async.parallel([
 		function(callback) {
 			IEDAL.getPropertyIE(propertyId, function(error, result) {
@@ -605,12 +588,10 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 			var message = "";
 			for(var element in requiredItems){
 				if(Array.isArray(requiredItems[element])){
-					// console.log(requiredItems[element]);
 					if(requiredItems[element][4] == "IE"){
 						totalItems++;
 						if(requiredItems[element][2] == "false"){
 							for(var j = 0;j < results[0].length; j++){
-								// console.log(results[0][j].year);
 								if(results[0][j].year.split(",")[1] == requiredItems[element][3]){
 									requiredItems[element][2] = "true";
 									break;
@@ -628,12 +609,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 						totalItems++;
 						if(requiredItems[element][2] == "false"){
 							for(var j = 0;j < results[1].length; j++){
-								// console.log(results[0][j].asOfYear);
-								// var asOfDate = (new Date(results[0][j].asOfYear.split(",")[1]));
 								var asOfDate = new Date(requiredItems[element][3]).getTime();
-								// console.log("A",asOfDate);
-								// console.log(results[1][j].asOfYear);
-								// console.log("B",results[1][j].asOfYear.split(",")[1]);
 								if(results[1][j].asOfYear.split(",")[1] == asOfDate){
 									requiredItems[element][2] = "true";
 									break;
@@ -663,12 +639,10 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 				requiredItems.flag = true;
 
 			} else {
-				console.log("deadline",deadline);
 				var daysRemaining = new dateDiff(new Date(deadline), new Date());
 				
 				
 				daysRemaining = parseInt(daysRemaining.days());
-				console.log("daysRemaining",daysRemaining);
 				var notification = {
 					heading: "Complete Required Information",
 					text: "",
@@ -687,7 +661,6 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 					message += remainingItems + " of " + totalItems+ " items needed for submission."
 				}
 	
-				// console.log(daysRemaining);
 				requiredItems.warning = message;
 				requiredItems.message = "";
 				requiredItems.button = true;
@@ -715,7 +688,6 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 }
 
 function checkReivewStatus(requiredItems, reviewStatus, cb){
-	console.log("items: ", requiredItems);
 	if(requiredItems.properties.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress"
