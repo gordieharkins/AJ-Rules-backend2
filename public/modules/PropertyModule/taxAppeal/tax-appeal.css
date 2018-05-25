@@ -6,7 +6,7 @@ body { padding: 0; margin: 0 }
   border-collapse: collapse;
   display: block;
   height: 450px;
-  overflow: scroll;
+  overflow:auto;
 }
 .JStableOuter {
   max-width:100%;

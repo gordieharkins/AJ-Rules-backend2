@@ -50,7 +50,7 @@
     }
     thead tr th{
         text-align: center !important;
-        background-color: #f5f5f5 !important;
+        /*background-color: #f5f5f5 !important;*/
         color: #ffffff !important;
         font-size: 13px !important;
     }
@@ -141,6 +141,29 @@
         color: #3c3c3c;
         margin: 0 0 10px !important;
     }
+    .modal-dialog.file-type {
+        top: 27% !important;
+    }
+    .inputfile {
+        position: relative;
+        border: none;
+        box-shadow: none;
+        padding: 0 0 0 34px;
+    }
+    .upload-box {
+        position: relative;
+    }
+    .upload-btn {
+        position: absolute;
+        top: -3px;
+        height: 25px;
+        padding: 5px 5px 0 !important;
+    }
+    .inputfile:focus {
+        border-color: transparent !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
 
 </style>
 <div class="popup-overlay">
@@ -168,8 +191,8 @@
                         </form>
                     </div>
                     <div class="upload-box">
-                        <input onchange="angular.element(this).scope().uplaodFile(this)"  type="file" class="form-control inputfile inputfile-1" name="file-1[]" id="file-1" style="display: none">
-                        <label for="file-1">
+                        <input onchange="angular.element(this).scope().uplaodFile(this)"  type="file" class="form-control upload-input inputfile inputfile-1" name="file-1[]" id="file-1">
+                        <label for="file-1" class="upload-btn">
                             <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file…</span>
                         </label>
                     </div>
