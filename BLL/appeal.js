@@ -682,6 +682,8 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 			requiredItems['notification'] = notification;
 			requiredItems["requiredItems"] = [];
 			requiredItems["dataFields"] = [];
+
+			console.log(JSON.stringify(requiredItems));
 			cb(null, requiredItems) ;
 		}
 	});
