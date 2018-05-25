@@ -4,7 +4,7 @@
 
  <div class="row" style="margin: 20px 0 0">
 
-   <div class="col-md-9">
+   <div class="col-md-9" style="padding-right:0;">
    <div ng-if="show">
      <div ng-repeat="(pIndex,item) in  data.jurisdictions">
        <div class="row main-table-header">
@@ -51,7 +51,7 @@
                <input type="checkbox">Property Name
              </th>
              <th ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
-               <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
+               <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
                <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
                <!--<span class="not-mandatory">(Not mandatory)</span>-->
              </th>

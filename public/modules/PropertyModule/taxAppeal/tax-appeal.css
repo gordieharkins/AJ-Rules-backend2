@@ -26,10 +26,13 @@ body { padding: 0; margin: 0 }
 
 .JStableOuter thead th:nth-child(1) {
   position: relative;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   z-index: 1064 !important;
-  min-width: 300px;
+  width: 300px;
   border-right: 1px solid #dddddd;
+  color: #3c3c3c !important;
+  min-width: 250px;
+  text-align: left !important;
 }
 .JStableOuter thead th{
   border-bottom: 2px solid #ddd !important;
@@ -42,6 +45,7 @@ body { padding: 0; margin: 0 }
   padding: 0 15px;
   font-size: 13px;
   border-right: 1px solid #dddddd;
+  min-width: 270px;
 }
 tbody tr td{
   padding: 0 10px !important;
@@ -67,6 +71,9 @@ p{
 thead tr th {
   min-width: 230px;
   z-index: 1060 !important;
+}
+thead tr th span{
+  color: #3c3c3c;
 }
 tbody tr td, thead tr th {
   padding: 10px !important;
@@ -183,6 +190,7 @@ tbody tr td, thead tr th {
   position: absolute;
   bottom: 5px;
   right: 10px;
+  display: none;
 }
 .bottom-icons i{
   color: #cccccc;
