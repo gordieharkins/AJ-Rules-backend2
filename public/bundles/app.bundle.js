@@ -34032,13 +34032,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         configData.data = prop;
         configData.subEventIndex = subEventIndex;
         console.log(configData)
-        // if(data.buttonText=='Details') {
+        if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
-        
-
-         if (data.buttonText=='Schedule Review') {
+        }else if (data.buttonText=='Schedule Review') {
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
