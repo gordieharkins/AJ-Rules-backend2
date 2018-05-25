@@ -6,7 +6,7 @@ body { padding: 0; margin: 0 }
   border-collapse: collapse;
   display: block;
   height: 450px;
-  overflow: scroll;
+  overflow: auto;
 }
 .JStableOuter {
   max-width:100%;
@@ -77,7 +77,7 @@ tbody tr td{
 p{
   margin: 0;
 }
-thead tr th {
+.JStableOuter thead tr th {
   min-width: 230px;
   z-index: 1060 !important;
   background: #f5f5f5 !important;
@@ -611,10 +611,13 @@ input:checked + .slider .off
   /*not*/
 .red-note{
   color: #cf0303;
+  font-weight: 600;
 }
 .white-note{
   color: black;
+  font-weight: 600;
 }
 .start-note {
-  margin-top: 15px;
+  margin: 25px 0 10px;
+  font-weight: 600;
 }

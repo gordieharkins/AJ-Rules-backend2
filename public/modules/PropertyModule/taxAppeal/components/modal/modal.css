@@ -87,9 +87,9 @@ a:focus, a:hover {
     text-align: left !important;
     font-size: 13px !important;
   }
-  thead tr th{
+  .table-wrapper-2 thead tr th{
     text-align: center !important;
-    background-color: #f5f5f5 !important;
+    background-color: #337ab7 !important;
     color: #ffffff !important;
     font-size: 13px !important;
   }

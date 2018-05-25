@@ -15,7 +15,7 @@ thead tr th {
   background: #FFF;
 }
 thead tr th span{
-  color: #3c3c3c;
+  /*color: #3c3c3c;*/
 }
   .modal-content{
     border: 1px solid #cccccc;
@@ -89,7 +89,7 @@ a:focus, a:hover {
   }
   thead tr th{
     text-align: center !important;
-    background-color: #f5f5f5 !important;
+    /*background-color: #f5f5f5 !important;*/
     color: #ffffff !important;
     font-size: 13px !important;
   }
