@@ -93,6 +93,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
+                  $scope.pin = '';
                   setTimeout(function(){ UpdateData(2)}, 5000)
         
              
