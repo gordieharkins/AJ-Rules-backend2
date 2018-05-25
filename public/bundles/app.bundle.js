@@ -34030,13 +34030,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         configData.data = prop;
         configData.subEventIndex = subEventIndex;
         console.log(configData)
-        if(data.buttonText=='Details') {
+        // if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
         
 
-        } else if (data.buttonText=='Schedule Review') {
+         if (data.buttonText=='Schedule Review') {
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
@@ -34103,11 +34103,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     function UpdateData(type){
-        // 
+        
         $timeout( function(){
             var url = '/appeal/getPropertyTimelineData';
         var postData = {"appealYear":2018, "userId": 9922606}
         $("#preloader").css("display", "block");
+     
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
@@ -34117,15 +34118,19 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.staticTable(1);
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
-                  $scope.modalData = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                      console.log('updating modal data')
+                  $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
-                  }
+                  $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
+                  .events[configData.data.eventIndex].additionalItems;
+
+                    }
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
                 }, function (result) {
                 //some error
-                ////console.log(result);
+        //         ////console.log(result);
                 $("#preloader").css("display", "none");
             });
         }, 5000 );

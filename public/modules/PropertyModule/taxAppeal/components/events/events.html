@@ -80,7 +80,7 @@
             <p>N/A</p>
           </td>
             
-          <td class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="eventIndex=$index">
+          <td class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="subEventIndex=$index">
             <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
             <button ng-if="events.properties.button" type="submit" ng-click="openModal(events.properties ,prop,subEventIndex)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
