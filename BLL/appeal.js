@@ -445,6 +445,26 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 
 							generateNotification(notification, userId);
 						}
+						
+						if(value.subEvent[requireInformationIndex].properties.status == "Done" &&
+						value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+						value.subEvent[submitIEDataIndex].properties.status == "Done"){
+							value.event.properties.status = "Done";
+						} else if(value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
+						value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
+						value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
+							value.event.properties.status = "Done";
+						} else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+						value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
+						value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
+							value.event.properties.status = "In Progress";
+							value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
+							if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
+								value.event.properties.warning = "Complete required information.";
+							} else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ){
+								value.event.properties.warning = "Please execute signature.";
+							} 
+						}
 
 						var event = {
 							eventId: value.event._id,
