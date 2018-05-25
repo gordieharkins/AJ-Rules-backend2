@@ -81,12 +81,14 @@ p{
   min-width: 230px;
   z-index: 1060 !important;
   background: #f5f5f5 !important;
+  text-align: left !important;
 }
 tbody tr td, thead tr th {
   padding: 10px !important;
 }
 thead tr th span{
   color: #3c3c3c;
+  text-align: left !important;
 }
 .first-col-head{
   left: 0;
@@ -101,6 +103,9 @@ thead tr th span{
 }
 .first-col-body{
   background-color: #f9f9f9 !important;
+}
+.fa .fa-caret-down{
+  content: '\f06e' !important;
 }
 
 /*__________________table ended________________________*/
