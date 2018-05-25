@@ -34042,6 +34042,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
+            $scope.pin = ''
             configSign.data = prop.subEvents[subEventIndex]
         
         }
