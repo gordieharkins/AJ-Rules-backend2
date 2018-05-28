@@ -135,14 +135,14 @@
         <div class="modal-content excute-popup">
           <div class="modal-header dialog-box-header">
             <h5 class="modal-title">Execute Signature</h5>
-            <button ng-click="closeModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+            <button ng-click=" closeModal()" type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body" style="height: 132px">
             <div class="input-box">
 
                   <label class="pin-label">Enter Token</label>
-                <input type="password" class="form-control" ng-model="pin" placeholder="Enter pin">
-                <button ng-click="executeSign(pin)" type="button" class="ok-button">Ok</button>
+                <input type="password" class="form-control" ng-model="resetSign.pin" name="password" placeholder="Enter pin">
+                <button ng-click="executeSign(resetSign.pin)" type="button" class="ok-button">Ok</button>
               </div>
 
           </div>

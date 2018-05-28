@@ -33920,14 +33920,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.showModal = false;
     $scope.openSign = false;
     $scope.uploadRadio = '1';
-    $scope.pin = '';
+    $scope.pinValue = '';
     $scope.uploadModal = false;
     $scope.fileName = '';
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
     var subEventsDetect = null;
     var sendFile = null;
-    var configSign =  {data:[]}
+    var configSign =  {data:[],pin: null}
+    $scope.resetSign = {pin: null}
 
     function getPropertyDetails()  {
    
@@ -33948,6 +33949,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
         });
     }
+
     getPropertyDetails();
 
     $scope.staticTable = function(pindex){
@@ -33964,7 +33966,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               
                 });
               });
-            }
+    }
     
     $scope.checkMessage = function(type){
        
@@ -33998,7 +34000,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
-                  $scope.pin = '';
+                  $scope.resetSign.pin = null
                   setTimeout(function(){ UpdateData(2)}, 5000)
         
              
@@ -34013,21 +34015,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-       
-        if ('warning' in state && state.warning)
-            {
-           
-
-                return 'red-note';
-                
-            }
-            
+        console.log('notes click checked')
+        if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
     }
 
     $scope.openModal = function(data, prop,subEventIndex){
-        // $scope.modalData = null;\
- 
         
         configId.property = prop.propertyId;
         configId.event =    prop.eventId;
@@ -34042,10 +34035,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
-            $scope.pin = ''
+            $scope.resetSign.pin = null;
             configSign.data = prop.subEvents[subEventIndex]
-        
-        }
+         }
         
         console.log(data)
     }
@@ -34058,8 +34050,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.closeModal = function(){
         $scope.showModal = false;
         $scope.openSign = false;
-     
-        console.log('hide')
+        $scope.resetSign.pin = null
+       
+       
     }
 
      $scope.changeComp = function(event,column,pColumn) {
@@ -34110,7 +34103,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     function UpdateData(type){
         
  
-            var url = '/appeal/getPropertyTimelineData';
+        var url = '/appeal/getPropertyTimelineData';
         var postData = {"appealYear":2018, "userId": 9922606}
         $("#preloader").css("display", "block");
      
