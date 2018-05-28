@@ -46,7 +46,7 @@ var marylandTimeline = {
 			// c: ["item","IE 2017", "false", "2017", "IE"],
 			// d: ["item","RR as of January 1, 2017", "false", "January 1, 2017", "RR"],
 			// e: ["item","RR as of January 1, 2018", "false", "January 1, 2018", "RR"],
-			f: ["field","A", "abc", "IE 2015"],
+			f: ["field","A", "0", "IE 2015"],
 			g: ["field","B", "1", "IE 2015"],
 			h: ["field","C", "2", "IE 2016"],
 			i: ["field","D", "3", "IE 2017"],
@@ -284,25 +284,28 @@ BLL.prototype.executeSignature = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
+			console.log(result[0].pin , "-------------", req.body.pin);
 			if(result[0].pin == req.body.pin){
 				for(var i = 0; i < req.body.data.length; i++){
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
 					req.body.data[i].properties.message = "The data will be released to AJ soon."
-					console.log(req.body.data[i]);
+					// console.log(req.body.data[i]);
 				}
+
+				DAL.updateData(req.body.data, null, function(error, result) {
+					if (error) {
+						console.log(error);
+						error.userName = loginUserName;
+						ErrorLogDAL.addErrorLog(error);
+						Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+					} else {
+						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+					}
+				});
 			}
 
-			DAL.updateData(req.body.data, null, function(error, result) {
-				if (error) {
-					console.log(error);
-					error.userName = loginUserName;
-					ErrorLogDAL.addErrorLog(error);
-					Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-				} else {
-					Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
-				}
-			});
+			
         }
     });
 }
@@ -450,6 +453,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
 						value.subEvent[submitIEDataIndex].properties.status == "Done"){
 							value.event.properties.status = "Done";
+							value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
 						} else if(value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
 						value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
 						value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
@@ -461,7 +465,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 							if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
 								value.event.properties.warning = "Complete required information.";
-							} else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ){
+							} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
 								value.event.properties.warning = "Please execute signature.";
 							} 
 						}

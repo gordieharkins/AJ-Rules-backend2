@@ -9,7 +9,7 @@
      <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index">
        <div class="row main-table-header">
          <div class="col-md-5">
-           <span><i class="table-back fa fa-chevron-left"></i>{{item.name}}</span>
+           <span><i class="table-back fa fa-chevron-left" style="display: none"></i>{{item.name}}</span>
          </div>
          <div class="table-header-actions col-md-7 clearfix">
            <div class="button-filter">
@@ -50,9 +50,9 @@
              <th class="first-col-head" >
                <input type="checkbox">Property Name
              </th>
-             <th ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex); $event.stopPropagation();">
+             <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
                <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-               <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
+               <span style="cursor: pointer !important;">{{events.properties.name}} <i class="fa fa fa-eye"></i></span>
                <!--<span class="not-mandatory">(Not mandatory)</span>-->
              </th>
              <!--<th>-->
@@ -66,12 +66,12 @@
              <!--</th>-->
              <!--<th>-->
              <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Review IE Survey Draft<i class="fa fa-caret-down"></i></span>-->
+             <!--<span>Review IE Survey Draft<i class="fa fa fa-eye"></i></span>-->
              <!--<span class="not-mandatory">(Not mandatory)</span>-->
              <!--</th>-->
              <!--<th>-->
              <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Submit IE Survey Form<i class="fa fa-caret-down"></i></span>-->
+             <!--<span>Submit IE Survey Form<i class="fa fa fa-eye"></i></span>-->
              <!--</th>-->
              <th class="action-col">
                <span>Action</span>
