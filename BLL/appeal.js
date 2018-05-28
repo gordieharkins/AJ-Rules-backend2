@@ -284,7 +284,7 @@ BLL.prototype.executeSignature = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-			console.log(result[0].pin , "-------------", req.body.pin);
+			// console.log(result[0].pin , "-------------", req.body.pin);
 			if(result[0].pin == req.body.pin){
 				for(var i = 0; i < req.body.data.length; i++){
 					req.body.data[i].properties.button = false;
@@ -298,11 +298,13 @@ BLL.prototype.executeSignature = function(req, res) {
 						console.log(error);
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
-						Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+						Response.sendResponse(false, Response.REPLY_MSG.PIN_FAILED, null, res);
 					} else {
-						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+						Response.sendResponse(true, Response.REPLY_MSG.PIN_SUCCESS, result, res);
 					}
 				});
+			} else {
+				Response.sendResponse(true, Response.REPLY_MSG.PIN_FAILED, result, res);
 			}
 
 			
