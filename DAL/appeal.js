@@ -161,7 +161,7 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
-
+    console.log(data);
     var params = {};
     var query = "";
     if(Array.isArray(data)){
@@ -178,7 +178,7 @@ DAL.prototype.updateData = function(data, id, cb) {
         query = `MATCH(n) where id(n) = {id} SET n = {data}`;
     }
 
-    // console.log(query);
+    console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -240,7 +240,7 @@ DAL.prototype.executeSignature = function(userId, cb) {
         userId: userId
     };
 
-    // console.log(query);
+    console.log(query);
     db.cypher({
         query: query,
         params: params
