@@ -34011,7 +34011,30 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                        toggleData.push( $scope.subData.prop[parent].subEvents[index])
              }
         }
+        postCheckList(toggleData)
         console.log(toggleData)
+    }
+
+    function postCheckList(data) {
+        var url = 'appeal/updateData';
+        $("#preloader").css("display", "block");
+      
+        
+        AOTCService.postDataToServer(url, data)
+            .then(function (result) {
+                  console.log(result.data)
+                  $("#preloader").css("display", "none");
+
+                  setTimeout(function(){ UpdateData(1)}, 5000)
+        
+             
+                 
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                console.log(result)
+                $("#preloader").css("display", "none");
+            });
     }
     
 
@@ -34040,7 +34063,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              }
          }  
         }
-       
+        postCheckList(toggleData)
     
          console.log(toggleData)
          

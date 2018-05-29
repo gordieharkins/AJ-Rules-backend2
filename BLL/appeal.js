@@ -806,7 +806,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							// }
 							} else if(subValue.properties.name == "Submit IE Survey Data"){
 								submitIEDataIndex = j;
-								checkSubmissionStatusPaper(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
+								checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
 									if(error){
 										callbackSubMain(error);
 									} else {
@@ -1226,11 +1226,12 @@ function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, s
 		submissionStatus.properties.toggleValue = false;
 		submissionStatus.properties.message = "Have you signed the income expense survey package?"
 	} else {
-		submissionStatus.properties["flag"] = false;
-		submissionStatus.properties.status = "Not Started",
-		submissionStatus.properties.toggle = false;
-		submissionStatus.properties.toggleValue = false;
-		submissionStatus.properties.message = "";
+		console.log("ok scene");
+		// submissionStatus.properties["flag"] = false;
+		// submissionStatus.properties.status = "Not Started",
+		// submissionStatus.properties.toggle = false;
+		// submissionStatus.properties.toggleValue = false;
+		// submissionStatus.properties.message = "";
 	}
 	cb(null,submissionStatus);
 }
