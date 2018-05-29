@@ -617,7 +617,7 @@ input:checked + .slider .off
   height: 34px;
   left: 0;
   right: 0;
-  margin:0 auto;
+  margin: 0 auto !important;
 }
 .switch input {display:none;}
 
@@ -697,4 +697,27 @@ input:checked + .slider .off
 }
 .main-table-header .col-md-5 {
   padding: 0 0 0 15px;
+}
+.switch:after {
+  background-color: transparent !important;
+  color:  transparent !important;
+  content: "" !important;
+  display: none;
+  font-size: 10px;
+  line-height: 1.5;
+  height: 100%;
+  left: 0;
+  padding: 2px 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  /* width: 50%; */
+}
+.switch:before {
+  background-color: #47bcff;
+  content: "Auto";
+  left: auto;
+  right: 0;
+  width: 50%;
+  display: none;
 }

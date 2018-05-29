@@ -123,7 +123,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else  return 'blue-note';
     }
 
-    $scope.openModal = function(data, prop,subEventIndex){
+    $scope.openModal = function(data, prop,subEventIndex,subEvent){
         
         configId.property = prop.propertyId;
         configId.event =    prop.eventId;
@@ -134,63 +134,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
-        }else if (data.buttonText=='Schedule Review') {
+        }else if (data.buttonText=='View Checklist' ) {
             $scope.configModal.details = true;
-            $scope.configModal.data={
-                "data": {
-                  "buttonText": "Details",
-                  "flag": true,
-                  "message": "All items complete.",
-                  "mandatory": true,
-                  "button": true,
-                  "name": "Complete Required Information",
-                  "warning": "",
-                  "status": "Done",
-                  "order": 1,
-                  "requiredItems": [
-                    {
-                      "name": "IE 2015",
-                      "value": "true",
-                      "type": "IE"
-                    }
-                  ],
-                  "dataFields": [
-                    {
-                      "name": "A",
-                      "value": "0",
-                      "source": "IE 2015"
-                    },
-                    {
-                      "name": "B",
-                      "value": "1",
-                      "source": "IE 2015"
-                    },
-                    {
-                      "name": "C",
-                      "value": "2",
-                      "source": "IE 2016"
-                    },
-                    {
-                      "name": "D",
-                      "value": "3",
-                      "source": "IE 2017"
-                    },
-                    {
-                      "name": "E",
-                      "value": "4",
-                      "source": "RR as of January 1, 2017"
-                    },
-                    {
-                      "name": "F",
-                      "value": "5",
-                      "source": "RR as of January 1, 2018"
-                    }
-                  ]
-                },
-                "additionalItems": []
-              } 
-            
-            //{data: data, additionalItems: prop.additionalItems}
+            $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
+            //{data: data, additionalItems: prop.additiona lItems}
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
@@ -213,6 +160,29 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.configModal.details = false;
        
        
+    }
+
+    $scope.saveCheckList = function(data){
+        console.log(data)
+        $("#preloader").css("display", "block");
+        var postData = []
+        postData.push(data)
+        var url = '/appeal/updateRequiredItemsPaper';
+    
+         AOTCService.postDataToServer(url, postData)
+         .then(function (result) {
+               console.log(result)
+               setTimeout(function(){ UpdateData(1)
+             }, 5000)
+                          $("#preloader").css("display", "none");
+
+                
+     
+         }, function (result) {
+             $("#preloader").css("display", "none");
+             $scope.$emit('error', 'Unable to save')
+             ////console.log(result);
+         });
     }
 
      $scope.changeComp = function(event,column,pColumn) {
@@ -277,10 +247,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
                       console.log('updating modal data')
+                  $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
                   .events[configData.data.eventIndex].additionalItems;
+                  $scope.configModal.data.additionalItems = $scope.modalData.additionalItems 
 
                     }
                   console.log($scope.modalData)

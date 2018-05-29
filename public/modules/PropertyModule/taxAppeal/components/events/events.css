@@ -740,7 +740,7 @@ thead tr th span{
   .main-table-header .col-md-5 {
     padding: 0 0 0 15px;
   }
-  .switch:after, .switch:before {
+  .switch:after {
     background-color: transparent !important;
     color:  transparent !important;
     content: "" !important;

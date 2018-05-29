@@ -128,11 +128,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="fields in configModal.data.data.dataFields">
+                    <tr ng-repeat="fields in configModal.data.data.properties.dataFields">
                       <td>{{fields.name}}</td>
                       <!-- <td ng-class="{'red-back': fields.value == ''}" >{{fields.value}}</td> -->
                       <td class="middle-check">
-                        <input style="width: 100%" type="checkbox" ng-model="fileds.check">
+                        <input style="width: 100%" type="checkbox" ng-model="fields.value">
                       </td>
                     </tr>
     
@@ -155,10 +155,10 @@
                   <!--<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>RR as of Jan 2017<span style="float: right"><i class="fa fa-times"></i>&nbsp;<span>Pending</span></span></a>-->
                   <!--<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>RR as of Jan 2018<span style="float: right"><i class="fa fa-check"></i>&nbsp;<span>Uploaded</span></span></a>-->
                   <!--</div>-->
-                  <ul class="req-list" ng-repeat="req in configModal.data.data.requiredItems">
+                  <ul class="req-list" ng-repeat="req in configModal.data.data.properties.requiredItems">
                     <li style="color: #a94442;">{{req.name}}
                       <span style="float: right">
-                              <input  type="checkbox" ng-model="req.check">
+                              <input  type="checkbox" ng-model="req.value">
                       </span>
               
                     </li>
@@ -190,39 +190,11 @@
                     </ul>
       
                   </div>
-              </div>
-    
-    
-              <!--****************************************************** WITH STATUS REQUIRED DOCUMENTS END **************************************************************-->
-    
-    
-    
-              <!--****************************************************** WITH BUTTONS REQUIRED DOCUMENTS START **************************************************************-->
-    
-              <!--<div class="col-md-5">-->
-                <!--<h6 style="color: #2f71ab;"><i class="fa fa-file-text" style="margin-right: 5px;"></i>Required documents:</h6>-->
-                <!--<div class="table-wrapper-2">-->
-                  <!--&lt;!&ndash;<div class="list-group">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>IE 2015<button type="submit" class="black-button req-btn" style="float: right">Upload</button></a>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>IE 2016<button type="submit" class="black-button req-btn" style="float: right">Upload</button></a>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>IE 2017<button type="submit" class="black-button req-btn" style="float: right">View</button></a>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right"></span>RR as of Jan 2017<button type="submit" class="black-button req-btn" style="float: right">Upload</button></a>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a class="list-group-item list-group-item-success"><span class="badge alert-success pull-right"></span>RR as of Jan 2018<button type="submit" class="black-button req-btn" style="float: right">View</button></a>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--<ul class="req-list">-->
-                    <!--<li style="color: #a94442;">IE 2015<button type="submit" class="black-button req-btn" style="float: right">Upload</button></li>-->
-                    <!--<li style="color: #a94442;">IE 2016<button type="submit" class="black-button req-btn" style="float: right">Upload</button></li>-->
-                    <!--<li style="color: #3c763d;">IE 2017<button type="submit" class="black-button req-btn" style="float: right">View</button></li>-->
-                    <!--<li style="color: #a94442;">RR as of Jan 2017<button type="submit" class="black-button req-btn" style="float: right">Upload</button></li>-->
-                    <!--<li style="color: #3c763d;">RR as of Jan 2018<button type="submit" class="black-button req-btn" style="float: right">View</button></li>-->
-                  <!--</ul>-->
-    
-                <!--</div>-->
-              <!--</div>-->
-    
-              <!--****************************************************** WITH BUTTONS REQUIRED DOCUMENTS END **************************************************************-->
-    
-    
+              
+              
+                </div>
+                <button ng-click="saveCheckList(configModal.data)"class="btn btn-primary" style="    position: fixed; bottom: 5px;
+                right: 30px;">Save</button>
             </div>
             <!--<div class="modal-footer">-->
             <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
