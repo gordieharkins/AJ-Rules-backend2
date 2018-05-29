@@ -433,7 +433,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 		delete data[j].properties.dataFields;
 		delete data[j].properties.notification;
 	}
-	// console.log(JSON.stringify(data));
+	console.log(JSON.stringify(data));
 	DAL.updateData(data, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -521,6 +521,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						var requireInformationIndex = null;
 						var reviewIEDraftIndex = null;
 						var submitIEDataIndex = null;
+						var getIEFormIndex = null;
 						var flag = false;
 						var tempEvent = [];
 						var isComplete = true;
@@ -693,7 +694,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
-							if(subValue.properties.name == "Complete Required Items"){
+							if(subValue.properties.name == "Complete IE Survey Form"){
+								getIEFormIndex = j;
+								callbackSubMain();
+							} else if(subValue.properties.name == "Complete Required Items"){
 								requireInformationIndex = j;
 								checkRequiredItemsPaper(subValue.properties, value.propertyId, 
 													subValue._id, value.event.properties.deadline, value.jurisdiction, 
@@ -749,23 +753,23 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										}
 									}
 								});
-							} else {
-								callbackSubMain();
+							// } else {
+							// 	callbackSubMain();
+							// }
+							} else if(subValue.properties.name == "Review IE Survey Draft"){
+								reviewIEDraftIndex = j;
+								checkReivewStatusPaper(value.subEvent[getIEFormIndex],value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
+									if(error){
+										callbackSubMain(error);
+									} else {
+										subValue = reviewStatus;
+										if(subValue.properties.status != "Done"){
+											isComplete = false;
+										}
+										callbackSubMain();
+									}
+								});
 							}
-								// } else if(subValue.properties.name == "Review IE Survey Draft"){
-
-								// 	reviewIEDraftIndex = j;
-							// 	checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
-							// 		if(error){
-							// 			callbackSubMain(error);
-							// 		} else {
-							// 			subValue = reviewStatus;
-							// 			if(subValue.properties.status != "Done"){
-							// 				isComplete = false;
-							// 			}
-							// 			callbackSubMain();
-							// 		}
-							// 	});
 							// } else if(subValue.properties.name == "Submit IE Survey Data"){
 							// 	submitIEDataIndex = j;
 							// 	checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
@@ -1157,4 +1161,23 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 	requiredItems["dataFields"] = [];
 
 	cb(null, requiredItems);
+}
+
+function checkReivewStatusPaper(ieForm, requiredItems, reviewStatus, cb){
+	if(requiredItems.properties.status == "Done" && ieForm.properties.status == "Done"){
+		reviewStatus.properties.flag = true;
+		reviewStatus.properties.status = "In Progress"
+	}
+
+	cb(null,reviewStatus);
+}
+
+function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, submissionStatus, cb){
+	if(reviewStatus.properties.reviewResult != false 
+	&& requiredItemsStatus.properties.status == "Done" 
+	&& ieForm.properties.status == "Done"){
+		submissionStatus.properties.flag = true;
+		submissionStatus.properties.status = "In Progress"
+	}
+	cb(null,submissionStatus);
 }
