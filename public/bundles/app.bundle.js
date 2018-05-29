@@ -34071,7 +34071,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log(data)
         $("#preloader").css("display", "block");
         var postData = []
-        postData.push(data)
+        postData.push(data.data)
         var url = '/appeal/updateRequiredItemsPaper';
     
          AOTCService.postDataToServer(url, postData)
