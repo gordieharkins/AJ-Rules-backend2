@@ -181,8 +181,6 @@ var floridaTimeline = {
 			flag: true,
 			mandatory: true,
 			warning: false,
-			buttonText: "",
-			button: false,
 			toggle: true,
 			toggleValue: false,
 			order: 1
@@ -216,8 +214,8 @@ var floridaTimeline = {
 			message: "",
 			flag: false,
 			mandatory: false,
-			buttonText: "Schedule Review",
-			button: true,
+			toggleValue: "false",
+			toggle: false,
 			reviewResult:true,
 			order: 3
 		},
@@ -227,8 +225,8 @@ var floridaTimeline = {
 			status: "Not Started",
 			message: "",
 			flag: false,
-			buttonText: "Execute Signature",
-			button: true,
+			toggleValue: "false",
+			button: false,
 			mandatory: true,
 			// state: "", 
 			order: 4
@@ -806,7 +804,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							// }
 							} else if(subValue.properties.name == "Submit IE Survey Data"){
 								submitIEDataIndex = j;
-								checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
+								checkSubmissionStatusPaper(value.subEvent[reviewIEDraftIndex], value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
 									if(error){
 										callbackSubMain(error);
 									} else {
@@ -1198,7 +1196,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 }
 
 function checkReivewStatusPaper(ieForm, requiredItems, reviewStatus, cb){
-	console.log(JSON.stringify(requiredItems));
+	// console.log(JSON.stringify(requiredItems));
 	if(requiredItems.properties.status == "Done" && ieForm.properties.status == "Done"){
 		reviewStatus.properties.flag = true;
 		reviewStatus.properties.status = "In Progress";
@@ -1227,11 +1225,11 @@ function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, s
 		submissionStatus.properties.message = "Have you signed the income expense survey package?"
 	} else {
 		console.log("ok scene");
-		// submissionStatus.properties["flag"] = false;
-		// submissionStatus.properties.status = "Not Started",
-		// submissionStatus.properties.toggle = false;
-		// submissionStatus.properties.toggleValue = false;
-		// submissionStatus.properties.message = "";
+		submissionStatus.properties["flag"] = false;
+		submissionStatus.properties.status = "Not Started",
+		submissionStatus.properties.toggle = false;
+		submissionStatus.properties.toggleValue = false;
+		submissionStatus.properties.message = "";
 	}
 	cb(null,submissionStatus);
 }
