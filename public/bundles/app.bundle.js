@@ -34027,8 +34027,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, data)
             .then(function (result) {
                   console.log(result.data)
-                  $("#preloader").css("display", "none");
-
+               
                   setTimeout(function(){ UpdateData(1)}, 5000)
         
              
