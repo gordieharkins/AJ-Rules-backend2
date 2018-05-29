@@ -25,6 +25,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var configSign =  {data:[],pin: null}
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
+    $scope.configModal = {details: false, data: null};
 
 
     $scope.getPropertyDetails = function()  {
@@ -134,6 +135,62 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
         }else if (data.buttonText=='Schedule Review') {
+            $scope.configModal.details = true;
+            $scope.configModal.data={
+                "data": {
+                  "buttonText": "Details",
+                  "flag": true,
+                  "message": "All items complete.",
+                  "mandatory": true,
+                  "button": true,
+                  "name": "Complete Required Information",
+                  "warning": "",
+                  "status": "Done",
+                  "order": 1,
+                  "requiredItems": [
+                    {
+                      "name": "IE 2015",
+                      "value": "true",
+                      "type": "IE"
+                    }
+                  ],
+                  "dataFields": [
+                    {
+                      "name": "A",
+                      "value": "0",
+                      "source": "IE 2015"
+                    },
+                    {
+                      "name": "B",
+                      "value": "1",
+                      "source": "IE 2015"
+                    },
+                    {
+                      "name": "C",
+                      "value": "2",
+                      "source": "IE 2016"
+                    },
+                    {
+                      "name": "D",
+                      "value": "3",
+                      "source": "IE 2017"
+                    },
+                    {
+                      "name": "E",
+                      "value": "4",
+                      "source": "RR as of January 1, 2017"
+                    },
+                    {
+                      "name": "F",
+                      "value": "5",
+                      "source": "RR as of January 1, 2018"
+                    }
+                  ]
+                },
+                "additionalItems": []
+              } 
+            
+            //{data: data, additionalItems: prop.additionalItems}
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
@@ -153,6 +210,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.showModal = false;
         $scope.openSign = false;
         $scope.resetSign.pin = null
+        $scope.configModal.details = false;
        
        
     }
