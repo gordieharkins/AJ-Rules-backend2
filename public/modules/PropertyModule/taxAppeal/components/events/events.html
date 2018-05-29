@@ -46,6 +46,11 @@
           <th ng-repeat="events in  subData.prop[0].subEvents">
             <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
             <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
+            <ul class="appeal-check">
+                <li class="clearfix" >
+                  <label> <input ng-change="selectAll($index,events.markAll,events)" ng-model="events.markAll" type="checkbox">Mark All</label>
+                </li>
+            </ul>
           
             <!--<span class="not-mandatory">(Not mandatory)</span>-->
           </th>
@@ -82,14 +87,14 @@
           </td>
             
           <td class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="subEventIndex=$index">
-            <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
+            <span ng-class="checkMessage(events.properties.status)">{{events.properties.toggleValue}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
             <button ng-if="events.properties.button" type="submit" ng-click="events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
-            <div ng-if="events.properties.toggle" class="toggle-div">
+            <div ng-show="events.properties.toggle" class="toggle-div">
                 <label class="switch">
-                  <input type="checkbox" id="togBtn">
-                  <div class="slider round" ng-click="events.properties.toggleValue==true ? events.properties.toggleValue=false : events.properties.toggleValue= true "><!--ADDED HTML -->
-                    <span  ng-show="events.properties.toggleValue" class="on">Yes</span>
+                  <input ng-model="events.properties.toggleValue" type="checkbox" id="togBtn">
+                  <div class="slider round" ng-click="selectOne(subEventIndex, events.properties.toggleValue,propertyIndex)"><!--ADDED HTML -->
+                    <span  ng-show="events.properties.toggleValue==true" class="on">Yes</span>
                     <span  ng-show="!events.properties.toggleValue" class="off">No</span>
                   </div>
                 </label>

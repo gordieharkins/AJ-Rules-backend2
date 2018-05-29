@@ -33990,6 +33990,65 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else return 'blue-card'
     }
 
+    $scope.selectOne = function(index,checkbox,parent) {
+        var events = $scope.subData.prop
+        var toggleData = [];
+       if(checkbox==true){
+      
+               if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
+                      
+                      $scope.subData.prop[parent].subEvents[index].properties.toggleValue = true;
+                    //   subEvent.properties.toggleValue = true
+                      toggleData.push( $scope.subData.prop[parent].subEvents[index])
+
+        }
+    }
+        else {
+                if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
+                       
+                       $scope.subData.prop[parent].subEvents[index].properties.toggleValue = false;
+                    //    subEvent.properties.toggleValue = false
+                       toggleData.push( $scope.subData.prop[parent].subEvents[index])
+             }
+        }
+        console.log(toggleData)
+    }
+    
+
+    $scope.selectAll = function(index,checkbox,events){
+        var events = $scope.subData.prop
+        var toggleData = [];
+       if(checkbox==true){
+        for (var i = 0  ;i  < events.length ; i++) {
+               var subEvent = events[i].subEvents[index]
+               if('toggle' in subEvent.properties) {
+                      
+                      $scope.subData.prop[i].subEvents[index].properties.toggleValue = true;
+                      subEvent.properties.toggleValue = true
+                      toggleData.push(events[i].subEvents[index])
+            }
+        }
+        }
+        else {
+            for (var i = 0  ;i  < events.length ; i++) {
+                var subEvent = events[i].subEvents[index]
+                if('toggle' in subEvent.properties) {
+                       
+                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = false;
+                       subEvent.properties.toggleValue = false
+                       toggleData.push(events[i].subEvents[index])
+             }
+         }  
+        }
+       
+    
+         console.log(toggleData)
+         
+
+        
+
+    }
+
     $scope.buttonComp = function(state) {
         if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
@@ -34067,6 +34126,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        
     }
 
+    // $scope.checkBox= function(data) {
+    //     data = 
+    // }
+
     $scope.saveCheckList = function(data){
         console.log(data)
         $("#preloader").css("display", "block");
@@ -34089,6 +34152,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              ////console.log(result);
          });
     }
+
+   
 
      $scope.changeComp = function(event,column,pColumn) {
          if(event.subEvents.sublength==0) {
