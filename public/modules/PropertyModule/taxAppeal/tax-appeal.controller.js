@@ -138,7 +138,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             });
     }
     function callMultipleSign(index,checkbox,events,flag) {
-        if(checkbox==true){
+        
             $scope.resetSign.pin = null;
             configSign.data =[]
             var count = 0 ;
@@ -153,7 +153,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 }
             }
             
-            }
+            
             console.log(configSign)
            
             
