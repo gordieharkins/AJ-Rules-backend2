@@ -33993,11 +33993,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.selectOne = function(index,checkbox,parent) {
         var events = $scope.subData.prop
         var toggleData = [];
-       if(checkbox==true || checkbox=='false'){
+        
+       if(checkbox=='true'){
       
                if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
                       
-                    //   $scope.subData.prop[parent].subEvents[index].properties.toggleValue = true;
                       $scope.subData.prop[parent].subEvents[index].properties.status = 'Done';
                     //   subEvent.properties.toggleValue = true
                       toggleData.push( $scope.subData.prop[parent].subEvents[index])
@@ -34006,9 +34006,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
         else {
                 if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
+                     
                        
-                    //    $scope.subData.prop[parent].subEvents[index].properties.toggleValue = false;
-                    $scope.subData.prop[parent].subEvents[index].properties.status = 'Not Started';
+                       $scope.subData.prop[parent].subEvents[index].properties.status = 'Not Started';
 
                     //    subEvent.properties.toggleValue = false
                    
@@ -34016,12 +34016,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              }
         }
         postCheckList(toggleData)
-        console.log(toggleData)
+        // console.log(toggleData)
     }
 
     function postCheckList(data) {
         var url = 'appeal/updateData';
         $("#preloader").css("display", "block");
+       
+
+         console.log(data)
       
         
         AOTCService.postDataToServer(url, data)
