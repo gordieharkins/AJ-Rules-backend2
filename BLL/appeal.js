@@ -1,3 +1,5 @@
+// import { reverse } from 'dns';
+
 var path = require('path');
 var ErrorLogDALFile = require(path.resolve(__dirname, '../DAL/errorLog'));
 var ErrorLogDAL = new ErrorLogDALFile();
@@ -412,6 +414,30 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 // ---------------------END---------------------
 
 // ---------------------------------------------
+// Update Appeal Data
+// ---------------------------------------------
+BLL.prototype.updateData = function(req, res) {
+	// console.log("timeline: ",data);
+	// var year = (new Date()).getFullYear();
+	// if(data.jurisdiction == "Maryland"){
+	// 	var timeline
+	// }
+	// console.log("here");
+    DAL.updateData(req.body, null, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+        } else {
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_SUCCESS, null, res);
+        }
+	});
+	
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
 // updateRequiredItemsPaper
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
@@ -433,15 +459,15 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 		delete data[j].properties.dataFields;
 		delete data[j].properties.notification;
 	}
-	// console.log(JSON.stringify(data));
+	console.log(JSON.stringify(data));
 	DAL.updateData(data, null, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-        } else {
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+        } else {
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_SUCCESS, null, res);
         }
 	});
 	
@@ -521,6 +547,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						var requireInformationIndex = null;
 						var reviewIEDraftIndex = null;
 						var submitIEDataIndex = null;
+						var getIEFormIndex = null;
 						var flag = false;
 						var tempEvent = [];
 						var isComplete = true;
@@ -688,12 +715,22 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							callbackMain();
 						});
 					} else if(value.event.properties.paradigm == "paper"){
+						var tempSubEvent = {};
+						var requireInformationIndex = null;
+						var reviewIEDraftIndex = null;
+						var submitIEDataIndex = null;
+						var getIEFormIndex = null;
 						var tempEvent = [];
 						for(var k = 0; k < value.subEvent.length; k++){
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
+						value.subEvent = tempEvent;
+						// console.log(JSON.stringify(tempEvent));
 						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
-							if(subValue.properties.name == "Complete Required Items"){
+							if(subValue.properties.name == "Complete IE Survey Form"){
+								getIEFormIndex = j;
+								callbackSubMain();
+							} else if(subValue.properties.name == "Complete Required Items"){
 								requireInformationIndex = j;
 								checkRequiredItemsPaper(subValue.properties, value.propertyId, 
 													subValue._id, value.event.properties.deadline, value.jurisdiction, 
@@ -749,37 +786,38 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										}
 									}
 								});
-							} else {
-								callbackSubMain();
-							}
-								// } else if(subValue.properties.name == "Review IE Survey Draft"){
-
-								// 	reviewIEDraftIndex = j;
-							// 	checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
-							// 		if(error){
-							// 			callbackSubMain(error);
-							// 		} else {
-							// 			subValue = reviewStatus;
-							// 			if(subValue.properties.status != "Done"){
-							// 				isComplete = false;
-							// 			}
-							// 			callbackSubMain();
-							// 		}
-							// 	});
-							// } else if(subValue.properties.name == "Submit IE Survey Data"){
-							// 	submitIEDataIndex = j;
-							// 	checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
-							// 		if(error){
-							// 			callbackSubMain(error);
-							// 		} else {
-							// 			subValue = surveyData;
-							// 			if(subValue.properties.status != "Done"){
-							// 				isComplete = false;
-							// 			}
-							// 			callbackSubMain();
-							// 		}
-							// 	});
+							// } else {
+							// 	callbackSubMain();
 							// }
+							} else if(subValue.properties.name == "Review IE Survey Draft"){
+								reviewIEDraftIndex = j;
+								console.log(getIEFormIndex, requireInformationIndex);
+								checkReivewStatusPaper(value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
+									if(error){
+										callbackSubMain(error);
+									} else {
+										subValue = reviewStatus;
+										if(subValue.properties.status != "Done"){
+											isComplete = false;
+										}
+										callbackSubMain();
+									}
+								});
+							// }
+							} else if(subValue.properties.name == "Submit IE Survey Data"){
+								submitIEDataIndex = j;
+								checkSubmissionStatusPaper(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
+									if(error){
+										callbackSubMain(error);
+									} else {
+										subValue = surveyData;
+										if(subValue.properties.status != "Done"){
+											isComplete = false;
+										}
+										callbackSubMain();
+									}
+								});
+							}
 						}, function (err) {
 							if (err) console.error(err.message);
 							//configs is now a map of JSON data
@@ -1157,4 +1195,42 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 	requiredItems["dataFields"] = [];
 
 	cb(null, requiredItems);
+}
+
+function checkReivewStatusPaper(ieForm, requiredItems, reviewStatus, cb){
+	console.log(JSON.stringify(requiredItems));
+	if(requiredItems.properties.status == "Done" && ieForm.properties.status == "Done"){
+		reviewStatus.properties.flag = true;
+		reviewStatus.properties.status = "In Progress";
+		reviewStatus.properties.message = "Was review successful?"
+		reviewStatus.properties.toggle = true;
+		reviewStatus.properties.toggleValue = false;
+	} else {
+		reviewStatus.properties.flag = false;
+		reviewStatus.properties.status = "Not Started";
+		reviewStatus.properties.message = ""
+		reviewStatus.properties.toggle = false;
+		reviewStatus.properties.toggleValue = false;
+	}
+
+	cb(null,reviewStatus);
+}
+
+function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, submissionStatus, cb){
+	if(reviewStatus.properties.reviewResult != false 
+	&& requiredItemsStatus.properties.status == "Done" 
+	&& ieForm.properties.status == "Done"){
+		submissionStatus.properties.flag = true;
+		submissionStatus.properties.status = "In Progress",
+		submissionStatus.properties.toggle = true;
+		submissionStatus.properties.toggleValue = false;
+		submissionStatus.properties.message = "Have you signed the income expense survey package?"
+	} else {
+		submissionStatus.properties["flag"] = false;
+		submissionStatus.properties.status = "Not Started",
+		submissionStatus.properties.toggle = false;
+		submissionStatus.properties.toggleValue = false;
+		submissionStatus.properties.message = "";
+	}
+	cb(null,submissionStatus);
 }
