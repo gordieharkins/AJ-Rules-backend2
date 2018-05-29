@@ -34042,10 +34042,36 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 $("#preloader").css("display", "none");
             });
     }
+    function callMultipleSign(index,checkbox,events,flag) {
+        if(checkbox==true){
+            $scope.resetSign.pin = null;
+            configSign.data =[]
+            var count = 0 ;
+            for (var i = 0  ;i  < events.length ; i++) {
+                   var subEvent = events[i].subEvents[index]
+                   if(subEvent.properties.buttonText=='Execute Signature' && subEvent.properties.flag==true) {
+                          if(count==0) {
+                            $scope.openSign = true;
+
+                          }
+                    configSign.data.push(events[i].subEvents[index])
+                }
+            }
+            
+            }
+            console.log(configSign)
+           
+            
+    }
     
 
-    $scope.selectAll = function(index,checkbox,events){
+    $scope.selectAll = function(index,checkbox,events,flag){
         var events = $scope.subData.prop
+        if(flag[0]=='Execute Signature') {
+            callMultipleSign(index,checkbox,events,flag)
+            return
+        }
+        
         var toggleData = [];
         if(checkbox==true){
         for (var i = 0  ;i  < events.length ; i++) {
@@ -34092,8 +34118,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      $scope.executeSign = function(pin){
         //  /executeSignature
         var url = '/appeal/executeSignature';
-        var data = []
-        data.push( configSign.data)
+        var data = configSign.data
+        // data.push( configSign.data)
         var postData = {"pin":pin, "data": data}
         $("#preloader").css("display", "block");
         console.log(postData)
@@ -34140,7 +34166,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
             $scope.resetSign.pin = null;
-            configSign.data = prop.subEvents[subEventIndex]
+            configSign.data = []
+            configSign.data.push(prop.subEvents[subEventIndex])
          }
         
         console.log(data)
