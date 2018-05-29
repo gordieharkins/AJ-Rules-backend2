@@ -33929,9 +33929,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var sendFile = null;
     var configSign =  {data:[],pin: null}
     $scope.resetSign = {pin: null}
+    $scope.config = {error: null, errorFunction: null}; 
 
-    function getPropertyDetails()  {
-   
+
+    $scope.getPropertyDetails = function()  {
+    resetError()
     var url = '/appeal/getPropertyTimelineData';
     var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
@@ -33942,15 +33944,20 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.staticTable(1);
+              resetError()
              
             }, function (result) {
             //some error
             ////console.log(result);
+            $scope.config.error = 'Someting Went Wrong';
+            $scope.config.errorFunction = $scope.getPropertyDetails;
+    
+            console.log('error')
             $("#preloader").css("display", "none");
         });
     }
 
-    getPropertyDetails();
+    $scope.getPropertyDetails();
 
     $scope.staticTable = function(pindex){
         console.log(pindex)
@@ -34170,6 +34177,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 });
         }
     
+
+        function resetError(){
+            $scope.config = {error: null, errorFunction: null}; 
+        }
  
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
