@@ -166,6 +166,9 @@ DAL.prototype.updateData = function(data, id, cb) {
     var query = "";
     if(Array.isArray(data)){
         for(var i = 0; i < data.length; i++){
+            if(i > 0){
+                query += " WITH *";
+            }
             params['data'+i] = data[i].properties;
             params['id'+i] = data[i]._id;
             query += `MATCH(n`+i+`) where id(n`+i+`) = {id`+i+`} SET n`+i+` = {data`+i+`}\n`;
