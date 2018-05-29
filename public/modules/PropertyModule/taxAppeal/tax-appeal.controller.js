@@ -88,11 +88,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.selectOne = function(index,checkbox,parent) {
         var events = $scope.subData.prop
         var toggleData = [];
-       if(checkbox==true){
+       if(checkbox==true || checkbox=='false'){
       
                if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
                       
-                      $scope.subData.prop[parent].subEvents[index].properties.toggleValue = true;
+                    //   $scope.subData.prop[parent].subEvents[index].properties.toggleValue = true;
+                      $scope.subData.prop[parent].subEvents[index].properties.status = 'Done';
                     //   subEvent.properties.toggleValue = true
                       toggleData.push( $scope.subData.prop[parent].subEvents[index])
 
@@ -101,8 +102,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else {
                 if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
                        
-                       $scope.subData.prop[parent].subEvents[index].properties.toggleValue = false;
+                    //    $scope.subData.prop[parent].subEvents[index].properties.toggleValue = false;
+                    $scope.subData.prop[parent].subEvents[index].properties.status = 'Not Started';
+
                     //    subEvent.properties.toggleValue = false
+                   
                        toggleData.push( $scope.subData.prop[parent].subEvents[index])
              }
         }
@@ -136,13 +140,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.selectAll = function(index,checkbox,events){
         var events = $scope.subData.prop
         var toggleData = [];
-       if(checkbox==true){
+        if(checkbox==true){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
                       
-                      $scope.subData.prop[i].subEvents[index].properties.toggleValue = true;
-                      subEvent.properties.toggleValue = true
+                      $scope.subData.prop[i].subEvents[index].properties.toggleValue = "true";
+                      subEvent.properties.toggleValue = "true"
+                    $scope.subData.prop[i].subEvents[index].properties.status = 'Done';
+
                       toggleData.push(events[i].subEvents[index])
             }
         }
@@ -152,8 +158,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
                        
-                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = false;
-                       subEvent.properties.toggleValue = false
+                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = "false";
+                       subEvent.properties.toggleValue = "false"
+                    $scope.subData.prop[i].subEvents[index].properties.status = 'Not Started';
+                    // $scope.subData.prop[i].subEvents[index].properties.toggleValue = false
+                       
                        toggleData.push(events[i].subEvents[index])
              }
          }  

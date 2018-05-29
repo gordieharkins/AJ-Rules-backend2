@@ -92,10 +92,10 @@
             <button ng-if="events.properties.button" type="submit" ng-click="events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
             <div ng-show="events.properties.toggle" class="toggle-div">
                 <label class="switch">
-                  <input ng-model="events.properties.toggleValue" type="checkbox" id="togBtn">
+                  <input  ng-true-value="'true'" ng-false-value="'false'" ng-model="events.properties.toggleValue" type="checkbox" id="togBtn">
                   <div class="slider round" ng-click="selectOne(subEventIndex, events.properties.toggleValue,propertyIndex)"><!--ADDED HTML -->
-                    <span  ng-show="events.properties.toggleValue==true" class="on">Yes</span>
-                    <span  ng-show="!events.properties.toggleValue" class="off">No</span>
+                    <span  ng-show="events.properties.toggleValue=='true'" class="on">Yes</span>
+                    <span  ng-show="events.properties.toggleValue!='true'" class="off">No</span>
                   </div>
                 </label>
               </div>
