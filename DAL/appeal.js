@@ -178,7 +178,7 @@ DAL.prototype.updateData = function(data, id, cb) {
         query = `MATCH(n) where id(n) = {id} SET n = {data}`;
     }
 
-    console.log(query);
+    // console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -205,6 +205,7 @@ DAL.prototype.generateNotification = function(notification, userId, cb) {
         query: query,
         params: params
     }, function(err, results) {
+        console.log("results", results);
         cb(err, results);
     });
 }
@@ -240,7 +241,7 @@ DAL.prototype.executeSignature = function(userId, cb) {
         userId: userId
     };
 
-    console.log(query);
+    // console.log(query);
     db.cypher({
         query: query,
         params: params
