@@ -412,6 +412,43 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 // ---------------------END---------------------
 
 // ---------------------------------------------
+// updateRequiredItemsPaper
+// ---------------------------------------------
+BLL.prototype.updateRequiredItemsPaper = function(req, res) {
+	var data = req.body;
+	// console.log(data);
+	for(var j = 0; j < data.length; j++){
+		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
+			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
+			// console.log(data[j].properties[i+"req"]);
+
+		}
+	
+		for(var i = 0; i < data[j].properties.dataFields.length; i++){
+			data[j].properties[i+"fields"] = ["field",data[j].properties.dataFields[i].name,data[j].properties.dataFields[i].value]
+			// console.log(data[j].properties[i+"fields"]);
+		}
+	
+		delete data[j].properties.requiredItems;
+		delete data[j].properties.dataFields;
+		delete data[j].properties.notification;
+	}
+	// console.log(JSON.stringify(data));
+	DAL.updateData(data, null, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+        }
+	});
+	
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
 // executeSignature
 // ---------------------------------------------
 BLL.prototype.executeSignature = function(req, res) {
