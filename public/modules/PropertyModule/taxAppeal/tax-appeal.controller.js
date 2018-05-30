@@ -14,9 +14,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.show = true;
     $scope.showModal = false;
     $scope.openSign = false;
-    $scope.uploadRadio = null;
+    $scope.uploadRadio = '1';
     $scope.pin = '';
     $scope.uploadModal = false;
+    $scope.fileName = '';
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
     var subEventsDetect = null;
@@ -92,6 +93,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
+                  $scope.pin = '';
                   setTimeout(function(){ UpdateData(2)}, 5000)
         
              
@@ -127,16 +129,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         configData.data = prop;
         configData.subEventIndex = subEventIndex;
         console.log(configData)
-        // if(data.buttonText=='Details') {
+        if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
-        
-
-         if (data.buttonText=='Schedule Review') {
+        }else if (data.buttonText=='Schedule Review') {
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
+            $scope.pin = ''
             configSign.data = prop.subEvents[subEventIndex]
         
         }
@@ -186,9 +187,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
           console.log(file.files)
           sendFile = null;
           var files = file.files;
+          $scope.fileName = files[0].name
           var FileNames = [];
           var selected  = 0;
           sendFile = files
+          $scope.$apply();
           
     }
 

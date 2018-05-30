@@ -16,6 +16,7 @@ function DAL() {
 // uploadOtherFiles
 // ---------------------------------------------
 DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, description, timelineDataId, cb) {
+    console.log(otherFileDetails);
     propertyId = parseInt(propertyId);
     var params = {
         propertyId:propertyId,
@@ -37,7 +38,9 @@ DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, 
         otherFileDetails[i].createdBy = userId;
         otherFileDetails[i].modifiedBy = userId;
         otherFileDetails[i].isDeleted = false;
-        otherFileDetails[i].description = description[i];
+        if(timelineDataId == null){
+            otherFileDetails[i].description = description[i];
+        }
         params['otherFileDetails' + i] = otherFileDetails[i];
         query += `CREATE (` + node + `:otherFileNode{otherFileDetails` + i + `})
             CREATE (` + node + `)-[otherFile` + i + `:otherFile]->(metaNode)`;

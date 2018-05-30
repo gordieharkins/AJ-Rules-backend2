@@ -99,6 +99,9 @@
   .modal-dialog.required-model {
     top: 26.5% !important;
   }
+  .red-back {
+    background: red
+  }
   
 </style>
 <div class="popup-overlay">
@@ -127,7 +130,7 @@
                     <tbody>
                     <tr ng-repeat="fields in modalData.data.dataFields">
                       <td>{{fields.name}}</td>
-                      <td>{{fields.value}}</td>
+                      <td ng-class="{'red-back': fields.value == ''}" >{{fields.value}}</td>
                       <td>{{fields.source}}</td>
                     </tr>
     

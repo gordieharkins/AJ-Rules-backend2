@@ -141,7 +141,7 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
     OPTIONAL MATCH (event)-[:additional_item]->(otherFile: otherFileNode)
     return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
-    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent, collect(otherFile) as additionalItems ORDER BY id(event)`;
+    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent, collect(DISTINCT otherFile) as additionalItems ORDER BY id(event)`;
 
     var params = {
         userId: userId
@@ -214,7 +214,7 @@ DAL.prototype.generateNotification = function(notification, userId, cb) {
 //--------------------------------------------------------
 DAL.prototype.getNotification = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId}
-                MATCH(n)-[rel:notification]->(notification)
+                MATCH(n)-[rel:notification]->(notification:notification)
                 RETURN notification, rel.count`;
 
     var params = {
