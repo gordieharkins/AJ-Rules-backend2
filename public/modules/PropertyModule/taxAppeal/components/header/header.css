@@ -578,3 +578,18 @@ select {
   padding: 0 !important;
 }
 
+.filter-btn:hover + .appeal-wrap {
+  display: block !important;
+}
+
+.filter-btn:hover + .property {
+  display: block !important;
+}
+
+.filter-btn:hover + .jurisdict {
+  display: block !important;
+}
+
+.appeal-wrap:hover, .property:hover, .jurisdict:hover{
+  display: block !important;
+}

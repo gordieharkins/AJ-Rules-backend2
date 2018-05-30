@@ -33920,17 +33920,21 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.showModal = false;
     $scope.openSign = false;
     $scope.uploadRadio = '1';
-    $scope.pin = '';
+    $scope.pinValue = '';
     $scope.uploadModal = false;
     $scope.fileName = '';
     var configId = {property: null, event: null}
     var configData = {data:null,eventIndex:null};
     var subEventsDetect = null;
     var sendFile = null;
-    var configSign =  {data:[]}
+    var configSign =  {data:[],pin: null}
+    $scope.resetSign = {pin: null}
+    $scope.config = {error: null, errorFunction: null}; 
+    $scope.configModal = {details: false, data: null};
 
-    function getPropertyDetails()  {
-   
+
+    $scope.getPropertyDetails = function()  {
+    resetError()
     var url = '/appeal/getPropertyTimelineData';
     var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
@@ -33941,14 +33945,20 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.staticTable(1);
+              resetError()
              
             }, function (result) {
             //some error
             ////console.log(result);
+            $scope.config.error = 'Someting Went Wrong';
+            $scope.config.errorFunction = $scope.getPropertyDetails;
+    
+            console.log('error')
             $("#preloader").css("display", "none");
         });
     }
-    getPropertyDetails();
+
+    $scope.getPropertyDetails();
 
     $scope.staticTable = function(pindex){
         console.log(pindex)
@@ -33964,7 +33974,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               
                 });
               });
-            }
+    }
     
     $scope.checkMessage = function(type){
        
@@ -33980,6 +33990,125 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else return 'blue-card'
     }
 
+    $scope.selectOne = function(index,checkbox,parent) {
+        var events = $scope.subData.prop
+        var toggleData = [];
+        
+       if(checkbox=='true'){
+      
+               if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
+                      
+                      $scope.subData.prop[parent].subEvents[index].properties.status = 'Done';
+                    //   subEvent.properties.toggleValue = true
+                      toggleData.push( $scope.subData.prop[parent].subEvents[index])
+
+        }
+    }
+        else {
+                if('toggle' in $scope.subData.prop[parent].subEvents[index].properties) {
+                     
+                       
+                       $scope.subData.prop[parent].subEvents[index].properties.status = 'Not Started';
+
+                    //    subEvent.properties.toggleValue = false
+                   
+                       toggleData.push( $scope.subData.prop[parent].subEvents[index])
+             }
+        }
+        postCheckList(toggleData)
+        // console.log(toggleData)
+    }
+
+    function postCheckList(data) {
+        var url = 'appeal/updateData';
+        $("#preloader").css("display", "block");
+       
+
+         console.log(data)
+      
+        
+        AOTCService.postDataToServer(url, data)
+            .then(function (result) {
+                  console.log(result.data)
+               
+                  setTimeout(function(){ UpdateData(1)}, 5000)
+        
+             
+                 
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                console.log(result)
+                $("#preloader").css("display", "none");
+            });
+    }
+    function callMultipleSign(index,checkbox,events,flag) {
+        
+            $scope.resetSign.pin = null;
+            configSign.data =[]
+            var count = 0 ;
+            for (var i = 0  ;i  < events.length ; i++) {
+                   var subEvent = events[i].subEvents[index]
+                   if(subEvent.properties.buttonText=='Execute Signature' && subEvent.properties.flag==true) {
+                          if(count==0) {
+                            $scope.openSign = true;
+
+                          }
+                    configSign.data.push(events[i].subEvents[index])
+                }
+            }
+            
+            
+            console.log(configSign)
+           
+            
+    }
+    
+
+    $scope.selectAll = function(index,checkbox,events,flag){
+        var events = $scope.subData.prop
+        if(flag[0]=='Execute Signature') {
+            callMultipleSign(index,checkbox,events,flag)
+            return
+        }
+        
+        var toggleData = [];
+        if(checkbox==true){
+        for (var i = 0  ;i  < events.length ; i++) {
+               var subEvent = events[i].subEvents[index]
+               if('toggle' in subEvent.properties) {
+                      
+                      $scope.subData.prop[i].subEvents[index].properties.toggleValue = "true";
+                      subEvent.properties.toggleValue = "true"
+                    $scope.subData.prop[i].subEvents[index].properties.status = 'Done';
+
+                      toggleData.push(events[i].subEvents[index])
+            }
+        }
+        }
+        else {
+            for (var i = 0  ;i  < events.length ; i++) {
+                var subEvent = events[i].subEvents[index]
+                if('toggle' in subEvent.properties) {
+                       
+                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = "false";
+                       subEvent.properties.toggleValue = "false"
+                    $scope.subData.prop[i].subEvents[index].properties.status = 'Not Started';
+                    // $scope.subData.prop[i].subEvents[index].properties.toggleValue = false
+                       
+                       toggleData.push(events[i].subEvents[index])
+             }
+         }  
+        }
+        postCheckList(toggleData)
+    
+         console.log(toggleData)
+         
+
+        
+
+    }
+
     $scope.buttonComp = function(state) {
         if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
@@ -33989,8 +34118,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      $scope.executeSign = function(pin){
         //  /executeSignature
         var url = '/appeal/executeSignature';
-        var data = []
-        data.push( configSign.data)
+        var data = configSign.data
+        // data.push( configSign.data)
         var postData = {"pin":pin, "data": data}
         $("#preloader").css("display", "block");
         console.log(postData)
@@ -33998,7 +34127,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
-                  $scope.pin = '';
+                  $scope.resetSign.pin = null
                   setTimeout(function(){ UpdateData(2)}, 5000)
         
              
@@ -34013,21 +34142,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-       
-        if ('warning' in state && state.warning)
-            {
-           
-
-                return 'red-note';
-                
-            }
-            
+        console.log('notes click checked')
+        if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
     }
 
-    $scope.openModal = function(data, prop,subEventIndex){
-        // $scope.modalData = null;\
- 
+    $scope.openModal = function(data, prop,subEventIndex,subEvent){
         
         configId.property = prop.propertyId;
         configId.event =    prop.eventId;
@@ -34038,14 +34158,17 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
-        }else if (data.buttonText=='Schedule Review') {
+        }else if (data.buttonText=='View Checklist' ) {
+            $scope.configModal.details = true;
+            $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
+            //{data: data, additionalItems: prop.additiona lItems}
 
         } else if (data.buttonText=='Execute Signature') {
             $scope.openSign = true;
-            $scope.pin = ''
-            configSign.data = prop.subEvents[subEventIndex]
-        
-        }
+            $scope.resetSign.pin = null;
+            configSign.data = []
+            configSign.data.push(prop.subEvents[subEventIndex])
+         }
         
         console.log(data)
     }
@@ -34058,9 +34181,40 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.closeModal = function(){
         $scope.showModal = false;
         $scope.openSign = false;
-     
-        console.log('hide')
+        $scope.resetSign.pin = null
+        $scope.configModal.details = false;
+       
+       
     }
+
+    // $scope.checkBox= function(data) {
+    //     data = 
+    // }
+
+    $scope.saveCheckList = function(data){
+        console.log(data)
+        $("#preloader").css("display", "block");
+        var postData = []
+        postData.push(data.data)
+        var url = '/appeal/updateRequiredItemsPaper';
+    
+         AOTCService.postDataToServer(url, postData)
+         .then(function (result) {
+               console.log(result)
+               setTimeout(function(){ UpdateData(1)
+             }, 5000)
+                          $("#preloader").css("display", "none");
+
+                
+     
+         }, function (result) {
+             $("#preloader").css("display", "none");
+             $scope.$emit('error', 'Unable to save')
+             ////console.log(result);
+         });
+    }
+
+   
 
      $scope.changeComp = function(event,column,pColumn) {
          if(event.subEvents.sublength==0) {
@@ -34110,7 +34264,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     function UpdateData(type){
         
  
-            var url = '/appeal/getPropertyTimelineData';
+        var url = '/appeal/getPropertyTimelineData';
         var postData = {"appealYear":2018, "userId": 9922606}
         $("#preloader").css("display", "block");
      
@@ -34124,10 +34278,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
                       console.log('updating modal data')
+                  $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
                   .events[configData.data.eventIndex].additionalItems;
+                  $scope.configModal.data.additionalItems = $scope.modalData.additionalItems 
 
                     }
                   console.log($scope.modalData)
@@ -34177,6 +34334,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 });
         }
     
+
+        function resetError(){
+            $scope.config = {error: null, errorFunction: null}; 
+        }
  
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))

@@ -68,4 +68,12 @@ router.post('/executeSignature', function(req, res, next) {
     BLL.executeSignature(req, res);
 });
 
+router.post('/updateRequiredItemsPaper', function(req, res, next) {
+    BLL.updateRequiredItemsPaper(req, res);
+});
+
+router.post('/updateData', function(req, res, next) {
+    BLL.updateData(req, res);
+});
+
 module.exports = router;

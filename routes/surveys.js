@@ -84,7 +84,8 @@ router.get('/getSubmittedSurveyById', function(req, res, next) {
 });
 
 router.get('/getUSstates', function(req, res, next) {
-    BLL.getUSstates(req, res);
+    res.send("ok");
+    // BLL.getUSstates(req, res);
 });
 
 router.post('/updateSubmittedForm', function(req, res, next) {

@@ -163,15 +163,15 @@ app.use(function(err, req, res, next) {
   });
 });
 
-connection(function(err,status)
-  {
-    if(err){
-      console.log("Error in SQL connection.")
-    }
-    else{
-      console.log("Successful SQL connection.")
-    }
-});
+// connection(function(err,status)
+//   {
+//     if(err){
+//       console.log("Error in SQL connection.")
+//     }
+//     else{
+//       console.log("Successful SQL connection.")
+//     }
+// });
 
 // exec('unoconv', function(err, stdout, stderr){
 //   if(err){

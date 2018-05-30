@@ -52,7 +52,8 @@ router.get('/getUserRoles', function(req, res, next) {
 });
 
 router.get('/getUSstates', function(req, res, next) {
-    BLL.getUSstates(req, res);
+	res.send("ok");
+    // BLL.getUSstates(req, res);
 });
 
 router.get('/downloadAppealPackage', function(req, res, next) {
