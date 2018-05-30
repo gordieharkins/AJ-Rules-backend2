@@ -19,15 +19,17 @@ var DAL = new AppealDAL();
 // 	ieSurvey:{
 // 		main: {
 // 			name: "Income and Expense Survey",
+//			type: 1
 // 			obligatory: true,
 // 			form: true,
-// 			requiredItems: ["IE 2015","IE 2016", "IE 2017", "RR as of January 1, 2017", "RR as of January 1, 2018"],
+// 			requiredItems: ["IE 2015||IE","IE 2016||IE", "IE 2017||IE", "RR as of January 1, 2017||IE", "RR as of January 1, 2018||IE"],
 // 			formObtain: "AOTC",
 // 			signature: "PIN",
 // 			tranmitForm: "AOTC",
 // 			transmitPackage: "AOTC",
 // 			paradigm: "AOTC",
 // 			deadline: "6/14/2018",
+//			startDate: "5/14/2018",
 // 			status: "Not Started", 
 // 			message: "",
 // 			warning: "",
@@ -92,6 +94,8 @@ var DAL = new AppealDAL();
 // 			buttonText: "Execute Signature",
 // 			button: true,
 // 			mandatory: true,
+// 			dropdown: true,
+// 			dropdownValues: ["Execute Signature"],
 // 			// state: "", 
 // 			order: 3
 // 		}
@@ -101,6 +105,7 @@ var DAL = new AppealDAL();
 // 	obtainAJRecord:{
 // 		main: {
 // 			name: "Obtain AJ Valuation Record",
+//			"type: 2
 // 			status: "Not Started",
 // 			startDate: "06/15/2018",
 // 			deadline: "08/15/2018",
@@ -112,6 +117,7 @@ var DAL = new AppealDAL();
 // 	appealMerit:{
 // 		main: {
 // 			name: "Determine Appeal Merit/Produce Evidence",
+//			type: 3,
 // 			status: "Not Started",
 // 			startDate: "06/15/2018",
 // 			deadline: "08/15/2018",
@@ -123,6 +129,7 @@ var DAL = new AppealDAL();
 // 	appealDecision:{
 // 		main: {
 // 			name: "Decision to Appeal",
+//			type: 4,
 // 			status: "Not Started",
 // 			startDate: "06/15/2018",
 // 			deadline: "08/15/2018",
@@ -134,6 +141,7 @@ var DAL = new AppealDAL();
 // 	appealPackage:{
 // 		main: {
 // 			name: "Prepare Appeal Package for Submission",
+//			type: 5,
 // 			status: "Not Started",
 // 			startDate: "06/15/2018",
 // 			deadline: "08/15/2018",
@@ -145,6 +153,7 @@ var DAL = new AppealDAL();
 // 	appealSubmission:{
 // 		main: {
 // 			name: "Appeal Submission",
+//			type: 6,
 // 			status: "Not Started",
 // 			startDate: "06/15/2018",
 // 			deadline: "08/15/2018",
@@ -162,7 +171,7 @@ var floridaTimeline = {
 			name: "Income and Expense Survey",
 			obligatory: true,
 			form: true,
-			requiredItems: ["IE 2015","IE 2016", "IE 2017", "RR as of January 1, 2017", "RR as of January 1, 2018"],
+			requiredItems: ["IE 2015||IE","IE 2016||IE", "IE 2017||IE", "RR as of January 1, 2017||RR", "RR as of January 1, 2018||RR"],
 			formObtain: "mail",
 			signature: "ink",
 			tranmitForm: "mail",
@@ -183,6 +192,8 @@ var floridaTimeline = {
 			warning: false,
 			toggle: true,
 			toggleValue: false,
+			dropdown: true,
+			dropdownValues: ["Mark as Yes", "Mark as No"],
 			order: 1
 		},
 		event1:{
@@ -234,9 +245,10 @@ var floridaTimeline = {
 
 
 	},
-	obtainAJRecord:{
+		obtainAJRecord:{
 		main: {
 			name: "Obtain AJ Valuation Record",
+			"type": 2,
 			status: "Not Started",
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
@@ -248,6 +260,7 @@ var floridaTimeline = {
 	appealMerit:{
 		main: {
 			name: "Determine Appeal Merit/Produce Evidence",
+			type: 3,
 			status: "Not Started",
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
@@ -259,6 +272,7 @@ var floridaTimeline = {
 	appealDecision:{
 		main: {
 			name: "Decision to Appeal",
+			type: 4,
 			status: "Not Started",
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
@@ -270,6 +284,7 @@ var floridaTimeline = {
 	appealPackage:{
 		main: {
 			name: "Prepare Appeal Package for Submission",
+			type: 5,
 			status: "Not Started",
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
@@ -281,6 +296,7 @@ var floridaTimeline = {
 	appealSubmission:{
 		main: {
 			name: "Appeal Submission",
+			type: 6,
 			status: "Not Started",
 			startDate: "06/15/2018",
 			deadline: "08/15/2018",
@@ -489,7 +505,9 @@ BLL.prototype.executeSignature = function(req, res) {
 				for(var i = 0; i < req.body.data.length; i++){
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
-					req.body.data[i].properties.message = "The data will be released to AJ soon."
+					req.body.data[i].properties.message = "The data will be released to AJ soon.",
+					req.body.data[i].properties.dropdown = false;
+
 					// console.log(req.body.data[i]);
 				}
 
@@ -830,26 +848,37 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								generateNotification(notification, userId);
 							}
 							
-							// if(value.subEvent[requireInformationIndex].properties.status == "Done" &&
-							// value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
-							// value.subEvent[submitIEDataIndex].properties.status == "Done"){
-							// 	value.event.properties.status = "Done";
-							// 	value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
-							// } else if(value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
-							// value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
-							// value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
-							// 	value.event.properties.status = "Done";
-							// } else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+							if(value.subEvent[getIEFormIndex].properties.status == "Done" &&
+							value.subEvent[requireInformationIndex].properties.status == "Done" &&
+							value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+							value.subEvent[submitIEDataIndex].properties.status == "Done"){
+								value.event.properties.status = "Done";
+								value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
+							} else if(value.subEvent[getIEFormIndex].properties.status == "Not Started" &&
+							value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
+							value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
+							value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
+								value.event.properties.status = "Not Started";
+							} else if(value.subEvent[getIEFormIndex].properties.status == "In Progress" ||
+							value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
 							// value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
-							// value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
-							// 	value.event.properties.status = "In Progress";
-							// 	value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
-							// 	if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
-							// 		value.event.properties.warning = "Complete required information.";
-							// 	} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
-							// 		value.event.properties.warning = "Please execute signature.";
-							// 	} 
-							// }
+							value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
+								value.event.properties.status = "In Progress";
+								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
+								if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+								value.subEvent[getIEFormIndex].properties.status == "In Progress"){	
+									if(value.subEvent[getIEFormIndex].properties.status == "In Progress"){
+										value.event.properties.warning = "Complete income expene survey form.\n";
+									}
+									
+									if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
+										value.event.properties.warning += "Complete required information.";
+										
+									}
+								} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
+									value.event.properties.warning = "Please execute signature.";
+								} 
+							}
 
 							var event = {
 								eventId: value.event._id,
@@ -1136,7 +1165,8 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 	var remainingItems = 0;
 	var totalFields = 0;
 	var remainingFields = 0;
-	var remainingDays = calculateRemainingDays(deadline);
+	var remainingDays = parseInt(calculateRemainingDays(deadline));
+	console.log(remainingDays);
 	var warning = "";
 	for(var element in requiredItems){
 		if(Array.isArray(requiredItems[element])){
@@ -1154,10 +1184,13 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		}
 	}
 
+	console.log("requreItes", remainingItems);
+	console.log("requreIfields", remainingFields);
 	if(remainingItems == 0 && remainingFields == 0){
 		requiredItems.message = "All items are complete.",
 		requiredItems.status = "Done";
 	} else {
+		console.log("here");
 		requiredItems.message = "Complete required items in checklist.";
 		requiredItems.status = "In Progress";
 		var notification = {
@@ -1166,10 +1199,12 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			type: "warning"
 		};
 
-		if(deadline > 0 && deadline < 30){
-			notification.text = daysRemaining+ " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information. "
+		if(remainingDays >= 0 && remainingDays < 30){
+			console.log("fro o")
+			notification.text = remainingDays+ " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information. "
 			warning += remainingDays +" days remaining before submission. "
-		} else {
+		} else if(remainingDays < 0){
+			console.log("fro o111");
 			remainingDays = remainingDays * (-1);
 			notification.text = "Income Expense Survey submission overdue by " +remainingDays+ " days for "+jurisdiction+" properties. Please complete the required information.";
 			warning += "Income Expense survey overdue by "+ remainingDays +" days. ";
@@ -1225,7 +1260,7 @@ function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, s
 		submissionStatus.properties.message = "Have you signed the income expense survey package?"
 	} else {
 		console.log("ok scene");
-		submissionStatus.properties["flag"] = false;
+		submissionStatus.properties.flag = false;
 		submissionStatus.properties.status = "Not Started",
 		submissionStatus.properties.toggle = false;
 		submissionStatus.properties.toggleValue = false;
