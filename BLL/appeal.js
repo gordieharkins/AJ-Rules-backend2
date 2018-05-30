@@ -485,7 +485,7 @@ BLL.prototype.updateData = function(req, res) {
 	// if(data.jurisdiction == "Maryland"){
 	// 	var timeline
 	// }
-	// console.log("here");
+	console.log("Updae=tm",JSON.stringify(req.body));
     DAL.updateData(req.body, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -505,7 +505,7 @@ BLL.prototype.updateData = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	var data = req.body;
-	// console.log(data);
+	console.log(JSON.stringify(data));
 	for(var j = 0; j < data.length; j++){
 		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
 			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
@@ -522,7 +522,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 		delete data[j].properties.dataFields;
 		delete data[j].properties.notification;
 	}
-	console.log(JSON.stringify(data));
+	// console.log(JSON.stringify(data));
 	DAL.updateData(data, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -965,10 +965,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								
 								if(value.subEvent[getIEFormIndex].properties.status == "Done" &&
 								value.subEvent[requireInformationIndex].properties.status == "Done" &&
-								value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+								// value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
 								value.subEvent[submitIEDataIndex].properties.status == "Done"){
 									value.event.properties.status = "Done";
-									value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
+									value.event.properties.message = "Completed income expense survey";
+									value.event.properties.warning = ""; 
 								} else if(value.subEvent[getIEFormIndex].properties.status == "Not Started" &&
 								value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
 								value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
@@ -1395,22 +1396,27 @@ function checkReivewStatusPaper(ieForm, requiredItems, reviewStatus, cb){
 }
 
 function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, submissionStatus, cb){
-	if(reviewStatus.properties.reviewResult != false 
+	// console.log("Thissssssssss",JSON.stringify(submissionStatus));
+	if(submissionStatus.properties.status == "Done"){
+		// console.log("done");
+	} else if(reviewStatus.properties.reviewResult != false 
 	&& requiredItemsStatus.properties.status == "Done" 
 	&& ieForm.properties.status == "Done"){
+		// console.log("here");
 		submissionStatus.properties.flag = true;
 		submissionStatus.properties.status = "In Progress",
 		submissionStatus.properties.toggle = true;
 		submissionStatus.properties.toggleValue = false;
 		submissionStatus.properties.message = "Have you signed the income expense survey package?"
 	} else {
-		console.log("ok scene");
+		// console.log("ok scene");
 		submissionStatus.properties.flag = false;
 		submissionStatus.properties.status = "Not Started",
 		submissionStatus.properties.toggle = false;
 		submissionStatus.properties.toggleValue = false;
 		submissionStatus.properties.message = "";
 	}
+	// console.log("After",JSON.stringify(submissionStatus));
 	cb(null,submissionStatus);
 }
 

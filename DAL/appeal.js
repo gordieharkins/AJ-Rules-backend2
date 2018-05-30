@@ -147,7 +147,6 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
         userId: userId
     };
 
-    // console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -161,7 +160,6 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
-    console.log(data);
     var params = {};
     var query = "";
     if(Array.isArray(data)){
@@ -181,7 +179,6 @@ DAL.prototype.updateData = function(data, id, cb) {
         query = `MATCH(n) where id(n) = {id} SET n = {data}`;
     }
 
-    // console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -194,10 +191,7 @@ DAL.prototype.updateData = function(data, id, cb) {
 // generateNotification
 //--------------------------------------------------------
 DAL.prototype.generateNotification = function(notification, eventId, cb) {
-    console.log("eventId", eventId);
-    console.log(notification);
     var params = {
-        // userId: userId,
         eventId: eventId,
         remainingDays: notification.remainingDays
     };
@@ -208,17 +202,10 @@ DAL.prototype.generateNotification = function(notification, eventId, cb) {
                 ON MATCH SET rel.remainingDays = {remainingDays}
                 ON CREATE SET rel.remainingDays = {remainingDays}`;
 
-    // var params = {
-    //     userId: userId,
-    //     eventId: eventId
-    // };
-
-    // console.log(query);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log("results", results);
         cb(err, results);
     });
 }
@@ -253,7 +240,6 @@ DAL.prototype.getNotification = function(userId, cb) {
 //--------------------------------------------------------
 DAL.prototype.executeSignature = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId} return n.pin as pin`;
-
     var params = {
         userId: userId
     };
