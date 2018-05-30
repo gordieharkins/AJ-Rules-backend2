@@ -45,26 +45,12 @@
           </th>
           <th ng-repeat="events in  subData.prop[0].subEvents">
             <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
-            <span>{{events.properties.name}} <i ng-click="events.properties.open=true" class="fa fa-caret-down" ng-if="events.properties.dropdown"></i></span>
-            <!-- <ul class="appeal-check" ng-if="events.properties.dropdown">
-                <li class="clearfix" >
-                  <label> <input ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)" ng-model="events.markAll" type="checkbox">Mark All</label>
-                </li>
-            </ul> -->
-            <select ng-if="events.properties.open==true" ng-model="events.markAll" ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">
+            <span>{{events.properties.name}} <i  class="fa fa-caret-down" ng-if="events.properties.dropdown"></i></span>
+         
+            <select  ng-if="events.properties.dropdown"  ng-model="events.markAll" ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">
               <option ng-repeat="data in events.properties.dropdownValues">{{data}}</option>
             </select>
-            <!-- <div class="appeal-wrap" ng-show="events.properties.open==true">
-                <i class="fa fa-caret-up cart-dropdown"></i>
-                <div class="jurisdiction-dropdown appeal-dropdown">
-                   <ul class="appeal-check">
-                    <li class="clearfix" ng-repeat="data in events.properties.dropdownValues">
-                      <label ng-click="selectAll($index,data,events,subData.prop[0].subEvents)"> <input ng-model="events.properties.markAll"  type="checkbox">{{data}}</label>
-                    </li>
-                 </ul>
-      
-                </div>
-              </div> -->
+          
           
             <!--<span class="not-mandatory">(Not mandatory)</span>-->
           </th>
