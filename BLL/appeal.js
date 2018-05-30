@@ -11,6 +11,7 @@ var IEDAL = require(path.resolve(__dirname, '../DAL/incomeExpenses'));
 var RRDAL = require(path.resolve(__dirname, '../DAL/rentRolls'));
 var async = require('async');
 var dateDiff = require('date-diff');
+var mytl = require(path.resolve(__dirname, './util/jdRules'));
 
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
@@ -405,17 +406,62 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 }
 // ---------------------END---------------------
 
+// create dynamic json for timeline
+function createTimelineWithJson(mytl1){
+	// console.log(marylandTimeline);
+	if (mytl1.ieSurvey.main.paradigm = "AOTC"){
+		reqItems = mytl1.ieSurvey.main.requiredItems
+		console.log(reqItems);
+		for (var i=0; i < reqItems.length;i++){ 
+			console.log(reqItems[i]);
+			arr = reqItems[i].split("||");
+			temp = []
+			temp.push("item")
+			temp.push(arr[0])
+			temp.push("false")
+			temp.push(arr[1])
+			temp.push(arr[2])
+
+			mytl1.ieSurvey.event1[i] = temp;
+		}
+	return mytl1
+	}
+	else if (mytl1.ieSurvey.main.paradigm = "paper"){
+		reqItems = mytl1.ieSurvey.main.requiredItems
+		console.log(reqItems);
+		for (var i=0; i < reqItems.length;i++){ 
+			console.log(reqItems[i]);
+			arr = reqItems[i].split("||");
+			temp = []
+			temp.push("item")
+			temp.push(arr[0])
+			temp.push("false")
+
+			mytl1.ieSurvey.event1[i] = temp;
+		}
+	return mytl1
+	}
+	// console.log(JSON.stringify(marylandTimeline))
+} 
+
+//---------------------end---------------------
+
 // ---------------------------------------------
 // Add timeline data to property
 // ---------------------------------------------
 BLL.prototype.addPropertyTimelineData = function(data, cb) {
 	// console.log("timeline: ",data);
+	var tml;
 	var year = (new Date()).getFullYear();
-	// if(data.jurisdiction == "Maryland"){
-	// 	var timeline
-	// }
+	if(data[0].jurisdiction == "Maryland"){
+		var tml = createTimelineWithJson(mytl.marylandTimeline)
+		// console.log("test: ",JSON.stringify(timeline))
+	}else{
+		tml = createTimelineWithJson(mytl.marylandTimeline)
+		// console.log("test: ",JSON.stringify(fl_timeline))
+	}
 	console.log("here");
-    DAL.addPropertyTimelineData(data, floridaTimeline, year, function(error, result) {
+    DAL.addPropertyTimelineData(data, tml, year, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
