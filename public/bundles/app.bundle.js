@@ -34030,10 +34030,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, data)
             .then(function (result) {
                   console.log(result.data)
+                 
                
                   setTimeout(function(){ UpdateData(1)}, 5000)
-        
-             
+                 
                  
                 }, function (result) {
                 //some error
@@ -34067,26 +34067,29 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.selectAll = function(index,checkbox,events,flag){
         var events = $scope.subData.prop
-        if(flag[0]=='Execute Signature') {
+        // for(var i = 0 ;i < flag.length;i++){
+        //      flag[i].properties.open = false
+        // }
+        if(checkbox=='Execute Signature') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
         
         var toggleData = [];
-        if(checkbox==true){
+        if(checkbox=='Mark as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
                       
                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = "true";
                       subEvent.properties.toggleValue = "true"
-                    $scope.subData.prop[i].subEvents[index].properties.status = 'Done';
+                      $scope.subData.prop[i].subEvents[index].properties.status = 'Done';
 
                       toggleData.push(events[i].subEvents[index])
             }
         }
         }
-        else {
+        else if(checkbox=='Mark as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
@@ -34100,8 +34103,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              }
          }  
         }
-        postCheckList(toggleData)
+        if(toggleData.length > 0){
+
+            postCheckList(toggleData)
     
+        }
          console.log(toggleData)
          
 
@@ -34203,8 +34209,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                console.log(result)
                setTimeout(function(){ UpdateData(1)
              }, 5000)
-                          $("#preloader").css("display", "none");
-
+                       
                 
      
          }, function (result) {
