@@ -5,8 +5,9 @@
  <div class="row" style="margin: 20px 0 0">
 
    <div class="col-md-9" style="padding-right:0;">
-   <div ng-if="show">
+   <div ng-if="show" ng-init="staticTable(2)">
      <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index">
+       <div >
        <div class="row main-table-header">
          <div class="col-md-5">
            <span><i class="table-back fa fa-chevron-left" style="display: none"></i>{{item.name}}</span>
@@ -43,8 +44,8 @@
            </div>
          </div>
        </div>
-       <div class="JStableOuter" >
-         <table>
+       <div class="JStableOuter" ng-init="staticTable(1)">
+         <table >
            <thead>
            <tr style="top: 0" >
              <th class="first-col-head" >
@@ -122,6 +123,7 @@
          </table>
       
        </div>
+      </div>
      </div>
    </div>
    <div ng-if="!show">

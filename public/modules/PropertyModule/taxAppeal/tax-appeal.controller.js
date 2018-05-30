@@ -39,7 +39,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-              $scope.staticTable(1);
+            //   $scope.staticTable(1);
               resetError()
              
             }, function (result) {
@@ -56,7 +56,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.getPropertyDetails();
 
     $scope.staticTable = function(pindex){
-        console.log(pindex)
+        console.log('tabling')
          $(document).ready(function() {
                 $('.JStableOuter table').scroll(function(e) {
               
@@ -245,7 +245,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-        console.log('notes click checked')
+     
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
     }
