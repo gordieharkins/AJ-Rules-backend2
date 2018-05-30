@@ -74,7 +74,9 @@ tbody tr td{
   overflow: auto;
 }
 
-.contBox { min-width: 150px; }
+.contBox {
+  min-width: 150px;
+}
 p{
   margin: 0;
 }

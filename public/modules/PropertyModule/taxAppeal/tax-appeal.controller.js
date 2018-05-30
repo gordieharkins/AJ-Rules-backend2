@@ -39,7 +39,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-              $scope.staticTable(1);
+              // $scope.staticTable(1);
               resetError()
              
             }, function (result) {
@@ -57,18 +57,32 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.staticTable = function(pindex){
         console.log(pindex)
-         $(document).ready(function() {
-                $('.JStableOuter table').scroll(function(e) {
-              
-                  $('.JStableOuter thead').css("left", -$(".JStableOuter tbody").scrollLeft());
-                  $('.JStableOuter thead th:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft() -0 );
-                  $('.JStableOuter tbody td:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft());
-              
-                  $('.JStableOuter thead').css("top", -$(".JStableOuter tbody").scrollTop());
-                  $('.JStableOuter thead tr th').css("top", $(".JStableOuter table").scrollTop());
-              
+        $(document).ready(function() {
+            $('.JStableOuter table').each(function(i,n){
+                $(n).scroll(function(e) {
+                    /*$(this).children('thead').css("left", -$(this).children('tbody').scrollLeft());
+                    $(this).children('thead').filter('th:nth-child(1)').css("left", $(this).scrollLeft() -0 );
+                    $(this).children('tbody').filter('th:nth-child(1)').css("left", $(this).scrollLeft());
+
+                    $(this).children('thead').css("top", -$(this).children('tbody').scrollTop());
+                    $(this).children('thead tr th').css("top", $(this).scrollTop());
+                    */
+                    // $('#JStableOuter thead').css("left", -$("#JStableOuter tbody").scrollLeft());
+                    // $('#JStableOuter thead th:nth-child(1)').css("left", $("#JStableOuter table").scrollLeft() -0 );
+                    // $('#JStableOuter tbody td:nth-child(1)').css("left", $("#JStableOuter table").scrollLeft());
+
+
+                    $(this).find('thead').css("left", -$(this).find('tbody').scrollLeft());
+                    $(this).find('thead th:nth-child(1)').css("left", $(this).scrollLeft()-0 );
+                    $(this).find('tbody td:nth-child(1)').css("left", $(this).scrollLeft());
+
+                    $(this).find('thead').css("top", -$(this).find('tbody').scrollTop());
+                    $(this).find('thead tr th').css("top", $(this).scrollTop());
+
                 });
-              });
+            });
+
+        });
     }
     
     $scope.checkMessage = function(type){
