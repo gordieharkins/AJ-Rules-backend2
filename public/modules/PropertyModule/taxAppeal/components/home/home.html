@@ -3,125 +3,126 @@
 <div ng-include="'modules/PropertyModule/taxAppeal/components/header/header.html'"></div>
 
  <div class="row" style="margin: 20px 0 0">
-
    <div class=" table-row col-md-9 col-sm-9" >
    <div ng-if="show">
      <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index;staticTable(1)">
-       <div class="row main-table-header">
-         <div class="col-md-5">
-           <span class="heading-span"><i class="table-back fa fa-chevron-left" style="display: none"></i>{{item.name}}</span>
-         </div>
-         <div class="table-header-actions col-md-7 clearfix">
-           <div class="button-filter">
-             <button class="white-button">Send Email Invite</button>
-             <button class="white-button">Send SMS Invite</button>
-             <button class="white-button">Send Calendar Invite</button>
+       <div >
+           <div class="row main-table-header">
+             <div class="col-md-5">
+               <span class="heading-span"><i class="table-back fa fa-chevron-left" style="display: none"></i>{{item.name}}</span>
+             </div>
+             <div class="table-header-actions col-md-7 clearfix">
+               <div class="button-filter">
+                 <button class="white-button">Send Email Invite</button>
+                 <button class="white-button">Send SMS Invite</button>
+                 <button class="white-button">Send Calendar Invite</button>
+               </div>
+               <div class="icon-filter">
+                 <a class="inventory-icon">
+                   <ul class="dropdown-invertory" style="display: none">
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                   </ul>
+                 </a>
+                 <a class="filter-icon">
+                   <ul class="dropdown-filter" style="display: none">
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                     <li><a>Filter1</a></li>
+                   </ul>
+                 </a>
+               </div>
+             </div>
            </div>
-           <div class="icon-filter">
-             <a class="inventory-icon">
-               <ul class="dropdown-invertory" style="display: none">
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-               </ul>
-             </a>
-             <a class="filter-icon">
-               <ul class="dropdown-filter" style="display: none">
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-                 <li><a>Filter1</a></li>
-               </ul>
-             </a>
-           </div>
-         </div>
-       </div>
-       <div class="JStableOuter" >
-         <table>
-           <thead>
-           <tr style="top: 0" >
-             <th class="first-col-head" >
-               <input type="checkbox">Property Name
-             </th>
-             <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
-               <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-               <span style="cursor: pointer !important;"> <i class="fa fa fa-eye"></i>{{events.properties.name}}</span>
-               <!--<span class="not-mandatory">(Not mandatory)</span>-->
-             </th>
-             <!--<th>-->
-             <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Complete Required Items</span>-->
-             <!--<a class="required-items">Required items</a>-->
-             <!--</th>-->
-             <!--<th>-->
-             <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Complete IE Survey Form</span>-->
-             <!--</th>-->
-             <!--<th>-->
-             <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Review IE Survey Draft<i class="fa fa fa-eye"></i></span>-->
-             <!--<span class="not-mandatory">(Not mandatory)</span>-->
-             <!--</th>-->
-             <!--<th>-->
-             <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-             <!--<span>Submit IE Survey Form<i class="fa fa fa-eye"></i></span>-->
-             <!--</th>-->
-             <!--<th class="action-col">-->
-               <!--<span>Action</span>-->
-             <!--</th>-->
-           </tr>
-           </thead>
-           <tbody>
-           <tr ng-repeat="prop in  item.properties ">
-             <td class="first-col-body">
-               <label><input type="checkbox">{{prop.name}}</label>
-               <p>{{prop.ownerName}}</p>
-               <p>N/A</p>
-               <p>N/A</p>
-             </td>
-             <td class="started-tr" ng-repeat="events in  prop.events">
-               <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
-               <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
-             <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>
-               
+           <div class="JStableOuter" ng-init="staticTable(1)">
+             <table >
+               <thead>
+               <tr style="top: 0" >
+                 <th class="first-col-head" >
+                   <input type="checkbox">Property Name
+                 </th>
+                 <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
+                   <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
+                   <span style="cursor: pointer !important;"> <i ng-if="events.properties.status!='Not Started'" class="fa fa fa-eye"></i>{{events.properties.name}}</span>
+                   <!--<span class="not-mandatory">(Not mandatory)</span>-->
+                 </th>
+                 <!--<th>-->
+                 <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
+                 <!--<span>Complete Required Items</span>-->
+                 <!--<a class="required-items">Required items</a>-->
+                 <!--</th>-->
+                 <!--<th>-->
+                 <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
+                 <!--<span>Complete IE Survey Form</span>-->
+                 <!--</th>-->
+                 <!--<th>-->
+                 <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
+                 <!--<span>Review IE Survey Draft<i class="fa fa fa-eye"></i></span>-->
+                 <!--<span class="not-mandatory">(Not mandatory)</span>-->
+                 <!--</th>-->
+                 <!--<th>-->
+                 <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
+                 <!--<span>Submit IE Survey Form<i class="fa fa fa-eye"></i></span>-->
+                 <!--</th>-->
+                 <!--<th class="action-col">-->
+                   <!--<span>Action</span>-->
+                 <!--</th>-->
+               </tr>
+               </thead>
+               <tbody>
+               <tr ng-repeat="prop in  item.properties ">
+                 <td class="first-col-body">
+                   <label><input type="checkbox">{{prop.name}}</label>
+                   <p>{{prop.ownerName}}</p>
+                   <p>N/A</p>
+                   <p>N/A</p>
+                 </td>
+                 <td class="started-tr" ng-repeat="events in  prop.events">
+                   <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
+                   <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
+                 <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>
 
-               <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning}}</span></p>
-               <!--<p class="pull-left">Event will start on: {{events.value.properties.startDate}}</p>-->
-             <span class="bottom-icons">
-                     <i class="fa fa-mobile mobile-icon"></i>
-                     <i class="fa fa-envelope"></i>
-                 </span>
-             </td>
-             <!--<td class="done-tr">-->
-             <!--<app-appeal-message [type]="'Done'" ></app-appeal-message>-->
-             <!--<p style="text-align: center">Assigned value:<span>$1254</span></p>-->
-             <!--<app-appeal-button [type]="'View'"></app-appeal-button>-->
-             <!--</td>-->
-             <!--<td class="switch-parent">-->
-             <!--<app-appeal-message [type]="'Not applicable'" ></app-appeal-message>-->
-             <!--<span class="cell-text">Lorem ipsum</span>-->
-             <!--<app-appeal-toggle></app-appeal-toggle>-->
-             <!--</td>-->
-             <!--<td class="progress-td">-->
-             <!--<span class="pull-left"></span>-->
-             <!--<app-appeal-message [type]="'In progress'" ></app-appeal-message>-->
-             <!--</td>-->
-             <!--<td class="action-col">-->
-               <!--<a class="inventory-stroke-icon"></a>-->
-             <!--</td>-->
-           </tr>
-           </tbody>
- 
-         </table>
-      
-       </div>
+
+                   <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning}}</span></p>
+                   <!--<p class="pull-left">Event will start on: {{events.value.properties.startDate}}</p>-->
+                 <span class="bottom-icons">
+                         <i class="fa fa-mobile mobile-icon"></i>
+                         <i class="fa fa-envelope"></i>
+                     </span>
+                 </td>
+                 <!--<td class="done-tr">-->
+                 <!--<app-appeal-message [type]="'Done'" ></app-appeal-message>-->
+                 <!--<p style="text-align: center">Assigned value:<span>$1254</span></p>-->
+                 <!--<app-appeal-button [type]="'View'"></app-appeal-button>-->
+                 <!--</td>-->
+                 <!--<td class="switch-parent">-->
+                 <!--<app-appeal-message [type]="'Not applicable'" ></app-appeal-message>-->
+                 <!--<span class="cell-text">Lorem ipsum</span>-->
+                 <!--<app-appeal-toggle></app-appeal-toggle>-->
+                 <!--</td>-->
+                 <!--<td class="progress-td">-->
+                 <!--<span class="pull-left"></span>-->
+                 <!--<app-appeal-message [type]="'In progress'" ></app-appeal-message>-->
+                 <!--</td>-->
+                 <!--<td class="action-col">-->
+                   <!--<a class="inventory-stroke-icon"></a>-->
+                 <!--</td>-->
+               </tr>
+               </tbody>
+
+             </table>
+
+           </div>
+      </div>
      </div>
    </div>
    <div ng-if="!show">

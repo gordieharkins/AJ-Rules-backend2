@@ -44,11 +44,26 @@
   .red-card{
     border-left: 7px solid #cf0303 !important;
     border: 1px solid #cf0303;
+    padding: 10px;
   }
   .blue-card{
     border-left: 7px solid #2f71ab !important;
     border: 1px solid #2f71ab;
+    padding: 10px;
   }
+.card-tag {
+  float: right;
+  background-color: #cf0303;
+  color: white;
+  padding: 3px 5px 3px 5px;
+  border-radius: 6px;
+}
+
+.card-title {
+  display: block;
+  font-weight: 600;
+  padding: 2px 0 5px 0;
+}
   .items li{
     list-style:disc;
   }
@@ -101,4 +116,19 @@
     margin: 0 auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
-  
+  .card-tag-red {
+    float: right;
+    background-color: #cf0303;
+    color: white;
+    padding: 3px 5px 3px 5px;
+    border-radius: 6px;
+    background: #cf0303;
+}
+.card-tag-blue {
+  float: right;
+  background-color: #03a4fc;
+  color: white;
+  padding: 3px 5px 3px 5px;
+  border-radius: 6px;
+  background: #03a4fc;
+}

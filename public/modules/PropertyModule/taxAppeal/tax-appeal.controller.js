@@ -25,7 +25,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var configSign =  {data:[],pin: null}
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
-    $scope.configModal = {details: false, data: null};
+    $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
 
 
     $scope.getPropertyDetails = function()  {
@@ -39,7 +39,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-              // $scope.staticTable(1);
+
               resetError()
              
             }, function (result) {
@@ -60,24 +60,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $(document).ready(function() {
             $('.JStableOuter table').each(function(i,n){
                 $(n).scroll(function(e) {
-                    /*$(this).children('thead').css("left", -$(this).children('tbody').scrollLeft());
-                    $(this).children('thead').filter('th:nth-child(1)').css("left", $(this).scrollLeft() -0 );
-                    $(this).children('tbody').filter('th:nth-child(1)').css("left", $(this).scrollLeft());
-
-                    $(this).children('thead').css("top", -$(this).children('tbody').scrollTop());
-                    $(this).children('thead tr th').css("top", $(this).scrollTop());
-                    */
-                    // $('#JStableOuter thead').css("left", -$("#JStableOuter tbody").scrollLeft());
-                    // $('#JStableOuter thead th:nth-child(1)').css("left", $("#JStableOuter table").scrollLeft() -0 );
-                    // $('#JStableOuter tbody td:nth-child(1)').css("left", $("#JStableOuter table").scrollLeft());
-
-
                     $(this).find('thead').css("left", -$(this).find('tbody').scrollLeft());
                     $(this).find('thead th:nth-child(1)').css("left", $(this).scrollLeft()-0 );
                     $(this).find('tbody td:nth-child(1)').css("left", $(this).scrollLeft());
 
                     $(this).find('thead').css("top", -$(this).find('tbody').scrollTop());
                     $(this).find('thead tr th').css("top", $(this).scrollTop());
+
 
                 });
             });
@@ -97,6 +86,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.setWarning = function(notification) {
         if ('type' in notification) return notification['type'] == 'warning' ? 'red-card' : 'blue-card';
         else return 'blue-card'
+    }
+
+    $scope.warningCount = function(notification) {
+        if ('count' in notification) return notification['type'] == 'warning' ? 'card-tag-red' : 'card-tag-blue';
+        else return 'card-tag-blue'
     }
 
     $scope.selectOne = function(index,checkbox,parent) {
@@ -259,9 +253,28 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-        console.log('notes click checked')
+     
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
+    }
+
+    function changeValues(data, value){
+        for (var i = 0 ; i  < data.length ; i++) {
+            data[i].value = value
+        }
+    }
+
+    $scope.selectAllFields = function(value,flag) {
+        if(flag==1) {
+            var dataFields=  $scope.configModal.data.data.properties.dataFields
+            if(value=="true")  changeValues(dataFields, "true")
+            else changeValues(dataFields, "false")
+        } else if(flag==2) {
+            var reqFields=  $scope.configModal.data.data.properties.requiredItems
+            if(value=="true")  changeValues(reqFields, "true")
+            else changeValues(reqFields, "false")
+        }
+
     }
 
     $scope.openModal = function(data, prop,subEventIndex,subEvent){
@@ -276,8 +289,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
         }else if (data.buttonText=='View Checklist' ) {
-            $scope.configModal.details = true;
             $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
+          
+            var dFields= $scope.configModal.data.data.properties.dataFields
+            for (var k = 0 ; k   < dFields.length; k++) {
+                $scope.configModal.dFieldsCb = "true"
+                if(dFields[k].value="false") {
+                    $scope.configModal.dFieldsCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            var rFields= $scope.configModal.data.data.properties.requiredItems
+            for (var k = 0 ; k   < rFields.length; k++) {
+                $scope.configModal.rItemCb = "true"
+                if(rFields[k].value="false") {
+                    $scope.configModal.rItemCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            $scope.configModal.details = true;
+           
+            
             //{data: data, additionalItems: prop.additiona lItems}
 
         } else if (data.buttonText=='Execute Signature') {
@@ -318,7 +354,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(1)
+               setTimeout(function(){ UpdateData(3)
              }, 5000)
                        
                 
@@ -394,15 +430,19 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
                       console.log('updating modal data')
-                  $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
-                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
                   .events[configData.data.eventIndex].additionalItems;
-                  $scope.configModal.data.additionalItems = $scope.modalData.additionalItems 
-
+                
                     }
+                  if(type==3) {
+                    $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                    .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
+                    $scope.configModal.data.additionalItems =  $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
+                    .events[configData.data.eventIndex].additionalItems;
+
+                  }
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;

@@ -76,4 +76,8 @@ router.post('/updateData', function(req, res, next) {
     BLL.updateData(req, res);
 });
 
+router.get('/getNotification', function(req, res, next) {
+    BLL.getNotification(req, res);
+});
+
 module.exports = router;
