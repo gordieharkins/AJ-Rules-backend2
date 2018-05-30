@@ -34155,24 +34155,21 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else  return 'blue-note';
     }
 
-    function changeValues(value, data){
-        for (var i = 0 ; i  < dataFields.length ; i++) {
-            dataFields[i].value = value
+    function changeValues(data, value){
+        for (var i = 0 ; i  < data.length ; i++) {
+            data[i].value = value
         }
     }
 
     $scope.selectAllFields = function(value,flag) {
-        var postData= []
-     
         if(flag==1) {
             var dataFields=  $scope.configModal.data.data.properties.dataFields
-            if(value==true)  changeValues(dataFields, "true")
+            if(value=="true")  changeValues(dataFields, "true")
             else changeValues(dataFields, "false")
         } else if(flag==2) {
             var reqFields=  $scope.configModal.data.data.properties.requiredItems
-            if(value==true)  changeValues(reqFields, "true")
+            if(value=="true")  changeValues(reqFields, "true")
             else changeValues(reqFields, "false")
-            
         }
 
     }
@@ -34189,8 +34186,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
         }else if (data.buttonText=='View Checklist' ) {
-            $scope.configModal.details = true;
             $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
+          
+            var dFields= $scope.configModal.data.data.properties.dataFields
+            for (var k = 0 ; k   < dFields.length; k++) {
+                $scope.configModal.dFieldsCb = "true"
+                if(dFields[k].value="false") {
+                    $scope.configModal.dFieldsCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            var rFields= $scope.configModal.data.data.properties.requiredItems
+            for (var k = 0 ; k   < rFields.length; k++) {
+                $scope.configModal.rItemCb = "true"
+                if(rFields[k].value="false") {
+                    $scope.configModal.rItemCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            $scope.configModal.details = true;
+           
+            
             //{data: data, additionalItems: prop.additiona lItems}
 
         } else if (data.buttonText=='Execute Signature') {
