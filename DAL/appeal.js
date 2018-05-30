@@ -193,15 +193,25 @@ DAL.prototype.updateData = function(data, id, cb) {
 //--------------------------------------------------------
 // generateNotification
 //--------------------------------------------------------
-DAL.prototype.generateNotification = function(notification, userId, cb) {
-    var query = `MATCH(n:user) where id(n) = {userId}
-                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
-                ON MATCH SET rel.count = rel.count + 1
-                ON CREATE SET rel.count = 1`;
-
+DAL.prototype.generateNotification = function(notification, eventId, cb) {
+    console.log("eventId", eventId);
+    console.log(notification);
     var params = {
-        userId: userId
+        // userId: userId,
+        eventId: eventId,
+        remainingDays: notification.remainingDays
     };
+
+    delete notification.remainingDays;
+    var query = `MATCH(n) where id(n) = {eventId}
+                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
+                ON MATCH SET rel.remainingDays = {remainingDays}
+                ON CREATE SET rel.remainingDays = {remainingDays}`;
+
+    // var params = {
+    //     userId: userId,
+    //     eventId: eventId
+    // };
 
     // console.log(query);
     db.cypher({
@@ -217,9 +227,13 @@ DAL.prototype.generateNotification = function(notification, userId, cb) {
 // getNotification
 //--------------------------------------------------------
 DAL.prototype.getNotification = function(userId, cb) {
-    var query = `MATCH(n:user) where id(n) = {userId}
-                MATCH(n)-[rel:notification]->(notification:notification)
-                RETURN notification, rel.count`;
+    var query = `MATCH(n:user) where id(n) = 9926006
+    MATCH (n)-[:OWNS]-(:property)-[]->(:timeline)-[]->(event:event)
+    OPTIONAL MATCH (event)-[:subEvent]->(subEvent:subEvent)
+    OPTIONAL MATCH (event)-[days:notification]-(notification:notification) Where event.status <> "Done"
+    OPTIONAL MATCH (subEvent)-[days1:notification]-(notification1:notification) Where subEvent.status <> "Done"
+    RETURN properties(notification) as notification, 
+    properties(notification1) as notification1, days1.remainingDays as remainingDays`;
 
     var params = {
         userId: userId
