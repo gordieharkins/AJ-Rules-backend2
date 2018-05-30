@@ -34067,11 +34067,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.selectAll = function(index,checkbox,events,flag){
         var events = $scope.subData.prop
-        for(var i = 0 ;i < flag.length;i++){
-            if('open' in flag[i].properties){
-             delete flag[i].properties.open;
-            }
-        }
+        // for(var i = 0 ;i < flag.length;i++){
+        //     if('open' in flag[i].properties){
+        //      delete flag[i].properties.open;
+        //     }
+        // }
         if(checkbox=='Execute Signature') {
             callMultipleSign(index,checkbox,events,flag)
             return
