@@ -660,6 +660,7 @@ thead tr th span{
     left: 0;
     right: 0;
     margin:0 auto;
+    border: none !important;
   }
   .switch input {display:none;}
   
@@ -754,4 +755,17 @@ thead tr th span{
     text-align: center;
     top: 0;
     /* width: 50%; */
+}
+.property-dropdown-new{
+  position: relative;
+}
+.select-area {
+  background: transparent !important;
+  width: 14px !important;
+  height: 16px !important;
+  position: absolute !important;
+  right: 89px !important;
+  top: 6px !important;
+  cursor: pointer !important;
+  border: none !important;
 }

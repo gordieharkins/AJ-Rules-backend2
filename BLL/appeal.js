@@ -531,7 +531,7 @@ BLL.prototype.updateData = function(req, res) {
 	// if(data.jurisdiction == "Maryland"){
 	// 	var timeline
 	// }
-	// console.log("here");
+	console.log("Updae=tm",JSON.stringify(req.body));
     DAL.updateData(req.body, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -551,7 +551,7 @@ BLL.prototype.updateData = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	var data = req.body;
-	// console.log(data);
+	console.log(JSON.stringify(data));
 	for(var j = 0; j < data.length; j++){
 		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
 			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
@@ -568,7 +568,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 		delete data[j].properties.dataFields;
 		delete data[j].properties.notification;
 	}
-	console.log(JSON.stringify(data));
+	// console.log(JSON.stringify(data));
 	DAL.updateData(data, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -827,7 +827,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										text: "Need to complete IE survey package for " +value.jurisdiction
 												+ " properties before "+value.event.properties.deadline+".",
 										type: "warning",
-										remainingDays
+										remainingDays: ""
 									}
 	
 									generateNotification(notification, userId);
@@ -1011,10 +1011,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								
 								if(value.subEvent[getIEFormIndex].properties.status == "Done" &&
 								value.subEvent[requireInformationIndex].properties.status == "Done" &&
-								value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+								// value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
 								value.subEvent[submitIEDataIndex].properties.status == "Done"){
 									value.event.properties.status = "Done";
-									value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
+									value.event.properties.message = "Completed income expense survey";
+									value.event.properties.warning = ""; 
 								} else if(value.subEvent[getIEFormIndex].properties.status == "Not Started" &&
 								value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
 								value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
@@ -1134,36 +1135,15 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					} else {
 						var notificationText = [];
 						var notifications = [];
+						
 						for(var i = 0; i < result.length; i++){
-							// for(var j = 0; j < result[i].notifications.length; j++){
-							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
-							// 	if(notificationIndex > 0){
-							// 		continue;
-							// 	} else {
-							// 		notificationText.push(result[i].notifications[j].text);
-							// 		notifications.push(result[i].notifications[j]);
-							// 	}
-							// }
-
-							// for(var j = 0; j < result[i].notifications.length; j++){
-
-							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
-							// 	if(notificationIndex > 0){
-							// 		continue;
-							// 	} else {
-							// 		notificationText.push(result[i].notifications[j].text);
-							// 		notifications.push(result[i].notifications[j]);
-							// 	}
-							// }
-
-
-							if(result[i].notifications != null){
+							if(result[i].notification != null){
 								var notificationIndex = notificationText.indexOf(result[i].notification.text);
-								if(notificationIndex > 0){
-									continue;
+								if(notificationIndex > -1){
+									console.log("1");
 								} else {
 									notificationText.push(result[i].notification.text);
-									notifications.push(result[i].notificatons);
+									notifications.push(result[i].notification);
 								}
 							}
 
@@ -1171,16 +1151,16 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
 								result[i].notification1["count"] = 1;
 								var notificationIndex = notificationText.indexOf(result[i].notification1.text);
-								if(notificationIndex > 0){
-									notification1[notificationIndex].count += 1;
+								if(notificationIndex > -1){
+									notifications[notificationIndex].count += 1;
 								} else {
-									notificationText.push(notification1.text);
-									notifications.push(notification1)
+									notificationText.push(result[i].notification1.text);
+									notifications.push(result[i].notification1)
 								}
 							}
 						}
-						// finalResult["notification"] = result;
-						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, notifications, res);
+						finalResult["notification"] = notifications;
+						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 						
 					}
 				});
@@ -1462,22 +1442,27 @@ function checkReivewStatusPaper(ieForm, requiredItems, reviewStatus, cb){
 }
 
 function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, submissionStatus, cb){
-	if(reviewStatus.properties.reviewResult != false 
+	// console.log("Thissssssssss",JSON.stringify(submissionStatus));
+	if(submissionStatus.properties.status == "Done"){
+		// console.log("done");
+	} else if(reviewStatus.properties.reviewResult != false 
 	&& requiredItemsStatus.properties.status == "Done" 
 	&& ieForm.properties.status == "Done"){
+		// console.log("here");
 		submissionStatus.properties.flag = true;
 		submissionStatus.properties.status = "In Progress",
 		submissionStatus.properties.toggle = true;
 		submissionStatus.properties.toggleValue = false;
 		submissionStatus.properties.message = "Have you signed the income expense survey package?"
 	} else {
-		console.log("ok scene");
+		// console.log("ok scene");
 		submissionStatus.properties.flag = false;
 		submissionStatus.properties.status = "Not Started",
 		submissionStatus.properties.toggle = false;
 		submissionStatus.properties.toggleValue = false;
 		submissionStatus.properties.message = "";
 	}
+	// console.log("After",JSON.stringify(submissionStatus));
 	cb(null,submissionStatus);
 }
 

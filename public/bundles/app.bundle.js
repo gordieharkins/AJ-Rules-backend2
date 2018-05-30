@@ -33944,7 +33944,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-              $scope.staticTable(1);
+
               resetError()
              
             }, function (result) {
@@ -33962,18 +33962,21 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.staticTable = function(pindex){
         console.log(pindex)
-         $(document).ready(function() {
-                $('.JStableOuter table').scroll(function(e) {
-              
-                  $('.JStableOuter thead').css("left", -$(".JStableOuter tbody").scrollLeft());
-                  $('.JStableOuter thead th:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft() -0 );
-                  $('.JStableOuter tbody td:nth-child(1)').css("left", $(".JStableOuter table").scrollLeft());
-              
-                  $('.JStableOuter thead').css("top", -$(".JStableOuter tbody").scrollTop());
-                  $('.JStableOuter thead tr th').css("top", $(".JStableOuter table").scrollTop());
-              
+        $(document).ready(function() {
+            $('.JStableOuter table').each(function(i,n){
+                $(n).scroll(function(e) {
+                    $(this).find('thead').css("left", -$(this).find('tbody').scrollLeft());
+                    $(this).find('thead th:nth-child(1)').css("left", $(this).scrollLeft()-0 );
+                    $(this).find('tbody td:nth-child(1)').css("left", $(this).scrollLeft());
+
+                    $(this).find('thead').css("top", -$(this).find('tbody').scrollTop());
+                    $(this).find('thead tr th').css("top", $(this).scrollTop());
+
+
                 });
-              });
+            });
+
+        });
     }
     
     $scope.checkMessage = function(type){
@@ -33988,6 +33991,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.setWarning = function(notification) {
         if ('type' in notification) return notification['type'] == 'warning' ? 'red-card' : 'blue-card';
         else return 'blue-card'
+    }
+
+    $scope.warningCount = function(notification) {
+        if ('count' in notification) return notification['type'] == 'warning' ? 'card-tag-red' : 'card-tag-blue';
+        else return 'card-tag-blue'
     }
 
     $scope.selectOne = function(index,checkbox,parent) {
@@ -34150,7 +34158,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
-        console.log('notes click checked')
+     
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
     }
