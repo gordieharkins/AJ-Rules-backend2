@@ -34251,7 +34251,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(1)
+               setTimeout(function(){ UpdateData(3)
              }, 5000)
                        
                 
@@ -34327,15 +34327,19 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
                       console.log('updating modal data')
-                  $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
-                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
                   .events[configData.data.eventIndex].additionalItems;
-                  $scope.configModal.data.additionalItems = $scope.modalData.additionalItems 
-
+                
                     }
+                  if(type==3) {
+                    $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                    .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
+                    $scope.configModal.data.additionalItems =  $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
+                    .events[configData.data.eventIndex].additionalItems;
+
+                  }
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
