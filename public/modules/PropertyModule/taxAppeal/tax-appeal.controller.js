@@ -25,7 +25,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var configSign =  {data:[],pin: null}
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
-    $scope.configModal = {details: false, data: null};
+    $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
 
 
     $scope.getPropertyDetails = function()  {
@@ -250,6 +250,25 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else  return 'blue-note';
     }
 
+    function changeValues(data, value){
+        for (var i = 0 ; i  < data.length ; i++) {
+            data[i].value = value
+        }
+    }
+
+    $scope.selectAllFields = function(value,flag) {
+        if(flag==1) {
+            var dataFields=  $scope.configModal.data.data.properties.dataFields
+            if(value=="true")  changeValues(dataFields, "true")
+            else changeValues(dataFields, "false")
+        } else if(flag==2) {
+            var reqFields=  $scope.configModal.data.data.properties.requiredItems
+            if(value=="true")  changeValues(reqFields, "true")
+            else changeValues(reqFields, "false")
+        }
+
+    }
+
     $scope.openModal = function(data, prop,subEventIndex,subEvent){
         
         configId.property = prop.propertyId;
@@ -262,8 +281,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
             console.log($scope.modalData)
         }else if (data.buttonText=='View Checklist' ) {
-            $scope.configModal.details = true;
             $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
+          
+            var dFields= $scope.configModal.data.data.properties.dataFields
+            for (var k = 0 ; k   < dFields.length; k++) {
+                $scope.configModal.dFieldsCb = "true"
+                if(dFields[k].value="false") {
+                    $scope.configModal.dFieldsCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            var rFields= $scope.configModal.data.data.properties.requiredItems
+            for (var k = 0 ; k   < rFields.length; k++) {
+                $scope.configModal.rItemCb = "true"
+                if(rFields[k].value="false") {
+                    $scope.configModal.rItemCb = "false"
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            $scope.configModal.details = true;
+           
+            
             //{data: data, additionalItems: prop.additiona lItems}
 
         } else if (data.buttonText=='Execute Signature') {
@@ -304,7 +346,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(1)
+               setTimeout(function(){ UpdateData(3)
              }, 5000)
                        
                 
@@ -380,15 +422,19 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
                   if(type==1){
                       console.log('updating modal data')
-                  $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
-                  .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
                   .events[configData.data.eventIndex].additionalItems;
-                  $scope.configModal.data.additionalItems = $scope.modalData.additionalItems 
-
+                
                     }
+                  if(type==3) {
+                    $scope.configModal.data.data  = $scope.data.jurisdictions[subEventsDetect.pColumn]
+                    .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex]    
+                    $scope.configModal.data.additionalItems =  $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
+                    .events[configData.data.eventIndex].additionalItems;
+
+                  }
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
