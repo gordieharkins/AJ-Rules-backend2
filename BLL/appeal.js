@@ -15,160 +15,161 @@ var dateDiff = require('date-diff');
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
-// var marylandTimeline = {
-// 	ieSurvey:{
-// 		main: {
-// 			name: "Income and Expense Survey",
-//			type: 1
-// 			obligatory: true,
-// 			form: true,
-// 			requiredItems: ["IE 2015||IE","IE 2016||IE", "IE 2017||IE", "RR as of January 1, 2017||IE", "RR as of January 1, 2018||IE"],
-// 			formObtain: "AOTC",
-// 			signature: "PIN",
-// 			tranmitForm: "AOTC",
-// 			transmitPackage: "AOTC",
-// 			paradigm: "AOTC",
-// 			deadline: "6/14/2018",
-//			startDate: "5/14/2018",
-// 			status: "Not Started", 
-// 			message: "",
-// 			warning: "",
-// 			order: 1
-// 		},
-// 		event1:{
-// 			name: "Complete Required Information",
-// 			status: "Not Started",
-// 			message: "",
-// 			warning: "",
-// 			flag: true,
-// 			mandatory: true,
-// 			buttonText: "Details",
-// 			button: true,
-// 			order: 1,
-// 			a: ["item","IE 2015", "false", "2015", "IE"],
-// 			// b: ["item","IE 2016", "false", "2016", "IE"],
-// 			// c: ["item","IE 2017", "false", "2017", "IE"],
-// 			// d: ["item","RR as of January 1, 2017", "false", "January 1, 2017", "RR"],
-// 			// e: ["item","RR as of January 1, 2018", "false", "January 1, 2018", "RR"],
-// 			f: ["field","A", "0", "IE 2015"],
-// 			g: ["field","B", "1", "IE 2015"],
-// 			h: ["field","C", "2", "IE 2016"],
-// 			i: ["field","D", "3", "IE 2017"],
-// 			j: ["field","E", "4", "RR as of January 1, 2017"],
-// 			k: ["field","F", "5", "RR as of January 1, 2018"]
-// 		},
-// 		// event2: {
-// 		// 	name: "Complete IE Survey Form",
-// 		// 	status: "Not Started",
-// 		// 	message: "",
-// 		// 	flag: true,
-// 		// 	mandatory: true,
-// 		// 	warning: true,
-// 		// 	buttonText: "Details",
-// 		// 	button: true,
-// 		// 	a: ["A", "abc", "IE 2015"],
-// 		// 	a: ["B", "1", "IE 2015"],
-// 		// 	a: ["C", "2", "IE 2016"],
-// 		// 	a: ["D", "3", "IE 2017"],
-// 		// 	a: ["E", "4", "RR as of January 1, 2017"],
-// 		// 	a: ["F", "5", "RR as of January 1, 2018"]
-// 		// },
+var marylandTimeline = {
+	ieSurvey:{
+		main: {
+			name: "Income and Expense Survey",
+			type: 1,
+			obligatory: true,
+			form: true,
+			requiredItems: ["IE 2015||2015||IE","IE 2016||IE", "IE 2017||2015||IE", "RR as of January 1, 2017||IE", "RR as of January 1, 2018||IE"],
+			formObtain: "AOTC",
+			signature: "PIN",
+			tranmitForm: "AOTC",
+			transmitPackage: "AOTC",
+			paradigm: "AOTC",
+			deadline: "6/14/2018",
+			startDate: "6/1/2018",
+			status: "Not Started", 
+			message: "Start date: 6/1/2018",
+			warning: "",
+			order: 1
+		},
+		event1:{
+			name: "Complete Required Information",
+			status: "Not Started",
+			message: "",
+			warning: "",
+			flag: true,
+			mandatory: true,
+			buttonText: "Details",
+			button: true,
+			order: 1,
+			a: ["item","IE 2015", "false", "2015", "IE"],
+			// b: ["item","IE 2016", "false", "2016", "IE"],
+			// c: ["item","IE 2017", "false", "2017", "IE"],
+			// d: ["item","RR as of January 1, 2017", "false", "January 1, 2017", "RR"],
+			// e: ["item","RR as of January 1, 2018", "false", "January 1, 2018", "RR"],
+			f: ["field","A", "0", "IE 2015"],
+			g: ["field","B", "1", "IE 2015"],
+			h: ["field","C", "2", "IE 2016"],
+			i: ["field","D", "3", "IE 2017"],
+			j: ["field","E", "4", "RR as of January 1, 2017"],
+			k: ["field","F", "5", "RR as of January 1, 2018"]
+		},
+		// event2: {
+		// 	name: "Complete IE Survey Form",
+		// 	status: "Not Started",
+		// 	message: "",
+		// 	flag: true,
+		// 	mandatory: true,
+		// 	warning: true,
+		// 	buttonText: "Details",
+		// 	button: true,
+		// 	a: ["A", "abc", "IE 2015"],
+		// 	a: ["B", "1", "IE 2015"],
+		// 	a: ["C", "2", "IE 2016"],
+		// 	a: ["D", "3", "IE 2017"],
+		// 	a: ["E", "4", "RR as of January 1, 2017"],
+		// 	a: ["F", "5", "RR as of January 1, 2018"]
+		// },
 
-// 		event3: {
-// 			name: "Review IE Survey Draft",
-// 			status: "Not Started",
-// 			message: "",
-// 			flag: false,
-// 			mandatory: false,
-// 			buttonText: "Schedule Review",
-// 			button: true,
-// 			reviewResult:true,
-// 			order: 2
-// 		},
+		event3: {
+			name: "Review IE Survey Draft",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			mandatory: false,
+			buttonText: "Schedule Review",
+			button: true,
+			reviewResult:true,
+			order: 2
+		},
 
-// 		event4: {
-// 			name: "Submit IE Survey Data",
-// 			status: "Not Started",
-// 			message: "",
-// 			flag: false,
-// 			buttonText: "Execute Signature",
-// 			button: true,
-// 			mandatory: true,
-// 			dropdown: true,
-// 			dropdownValues: ["Execute Signature"],
-// 			// state: "", 
-// 			order: 3
-// 		}
+		event4: {
+			name: "Submit IE Survey Data",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			buttonText: "Execute Signature",
+			button: true,
+			mandatory: true,
+			dropdown: true,
+			dropdownValues: ["Execute Signature"],
+			// state: "", 
+			order: 3
+		}
 
 
-// 	},
-// 	obtainAJRecord:{
-// 		main: {
-// 			name: "Obtain AJ Valuation Record",
-//			"type: 2
-// 			status: "Not Started",
-// 			startDate: "06/15/2018",
-// 			deadline: "08/15/2018",
-// 			message: "",
-// 			warning: "",
-// 			order: 2
-// 		}
-// 	},
-// 	appealMerit:{
-// 		main: {
-// 			name: "Determine Appeal Merit/Produce Evidence",
-//			type: 3,
-// 			status: "Not Started",
-// 			startDate: "06/15/2018",
-// 			deadline: "08/15/2018",
-// 			message: "",
-// 			warning: "",
-// 			order: 3
-// 		}
-// 	},
-// 	appealDecision:{
-// 		main: {
-// 			name: "Decision to Appeal",
-//			type: 4,
-// 			status: "Not Started",
-// 			startDate: "06/15/2018",
-// 			deadline: "08/15/2018",
-// 			message: "",
-// 			warning: "",
-// 			order: 4
-// 		}
-// 	},
-// 	appealPackage:{
-// 		main: {
-// 			name: "Prepare Appeal Package for Submission",
-//			type: 5,
-// 			status: "Not Started",
-// 			startDate: "06/15/2018",
-// 			deadline: "08/15/2018",
-// 			message: "",
-// 			warning: "",
-// 			order: 5
-// 		}
-// 	},
-// 	appealSubmission:{
-// 		main: {
-// 			name: "Appeal Submission",
-//			type: 6,
-// 			status: "Not Started",
-// 			startDate: "06/15/2018",
-// 			deadline: "08/15/2018",
-// 			message: "",
-// 			warning: "",
-// 			order: 6
-// 		}
-// 	}
-// }
+	},
+	obtainAJRecord:{
+		main: {
+			name: "Obtain AJ Valuation Record",
+			type: 2,
+			status: "Not Started",
+			startDate: "06/15/2018",
+			deadline: "08/15/2018",
+			message: "",
+			warning: "",
+			order: 2
+		}
+	},
+	appealMerit:{
+		main: {
+			name: "Determine Appeal Merit/Produce Evidence",
+			type: 3,
+			status: "Not Started",
+			startDate: "06/15/2018",
+			deadline: "08/15/2018",
+			message: "",
+			warning: "",
+			order: 3
+		}
+	},
+	appealDecision:{
+		main: {
+			name: "Decision to Appeal",
+			type: 4,
+			status: "Not Started",
+			startDate: "06/15/2018",
+			deadline: "08/15/2018",
+			message: "",
+			warning: "",
+			order: 4
+		}
+	},
+	appealPackage:{
+		main: {
+			name: "Prepare Appeal Package for Submission",
+			type: 5,
+			status: "Not Started",
+			startDate: "06/15/2018",
+			deadline: "08/15/2018",
+			message: "",
+			warning: "",
+			order: 5
+		}
+	},
+	appealSubmission:{
+		main: {
+			name: "Appeal Submission",
+			type: 6,
+			status: "Not Started",
+			startDate: "06/15/2018",
+			deadline: "08/15/2018",
+			message: "",
+			warning: "",
+			order: 6
+		}
+	}
+}
 
 
 var floridaTimeline = {
 	ieSurvey:{
 		main: {
 			name: "Income and Expense Survey",
+			type: 1,
 			obligatory: true,
 			form: true,
 			requiredItems: ["IE 2015||IE","IE 2016||IE", "IE 2017||IE", "RR as of January 1, 2017||RR", "RR as of January 1, 2018||RR"],
@@ -178,6 +179,7 @@ var floridaTimeline = {
 			transmitPackage: "mail",
 			paradigm: "paper",
 			deadline: "6/14/2018",
+			startDate: "5/14/2018",
 			status: "Not Started", 
 			message: "",
 			warning: "",
@@ -428,6 +430,53 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 // ---------------------END---------------------
 
 // ---------------------------------------------
+// Add timeline data to property
+// ---------------------------------------------
+BLL.prototype.getNotification = function(req, res) {
+	var userId = req.user[0].userId;
+	// console.log("here");
+    DAL.getNotification(userId, function(error, result) {
+		if (error) {
+			console.log(error);
+			error.userName = loginUserName;
+			ErrorLogDAL.addErrorLog(error);
+		} else {
+			var notificationText = [];
+			var notifications = [];
+			
+			for(var i = 0; i < result.length; i++){
+				if(result[i].notification != null){
+					var notificationIndex = notificationText.indexOf(result[i].notification.text);
+					if(notificationIndex > -1){
+						console.log("1");
+					} else {
+						notificationText.push(result[i].notification.text);
+						notifications.push(result[i].notification);
+					}
+				}
+
+				if(result[i].notification1 != null){
+					result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
+					result[i].notification1["count"] = 1;
+					var notificationIndex = notificationText.indexOf(result[i].notification1.text);
+					if(notificationIndex > -1){
+						notifications[notificationIndex].count += 1;
+					} else {
+						notificationText.push(result[i].notification1.text);
+						notifications.push(result[i].notification1)
+					}
+				}
+			}
+			// finalResult["notification"] = result;
+			Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, notifications, res);
+			
+		}
+	});
+	
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
 // Update Appeal Data
 // ---------------------------------------------
 BLL.prototype.updateData = function(req, res) {
@@ -557,141 +606,32 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			var jurisdictionsNames = [];
 			var propertyIds = [];
 			async.forEachOf(result, function (value, i, callbackMain) {
+				// console.log(JSON.stringify(value));
 				if(value.event.properties.name == "Income and Expense Survey"){
-					if(value.event.properties.paradigm == "AOTC"){
-						var tempSubEvent = {};
-						var requireInformationIndex = null;
-						var reviewIEDraftIndex = null;
-						var submitIEDataIndex = null;
-						var getIEFormIndex = null;
-						var flag = false;
-						var tempEvent = [];
-						var isComplete = true;
-						for(var k = 0; k < value.subEvent.length; k++){
-							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
-						}
-
-						value.subEvent = tempEvent;
-						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
-							if(subValue.properties.name == "Complete Required Information"){
-								requireInformationIndex = j;
-								checkRequiredItems(subValue.properties, value.propertyId, 
-													subValue._id, value.event.properties.deadline, value.jurisdiction, function(error, requiredItems){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue.properties = requiredItems;
-										var status = true;
-										for(var element in subValue.properties){
-											if(element == "requiredItems" || element == "dataFields"){
-												continue;
-											}
-											if(Array.isArray(subValue.properties[element])){
-												if(subValue.properties[element][0] == "field"){
-													if(subValue.properties[element][2] == ""){
-														status = false;													
-													}
-
-													var temp = {
-														name: subValue.properties[element][1],
-														value: subValue.properties[element][2],
-														source: subValue.properties[element][3]
-													}
-
-													subValue.properties.dataFields.push(temp);
-													delete subValue.properties[element];
-												} else {
-													if(subValue.properties[element][2] == "false"){
-														status = false;													
-													}
-
-													var temp = {
-														name: subValue.properties[element][1],
-														value: subValue.properties[element][2],
-														type: subValue.properties[element][4]
-													}
-													subValue.properties.requiredItems.push(temp);
-													delete subValue.properties[element];
-												}
-											}
-										}
-
-										if(status){
-											subValue.properties.status = "Done";
-										}	
-
-										if(subValue.properties.notification != undefined){
-											generateNotification(subValue.properties.notification, userId);
-										}
-										callbackSubMain();
-
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
-										}
-									}
-								});
-							} else if(subValue.properties.name == "Review IE Survey Draft"){
-								reviewIEDraftIndex = j;
-								checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue = reviewStatus;
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
-										}
-										callbackSubMain();
-									}
-								});
-							} else if(subValue.properties.name == "Submit IE Survey Data"){
-								submitIEDataIndex = j;
-								checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue = surveyData;
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
-										}
-										callbackSubMain();
-									}
-								});
-							}
-						}, function (err) {
-							if (err) console.error(err.message);
-							//configs is now a map of JSON data
-							if(!isComplete){
-								var notification = {
-									heading: value.jurisdiction + " Properties",
-									text: "Need to complete IE survey package for " +value.jurisdiction
-											+ " properties before "+value.event.properties.deadline+".",
-									type: "warning"
+					var tempEvent = [];
+					var started = true;
+					for(var k = 0; k < value.subEvent.length; k++){
+						tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
+					}
+					value.subEvent = tempEvent;
+					if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
+						var startDate = calculateRemainingDays(value.event.properties.startDate);
+						console.log("startDate", startDate);
+						if(startDate <= 0){
+							value.event.properties.status = "In Progress";
+							value.event.properties.message = "Deadline: "+ value.event.deadline;
+							value.event.properties.warning = "Complete required information."
+							DAL.updateData([value.event], null, function(error, result) {
+								if (error) {
+									console.log(error);
+									error.userName = loginUserName;
+									ErrorLogDAL.addErrorLog(error);
+								} else {
+									console.log("success");
 								}
-
-								generateNotification(notification, userId);
-							}
-							
-							if(value.subEvent[requireInformationIndex].properties.status == "Done" &&
-							value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
-							value.subEvent[submitIEDataIndex].properties.status == "Done"){
-								value.event.properties.status = "Done";
-								value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
-							} else if(value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
-							value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
-							value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
-								value.event.properties.status = "Done";
-							} else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
-							value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
-							value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
-								value.event.properties.status = "In Progress";
-								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
-								if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
-									value.event.properties.warning = "Complete required information.";
-								} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
-									value.event.properties.warning = "Please execute signature.";
-								} 
-							}
-
+							});
+						} else {
+							started = false;
 							var event = {
 								eventId: value.event._id,
 								properties: value.event.properties,
@@ -729,196 +669,373 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								finalResult.jurisdictions.push(jurisdiction);
 							}
 							callbackMain();
-						});
-					} else if(value.event.properties.paradigm == "paper"){
-						var tempSubEvent = {};
-						var requireInformationIndex = null;
-						var reviewIEDraftIndex = null;
-						var submitIEDataIndex = null;
-						var getIEFormIndex = null;
-						var tempEvent = [];
-						for(var k = 0; k < value.subEvent.length; k++){
-							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
-						value.subEvent = tempEvent;
-						// console.log(JSON.stringify(tempEvent));
-						async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
-							if(subValue.properties.name == "Complete IE Survey Form"){
-								getIEFormIndex = j;
-								callbackSubMain();
-							} else if(subValue.properties.name == "Complete Required Items"){
-								requireInformationIndex = j;
-								checkRequiredItemsPaper(subValue.properties, value.propertyId, 
-													subValue._id, value.event.properties.deadline, value.jurisdiction, 
-													function(error, requiredItems){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue.properties = requiredItems;
-										var status = true;
-										for(var element in subValue.properties){
-											if(element == "requiredItems" || element == "dataFields"){
-												continue;
-											}
-											if(Array.isArray(subValue.properties[element])){
-												if(subValue.properties[element][0] == "field"){
-													if(subValue.properties[element][2] == "false"){
-														status = false;													
-													}
+					}
 
-													var temp = {
-														name: subValue.properties[element][1],
-														value: subValue.properties[element][2]
+					if(started){
+						if(value.event.properties.paradigm == "AOTC"){
+							var tempSubEvent = {};
+							var requireInformationIndex = null;
+							var reviewIEDraftIndex = null;
+							var submitIEDataIndex = null;
+							var getIEFormIndex = null;
+							var flag = false;
+							
+							var isComplete = true;
+							// for(var k = 0; k < value.subEvent.length; k++){
+							// 	tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
+							// }
+	
+							// value.subEvent = tempEvent;
+							async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
+								if(subValue.properties.name == "Complete Required Information"){
+									requireInformationIndex = j;
+									checkRequiredItems(subValue.properties, value.propertyId, 
+														subValue._id, value.event.properties.deadline, value.jurisdiction, function(error, requiredItems){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue.properties = requiredItems;
+											var status = true;
+											for(var element in subValue.properties){
+												if(element == "requiredItems" || element == "dataFields"){
+													continue;
+												}
+												if(Array.isArray(subValue.properties[element])){
+													if(subValue.properties[element][0] == "field"){
+														if(subValue.properties[element][2] == ""){
+															status = false;													
+														}
+	
+														var temp = {
+															name: subValue.properties[element][1],
+															value: subValue.properties[element][2],
+															source: subValue.properties[element][3]
+														}
+	
+														subValue.properties.dataFields.push(temp);
+														delete subValue.properties[element];
+													} else {
+														if(subValue.properties[element][2] == "false"){
+															status = false;													
+														}
+	
+														var temp = {
+															name: subValue.properties[element][1],
+															value: subValue.properties[element][2],
+															type: subValue.properties[element][4]
+														}
+														subValue.properties.requiredItems.push(temp);
+														delete subValue.properties[element];
 													}
-
-													subValue.properties.dataFields.push(temp);
-													delete subValue.properties[element];
-												} else {
-													if(subValue.properties[element][2] == "false"){
-														status = false;													
-													}
-
-													var temp = {
-														name: subValue.properties[element][1],
-														value: subValue.properties[element][2],
-													}
-													subValue.properties.requiredItems.push(temp);
-													delete subValue.properties[element];
 												}
 											}
+	
+											if(status){
+												subValue.properties.status = "Done";
+											}	
+	
+											if(subValue.properties.notification != undefined){
+												generateNotification(subValue.properties.notification, userId);
+											}
+											callbackSubMain();
+	
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
 										}
-
-										if(status){
-											subValue.properties.status = "Done";
-										}	
-
-										if(subValue.properties.notification != undefined){
-											generateNotification(subValue.properties.notification, userId);
+									});
+								} else if(subValue.properties.name == "Review IE Survey Draft"){
+									reviewIEDraftIndex = j;
+									checkReivewStatus(value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue = reviewStatus;
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
+											callbackSubMain();
 										}
-										callbackSubMain();
-
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
+									});
+								} else if(subValue.properties.name == "Submit IE Survey Data"){
+									submitIEDataIndex = j;
+									checkSubmissionStatus(value.subEvent[reviewIEDraftIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue = surveyData;
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
+											callbackSubMain();
 										}
-									}
-								});
-							// } else {
-							// 	callbackSubMain();
-							// }
-							} else if(subValue.properties.name == "Review IE Survey Draft"){
-								reviewIEDraftIndex = j;
-								console.log(getIEFormIndex, requireInformationIndex);
-								checkReivewStatusPaper(value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue = reviewStatus;
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
-										}
-										callbackSubMain();
-									}
-								});
-							// }
-							} else if(subValue.properties.name == "Submit IE Survey Data"){
-								submitIEDataIndex = j;
-								checkSubmissionStatusPaper(value.subEvent[reviewIEDraftIndex], value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
-									if(error){
-										callbackSubMain(error);
-									} else {
-										subValue = surveyData;
-										if(subValue.properties.status != "Done"){
-											isComplete = false;
-										}
-										callbackSubMain();
-									}
-								});
-							}
-						}, function (err) {
-							if (err) console.error(err.message);
-							//configs is now a map of JSON data
-							if(!isComplete){
-								var notification = {
-									heading: value.jurisdiction + " Properties",
-									text: "Need to complete IE survey package for " +value.jurisdiction
-											+ " properties before "+value.event.properties.deadline+".",
-									type: "warning"
+									});
 								}
-
-								generateNotification(notification, userId);
-							}
-							
-							if(value.subEvent[getIEFormIndex].properties.status == "Done" &&
-							value.subEvent[requireInformationIndex].properties.status == "Done" &&
-							value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
-							value.subEvent[submitIEDataIndex].properties.status == "Done"){
-								value.event.properties.status = "Done";
-								value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
-							} else if(value.subEvent[getIEFormIndex].properties.status == "Not Started" &&
-							value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
-							value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
-							value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
-								value.event.properties.status = "Not Started";
-							} else if(value.subEvent[getIEFormIndex].properties.status == "In Progress" ||
-							value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
-							// value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
-							value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
-								value.event.properties.status = "In Progress";
-								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
-								if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
-								value.subEvent[getIEFormIndex].properties.status == "In Progress"){	
-									if(value.subEvent[getIEFormIndex].properties.status == "In Progress"){
-										value.event.properties.warning = "Complete income expene survey form.\n";
+							}, function (err) {
+								if (err) console.error(err.message);
+								//configs is now a map of JSON data
+								if(!isComplete){
+									var notification = {
+										heading: value.jurisdiction + " Properties",
+										text: "Need to complete IE survey package for " +value.jurisdiction
+												+ " properties before "+value.event.properties.deadline+".",
+										type: "warning",
+										remainingDays
 									}
-									
+	
+									generateNotification(notification, userId);
+								}
+								
+								if(value.subEvent[requireInformationIndex].properties.status == "Done" &&
+								value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+								value.subEvent[submitIEDataIndex].properties.status == "Done"){
+									value.event.properties.status = "Done";
+									value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
+								} else if(value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
+								value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
+								value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
+									value.event.properties.status = "Done";
+								} else if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+								value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
+								value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
+									value.event.properties.status = "In Progress";
+									value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 									if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
-										value.event.properties.warning += "Complete required information.";
+										value.event.properties.warning = "Complete required information.";
+									} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
+										value.event.properties.warning = "Please execute signature.";
+									} 
+								}
+	
+								var event = {
+									eventId: value.event._id,
+									properties: value.event.properties,
+									subEvents: value.subEvent,
+									additionalItems: value.additionalItems
+								};
+								
+								var property = {
+									id: value.propertyId,
+									name: value.propertyName,
+									address: value.address,
+									ownerName: value.ownerName,
+									events: []
+								}
+	
+								property.events[event.properties.order - 1] = event;
+								
+								var jurisdiction = {
+									name: value.jurisdiction,
+									properties: [property]		
+								}
+	
+								var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+								if(jurisdictionIndex > -1){
+									var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+									if(propertyIndex > -1){
+										finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+									} else {
+										finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+										propertyIds[jurisdictionIndex].push(value.propertyId);
+									}
+								} else {
+									jurisdictionsNames.push(value.jurisdiction);
+									propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+									finalResult.jurisdictions.push(jurisdiction);
+								}
+								callbackMain();
+							});
+						} else if(value.event.properties.paradigm == "paper"){
+							var tempSubEvent = {};
+							var requireInformationIndex = null;
+							var reviewIEDraftIndex = null;
+							var submitIEDataIndex = null;
+							var getIEFormIndex = null;
+							var tempEvent = [];
+							
+							// console.log(JSON.stringify(tempEvent));
+							async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
+								if(subValue.properties.name == "Complete IE Survey Form"){
+									getIEFormIndex = j;
+									callbackSubMain();
+								} else if(subValue.properties.name == "Complete Required Items"){
+									requireInformationIndex = j;
+									checkRequiredItemsPaper(subValue.properties, value.propertyId, 
+														subValue._id, value.event.properties.deadline, value.jurisdiction, 
+														function(error, requiredItems){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue.properties = requiredItems;
+											var status = true;
+											for(var element in subValue.properties){
+												if(element == "requiredItems" || element == "dataFields"){
+													continue;
+												}
+												if(Array.isArray(subValue.properties[element])){
+													if(subValue.properties[element][0] == "field"){
+														if(subValue.properties[element][2] == "false"){
+															status = false;													
+														}
+	
+														var temp = {
+															name: subValue.properties[element][1],
+															value: subValue.properties[element][2]
+														}
+	
+														subValue.properties.dataFields.push(temp);
+														delete subValue.properties[element];
+													} else {
+														if(subValue.properties[element][2] == "false"){
+															status = false;													
+														}
+	
+														var temp = {
+															name: subValue.properties[element][1],
+															value: subValue.properties[element][2],
+														}
+														subValue.properties.requiredItems.push(temp);
+														delete subValue.properties[element];
+													}
+												}
+											}
+	
+											if(status){
+												subValue.properties.status = "Done";
+											}	
+	
+											if(subValue.properties.notification != undefined){
+												generateNotification(subValue.properties.notification, subValue._id);
+											}
+											callbackSubMain();
+	
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
+										}
+									});
+								// } else {
+								// 	callbackSubMain();
+								// }
+								} else if(subValue.properties.name == "Review IE Survey Draft"){
+									reviewIEDraftIndex = j;
+									console.log(getIEFormIndex, requireInformationIndex);
+									checkReivewStatusPaper(value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, reviewStatus){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue = reviewStatus;
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
+											callbackSubMain();
+										}
+									});
+								// }
+								} else if(subValue.properties.name == "Submit IE Survey Data"){
+									submitIEDataIndex = j;
+									checkSubmissionStatusPaper(value.subEvent[reviewIEDraftIndex], value.subEvent[getIEFormIndex], value.subEvent[requireInformationIndex], subValue, function(error, surveyData){
+										if(error){
+											callbackSubMain(error);
+										} else {
+											subValue = surveyData;
+											if(subValue.properties.status != "Done"){
+												isComplete = false;
+											}
+											callbackSubMain();
+										}
+									});
+								}
+							}, function (err) {
+								if (err) console.error(err.message);
+								//configs is now a map of JSON data
+								if(!isComplete){
+									var notification = {
+										heading: value.jurisdiction + " Properties",
+										text: "Need to complete IE survey package for " +value.jurisdiction
+												+ " properties before "+value.event.properties.deadline+".",
+										type: "warning",
+										remainingDays: ""
 										
 									}
-								} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
-									value.event.properties.warning = "Please execute signature.";
-								} 
-							}
-
-							var event = {
-								eventId: value.event._id,
-								properties: value.event.properties,
-								subEvents: value.subEvent,
-								additionalItems: value.additionalItems
-							};
-							
-							var property = {
-								id: value.propertyId,
-								name: value.propertyName,
-								address: value.address,
-								ownerName: value.ownerName,
-								events: []
-							}
-
-							property.events[event.properties.order - 1] = event;
-							
-							var jurisdiction = {
-								name: value.jurisdiction,
-								properties: [property]		
-							}
-
-							var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
-							if(jurisdictionIndex > -1){
-								var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
-								if(propertyIndex > -1){
-									finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
-								} else {
-									finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
-									propertyIds[jurisdictionIndex].push(value.propertyId);
+	
+									generateNotification(notification, value.event._id);
 								}
-							} else {
-								jurisdictionsNames.push(value.jurisdiction);
-								propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
-								finalResult.jurisdictions.push(jurisdiction);
-							}
-							callbackMain();
-						});
+								
+								if(value.subEvent[getIEFormIndex].properties.status == "Done" &&
+								value.subEvent[requireInformationIndex].properties.status == "Done" &&
+								value.subEvent[reviewIEDraftIndex].properties.status == "Done" &&
+								value.subEvent[submitIEDataIndex].properties.status == "Done"){
+									value.event.properties.status = "Done";
+									value.event.properties.message = "Completed on: " +value.event.properties.deadline; 
+								} else if(value.subEvent[getIEFormIndex].properties.status == "Not Started" &&
+								value.subEvent[requireInformationIndex].properties.status == "Not Started" &&
+								value.subEvent[reviewIEDraftIndex].properties.status == "Not Started" &&
+								value.subEvent[submitIEDataIndex].properties.status == "Not Started"){
+									value.event.properties.status = "Not Started";
+								} else if(value.subEvent[getIEFormIndex].properties.status == "In Progress" ||
+								value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+								// value.subEvent[reviewIEDraftIndex].properties.status == "In Progress" ||
+								value.subEvent[submitIEDataIndex].properties.status == "In Progress"){
+									value.event.properties.status = "In Progress";
+									value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
+									if(value.subEvent[requireInformationIndex].properties.status == "In Progress" ||
+									value.subEvent[getIEFormIndex].properties.status == "In Progress"){	
+										if(value.subEvent[getIEFormIndex].properties.status == "In Progress"){
+											value.event.properties.warning = "Complete income expene survey form.\n";
+										}
+										
+										if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
+											value.event.properties.warning += "Complete required information.";
+											
+										}
+									} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
+										value.event.properties.warning = "Please execute signature.";
+									} 
+								}
+	
+								var event = {
+									eventId: value.event._id,
+									properties: value.event.properties,
+									subEvents: value.subEvent,
+									additionalItems: value.additionalItems
+								};
+								
+								var property = {
+									id: value.propertyId,
+									name: value.propertyName,
+									address: value.address,
+									ownerName: value.ownerName,
+									events: []
+								}
+	
+								property.events[event.properties.order - 1] = event;
+								
+								var jurisdiction = {
+									name: value.jurisdiction,
+									properties: [property]		
+								}
+	
+								var jurisdictionIndex = jurisdictionsNames.indexOf(value.jurisdiction);
+								if(jurisdictionIndex > -1){
+									var propertyIndex = propertyIds[jurisdictionIndex].indexOf(value.propertyId);
+									if(propertyIndex > -1){
+										finalResult.jurisdictions[jurisdictionIndex].properties[propertyIndex].events[event.properties.order - 1] = event;
+									} else {
+										finalResult.jurisdictions[jurisdictionIndex].properties.push(property);
+										propertyIds[jurisdictionIndex].push(value.propertyId);
+									}
+								} else {
+									jurisdictionsNames.push(value.jurisdiction);
+									propertyIds[jurisdictionsNames.length -1] = [value.propertyId];
+									finalResult.jurisdictions.push(jurisdiction);
+								}
+								callbackMain();
+							});
+						}
 					}
+					
 					
 				} else {
 
@@ -969,8 +1086,55 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
 					} else {
-						finalResult["notification"] = result;
-						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+						var notificationText = [];
+						var notifications = [];
+						for(var i = 0; i < result.length; i++){
+							// for(var j = 0; j < result[i].notifications.length; j++){
+							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
+							// 	if(notificationIndex > 0){
+							// 		continue;
+							// 	} else {
+							// 		notificationText.push(result[i].notifications[j].text);
+							// 		notifications.push(result[i].notifications[j]);
+							// 	}
+							// }
+
+							// for(var j = 0; j < result[i].notifications.length; j++){
+
+							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
+							// 	if(notificationIndex > 0){
+							// 		continue;
+							// 	} else {
+							// 		notificationText.push(result[i].notifications[j].text);
+							// 		notifications.push(result[i].notifications[j]);
+							// 	}
+							// }
+
+
+							if(result[i].notifications != null){
+								var notificationIndex = notificationText.indexOf(result[i].notification.text);
+								if(notificationIndex > 0){
+									continue;
+								} else {
+									notificationText.push(result[i].notification.text);
+									notifications.push(result[i].notificatons);
+								}
+							}
+
+							if(result[i].notification1 != null){
+								result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
+								result[i].notification1["count"] = 1;
+								var notificationIndex = notificationText.indexOf(result[i].notification1.text);
+								if(notificationIndex > 0){
+									notification1[notificationIndex].count += 1;
+								} else {
+									notificationText.push(notification1.text);
+									notifications.push(notification1)
+								}
+							}
+						}
+						// finalResult["notification"] = result;
+						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, notifications, res);
 						
 					}
 				});
@@ -1082,14 +1246,17 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 				var notification = {
 					heading: "Complete Required Information",
 					text: "",
-					type: "warning"
+					type: "warning",
+					remainingDays: daysRemaining
 				}
-
+				console.log("here it is", notification);
 				if(daysRemaining < 30 && daysRemaining > 0){
-					notification.text = daysRemaining+ " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+					notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+					// notification.remainingDays = daysRemaining;
 					message += daysRemaining+ " days remaining before submission. "
 				} else if (daysRemaining <= 0 ){
-					notification.text = "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days for "+jurisdiction+" properties. Please complete the required information.";
+					notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
+					// notification.remainingDays = daysRemaining;
 					message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
 				}
 				
@@ -1141,8 +1308,8 @@ function checkSubmissionStatus(reviewStatus, requiredItemsStatus, submissionStat
 	cb(null,submissionStatus);
 }
 
-function generateNotification(notification, userId){
-	DAL.generateNotification(notification, userId, function(error, result) {
+function generateNotification(notification, id){
+	DAL.generateNotification(notification, id, function(error, result) {
 		if (error) {
 			console.log(error);
 			error.userName = loginUserName;
@@ -1196,19 +1363,18 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		var notification = {
 			heading: "Complete Required Information",
 			text: "",
-			type: "warning"
-		};
-
-		if(remainingDays >= 0 && remainingDays < 30){
-			console.log("fro o")
-			notification.text = remainingDays+ " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information. "
-			warning += remainingDays +" days remaining before submission. "
-		} else if(remainingDays < 0){
-			console.log("fro o111");
-			remainingDays = remainingDays * (-1);
-			notification.text = "Income Expense Survey submission overdue by " +remainingDays+ " days for "+jurisdiction+" properties. Please complete the required information.";
-			warning += "Income Expense survey overdue by "+ remainingDays +" days. ";
-			
+			type: "warning",
+			remainingDays: remainingDays
+		}
+		console.log("here it is", notification);
+		if(remainingDays < 30 && remainingDays > 0){
+			notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+			// notification.remainingDays = daysRemaining;
+			warning += remainingDays+ " days remaining before submission. "
+		} else if (remainingDays <= 0 ){
+			notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
+			// notification.remainingDays = daysRemaining;
+			warning += "Income Expense Survey submission overdue by " +parseInt(remainingDays)*(-1)+ " days. "
 		}
 
 		if(remainingItems > 0){
@@ -1268,3 +1434,5 @@ function checkSubmissionStatusPaper(reviewStatus, ieForm, requiredItemsStatus, s
 	}
 	cb(null,submissionStatus);
 }
+
+
