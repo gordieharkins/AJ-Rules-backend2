@@ -8,10 +8,13 @@
   <div class="sidebar">
 
     <div class="sidebar-body" ng-repeat=" not in data.notification">
-      <div class="card card-1 red-card" ng-class="setWarning(not.notification.properties)">
-        <h2 class="card-title">{{not.notification.properties.heading}}</h2>
+      <div class="card card-1 red-card" ng-class="setWarning(not)">
+        <div class="col-md-12">
+        <h2 class="col-md-6 card-title">{{not.heading}}</h2>
+        <span ng-if="not.count" class="col-md-6" ng-class="warningCount(not)">{{not.count}} Remaining</span>
+      </div>
         <hr class="card-splitter">
-        <p>{{not.notification.properties.text}}</p>
+        <p>{{not.text}}</p>
       </div>
       <!--<div class="card card-1 blue-card">-->
         <!--<h2 class="card-title">Required items</h2>-->

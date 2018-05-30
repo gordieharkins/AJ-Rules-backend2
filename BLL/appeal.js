@@ -781,7 +781,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										text: "Need to complete IE survey package for " +value.jurisdiction
 												+ " properties before "+value.event.properties.deadline+".",
 										type: "warning",
-										remainingDays
+										remainingDays: ""
 									}
 	
 									generateNotification(notification, userId);
@@ -1088,36 +1088,15 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					} else {
 						var notificationText = [];
 						var notifications = [];
+						
 						for(var i = 0; i < result.length; i++){
-							// for(var j = 0; j < result[i].notifications.length; j++){
-							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
-							// 	if(notificationIndex > 0){
-							// 		continue;
-							// 	} else {
-							// 		notificationText.push(result[i].notifications[j].text);
-							// 		notifications.push(result[i].notifications[j]);
-							// 	}
-							// }
-
-							// for(var j = 0; j < result[i].notifications.length; j++){
-
-							// 	var notificationIndex = notificationText.indexOf(result[i].notifications[j].text);
-							// 	if(notificationIndex > 0){
-							// 		continue;
-							// 	} else {
-							// 		notificationText.push(result[i].notifications[j].text);
-							// 		notifications.push(result[i].notifications[j]);
-							// 	}
-							// }
-
-
-							if(result[i].notifications != null){
+							if(result[i].notification != null){
 								var notificationIndex = notificationText.indexOf(result[i].notification.text);
-								if(notificationIndex > 0){
-									continue;
+								if(notificationIndex > -1){
+									console.log("1");
 								} else {
 									notificationText.push(result[i].notification.text);
-									notifications.push(result[i].notificatons);
+									notifications.push(result[i].notification);
 								}
 							}
 
@@ -1125,16 +1104,16 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
 								result[i].notification1["count"] = 1;
 								var notificationIndex = notificationText.indexOf(result[i].notification1.text);
-								if(notificationIndex > 0){
-									notification1[notificationIndex].count += 1;
+								if(notificationIndex > -1){
+									notifications[notificationIndex].count += 1;
 								} else {
-									notificationText.push(notification1.text);
-									notifications.push(notification1)
+									notificationText.push(result[i].notification1.text);
+									notifications.push(result[i].notification1)
 								}
 							}
 						}
-						// finalResult["notification"] = result;
-						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, notifications, res);
+						finalResult["notification"] = notifications;
+						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
 						
 					}
 				});

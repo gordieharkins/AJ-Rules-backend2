@@ -33990,6 +33990,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else return 'blue-card'
     }
 
+    $scope.warningCount = function(notification) {
+        if ('count' in notification) return notification['type'] == 'warning' ? 'card-tag-red' : 'card-tag-blue';
+        else return 'card-tag-blue'
+    }
+
     $scope.selectOne = function(index,checkbox,parent) {
         var events = $scope.subData.prop
         var toggleData = [];
