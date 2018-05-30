@@ -46,11 +46,15 @@
           <th ng-repeat="events in  subData.prop[0].subEvents">
             <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
             <span>{{events.properties.name}} <i  class="fa fa-caret-down" ng-if="events.properties.dropdown"></i></span>
-         
+            <!-- <ul class="appeal-check" ng-if="events.properties.dropdown">
+                <li class="clearfix" >
+                  <label> <input ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)" ng-model="events.markAll" type="checkbox">Mark All</label>
+                </li>
+            </ul> -->
             <select  ng-if="events.properties.dropdown"  ng-model="events.markAll" ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">
               <option ng-repeat="data in events.properties.dropdownValues">{{data}}</option>
             </select>
-          
+        
           
             <!--<span class="not-mandatory">(Not mandatory)</span>-->
           </th>

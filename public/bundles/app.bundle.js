@@ -33930,7 +33930,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     var configSign =  {data:[],pin: null}
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
-    $scope.configModal = {details: false, data: null};
+    $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
 
 
     $scope.getPropertyDetails = function()  {
@@ -34153,6 +34153,28 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('notes click checked')
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
+    }
+
+    function changeValues(value, data){
+        for (var i = 0 ; i  < dataFields.length ; i++) {
+            dataFields[i].value = value
+        }
+    }
+
+    $scope.selectAllFields = function(value,flag) {
+        var postData= []
+     
+        if(flag==1) {
+            var dataFields=  $scope.configModal.data.data.properties.dataFields
+            if(value==true)  changeValues(dataFields, "true")
+            else changeValues(dataFields, "false")
+        } else if(flag==2) {
+            var reqFields=  $scope.configModal.data.data.properties.requiredItems
+            if(value==true)  changeValues(reqFields, "true")
+            else changeValues(reqFields, "false")
+            
+        }
+
     }
 
     $scope.openModal = function(data, prop,subEventIndex,subEvent){
