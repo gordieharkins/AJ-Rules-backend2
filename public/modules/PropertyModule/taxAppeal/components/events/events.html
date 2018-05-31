@@ -80,9 +80,9 @@
         <tr ng-repeat=" prop in   subData.prop"  ng-init="propertyIndex=$index">
           <td class="first-col-body">
             <label><input type="checkbox">{{prop.fcolName}}</label>
-            <p>{{prop.fcolOwnerName}}</p>
-            <p>N/A</p>
-            <p>N/A</p>
+            <p>{{prop.address}}</p>
+                   <p>{{prop.ownerName}}</p>
+                   <p>{{prop.ownerName}}</p>
           </td>
             
           <td style=" height: 170px;" class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="subEventIndex=$index">

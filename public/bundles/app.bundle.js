@@ -24235,43 +24235,43 @@ function _header(User_Config, $state, $timeout) {
 
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
-            // try {
-            //     var url = '/timeline/markAsRead';
-            //     var _data = {
-            //         "notId": _notf.notifications._id
-            //     };
-            //     if (_notf.notification.properties.readFlag == 0) {
-            //         $("#preloader").css("display", "block");
-            //         AOTCService.postDataToServer(url, _data)
-            //             .then(function (result) {
-            //                 $scope.selectedNotification = _notf;
-            //                 $("#myNotificationModal").modal('show');
-            //                 $rootScope.unreadNotifications = 0;
-            //                 $timeout(function () {
-            //                     try {
-            //                         //
-            //                         _notf.notification.properties.readFlag = 1;
-            //                         for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
-            //                             var _item = $rootScope.allNotifications.external[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+            try {
+                var url = '/timeline/markAsRead';
+                var _data = {
+                    "notId": _notf.notifications._id
+                };
+                if (_notf.notification.properties.readFlag == 0) {
+                    $("#preloader").css("display", "block");
+                    AOTCService.postDataToServer(url, _data)
+                        .then(function (result) {
+                            $scope.selectedNotification = _notf;
+                            $("#myNotificationModal").modal('show');
+                            $rootScope.unreadNotifications = 0;
+                            $timeout(function () {
+                                try {
+                                    //
+                                    _notf.notification.properties.readFlag = 1;
+                                    for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
+                                        var _item = $rootScope.allNotifications.external[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
 
-            //                         }
-            //                         for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
-            //                             var _item = $rootScope.allNotifications.internal[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
-            //                         }
-            //                     } catch (_e) {}
-            //                 });
-            //                 $("#preloader").css("display", "none");
-            //             }, function () {
+                                    }
+                                    for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
+                                        var _item = $rootScope.allNotifications.internal[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+                                    }
+                                } catch (_e) {}
+                            });
+                            $("#preloader").css("display", "none");
+                        }, function () {
 
-            //                 $("#preloader").css("display", "none");
-            //             });
-            //     } else {
-            //         $scope.selectedNotification = _notf;
-            //         $("#myNotificationModal").modal('show');
-            //     }
-            // } catch (_e) {}
+                            $("#preloader").css("display", "none");
+                        });
+                } else {
+                    $scope.selectedNotification = _notf;
+                    $("#myNotificationModal").modal('show');
+                }
+            } catch (_e) {}
 
 
 
@@ -24818,7 +24818,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
         showOverlay: true,
         zoom: 6,
         options: {
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         }
 
     };
@@ -24854,7 +24854,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.mapOptions = {
         styles: mapStyleArray,
         maxZoom: 0,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.TERRAIN
 
     };
 
