@@ -221,7 +221,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.buttonComp = function(state) {
-        if ('warning' in state && state.warning)  return 'red-button';
+        if (state.status=='Not Started')  return 'disable-button'
+        
+        else if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
@@ -400,6 +402,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var eventId = jProperty[i].events[column].eventId;
             var index = i;
              extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                 address: jProperty[i].address, streetAddress:  jProperty[i].streetAddress, 
+                 taxAccountNo:  jProperty[i].taxAccountNo, ownerName: jProperty[i].ownerName,
                  subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
                  info: subEventsDetect, propertyIndex: index, eventIndex: column})
         }
