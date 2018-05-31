@@ -807,6 +807,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								address: value.address,
 								ownerName: value.ownerName,
 								taxAccountNo: value.taxAccountNo,
+								streetAddress: value.streetAddress,
 								events: []
 							}
 
@@ -1016,6 +1017,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									address: value.address,
 									ownerName: value.ownerName,
 									taxAccountNo: value.taxAccountNo,
+									streetAddress: value.streetAddress,
 									events: []
 								}
 	
@@ -1270,6 +1272,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									address: value.address,
 									ownerName: value.ownerName,
 									taxAccountNo: value.taxAccountNo,
+									streetAddress: value.streetAddress,
 									events: []
 								}
 	
@@ -1313,6 +1316,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						address: value.address,
 						ownerName: value.ownerName,
 						taxAccountNo: value.taxAccountNo,
+						streetAddress: value.streetAddress,
 						events: []
 					}
 
