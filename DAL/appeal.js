@@ -160,6 +160,7 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
+    // console.log(JSON.stringify(data));
     var params = {};
     var query = "";
     if(Array.isArray(data)){
