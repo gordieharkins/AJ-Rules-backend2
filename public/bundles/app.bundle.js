@@ -34040,7 +34040,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                  
                
-                  setTimeout(function(){ UpdateData(1)}, 5000)
+                  setTimeout(function(){ UpdateData(4, 'Data Updated Successfully')}, 5000)
                  
                  
                 }, function (result) {
@@ -34144,7 +34144,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                   console.log(result.data)
                   $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2)}, 5000)
+                  setTimeout(function(){ UpdateData(2, 'Data Updated Successfully')}, 5000)
         
              
                  
@@ -34351,7 +34351,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
-                  $scope.$emit('successs', message)
+                  $scope.$emit('success', message)
                 }, function (result) {
                 //some error
         //         ////console.log(result);
@@ -34384,7 +34384,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                      setTimeout(function(){ UpdateData(1)
+                      setTimeout(function(){ UpdateData(1, 'Data Updated Successfully')
                     }, 5000)
                     
                        $scope.uploadModal = false
