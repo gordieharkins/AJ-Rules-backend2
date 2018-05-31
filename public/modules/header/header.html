@@ -259,49 +259,39 @@
         }
     }
     @media (max-width: 935px) {
-
-        .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-            text-transform: capitalize !important;
-            letter-spacing: 0 !important;
-            margin: 0 !important;
-            /*padding: 12px 0 0 8px;*/
-            /*font-size: 14px;*/
-        }
-        .header-btn span {
-            cursor: pointer;
-            font-size: 11px;
-        }
-        .image-lg {
-            width: 44px !important;
-        }
-        .image-ts {
-            width: 79px;
-        }
-        .user-img {
-            padding: 0 2px;
-        }
-        .image-ts {
-            width: 63px;
-        }
-        .appral-img {
-            background-size: 50%;
-        }
-        .image-pr {
-            width: 44px;
-        }
-        .header-btn ul {
-            padding: 0 15px 0 0;
-        }
-
-    }
-    @media (max-width:767px) {
         .navbar-toggle .icon-bar {
             background: #ffffff;
         }
-        /*.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {*/
-            /*padding: 3px 0 0 30px;*/
-            /*font-size: 19px;*/
-        /*}*/
+        .navbar-header {
+            float: none;
+        }
+        .navbar-toggle {
+            display: block;
+        }
+        .navbar-collapse {
+            border-top: 1px solid transparent;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        .navbar-collapse.collapse:not(.in) {
+            display: none !important;
+        }
+        .navbar-nav {
+            float: none !important;
+            margin: 7.5px -15px;
+        }
+        .navbar-nav > li {
+            float: none;
+        }
+        .navbar-nav > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .navbar-toggle .icon-bar {
+            background: #ffffff;
+        }
+        .navbar-toggle {
+            margin-right: 33px;
+        }
         .appral-img {
             background-size: 46%;
         }
@@ -326,12 +316,13 @@
 
 
 
+
+
 </style>
 <nav class="navbar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -381,33 +372,12 @@
                         </a>
                     </li>
 
-                    <!-- <li class="dropdown metro-header welcome" ng-if="role=='Admin'">
-                        <a style="text-align: center; cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="image-lg"></span> Survey</a>
-                        <ul class="dropdown-menu logout-drop">
-                            <li>
-                                <a ui-sref="addSurvey">
-                                    <i class="fa fa-cog" aria-hidden="true"></i> Add Survey</a>
-                            </li>
-                            <li>
-                                <a ui-sref="viewAJData">
-                                    <i class="fa fa-question" aria-hidden="true"></i> View Surveys</a>
-                            </li>
-                        </ul>
-                    </li> -->
-
                     <li class="metro-header" id="prp" ng-hide="showSelectedTabs" has-permission='properties'>
                         <a ui-sref="PropertyList.private_property_list">
                             <span class="image-pr"></span>
                             <span>Properties</span>
                         </a>
                     </li>
-                    <!-- <li class="metro-header" ng-show="showUserTab" has-permission='timeline'>
-                        <a ui-sref="Registered">
-                            <span class="image-Us"></span>
-                            <span>Users</span>
-                        </a>
-                    </li> -->
                     <li class="metro-header" ng-hide="showSelectedTabs" has-permission='taskManager'>
                         <a ui-sref="TaskManager">
                             <span class="image-ts"></span>
@@ -435,8 +405,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- end notify title -->
-                            <!-- notify content -->
                             <div ng-if="allNotifications.external.length==0 && allNotifications.internal.length==0" style="text-align:center;padding: 90px 0px;background-color: rgb(34, 84, 130);min-height: 282px;">
                                 <i style="font-size:24px" class="fa fa-eye-slash"></i>
                                 <p>No notifications</p>
@@ -479,7 +447,7 @@
                                                 </div>
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
                                                     <h4 style="margin: 0px 0px 5px;color:#2c1f70;font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
-                                                        <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
+                                                    <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
 
                                                 </div>
                                             </div>
@@ -487,40 +455,40 @@
                                     </ul>
                                 </div>
                                 <div id="external-events" class="tab-pane fade in">
-                                        <ul class="drop-content">
-                                                <li ng-repeat="notf in allNotifications.internal" style="display:block" ng-class="{'notf-is-read': notf.notification.properties.readFlag==1}"
-                                                    ng-click="OpenNotfModal(notf)">
+                                    <ul class="drop-content">
+                                        <li ng-repeat="notf in allNotifications.internal" style="display:block" ng-class="{'notf-is-read': notf.notification.properties.readFlag==1}"
+                                            ng-click="OpenNotfModal(notf)">
+                                            <div class="row">
+                                                <div class="col-xs-12 pd-l0 event-time">
                                                     <div class="row">
-                                                        <div class="col-xs-12 pd-l0 event-time">
-                                                            <div class="row">
-                                                                <div class="col-xs-4 pd-0">
-                                                                    <p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">
+                                                        <div class="col-xs-4 pd-0">
+                                                            <p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">
                                                                         <span ng-if="notf.notification.properties.daysLeft>=0">
                                                                             <i class="fa fa-circle"></i>
                                                                             <span class="days-left"> {{notf.notification.properties.daysLeft}} DAY(S) LEFT</span>
                                                                         </span>
-                                                                        <span ng-if="notf.notification.properties.daysLeft<0">
+                                                                <span ng-if="notf.notification.properties.daysLeft<0">
                                                                             <i class="fa fa-circle"></i>
                                                                             <span class="days-left">{{notf.notification.properties.daysLeft*-1}} DAY(S)
                                                                                 AGO</span>
                                                                         </span>
-        
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-xs-8 pd-0" style="text-align: right">
-                                                                    <p class="time">Deadline: {{notf.notifications.properties.deadLine}}</p>
-        
-                                                                </div>
-                                                            </div>
+
+                                                            </p>
                                                         </div>
-                                                        <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                            <h4 style="margin: 0 0 5px; color:#2c1f70; font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
-                                                                <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
-        
+                                                        <div class="col-xs-8 pd-0" style="text-align: right">
+                                                            <p class="time">Deadline: {{notf.notifications.properties.deadLine}}</p>
+
                                                         </div>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                </div>
+                                                <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
+                                                    <h4 style="margin: 0 0 5px; color:#2c1f70; font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
+                                                    <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -529,15 +497,6 @@
                             </div>
                         </ul>
                     </li>
-                    <!-- <li class="metro-header">
-                        <a ui-sref="viewAJData"> <span class="image-de"></span><span>AJ Data</span></a>
-                    </li> -->
-                    <!-- <li class="metro-header" ng-hide="showSelectedTabs">
-                        <a href=""> <span class="image-no"></span><span>Notification</span></a>
-                    </li> -->
-                    <!-- <li class="metro-header" ng-hide="showSelectedTabs">
-                        <a href=""> <span class="image-lg"></span><span>Logs</span></a>
-                    </li> -->
 
 
                     <!--<li class="dropdown metro-header welcome">-->
@@ -564,10 +523,6 @@
         </div>
     </div>
 </nav>
-<!-- <div class="alert-box success" id="head_success"> <i class="fa fa-check-circle" aria-hidden="true"></i> {{successMessage}}</div> -->
-<!-- <div class="alert-box dangerr" id="head_error"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{errorMessage}} </div> -->
-
-
 <div class="row   success-alert text-center" style="display:block;">
     <div class="error-notice">
         <div class="row oaerror danger" id="head_danger" style="display: none">
@@ -589,98 +544,3 @@
     </div>
 </div>
 
-<!-- <div id="myNotificationModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #ffffff; color: #555;">
-            <div class="modal-header" style=" background: #000c35 !important;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 class="modal-title text-ce nter" style="color:#fff;">Notification</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div ng-if="selectedNotification.notifications.properties.eventType.indexOf('inter')!=-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-
-                                <label for="inputName" class="control-label">Event Details</label>
-                                <p>{{selectedNotification.notifications.properties.eventDetails}}</p>
-                                <hr>
-                                <label for="inputName" class="control-label">Deadline</label>
-
-                                <p>{{selectedNotification.notifications.properties.deadLine}}</p>
-                                <hr>
-                                <label for="inputName" class="control-label">Event Type</label>
-                                <p>{{selectedNotification.notifications.properties.eventType}}</p>
-                                <hr>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="inputName" class="control-label">Days
-                                    <span ng-if="selectedNotification.notification.properties.daysLeft>=0">Left</span>
-                                    <span ng-if="selectedNotification.notification.properties.daysLeft<0">Ago</span>
-
-                                </label>
-                                <p ng-if="selectedNotification.notification.properties.daysLeft>=0">{{selectedNotification.notification.properties.daysLeft}}</p>
-                                <p ng-if="selectedNotification.notification.properties.daysLeft<0">{{selectedNotification.notification.properties.daysLeft*-1}}</p>
-
-                                <hr>
-                                <label for="inputName" class="control-label">Properties</label>
-                                <p><span style="margin-right:3px;" class="label label-default" ng-repeat="prp in head.parseProps(selectedNotification.notifications.properties.propertyNames)">{{prp}}</span></p>
-                                <hr>
-                            </div>
-
-                        </div>
-                        <br>
-                        <div style="clear:both"></div>
-                        <div class="form-group pull-right" style="margin-top: 20px;">
-                            <button type="submit" data-dismiss="modal" class="btn btn-danger">Close</button>
-                        </div>
-                    </div>
-                    <div ng-if="selectedNotification.notifications.properties.eventType.indexOf('exter')!=-1">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-    
-                                    <label for="inputName" class="control-label">Event Details</label>
-                                    <p>{{selectedNotification.notifications.properties.eventDetails}}</p>
-                                    <hr>
-                                    <label for="inputName" class="control-label">Start Date</label>
-    
-                                    <p>{{selectedNotification.notifications.properties.endDate}}</p>
-                                    <hr>
-                                    <label for="inputName" class="control-label">Event Type</label>
-                                    <p>{{selectedNotification.notifications.properties.eventType}}</p>
-                                    <hr>
-                                </div>
-    
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="inputName" class="control-label">Days
-                                        <span ng-if="selectedNotification.notification.properties.daysLeft>=0">Left</span>
-                                        <span ng-if="selectedNotification.notification.properties.daysLeft<0">Ago</span>
-    
-                                    </label>
-                                    <p ng-if="selectedNotification.notification.properties.daysLeft>=0">{{selectedNotification.notification.properties.daysLeft}}</p>
-                                    <p ng-if="selectedNotification.notification.properties.daysLeft<0">{{selectedNotification.notification.properties.daysLeft*-1}}</p>
-    
-                                    <hr>
-    
-                                    <label for="inputName" class="control-label">End Date</label>
-                                    <p>{{selectedNotification.notifications.properties.endDate}}</p>
-                                    <hr>
-    
-                                </div>
-    
-                            </div>
-                            <br>
-                            <div style="clear:both"></div>
-                            <div class="form-group pull-right" style="margin-top: 20px;">
-                                <button type="submit" data-dismiss="modal" class="btn btn-danger">Close</button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
