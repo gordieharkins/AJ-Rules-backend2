@@ -136,7 +136,7 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
-    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId}
+    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId} AND prop.isDeleted <> true
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
     OPTIONAL MATCH (event)-[:additional_item]->(otherFile: otherFileNode)
