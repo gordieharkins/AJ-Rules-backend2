@@ -1495,7 +1495,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 				}
 
 				if(daysRemaining < 30 && daysRemaining > 0){
-					notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+					notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 					// notification.remainingDays = daysRemaining;
 					message += daysRemaining+ " days remaining before submission. "
 				} else if (daysRemaining <= 0 ){
@@ -1611,7 +1611,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			remainingDays: remainingDays
 		}
 		if(remainingDays < 30 && remainingDays > 0){
-			notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+			notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 			// notification.remainingDays = daysRemaining;
 			warning += remainingDays+ " days remaining before submission. "
 		} else if (remainingDays <= 0 ){
