@@ -423,9 +423,46 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 // create dynamic json for timeline
 function createTimelineWithJson(mytl1){
 	// console.log(marylandTimeline);
-	if (mytl1.ieSurvey.main.paradigm = "AOTC"){
+	if (mytl1.ieSurvey.main.paradigm == "AOTC"){
+		mytl1.ieSurvey["event1"] = {
+			name: "Complete Required Information",
+			status: "Not Started",
+			message: "",
+			warning: "",
+			flag: true,
+			mandatory: true,
+			buttonText: "Details",
+			button: true,
+			order: 1,
+		}
+
+		mytl1.ieSurvey["event2"] = {
+			name: "Review IE Survey Draft",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			mandatory: false,
+			buttonText: "Schedule Review",
+			button: true,
+			reviewResult:true,
+			order: 2
+		}
+
+		mytl1.ieSurvey["event3"] = {
+			name: "Submit IE Survey Data",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			buttonText: "Execute Signature",
+			button: true,
+			mandatory: true,
+			dropdown: true,
+			dropdownValues: ["Execute Signature"],
+			order: 3
+		}
+
 		reqItems = mytl1.ieSurvey.main.requiredItems
-		console.log(reqItems);
+		// console.log(reqItems);
 		for (var i=0; i < reqItems.length;i++){ 
 			console.log(reqItems[i]);
 			arr = reqItems[i].split("||");
@@ -436,11 +473,82 @@ function createTimelineWithJson(mytl1){
 			temp.push(arr[1])
 			temp.push(arr[2])
 
-			mytl1.ieSurvey.event1[i] = temp;
+			mytl1.ieSurvey["event1"][i] = temp;
 		}
-	return mytl1
-	}
-	else if (mytl1.ieSurvey.main.paradigm = "paper"){
+
+		mytl1.ieSurvey.event1.field1 = ["field","A", "0", "IE 2015"];
+		mytl1.ieSurvey.event1.field1 = ["field","B", "1", "IE 2015"];
+		mytl1.ieSurvey.event1.field1 = ["field","C", "2", "IE 2016"];
+		mytl1.ieSurvey.event1.field1 = ["field","D", "3", "IE 2017"];
+		mytl1.ieSurvey.event1.field1 = ["field","E", "4", "RR as of January 1, 2017"];
+		mytl1.ieSurvey.event1.field1 = ["field","F", "5", "RR as of January 1, 2018"];
+
+		return mytl1
+	} else if (mytl1.ieSurvey.main.paradigm == "paper"){
+		mytl1.ieSurvey["event1"] = {
+			name: "Complete IE Survey Form",
+			status: "Not Started",
+			message: "Have you received the income expense survey form?",
+			flag: true,
+			mandatory: true,
+			warning: false,
+			toggle: true,
+			toggleValue: false,
+			dropdown: true,
+			dropdownValues: ["Mark as Yes", "Mark as No"],
+			order: 1
+		}
+
+		mytl1.ieSurvey["event2"] = {
+			name: "Complete Required Items",
+			status: "Not Started",
+			message: "",
+			warning: "",
+			flag: true,
+			mandatory: true,
+			buttonText: "View Checklist",
+			button: true,
+			order: 2
+		}
+
+		mytl1.ieSurvey["event3"] = {
+			name: "Review IE Survey Draft",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			mandatory: false,
+			toggleValue: "false",
+			toggle: false,
+			reviewResult:true,
+			order: 3
+		}
+
+		mytl1.ieSurvey["event4"] = {
+			name: "Execute Signature",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			toggleValue: "false",
+			button: false,
+			mandatory: true,
+			dropdown: true,
+			dropdownValues: ["Execute Signature"],
+			// state: "", 
+			order: 4
+		}
+
+		mytl1.ieSurvey["event5"] =  {
+			name: "Submit IE Survey Data",
+			status: "Not Started",
+			message: "",
+			flag: false,
+			toggleValue: "false",
+			button: false,
+			mandatory: true,
+			// state: "", 
+			order: 5
+		}
+
 		reqItems = mytl1.ieSurvey.main.requiredItems
 		console.log(reqItems);
 		for (var i=0; i < reqItems.length;i++){ 
@@ -451,9 +559,17 @@ function createTimelineWithJson(mytl1){
 			temp.push(arr[0])
 			temp.push("false")
 
-			mytl1.ieSurvey.event1[i] = temp;
+			mytl1.ieSurvey.event2[i] = temp;
 		}
-	return mytl1
+
+		mytl1.ieSurvey.event2.field1 = ["field","A","false"];
+		mytl1.ieSurvey.event2.field2 = ["field","B","false"];
+		mytl1.ieSurvey.event2.field3 = ["field","C","false"];
+		mytl1.ieSurvey.event2.field4 = ["field","D","false"];
+		mytl1.ieSurvey.event2.field5 = ["field","E","false"];
+		mytl1.ieSurvey.event2.field6 = ["field","F","false"];
+
+		return mytl1
 	}
 	// console.log(JSON.stringify(marylandTimeline))
 } 
@@ -466,16 +582,17 @@ function createTimelineWithJson(mytl1){
 BLL.prototype.addPropertyTimelineData = function(data, cb) {
 
 	// console.log("timeline: ",data);
-	var tml;
+	// var tml;
 	var year = (new Date()).getFullYear();
-	if(data[0].jurisdiction == "Maryland"){
-		var tml = createTimelineWithJson(mytl.marylandTimeline)
-		// console.log("test: ",JSON.stringify(timeline))
-	}else{
-		tml = createTimelineWithJson(mytl.marylandTimeline)
-		// console.log("test: ",JSON.stringify(fl_timeline))
-	}
-	console.log("here");
+	// if(data[0].jurisdiction == "Maryland"){
+	// 	var tml = createTimelineWithJson(mytl.marylandTimeline)
+	// 	// console.log("test: ",JSON.stringify(timeline))
+	// }else{
+	// 	tml = createTimelineWithJson(mytl.floridaTimeline)
+	// 	// console.log("test: ",JSON.stringify(fl_timeline))
+	// }
+	var jurisdictionIndex = mytl.jurisdictionsNames.indexOf(data[0].jurisdiction);
+	var tml = createTimelineWithJson(mytl.jurisdictions[jurisdictionIndex]);
     DAL.addPropertyTimelineData(data, tml, year, function(error, result) {
         if (error) {
         	console.log(error);
@@ -653,7 +770,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 			var jurisdictionsNames = [];
 			var propertyIds = [];
 			async.forEachOf(result, function (value, i, callbackMain) {
-				if(value.event.properties.name == "Income and Expense Survey"){
+				if(value.event.properties.type == 1){
 					var tempEvent = [];
 					var started = true;
 					for(var k = 0; k < value.subEvent.length; k++){
@@ -876,9 +993,13 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 									if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
 										value.event.properties.warning = "Complete required information.";
-									} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" ){
-										value.event.properties.warning = "Please execute signature.";
-									} 
+									} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" 
+									&& value.subEvent[submitIEDataIndex].properties.message == "The data will be released to AJ soon."){
+										value.event.properties.message = "The data will be released to AJ soon.";
+										value.event.properties.warning = "";
+									} else {
+										value.event.properties.warning = "Execute signature.";
+									}
 								}
 	
 								var event = {
