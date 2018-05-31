@@ -2,9 +2,16 @@
     .header-btn ul li {
         color: #3b73af !important;
     }
+    .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+        text-transform: capitalize !important;
+        letter-spacing: 0 !important;
+    }
 
     .header-btn ul.dropdown-menu.notify-drop li a {
         color: #2f2877
+    }
+    .appral-img{
+        background-size: 24% ;
     }
 
     .dropdown-menu.notify-drop {
@@ -28,10 +35,13 @@
     .header-btn span {
         cursor: pointer;
     }
+    .user-img{
+        padding: 0 15px;
+    }
 
     .dropdown-menu.notify-drop .notify-drop-title {
         border-bottom: 1px solid #30337f;
-        padding: 0px 10px 10px 10px;
+        padding: 0 10px 10px 10px;
     }
 
     .dropdown-menu.notify-drop .drop-content {
@@ -230,6 +240,52 @@
         text-align: left !important;
         padding: 0 0 0 10px !important;
     }
+    @media (max-width: 1200px) {
+        .image-lg {
+            width: 65px;
+        }
+        .appral-img{
+            background-size: 30% ;
+        }
+    }
+    @media (max-width: 800px) {
+
+        .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+            text-transform: capitalize !important;
+            letter-spacing: 0 !important;
+            margin: 0 !important;
+            padding: 12px 0 0 8px;
+            font-size: 14px;
+        }
+        .header-btn span {
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .image-lg {
+            width: 60px;
+        }
+        .image-pr {
+            width: 52px;
+        }
+        .image-ts {
+            width: 79px;
+        }
+        .user-img {
+            padding: 0 2px;
+        }
+
+    }
+    @media (max-width:767px) {
+        .navbar-toggle .icon-bar {
+            background: #ffffff;
+        }
+        .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+            padding: 3px 0 0 30px;
+            font-size: 19px;
+        }
+    }
+
+
 
 </style>
 <nav class="navbar" role="navigation">
@@ -251,7 +307,7 @@
                 <ul>
                     <li class="metro-header">
                         <a ui-sref="TaxAppeal">
-                            <span class="image-lg" style="background-image: url(../../assets/img/tax.png); background-size: 24%;"></span>
+                            <span class=" appral-img image-lg" style="background-image: url(../../assets/img/tax.png); "></span>
                             <span> Tax appeal</span>
                         </a>
                     </li>
@@ -447,7 +503,7 @@
 
                     <!--<li class="dropdown metro-header welcome">-->
                     <li class="dropdown metro-header">
-                        <a class=" dropdown-toggle" data-toggle="dropdown" href="" style="padding: 0 15px;">
+                        <a class=" dropdown-toggle user-img" data-toggle="dropdown" href="">
                             <span class="image-ph"></span> Welcome {{name}} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu logout-drop">
                             <li>

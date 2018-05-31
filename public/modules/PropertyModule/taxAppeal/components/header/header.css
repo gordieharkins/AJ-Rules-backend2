@@ -410,9 +410,7 @@ ul.appeal-check.appeal-new {
       .head-filters .filter-btn{
         padding: 0;
       }
-      .image-lg {
-        width: 65px;
-      }
+
     }
 
     @media (max-width: 1023px ) {
@@ -421,9 +419,7 @@ ul.appeal-check.appeal-new {
         width: 100%;
         display: block;
       }
-      .image-lg {
-        width: 69px;
-      }
+
 
       .filter-sub {
         padding: 0;
@@ -509,6 +505,24 @@ ul.appeal-check.appeal-new {
 
 
     }
+@media (max-width: 800px) {
+
+  .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    text-transform: capitalize !important;
+    letter-spacing: 0 !important;
+  }
+  .image-lg {
+    width: 60px;
+  }
+  .image-pr {
+    width: 52px;
+  }
+  .image-ts {
+    width: 79px;
+  }
+
+}
+
     @media (max-width: 767px){
       .show-filter-wrap{
         top:145px;
