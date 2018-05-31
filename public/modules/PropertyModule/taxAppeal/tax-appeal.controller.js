@@ -135,7 +135,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                  
                
-                  setTimeout(function(){ UpdateData(1)}, 5000)
+                  setTimeout(function(){ UpdateData(4, 'Data Updated Successfully')}, 5000)
                  
                  
                 }, function (result) {
@@ -239,7 +239,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                   console.log(result.data)
                   $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2)}, 5000)
+                  setTimeout(function(){ UpdateData(2, 'Data Updated Successfully')}, 5000)
         
              
                  
@@ -294,7 +294,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var dFields= $scope.configModal.data.data.properties.dataFields
             for (var k = 0 ; k   < dFields.length; k++) {
                 $scope.configModal.dFieldsCb = "true"
-                if(dFields[k].value="false") {
+                if(dFields[k].value=="false") {
                     $scope.configModal.dFieldsCb = "false"
                     break;
                 } else {
@@ -304,7 +304,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var rFields= $scope.configModal.data.data.properties.requiredItems
             for (var k = 0 ; k   < rFields.length; k++) {
                 $scope.configModal.rItemCb = "true"
-                if(rFields[k].value="false") {
+                if(rFields[k].value=="false") {
                     $scope.configModal.rItemCb = "false"
                     break;
                 } else {
@@ -354,7 +354,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(3)
+               setTimeout(function(){ UpdateData(3,"Data updated successfully.")
              }, 5000)
                        
                 
@@ -413,7 +413,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
       
     }
 
-    function UpdateData(type){
+    function UpdateData(type,message){
         
  
         var url = '/appeal/getPropertyTimelineData';
@@ -446,6 +446,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
+                  $scope.$emit('success', message)
                 }, function (result) {
                 //some error
         //         ////console.log(result);
@@ -478,7 +479,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                      setTimeout(function(){ UpdateData(1)
+                      setTimeout(function(){ UpdateData(1, 'Data Updated Successfully')
                     }, 5000)
                     
                        $scope.uploadModal = false

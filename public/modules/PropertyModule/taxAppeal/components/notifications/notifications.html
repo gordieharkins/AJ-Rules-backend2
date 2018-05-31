@@ -1,11 +1,20 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/notifications/notifications.css">
-
+<script>
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 135) {
+            $('#notification').addClass('fixed');
+        } else {
+            $('#notification').removeClass('fixed');
+        }
+    });
+</script>
+<div class="aside" id="notification">
 <div class="sidebar-header">
     <div class="">
       <span>Notification</span>
     </div>
   </div>
-  <div class="sidebar">
+  <div class="sidebar" >
 
     <div class="sidebar-body" ng-repeat=" not in data.notification">
       <div class="card card-1 red-card" ng-class="setWarning(not)">
@@ -33,3 +42,4 @@
       <!--</div>-->
     </div>
   </div>
+</div>
