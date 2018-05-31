@@ -410,6 +410,9 @@ ul.appeal-check.appeal-new {
       .head-filters .filter-btn{
         padding: 0;
       }
+      .image-lg {
+        width: 65px;
+      }
     }
 
     @media (max-width: 1023px ) {
@@ -417,6 +420,9 @@ ul.appeal-check.appeal-new {
         padding: 0;
         width: 100%;
         display: block;
+      }
+      .image-lg {
+        width: 69px;
       }
 
       .filter-sub {
