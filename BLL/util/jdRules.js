@@ -24,7 +24,7 @@ timeline = {};
 //     }
 // }
 
-timeline.jurisdictionsNames = ["State of Maryland", "State of Florida"];
+timeline.jurisdictionsNames = ["State of Maryland", "State of Virginia"];
 timeline.jurisdictions = [
 	{
 		ieSurvey:{

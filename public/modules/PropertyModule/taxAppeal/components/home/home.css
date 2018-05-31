@@ -418,7 +418,7 @@ thead tr th span{
   margin: 5px 5px 0 0;
 }
 .not-mandatory{
-  display: block;
+  display: contents;
   color: #cf0303;
   font-weight: 600;
   font-size: 12px;

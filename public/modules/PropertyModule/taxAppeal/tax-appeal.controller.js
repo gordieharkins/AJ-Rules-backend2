@@ -135,7 +135,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                  
                
-                  setTimeout(function(){ UpdateData(4, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(4, 'Data updated successfully')}, 5000)
                  
                  
                 }, function (result) {
@@ -239,7 +239,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                   console.log(result.data)
                   $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
         
              
                  
@@ -262,6 +262,24 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         for (var i = 0 ; i  < data.length ; i++) {
             data[i].value = value
         }
+    }
+
+    $scope.configModalfields =  function(data, item) {
+        let count = 0 ;
+        for(var  i = 0 ; i <data.length;i++) {
+            
+            if(data[i].value=='true'){
+                  count++;
+            } else {
+                  count--;
+            }
+        }
+        item = count == data.length ? item = "true" : item= "false";
+
+        return item;
+        // if(count==data.length){
+
+        // }
     }
 
     $scope.selectAllFields = function(value,flag) {
@@ -479,7 +497,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                      setTimeout(function(){ UpdateData(1, 'Data Updated Successfully')
+                      setTimeout(function(){ UpdateData(1, 'Data updated successfully')
                     }, 5000)
                     
                        $scope.uploadModal = false

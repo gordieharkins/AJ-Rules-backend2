@@ -56,17 +56,20 @@
               <!--</i></span>-->
           <!--</th>-->
 
-          <th ng-repeat="events in  subData.prop[0].subEvents">
+          <th ng-repeat="events in  subData.prop[0].subEvents"  ng-init="idx= $index">
             <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
             <span>{{events.properties.name}}
-               <span class="caret dropdown" style="cursor: pointer" ng-if="events.properties.dropdown" >
+                  <span class="caret dropdown" style="cursor: pointer" ng-if="events.properties.dropdown" >
                  <i  class="fa fa-caret-down"></i>
                   <ul class="dropdown-menu">
-                    <li ng-repeat="data in events.properties.dropdownValues"  ng-model="events.markAll" ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">
+                    <li ng-repeat="data in events.properties.dropdownValues" 
+                       ng-click="selectAll(idx,data,events,events.properties.dropdownValues)">
                       <a>{{data}}</a>
                     </li>
                   </ul>
                  </span>
+                 <span ng-show="events.properties.mandatory" class="not-mandatory">(Optional)</span>
+         
             </span>
           </th>
 
