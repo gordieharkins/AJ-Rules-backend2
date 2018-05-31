@@ -144,7 +144,7 @@
                       <td>{{fields.name}}</td>
                       <!-- <td ng-class="{'red-back': fields.value == ''}" >{{fields.value}}</td> -->
                       <td class="middle-check">
-                        <input ng-true-value="'true'" ng-false-value="'false'" style="width: 100%" type="checkbox" ng-model="fields.value">
+                        <input  ng-change="configModal.dFieldsCb = configModalfields(configModal.data.data.properties.dataFields,configModal.dFieldsCb )" ng-true-value="'true'" ng-false-value="'false'" style="width: 100%" type="checkbox" ng-model="fields.value">
                       </td>
                     </tr>
     
@@ -174,7 +174,7 @@
                   <ul class="req-list" ng-repeat="req in configModal.data.data.properties.requiredItems">
                     <li style="color: #a94442;">{{req.name}}
                       <span style="float: right">
-                              <input ng-true-value="'true'" ng-false-value="'false'"   type="checkbox" ng-model="req.value">
+                              <input ng-change="configModal.rItemCb = configModalfields(configModal.data.data.properties.requiredItems,configModal.rItemCb )" ng-true-value="'true'" ng-false-value="'false'"   type="checkbox" ng-model="req.value">
                       </span>
               
                     </li>
