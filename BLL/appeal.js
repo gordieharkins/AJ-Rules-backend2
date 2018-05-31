@@ -779,7 +779,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					value.subEvent = tempEvent;
 					if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 						var startDate = calculateRemainingDays(value.event.properties.startDate);
-						if(startDate <= 0){
+						if(startDate < 0){
 							value.event.properties.status = "In Progress";
 							value.event.properties.message = "Deadline: "+ value.event.deadline;
 							value.event.properties.warning = "Complete required information."

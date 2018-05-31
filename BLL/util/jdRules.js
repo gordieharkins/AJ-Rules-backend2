@@ -122,7 +122,7 @@ timeline.jurisdictions = [
 				transmitPackage: "mail",
 				paradigm: "paper",
 				deadline: "6/14/2018",
-				startDate: "5/14/2018",
+				startDate: "6/14/2018",
 				status: "Not Started", 
 				message: "Start date: 5/14/2018",
 				warning: "",
