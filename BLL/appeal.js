@@ -793,6 +793,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								}
 							});
 						} else {
+							value.event.properties.message = "Start date: "+ value.event.properties.startDate;
 							started = false;
 							var event = {
 								eventId: value.event._id,
