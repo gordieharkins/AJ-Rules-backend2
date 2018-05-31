@@ -575,7 +575,7 @@ ul.dropdown-menu li a:hover {
 
 
 .table-row{
-  width: 76%;
+  width: 75%;
   padding-right: 0;
 }
 .notification-row{
@@ -591,6 +591,7 @@ ul.dropdown-menu li a:hover {
         width: 100%;
       }
     }
+
     @media (max-width: 955px) {
       .table-header-actions{
         padding-right: 9px;

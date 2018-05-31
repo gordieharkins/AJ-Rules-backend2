@@ -1,8 +1,13 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/notifications/notifications.css">
 <script>
     $(window).scroll(function(){
-        if ($(this).scrollTop() > 135) {
+        if ($(this).scrollTop() > 145) {
             $('#notification').addClass('fixed');
+        } else {
+            $('#notification').removeClass('fixed');
+        }
+        if ($(this).scrollTop() < 768) {
+            $('#notification').remove('fixed');
         } else {
             $('#notification').removeClass('fixed');
         }
