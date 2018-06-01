@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div  class="JStableOuter" >
+    <div  class="JStableOuter inner-table" >
       <table >
         <thead>
         <tr style="top: 0" >
@@ -46,7 +46,6 @@
 
 
           <!--<th ng-repeat="events in  subData.prop[0].subEvents">-->
-            <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
             <!--<span>{{events.properties.name}}-->
               <!--<i  class="fa fa-caret-down property-dropdown-new" ng-if="events.properties.dropdown">-->
                  <!--<select class="select-area selectpicker" data-width="fit"  ng-if="events.properties.dropdown"  ng-model="events.markAll"-->
@@ -57,7 +56,6 @@
           <!--</th>-->
 
           <th ng-repeat="events in  subData.prop[0].subEvents"  ng-init="idx= $index">
-            <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
             <span>{{events.properties.name}}
                   <span class="caret dropdown" style="cursor: pointer" ng-if="events.properties.dropdown" >
                  <i  class="fa fa-caret-down"></i>

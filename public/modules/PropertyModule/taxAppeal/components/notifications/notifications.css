@@ -9,15 +9,12 @@
   }
   .sidebar-notification{
     background-color: #f9f9f9;
-    /*height: 100%;*/
     padding: 0 10px 0 10px;
     border: 1px solid #dddddd;
-    /*max-height:672px;*/
     overflow: auto;
-    /*max-height:83.5vh;*/
     width: 100%;
-    max-height: 597px;
-    min-height: 597px;
+    max-height:86vh;
+    min-height: 86vh;
   
   }
   
