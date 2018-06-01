@@ -1013,8 +1013,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
 											value.event.properties.warning = "Complete required information.";
 										} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" 
-										&& value.subEvent[submitIEDataIndex].properties.message == "The data will be released to AJ soon."){
-											value.event.properties.message = "The data will be released to AJ on "+  value.event.deadline+ ".";
+										&& value.subEvent[submitIEDataIndex].properties.message == "The data will be released to AJ on "+  value.event.properties.deadline+ "."){
+											value.event.properties.message = "The data will be released to AJ on "+  value.event.properties.deadline+ ".";
 											value.event.properties.warning = "";
 										} else {
 											value.event.properties.warning = "Execute signature.";
