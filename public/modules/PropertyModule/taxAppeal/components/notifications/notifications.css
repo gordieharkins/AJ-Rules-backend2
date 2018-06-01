@@ -5,7 +5,7 @@
     padding: 10px 0 10px 10px;
     height: 45px;
     font-weight: bold;
-  display: inline-flex;
+  /*display: inline-flex;*/
   }
   .sidebar-notification{
     background-color: #f9f9f9;
@@ -14,7 +14,7 @@
     border: 1px solid #dddddd;
     /*max-height:672px;*/
     overflow: auto;
-    min-height:672px;
+    max-height:83.5vh;
     width: 100%;
   
   }
