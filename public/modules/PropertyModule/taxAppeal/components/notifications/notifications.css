@@ -8,10 +8,12 @@
   }
   .sidebar{
     background-color: #f9f9f9;
-    height: 500px;
+    height: 100vh;
     padding: 0 10px 0 10px;
     border: 1px solid #dddddd;
+    max-height:672px;
     overflow: auto;
+    min-width: 100%;
   
   }
   
@@ -42,14 +44,16 @@
     margin: 0;
   }
   .red-card{
-    border-left: 7px solid #cf0303 !important;
     border: 1px solid #cf0303;
+    border-left: 7px solid #cf0303 !important;
     padding: 10px;
+    margin: 0 0 10px !important;
   }
   .blue-card{
-    border-left: 7px solid #2f71ab !important;
     border: 1px solid #2f71ab;
+    border-left: 7px solid #2f71ab !important;
     padding: 10px;
+    margin: 0 0 10px !important;
   }
 .card-tag {
   float: right;
