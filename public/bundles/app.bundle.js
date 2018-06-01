@@ -13892,15 +13892,15 @@ __webpack_require__(239);
 __webpack_require__(241);
 __webpack_require__(243);
 __webpack_require__(246);
+__webpack_require__(285);
 __webpack_require__(286);
-__webpack_require__(287);
-__webpack_require__(312);
-__webpack_require__(315);
-__webpack_require__(320);
-__webpack_require__(328);
-__webpack_require__(331);
-__webpack_require__(333);
-__webpack_require__(335);
+__webpack_require__(311);
+__webpack_require__(314);
+__webpack_require__(319);
+__webpack_require__(327);
+__webpack_require__(330);
+__webpack_require__(332);
+__webpack_require__(334);
 
 /***/ }),
 /* 139 */
@@ -25951,7 +25951,7 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(2
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', __webpack_require__(284));
-angular.module('AOTC').filter('FilterJ', __webpack_require__(285));
+angular.module('AOTC').filter('FilterJ', __webpack_require__(415));
 
 
 /***/ }),
@@ -33937,7 +33937,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 
     $scope.getPropertyDetails = function()  {
-  
+   
     var url = '/appeal/getPropertyTimelineData';
     var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
@@ -33948,7 +33948,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-               
+              
              
             }, function (result) {
             //some error
@@ -34342,7 +34342,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('show class')
       
     }
-
+    $scope.selectFiltersJ = function(data) {
+        var selected = []
+        for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
+            if($scope.search.jurisdictions[i].value==true) {
+                selected.push(data.name)
+            }
+        }
+        $scope.inputSearch.name = selected
+    }
     function UpdateData(type,message){
         
  
@@ -34428,7 +34436,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
     
 
-      
+     
+    
+
+        function resetError(){
+            $scope.config = {error: null, errorFunction: null}; 
+        }
  
 }
 
@@ -34437,29 +34450,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 /***/ }),
 /* 285 */
-/***/ (function(module, exports) {
-
-_JurisDictionFilter.$inject = ["$http", "$filter"];
-module.exports = _JurisDictionFilter;
-
-
-    // Create the return function and set the required parameter name to **input**
-    function _JurisDictionFilter() {
-      
-        return function(items, params) {
-            console.log(items, params)
-                var out = [];
-                console.log(items)
-
-  
-                 return items;
-        }
-    }
-  
-
-
-/***/ }),
-/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34471,7 +34461,7 @@ angular.module('AOTC').controller('Signup', __webpack_require__(101).Signup);
 angular.module('AOTC').directive('pwCheck', __webpack_require__(101).pwCheck);
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34489,49 +34479,49 @@ angular.module('AOTC').filter('nameFilter', __webpack_require__(65).nameFilter);
 angular.module('AOTC').component('editArrangeSurveyComponent', __webpack_require__(65).editArrangeSurveyComponent);
 
 //EditCreateSurvey
-angular.module('AOTC').component('editCreateSurveyComponent', __webpack_require__(288));
+angular.module('AOTC').component('editCreateSurveyComponent', __webpack_require__(287));
 
 //EditViewSurvey
-angular.module('AOTC').component('editViewSurveyComponent', __webpack_require__(289));
+angular.module('AOTC').component('editViewSurveyComponent', __webpack_require__(288));
 
 
 //editSurveyWizard
-angular.module('AOTC').controller('editSurveyCtrl', __webpack_require__(290));
+angular.module('AOTC').controller('editSurveyCtrl', __webpack_require__(289));
 
 
 ////******FillSurvey
-angular.module('AOTC').controller('FillSurvey', __webpack_require__(291));
-angular.module('AOTC').service('FillSurveyService', __webpack_require__(292));
+angular.module('AOTC').controller('FillSurvey', __webpack_require__(290));
+angular.module('AOTC').service('FillSurveyService', __webpack_require__(291));
 
 
 ////******SubmissionList
-angular.module('AOTC').controller('SubmissionList', __webpack_require__(293));
-angular.module('AOTC').service('SubmissionListService', __webpack_require__(294));
+angular.module('AOTC').controller('SubmissionList', __webpack_require__(292));
+angular.module('AOTC').service('SubmissionListService', __webpack_require__(293));
 
 
 //////******SurveyAnswer
 
 ////******SurveyList
-angular.module('AOTC').controller('SurveyList', __webpack_require__(295));
-angular.module('AOTC').service('SurveylistService', __webpack_require__(296));
+angular.module('AOTC').controller('SurveyList', __webpack_require__(294));
+angular.module('AOTC').service('SurveylistService', __webpack_require__(295));
 
 
 ////******SurveySubmissions
-angular.module('AOTC').controller('SurveySubmissions', __webpack_require__(297));
-angular.module('AOTC').service('SurveySubmissionsService', __webpack_require__(298));
+angular.module('AOTC').controller('SurveySubmissions', __webpack_require__(296));
+angular.module('AOTC').service('SurveySubmissionsService', __webpack_require__(297));
 
 ////******Wizards
 //AddQuestion
-angular.module('AOTC').controller('AddQuestionCtrl', __webpack_require__(299));
-angular.module('AOTC').service('AddQuestionService', __webpack_require__(300));
-angular.module('AOTC').component('inputFields', __webpack_require__(301));
+angular.module('AOTC').controller('AddQuestionCtrl', __webpack_require__(298));
+angular.module('AOTC').service('AddQuestionService', __webpack_require__(299));
+angular.module('AOTC').component('inputFields', __webpack_require__(300));
 
 
 
 //ArrangeSurvey
-angular.module('AOTC').controller('ArrangeSurveyCtrl', __webpack_require__(302));
-angular.module('AOTC').service('ArrangeSurveyService', __webpack_require__(303));
-angular.module('AOTC').service('ArrangeSurveyUtil', __webpack_require__(304));
+angular.module('AOTC').controller('ArrangeSurveyCtrl', __webpack_require__(301));
+angular.module('AOTC').service('ArrangeSurveyService', __webpack_require__(302));
+angular.module('AOTC').service('ArrangeSurveyUtil', __webpack_require__(303));
 
 
 angular.module('AOTC').component('arrangeSurveyComponent', __webpack_require__(66).arrangeSurveyComponent);
@@ -34542,20 +34532,20 @@ angular.module('AOTC').directive('myDraggable', __webpack_require__(66).myDragga
 
 //CreateSurvey
 //angular.module('AOTC').controller('ArrangeSurveyCtrl', require('./Wizards/CreateSurvey/ArrangeSurvey.controller'));
-angular.module('AOTC').service('CreateSurveyService', __webpack_require__(305));
-angular.module('AOTC').service('CreateSurveyUtil', __webpack_require__(306));
+angular.module('AOTC').service('CreateSurveyService', __webpack_require__(304));
+angular.module('AOTC').service('CreateSurveyUtil', __webpack_require__(305));
 
 
-angular.module('AOTC').component('createSurveyComponent', __webpack_require__(307));
+angular.module('AOTC').component('createSurveyComponent', __webpack_require__(306));
 //angular.module('AOTC').component('inputFields', require('./Wizards/CreateSurvey/GenericQuestionOptions.component'));
 
 //sectionSettings
 
-angular.module('AOTC').controller('sectionSettingsCtrl', __webpack_require__(308));
-angular.module('AOTC').service('sectionSettingsService', __webpack_require__(309));
+angular.module('AOTC').controller('sectionSettingsCtrl', __webpack_require__(307));
+angular.module('AOTC').service('sectionSettingsService', __webpack_require__(308));
 
 //ViewSurvey
-angular.module('AOTC').component('viewSurveyController', __webpack_require__(310));
+angular.module('AOTC').component('viewSurveyController', __webpack_require__(309));
 //angular.module('AOTC').controller('ViewSurveyCtrl', require('./Wizards/ViewSurvey/ViewSurvey.controller'));
 //angular.module('AOTC').factory('ViewSurveyService', require('./Wizards/ViewSurvey/ViewSurvey.service'));
 //angular.module('AOTC').service('ViewSurveyUtil', require('./Wizards/ViewSurvey/ViewSurvey.utils'));
@@ -34563,11 +34553,11 @@ angular.module('AOTC').component('viewSurveyController', __webpack_require__(310
 
 
 ////******WizardsViewer
-angular.module('AOTC').controller('WizardsViewerCtrl', __webpack_require__(311));
+angular.module('AOTC').controller('WizardsViewerCtrl', __webpack_require__(310));
 
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var _editCreateSurveyComponent = {};
@@ -34903,7 +34893,7 @@ module.exports = _editCreateSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -35069,7 +35059,7 @@ module.exports = _editViewSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 290 */
+/* 289 */
 /***/ (function(module, exports) {
 
 _editSurveyCtrl.$inject = ["$scope", "CreateSurveyService"];
@@ -35135,7 +35125,7 @@ function _editSurveyCtrl($scope, CreateSurveyService) {
 }
 
 /***/ }),
-/* 291 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35292,7 +35282,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 292 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35369,7 +35359,7 @@ function _FillSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 293 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35442,7 +35432,7 @@ function _SubmissionList($stateParams, $scope, $state, SubmissionListService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 294 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35499,7 +35489,7 @@ function _SubmissionListService($q, AOTCService) {
 
 
 /***/ }),
-/* 295 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35600,7 +35590,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 296 */
+/* 295 */
 /***/ (function(module, exports) {
 
 _SurveylistService.$inject = ["$q","AOTCService"];
@@ -35655,7 +35645,7 @@ function _SurveylistService($q, AOTCService) {
 
 
 /***/ }),
-/* 297 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35858,7 +35848,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 298 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35930,7 +35920,7 @@ function _SurveySubmissionsService($q, AOTCService) {
 
 
 /***/ }),
-/* 299 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36055,7 +36045,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 300 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36127,7 +36117,7 @@ function _AddQuestionService($q, AOTCService) {
 
 
 /***/ }),
-/* 301 */
+/* 300 */
 /***/ (function(module, exports) {
 
 
@@ -36264,7 +36254,7 @@ var _inputFields =  {
 module.exports = _inputFields;
 
 /***/ }),
-/* 302 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36281,7 +36271,7 @@ function _ArrangeSurveyCtrl(CreateSurveyService, ArrangeSurveyService, $scope) {
 }
 
 /***/ }),
-/* 303 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36341,7 +36331,7 @@ function _ArrangeSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 304 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36357,7 +36347,7 @@ angular.module('AOTC')
 
 
 /***/ }),
-/* 305 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36421,7 +36411,7 @@ function _CreateSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 306 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36437,7 +36427,7 @@ angular.module('AOTC')
 
 
 /***/ }),
-/* 307 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36659,7 +36649,7 @@ module.exports = _createSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 308 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36775,7 +36765,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 309 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36850,7 +36840,7 @@ function _sectionSettingsService($q, AOTCService) {
 
 
 /***/ }),
-/* 310 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -37005,7 +36995,7 @@ module.exports = _viewSurveyController;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 311 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37070,7 +37060,7 @@ function _WizardsViewerCtrl($scope, $location, $state) {
 }
 
 /***/ }),
-/* 312 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37078,11 +37068,11 @@ function _WizardsViewerCtrl($scope, $location, $state) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('TaskManagerCtrl', __webpack_require__(313));
-angular.module('AOTC').service('taskService', __webpack_require__(314));
+angular.module('AOTC').controller('TaskManagerCtrl', __webpack_require__(312));
+angular.module('AOTC').service('taskService', __webpack_require__(313));
 
 /***/ }),
-/* 313 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37185,7 +37175,7 @@ function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, ta
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 314 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37274,7 +37264,7 @@ function _taskService($http, $q, $location) {
 
 
 /***/ }),
-/* 315 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37283,21 +37273,21 @@ function _taskService($http, $q, $location) {
 //var angular = require('angular');
 
 //******MultipleRegistration
-angular.module('AOTC').controller('UserRegistration', __webpack_require__(316));
+angular.module('AOTC').controller('UserRegistration', __webpack_require__(315));
 
 
 //******SingleRegistration
 
-angular.module('AOTC').controller('Registered', __webpack_require__(317));
+angular.module('AOTC').controller('Registered', __webpack_require__(316));
 
-angular.module('AOTC').controller('UserRolesListCtrl', __webpack_require__(318));
+angular.module('AOTC').controller('UserRolesListCtrl', __webpack_require__(317));
 
 //*Inventory
-angular.module('AOTC').controller('InventoryCtrl', __webpack_require__(319));
+angular.module('AOTC').controller('InventoryCtrl', __webpack_require__(318));
 
 
 /***/ }),
-/* 316 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37491,7 +37481,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 317 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37650,7 +37640,7 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 318 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_userRolesListCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q"];
@@ -37771,7 +37761,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 319 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37821,7 +37811,7 @@ function _Inventory($state, $scope, $location, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 320 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37829,16 +37819,16 @@ function _Inventory($state, $scope, $location, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').factory('AOTCService', __webpack_require__(321));
-angular.module('AOTC').factory('DataMappingService', __webpack_require__(322));
+angular.module('AOTC').factory('AOTCService', __webpack_require__(320));
+angular.module('AOTC').factory('DataMappingService', __webpack_require__(321));
 
-angular.module('AOTC').config(__webpack_require__(323));
-angular.module('AOTC').factory('fileReader', __webpack_require__(324));
+angular.module('AOTC').config(__webpack_require__(322));
+angular.module('AOTC').factory('fileReader', __webpack_require__(323));
 
-angular.module('AOTC').factory('UtilService', __webpack_require__(325));
+angular.module('AOTC').factory('UtilService', __webpack_require__(324));
 
-angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(326));
-angular.module('AOTC').factory('AOTCAuth', __webpack_require__(327));
+angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(325));
+angular.module('AOTC').factory('AOTCAuth', __webpack_require__(326));
 
 
 
@@ -37850,7 +37840,7 @@ angular.module('AOTC').factory('AOTCAuth', __webpack_require__(327));
 
 
 /***/ }),
-/* 321 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37995,7 +37985,7 @@ function _AOTCService($http, $rootScope) {
 
 
 /***/ }),
-/* 322 */
+/* 321 */
 /***/ (function(module, exports) {
 
 
@@ -38047,7 +38037,7 @@ function _DataMappingService() {
 
 
 /***/ }),
-/* 323 */
+/* 322 */
 /***/ (function(module, exports) {
 
 // Intercepting HTTP calls with AngularJS.
@@ -38136,7 +38126,7 @@ function _MyHttpInterceptor($provide, $httpProvider) {
 
 
 /***/ }),
-/* 324 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38200,7 +38190,7 @@ function fileReader($q, $log) {
 
 
 /***/ }),
-/* 325 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38396,7 +38386,7 @@ function _UtilService($http, $filter) {
 }
 
 /***/ }),
-/* 326 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38466,7 +38456,7 @@ function _permissions($rootScope) {
 }
 
 /***/ }),
-/* 327 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38525,7 +38515,7 @@ function _auth($rootScope, $q, $http, $timeout, AOTCService) {
 }
 
 /***/ }),
-/* 328 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38533,11 +38523,11 @@ function _auth($rootScope, $q, $http, $timeout, AOTCService) {
 
 var angular = __webpack_require__(102);
 /////
-angular.module('AOTC').constant('User_Config', (__webpack_require__(330))());
+angular.module('AOTC').constant('User_Config', (__webpack_require__(329))());
 
 /***/ }),
-/* 329 */,
-/* 330 */
+/* 328 */,
+/* 329 */
 /***/ (function(module, exports) {
 
 //User_Config.$inject = [];
@@ -38583,7 +38573,7 @@ function User_Config() {
 };
 
 /***/ }),
-/* 331 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38591,12 +38581,12 @@ function User_Config() {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(332));
+angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(331));
 angular.module('AOTC').service('ReportService', __webpack_require__(103).ReportService);
 angular.module('AOTC').factory('Excel', __webpack_require__(103).Excel);
 
 /***/ }),
-/* 332 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38849,7 +38839,7 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 333 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38859,10 +38849,10 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 
 ////components
 //contract-editor
-angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(334));
+angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(333));
 
 /***/ }),
-/* 334 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_timelineGraphicalCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q", "$rootScope"];
@@ -39516,7 +39506,7 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 335 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39524,8 +39514,8 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(336));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(337));
+angular.module('AOTC').directive('hasPermission', __webpack_require__(335));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(336));
 
 
 
@@ -39537,7 +39527,7 @@ angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(33
 
 
 /***/ }),
-/* 336 */
+/* 335 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('hasPermission', _hasPermission);
@@ -39593,7 +39583,7 @@ function _hasPermission(AOTCPermissions) {
 }
 
 /***/ }),
-/* 337 */
+/* 336 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
@@ -39639,6 +39629,126 @@ function _permissionPerProperty(AOTCPermissions) {
         }
     };
 }
+
+/***/ }),
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */
+/***/ (function(module, exports) {
+
+_JurisDictionFilter.$inject = ["$http", "$filter"];
+module.exports = _JurisDictionFilter;
+
+
+    // Create the return function and set the required parameter name to **input**
+    function _JurisDictionFilter() {
+      
+        return function(items, params) {
+           var result = items    
+           
+           result = FilterJursidictions(items,params)     
+          
+         console.log(result)
+          return result;
+        }
+
+        function FilterJursidictions(items, params) {
+            var selected = [] 
+            if(params.length==0) {
+                return items
+            }
+           
+            
+                 
+                for(var i = 0 ; i < items.length ; i++) {
+                    for(var j = 0 ; j < params.length; j++) {
+                     if(params[j] ==items [i].name) {
+                         selected.push(items [i])
+                     }
+                }
+
+             }
+             return selected;
+        }
+    }
+  
+
 
 /***/ })
 ],[138]);

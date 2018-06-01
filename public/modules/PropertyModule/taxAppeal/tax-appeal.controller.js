@@ -31,7 +31,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 
     $scope.getPropertyDetails = function()  {
-  
+   
     var url = '/appeal/getPropertyTimelineData';
     var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
@@ -42,7 +42,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-               
+              
              
             }, function (result) {
             //some error
@@ -436,7 +436,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('show class')
       
     }
-
+    $scope.selectFiltersJ = function(data) {
+        var selected = []
+        for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
+            if($scope.search.jurisdictions[i].value==true) {
+                selected.push(data.name)
+            }
+        }
+        $scope.inputSearch.name = selected
+    }
     function UpdateData(type,message){
         
  
@@ -522,7 +530,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
     
 
-      
+     
+    
+
+        function resetError(){
+            $scope.config = {error: null, errorFunction: null}; 
+        }
  
 }
 

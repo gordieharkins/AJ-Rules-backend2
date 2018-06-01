@@ -6,12 +6,31 @@ module.exports = _JurisDictionFilter;
     function _JurisDictionFilter() {
       
         return function(items, params) {
-            console.log(items, params)
-                var out = [];
-                console.log(items)
+           var result = items    
+           
+           result = FilterJursidictions(items,params)     
+          
+         console.log(result)
+          return result;
+        }
 
-  
-                 return items;
+        function FilterJursidictions(items, params) {
+            var selected = [] 
+            if(params.length==0) {
+                return items
+            }
+           
+            
+                 
+                for(var i = 0 ; i < items.length ; i++) {
+                    for(var j = 0 ; j < params.length; j++) {
+                     if(params[j] ==items [i].name) {
+                         selected.push(items [i])
+                     }
+                }
+
+             }
+             return selected;
         }
     }
   
