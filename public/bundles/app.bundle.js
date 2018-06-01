@@ -33943,10 +33943,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
+              getNotifications();
                resetError()
              
             }, function (result) {
@@ -33959,6 +33959,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
         });
     }
+
+    // function getNotifications(){}
 
     $scope.getPropertyDetails();
 
@@ -34082,7 +34084,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         //      delete flag[i].properties.open;
         //     }
         // }
-        if(checkbox=='Execute Signature') {
+        if(checkbox=='Execute Signature on All') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
