@@ -40,8 +40,11 @@
     }
 
     .dropdown-menu.notify-drop .notify-drop-title {
-        border-bottom: 1px solid #30337f;
+        border-bottom: 1px solid #f9f9f9;
         padding: 0 10px 10px 10px;
+    }
+    .tab-content {
+        background: #f9f9f9;
     }
 
     .dropdown-menu.notify-drop .drop-content {
@@ -50,6 +53,7 @@
         overflow-y: auto;
         margin: 0;
         padding: 0;
+        background: #f9f9f9 !important;
     }
 
     .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar-track {
@@ -66,11 +70,13 @@
     }
 
     .dropdown-menu.notify-drop .drop-content>li {
-        border-bottom: 1px solid #cccccc;
         padding: 0 0 12px 0;
         border-radius: 0;
-        width: 100%;
-        background-color: #fff4aa;
+        width: 94%;
+        background-color: #ffffff;
+        margin: 10px !important;
+        border: 1px solid #cf0303 !important;
+        border-left: 7px solid #cf0303 !important;
     }
 
     .dropdown-menu.notify-drop .drop-content>li.notf-is-read {
@@ -97,11 +103,51 @@
     }
 
     .dropdown-menu.notify-drop .drop-content>li:hover {
-        background-color: #fff197;
+        background-color: transparent;
     }
 
     .dropdown-menu.notify-drop .drop-content>li:last-child {
         border-bottom: none;
+    }
+    /*.nav-tabs > li > a:hover {*/
+        /*border: none;*/
+         /*color: #ffffff !important;*/
+        /*background: transparent;*/
+        /*font-weight: bold;*/
+    /*}*/
+    .nav-tabs>li.active>a {
+        border: none;
+        background: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 10px;
+        color: #4285F4 !important;
+    }
+    .nav-tabs>li a {
+        border: none;
+        background: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 10px;
+        color: #ffffff !important;
+    }
+    ul.dropdown-menu li a:hover {
+         padding: 10px !important;
+     }
+    ul.dropdown-menu li.active a:hover {
+        padding: 10px !important;
+    }
+
+    .nav-tabs>li:hover >a {
+         border: none !important;
+         background: none;
+         cursor: pointer;
+         margin: 0;
+         padding: 10px;
+         color: #4285F4 !important;
+     }
+    .nav-tabs>li:hover{
+        border: none !important;
     }
 
     .dropdown-menu.notify-drop .drop-content>li .notify-img {
@@ -160,12 +206,22 @@
     .pd-0 {
         padding: 0;
     }
+    .notify-head{
+        color: #000000;
+        font-weight: 600;
+        display: block;
+        font-size: 14px;
+        margin: 0 0 15px;
+    }
 
     .dropdown-menu.notify-drop .drop-content>li p {
-        font-size: 11px;
-        color: #2c1f70;
+        font-size: 13px;
+        color: #000000;
         font-weight: normal;
         margin: 0;
+    }
+    .header-btn ul li:active {
+        background: #ffffff;
     }
 
     .dropdown-menu.notify-drop .drop-content>li p.notf-content {
@@ -412,30 +468,30 @@
                                         <li ng-repeat="notf in allNotifications.external" style="display:block" ng-class="{'notf-is-read': notf.notification.properties.readFlag==1}"
                                             ng-click="OpenNotfModal(notf)">
                                             <div class="row">
-                                                <div class="col-xs-12 pd-l0 event-time">
-                                                    <div class="row">
-                                                        <div class="col-xs-4 pd-0">
-                                                            <p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">
-                                                                <span ng-if="notf.notification.properties.daysLeft>=0">
-                                                                    <i class="fa fa-circle"></i>
-                                                                    <span class="days-left"> {{notf.notification.properties.daysLeft}} DAY(S) LEFT</span>
-                                                                </span>
-                                                                <span ng-if="notf.notification.properties.daysLeft<0">
-                                                                    <i class="fa fa-circle"></i>
-                                                                    <span class="days-left">{{notf.notification.properties.daysLeft*-1}} DAY(S)
-                                                                        AGO</span>
-                                                                </span>
+                                                <!--<div class="col-xs-12 pd-l0 event-time">-->
+                                                    <!--<div class="row">-->
+                                                        <!--<div class="col-xs-4 pd-0">-->
+                                                            <!--<p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">-->
+                                                                <!--<span ng-if="notf.notification.properties.daysLeft>=0">-->
+                                                                    <!--<i class="fa fa-circle"></i>-->
+                                                                    <!--<span class="days-left"> {{notf.notification.properties.daysLeft}} DAY(S) LEFT</span>-->
+                                                                <!--</span>-->
+                                                                <!--<span ng-if="notf.notification.properties.daysLeft<0">-->
+                                                                    <!--<i class="fa fa-circle"></i>-->
+                                                                    <!--<span class="days-left">{{notf.notification.properties.daysLeft*-1}} DAY(S)-->
+                                                                        <!--AGO</span>-->
+                                                                <!--</span>-->
 
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-xs-8 pd-0" style="text-align: right">
-                                                            <p class="time">Start: {{notf.notifications.properties.startDate}}, End: {{notf.notifications.properties.endDate}}</p>
+                                                            <!--</p>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="col-xs-8 pd-0" style="text-align: right">-->
+                                                            <!--<p class="time">Start: {{notf.notifications.properties.startDate}}, End: {{notf.notifications.properties.endDate}}</p>-->
 
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                    <h4 style="margin: 0px 0px 5px;color:#2c1f70;font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
+                                                    <h4 class="notify-head">{{notf.notifications.properties.eventName}}</h4>
                                                     <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
 
                                                 </div>
@@ -448,30 +504,30 @@
                                         <li ng-repeat="notf in allNotifications.internal" style="display:block" ng-class="{'notf-is-read': notf.notification.properties.readFlag==1}"
                                             ng-click="OpenNotfModal(notf)">
                                             <div class="row">
-                                                <div class="col-xs-12 pd-l0 event-time">
-                                                    <div class="row">
-                                                        <div class="col-xs-4 pd-0">
-                                                            <p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">
-                                                                        <span ng-if="notf.notification.properties.daysLeft>=0">
-                                                                            <i class="fa fa-circle"></i>
-                                                                            <span class="days-left"> {{notf.notification.properties.daysLeft}} DAY(S) LEFT</span>
-                                                                        </span>
-                                                                <span ng-if="notf.notification.properties.daysLeft<0">
-                                                                            <i class="fa fa-circle"></i>
-                                                                            <span class="days-left">{{notf.notification.properties.daysLeft*-1}} DAY(S)
-                                                                                AGO</span>
-                                                                        </span>
+                                                <!--<div class="col-xs-12 pd-l0 event-time">-->
+                                                    <!--<div class="row">-->
+                                                        <!--<div class="col-xs-4 pd-0">-->
+                                                            <!--<p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">-->
+                                                                        <!--<span ng-if="notf.notification.properties.daysLeft>=0">-->
+                                                                            <!--<i class="fa fa-circle"></i>-->
+                                                                            <!--<span class="days-left"> {{notf.notification.properties.daysLeft}} DAY(S) LEFT</span>-->
+                                                                        <!--</span>-->
+                                                                <!--<span ng-if="notf.notification.properties.daysLeft<0">-->
+                                                                            <!--<i class="fa fa-circle"></i>-->
+                                                                            <!--<span class="days-left">{{notf.notification.properties.daysLeft*-1}} DAY(S)-->
+                                                                                <!--AGO</span>-->
+                                                                        <!--</span>-->
 
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-xs-8 pd-0" style="text-align: right">
-                                                            <p class="time">Deadline: {{notf.notifications.properties.deadLine}}</p>
+                                                            <!--</p>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="col-xs-8 pd-0" style="text-align: right">-->
+                                                            <!--<p class="time">Deadline: {{notf.notifications.properties.deadLine}}</p>-->
 
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                    <h4 style="margin: 0 0 5px; color:#2c1f70; font-weight:bold">{{notf.notifications.properties.eventName}}</h4>
+                                                    <h4 class="notify-head">{{notf.notifications.properties.eventName}}</h4>
                                                     <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
 
                                                 </div>
