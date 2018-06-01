@@ -782,7 +782,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						value.subEvent = tempEvent;
 						if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 							var startDate = calculateRemainingDays(value.event.properties.startDate);
-							if(startDate < 0){
+							if(startDate <= 0){
 								value.event.properties.status = "In Progress";
 								value.event.properties.message = "Deadline: "+ value.event.deadline;
 								value.event.properties.warning = "Complete required information."
@@ -1495,7 +1495,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 
 			} else {
 				var daysRemaining = new dateDiff(new Date(deadline), new Date());
-				daysRemaining = parseInt(daysRemaining.days());
+				daysRemaining = parseInt(daysRemaining.days()) + 1;
 				var notification = {
 					heading: "Complete Required Information",
 					text: "",
@@ -1581,7 +1581,7 @@ function calculateRemainingDays(deadline){
 	var daysRemaining = new dateDiff(new Date(deadline), new Date());
 	daysRemaining = parseInt(daysRemaining.days());
 
-	return daysRemaining;
+	return daysRemaining + 1;
 }
 
 function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, cb){
@@ -1722,7 +1722,11 @@ function checkIEFormStatus(status, jurisdiction, deadline, cb){
 	if(remainingDays <= 0){
 		remainingDays *= -1;
 	}
+
+
 	if(status.status != "Done"){
+
+		status.status = "In Progress";
 		var notification = {
 			heading: "Fill IE Survey form",
 			text:  " days remaining before submission. Fill IE survey forms for properties of "+jurisdiction+".",
