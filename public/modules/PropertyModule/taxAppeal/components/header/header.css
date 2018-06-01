@@ -7,6 +7,10 @@ label{
 i{
   margin: 0 5px;
 }
+.head-filters {
+  padding: 9px 0 0;
+  margin: 0;
+}
 /******************* portfolio area ****************/
 .port-sub {
   text-align: left;
@@ -24,7 +28,7 @@ i{
   font-weight: 700;
   display: inline-block;
   font-size: 16px;
-  margin:12px 0 0;
+  margin:7px 0 0;
   vertical-align: unset;
 }
 .header h1 {
@@ -106,9 +110,6 @@ i{
 .ad-search, .ad-appeal, .ad-property, .ad-jurisdiction, .jur-search {
   position: relative;
 }
-.head-filters {
-  padding: 0;
-}
 /******************* jurisdiction dropdown ****************** */
 .jurisdiction-dropdown {
   position: absolute;
@@ -180,7 +181,7 @@ i{
   width: 100%;
   text-align: left;
   padding:3px 2px !important;
-  margin: 0 0 30px !important;
+  margin: 0 0 3px !important;
   border-radius: 2px;
   cursor: pointer;
   border-bottom: 1px solid #e6e6e6;
@@ -195,7 +196,7 @@ ul.appeal-check label {
   margin: 0 !important;
 }
 .jurisdiction-dropdown h3 {
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
   color:#355095;
   font-weight: 600;
@@ -226,7 +227,7 @@ ul.appeal-check label {
   display: block;
 }
 .property-ad{
-  width: 45%;
+  width: 100%;
   margin: 10px 10px 10px 0;
   float: left;
 }
@@ -256,6 +257,14 @@ ul.appeal-check label {
   position: absolute;
   right: 1px;
   top: 35px;
+}
+.search-three {
+  top: 36px;
+  right: 3px;
+}
+.owner-feild i {
+  top: 191px;
+  right: 11px;
 }
 /************************* show filter ********************/
 .header-col{
