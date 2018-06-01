@@ -52,10 +52,10 @@
                  </th>
                  <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex)">
                    <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-                   <span style="cursor: pointer !important;"> <i ng-if="events.properties.status!='Not Started'" class="fa fa fa-eye"></i>{{events.properties.name}}</span>
+                   <span style="cursor: pointer !important;"> <i  class="fa fa fa-eye"></i>{{events.properties.name}}</span>
                    <!--<span class="not-mandatory">(Not mandatory)</span>-->
                  </th>
-                 <!--<th>-->
+                 <!--<thng-if="events.properties.status!='Not Started'">-- >
                  <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
                  <!--<span>Complete Required Items</span>-->
                  <!--<a class="required-items">Required items</a>-->

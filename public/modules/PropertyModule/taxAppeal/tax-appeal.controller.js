@@ -27,6 +27,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
     $scope.search ={jurisdictions: []}
+    $scope.inputSearch = {jurisdictions: null}
 
 
     $scope.getPropertyDetails = function()  {
@@ -40,7 +41,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-              $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data)
+              $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
                resetError()
              
             }, function (result) {
@@ -349,7 +350,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.signModal = function(type){
         type==1 ? $scope.uploadModal = true : $scope.uploadModal = false ;
-
+        $scope.fileName = '';
     }
 
     $scope.closeModal = function(){
@@ -487,6 +488,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.sendData = function(radio){
         console.log(radio)
+        if(!sendFile) {
+            return;
+        }
       
            $("#preloader").css("display", "block");
            console.log(radio)

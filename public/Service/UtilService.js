@@ -167,8 +167,9 @@ function _UtilService($http, $filter) {
 
     function filterJurisdictions(data) {
         var jurisdictions = []
+        console.log(data)
         for (var i = 0 ; i < data.length; i++) {
-             jurisdictions.push(data[i].name);
+             jurisdictions.push({name: data[i].name});
         }
 
         return jurisdictions;
