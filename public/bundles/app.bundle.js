@@ -33933,7 +33933,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
     $scope.search ={jurisdictions: []}
-    $scope.inputSearch = {name: []}
+    $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
+    $scope.appealStatus = {ns: 'Not Started',ip: 'In Progress',don : ''}
 
 
     $scope.getPropertyDetails = function()  {
@@ -34346,7 +34347,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         var selected = []
         for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
             if($scope.search.jurisdictions[i].value==true) {
-                selected.push(data.name)
+                selected.push($scope.search.jurisdictions[i].name)
             }
         }
         $scope.inputSearch.name = selected
@@ -39733,17 +39734,14 @@ module.exports = _JurisDictionFilter;
             if(params.length==0) {
                 return items
             }
-           
-            
-                 
-                for(var i = 0 ; i < items.length ; i++) {
-                    for(var j = 0 ; j < params.length; j++) {
-                     if(params[j] ==items [i].name) {
-                         selected.push(items [i])
-                     }
-                }
+            for (var i = 0 ; i < params.length;i++) {
+                         for(var j = 0 ; j < items.length; j++) {
+                            if(items[j].name==params[i]){
+                            selected.push(items[j])
+                            }
 
-             }
+                         }
+            }
              return selected;
         }
     }

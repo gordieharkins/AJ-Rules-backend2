@@ -3,7 +3,7 @@
 <div ng-include="'modules/PropertyModule/taxAppeal/components/header/header.html'"></div>
 
  <div class="row" style="margin: 20px 0 0">
-   {{inputSearch | json}}
+   {{appealStatus | json}}
    <div class=" table-row col-md-9 col-sm-9" >
    <div ng-if="show" >
      <div ng-repeat="item in  data.jurisdictions | FilterJ:inputSearch.name:0" ng-init="pIndex= $index;staticTable(1)">
@@ -80,14 +80,14 @@
                </tr>
                </thead>
                <tbody>
-               <tr ng-repeat="prop in  item.properties ">
+               <tr ng-repeat="prop in  item.properties">
                  <td class="first-col-body">
                    <label><input type="checkbox">{{prop.name}}</label>
                    <p>{{prop.address || prop.streetAddress}}</p>
                    <p>{{prop.taxAccountNo}}</p>
-                   <p>{{prop.ownerName}}</p>
+                   <p>{{prop.ownerName}}</p>{{appealStatus.ns}}
                  </td>
-                 <td class="started-tr" ng-repeat="events in  prop.events">
+                 <td class="started-tr" ng-repeat="events in  prop.events  | filter: {properties :{status: appealStatus.ns}} :{status: appealStatus.ip}}:{status: appealStatus.do}}">
                    <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
                    <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
                  <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>

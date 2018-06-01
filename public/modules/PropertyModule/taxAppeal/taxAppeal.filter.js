@@ -19,17 +19,14 @@ module.exports = _JurisDictionFilter;
             if(params.length==0) {
                 return items
             }
-           
-            
-                 
-                for(var i = 0 ; i < items.length ; i++) {
-                    for(var j = 0 ; j < params.length; j++) {
-                     if(params[j] ==items [i].name) {
-                         selected.push(items [i])
-                     }
-                }
+            for (var i = 0 ; i < params.length;i++) {
+                         for(var j = 0 ; j < items.length; j++) {
+                            if(items[j].name==params[i]){
+                            selected.push(items[j])
+                            }
 
-             }
+                         }
+            }
              return selected;
         }
     }

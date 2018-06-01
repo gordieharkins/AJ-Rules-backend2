@@ -27,7 +27,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
     $scope.search ={jurisdictions: []}
-    $scope.inputSearch = {name: []}
+    $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
+    $scope.appealStatus = {ns: 'Not Started',ip: 'In Progress',don : ''}
 
 
     $scope.getPropertyDetails = function()  {
@@ -440,7 +441,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         var selected = []
         for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
             if($scope.search.jurisdictions[i].value==true) {
-                selected.push(data.name)
+                selected.push($scope.search.jurisdictions[i].name)
             }
         }
         $scope.inputSearch.name = selected

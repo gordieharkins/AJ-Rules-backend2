@@ -34,13 +34,13 @@
               <h3 style="margin: 0px;"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal Status</h3>
               <ul class="appeal-check">
                 <li class="clearfix">
-                  <label> <input type="checkbox"> Not started </label>
+                  <label> <input ng-model="appealStatus.ns" ng-true-value="'Not Started'" ng-false-value="''" type="checkbox"> Not started </label>
                 </li>
                 <li class="clearfix">
-                  <label> <input type="checkbox">In-progress </label>
+                  <label> <input ng-model="appealStatus.ip" ng-true-value="'In Progress'" ng-false-value="''" type="checkbox">In-progress </label>
                 </li>
                 <li class="clearfix">
-                  <label> <input type="checkbox">Done </label>
+                  <label> <input ng-model="appealStatus.do" ng-true-value="'Done'" ng-false-value="''" type="checkbox">Done </label>
                 </li>
                 <!-- <li class="clearfix">
                   <label> <input type="checkbox">Properties apporching deadline</label>
