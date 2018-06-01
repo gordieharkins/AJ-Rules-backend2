@@ -33931,6 +33931,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
+    $scope.search ={jurisdictions: []}
 
 
     $scope.getPropertyDetails = function()  {
@@ -33944,8 +33945,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-
-              resetError()
+              $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data)
+               resetError()
              
             }, function (result) {
             //some error
@@ -38339,6 +38340,16 @@ function _UtilService($http, $filter) {
             });
     }
 
+    function filterJurisdictions(data) {
+        var jurisdictions = []
+        for (var i = 0 ; i < data.length; i++) {
+             jurisdictions.push(data[i].name);
+        }
+
+        return jurisdictions;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -38347,6 +38358,7 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
+        filterJurisdictions: filterJurisdictions
 
     };
 }

@@ -165,6 +165,16 @@ function _UtilService($http, $filter) {
             });
     }
 
+    function filterJurisdictions(data) {
+        var jurisdictions = []
+        for (var i = 0 ; i < data.length; i++) {
+             jurisdictions.push(data[i].name);
+        }
+
+        return jurisdictions;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -173,6 +183,7 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
+        filterJurisdictions: filterJurisdictions
 
     };
 }
