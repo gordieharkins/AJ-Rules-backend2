@@ -95,22 +95,22 @@ function _AOTCService($http, $rootScope) {
     function getNotifications() {
             //$("#preloader").css("display", "block");
             $rootScope.unreadNotifications = 0;
-            var url = 'timeline/getNotifications';
+            var url = 'appeal/getNotification';
             getDataFromServer(url)
                 .then(function (response) {
                     try{
                         if (response.data.success) {
-                            $rootScope.allNotifications = {external:[], internal:[]};
+                            $rootScope.allNotifications =  response.data.result;
                              var allData = response.data.result;
-                            for(var i=0; i<allData.length;i++){
-                                var _item = allData[i];
-                                if(_item.notification.properties.readFlag==0) 
-                                $rootScope.unreadNotifications++;
-                                if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
-                                {$rootScope.allNotifications.internal.push(_item);}
-                                else
-                                {$rootScope.allNotifications.external.push(_item);}
-                            }
+                            // for(var i=0; i<allData.length;i++){
+                            //     var _item = allData[i];
+                            //     if(_item.notification.properties.readFlag==0) 
+                            //     $rootScope.unreadNotifications++;
+                            //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
+                            //     {$rootScope.allNotifications.internal.push(_item);}
+                            //     else
+                            //     {$rootScope.allNotifications.external.push(_item);}
+                            // }
                         } else {
                            // $scope.$emit('danger', response.data.message);
                         }
