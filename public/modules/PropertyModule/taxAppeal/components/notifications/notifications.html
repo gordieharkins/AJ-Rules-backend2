@@ -6,11 +6,6 @@
         } else {
             $('#notification').removeClass('fixed');
         }
-        if ($(this).scrollTop() < 768) {
-            $('#notification').remove('fixed');
-        } else {
-            $('#notification').removeClass('fixed');
-        }
     });
 </script>
 <div class="aside" id="notification">
@@ -19,7 +14,7 @@
       <span>Notification</span>
     </div>
   </div>
-  <div class="sidebar" >
+  <div class="sidebar-notification" >
 
     <div class="sidebar-body" ng-repeat=" not in data.notification">
       <div class="card card-1 red-card" ng-class="setWarning(not)">

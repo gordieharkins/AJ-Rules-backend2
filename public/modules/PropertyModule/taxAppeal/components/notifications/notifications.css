@@ -5,15 +5,17 @@
     padding: 10px 0 10px 10px;
     height: 45px;
     font-weight: bold;
+  display: inline-flex;
   }
-  .sidebar{
+  .sidebar-notification{
     background-color: #f9f9f9;
-    height: 100vh;
+    /*height: 100%;*/
     padding: 0 10px 0 10px;
     border: 1px solid #dddddd;
-    max-height:672px;
+    /*max-height:672px;*/
     overflow: auto;
-    min-width: 100%;
+    min-height:672px;
+    width: 100%;
   
   }
   
@@ -136,10 +138,10 @@
 }
  .fixed {
    position: fixed;
-   top: 10px;
-   right: 16px;
+   top: 0;
+   right: 20px;
     z-index: -1;
-   width: 23.1%;
+   width: 22.5%;
  }
 @media (max-width: 1400px) {
   .fixed {
