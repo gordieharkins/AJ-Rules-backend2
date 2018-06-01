@@ -82,9 +82,9 @@
                <tr ng-repeat="prop in  item.properties ">
                  <td class="first-col-body">
                    <label><input type="checkbox">{{prop.name}}</label>
+                   <p>{{prop.address || prop.streetAddress}}</p>
+                   <p>{{prop.taxAccountNo}}</p>
                    <p>{{prop.ownerName}}</p>
-                   <p>N/A</p>
-                   <p>N/A</p>
                  </td>
                  <td class="started-tr" ng-repeat="events in  prop.events">
                    <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->

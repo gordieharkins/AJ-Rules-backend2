@@ -24235,43 +24235,43 @@ function _header(User_Config, $state, $timeout) {
 
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
-            // try {
-            //     var url = '/timeline/markAsRead';
-            //     var _data = {
-            //         "notId": _notf.notifications._id
-            //     };
-            //     if (_notf.notification.properties.readFlag == 0) {
-            //         $("#preloader").css("display", "block");
-            //         AOTCService.postDataToServer(url, _data)
-            //             .then(function (result) {
-            //                 $scope.selectedNotification = _notf;
-            //                 $("#myNotificationModal").modal('show');
-            //                 $rootScope.unreadNotifications = 0;
-            //                 $timeout(function () {
-            //                     try {
-            //                         //
-            //                         _notf.notification.properties.readFlag = 1;
-            //                         for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
-            //                             var _item = $rootScope.allNotifications.external[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+            try {
+                var url = '/timeline/markAsRead';
+                var _data = {
+                    "notId": _notf.notifications._id
+                };
+                if (_notf.notification.properties.readFlag == 0) {
+                    $("#preloader").css("display", "block");
+                    AOTCService.postDataToServer(url, _data)
+                        .then(function (result) {
+                            $scope.selectedNotification = _notf;
+                            $("#myNotificationModal").modal('show');
+                            $rootScope.unreadNotifications = 0;
+                            $timeout(function () {
+                                try {
+                                    //
+                                    _notf.notification.properties.readFlag = 1;
+                                    for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
+                                        var _item = $rootScope.allNotifications.external[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
 
-            //                         }
-            //                         for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
-            //                             var _item = $rootScope.allNotifications.internal[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
-            //                         }
-            //                     } catch (_e) {}
-            //                 });
-            //                 $("#preloader").css("display", "none");
-            //             }, function () {
+                                    }
+                                    for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
+                                        var _item = $rootScope.allNotifications.internal[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+                                    }
+                                } catch (_e) {}
+                            });
+                            $("#preloader").css("display", "none");
+                        }, function () {
 
-            //                 $("#preloader").css("display", "none");
-            //             });
-            //     } else {
-            //         $scope.selectedNotification = _notf;
-            //         $("#myNotificationModal").modal('show');
-            //     }
-            // } catch (_e) {}
+                            $("#preloader").css("display", "none");
+                        });
+                } else {
+                    $scope.selectedNotification = _notf;
+                    $("#myNotificationModal").modal('show');
+                }
+            } catch (_e) {}
 
 
 
@@ -24818,7 +24818,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
         showOverlay: true,
         zoom: 6,
         options: {
-            mapTypeId: google.maps.MapTypeId.SATELLITE
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         }
 
     };
@@ -24854,7 +24854,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.mapOptions = {
         styles: mapStyleArray,
         maxZoom: 0,
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        mapTypeId: google.maps.MapTypeId.TERRAIN
 
     };
 
@@ -34040,7 +34040,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                  
                
-                  setTimeout(function(){ UpdateData(4, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(4, 'Data updated successfully')}, 5000)
                  
                  
                 }, function (result) {
@@ -34126,7 +34126,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.buttonComp = function(state) {
-        if ('warning' in state && state.warning)  return 'red-button';
+        if (state.status=='Not Started')  return 'disable-button'
+        
+        else if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
@@ -34144,7 +34146,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                   console.log(result.data)
                   $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
         
              
                  
@@ -34167,6 +34169,24 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         for (var i = 0 ; i  < data.length ; i++) {
             data[i].value = value
         }
+    }
+
+    $scope.configModalfields =  function(data, item) {
+        let count = 0 ;
+        for(var  i = 0 ; i <data.length;i++) {
+            
+            if(data[i].value=='true'){
+                  count++;
+            } else {
+                  count--;
+            }
+        }
+        item = count == data.length ? item = "true" : item= "false";
+
+        return item;
+        // if(count==data.length){
+
+        // }
     }
 
     $scope.selectAllFields = function(value,flag) {
@@ -34287,6 +34307,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var eventId = jProperty[i].events[column].eventId;
             var index = i;
              extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                 address: jProperty[i].address, streetAddress:  jProperty[i].streetAddress, 
+                 taxAccountNo:  jProperty[i].taxAccountNo, ownerName: jProperty[i].ownerName,
                  subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
                  info: subEventsDetect, propertyIndex: index, eventIndex: column})
         }
@@ -34384,7 +34406,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                      setTimeout(function(){ UpdateData(1, 'Data Updated Successfully')
+                      setTimeout(function(){ UpdateData(1, 'Data updated successfully')
                     }, 5000)
                     
                        $scope.uploadModal = false

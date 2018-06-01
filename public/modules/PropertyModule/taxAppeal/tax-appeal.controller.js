@@ -135,7 +135,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                  
                
-                  setTimeout(function(){ UpdateData(4, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(4, 'Data updated successfully')}, 5000)
                  
                  
                 }, function (result) {
@@ -221,7 +221,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.buttonComp = function(state) {
-        if ('warning' in state && state.warning)  return 'red-button';
+        if (state.status=='Not Started')  return 'disable-button'
+        
+        else if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
@@ -239,7 +241,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             .then(function (result) {
                   console.log(result.data)
                   $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2, 'Data Updated Successfully')}, 5000)
+                  setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
         
              
                  
@@ -262,6 +264,24 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         for (var i = 0 ; i  < data.length ; i++) {
             data[i].value = value
         }
+    }
+
+    $scope.configModalfields =  function(data, item) {
+        let count = 0 ;
+        for(var  i = 0 ; i <data.length;i++) {
+            
+            if(data[i].value=='true'){
+                  count++;
+            } else {
+                  count--;
+            }
+        }
+        item = count == data.length ? item = "true" : item= "false";
+
+        return item;
+        // if(count==data.length){
+
+        // }
     }
 
     $scope.selectAllFields = function(value,flag) {
@@ -382,6 +402,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             var eventId = jProperty[i].events[column].eventId;
             var index = i;
              extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                 address: jProperty[i].address, streetAddress:  jProperty[i].streetAddress, 
+                 taxAccountNo:  jProperty[i].taxAccountNo, ownerName: jProperty[i].ownerName,
                  subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
                  info: subEventsDetect, propertyIndex: index, eventIndex: column})
         }
@@ -479,7 +501,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
                       console.log(result)
-                      setTimeout(function(){ UpdateData(1, 'Data Updated Successfully')
+                      setTimeout(function(){ UpdateData(1, 'Data updated successfully')
                     }, 5000)
                     
                        $scope.uploadModal = false

@@ -779,7 +779,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 					value.subEvent = tempEvent;
 					if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 						var startDate = calculateRemainingDays(value.event.properties.startDate);
-						if(startDate <= 0){
+						if(startDate < 0){
 							value.event.properties.status = "In Progress";
 							value.event.properties.message = "Deadline: "+ value.event.deadline;
 							value.event.properties.warning = "Complete required information."
@@ -793,6 +793,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								}
 							});
 						} else {
+							value.event.properties.message = "Start date: "+ value.event.properties.startDate;
 							started = false;
 							var event = {
 								eventId: value.event._id,
@@ -806,6 +807,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								name: value.propertyName,
 								address: value.address,
 								ownerName: value.ownerName,
+								taxAccountNo: value.taxAccountNo.replace(/,/g, ""),
+								streetAddress: value.streetAddress,
 								events: []
 							}
 
@@ -1014,6 +1017,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									name: value.propertyName,
 									address: value.address,
 									ownerName: value.ownerName,
+									taxAccountNo: value.taxAccountNo.replace(/,/g, ""),
+									streetAddress: value.streetAddress,
 									events: []
 								}
 	
@@ -1267,6 +1272,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									name: value.propertyName,
 									address: value.address,
 									ownerName: value.ownerName,
+									taxAccountNo: value.taxAccountNo.replace(/,/g, ""),
+									streetAddress: value.streetAddress,
 									events: []
 								}
 	
@@ -1309,6 +1316,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						name: value.propertyName,
 						address: value.address,
 						ownerName: value.ownerName,
+						taxAccountNo: value.taxAccountNo.replace(/,/g, ""),
+						streetAddress: value.streetAddress,
 						events: []
 					}
 
@@ -1486,7 +1495,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 				}
 
 				if(daysRemaining < 30 && daysRemaining > 0){
-					notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+					notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 					// notification.remainingDays = daysRemaining;
 					message += daysRemaining+ " days remaining before submission. "
 				} else if (daysRemaining <= 0 ){
@@ -1602,7 +1611,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			remainingDays: remainingDays
 		}
 		if(remainingDays < 30 && remainingDays > 0){
-			notification.text = " days remaining before submission of Income Expence Survey package for "+jurisdiction+" properties. Please complete the required information."
+			notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 			// notification.remainingDays = daysRemaining;
 			warning += remainingDays+ " days remaining before submission. "
 		} else if (remainingDays <= 0 ){

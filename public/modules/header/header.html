@@ -544,3 +544,99 @@
     </div>
 </div>
 
+<div id="myNotificationModal" class="modal fade" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff; color: #555;">
+            <div class="modal-header" style=" background: #000c35 !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title text-ce nter" style="color:#fff;">Notification</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div ng-if="selectedNotification.notifications.properties.eventType.indexOf('inter')!=-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label for="inputName" class="control-label">Event Details</label>
+                                <p>{{selectedNotification.notifications.properties.eventDetails}}</p>
+                                <hr>
+                                <label for="inputName" class="control-label">Deadline</label>
+
+                                <p>{{selectedNotification.notifications.properties.deadLine}}</p>
+                                <hr>
+                                <label for="inputName" class="control-label">Event Type</label>
+                                <p>{{selectedNotification.notifications.properties.eventType}}</p>
+                                <hr>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="inputName" class="control-label">Days
+                                    <span ng-if="selectedNotification.notification.properties.daysLeft>=0">Left</span>
+                                    <span ng-if="selectedNotification.notification.properties.daysLeft<0">Ago</span>
+
+                                </label>
+                                <p ng-if="selectedNotification.notification.properties.daysLeft>=0">{{selectedNotification.notification.properties.daysLeft}}</p>
+                                <p ng-if="selectedNotification.notification.properties.daysLeft<0">{{selectedNotification.notification.properties.daysLeft*-1}}</p>
+
+                                <hr>
+                                <label for="inputName" class="control-label">Properties</label>
+                                <p><span style="margin-right:3px;" class="label label-default" ng-repeat="prp in head.parseProps(selectedNotification.notifications.properties.propertyNames)">{{prp}}</span></p>
+                                <hr>
+                            </div>
+
+                        </div>
+                        <br>
+                        <div style="clear:both"></div>
+                        <div class="form-group pull-right" style="margin-top: 20px;">
+                            <button type="submit" data-dismiss="modal" class="btn btn-danger">Close</button>
+                        </div>
+                    </div>
+                    <div ng-if="selectedNotification.notifications.properties.eventType.indexOf('exter')!=-1">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+    
+                                    <label for="inputName" class="control-label">Event Details</label>
+                                    <p>{{selectedNotification.notifications.properties.eventDetails}}</p>
+                                    <hr>
+                                    <label for="inputName" class="control-label">Start Date</label>
+    
+                                    <p>{{selectedNotification.notifications.properties.endDate}}</p>
+                                    <hr>
+                                    <label for="inputName" class="control-label">Event Type</label>
+                                    <p>{{selectedNotification.notifications.properties.eventType}}</p>
+                                    <hr>
+                                </div>
+    
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputName" class="control-label">Days
+                                        <span ng-if="selectedNotification.notification.properties.daysLeft>=0">Left</span>
+                                        <span ng-if="selectedNotification.notification.properties.daysLeft<0">Ago</span>
+    
+                                    </label>
+                                    <p ng-if="selectedNotification.notification.properties.daysLeft>=0">{{selectedNotification.notification.properties.daysLeft}}</p>
+                                    <p ng-if="selectedNotification.notification.properties.daysLeft<0">{{selectedNotification.notification.properties.daysLeft*-1}}</p>
+    
+                                    <hr>
+    
+                                    <label for="inputName" class="control-label">End Date</label>
+                                    <p>{{selectedNotification.notifications.properties.endDate}}</p>
+                                    <hr>
+    
+                                </div>
+    
+                            </div>
+                            <br>
+                            <div style="clear:both"></div>
+                            <div class="form-group pull-right" style="margin-top: 20px;">
+                                <button type="submit" data-dismiss="modal" class="btn btn-danger">Close</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

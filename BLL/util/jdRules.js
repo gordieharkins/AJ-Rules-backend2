@@ -24,7 +24,7 @@ timeline = {};
 //     }
 // }
 
-timeline.jurisdictionsNames = ["State of Maryland", "State of Florida"];
+timeline.jurisdictionsNames = ["State of Maryland", "State of Virginia"];
 timeline.jurisdictions = [
 	{
 		ieSurvey:{
@@ -40,7 +40,7 @@ timeline.jurisdictions = [
 				transmitPackage: "AOTC",
 				signature: "PIN",
 				deadline: "6/14/2018",
-				startDate: "6/1/2018",
+				startDate: "5/14/2018",
 				status: "Not Started", 
 				message: "Start date: 6/1/2018",
 				warning: "",

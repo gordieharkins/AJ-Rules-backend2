@@ -866,16 +866,17 @@ DAL.prototype.linkExistingProperties = function(privateId, publicId, cb) {
 // ---------------------------------------------
 // Delete multiple properties by ID
 // ---------------------------------------------
-DAL.prototype.deletePropertiesByIds = function(propertiesIds, userId, cb) {
+DAL.prototype.deletePropertiesByIds = function(propertyIds, userId, cb) {
 
     var deleteDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
-    var query = `MATCH (prop:property) WHERE id(prop) IN ` + JSON.stringify(propertiesIds.propertiesIds) + `
+    var query = `MATCH (prop:property) WHERE id(prop) IN {propertyIds}
         SET prop.isDeleted = true
         SET prop.deleteDate = {deleteDate}
         SET prop.deletedBy = {deletedBy}`;
     db.cypher({
         query: query,
         params:{
+            propertyIds: propertyIds,
             deletedBy:userId,
             deleteDate:deleteDate
         }
