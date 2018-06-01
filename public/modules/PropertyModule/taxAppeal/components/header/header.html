@@ -2,22 +2,23 @@
 <form>
     <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
-      <h3 class="page-title">Sub-portfolio1</h3>
-      <button ng-click="" class="blue-button">Send Invite<i class="fa fa-caret-down"></i></button>
+      <h3 class="page-title">Sub-portfolio</h3>
+      <!--<button ng-click="" class="blue-button">Send Invite<i class="fa fa-caret-down"></i></button>-->
     </div>
     <div class="col-md-8 col-sm-12 filter-sub">
   
       <ul class="head-filters">
         <li class="ad-jurisdiction">
-          <button type="button" class="filter-btn">Jurisdiction: All<i class="fa fa-caret-down"></i></button>
+          <button type="button" class="filter-btn"><i class="fa fa-hand-rock-o" style="margin-left: 0"></i>Jurisdiction: All<i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown jurisdict" style="display:none">
             <i class="fa fa-caret-up cart-dropdown"></i>
             <div class="jurisdiction-dropdown" >
               <!-- <input type="text" class="form-control jur-search"> -->
               <!-- <i class="fa fa-search juris-icon"></i> -->
+              <h3 style="margin: 0;"><i class="fa fa-hand-rock-o" style="margin-left: 0"></i>Jurisdiction</h3>
               <ul class="jurisd-check">
                 <li class="clearfix" ng-repeat="data in search.jurisdictions">
-                  <label>{{data.name}} <input type="checkbox"></label>
+                  <label ng-click="selectFiltersJ(data.name)">{{data.name}} <input type="checkbox"></label>
                 </li>
               </ul>
   
@@ -26,11 +27,11 @@
         </li>
   
         <li class="ad-appeal" >
-          <button type="button" class="filter-btn">Appeal status: All<i class="fa fa-caret-down"></i></button>
+          <button type="button" class="filter-btn"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal status: All<i class="fa fa-caret-down"></i></button>
           <div class="appeal-wrap" style="display:none">
             <i class="fa fa-caret-up cart-dropdown"></i>
             <div class="jurisdiction-dropdown appeal-dropdown">
-              <h3 style="margin: 0px;">Appeal Status</h3>
+              <h3 style="margin: 0px;"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal Status</h3>
               <ul class="appeal-check">
                 <li class="clearfix">
                   <label> <input type="checkbox"> Not started </label>
@@ -53,44 +54,49 @@
           </div>
         </li>
         <li class="ad-property">
-          <button type="button" class="filter-btn">Property: All<i class="fa fa-caret-down"></i></button>
+          <button type="button" class="filter-btn"><i class="fa fa-building-o" style="margin-left: 0"></i>Property: All<i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown property" style="display:none">
             <i class="fa fa-caret-up cart-dropdown"></i>
+
             <div class="jurisdiction-dropdown property-dropdown clearfix">
               <div class="property-filter clearfix">
-                <label>Search by Property Name</label>
-                <input type="text" class="form-control jur-search" placeholder="Mike">
-                <i class="fa fa-search juris-icon-two"></i>
-              </div>
-              <div class="property-ad clearfix">
-                <div class="select-one">
-                  <label>Search by Address</label>
-                  <i class="fa fa-caret-down select-dropdown"></i>
-                  <select class="form-control">
-                    <option>Address</option>
-                    <option >Lorem Ipsum 2</option>
-                    <option>Lorem Ipsum 3</option>
-                    <option>Lorem Ipsum 4</option>
-                  </select>
-                </div>
-              </div>
-              <div class="property-ad clearfix" style="float: right; margin: 10px 0;">
-                <div class="select-one">
+                <h3 style="margin: 0px;"><i class="fa fa-building-o" style="margin-left: 0"></i>Property information</h3>
+                <div class="property-area" style="padding: 10px">
+                  <label style="font-size: 14px; font-weight: 600">Search by Property Name</label>
+                  <input type="text" class="form-control jur-search" placeholder="Mike">
+                  <i class="fa fa-search juris-icon-two"></i>
 
-                  <label>Search by Zip Code</label>
+                <div class="property-ad clearfix">
+                  <div class="select-one">
+                    <label style=" font-size: 14px; font-weight: 600">Search by Address</label>
+                    <input type="text" class="form-control jur-search" placeholder="s#10, h#50....">
+                    <i class="fa fa-search juris-icon-two search-three"></i>
+                  </div>
+                </div>
+                <div class="property-ad clearfix" style="float: left; margin: 10px 0; width: 45%">
+                  <div class="select-one">
+
+                    <label style=" font-size: 14px; font-weight: 600">Search by Zip Code</label>
+                    <i class="fa fa-caret-down select-dropdown"></i>
+                    <select class="form-control">
+                      <option>4500</option>
+                      <option >1500</option>
+                      <option>1600</option>
+                      <option>1900</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
+                  <label style=" font-size: 14px; font-weight: 600">Search by Owner</label>
                   <i class="fa fa-caret-down select-dropdown"></i>
                   <select class="form-control">
-                    <option>Country</option>
-                    <option >Lorem Ipsum 2</option>
-                    <option>Lorem Ipsum 3</option>
-                    <option>Lorem Ipsum 4</option>
+                    <option>Owner</option>
+                    <option >Mike</option>
+                    <option>David</option>
+                    <option>Robot</option>
                   </select>
                 </div>
               </div>
-              <div class="property-ad clearfix">
-                <label>Search by Owner</label>
-                <input type="text" class="form-control jur-search" placeholder="Karachi">
-                <i class="fa fa-search juris-icon-five"></i>
               </div>
               <!-- <div class="property-ad clearfix" style="float: right; margin: 10px 0;">
                 <label>Search by name</label>

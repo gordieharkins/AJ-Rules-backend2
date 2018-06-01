@@ -128,3 +128,4 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', require('./PropertyAs
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', require('./taxAppeal/tax-appeal.controller'));
+angular.module('AOTC').filter('FilterJ', require('./taxAppeal/taxAppeal.filter'));

@@ -27,7 +27,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
     $scope.search ={jurisdictions: []}
-    $scope.inputSearch = {jurisdictions: null}
+    $scope.inputSearch = {name: []}
 
 
     $scope.getPropertyDetails = function()  {
@@ -486,6 +486,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     }
 
+
+
     $scope.sendData = function(radio){
         console.log(radio)
         if(!sendFile) {
@@ -517,6 +519,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     ////console.log(result);
                 });
         }
+
+        $scope.selectFiltersJ = function(item) {
+            $scope.inputSearch.name.push(item)
+        }
     
 
         function resetError(){
@@ -524,3 +530,4 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
  
 }
+

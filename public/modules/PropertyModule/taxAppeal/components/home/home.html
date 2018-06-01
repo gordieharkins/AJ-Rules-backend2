@@ -3,9 +3,10 @@
 <div ng-include="'modules/PropertyModule/taxAppeal/components/header/header.html'"></div>
 
  <div class="row" style="margin: 20px 0 0">
+   {{inputSearch.name | json}}
    <div class=" table-row col-md-9 col-sm-9" >
-   <div ng-if="show">
-     <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index;staticTable(1)">
+   <div ng-if="show" >
+     <div ng-repeat="item in  data.jurisdictions | FilterJ" ng-init="pIndex= $index;staticTable(1)">
        <div >
            <div class="row main-table-header">
              <div class="col-md-5">
