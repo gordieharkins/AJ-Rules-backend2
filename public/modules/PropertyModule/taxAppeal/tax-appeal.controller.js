@@ -415,7 +415,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
    
 
-     $scope.changeComp = function(event,column,pColumn) {
+     $scope.changeComp = function(event,column,pColumn,headrName) {
          if(event.subEvents.sublength==0) {
              return
          }
@@ -436,7 +436,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
         console.log(extractSubEvents)
 
-        $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName};
+        $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName,eName: headrName};
         console.log($scope.subData)
         
         $scope.show =  false;
