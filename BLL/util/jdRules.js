@@ -33,7 +33,7 @@ timeline.jurisdictions = [
 				type: 1, // do not change
 				obligatory: true,
 				form: true,
-				requiredItems: ["Income Expense Statement 2015||2015||IE", "Income Expense Statement 2016||2016||IE", "Income Expense Statement 2017||2017||IE", "Rent Roll as of January 1, 2017||January 1, 2017||RR", "Rent Roll as of January 1, 2018||January 1, 2018||RR"],
+				requiredItems: ["Income Expense Statement of 2015||2015||IE", "Income Expense Statement of 2016||2016||IE", "Income Expense Statement of 2017||2017||IE", "Rent Roll as of January 1, 2017||January 1, 2017||RR", "Rent Roll as of January 1, 2018||January 1, 2018||RR"],
 				paradigm: "AOTC",
 				formObtain: "AOTC",
 				tranmitForm: "AOTC",
@@ -115,7 +115,7 @@ timeline.jurisdictions = [
 				type: 1,
 				obligatory: true,
 				form: true,
-				requiredItems: ["IE 2015||2015||IE", "IE 2016||2016||IE", "IE 2017||2017||IE", "RR as of January 1, 2017||January 1, 2017||RR", "RR as of January 1, 2018||January 1, 2018||RR"],			
+				requiredItems: ["Income Expense Statement of 2015||2015||IE", "Income Expense Statement of 2016||2016||IE", "Income Expense Statement of 2017||2017||IE", "Rent Roll as of January 1, 2017||January 1, 2017||RR", "Rent Roll as of January 1, 2018||January 1, 2018||RR"],
 				formObtain: "paper",
 				signature: "ink",
 				tranmitForm: "mail",

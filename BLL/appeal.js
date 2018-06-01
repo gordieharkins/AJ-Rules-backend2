@@ -574,12 +574,12 @@ function createTimelineWithJson(mytl1){
 			mytl1.ieSurvey.event2[i] = temp;
 		}
 
-		mytl1.ieSurvey.event1.field2 = ["field","Total Expenses 2015", "false"];
-		mytl1.ieSurvey.event1.field2 = ["field","Net Operating Income 2015", "false"];
-		mytl1.ieSurvey.event1.field2 = ["field","Total Expenses 2016", "false"];
-		mytl1.ieSurvey.event1.field2 = ["field","Net Operating Income 2016", "false"];
-		mytl1.ieSurvey.event1.field2 = ["field","Total Expenses 2017", "false"];
-		mytl1.ieSurvey.event1.field2 = ["field","Net Operating Income 2017", "false"];
+		mytl1.ieSurvey.event2.field2 = ["field","Total Expenses 2015", "false"];
+		mytl1.ieSurvey.event2.field3 = ["field","Net Operating Income 2015", "false"];
+		mytl1.ieSurvey.event2.field4 = ["field","Total Expenses 2016", "false"];
+		mytl1.ieSurvey.event2.field5 = ["field","Net Operating Income 2016", "false"];
+		mytl1.ieSurvey.event2.field6 = ["field","Total Expenses 2017", "false"];
+		mytl1.ieSurvey.event2.field7 = ["field","Net Operating Income 2017", "false"];
 
 		return mytl1
 	}
