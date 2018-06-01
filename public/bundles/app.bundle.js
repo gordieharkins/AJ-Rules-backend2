@@ -24233,6 +24233,12 @@ function _header(User_Config, $state, $timeout) {
         });
 
 
+        $scope.$on('notifications', function(ev, data) {
+         console.log(data) 
+         $scope.allNotifications = data
+        
+        });
+
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
             try {
@@ -33943,11 +33949,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-               resetError()
+              getNotifications()
+              resetError()
              
             }, function (result) {
             //some error
@@ -33958,6 +33964,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             console.log('error')
             $("#preloader").css("display", "none");
         });
+    }
+
+    function getNotifications() {
+       
+        var url = '/appeal/getNotification';
+       
+        
+        AOTCService.getDataFromServer(url)
+            .then(function (result) {
+                $("#preloader").css("display", "none");
+                  console.log(result.data.result)
+                  var res = result.data.result
+                  $scope.$emit('notifications', res)
+                 
+                
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                $scope.config.error = 'Someting Went Wrong';
+                $scope.config.errorFunction = $scope.getPropertyDetails;
+        
+                console.log('error')
+                $("#preloader").css("display", "none");
+            });
+          
     }
 
     $scope.getPropertyDetails();
@@ -34352,7 +34383,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -34372,7 +34402,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     .events[configData.data.eventIndex].additionalItems;
 
                   }
-                  console.log($scope.modalData)
+                  setTimeout(function(){   getNotifications()
+                }, 2000)
+            
                   $scope.uploadModal = false
                   $scope.openSign = false;
                   $scope.$emit('success', message)
@@ -37924,22 +37956,22 @@ function _AOTCService($http, $rootScope) {
     function getNotifications() {
             //$("#preloader").css("display", "block");
             $rootScope.unreadNotifications = 0;
-            var url = 'timeline/getNotifications';
+            var url = 'appeal/getNotification';
             getDataFromServer(url)
                 .then(function (response) {
                     try{
                         if (response.data.success) {
-                            $rootScope.allNotifications = {external:[], internal:[]};
+                            $rootScope.allNotifications =  response.data.result;
                              var allData = response.data.result;
-                            for(var i=0; i<allData.length;i++){
-                                var _item = allData[i];
-                                if(_item.notification.properties.readFlag==0) 
-                                $rootScope.unreadNotifications++;
-                                if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
-                                {$rootScope.allNotifications.internal.push(_item);}
-                                else
-                                {$rootScope.allNotifications.external.push(_item);}
-                            }
+                            // for(var i=0; i<allData.length;i++){
+                            //     var _item = allData[i];
+                            //     if(_item.notification.properties.readFlag==0) 
+                            //     $rootScope.unreadNotifications++;
+                            //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
+                            //     {$rootScope.allNotifications.internal.push(_item);}
+                            //     else
+                            //     {$rootScope.allNotifications.external.push(_item);}
+                            // }
                         } else {
                            // $scope.$emit('danger', response.data.message);
                         }

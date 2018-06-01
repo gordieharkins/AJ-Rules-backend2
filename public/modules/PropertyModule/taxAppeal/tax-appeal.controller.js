@@ -38,11 +38,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-               resetError()
+              getNotifications()
+              resetError()
              
             }, function (result) {
             //some error
@@ -53,6 +53,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             console.log('error')
             $("#preloader").css("display", "none");
         });
+    }
+
+    function getNotifications() {
+       
+        var url = '/appeal/getNotification';
+       
+        
+        AOTCService.getDataFromServer(url)
+            .then(function (result) {
+                $("#preloader").css("display", "none");
+                  console.log(result.data.result)
+                  var res = result.data.result
+                  $scope.$emit('notifications', res)
+                 
+                
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                $scope.config.error = 'Someting Went Wrong';
+                $scope.config.errorFunction = $scope.getPropertyDetails;
+        
+                console.log('error')
+                $("#preloader").css("display", "none");
+            });
+          
     }
 
     $scope.getPropertyDetails();
@@ -447,7 +472,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -467,7 +491,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     .events[configData.data.eventIndex].additionalItems;
 
                   }
-                  console.log($scope.modalData)
+                  setTimeout(function(){   getNotifications()
+                }, 2000)
+            
                   $scope.uploadModal = false
                   $scope.openSign = false;
                   $scope.$emit('success', message)
