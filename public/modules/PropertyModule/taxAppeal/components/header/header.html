@@ -18,7 +18,7 @@
               <h3 style="margin: 0;"><i class="fa fa-hand-rock-o" style="margin-left: 0"></i>Jurisdiction</h3>
               <ul class="jurisd-check">
                 <li class="clearfix" ng-repeat="data in search.jurisdictions">
-                  <label ng-click="selectFiltersJ(data.name)">{{data.name}} <input type="checkbox"></label>
+                  <label >{{data.name}} <input ng-model="data.value" ng-change="selectFiltersJ(data)" type="checkbox"></label>
                 </li>
               </ul>
   
