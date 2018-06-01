@@ -17,17 +17,8 @@
               <!-- <i class="fa fa-search juris-icon"></i> -->
               <h3 style="margin: 0;"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction</h3>
               <ul class="jurisd-check">
-                <li class="clearfix">
-                  <label>ML <input type="checkbox"></label>
-                </li>
-                <li class="clearfix">
-                  <label>TX <input type="checkbox"></label>
-                </li>
-                <li class="clearfix">
-                  <label>AZ <input type="checkbox"></label>
-                </li>
-                <li class="clearfix">
-                  <label>NY <input type="checkbox"></label>
+                <li class="clearfix" ng-repeat="data in search.jurisdictions">
+                  <label>{{data.name}} <input type="checkbox"></label>
                 </li>
               </ul>
   

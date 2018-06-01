@@ -423,6 +423,8 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 // create dynamic json for timeline
 function createTimelineWithJson(mytl1){
 	// console.log(marylandTimeline);
+	var ieDeadline = mytl1.ieSurvey.main.deadline;
+	console.log("----------------------------Deadline: ", ieDeadline);
 	if (mytl1.ieSurvey.main.paradigm == "AOTC"){
 		mytl1.ieSurvey["event1"] = {
 			name: "Complete Required Information",
@@ -433,6 +435,7 @@ function createTimelineWithJson(mytl1){
 			mandatory: true,
 			buttonText: "Details",
 			button: true,
+			deadline: ieDeadline,
 			order: 1,
 		}
 
@@ -445,6 +448,7 @@ function createTimelineWithJson(mytl1){
 			buttonText: "Schedule Review",
 			button: true,
 			reviewResult:true,
+			deadline: ieDeadline,
 			order: 2
 		}
 
@@ -457,7 +461,8 @@ function createTimelineWithJson(mytl1){
 			button: true,
 			mandatory: true,
 			dropdown: true,
-			dropdownValues: ["Execute Signature"],
+			dropdownValues: ["Execute Signature on All"],
+			deadline: ieDeadline,
 			order: 3
 		}
 
@@ -476,12 +481,12 @@ function createTimelineWithJson(mytl1){
 			mytl1.ieSurvey["event1"][i] = temp;
 		}
 
-		mytl1.ieSurvey.event1.field1 = ["field","A", "0", "IE 2015"];
-		mytl1.ieSurvey.event1.field1 = ["field","B", "1", "IE 2015"];
-		mytl1.ieSurvey.event1.field1 = ["field","C", "2", "IE 2016"];
-		mytl1.ieSurvey.event1.field1 = ["field","D", "3", "IE 2017"];
-		mytl1.ieSurvey.event1.field1 = ["field","E", "4", "RR as of January 1, 2017"];
-		mytl1.ieSurvey.event1.field1 = ["field","F", "5", "RR as of January 1, 2018"];
+		mytl1.ieSurvey.event1.field1 = ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"];
+		mytl1.ieSurvey.event1.field2 = ["field","Net Operating Income", "$65,000", "Income Expense Statement 2015"];
+		mytl1.ieSurvey.event1.field3 = ["field","Total Expenses", "$12,000", "Income Expense Statement 2016"];
+		mytl1.ieSurvey.event1.field4 = ["field","Net Operating Income", "$33,000", "Income Expense Statement 2016"];
+		mytl1.ieSurvey.event1.field5 = ["field","Total Expenses", "$18,000", "Income Expense Statement 2017"];
+		mytl1.ieSurvey.event1.field6 = ["field","Net Operating Income", "$41,000", "Income Expense Statement 2017"];
 
 		return mytl1
 	} else if (mytl1.ieSurvey.main.paradigm == "paper"){
@@ -495,7 +500,8 @@ function createTimelineWithJson(mytl1){
 			toggle: true,
 			toggleValue: false,
 			dropdown: true,
-			dropdownValues: ["Mark as Yes", "Mark as No"],
+			dropdownValues: ["Mark all as Yes", "Mark all as No"],
+			// deadline: ieDeadline,
 			order: 1
 		}
 
@@ -508,6 +514,7 @@ function createTimelineWithJson(mytl1){
 			mandatory: true,
 			buttonText: "View Checklist",
 			button: true,
+			// deadline: ieDeadline,
 			order: 2
 		}
 
@@ -520,6 +527,7 @@ function createTimelineWithJson(mytl1){
 			toggleValue: "false",
 			toggle: false,
 			reviewResult:true,
+			// deadline: ieDeadline,
 			order: 3
 		}
 
@@ -532,8 +540,9 @@ function createTimelineWithJson(mytl1){
 			button: false,
 			mandatory: true,
 			dropdown: true,
-			dropdownValues: ["Execute Signature"],
+			dropdownValues: ["Mark all as Yes", "Mark all as No"],
 			// state: "", 
+			// deadline: ieDeadline,
 			order: 4
 		}
 
@@ -545,7 +554,10 @@ function createTimelineWithJson(mytl1){
 			toggleValue: "false",
 			button: false,
 			mandatory: true,
+			dropdown: true,
+			dropdownValues: ["Mark all as Yes", "Mark all as No"],
 			// state: "", 
+			// deadline: ieDeadline,
 			order: 5
 		}
 
@@ -562,12 +574,12 @@ function createTimelineWithJson(mytl1){
 			mytl1.ieSurvey.event2[i] = temp;
 		}
 
-		mytl1.ieSurvey.event2.field1 = ["field","A","false"];
-		mytl1.ieSurvey.event2.field2 = ["field","B","false"];
-		mytl1.ieSurvey.event2.field3 = ["field","C","false"];
-		mytl1.ieSurvey.event2.field4 = ["field","D","false"];
-		mytl1.ieSurvey.event2.field5 = ["field","E","false"];
-		mytl1.ieSurvey.event2.field6 = ["field","F","false"];
+		mytl1.ieSurvey.event2.field2 = ["field","Total Expenses 2015", "false"];
+		mytl1.ieSurvey.event2.field3 = ["field","Net Operating Income 2015", "false"];
+		mytl1.ieSurvey.event2.field4 = ["field","Total Expenses 2016", "false"];
+		mytl1.ieSurvey.event2.field5 = ["field","Net Operating Income 2016", "false"];
+		mytl1.ieSurvey.event2.field6 = ["field","Total Expenses 2017", "false"];
+		mytl1.ieSurvey.event2.field7 = ["field","Net Operating Income 2017", "false"];
 
 		return mytl1
 	}
@@ -720,7 +732,7 @@ BLL.prototype.executeSignature = function(req, res) {
 				for(var i = 0; i < req.body.data.length; i++){
 					req.body.data[i].properties.button = false;
 					req.body.data[i].properties.buttonText = "";
-					req.body.data[i].properties.message = "The data will be released to AJ soon.",
+					req.body.data[i].properties.message = "The data will be released to AJ on "+req.body.data[i].properties.deadline+".";
 					req.body.data[i].properties.dropdown = false;
 					// req.body.data[i].properties.status = "Done";
 					
@@ -782,7 +794,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						value.subEvent = tempEvent;
 						if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 							var startDate = calculateRemainingDays(value.event.properties.startDate);
-							if(startDate < 0){
+							if(startDate <= 0){
 								value.event.properties.status = "In Progress";
 								value.event.properties.message = "Deadline: "+ value.event.deadline;
 								value.event.properties.warning = "Complete required information."
@@ -842,7 +854,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						}
 	
 						if(started){
-							if(value.event.properties.paradigm == "AOTC"){
+							if(value.event.properties.formObtain == "AOTC"){
 								var tempSubEvent = {};
 								var requireInformationIndex = null;
 								var reviewIEDraftIndex = null;
@@ -1001,8 +1013,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										if(value.subEvent[requireInformationIndex].properties.status == "In Progress"){
 											value.event.properties.warning = "Complete required information.";
 										} else if(value.subEvent[submitIEDataIndex].properties.status == "In Progress" 
-										&& value.subEvent[submitIEDataIndex].properties.message == "The data will be released to AJ soon."){
-											value.event.properties.message = "The data will be released to AJ soon.";
+										&& value.subEvent[submitIEDataIndex].properties.message == "The data will be released to AJ on "+  value.event.properties.deadline+ "."){
+											value.event.properties.message = "The data will be released to AJ on "+  value.event.properties.deadline+ ".";
 											value.event.properties.warning = "";
 										} else {
 											value.event.properties.warning = "Execute signature.";
@@ -1050,7 +1062,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									}
 									callbackMain();
 								});
-							} else if(value.event.properties.paradigm == "paper"){
+							} else if(value.event.properties.formObtain == "paper"){
 								var tempSubEvent = {};
 								var requireInformationIndex = null;
 								var reviewIEDraftIndex = null;
@@ -1495,7 +1507,7 @@ function checkRequiredItems(requiredItems, propertyId, itemId, deadline, jurisdi
 
 			} else {
 				var daysRemaining = new dateDiff(new Date(deadline), new Date());
-				daysRemaining = parseInt(daysRemaining.days());
+				daysRemaining = parseInt(daysRemaining.days()) + 1;
 				var notification = {
 					heading: "Complete Required Information",
 					text: "",
@@ -1581,7 +1593,7 @@ function calculateRemainingDays(deadline){
 	var daysRemaining = new dateDiff(new Date(deadline), new Date());
 	daysRemaining = parseInt(daysRemaining.days());
 
-	return daysRemaining;
+	return daysRemaining + 1;
 }
 
 function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, cb){
@@ -1722,7 +1734,11 @@ function checkIEFormStatus(status, jurisdiction, deadline, cb){
 	if(remainingDays <= 0){
 		remainingDays *= -1;
 	}
+
+
 	if(status.status != "Done"){
+
+		status.status = "In Progress";
 		var notification = {
 			heading: "Fill IE Survey form",
 			text:  " days remaining before submission. Fill IE survey forms for properties of "+jurisdiction+".",

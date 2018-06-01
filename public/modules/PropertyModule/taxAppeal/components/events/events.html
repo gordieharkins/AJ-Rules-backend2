@@ -93,6 +93,7 @@
                   ng-change="selectOne(subEventIndex, events.properties.toggleValue,propertyIndex)"
                   ng-true-value="'true'" 
                   ng-false-value="'false'" 
+                  ng-disabled="events.properties.status=='Not Started'"
                   ng-checked="events.properties.toggleValue == 'true'" ng-model="events.properties.toggleValue" type="checkbox" id="togBtn">
                   <div class="slider round" ><!--ADDED HTML -->
                     <span  ng-show="events.properties.toggleValue=='true'" class="on">Yes</span>

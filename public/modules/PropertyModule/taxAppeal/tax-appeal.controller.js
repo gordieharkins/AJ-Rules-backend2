@@ -26,6 +26,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
+    $scope.search ={jurisdictions: []}
+    $scope.inputSearch = {jurisdictions: null}
 
 
     $scope.getPropertyDetails = function()  {
@@ -36,10 +38,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
-
+              $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
+              getNotifications()
               resetError()
              
             }, function (result) {
@@ -51,6 +53,31 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             console.log('error')
             $("#preloader").css("display", "none");
         });
+    }
+
+    function getNotifications() {
+       
+        var url = '/appeal/getNotification';
+       
+        
+        AOTCService.getDataFromServer(url)
+            .then(function (result) {
+                $("#preloader").css("display", "none");
+                  console.log(result.data.result)
+                  var res = result.data.result
+                  $scope.$emit('notifications', res)
+                 
+                
+                }, function (result) {
+                //some error
+                ////console.log(result);
+                $scope.config.error = 'Someting Went Wrong';
+                $scope.config.errorFunction = $scope.getPropertyDetails;
+        
+                console.log('error')
+                $("#preloader").css("display", "none");
+            });
+          
     }
 
     $scope.getPropertyDetails();
@@ -175,13 +202,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         //      delete flag[i].properties.open;
         //     }
         // }
-        if(checkbox=='Execute Signature') {
+        if(checkbox=='Execute Signature on All') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
         
         var toggleData = [];
-        if(checkbox=='Mark as Yes'){
+        if(checkbox=='Mark all as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
@@ -194,7 +221,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             }
         }
         }
-        else if(checkbox=='Mark as No') {
+        else if(checkbox=='Mark all as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
@@ -348,7 +375,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.signModal = function(type){
         type==1 ? $scope.uploadModal = true : $scope.uploadModal = false ;
-
+        $scope.fileName = '';
     }
 
     $scope.closeModal = function(){
@@ -445,7 +472,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -465,7 +491,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     .events[configData.data.eventIndex].additionalItems;
 
                   }
-                  console.log($scope.modalData)
+                  setTimeout(function(){   getNotifications()
+                }, 2000)
+            
                   $scope.uploadModal = false
                   $scope.openSign = false;
                   $scope.$emit('success', message)
@@ -486,6 +514,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.sendData = function(radio){
         console.log(radio)
+        if(!sendFile) {
+            return;
+        }
       
            $("#preloader").css("display", "block");
            console.log(radio)

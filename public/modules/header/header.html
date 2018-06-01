@@ -68,6 +68,15 @@
     .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar-thumb {
         background-color: #ccc;
     }
+     .blue-border {
+     
+        border: 1px solid #3b73af !important;
+        border-left: 7px solid #3b73af !important;  
+    }
+    .red-border {
+        border: 1px solid #cf0303 !important;
+        border-left: 7px solid #cf0303 !important;  
+    }
 
     .dropdown-menu.notify-drop .drop-content>li {
         padding: 0 0 12px 0;
@@ -75,8 +84,7 @@
         width: 94%;
         background-color: #ffffff;
         margin: 10px !important;
-        border: 1px solid #cf0303 !important;
-        border-left: 7px solid #cf0303 !important;
+        
     }
 
     .dropdown-menu.notify-drop .drop-content>li.notf-is-read {
@@ -454,21 +462,22 @@
                                 <i style="font-size:24px" class="fa fa-eye-slash"></i>
                                 <p>No notifications</p>
                             </div>
-                            <ul class="nav nav-tabs notification-tabs" ng-show="allNotifications.external.length>0 || allNotifications.internal.length>0">
+                            <!-- <ul class="nav nav-tabs notification-tabs" ng-show="allNotifications.external.length>0 || allNotifications.internal.length>0">
                                 <li class="active">
                                     <a href="#internal-events">External </a>
                                 </li>
                                 <li>
                                     <a href="#external-events">Internal</a>
                                 </li>
-                            </ul>
-                            <div class="tab-content" ng-show="allNotifications.external.length>0 || allNotifications.internal.length>0">
+                            </ul> -->
+                            <div class="tab-content" ng-show="allNotifications.length>0">
                                 <div id="internal-events" class="tab-pane fade in active">
                                     <ul class="drop-content">
-                                        <li ng-repeat="notf in allNotifications.external" style="display:block" ng-class="{'notf-is-read': notf.notification.properties.readFlag==1}"
-                                            ng-click="OpenNotfModal(notf)">
+                                        <li ng-repeat="notf in allNotifications" style="display:block" 
+                                        ng-class="notf.type=='warning' ? 'red-border':'blue-border'"    
+                                        >
                                             <div class="row">
-                                                <!--<div class="col-xs-12 pd-l0 event-time">-->
+                                                <!--<div  class="col-xs-12 pd-l0 event-time">-->
                                                     <!--<div class="row">-->
                                                         <!--<div class="col-xs-4 pd-0">-->
                                                             <!--<p class="notify-img" ng-class="{'is-negative': (notf.notification.properties.daysLeft<0)}">-->
@@ -491,8 +500,9 @@
                                                     <!--</div>-->
                                                 <!--</div>-->
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
-                                                    <h4 class="notify-head">{{notf.notifications.properties.eventName}}</h4>
-                                                    <p class="notf-content">{{notf.notifications.properties.eventDetails}}</p>
+                                                    <h4 class="notify-head">{{notf.heading}}</h4>
+                                                    <p class="notf-content">{{notf.text}}</p>
+                                                    <span class="pull-right">{{notf.count}}</span>
 
                                                 </div>
                                             </div>
