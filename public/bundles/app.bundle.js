@@ -24172,7 +24172,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-
+        $scope.allNotifications = []
         $scope.role = '';
 
 
