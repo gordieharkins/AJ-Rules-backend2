@@ -183,7 +183,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
         
         var toggleData = [];
-        if(checkbox=='Mark as Yes'){
+        if(checkbox=='Mark all as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
@@ -196,7 +196,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             }
         }
         }
-        else if(checkbox=='Mark as No') {
+        else if(checkbox=='Mark all as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
