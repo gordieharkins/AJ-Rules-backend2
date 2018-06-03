@@ -228,16 +228,12 @@
         font-weight: normal;
         margin: 0;
     }
-    .header-btn ul li:active {
-        background: #ffffff;
-    }
 
     .dropdown-menu.notify-drop .drop-content>li p.notf-content {
         margin: 0;
         max-width: 330px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        word-break: break-all;
+        display: block;
     }
 
     .dropdown-menu.notify-drop .drop-content>li p.time {
@@ -297,6 +293,17 @@
         margin: 1px 0 0 0;
         padding: 0 6px 0 0;
     }
+    .header-btn ul li:active {
+        background: #ffffff !important;
+    }
+    .card-tag-red {
+        float: right;
+        color: white;
+        padding: 3px 5px 3px 5px;
+        border-radius: 6px;
+        background: #cf0303;
+    }
+
     @media (max-width: 1200px) {
         .image-lg {
             width: 65px;
@@ -502,7 +509,7 @@
                                                 <div class="col-xs-12 pd-l0" style="margin-top: 10px;">
                                                     <h4 class="notify-head">{{notf.heading}}</h4>
                                                     <p class="notf-content">{{notf.text}}</p>
-                                                    <span class="pull-right">{{notf.count}}</span>
+                                                    <span ng-show="notf.count" class="card-tag-red pull-right">{{notf.count}} Remaining</span>
 
                                                 </div>
                                             </div>

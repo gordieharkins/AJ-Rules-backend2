@@ -215,7 +215,7 @@ DAL.prototype.generateNotification = function(notification, eventId, cb) {
 // getNotification
 //--------------------------------------------------------
 DAL.prototype.getNotification = function(userId, cb) {
-    var query = `MATCH(n:user) where id(n) = 9926006
+    var query = `MATCH(n:user) where id(n) = {userId}
     MATCH (n)-[:OWNS]-(p:property) where p.isDeleted <> true
     MATCH (p)-[]->(:timeline)-[]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subEvent:subEvent)
