@@ -176,6 +176,20 @@ function _UtilService($http, $filter) {
 
     }
 
+    function filterOwner(data) {
+        var owner = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                owner.push({ownerName: data[i].properties[s].ownerName});
+            }
+           
+        }
+
+        return owner;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -184,7 +198,8 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
-        filterJurisdictions: filterJurisdictions
+        filterJurisdictions: filterJurisdictions,
+        filterOwner: filterOwner
 
     };
 }

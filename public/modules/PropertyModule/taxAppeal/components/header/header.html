@@ -6,7 +6,7 @@
       <!--<button ng-click="" class="blue-button">Send Invite<i class="fa fa-caret-down"></i></button>-->
     </div>
     <div class="col-md-8 col-sm-12 filter-sub">
-  
+        {{propertyFilter.name}}
       <ul class="head-filters">
         <li class="ad-jurisdiction">
           <button type="button" class="filter-btn"><i class="fa fa-hand-rock-o" style="margin-left: 0"></i>Jurisdiction: All<i class="fa fa-caret-down"></i></button>
@@ -34,13 +34,13 @@
               <h3 style="margin: 0px;"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal Status</h3>
               <ul class="appeal-check">
                 <li class="clearfix">
-                  <label> <input ng-model="appealStatus.ns" ng-true-value="'Not Started'" ng-false-value="''" type="checkbox"> Not started </label>
+                  <label> <input ng-model="appealStatus.ns"  type="checkbox"> Not started </label>
                 </li>
                 <li class="clearfix">
-                  <label> <input ng-model="appealStatus.ip" ng-true-value="'In Progress'" ng-false-value="''" type="checkbox">In-progress </label>
+                  <label> <input ng-model="appealStatus.ip" type="checkbox">In-progress </label>
                 </li>
                 <li class="clearfix">
-                  <label> <input ng-model="appealStatus.do" ng-true-value="'Done'" ng-false-value="''" type="checkbox">Done </label>
+                  <label> <input ng-model="appealStatus.don" type="checkbox">Done </label>
                 </li>
                 <!-- <li class="clearfix">
                   <label> <input type="checkbox">Properties apporching deadline</label>
@@ -63,13 +63,13 @@
                 <h3 style="margin: 0px;"><i class="fa fa-building-o" style="margin-left: 0"></i>Property information</h3>
                 <div class="property-area" style="padding: 10px">
                   <label style="font-size: 14px; font-weight: 600">Search by Property Name</label>
-                  <input type="text" class="form-control jur-search" placeholder="Mike">
+                  <input ng-model="propertyFilter.name" type="text" class="form-control jur-search" placeholder="Mike">
                   <i class="fa fa-search juris-icon-two"></i>
 
                 <div class="property-ad clearfix">
                   <div class="select-one">
                     <label style=" font-size: 14px; font-weight: 600">Search by Address</label>
-                    <input type="text" class="form-control jur-search" placeholder="s#10, h#50....">
+                    <input ng-model="propertyFilter.add" type="text" class="form-control jur-search" placeholder="s#10, h#50....">
                     <i class="fa fa-search juris-icon-two search-three"></i>
                   </div>
                 </div>
@@ -89,11 +89,9 @@
                 <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
                   <label style=" font-size: 14px; font-weight: 600">Search by Owner</label>
                   <i class="fa fa-caret-down select-dropdown"></i>
-                  <select class="form-control">
-                    <option>Owner</option>
-                    <option >Mike</option>
-                    <option>David</option>
-                    <option>Robot</option>
+                  <select  class="form-control" ng-model="propertyFilter.owner">
+                    <option  selected="true"   value="None">Select Owner Name</option>
+                    <option ng-repeat="data in search.owner">{{data.ownerName}}</option>
                   </select>
                 </div>
               </div>

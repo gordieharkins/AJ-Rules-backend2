@@ -26,9 +26,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
-    $scope.search ={jurisdictions: []}
+    $scope.search ={jurisdictions: [],zipCode: [], owner: []}
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
-    $scope.appealStatus = {ns: 'Not Started',ip: 'In Progress',don : ''}
+    $scope.appealStatus = {ns: false,ip: false,don : false};
+    $scope.propertyFilter = {name: '', add: '', zipCode: '',owner: 'None'}
 
 
     $scope.getPropertyDetails = function()  {
@@ -43,6 +44,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
+            //   $scope.search.zipCode = UtilService.filterJurisdictions($scope.data.jurisdictions)
+              $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+              
               
              
             }, function (result) {
@@ -270,7 +274,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.configModalfields =  function(data, item) {
-        let count = 0 ;
+        var count = 0 ;
         for(var  i = 0 ; i <data.length;i++) {
             
             if(data[i].value=='true'){
