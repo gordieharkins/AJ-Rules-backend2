@@ -136,18 +136,17 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
-    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId}
+    var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId} AND prop.isDeleted <> true
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
     OPTIONAL MATCH (event)-[:additional_item]->(otherFile: otherFileNode)
-    return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, 
-    prop.recordOwnerName as ownerName, event, collect(subevent) as subEvent, collect(DISTINCT otherFile) as additionalItems ORDER BY id(event)`;
+    return id(prop) as propertyId, prop.assessingAuthority as jurisdiction, prop.propertyName as propertyName, prop.formattedAddress as address, prop.streetAddress as streetAddress,  
+    prop.recordOwnerName as ownerName, prop.zip as zipCode, prop.taxAccountNo as taxAccountNo, event, collect(subevent) as subEvent, collect(DISTINCT otherFile) as additionalItems ORDER BY id(event)`;
 
     var params = {
         userId: userId
     };
 
-    // console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -161,7 +160,7 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
-    console.log(data);
+    // console.log(JSON.stringify(data));
     var params = {};
     var query = "";
     if(Array.isArray(data)){
@@ -181,7 +180,6 @@ DAL.prototype.updateData = function(data, id, cb) {
         query = `MATCH(n) where id(n) = {id} SET n = {data}`;
     }
 
-    // console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -193,22 +191,22 @@ DAL.prototype.updateData = function(data, id, cb) {
 //--------------------------------------------------------
 // generateNotification
 //--------------------------------------------------------
-DAL.prototype.generateNotification = function(notification, userId, cb) {
-    var query = `MATCH(n:user) where id(n) = {userId}
-                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
-                ON MATCH SET rel.count = rel.count + 1
-                ON CREATE SET rel.count = 1`;
-
+DAL.prototype.generateNotification = function(notification, eventId, cb) {
     var params = {
-        userId: userId
+        eventId: eventId,
+        remainingDays: notification.remainingDays
     };
 
-    // console.log(query);
+    delete notification.remainingDays;
+    var query = `MATCH(n) where id(n) = {eventId}
+                MERGE(n)-[rel:notification]->(notification:notification`+converter.cypherJsonConverter(notification)+`)
+                ON MATCH SET rel.remainingDays = {remainingDays}
+                ON CREATE SET rel.remainingDays = {remainingDays}`;
+
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log("results", results);
         cb(err, results);
     });
 }
@@ -218,8 +216,13 @@ DAL.prototype.generateNotification = function(notification, userId, cb) {
 //--------------------------------------------------------
 DAL.prototype.getNotification = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId}
-                MATCH(n)-[rel:notification]->(notification:notification)
-                RETURN notification, rel.count`;
+    MATCH (n)-[:OWNS]-(p:property) where p.isDeleted <> true
+    MATCH (p)-[]->(:timeline)-[]->(event:event)
+    OPTIONAL MATCH (event)-[:subEvent]->(subEvent:subEvent)
+    OPTIONAL MATCH (event)-[days:notification]-(notification:notification) Where event.status <> "Done"
+    OPTIONAL MATCH (subEvent)-[days1:notification]-(notification1:notification) Where subEvent.status <> "Done"
+    RETURN properties(notification) as notification, 
+    properties(notification1) as notification1, days1.remainingDays as remainingDays`;
 
     var params = {
         userId: userId
@@ -239,7 +242,6 @@ DAL.prototype.getNotification = function(userId, cb) {
 //--------------------------------------------------------
 DAL.prototype.executeSignature = function(userId, cb) {
     var query = `MATCH(n:user) where id(n) = {userId} return n.pin as pin`;
-
     var params = {
         userId: userId
     };

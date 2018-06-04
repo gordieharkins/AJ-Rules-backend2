@@ -128,3 +128,8 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', require('./PropertyAs
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', require('./taxAppeal/tax-appeal.controller'));
+angular.module('AOTC').filter('FilterJ', require('./taxAppeal/taxAppeal.filter').JurisdictionFilter);
+angular.module('AOTC').filter('AppealFilter', require('./taxAppeal/taxAppeal.filter').AppealFilter);
+angular.module('AOTC').filter('PAddressFilter', require('./taxAppeal/taxAppeal.filter').pAddressFilter);
+angular.module('AOTC').filter('pOwnerNameFilter', require('./taxAppeal/taxAppeal.filter').pOwnerNameFilter);
+angular.module('AOTC').filter('pZipCodeFilter', require('./taxAppeal/taxAppeal.filter').pZipCodeFilter)

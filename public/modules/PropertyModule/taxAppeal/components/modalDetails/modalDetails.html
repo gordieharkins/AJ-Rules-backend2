@@ -59,6 +59,7 @@
     max-height: 300px;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    width: 100%;
   }
   #TableModal .list-group-item-danger, #TableModal .list-group-item-success{
     background-color: #ffffff;
@@ -78,7 +79,7 @@
   }
   .req-list li{
     position: relative;
-    padding: 10px 20px 10px 0;
+    padding: 10px 0 10px 0;
     border-bottom: 1px solid #ededed;
   }
   .modal-button{
@@ -102,6 +103,12 @@
   .red-back {
     background: red
   }
+  .select-label input {
+    margin: 3px 5px 0 57px !important;
+  }
+  .select-label, .select-all-option {
+    cursor: pointer !important;
+  }
   
 </style>
 <div class="popup-overlay">
@@ -122,8 +129,13 @@
                   <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                      <th>Field</th>
-                      <th>Value</th>
+                      <th style="width: 50%">Field</th>
+                      <th style="width: 50%">
+                        <label class="select-label" style="cursor: pointer">
+                        <input ng-true-value="'true'" ng-false-value="'false'" ng-model="configModal.dFieldsCb" ng-change="selectAllFields(configModal.dFieldsCb,1)" type="checkbox">
+                         Select All
+                      </label>
+                      </th>
                       <!-- <th>Source</th> -->
                     </tr>
                     </thead>
@@ -132,7 +144,7 @@
                       <td>{{fields.name}}</td>
                       <!-- <td ng-class="{'red-back': fields.value == ''}" >{{fields.value}}</td> -->
                       <td class="middle-check">
-                        <input ng-true-value="'true'" ng-false-value="'false'" style="width: 100%" type="checkbox" ng-model="fields.value">
+                        <input  ng-change="configModal.dFieldsCb = configModalfields(configModal.data.data.properties.dataFields,configModal.dFieldsCb )" ng-true-value="'true'" ng-false-value="'false'" style="width: 100%" type="checkbox" ng-model="fields.value">
                       </td>
                     </tr>
     
@@ -146,6 +158,10 @@
     
               <div class="col-md-5">
                         <span style="color: #2f71ab;font-size: 15px"><i class="fa fa-file-text" style="margin:0 5px 0 0;"></i>Required documents:</span>
+                        <label class="select-all-option" style="float: right; color: #3070ab; font-weight: normal; cursor: pointer" >
+                          <input ng-true-value="'true'" ng-false-value="'false'" ng-model="configModal.rItemCb" ng-change="selectAllFields(configModal.rItemCb,2)" type="checkbox" style="float: right; margin:  3px 0 0 5px">
+                           Select All
+                        </label>
                         <!-- <a ng-click="signModal(1)"   type="button"   class="modal-button upload-btn">Upload</a> -->
                 <div class="table-wrapper-2">
                   <!--<div class="list-group">-->
@@ -158,7 +174,7 @@
                   <ul class="req-list" ng-repeat="req in configModal.data.data.properties.requiredItems">
                     <li style="color: #a94442;">{{req.name}}
                       <span style="float: right">
-                              <input ng-true-value="'true'" ng-false-value="'false'"   type="checkbox" ng-model="req.value">
+                              <input ng-change="configModal.rItemCb = configModalfields(configModal.data.data.properties.requiredItems,configModal.rItemCb )" ng-true-value="'true'" ng-false-value="'false'"   type="checkbox" ng-model="req.value">
                       </span>
               
                     </li>

@@ -2,7 +2,7 @@
 <div ng-init="staticTable(2)" >
     <div class="row main-table-header">
       <div class="col-md-5" >
-        <span ng-click="switchMode()"><i class="table-back fa fa-chevron-left"></i>{{subData.jName}}</span>
+        <span style="cursor: pointer" ng-click="switchMode()"><i class="table-back fa fa-chevron-left"></i>{{subData.eName}} ( {{subData.jName}} )</span>
       </div>
       <div class="table-header-actions col-md-7 clearfix">
         <div class="button-filter">
@@ -36,69 +36,65 @@
         </div>
       </div>
     </div>
-    <div  class="JStableOuter" >
-      <table >
+    <div  class="JStableOuter inner-table" >
+      <table style="height: 586px">
         <thead>
         <tr style="top: 0" >
           <th class="first-col-head" >
             <input type="checkbox">Property Name
           </th>
-          <th ng-repeat="events in  subData.prop[0].subEvents">
-            <span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>
-            <span>{{events.properties.name}} <i class="fa fa-caret-down"></i></span>
-            <!-- <ul class="appeal-check" ng-if="events.properties.dropdown">
-                <li class="clearfix" >
-                  <label> <input ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)" ng-model="events.markAll" type="checkbox">Mark All</label>
-                </li>
-            </ul> -->
-            <select ng-if="events.properties.dropdown" ng-model="events.markAll" ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">
-              <option  ng-repeat="data in events.properties.dropdownValues">{{data}}</optio>
-            </select>
-          
-            <!--<span class="not-mandatory">(Not mandatory)</span>-->
+
+
+          <!--<th ng-repeat="events in  subData.prop[0].subEvents">-->
+            <!--<span>{{events.properties.name}}-->
+              <!--<i  class="fa fa-caret-down property-dropdown-new" ng-if="events.properties.dropdown">-->
+                 <!--<select class="select-area selectpicker" data-width="fit"  ng-if="events.properties.dropdown"  ng-model="events.markAll"-->
+                         <!--ng-change="selectAll($index,events.markAll,events,events.properties.dropdownValues)">-->
+              <!--<option class="option-select" ng-repeat="data in events.properties.dropdownValues">{{data}}</option>-->
+            <!--</select>-->
+              <!--</i></span>-->
+          <!--</th>-->
+
+          <th ng-repeat="events in  subData.prop[0].subEvents"  ng-init="idx= $index">
+            <span>{{events.properties.name}}
+                  <span class="caret dropdown" style="cursor: pointer" ng-if="events.properties.dropdown" >
+                 <i  class="fa fa-caret-down"></i>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="data in events.properties.dropdownValues" 
+                       ng-click="selectAll(idx,data,events,events.properties.dropdownValues)">
+                      <a>{{data}}</a>
+                    </li>
+                  </ul>
+                 </span>
+                 <span ng-show="!events.properties.mandatory" class="not-mandatory">(Optional)</span>
+         
+            </span>
           </th>
-          <!--<th>-->
-          <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-          <!--<span>Complete Required Items</span>-->
-          <!--<a class="required-items">Required items</a>-->
-          <!--</th>-->
-          <!--<th>-->
-          <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-          <!--<span>Complete IE Survey Form</span>-->
-          <!--</th>-->
-          <!--<th>-->
-          <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-          <!--<span>Review IE Survey Draft</span>-->
-          <!--<span class="not-mandatory">(Not mandatory)</span>-->
-          <!--</th>-->
-          <!--<th>-->
-          <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
-          <!--<span>Submit IE Survey Form<i class="fa fa-caret-down"></i></span>-->
-          <!--</th>-->
-          <th class="action-col">
-            <span>Action</span>
-          </th>
+
+
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat=" prop in   subData.prop"  ng-init="propertyIndex=$index">
+        <tr ng-repeat=" prop in   subData.prop | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {fcolName: propertyFilter.name}"  ng-init="propertyIndex=$index">
           <td class="first-col-body">
             <label><input type="checkbox">{{prop.fcolName}}</label>
-            <p>{{prop.fcolOwnerName}}</p>
-            <p>N/A</p>
-            <p>N/A</p>
+            <p ng-if="prop.address">{{prop.address}}</p>
+            <p ng-if="!prop.address">{{prop.streetAddress}}</p>
+           <p>{{prop.taxAccountNo}}</p>
+            <p>{{prop.ownerName}}</p>
           </td>
             
-          <td style=" height: 170px;" class="started-tr" ng-repeat="events in  prop.subEvents"  ng-init="subEventIndex=$index">
+          <td style=" height: 170px;" class="started-tr" ng-repeat="events in  prop.subEvents | AppealFilter:appealStatus"  ng-init="subEventIndex=$index">
             <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
-            <button ng-if="events.properties.button" type="submit" ng-click="events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
+            <button ng-if="events.properties.button" type="submit" ng-click="events.properties.status=='Not Started' || events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
             <div ng-show="events.properties.toggle" class="toggle-div">
                 <label class="switch">
                   <input  
                   ng-change="selectOne(subEventIndex, events.properties.toggleValue,propertyIndex)"
                   ng-true-value="'true'" 
                   ng-false-value="'false'" 
+                  ng-disabled="events.properties.status=='Not Started'"
                   ng-checked="events.properties.toggleValue == 'true'" ng-model="events.properties.toggleValue" type="checkbox" id="togBtn">
                   <div class="slider round" ><!--ADDED HTML -->
                     <span  ng-show="events.properties.toggleValue=='true'" class="on">Yes</span>
@@ -121,9 +117,9 @@
           <!--<span class="pull-left"></span>-->
           <!--<app-appeal-message [type]="'In progress'" ></app-appeal-message>-->
           <!--</td>-->
-          <td class="action-col">
-            <a class="inventory-stroke-icon"></a>
-          </td>
+          <!--<td class="action-col">-->
+            <!--<a class="inventory-stroke-icon"></a>-->
+          <!--</td>-->
         </tr>
         </tbody>
   

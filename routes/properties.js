@@ -160,7 +160,7 @@ router.post('/addFinalProperties', function(req, res, next) {
 });
 
 router.post('/deletePropertiesByIds', function(req, res, next) {
-    BLL.deletePropertiesByIds(req.body, res, req.query.userId);
+    BLL.deletePropertiesByIds(req, res, req.query.userId);
 });
 
 router.get('/getPropertiesLandingPage', function(req, res, next) {

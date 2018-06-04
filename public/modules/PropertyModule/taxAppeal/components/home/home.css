@@ -1,17 +1,22 @@
-body { padding: 0; margin: 0 }
+body{
+  padding: 0;
+  margin: 0;
+}
 .JStableOuter table {
   position: relative;
   width: 100%;
   background-color: #fff;
   border-collapse: collapse;
   display: block;
-  height: 450px;
+  max-height: 466px;
+  height: auto;
   overflow: auto;
 }
 .JStableOuter {
   max-width:100%;
-  margin:auto;
-  border:1px solid #ddd; }
+  border:1px solid #ddd;
+  margin: 0 0 20px;
+}
 
 
 .JStableOuter  thead th {
@@ -73,7 +78,9 @@ tbody tr td{
   overflow: auto;
 }
 
-.contBox { min-width: 150px; }
+.contBox {
+  min-width: 150px;
+}
 p{
   margin: 0;
 }
@@ -415,7 +422,7 @@ thead tr th span{
   margin: 5px 5px 0 0;
 }
 .not-mandatory{
-  display: block;
+  display: contents;
   color: #cf0303;
   font-weight: 600;
   font-size: 12px;
@@ -436,6 +443,7 @@ thead tr th span{
   left: 0;
   right: 0;
   margin:0 auto;
+  border: none;
 }
 .switch input {display:none;}
 
@@ -523,97 +531,8 @@ input:checked + .slider .off
   display: block;
   text-align: center;
 }
-@media (max-width: 1100px) {
-  .button-filter{
-    width: 100%;
-    margin: 0 0 10px;
-  }
-  .icon-filter{
-    width: 100%;
-  }
-}
-@media (max-width: 955px) {
-  .table-header-actions{
-    padding-right: 9px;
-  }
-}
-@media (max-width: 916px) {
-  .main-table-header .col-md-5{
-    padding: 0 0 0 15px;
-    max-width: 100% !important;
-    display: block;
-    float: none;
-    flex: 100%;
-    margin: 0 0 12px;
-  }
-  .table-header-actions[_ngcontent-c1] {
-    padding-right: 9px;
-    flex: 100%;
-    max-width: 100%;
-  }
-  .button-filter{
-    width: 80%;
-  }
-  .icon-filter{
-    width: 20%;
-  }
-}
-@media (max-width: 505px) {
-  .button-filter{
-    width: 100%;
-    text-align: left;
-  }
-  .button-filter button{
-    margin-bottom: 5px;
-  }
-  .icon-filter{
-    width: 100%;
-  }
-}
-/*message component*/
-.not-started{
-    top: 0;
-    background: #d1d100;
-    padding: 5px;
-    border-radius: 0 0 0 10px;
-    color: #ffffff;
-    text-shadow: none;
-    position: absolute;
-    right: 0;
-  }
-  .done{
-    top: 0;
-    background: #59d816;
-    padding: 5px;
-    border-radius: 0 0 0 10px;
-    color: #ffffff;
-    text-shadow: none;
-    position: absolute;
-    right: 0;
-  }
-  .applicable{
-    top: 0;
-    background: #bfbfbf;
-    padding: 5px;
-    border-radius: 0 0 0 10px;
-    color: #ffffff;
-    text-shadow: none;
-    position: absolute;
-    right: 0;
-  }
-  
-  
-  .in-progress{
-    top: 0;
-    background: #0081f3;
-    padding: 5px;
-    border-radius: 0 0 0 10px;
-    color: #ffffff;
-    text-shadow: none;
-    position: absolute;
-    right: 0;
-  }
-  /*not*/
+
+
 .red-note{
   color: #cf0303;
   font-weight: 600;
@@ -626,3 +545,153 @@ input:checked + .slider .off
   margin: 25px 0 10px;
   font-weight: 600;
 }
+.property-dropdown-new{
+  position: relative;
+}
+.caret.dropdown:hover .dropdown-menu{
+  display: block !important;
+}
+.dropdown ul.dropdown-menu:before, .dropdown ul.dropdown-menu:after{
+  display: none !important;
+}
+.dropdown-menu>li>a {
+  padding: 5px 10px;
+  color: #3c3c3c;
+}
+.caret.dropdown:hover .dropdown-menu {
+  left: -140px;
+  display: block !important;
+  top: 13px;
+  position: absolute;
+}
+.caret {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 0;
+  vertical-align: middle;
+  border: none;
+}
+ul.dropdown-menu li a:hover {
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+
+.table-row{
+  width: 75%;
+  padding-right: 0;
+}
+.notification-row{
+  width: 24% !important;
+  padding-right: 0;
+}
+
+    @media (max-width: 1100px) {
+      .button-filter{
+        width: 100%;
+        margin: 0 0 10px;
+      }
+      .icon-filter{
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 955px) {
+      .table-header-actions{
+        padding-right: 9px;
+      }
+      .table-row{
+        width:70%;
+        padding-right: 0;
+      }
+      .notification-row{
+        width: 30% !important;
+      }
+    }
+    @media (max-width: 767px){
+      .table-row{
+        width: 100%;
+        padding-right: 0;
+      }
+      .notification-row{
+        width: 100% !important;
+      }
+    }
+    @media (max-width: 916px) {
+      .main-table-header .col-md-5{
+        padding: 0 0 0 15px;
+        max-width: 100% !important;
+        display: block;
+        float: none;
+        flex: 100%;
+        margin: 0 0 12px;
+      }
+      .table-header-actions{
+        padding-right: 9px;
+        flex: 100%;
+        max-width: 100%;
+      }
+      .button-filter{
+        width: 80%;
+      }
+      .icon-filter{
+        width: 20%;
+      }
+    }
+    @media (max-width: 505px) {
+      .button-filter{
+        width: 100%;
+        text-align: left;
+      }
+      .button-filter button{
+        margin-bottom: 5px;
+      }
+      .icon-filter{
+        width: 100%;
+      }
+    }
+    /*message component*/
+    .not-started{
+        top: 0;
+        background: #d1d100;
+        padding: 5px;
+        border-radius: 0 0 0 10px;
+        color: #ffffff;
+        text-shadow: none;
+        position: absolute;
+        right: 0;
+      }
+      .done{
+        top: 0;
+        background: #59d816;
+        padding: 5px;
+        border-radius: 0 0 0 10px;
+        color: #ffffff;
+        text-shadow: none;
+        position: absolute;
+        right: 0;
+      }
+      .applicable{
+        top: 0;
+        background: #bfbfbf;
+        padding: 5px;
+        border-radius: 0 0 0 10px;
+        color: #ffffff;
+        text-shadow: none;
+        position: absolute;
+        right: 0;
+      }
+
+
+      .in-progress{
+        top: 0;
+        background: #0081f3;
+        padding: 5px;
+        border-radius: 0 0 0 10px;
+        color: #ffffff;
+        text-shadow: none;
+        position: absolute;
+        right: 0;
+      }
+      /*not*/

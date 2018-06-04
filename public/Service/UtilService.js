@@ -165,6 +165,59 @@ function _UtilService($http, $filter) {
             });
     }
 
+    function filterJurisdictions(data) {
+        var jurisdictions = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+             jurisdictions.push({name: data[i].name});
+        }
+
+        return jurisdictions;
+
+    }
+
+    function filterOwner(data) {
+        var owner = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                owner.push({ownerName: data[i].properties[s].ownerName});
+            }
+           
+        }
+
+        return owner;
+
+    }
+
+    function filterZipCode(data) {
+        var zipCode = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                zipCode.push({zipCode: data[i].properties[s].zipCode});
+            }
+           
+        }
+
+        zipCode = extractDistinct(zipCode, 'zipCode')
+
+        return zipCode;
+
+    }
+
+    function extractDistinct(array,property){
+        var unique = {};
+        var distinct = [];
+        for( var i in array ){
+           if( typeof(unique[array[i][property]]) == "undefined"){
+              distinct.push(array[i]);
+           }
+           unique[array[i][property]] = 0;
+        }
+        return distinct;
+    }
+
 
     return {
         clearFile: clearFile,
@@ -173,6 +226,9 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
+        filterJurisdictions: filterJurisdictions,
+        filterOwner: filterOwner,
+        filterZipCode: filterZipCode
 
     };
 }

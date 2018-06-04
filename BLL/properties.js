@@ -896,8 +896,12 @@ BLL.prototype.deletePropertiesByIds = function(data, res, userId) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    DAL.deletePropertiesByIds(data, userId, function(error, slaveProperties) {
+
+    var propertyIds = data.body.propIds;
+    var userId = data.user[0].userId;
+    DAL.deletePropertiesByIds(propertyIds, userId, function(error, slaveProperties) {
         if (error) {
+            console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.DELETE_FAIL, null, res);
