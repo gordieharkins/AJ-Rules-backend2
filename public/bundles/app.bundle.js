@@ -1418,8 +1418,7 @@ PIS.validate = function(pis) {
 /* 57 */,
 /* 58 */,
 /* 59 */,
-/* 60 */,
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1430,7 +1429,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = startOfUTCISOWeekYear;
 
-var _index = __webpack_require__(91);
+var _index = __webpack_require__(90);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1453,7 +1452,7 @@ function startOfUTCISOWeekYear(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1472,7 +1471,7 @@ module.exports = {
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1498,7 +1497,7 @@ module.exports = {
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -1836,8 +1835,8 @@ module.exports = { comparableComponent: _comparableComponent, fileinput: _filein
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 65 */,
-/* 66 */
+/* 64 */,
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -2457,7 +2456,7 @@ module.exports = { myDraggable: _myDraggable, nameFilter: _nameFilter, editArran
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -2981,6 +2980,7 @@ module.exports = { nameFilter: _nameFilter, myDraggable: _myDraggable, arrangeSu
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
+/* 67 */,
 /* 68 */,
 /* 69 */,
 /* 70 */,
@@ -3000,8 +3000,7 @@ module.exports = { nameFilter: _nameFilter, myDraggable: _myDraggable, arrangeSu
 /* 84 */,
 /* 85 */,
 /* 86 */,
-/* 87 */,
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3063,7 +3062,7 @@ function isValid(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3073,23 +3072,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(155);
+var _index = __webpack_require__(154);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(156);
+var _index3 = __webpack_require__(155);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(158);
+var _index5 = __webpack_require__(157);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(159);
+var _index7 = __webpack_require__(158);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(162);
+var _index9 = __webpack_require__(161);
 
 var _index10 = _interopRequireDefault(_index9);
 
@@ -3118,7 +3117,7 @@ exports.default = locale;
 module.exports = exports['default'];
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3137,7 +3136,7 @@ var _index3 = __webpack_require__(43);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(61);
+var _index5 = __webpack_require__(60);
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -3159,7 +3158,7 @@ function getUTCISOWeek(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3207,7 +3206,7 @@ function getUTCISOWeekYear(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3232,7 +3231,7 @@ function cloneObject(dirtyObject) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3277,8 +3276,8 @@ module.exports = {
 
 
 /***/ }),
-/* 94 */,
-/* 95 */
+/* 93 */,
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3797,7 +3796,7 @@ module.exports = { contractEditor: _contractEditor, directiveFunction: directive
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3893,7 +3892,7 @@ function _tel() {
 }
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3902,7 +3901,7 @@ function _tel() {
 _PropertyDetailsTab.$inject = ["User_Config", "fileReader", "UtilService", "$stateParams", "$location", "$scope", "$http", "__env", "$log", "AOTCService", "PropertyDetailsTabService", "$timeout"];
 module.exports = { PropertyDetailsTab: _PropertyDetailsTab, ngPropertyImageSelect: _ngPropertyImageSelect };
 
-var async = __webpack_require__(98);
+var async = __webpack_require__(97);
 
 
 
@@ -4326,7 +4325,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, process, global, module) {(function (global, factory) {
@@ -9925,10 +9924,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(99), __webpack_require__(45), __webpack_require__(65)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(260).setImmediate, __webpack_require__(98), __webpack_require__(45), __webpack_require__(64)(module)))
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10118,7 +10117,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10126,7 +10125,7 @@ process.umask = function() { return 0; };
 
 _PropValuation.$inject = ["$state", "$timeout", "$rootScope", "$stateParams", "AOTCService", "$scope", "ValuationService", "UtilService", "PetitionerFormulae"];
 module.exports = {PropValuation: _PropValuation, inputFocusFunction: _inputFocusFunction};
-var async = __webpack_require__(98);
+var async = __webpack_require__(97);
 //angular.module('AOTC')
 //    .directive('inputFocusFunction', _inputFocusFunction
 //    )
@@ -12453,7 +12452,7 @@ function _inputFocusFunction() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12753,7 +12752,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12946,8 +12945,8 @@ function _pwCheck() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 103 */,
-/* 104 */
+/* 102 */,
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13008,6 +13007,7 @@ function _Excel($window){
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
+/* 104 */,
 /* 105 */,
 /* 106 */,
 /* 107 */,
@@ -13041,31 +13041,30 @@ function _Excel($window){
 /* 135 */,
 /* 136 */,
 /* 137 */,
-/* 138 */,
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
+__webpack_require__(139);
 __webpack_require__(140);
-__webpack_require__(141);
 //require('../assets/css/font-awesome.min.css');
-__webpack_require__(142);
+__webpack_require__(141);
 //require('../assets/css/main2.css');
+__webpack_require__(142);
 __webpack_require__(143);
-__webpack_require__(144);
 //require('../assets/css/datatables.min.css');
 //require('../assets/css/responsive.dataTables.min.css');
 //require('../assets/css/jquery.dataTables.min.css');
 //require('../assets/css/dataTables.jqueryui.min.css');
 //require('../assets/css/buttons.jqueryui.min.css');
 //require('../assets/css/buttons.dataTables.min.css');
+__webpack_require__(144);
 __webpack_require__(145);
 __webpack_require__(146);
 __webpack_require__(147);
-__webpack_require__(148);
 
 
 
@@ -13083,7 +13082,7 @@ var ngModule = angular.module('AOTC', [
     'ckeditor',
     'ui.bootstrap',
     //'ui.utils.masks',
-    __webpack_require__(149),
+    __webpack_require__(148),
     'ui.router',
     'agGrid',
     // 'dragularModule',
@@ -13883,25 +13882,31 @@ ngModule.run(["$log", "__env", logEnvironment]);
 
 //agGrid.initialiseAgGridWithAngular1(angular);
 
-__webpack_require__(94);
-__webpack_require__(202);
-__webpack_require__(208);
-__webpack_require__(211);
-__webpack_require__(224);
+__webpack_require__(93);
+__webpack_require__(201);
+__webpack_require__(207);
+__webpack_require__(210);
+__webpack_require__(223);
+__webpack_require__(238);
 __webpack_require__(239);
-__webpack_require__(240);
-__webpack_require__(242);
-__webpack_require__(244);
-__webpack_require__(247);
-__webpack_require__(287);
-__webpack_require__(288);
-__webpack_require__(313);
-__webpack_require__(316);
-__webpack_require__(321);
-__webpack_require__(329);
+__webpack_require__(241);
+__webpack_require__(243);
+__webpack_require__(246);
+__webpack_require__(285);
+__webpack_require__(286);
+__webpack_require__(311);
+__webpack_require__(314);
+__webpack_require__(319);
+__webpack_require__(327);
+__webpack_require__(330);
 __webpack_require__(332);
 __webpack_require__(334);
-__webpack_require__(336);
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 140 */
@@ -13953,9 +13958,15 @@ __webpack_require__(336);
 
 /***/ }),
 /* 148 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+
+
+var moduleName = __webpack_require__(149);
+
+module.exports = moduleName;
+
 
 /***/ }),
 /* 149 */
@@ -13964,9 +13975,13 @@ __webpack_require__(336);
 "use strict";
 
 
-var moduleName = __webpack_require__(150);
-
-module.exports = moduleName;
+module.exports = angular.module('ui.utils.masks', [
+	__webpack_require__(150),
+	__webpack_require__(184),
+	__webpack_require__(194),
+	__webpack_require__(196),
+	__webpack_require__(198)
+]).name;
 
 
 /***/ }),
@@ -13976,36 +13991,20 @@ module.exports = moduleName;
 "use strict";
 
 
-module.exports = angular.module('ui.utils.masks', [
-	__webpack_require__(151),
-	__webpack_require__(185),
-	__webpack_require__(195),
-	__webpack_require__(197),
-	__webpack_require__(199)
-]).name;
-
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var m = angular.module('ui.utils.masks.global', [])
-	.directive('uiCreditCardMask', __webpack_require__(152))
-	.directive('uiDateMask', __webpack_require__(153))
-	.directive('uiMoneyMask', __webpack_require__(180))
-	.directive('uiNumberMask', __webpack_require__(181))
-	.directive('uiPercentageMask', __webpack_require__(182))
-	.directive('uiScientificNotationMask', __webpack_require__(183))
-	.directive('uiTimeMask', __webpack_require__(184));
+	.directive('uiCreditCardMask', __webpack_require__(151))
+	.directive('uiDateMask', __webpack_require__(152))
+	.directive('uiMoneyMask', __webpack_require__(179))
+	.directive('uiNumberMask', __webpack_require__(180))
+	.directive('uiPercentageMask', __webpack_require__(181))
+	.directive('uiScientificNotationMask', __webpack_require__(182))
+	.directive('uiTimeMask', __webpack_require__(183));
 
 module.exports = m.name;
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14039,15 +14038,15 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var formatDate = __webpack_require__(154);
-var parseDate = __webpack_require__(170);
-var isValidDate = __webpack_require__(88);
+var formatDate = __webpack_require__(153);
+var parseDate = __webpack_require__(169);
+var isValidDate = __webpack_require__(87);
 var StringMask = __webpack_require__(10);
 
 function isISODateString(date) {
@@ -14124,7 +14123,7 @@ module.exports = DateMaskDirective;
 
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14139,23 +14138,23 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(88);
+var _index3 = __webpack_require__(87);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(89);
+var _index5 = __webpack_require__(88);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(167);
+var _index7 = __webpack_require__(166);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(92);
+var _index9 = __webpack_require__(91);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(169);
+var _index11 = __webpack_require__(168);
 
 var _index12 = _interopRequireDefault(_index11);
 
@@ -14338,7 +14337,7 @@ function cleanEscapedString(input) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14442,7 +14441,7 @@ function formatDistance(token, count, options) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14452,7 +14451,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(157);
+var _index = __webpack_require__(156);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -14471,7 +14470,7 @@ exports.default = formatLong;
 module.exports = exports['default'];
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14550,7 +14549,7 @@ function buildFormatLongFn(obj) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14575,7 +14574,7 @@ function formatRelative(token, date, baseDate, options) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14585,11 +14584,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(160);
+var _index = __webpack_require__(159);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(161);
+var _index3 = __webpack_require__(160);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -14684,7 +14683,7 @@ exports.default = localize;
 module.exports = exports['default'];
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14739,7 +14738,7 @@ function buildLocalizeFn(values, defaultType, indexCallback) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14782,7 +14781,7 @@ function buildLocalizeArrayFn(values, defaultType) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14792,19 +14791,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(163);
+var _index = __webpack_require__(162);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(164);
+var _index3 = __webpack_require__(163);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(165);
+var _index5 = __webpack_require__(164);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(166);
+var _index7 = __webpack_require__(165);
 
 var _index8 = _interopRequireDefault(_index7);
 
@@ -14866,7 +14865,7 @@ exports.default = match;
 module.exports = exports['default'];
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14913,7 +14912,7 @@ function buildMatchFn(patterns, defaultType) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14960,7 +14959,7 @@ function buildParseFn(patterns, defaultType) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14995,7 +14994,7 @@ function buildMatchPatternFn(pattern) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15031,7 +15030,7 @@ function parseDecimal(matchResult) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15041,15 +15040,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(168);
+var _index = __webpack_require__(167);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(90);
+var _index3 = __webpack_require__(89);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(91);
+var _index5 = __webpack_require__(90);
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -15311,7 +15310,7 @@ exports.default = formatters;
 module.exports = exports['default'];
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15344,7 +15343,7 @@ function getUTCDayOfYear(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15372,7 +15371,7 @@ function addUTCMinutes(dirtyDate, dirtyAmount, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15387,23 +15386,23 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(171);
+var _index3 = __webpack_require__(170);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(89);
+var _index5 = __webpack_require__(88);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(174);
+var _index7 = __webpack_require__(173);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(175);
+var _index9 = __webpack_require__(174);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(92);
+var _index11 = __webpack_require__(91);
 
 var _index12 = _interopRequireDefault(_index11);
 
@@ -15702,7 +15701,7 @@ function cleanEscapedString(input) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15713,7 +15712,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = subMinutes;
 
-var _index = __webpack_require__(172);
+var _index = __webpack_require__(171);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -15751,7 +15750,7 @@ function subMinutes(dirtyDate, dirtyAmount, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15762,7 +15761,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = addMinutes;
 
-var _index = __webpack_require__(173);
+var _index = __webpack_require__(172);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -15802,7 +15801,7 @@ function addMinutes(dirtyDate, dirtyAmount, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15852,7 +15851,7 @@ function addMilliseconds(dirtyDate, dirtyAmount, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16299,7 +16298,7 @@ exports.default = parsers;
 module.exports = exports['default'];
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16309,19 +16308,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(176);
+var _index = __webpack_require__(175);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(177);
+var _index3 = __webpack_require__(176);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(178);
+var _index5 = __webpack_require__(177);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(179);
+var _index7 = __webpack_require__(178);
 
 var _index8 = _interopRequireDefault(_index7);
 
@@ -16329,7 +16328,7 @@ var _index9 = __webpack_require__(43);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(61);
+var _index11 = __webpack_require__(60);
 
 var _index12 = _interopRequireDefault(_index11);
 
@@ -16517,7 +16516,7 @@ exports.default = units;
 module.exports = exports['default'];
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16564,7 +16563,7 @@ function setUTCDay(dirtyDate, dirtyDay, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16605,7 +16604,7 @@ function setUTCISODay(dirtyDate, dirtyDay, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16620,7 +16619,7 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(90);
+var _index3 = __webpack_require__(89);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -16638,7 +16637,7 @@ function setUTCISOWeek(dirtyDate, dirtyISOWeek, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16653,7 +16652,7 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(61);
+var _index3 = __webpack_require__(60);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -16678,15 +16677,15 @@ function setUTCISOWeekYear(dirtyDate, dirtyISOYear, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var StringMask = __webpack_require__(10);
-var validators = __webpack_require__(62);
-var PreFormatters = __webpack_require__(63);
+var validators = __webpack_require__(61);
+var PreFormatters = __webpack_require__(62);
 
 function MoneyMaskDirective($locale, $parse) {
 	return {
@@ -16862,15 +16861,15 @@ module.exports = MoneyMaskDirective;
 
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var validators = __webpack_require__(62);
-var NumberMasks = __webpack_require__(93);
-var PreFormatters = __webpack_require__(63);
+var validators = __webpack_require__(61);
+var NumberMasks = __webpack_require__(92);
+var PreFormatters = __webpack_require__(62);
 
 function NumberMaskDirective($locale, $parse) {
 	return {
@@ -16987,15 +16986,15 @@ module.exports = NumberMaskDirective;
 
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var validators = __webpack_require__(62);
-var NumberMasks = __webpack_require__(93);
-var PreFormatters = __webpack_require__(63);
+var validators = __webpack_require__(61);
+var NumberMasks = __webpack_require__(92);
+var PreFormatters = __webpack_require__(62);
 
 function preparePercentageToFormatter(value, decimals, modelMultiplier) {
 	return PreFormatters.clearDelimitersAndLeadingZeros((parseFloat(value)*modelMultiplier).toFixed(decimals));
@@ -17140,7 +17139,7 @@ module.exports = PercentageMaskDirective;
 
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17282,7 +17281,7 @@ module.exports = ScientificNotationMaskDirective;
 
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17354,28 +17353,28 @@ module.exports = function TimeMaskDirective() {
 
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = angular.module('ui.utils.masks.br', [])
-	.directive('uiBrBoletoBancarioMask', __webpack_require__(186))
-	.directive('uiBrCarPlateMask', __webpack_require__(187))
-	.directive('uiBrCepMask', __webpack_require__(188))
-	.directive('uiBrCnpjMask', __webpack_require__(189))
-	.directive('uiBrCpfMask', __webpack_require__(190))
-	.directive('uiBrCpfcnpjMask', __webpack_require__(191))
-	.directive('uiBrIeMask', __webpack_require__(192))
-	.directive('uiNfeAccessKeyMask', __webpack_require__(193))
-	.directive('uiBrPhoneNumberMask', __webpack_require__(194));
+	.directive('uiBrBoletoBancarioMask', __webpack_require__(185))
+	.directive('uiBrCarPlateMask', __webpack_require__(186))
+	.directive('uiBrCepMask', __webpack_require__(187))
+	.directive('uiBrCnpjMask', __webpack_require__(188))
+	.directive('uiBrCpfMask', __webpack_require__(189))
+	.directive('uiBrCpfcnpjMask', __webpack_require__(190))
+	.directive('uiBrIeMask', __webpack_require__(191))
+	.directive('uiNfeAccessKeyMask', __webpack_require__(192))
+	.directive('uiBrPhoneNumberMask', __webpack_require__(193));
 
 module.exports = m.name;
 
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17406,7 +17405,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17433,7 +17432,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17460,7 +17459,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17489,7 +17488,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17518,7 +17517,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17558,7 +17557,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17698,7 +17697,7 @@ module.exports = BrIeMaskDirective;
 
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17726,7 +17725,7 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17800,20 +17799,20 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = angular.module('ui.utils.masks.ch', [])
-	.directive('uiChPhoneNumberMask', __webpack_require__(196));
+	.directive('uiChPhoneNumberMask', __webpack_require__(195));
 
 module.exports = m.name;
 
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17846,20 +17845,20 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = angular.module('ui.utils.masks.fr', [])
-	.directive('uiFrPhoneNumberMask', __webpack_require__(198));
+	.directive('uiFrPhoneNumberMask', __webpack_require__(197));
 
 module.exports = m.name;
 
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17891,20 +17890,20 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = angular.module('ui.utils.masks.us', [])
-	.directive('uiUsPhoneNumberMask', __webpack_require__(200));
+	.directive('uiUsPhoneNumberMask', __webpack_require__(199));
 
 module.exports = m.name;
 
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17940,8 +17939,8 @@ module.exports = maskFactory({
 
 
 /***/ }),
-/* 201 */,
-/* 202 */
+/* 200 */,
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17949,18 +17948,18 @@ module.exports = maskFactory({
 
 //var angular = require('angular');
 //AddSurvey
-angular.module('AOTC').controller('addSurvey', __webpack_require__(203));
+angular.module('AOTC').controller('addSurvey', __webpack_require__(202));
 //AddSurveyDemo
-angular.module('AOTC').controller('addSurveyDemo', __webpack_require__(204));
+angular.module('AOTC').controller('addSurveyDemo', __webpack_require__(203));
 //AJHeader
-angular.module('AOTC').directive('ajheader', __webpack_require__(205));
+angular.module('AOTC').directive('ajheader', __webpack_require__(204));
 //ViewAJData
-angular.module('AOTC').controller('viewAJData', __webpack_require__(206));
+angular.module('AOTC').controller('viewAJData', __webpack_require__(205));
 //ViewAJForm
-angular.module('AOTC').controller('viewAJForm', __webpack_require__(207));
+angular.module('AOTC').controller('viewAJForm', __webpack_require__(206));
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18373,7 +18372,7 @@ function _addSurvey($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTCol
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18765,7 +18764,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18801,7 +18800,7 @@ function _ajheader(User_Config, $state) {
 }
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18891,7 +18890,7 @@ function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptions
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19100,7 +19099,7 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19108,12 +19107,12 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('BrowserOptimizing', __webpack_require__(209));
-angular.module('AOTC').factory('BrowserOptimizingService', __webpack_require__(210));
+angular.module('AOTC').controller('BrowserOptimizing', __webpack_require__(208));
+angular.module('AOTC').factory('BrowserOptimizingService', __webpack_require__(209));
 
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19142,7 +19141,7 @@ function _BrowserOptimizing(BrowserOptimizingService, deviceDetector, $scope, $s
 
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19166,7 +19165,7 @@ function _BrowserOptimizingService($http, $q) {
 
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19176,39 +19175,39 @@ function _BrowserOptimizingService($http, $q) {
 
 //******SalesComparable
 //comparableComponent
-angular.module('AOTC').component('comparableComponent', __webpack_require__(64).comparableComponent);
-angular.module('AOTC').directive('fileinput', __webpack_require__(64).fileinput);
-angular.module('AOTC').directive('ngImageSelect', __webpack_require__(64).ngImageSelect);
+angular.module('AOTC').component('comparableComponent', __webpack_require__(63).comparableComponent);
+angular.module('AOTC').directive('fileinput', __webpack_require__(63).fileinput);
+angular.module('AOTC').directive('ngImageSelect', __webpack_require__(63).ngImageSelect);
 
 
 //ComparableForm
-angular.module('AOTC').controller('CreateComparablesForm', __webpack_require__(212));
+angular.module('AOTC').controller('CreateComparablesForm', __webpack_require__(211));
 
 //ComparableProperties
-angular.module('AOTC').controller('ComparableProperties', __webpack_require__(213));
-angular.module('AOTC').factory('ComparablePropService', __webpack_require__(214));
+angular.module('AOTC').controller('ComparableProperties', __webpack_require__(212));
+angular.module('AOTC').factory('ComparablePropService', __webpack_require__(213));
 
-angular.module('AOTC').service('ComparablePropUtil', __webpack_require__(215));
+angular.module('AOTC').service('ComparablePropUtil', __webpack_require__(214));
 
 //ComparableSelection
-angular.module('AOTC').controller('ComparableSelection', __webpack_require__(216));
-angular.module('AOTC').factory('ComparableSelectionService', __webpack_require__(217));
+angular.module('AOTC').controller('ComparableSelection', __webpack_require__(215));
+angular.module('AOTC').factory('ComparableSelectionService', __webpack_require__(216));
 
-angular.module('AOTC').service('ComparableUtil', __webpack_require__(218));
+angular.module('AOTC').service('ComparableUtil', __webpack_require__(217));
 
 //PrincipalForm
-angular.module('AOTC').controller('CreatePrincipalForm', __webpack_require__(219));
-angular.module('AOTC').service('sharedService', __webpack_require__(220));
+angular.module('AOTC').controller('CreatePrincipalForm', __webpack_require__(218));
+angular.module('AOTC').service('sharedService', __webpack_require__(219));
 
 
 //SelectedComparables
-angular.module('AOTC').controller('SelectedComparable', __webpack_require__(221));
-angular.module('AOTC').factory('ComparableService', __webpack_require__(222));
+angular.module('AOTC').controller('SelectedComparable', __webpack_require__(220));
+angular.module('AOTC').factory('ComparableService', __webpack_require__(221));
 
-angular.module('AOTC').service('ComparableUtil', __webpack_require__(223));
+angular.module('AOTC').service('ComparableUtil', __webpack_require__(222));
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19401,7 +19400,7 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19585,7 +19584,7 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 214 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19645,7 +19644,7 @@ function _ComparablePropService($http, $q, AOTCService) {
 
 
 /***/ }),
-/* 215 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19679,7 +19678,7 @@ function _ComparablePropUtil() {
 
 
 /***/ }),
-/* 216 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19872,7 +19871,7 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 217 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19996,7 +19995,7 @@ function _ComparableSelectionService($http, $q, AOTCService) {
 
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20030,7 +20029,7 @@ function _ComparableUtil() {
 
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20277,7 +20276,7 @@ function _fileinput() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports) {
 
 _sharedService.$inject = [];
@@ -20292,7 +20291,7 @@ function _sharedService() {
 }
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {//__SelectedComparable.$inject = ["ComparableSelectionService", "$scope", "User_Config","$state", "$timeout"];
@@ -21616,7 +21615,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21824,7 +21823,7 @@ function _ComparableService($http, $q) {
 }
 
 /***/ }),
-/* 223 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21858,7 +21857,7 @@ function _ComparableUtil() {
 
 
 /***/ }),
-/* 224 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21868,48 +21867,48 @@ function _ComparableUtil() {
 
 ////components
 //contract-editor
-angular.module('AOTC').component('contractEditor', __webpack_require__(95).contractEditor);
-angular.module('AOTC').directive('ckEditor', __webpack_require__(95).directiveFunction);
+angular.module('AOTC').component('contractEditor', __webpack_require__(94).contractEditor);
+angular.module('AOTC').directive('ckEditor', __webpack_require__(94).directiveFunction);
 
-angular.module('AOTC').factory('newContractService', __webpack_require__(225));
+angular.module('AOTC').factory('newContractService', __webpack_require__(224));
 
 //contract-terms
-angular.module('AOTC').component('contractTerms', __webpack_require__(226));
-angular.module('AOTC').factory('newContractTermsService', __webpack_require__(227));
+angular.module('AOTC').component('contractTerms', __webpack_require__(225));
+angular.module('AOTC').factory('newContractTermsService', __webpack_require__(226));
 
 
 //sample-calculations
-angular.module('AOTC').component('viewSampleCalculations', __webpack_require__(228));
-angular.module('AOTC').service('SampleCalculationService', __webpack_require__(229));
+angular.module('AOTC').component('viewSampleCalculations', __webpack_require__(227));
+angular.module('AOTC').service('SampleCalculationService', __webpack_require__(228));
 
 
 //contract-CKEditor
-angular.module('AOTC').controller('ContractTest', __webpack_require__(230));
+angular.module('AOTC').controller('ContractTest', __webpack_require__(229));
 
 //contract-wizard
-angular.module('AOTC').controller('ContractWizardCtrl', __webpack_require__(231));
+angular.module('AOTC').controller('ContractWizardCtrl', __webpack_require__(230));
 
 
 //InvoiceList
-angular.module('AOTC').controller('InvoiceList', __webpack_require__(232));
-angular.module('AOTC').factory('InvoiceListService', __webpack_require__(233));
+angular.module('AOTC').controller('InvoiceList', __webpack_require__(231));
+angular.module('AOTC').factory('InvoiceListService', __webpack_require__(232));
 
 
 //NewInvoice
-angular.module('AOTC').controller('NewInvoice', __webpack_require__(234));
-angular.module('AOTC').factory('NewInvoiceService', __webpack_require__(235));
+angular.module('AOTC').controller('NewInvoice', __webpack_require__(233));
+angular.module('AOTC').factory('NewInvoiceService', __webpack_require__(234));
 
 
 //SavedContractList
-angular.module('AOTC').controller('SavedContractList', __webpack_require__(236));
-angular.module('AOTC').factory('SavedContractListService', __webpack_require__(237));
+angular.module('AOTC').controller('SavedContractList', __webpack_require__(235));
+angular.module('AOTC').factory('SavedContractListService', __webpack_require__(236));
 
 
 //tabs-viewer
-angular.module('AOTC').controller('Contract', __webpack_require__(238));
+angular.module('AOTC').controller('Contract', __webpack_require__(237));
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22059,7 +22058,7 @@ function _newContractService($http, AOTCService, $q) {
 
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22479,7 +22478,7 @@ function controllerFunction($scope, newContractService, newContractTermsService,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22554,7 +22553,7 @@ function _newContractTermsService($http, AOTCService, $q) {
 }
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var _viewSampleCalculations = {
@@ -22938,7 +22937,7 @@ module.exports = _viewSampleCalculations;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22982,7 +22981,7 @@ function _SampleCalculationService($q, AOTCService) {
 
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23231,7 +23230,7 @@ function _ckEditor() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23384,7 +23383,7 @@ function _mySortable() {
 
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23406,7 +23405,7 @@ function _InvoiceList($scope, $stateParams, $location, $state, SampleCalculation
 }
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23448,7 +23447,7 @@ function _InvoiceListService($http, AOTCService, $q) {
 }
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -23715,7 +23714,7 @@ function _NewInvoice($scope, $stateParams, $state, NewInvoiceService, $uibModal,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23770,7 +23769,7 @@ function _NewInvoiceService($http, AOTCService, $q) {
 }
 
 /***/ }),
-/* 236 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23905,7 +23904,7 @@ function _SavedContractList($scope, $location, $state, SavedContractListService,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23950,7 +23949,7 @@ function _SavedContractListService($http, AOTCService, $q) {
 }
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24124,7 +24123,7 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 239 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24133,13 +24132,13 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
 //var angular = require('angular');
 
 
-angular.module('AOTC').directive('phoneInput', __webpack_require__(96).phoneInput);
-angular.module('AOTC').filter('tel', __webpack_require__(96).tel);
+angular.module('AOTC').directive('phoneInput', __webpack_require__(95).phoneInput);
+angular.module('AOTC').filter('tel', __webpack_require__(95).tel);
 
 
 
 /***/ }),
-/* 240 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24149,10 +24148,10 @@ angular.module('AOTC').filter('tel', __webpack_require__(96).tel);
 
 ////components
 //contract-editor
-angular.module('AOTC').directive('header', __webpack_require__(241));
+angular.module('AOTC').directive('header', __webpack_require__(240));
 
 /***/ }),
-/* 241 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24173,7 +24172,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-
+        $scope.allNotifications = []
         $scope.role = '';
 
 
@@ -24319,7 +24318,7 @@ function _header(User_Config, $state, $timeout) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24327,10 +24326,10 @@ function _header(User_Config, $state, $timeout) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('login', __webpack_require__(243));
+angular.module('AOTC').controller('login', __webpack_require__(242));
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24452,7 +24451,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 244 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24460,11 +24459,11 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('main', __webpack_require__(245));
-angular.module('AOTC').service('mainService', __webpack_require__(246));
+angular.module('AOTC').controller('main', __webpack_require__(244));
+angular.module('AOTC').service('mainService', __webpack_require__(245));
 
 /***/ }),
-/* 245 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25722,7 +25721,7 @@ function containsObjectState(obj, list) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 246 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25824,7 +25823,7 @@ function _mainService($http, $q, AOTCService) {
 }
 
 /***/ }),
-/* 247 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25835,133 +25834,133 @@ function _mainService($http, $q, AOTCService) {
 ////******IE_RR_Module
 //***ManualUpload
 //IE
-angular.module('AOTC').controller('manualIE', __webpack_require__(248));
+angular.module('AOTC').controller('manualIE', __webpack_require__(247));
 //RR
-angular.module('AOTC').controller('manualRR', __webpack_require__(249));
+angular.module('AOTC').controller('manualRR', __webpack_require__(248));
 //TaxBill
-angular.module('AOTC').controller('taxBill', __webpack_require__(250));
+angular.module('AOTC').controller('taxBill', __webpack_require__(249));
 
 
 //***MultipleUpload
-angular.module('AOTC').controller('multipleUploadIERR', __webpack_require__(251));
+angular.module('AOTC').controller('multipleUploadIERR', __webpack_require__(250));
 
 //***SingleUpload
-angular.module('AOTC').controller('uploadIERR', __webpack_require__(252));
+angular.module('AOTC').controller('uploadIERR', __webpack_require__(251));
 
 //***unlinkedProperties
 //tabs
-angular.module('AOTC').controller('unlinkedProperties', __webpack_require__(253));
+angular.module('AOTC').controller('unlinkedProperties', __webpack_require__(252));
 
 //corrupt
-angular.module('AOTC').controller('corruptFiles', __webpack_require__(254));
+angular.module('AOTC').controller('corruptFiles', __webpack_require__(253));
 
 //unlinked
-angular.module('AOTC').controller('unlinkedFiles', __webpack_require__(255));
-angular.module('AOTC').factory('UnlinkService', __webpack_require__(256));
+angular.module('AOTC').controller('unlinkedFiles', __webpack_require__(254));
+angular.module('AOTC').factory('UnlinkService', __webpack_require__(255));
 
 
 
 //unparsed
-angular.module('AOTC').controller('unparsedFiles', __webpack_require__(257));
+angular.module('AOTC').controller('unparsedFiles', __webpack_require__(256));
 
 
 
 //***Update_IE_RR
-angular.module('AOTC').controller('updateIERR', __webpack_require__(258));
+angular.module('AOTC').controller('updateIERR', __webpack_require__(257));
 
 //***View_IE_RR
 //tabs
 //income_expense
-angular.module('AOTC').controller('income_expense', __webpack_require__(259));
+angular.module('AOTC').controller('income_expense', __webpack_require__(258));
 
 //other_files
-angular.module('AOTC').controller('other_files', __webpack_require__(260));
+angular.module('AOTC').controller('other_files', __webpack_require__(259));
 
 //propertyDetails
-angular.module('AOTC').controller('PropertyDetailsTab', __webpack_require__(97).PropertyDetailsTab);
-angular.module('AOTC').directive('ngPropertyImageSelect', __webpack_require__(97).ngPropertyImageSelect);
+angular.module('AOTC').controller('PropertyDetailsTab', __webpack_require__(96).PropertyDetailsTab);
+angular.module('AOTC').directive('ngPropertyImageSelect', __webpack_require__(96).ngPropertyImageSelect);
 
 
-angular.module('AOTC').factory('PropertyDetailsTabService', __webpack_require__(263));
+angular.module('AOTC').factory('PropertyDetailsTabService', __webpack_require__(262));
 
 //public_property_details
-angular.module('AOTC').controller('PublicPropertyDetailsTab', __webpack_require__(264));
-angular.module('AOTC').controller('PublicPropertyDetailsForProperty', __webpack_require__(265));
+angular.module('AOTC').controller('PublicPropertyDetailsTab', __webpack_require__(263));
+angular.module('AOTC').controller('PublicPropertyDetailsForProperty', __webpack_require__(264));
 
-angular.module('AOTC').factory('PublicPropertyDetailsTabService', __webpack_require__(266));
+angular.module('AOTC').factory('PublicPropertyDetailsTabService', __webpack_require__(265));
 
 
 //rent_role
-angular.module('AOTC').controller('rent_role', __webpack_require__(267));
+angular.module('AOTC').controller('rent_role', __webpack_require__(266));
 
 //tax_bills
-angular.module('AOTC').controller('tax_bills', __webpack_require__(268));
+angular.module('AOTC').controller('tax_bills', __webpack_require__(267));
 //viewIERR
-angular.module('AOTC').controller('viewIERR', __webpack_require__(269));
+angular.module('AOTC').controller('viewIERR', __webpack_require__(268));
 
 
 //*****property-list
 //***tabs
 //pri-property-list
-angular.module('AOTC').controller('PropertyListCtrl', __webpack_require__(270));
-angular.module('AOTC').service('PrivatePropertyService', __webpack_require__(271));
+angular.module('AOTC').controller('PropertyListCtrl', __webpack_require__(269));
+angular.module('AOTC').service('PrivatePropertyService', __webpack_require__(270));
 
 
 //public-property-list
-angular.module('AOTC').controller('PublicPropertyCtrl', __webpack_require__(272));
-angular.module('AOTC').service('PublicPropertyService', __webpack_require__(273));
+angular.module('AOTC').controller('PublicPropertyCtrl', __webpack_require__(271));
+angular.module('AOTC').service('PublicPropertyService', __webpack_require__(272));
 
 
 
 //***tabs-viewer
-angular.module('AOTC').controller('TabsViewerCtrl', __webpack_require__(274));
+angular.module('AOTC').controller('TabsViewerCtrl', __webpack_require__(273));
 
 //*****property-valuation
-angular.module('AOTC').controller('PropValuation', __webpack_require__(100).PropValuation);
-angular.module('AOTC').directive('inputFocusFunction', __webpack_require__(100).inputFocusFunction);
+angular.module('AOTC').controller('PropValuation', __webpack_require__(99).PropValuation);
+angular.module('AOTC').directive('inputFocusFunction', __webpack_require__(99).inputFocusFunction);
 //angular.module('AOTC').service('ValuationHelper', require('./property-valuation/property-valuation.helper'));
-angular.module('AOTC').factory('ValuationService', __webpack_require__(275));
-angular.module('AOTC').factory('PetitionerFormulae', __webpack_require__(276));
+angular.module('AOTC').factory('ValuationService', __webpack_require__(274));
+angular.module('AOTC').factory('PetitionerFormulae', __webpack_require__(275));
 
 
 
 //*****property-workspace
 //***ScenarioOne
 //Sensitivity
-angular.module('AOTC').controller('SensitivityOne', __webpack_require__(277));
-angular.module('AOTC').service('SensitivityService', __webpack_require__(278));
+angular.module('AOTC').controller('SensitivityOne', __webpack_require__(276));
+angular.module('AOTC').service('SensitivityService', __webpack_require__(277));
 
 //***ScenarioService
-angular.module('AOTC').service('ScenarioDataService', __webpack_require__(279));
-angular.module('AOTC').directive('resizable', __webpack_require__(280));
+angular.module('AOTC').service('ScenarioDataService', __webpack_require__(278));
+angular.module('AOTC').directive('resizable', __webpack_require__(279));
 
 
 //***ScenarioThree
-angular.module('AOTC').controller('SensitivityThree', __webpack_require__(281));
+angular.module('AOTC').controller('SensitivityThree', __webpack_require__(280));
 //angular.module('AOTC').directive('resizable', require('./property-workspace/ScenarioThree/Sensitivity/sensitivity.service'));
 
 
 
 //*****UploadProperties
-angular.module('AOTC').controller('Properties', __webpack_require__(101).Properties);
-angular.module('AOTC').directive('upload', __webpack_require__(101).upload);
+angular.module('AOTC').controller('Properties', __webpack_require__(100).Properties);
+angular.module('AOTC').directive('upload', __webpack_require__(100).upload);
 //mapdata
-angular.module('AOTC').controller('Map', __webpack_require__(282));
+angular.module('AOTC').controller('Map', __webpack_require__(281));
 
 
 
 
 //*****AssignProperties
-angular.module('AOTC').controller('PropAssignment', __webpack_require__(283));
-angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(284));
+angular.module('AOTC').controller('PropAssignment', __webpack_require__(282));
+angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(283));
 
 //taxAppeal
 
-angular.module('AOTC').controller('TaxAppeal', __webpack_require__(285));
+angular.module('AOTC').controller('TaxAppeal', __webpack_require__(284));
 
 
 /***/ }),
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26130,7 +26129,7 @@ function _manualIE($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26395,7 +26394,7 @@ function _manualRR($rootScope, $stateParams, $anchorScroll, $state, DTOptionsBui
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26477,7 +26476,7 @@ function _taxBill($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColum
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26657,7 +26656,7 @@ function _multipleUploadIERR(UtilService, $stateParams, $state, DTOptionsBuilder
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26953,7 +26952,7 @@ function _uploadIERR($stateParams, $state, DTOptionsBuilder, DTColumnDefBuilder,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26992,7 +26991,7 @@ function _unlinkedProperties($stateParams, $anchorScroll, $state, DTOptionsBuild
 
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27011,7 +27010,7 @@ function _corruptFiles($stateParams, $anchorScroll, $state, DTOptionsBuilder, DT
 }
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27053,7 +27052,7 @@ function _unlinkedFiles(UnlinkService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27156,7 +27155,7 @@ function _UnlinkService($http, $q) {
 
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27175,7 +27174,7 @@ function _unparsedFiles($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
 }
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27500,7 +27499,7 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 259 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27776,7 +27775,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 260 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27926,7 +27925,7 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -27979,7 +27978,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(262);
+__webpack_require__(261);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -27993,7 +27992,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -28183,10 +28182,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45), __webpack_require__(99)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45), __webpack_require__(98)))
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28289,7 +28288,7 @@ function _PropertyDetailsTabService($http, AOTCService, $q) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28720,7 +28719,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28890,7 +28889,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28995,7 +28994,7 @@ function _PublicPropertyDetailsTabService($http, $q, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29329,7 +29328,7 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29476,7 +29475,7 @@ function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29585,7 +29584,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30270,7 +30269,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30359,7 +30358,7 @@ function _PrivatePropertyService($http, $q, $location) {
 }
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30616,7 +30615,7 @@ function _PublicPropertyCtrl(User_Config, PublicPropertyService, $http, $timeout
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30689,7 +30688,7 @@ function _PublicPropertyService($http, $q) {
 }
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30752,7 +30751,7 @@ function _TabsViewerCtrl(User_Config, $stateParams, $anchorScroll, $state, $loca
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31014,7 +31013,7 @@ function _ValuationService($http, $q) {
 }
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31148,7 +31147,7 @@ function _PetitionerFormulae() {
 
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32299,7 +32298,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32381,7 +32380,7 @@ function _SensitivityService($http, $q, AOTCService) {
 
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32451,7 +32450,7 @@ function _ScenarioDataService() {
 
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32608,7 +32607,7 @@ function _resizable() {
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33560,7 +33559,7 @@ function _SensitivityThree(PetitionerFormulae, $state, $timeout, $scope, Sensiti
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33649,7 +33648,7 @@ function _Map($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDef
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33789,7 +33788,7 @@ function _PropAssignment($state, $timeout, $rootScope, $stateParams, AOTCService
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_assignedUsersListCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q"];
@@ -33906,7 +33905,7 @@ function _assignedUsersListCtrl($stateParams, $state, $location, $scope, AOTCSer
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33938,23 +33937,28 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.resetSign = {pin: null}
     $scope.config = {error: null, errorFunction: null}; 
     $scope.configModal = {details: false, data: null,dFieldsCb: false, rItemCb: false};
-    $scope.search ={jurisdictions: []}
-    $scope.inputSearch = {jurisdictions: null}
+    $scope.search ={jurisdictions: [],zipCode: [], owner: []}
+    $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
+    $scope.appealStatus = {ns: false,ip: false,don : false};
+    $scope.propertyFilter = {name: '', add: '', zipCode: '',owner: 'None'}
 
 
     $scope.getPropertyDetails = function()  {
-    resetError()
+   
     var url = '/appeal/getPropertyTimelineData';
     var postData = {"appealYear":2018}
     $("#preloader").css("display", "block");
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
+            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-              getNotifications()
-              resetError()
+            //   $scope.search.zipCode = UtilService.filterJurisdictions($scope.data.jurisdictions)
+            //   $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+              
+              
              
             }, function (result) {
             //some error
@@ -33965,31 +33969,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             console.log('error')
             $("#preloader").css("display", "none");
         });
-    }
-
-    function getNotifications() {
-       
-        var url = '/appeal/getNotification';
-       
-        
-        AOTCService.getDataFromServer(url)
-            .then(function (result) {
-                $("#preloader").css("display", "none");
-                  console.log(result.data.result)
-                  var res = result.data.result
-                  $scope.$emit('notifications', res)
-                 
-                
-                }, function (result) {
-                //some error
-                ////console.log(result);
-                $scope.config.error = 'Someting Went Wrong';
-                $scope.config.errorFunction = $scope.getPropertyDetails;
-        
-                console.log('error')
-                $("#preloader").css("display", "none");
-            });
-          
     }
 
     $scope.getPropertyDetails();
@@ -34114,13 +34093,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         //      delete flag[i].properties.open;
         //     }
         // }
-        if(checkbox=='Execute Signature on All') {
+        if(checkbox=='Execute Signature') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
         
         var toggleData = [];
-        if(checkbox=='Mark all as Yes'){
+        if(checkbox=='Mark as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
@@ -34133,7 +34112,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             }
         }
         }
-        else if(checkbox=='Mark all as No') {
+        else if(checkbox=='Mark as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
@@ -34206,7 +34185,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.configModalfields =  function(data, item) {
-        let count = 0 ;
+        var count = 0 ;
         for(var  i = 0 ; i <data.length;i++) {
             
             if(data[i].value=='true'){
@@ -34327,33 +34306,6 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
    
 
-     $scope.changeComp = function(event,column,pColumn,headrName) {
-         if(event.subEvents.sublength==0) {
-             return
-         }
-        $scope.subData = null;
-        var jProperty =  $scope.data.jurisdictions[pColumn].properties;
-        var jName = $scope.data.jurisdictions[pColumn].name
-        subEventsDetect = {event: event, cloumn: column, pColumn: pColumn} 
-        var extractSubEvents = [];
-        for (var i  = 0 ; i  < jProperty.length;i++) {
-            var subEvents = jProperty[i].events[column].subEvents;
-            var eventId = jProperty[i].events[column].eventId;
-            var index = i;
-             extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
-                 address: jProperty[i].address, streetAddress:  jProperty[i].streetAddress, 
-                 taxAccountNo:  jProperty[i].taxAccountNo, ownerName: jProperty[i].ownerName,
-                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
-                 info: subEventsDetect, propertyIndex: index, eventIndex: column})
-        }
-        console.log(extractSubEvents)
-
-        $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName,eName: headrName};
-        console.log($scope.subData)
-        
-        $scope.show =  false;
-        // $scope.staticTable(0);
-    }
 
     $scope.uplaodFile = function(file) {
           console.log(file.files)
@@ -34373,7 +34325,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('show class')
       
     }
-
+    $scope.selectFiltersJ = function(data) {
+        var selected = []
+        for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
+            if($scope.search.jurisdictions[i].value==true) {
+                selected.push($scope.search.jurisdictions[i].name)
+            }
+        }
+        $scope.inputSearch.name = selected
+    }
     function UpdateData(type,message){
         
  
@@ -34384,6 +34344,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
+                $("#preloader").css("display", "none");
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -34403,9 +34364,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     .events[configData.data.eventIndex].additionalItems;
 
                   }
-                  setTimeout(function(){   getNotifications()
-                }, 2000)
-            
+                  console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
                   $scope.$emit('success', message)
@@ -34423,6 +34382,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 
     }
+
+
 
     $scope.sendData = function(radio){
         console.log(radio)
@@ -34454,7 +34415,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     $scope.$emit('error', 'File Upload Failed')
                     ////console.log(result);
                 });
-        }
+        
+    }
+    
+
+     
     
 
         function resetError(){
@@ -34462,11 +34427,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
  
 }
+
+
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 286 */,
-/* 287 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34474,11 +34440,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('Signup', __webpack_require__(102).Signup);
-angular.module('AOTC').directive('pwCheck', __webpack_require__(102).pwCheck);
+angular.module('AOTC').controller('Signup', __webpack_require__(101).Signup);
+angular.module('AOTC').directive('pwCheck', __webpack_require__(101).pwCheck);
 
 /***/ }),
-/* 288 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34491,78 +34457,78 @@ angular.module('AOTC').directive('pwCheck', __webpack_require__(102).pwCheck);
 //angular.module('AOTC').directive('myDraggable', require('./EditSurvey/EditableSurveysMenu/EditabelSurveysMenu.service').myDraggable);
 
 //EditArrangeSurvey
-angular.module('AOTC').directive('myDraggable', __webpack_require__(66).myDraggable);
-angular.module('AOTC').filter('nameFilter', __webpack_require__(66).nameFilter);
-angular.module('AOTC').component('editArrangeSurveyComponent', __webpack_require__(66).editArrangeSurveyComponent);
+angular.module('AOTC').directive('myDraggable', __webpack_require__(65).myDraggable);
+angular.module('AOTC').filter('nameFilter', __webpack_require__(65).nameFilter);
+angular.module('AOTC').component('editArrangeSurveyComponent', __webpack_require__(65).editArrangeSurveyComponent);
 
 //EditCreateSurvey
-angular.module('AOTC').component('editCreateSurveyComponent', __webpack_require__(289));
+angular.module('AOTC').component('editCreateSurveyComponent', __webpack_require__(287));
 
 //EditViewSurvey
-angular.module('AOTC').component('editViewSurveyComponent', __webpack_require__(290));
+angular.module('AOTC').component('editViewSurveyComponent', __webpack_require__(288));
 
 
 //editSurveyWizard
-angular.module('AOTC').controller('editSurveyCtrl', __webpack_require__(291));
+angular.module('AOTC').controller('editSurveyCtrl', __webpack_require__(289));
 
 
 ////******FillSurvey
-angular.module('AOTC').controller('FillSurvey', __webpack_require__(292));
-angular.module('AOTC').service('FillSurveyService', __webpack_require__(293));
+angular.module('AOTC').controller('FillSurvey', __webpack_require__(290));
+angular.module('AOTC').service('FillSurveyService', __webpack_require__(291));
 
 
 ////******SubmissionList
-angular.module('AOTC').controller('SubmissionList', __webpack_require__(294));
-angular.module('AOTC').service('SubmissionListService', __webpack_require__(295));
+angular.module('AOTC').controller('SubmissionList', __webpack_require__(292));
+angular.module('AOTC').service('SubmissionListService', __webpack_require__(293));
 
 
 //////******SurveyAnswer
 
 ////******SurveyList
-angular.module('AOTC').controller('SurveyList', __webpack_require__(296));
-angular.module('AOTC').service('SurveylistService', __webpack_require__(297));
+angular.module('AOTC').controller('SurveyList', __webpack_require__(294));
+angular.module('AOTC').service('SurveylistService', __webpack_require__(295));
 
 
 ////******SurveySubmissions
-angular.module('AOTC').controller('SurveySubmissions', __webpack_require__(298));
-angular.module('AOTC').service('SurveySubmissionsService', __webpack_require__(299));
+angular.module('AOTC').controller('SurveySubmissions', __webpack_require__(296));
+angular.module('AOTC').service('SurveySubmissionsService', __webpack_require__(297));
 
 ////******Wizards
 //AddQuestion
-angular.module('AOTC').controller('AddQuestionCtrl', __webpack_require__(300));
-angular.module('AOTC').service('AddQuestionService', __webpack_require__(301));
-angular.module('AOTC').component('inputFields', __webpack_require__(302));
+angular.module('AOTC').controller('AddQuestionCtrl', __webpack_require__(298));
+angular.module('AOTC').service('AddQuestionService', __webpack_require__(299));
+angular.module('AOTC').component('inputFields', __webpack_require__(300));
 
 
 
 //ArrangeSurvey
-angular.module('AOTC').controller('ArrangeSurveyCtrl', __webpack_require__(303));
-angular.module('AOTC').service('ArrangeSurveyService', __webpack_require__(304));
-angular.module('AOTC').service('ArrangeSurveyUtil', __webpack_require__(305));
+angular.module('AOTC').controller('ArrangeSurveyCtrl', __webpack_require__(301));
+angular.module('AOTC').service('ArrangeSurveyService', __webpack_require__(302));
+angular.module('AOTC').service('ArrangeSurveyUtil', __webpack_require__(303));
 
 
-angular.module('AOTC').component('arrangeSurveyComponent', __webpack_require__(67).arrangeSurveyComponent);
-angular.module('AOTC').filter('nameFilter', __webpack_require__(67).nameFilter);
-angular.module('AOTC').directive('myDraggable', __webpack_require__(67).myDraggable);
+angular.module('AOTC').component('arrangeSurveyComponent', __webpack_require__(66).arrangeSurveyComponent);
+angular.module('AOTC').filter('nameFilter', __webpack_require__(66).nameFilter);
+angular.module('AOTC').directive('myDraggable', __webpack_require__(66).myDraggable);
 
 
 
 //CreateSurvey
 //angular.module('AOTC').controller('ArrangeSurveyCtrl', require('./Wizards/CreateSurvey/ArrangeSurvey.controller'));
-angular.module('AOTC').service('CreateSurveyService', __webpack_require__(306));
-angular.module('AOTC').service('CreateSurveyUtil', __webpack_require__(307));
+angular.module('AOTC').service('CreateSurveyService', __webpack_require__(304));
+angular.module('AOTC').service('CreateSurveyUtil', __webpack_require__(305));
 
 
-angular.module('AOTC').component('createSurveyComponent', __webpack_require__(308));
+angular.module('AOTC').component('createSurveyComponent', __webpack_require__(306));
 //angular.module('AOTC').component('inputFields', require('./Wizards/CreateSurvey/GenericQuestionOptions.component'));
 
 //sectionSettings
 
-angular.module('AOTC').controller('sectionSettingsCtrl', __webpack_require__(309));
-angular.module('AOTC').service('sectionSettingsService', __webpack_require__(310));
+angular.module('AOTC').controller('sectionSettingsCtrl', __webpack_require__(307));
+angular.module('AOTC').service('sectionSettingsService', __webpack_require__(308));
 
 //ViewSurvey
-angular.module('AOTC').component('viewSurveyController', __webpack_require__(311));
+angular.module('AOTC').component('viewSurveyController', __webpack_require__(309));
 //angular.module('AOTC').controller('ViewSurveyCtrl', require('./Wizards/ViewSurvey/ViewSurvey.controller'));
 //angular.module('AOTC').factory('ViewSurveyService', require('./Wizards/ViewSurvey/ViewSurvey.service'));
 //angular.module('AOTC').service('ViewSurveyUtil', require('./Wizards/ViewSurvey/ViewSurvey.utils'));
@@ -34570,11 +34536,11 @@ angular.module('AOTC').component('viewSurveyController', __webpack_require__(311
 
 
 ////******WizardsViewer
-angular.module('AOTC').controller('WizardsViewerCtrl', __webpack_require__(312));
+angular.module('AOTC').controller('WizardsViewerCtrl', __webpack_require__(310));
 
 
 /***/ }),
-/* 289 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var _editCreateSurveyComponent = {};
@@ -34910,7 +34876,7 @@ module.exports = _editCreateSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 290 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -35076,7 +35042,7 @@ module.exports = _editViewSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 291 */
+/* 289 */
 /***/ (function(module, exports) {
 
 _editSurveyCtrl.$inject = ["$scope", "CreateSurveyService"];
@@ -35142,7 +35108,7 @@ function _editSurveyCtrl($scope, CreateSurveyService) {
 }
 
 /***/ }),
-/* 292 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35299,7 +35265,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 293 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35376,7 +35342,7 @@ function _FillSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 294 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35449,7 +35415,7 @@ function _SubmissionList($stateParams, $scope, $state, SubmissionListService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 295 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35506,7 +35472,7 @@ function _SubmissionListService($q, AOTCService) {
 
 
 /***/ }),
-/* 296 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35607,7 +35573,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 297 */
+/* 295 */
 /***/ (function(module, exports) {
 
 _SurveylistService.$inject = ["$q","AOTCService"];
@@ -35662,7 +35628,7 @@ function _SurveylistService($q, AOTCService) {
 
 
 /***/ }),
-/* 298 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35865,7 +35831,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 299 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35937,7 +35903,7 @@ function _SurveySubmissionsService($q, AOTCService) {
 
 
 /***/ }),
-/* 300 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36062,7 +36028,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 301 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36134,7 +36100,7 @@ function _AddQuestionService($q, AOTCService) {
 
 
 /***/ }),
-/* 302 */
+/* 300 */
 /***/ (function(module, exports) {
 
 
@@ -36271,7 +36237,7 @@ var _inputFields =  {
 module.exports = _inputFields;
 
 /***/ }),
-/* 303 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36288,7 +36254,7 @@ function _ArrangeSurveyCtrl(CreateSurveyService, ArrangeSurveyService, $scope) {
 }
 
 /***/ }),
-/* 304 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36348,7 +36314,7 @@ function _ArrangeSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 305 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36364,7 +36330,7 @@ angular.module('AOTC')
 
 
 /***/ }),
-/* 306 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36428,7 +36394,7 @@ function _CreateSurveyService($q, AOTCService) {
 
 
 /***/ }),
-/* 307 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36444,7 +36410,7 @@ angular.module('AOTC')
 
 
 /***/ }),
-/* 308 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36666,7 +36632,7 @@ module.exports = _createSurveyComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 309 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -36782,7 +36748,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 310 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36857,7 +36823,7 @@ function _sectionSettingsService($q, AOTCService) {
 
 
 /***/ }),
-/* 311 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {
@@ -37012,7 +36978,7 @@ module.exports = _viewSurveyController;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 312 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37077,7 +37043,7 @@ function _WizardsViewerCtrl($scope, $location, $state) {
 }
 
 /***/ }),
-/* 313 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37085,11 +37051,11 @@ function _WizardsViewerCtrl($scope, $location, $state) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('TaskManagerCtrl', __webpack_require__(314));
-angular.module('AOTC').service('taskService', __webpack_require__(315));
+angular.module('AOTC').controller('TaskManagerCtrl', __webpack_require__(312));
+angular.module('AOTC').service('taskService', __webpack_require__(313));
 
 /***/ }),
-/* 314 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37192,7 +37158,7 @@ function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, ta
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 315 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37281,7 +37247,7 @@ function _taskService($http, $q, $location) {
 
 
 /***/ }),
-/* 316 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37290,21 +37256,21 @@ function _taskService($http, $q, $location) {
 //var angular = require('angular');
 
 //******MultipleRegistration
-angular.module('AOTC').controller('UserRegistration', __webpack_require__(317));
+angular.module('AOTC').controller('UserRegistration', __webpack_require__(315));
 
 
 //******SingleRegistration
 
-angular.module('AOTC').controller('Registered', __webpack_require__(318));
+angular.module('AOTC').controller('Registered', __webpack_require__(316));
 
-angular.module('AOTC').controller('UserRolesListCtrl', __webpack_require__(319));
+angular.module('AOTC').controller('UserRolesListCtrl', __webpack_require__(317));
 
 //*Inventory
-angular.module('AOTC').controller('InventoryCtrl', __webpack_require__(320));
+angular.module('AOTC').controller('InventoryCtrl', __webpack_require__(318));
 
 
 /***/ }),
-/* 317 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37498,7 +37464,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 318 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37657,7 +37623,7 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 319 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_userRolesListCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q"];
@@ -37778,7 +37744,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 320 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37828,7 +37794,7 @@ function _Inventory($state, $scope, $location, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 321 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37836,16 +37802,16 @@ function _Inventory($state, $scope, $location, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').factory('AOTCService', __webpack_require__(322));
-angular.module('AOTC').factory('DataMappingService', __webpack_require__(323));
+angular.module('AOTC').factory('AOTCService', __webpack_require__(320));
+angular.module('AOTC').factory('DataMappingService', __webpack_require__(321));
 
-angular.module('AOTC').config(__webpack_require__(324));
-angular.module('AOTC').factory('fileReader', __webpack_require__(325));
+angular.module('AOTC').config(__webpack_require__(322));
+angular.module('AOTC').factory('fileReader', __webpack_require__(323));
 
-angular.module('AOTC').factory('UtilService', __webpack_require__(326));
+angular.module('AOTC').factory('UtilService', __webpack_require__(324));
 
-angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(327));
-angular.module('AOTC').factory('AOTCAuth', __webpack_require__(328));
+angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(325));
+angular.module('AOTC').factory('AOTCAuth', __webpack_require__(326));
 
 
 
@@ -37857,7 +37823,7 @@ angular.module('AOTC').factory('AOTCAuth', __webpack_require__(328));
 
 
 /***/ }),
-/* 322 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38002,7 +37968,7 @@ function _AOTCService($http, $rootScope) {
 
 
 /***/ }),
-/* 323 */
+/* 321 */
 /***/ (function(module, exports) {
 
 
@@ -38054,7 +38020,7 @@ function _DataMappingService() {
 
 
 /***/ }),
-/* 324 */
+/* 322 */
 /***/ (function(module, exports) {
 
 // Intercepting HTTP calls with AngularJS.
@@ -38143,7 +38109,7 @@ function _MyHttpInterceptor($provide, $httpProvider) {
 
 
 /***/ }),
-/* 325 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38207,7 +38173,7 @@ function fileReader($q, $log) {
 
 
 /***/ }),
-/* 326 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38403,7 +38369,7 @@ function _UtilService($http, $filter) {
 }
 
 /***/ }),
-/* 327 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38473,7 +38439,7 @@ function _permissions($rootScope) {
 }
 
 /***/ }),
-/* 328 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38532,19 +38498,19 @@ function _auth($rootScope, $q, $http, $timeout, AOTCService) {
 }
 
 /***/ }),
-/* 329 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var angular = __webpack_require__(103);
+var angular = __webpack_require__(102);
 /////
-angular.module('AOTC').constant('User_Config', (__webpack_require__(331))());
+angular.module('AOTC').constant('User_Config', (__webpack_require__(329))());
 
 /***/ }),
-/* 330 */,
-/* 331 */
+/* 328 */,
+/* 329 */
 /***/ (function(module, exports) {
 
 //User_Config.$inject = [];
@@ -38590,7 +38556,7 @@ function User_Config() {
 };
 
 /***/ }),
-/* 332 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38598,12 +38564,12 @@ function User_Config() {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(333));
-angular.module('AOTC').service('ReportService', __webpack_require__(104).ReportService);
-angular.module('AOTC').factory('Excel', __webpack_require__(104).Excel);
+angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(331));
+angular.module('AOTC').service('ReportService', __webpack_require__(103).ReportService);
+angular.module('AOTC').factory('Excel', __webpack_require__(103).Excel);
 
 /***/ }),
-/* 333 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38856,7 +38822,7 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 334 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38866,10 +38832,10 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 
 ////components
 //contract-editor
-angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(335));
+angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(333));
 
 /***/ }),
-/* 335 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_timelineGraphicalCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q", "$rootScope"];
@@ -39523,7 +39489,7 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 336 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39531,8 +39497,8 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(337));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(338));
+angular.module('AOTC').directive('hasPermission', __webpack_require__(335));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(336));
 
 
 
@@ -39544,7 +39510,7 @@ angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(33
 
 
 /***/ }),
-/* 337 */
+/* 335 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('hasPermission', _hasPermission);
@@ -39600,7 +39566,7 @@ function _hasPermission(AOTCPermissions) {
 }
 
 /***/ }),
-/* 338 */
+/* 336 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
@@ -39648,5 +39614,5 @@ function _permissionPerProperty(AOTCPermissions) {
 }
 
 /***/ })
-],[139]);
+],[138]);
 //# sourceMappingURL=app.bundle.js.map
