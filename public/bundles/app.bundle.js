@@ -34091,7 +34091,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
-              $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+               $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
               
              

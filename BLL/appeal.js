@@ -292,7 +292,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-			
+			res.send(result);
 			var finalResult = {
 				jurisdictionsNames: [],
 				propertyIds: [],
