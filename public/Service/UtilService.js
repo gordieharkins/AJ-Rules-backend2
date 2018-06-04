@@ -195,7 +195,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                owner.push({zipCode: data[i].properties[s].ZipCode});
+                owner.push({zipCode: data[i].properties[s].zipCode});
             }
            
         }

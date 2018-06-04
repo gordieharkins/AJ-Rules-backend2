@@ -690,10 +690,141 @@ module.exports = function maskFactory(maskDefinition) {
 /* 37 */,
 /* 38 */,
 /* 39 */,
-/* 40 */,
+/* 40 */
+/***/ (function(module, exports) {
+
+_JurisDictionFilter.$inject = ["$http", "$filter"];
+module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
+    pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter,
+    pZipCodeFilter: _pZipCodeFilter
+};
+
+
+    // Create the return function and set the required parameter name to **input**
+    function _JurisDictionFilter() {
+      
+        return function(items, params) {
+           var result = items    
+           
+           result = FilterJursidictions(items,params)     
+          
+         console.log(result)
+          return result;
+        }
+
+        function FilterJursidictions(items, params) {
+            var selected = [] 
+            console.log(items)
+            if(params.length==0) {
+                return items
+            }
+            for (var i = 0 ; i < params.length;i++) {
+                         for(var j = 0 ; j < items.length; j++) {
+                            if(items[j].name==params[i]){
+                            selected.push(items[j])
+                            }
+
+                         }
+            }
+             return selected;
+        }
+    }
+
+    function _AppealFilter(){
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params.ns==false && params.don==false && params.ip==false) {
+                return items;
+            }    
+            angular.forEach(items, function(value, key){
+                if(params.ns==true && value.properties.status=='Not Started') {
+                    result.push(value)
+                } 
+                if(params.don==true && value.properties.status=='Done') {
+                    result.push(value)
+                } 
+                if(params.ip==true && value.properties.status=='In Progress') {
+                    result.push(value)
+                } 
+             }); 
+          
+           return result;
+         }
+    }
+
+    function _pAddressFilter() {
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params.length==0){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+                var extractAddress = ''
+                if(item.address) extractAddress = item.address;
+                else extractAddress = item.streetAddress;                ;
+
+                if(extractAddress.toLowerCase().indexOf(params.toLowerCase()) !== -1){
+                    result.push(item);
+                }
+            });   
+            
+          
+           return result;
+         }
+    }
+  
+    function _pOwnerNameFilter() {
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params=='None' || params==''){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+               
+                if(item.ownerName==params){
+                    result.push(item)
+                }
+            });   
+            
+          
+           return result;
+         }
+    }
+
+
+
+    function _pZipCodeFilter(){
+  return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params=='None' || params==''){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+               
+                if(item.zipCode==params){
+                    result.push(item)
+                }
+            });   
+            
+          
+           return result;
+         }
+    }
+  
+
+
+/***/ }),
 /* 41 */,
 /* 42 */,
-/* 43 */
+/* 43 */,
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -726,7 +857,7 @@ function startOfUTCISOWeek(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -1403,120 +1534,7 @@ PIS.validate = function(pis) {
 }));
 
 /***/ }),
-/* 45 */,
-/* 46 */
-/***/ (function(module, exports) {
-
-_JurisDictionFilter.$inject = ["$http", "$filter"];
-module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
-    pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter,
-    pZipCodeFilter: _pZipCodeFilter
-};
-
-
-    // Create the return function and set the required parameter name to **input**
-    function _JurisDictionFilter() {
-      
-        return function(items, params) {
-           var result = items    
-           
-           result = FilterJursidictions(items,params)     
-          
-         console.log(result)
-          return result;
-        }
-
-        function FilterJursidictions(items, params) {
-            var selected = [] 
-            console.log(items)
-            if(params.length==0) {
-                return items
-            }
-            for (var i = 0 ; i < params.length;i++) {
-                         for(var j = 0 ; j < items.length; j++) {
-                            if(items[j].name==params[i]){
-                            selected.push(items[j])
-                            }
-
-                         }
-            }
-             return selected;
-        }
-    }
-
-    function _AppealFilter(){
-        return function(items, params) {
-            var result = []
-            console.log(items)
-            if(params.ns==false && params.don==false && params.ip==false) {
-                return items;
-            }    
-            angular.forEach(items, function(value, key){
-                if(params.ns==true && value.properties.status=='Not Started') {
-                    result.push(value)
-                } 
-                if(params.don==true && value.properties.status=='Done') {
-                    result.push(value)
-                } 
-                if(params.ip==true && value.properties.status=='In Progress') {
-                    result.push(value)
-                } 
-             }); 
-          
-           return result;
-         }
-    }
-
-    function _pAddressFilter() {
-        return function(items, params) {
-            var result = []
-            console.log(items)
-            if(params.length==0){
-                return items;
-            }
-            
-            angular.forEach(items, function(item) {
-                var extractAddress = ''
-                if(item.address) extractAddress = item.address;
-                else extractAddress = item.streetAddress;                ;
-
-                if(extractAddress.toLowerCase().indexOf(params.toLowerCase()) !== -1){
-                    result.push(item);
-                }
-            });   
-            
-          
-           return result;
-         }
-    }
-  
-    function _pOwnerNameFilter() {
-        return function(items, params) {
-            var result = []
-            console.log(items)
-            if(params=='None' || params==''){
-                return items;
-            }
-            
-            angular.forEach(items, function(item) {
-               
-                if(item.ownerName==params){
-                    result.push(item)
-                }
-            });   
-            
-          
-           return result;
-         }
-    }
-
-    function _pZipCodeFilter(){
-
-    }
-  
-
-
-/***/ }),
+/* 46 */,
 /* 47 */,
 /* 48 */,
 /* 49 */,
@@ -1546,7 +1564,7 @@ var _index = __webpack_require__(91);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(43);
+var _index3 = __webpack_require__(44);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -3245,7 +3263,7 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(43);
+var _index3 = __webpack_require__(44);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -3286,7 +3304,7 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(43);
+var _index3 = __webpack_require__(44);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -10037,7 +10055,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(99), __webpack_require__(45), __webpack_require__(65)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(99), __webpack_require__(46), __webpack_require__(65)(module)))
 
 /***/ }),
 /* 99 */
@@ -16437,7 +16455,7 @@ var _index7 = __webpack_require__(179);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(43);
+var _index9 = __webpack_require__(44);
 
 var _index10 = _interopRequireDefault(_index9);
 
@@ -17579,7 +17597,7 @@ module.exports = maskFactory({
 
 
 var StringMask = __webpack_require__(10);
-var BrV = __webpack_require__(44);
+var BrV = __webpack_require__(45);
 
 var maskFactory = __webpack_require__(15);
 
@@ -17608,7 +17626,7 @@ module.exports = maskFactory({
 
 
 var StringMask = __webpack_require__(10);
-var BrV = __webpack_require__(44);
+var BrV = __webpack_require__(45);
 
 var maskFactory = __webpack_require__(15);
 
@@ -17637,7 +17655,7 @@ module.exports = maskFactory({
 
 
 var StringMask = __webpack_require__(10);
-var BrV = __webpack_require__(44);
+var BrV = __webpack_require__(45);
 var maskFactory = __webpack_require__(15);
 
 var cnpjPattern = new StringMask('00.000.000\/0000-00');
@@ -17677,7 +17695,7 @@ module.exports = maskFactory({
 
 
 var StringMask = __webpack_require__(10);
-var BrV = __webpack_require__(44);
+var BrV = __webpack_require__(45);
 
 var ieMasks = {
 	'AC': [{mask: new StringMask('00.000.000/000-00')}],
@@ -26070,11 +26088,11 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(2
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', __webpack_require__(285));
-angular.module('AOTC').filter('FilterJ', __webpack_require__(46).JurisdictionFilter);
-angular.module('AOTC').filter('AppealFilter', __webpack_require__(46).AppealFilter);
-angular.module('AOTC').filter('PAddressFilter', __webpack_require__(46).pAddressFilter);
-angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(46).pOwnerNameFilter);
-angular.module('AOTC').filter('pZipCodeFilter', __webpack_require__(46).pZipCodeFilter)
+angular.module('AOTC').filter('FilterJ', __webpack_require__(40).JurisdictionFilter);
+angular.module('AOTC').filter('AppealFilter', __webpack_require__(40).AppealFilter);
+angular.module('AOTC').filter('PAddressFilter', __webpack_require__(40).pAddressFilter);
+angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(40).pOwnerNameFilter);
+angular.module('AOTC').filter('pZipCodeFilter', __webpack_require__(40).pZipCodeFilter)
 
 /***/ }),
 /* 248 */
@@ -28106,7 +28124,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46)))
 
 /***/ }),
 /* 262 */
@@ -28299,7 +28317,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45), __webpack_require__(99)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46), __webpack_require__(99)))
 
 /***/ }),
 /* 263 */
@@ -38519,7 +38537,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                owner.push({zipCode: data[i].properties[s].ZipCode});
+                owner.push({zipCode: data[i].properties[s].zipCode});
             }
            
         }

@@ -101,7 +101,25 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
          }
     }
 
-    function _pZipCodeFilter(){
 
+
+    function _pZipCodeFilter(){
+  return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params=='None' || params==''){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+               
+                if(item.zipCode==params){
+                    result.push(item)
+                }
+            });   
+            
+          
+           return result;
+         }
     }
   

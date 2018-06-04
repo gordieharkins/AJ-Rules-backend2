@@ -80,7 +80,7 @@
                </tr>
                </thead>
                <tbody>
-               <tr ng-repeat="prop in  item.properties | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {name: propertyFilter.name} as rPName" >
+               <tr ng-repeat="prop in  item.properties | pZipCodeFilter :propertyFilter.zipCode | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {name: propertyFilter.name} as rPName" >
                 
                 <td class="first-col-body">
                    <label><input type="checkbox">{{prop.name}}</label>
