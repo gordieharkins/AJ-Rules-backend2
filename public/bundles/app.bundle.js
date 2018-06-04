@@ -34274,9 +34274,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.buttonComp = function(state) {
-        if (state.status=='Not Started')  return 'disable-button'
+        // if (state.status=='Not Started')  return 'disable-button'
         
-        else if ('warning' in state && state.warning)  return 'red-button';
+         if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
@@ -34421,7 +34421,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log(data)
         $("#preloader").css("display", "block");
         var postData = []
-        postData.push(data.data)
+        postData.push(data.data.properties.requiredItems)
         var url = '/appeal/updateRequiredItemsPaper';
     
          AOTCService.postDataToServer(url, postData)
@@ -34467,6 +34467,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 selected.push($scope.search.jurisdictions[i].name)
             }
         }
+        var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions)
+        $scope.search.zipCode = extractZip.zipCode;
+        $scope.search.owner = extractZip.ownerName;
+        
+        $scope.propertyFilter.owner = 'None'
+        $scope.propertyFilter.zipCode = 'None'
         $scope.inputSearch.name = selected
     }
 
@@ -38560,6 +38566,66 @@ function _UtilService($http, $filter) {
         return distinct;
     }
 
+    function checkMarkingData(input) {
+        var countFalse = 0;
+        var countTrue  = 0 ;
+        for (var i = 0 ; i < input.length ; i++) {
+             if(input[i].value == true) {
+                 countTrue++
+             }  
+
+        }
+
+        for (var i = 0 ; i < input.length ; i++) {
+            if(input[i].value == false) {
+                countFalse++
+            }  
+
+       }
+
+        if (countTrue == input.length || countFalse == input.length) {
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+
+    function extractZipCodes(input, data) {
+
+        var markAll = checkMarkingData(input)
+        var results ={zipCode: [], ownerName: []}
+        if(markAll==true) {
+            results.zipCode =  filterZipCode(data);
+            results.ownerName = filterOwner(data)
+
+            return results;
+        }
+
+        
+        for (var t = 0 ; t < input.length ;t++) {
+            if(input[t].value==true) {
+                for (var i = 0 ; i < data.length; i++) {
+                    if(input[t].name==data[i].name) {
+                    for (var s = 0 ;s < data[i].properties.length ; s++) {
+                       
+                        results.zipCode.push({zipCode: data[i].properties[s].zipCode});
+                        results.ownerName.push({ownerName: data[i].properties[s].ownerName})
+                    }
+                }
+                   
+                }
+            }
+        }
+
+        results.zipCode = extractDistinct(results.zipCode, 'zipCode')
+
+        return results;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -38570,7 +38636,8 @@ function _UtilService($http, $filter) {
         reducedData: reducedData,
         filterJurisdictions: filterJurisdictions,
         filterOwner: filterOwner,
-        filterZipCode: filterZipCode
+        filterZipCode: filterZipCode,
+        extractZipCodes: extractZipCodes
 
     };
 }

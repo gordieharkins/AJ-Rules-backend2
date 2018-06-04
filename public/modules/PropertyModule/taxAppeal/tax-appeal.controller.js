@@ -228,9 +228,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.buttonComp = function(state) {
-        if (state.status=='Not Started')  return 'disable-button'
+        // if (state.status=='Not Started')  return 'disable-button'
         
-        else if ('warning' in state && state.warning)  return 'red-button';
+         if ('warning' in state && state.warning)  return 'red-button';
         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
@@ -375,7 +375,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log(data)
         $("#preloader").css("display", "block");
         var postData = []
-        postData.push(data.data)
+        postData.push(data.data.properties.requiredItems)
         var url = '/appeal/updateRequiredItemsPaper';
     
          AOTCService.postDataToServer(url, postData)
@@ -421,6 +421,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 selected.push($scope.search.jurisdictions[i].name)
             }
         }
+        var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions)
+        $scope.search.zipCode = extractZip.zipCode;
+        $scope.search.owner = extractZip.ownerName;
+        
+        $scope.propertyFilter.owner = 'None'
+        $scope.propertyFilter.zipCode = 'None'
         $scope.inputSearch.name = selected
     }
 

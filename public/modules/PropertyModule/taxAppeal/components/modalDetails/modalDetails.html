@@ -122,7 +122,7 @@
           </div>
           <div class="modal-body">
             <div class="row" style="max-height: 520px; overflow: auto;">
-              <div class="col-md-7">
+              <!-- <div class="col-md-7">
                 <h6 style="font-size: 14px; color: #2f71ab; margin: 0 0 10px"><i class="fa fa-bar-chart" style="margin-right: 5px;"></i>Data fields:</h6>
     
                 <div class="table-wrapper-2">
@@ -137,26 +137,26 @@
                       </label>
                       </th>
                       <!-- <th>Source</th> -->
-                    </tr>
-                    </thead>
+                    <!-- </tr> -->
+                    <!-- </thead>
                     <tbody>
                     <tr ng-repeat="fields in configModal.data.data.properties.dataFields">
-                      <td>{{fields.name}}</td>
+                      <td>{{fields.name}}</td> -->
                       <!-- <td ng-class="{'red-back': fields.value == ''}" >{{fields.value}}</td> -->
-                      <td class="middle-check">
+                      <!-- <td class="middle-check">
                         <input  ng-change="configModal.dFieldsCb = configModalfields(configModal.data.data.properties.dataFields,configModal.dFieldsCb )" ng-true-value="'true'" ng-false-value="'false'" style="width: 100%" type="checkbox" ng-model="fields.value">
                       </td>
-                    </tr>
+                    </tr> -->
     
-                    </tbody>
+                    <!-- </tbody>
                   </table>
                 </div>
-              </div>
+              </div> -->
     
               <!--****************************************************** WITH STATUS REQUIRED DOCUMENTS START **************************************************************-->
     
     
-              <div class="col-md-5">
+              <div class="col-md-12">
                         <span style="color: #2f71ab;font-size: 15px"><i class="fa fa-file-text" style="margin:0 5px 0 0;"></i>Required documents:</span>
                         <label class="select-all-option" style="float: right; color: #3070ab; font-weight: normal; cursor: pointer" >
                           <input ng-true-value="'true'" ng-false-value="'false'" ng-model="configModal.rItemCb" ng-change="selectAllFields(configModal.rItemCb,2)" type="checkbox" style="float: right; margin:  3px 0 0 5px">

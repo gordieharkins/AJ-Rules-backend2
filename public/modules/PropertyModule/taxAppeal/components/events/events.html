@@ -41,7 +41,8 @@
         <thead>
         <tr style="top: 0" >
           <th class="first-col-head" >
-            <input type="checkbox">Property Name
+            <!-- <input type="checkbox"> -->
+            Property Name
           </th>
 
 
@@ -77,7 +78,9 @@
         <tbody>
         <tr ng-repeat=" prop in   subData.prop | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {fcolName: propertyFilter.name}"  ng-init="propertyIndex=$index">
           <td class="first-col-body">
-            <label><input type="checkbox">{{prop.fcolName}}</label>
+            <label>
+              <!-- <input type="checkbox"> -->
+              {{prop.fcolName}}</label>
             <p ng-if="prop.address">{{prop.address}}</p>
             <p ng-if="!prop.address">{{prop.streetAddress}}</p>
            <p>{{prop.taxAccountNo}}</p>
@@ -87,7 +90,7 @@
           <td style=" height: 170px;" class="started-tr" ng-repeat="events in  prop.subEvents | AppealFilter:appealStatus"  ng-init="subEventIndex=$index">
             <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
             <p class="start-note" style="text-align: center" ng-class="noteComp(events.properties)"><span>{{events.properties.warning || events.properties.message}}</span></p>
-            <button ng-if="events.properties.button" type="submit" ng-click="events.properties.status=='Not Started' || events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
+            <button ng-if="events.properties.button" type="submit" ng-click="events.properties.flag && openModal(events.properties ,prop,subEventIndex, events)" style="display: block; margin: 0 auto"    ng-class="buttonComp(events.properties)">{{events.properties.buttonText}}</button>
             <div ng-show="events.properties.toggle" class="toggle-div">
                 <label class="switch">
                   <input  
