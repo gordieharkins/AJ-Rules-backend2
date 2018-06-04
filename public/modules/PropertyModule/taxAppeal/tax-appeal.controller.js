@@ -188,7 +188,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
         
         var toggleData = [];
-        if(checkbox=='Mark as Yes'){
+        if(checkbox=='Mark all as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
                if('toggle' in subEvent.properties) {
@@ -201,7 +201,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             }
         }
         }
-        else if(checkbox=='Mark as No') {
+        else if(checkbox=='Mark all as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
                 if('toggle' in subEvent.properties) {
@@ -423,6 +423,34 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }
         $scope.inputSearch.name = selected
     }
+
+    $scope.changeComp = function(event,column,pColumn) {
+        if(event.subEvents.sublength==0) {
+            return
+        }
+       $scope.subData = null;
+       var jProperty =  $scope.data.jurisdictions[pColumn].properties;
+       var jName = $scope.data.jurisdictions[pColumn].name
+       subEventsDetect = {event: event, cloumn: column, pColumn: pColumn} 
+       var extractSubEvents = [];
+       for (var i  = 0 ; i  < jProperty.length;i++) {
+           var subEvents = jProperty[i].events[column].subEvents;
+           var eventId = jProperty[i].events[column].eventId;
+           var index = i;
+            extractSubEvents.push({fcolName : jProperty[i].name, fcolOwnerName : jProperty[i].ownerName,
+                address: jProperty[i].address, streetAddress:  jProperty[i].streetAddress, 
+                taxAccountNo:  jProperty[i].taxAccountNo, ownerName: jProperty[i].ownerName,
+                subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
+                info: subEventsDetect, propertyIndex: index, eventIndex: column})
+       }
+       console.log(extractSubEvents)
+
+       $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName};
+       console.log($scope.subData)
+       
+       $scope.show =  false;
+       // $scope.staticTable(0);
+   }
     function UpdateData(type,message){
         
  
