@@ -523,6 +523,19 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										updateData(value.event.properties, value.event._id);
 									}
 								}
+
+								if(value.event.properties.status != "Done"){
+									var notification = {
+										heading: value.jurisdiction + " Properties",
+										text: "Need to complete IE survey package for " +value.jurisdiction
+												+ " properties before "+value.event.properties.deadline+".",
+										type: "warning",
+										remainingDays: ""
+									}
+	
+									generateNotification(notification, value.event._id);
+								}
+								
 								createEventsJson(value, finalResult, function(){
 									callbackMain();
 								});
