@@ -3,9 +3,10 @@
 <div ng-include="'modules/PropertyModule/taxAppeal/components/header/header.html'"></div>
 
  <div class="row" style="margin: 20px 0 0">
+
    <div class=" table-row col-md-9 col-sm-9" >
-   <div ng-if="show">
-     <div ng-repeat="item in  data.jurisdictions" ng-init="pIndex= $index;staticTable(1)">
+   <div ng-if="show" >
+     <div ng-repeat="item in  data.jurisdictions | FilterJ:inputSearch.name" ng-init="pIndex= $index;staticTable(1)">
        <div >
            <div class="row main-table-header">
              <div class="col-md-5">
@@ -50,7 +51,7 @@
                  <th class="first-col-head" >
                    <input type="checkbox">Property Name
                  </th>
-                 <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events" ng-click="changeComp(events,$index,pIndex,events.properties.name)">
+                 <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events | AppealFilter:appealStatus" ng-click="changeComp(events,$index,pIndex,events.properties.name)">
                    <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
                    <span style="cursor: pointer !important;"> <i  class="fa fa fa-eye"></i>{{events.properties.name}}</span>
                    <!--<span class="not-mandatory">(Not mandatory)</span>-->
@@ -79,14 +80,17 @@
                </tr>
                </thead>
                <tbody>
-               <tr ng-repeat="prop in  item.properties ">
-                 <td class="first-col-body">
+               <tr ng-repeat="prop in  item.properties | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {name: propertyFilter.name}">
+                
+                <td class="first-col-body">
                    <label><input type="checkbox">{{prop.name}}</label>
-                   <p>{{prop.address || prop.streetAddress}}</p>
+                   <p ng-if="prop.address">{{prop.address}}</p>
+                   <p ng-if="!prop.address">{{prop.streetAddress}}</p>
+                
                    <p>{{prop.taxAccountNo}}</p>
                    <p>{{prop.ownerName}}</p>
                  </td>
-                 <td class="started-tr" ng-repeat="events in  prop.events">
+                 <td class="started-tr" ng-repeat="events in  prop.events  | AppealFilter:appealStatus">
                    <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
                    <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
                  <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>
@@ -117,6 +121,7 @@
                    <!--<a class="inventory-stroke-icon"></a>-->
                  <!--</td>-->
                </tr>
+              
                </tbody>
 
              </table>

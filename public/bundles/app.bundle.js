@@ -25957,6 +25957,10 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(2
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', __webpack_require__(284));
+angular.module('AOTC').filter('FilterJ', __webpack_require__(415).JurisdictionFilter);
+angular.module('AOTC').filter('AppealFilter', __webpack_require__(415).AppealFilter);
+angular.module('AOTC').filter('PAddressFilter', __webpack_require__(415).pAddressFilter);
+angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(415).pOwnerNameFilter);
 
 
 /***/ }),
@@ -33956,7 +33960,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
             //   $scope.search.zipCode = UtilService.filterJurisdictions($scope.data.jurisdictions)
-            //   $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+              $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
               
              
@@ -34093,7 +34097,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         //      delete flag[i].properties.open;
         //     }
         // }
-        if(checkbox=='Execute Signature') {
+        if(checkbox=='Execute Signature on All') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
@@ -34335,7 +34339,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.inputSearch.name = selected
     }
 
-    $scope.changeComp = function(event,column,pColumn) {
+    $scope.changeComp = function(event,column,pColumn,eName) {
         if(event.subEvents.sublength==0) {
             return
         }
@@ -34356,7 +34360,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        }
        console.log(extractSubEvents)
 
-       $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName};
+       $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName,eName: eName};
        console.log($scope.subData)
        
        $scope.show =  false;
@@ -34434,7 +34438,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 .then(function (result) {
                       console.log(result)
                       setTimeout(function(){ UpdateData(1, 'Data updated successfully')
-                    }, 5000)
+                    }, 7000)
                     
                        $scope.uploadModal = false
             
@@ -38383,6 +38387,20 @@ function _UtilService($http, $filter) {
 
     }
 
+    function filterOwner(data) {
+        var owner = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                owner.push({ownerName: data[i].properties[s].ownerName});
+            }
+           
+        }
+
+        return owner;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -38391,7 +38409,8 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
-        filterJurisdictions: filterJurisdictions
+        filterJurisdictions: filterJurisdictions,
+        filterOwner: filterOwner
 
     };
 }
@@ -39640,6 +39659,191 @@ function _permissionPerProperty(AOTCPermissions) {
         }
     };
 }
+
+/***/ }),
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */
+/***/ (function(module, exports) {
+
+_JurisDictionFilter.$inject = ["$http", "$filter"];
+module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
+    pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter};
+
+
+    // Create the return function and set the required parameter name to **input**
+    function _JurisDictionFilter() {
+      
+        return function(items, params) {
+           var result = items    
+           
+           result = FilterJursidictions(items,params)     
+          
+         console.log(result)
+          return result;
+        }
+
+        function FilterJursidictions(items, params) {
+            var selected = [] 
+            console.log(items)
+            if(params.length==0) {
+                return items
+            }
+            for (var i = 0 ; i < params.length;i++) {
+                         for(var j = 0 ; j < items.length; j++) {
+                            if(items[j].name==params[i]){
+                            selected.push(items[j])
+                            }
+
+                         }
+            }
+             return selected;
+        }
+    }
+
+    function _AppealFilter(){
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params.ns==false && params.don==false && params.ip==false) {
+                return items;
+            }    
+            angular.forEach(items, function(value, key){
+                if(params.ns==true && value.properties.status=='Not Started') {
+                    result.push(value)
+                } 
+                if(params.don==true && value.properties.status=='Done') {
+                    result.push(value)
+                } 
+                if(params.ip==true && value.properties.status=='In Progress') {
+                    result.push(value)
+                } 
+             }); 
+          
+           return result;
+         }
+    }
+
+    function _pAddressFilter() {
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params.length==0){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+                var extractAddress = ''
+                if(item.address) extractAddress = item.address;
+                else extractAddress = item.streetAddress;                ;
+
+                if(extractAddress.toLowerCase().indexOf(params.toLowerCase()) !== -1){
+                    result.push(item);
+                }
+            });   
+            
+          
+           return result;
+         }
+    }
+  
+    function _pOwnerNameFilter() {
+        return function(items, params) {
+            var result = []
+            console.log(items)
+            if(params=='None' || params==''){
+                return items;
+            }
+            
+            angular.forEach(items, function(item) {
+               
+                if(item.ownerName==params){
+                    result.push(item)
+                }
+            });   
+            
+          
+           return result;
+         }
+    }
+  
+
 
 /***/ })
 ],[138]);

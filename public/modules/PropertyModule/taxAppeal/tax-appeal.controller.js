@@ -45,7 +45,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
             //   $scope.search.zipCode = UtilService.filterJurisdictions($scope.data.jurisdictions)
-            //   $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+              $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
               
              
@@ -182,7 +182,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         //      delete flag[i].properties.open;
         //     }
         // }
-        if(checkbox=='Execute Signature') {
+        if(checkbox=='Execute Signature on All') {
             callMultipleSign(index,checkbox,events,flag)
             return
         }
@@ -424,7 +424,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.inputSearch.name = selected
     }
 
-    $scope.changeComp = function(event,column,pColumn) {
+    $scope.changeComp = function(event,column,pColumn,eName) {
         if(event.subEvents.sublength==0) {
             return
         }
@@ -445,7 +445,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        }
        console.log(extractSubEvents)
 
-       $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName};
+       $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName,eName: eName};
        console.log($scope.subData)
        
        $scope.show =  false;
@@ -523,7 +523,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 .then(function (result) {
                       console.log(result)
                       setTimeout(function(){ UpdateData(1, 'Data updated successfully')
-                    }, 5000)
+                    }, 7000)
                     
                        $scope.uploadModal = false
             
