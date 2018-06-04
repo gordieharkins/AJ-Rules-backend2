@@ -292,7 +292,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-			res.send(result);
+			// res.send(result);
 			var finalResult = {
 				jurisdictionsNames: [],
 				propertyIds: [],
@@ -747,6 +747,14 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 						requiredItems.requiredItems.push(temp);
 						delete requiredItems[element];
 					}
+				}
+			}
+
+			for(var i = 0; i <requiredItems.requiredItems.length; i++){
+				if(requiredItems.requiredItems[i].value == "true"){
+					requiredItems.requiredItems.push(requiredItems.requiredItems[i]);
+					requiredItems.requiredItems.splice(i, 1);
+					i = i - 1;
 				}
 			}
 
