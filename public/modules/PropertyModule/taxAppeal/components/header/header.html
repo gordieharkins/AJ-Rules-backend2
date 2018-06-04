@@ -94,7 +94,7 @@
                   </div>
                 </div>
                 <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
-                  <label style=" font-size: 14px; font-weight: 600">Search by Owner</label>
+                  <label style=" font-size: 14px; font-weight: 600">Search by Owner{{data.ownerName}}</label>
                   <i class="fa fa-caret-down select-dropdown"></i>
                   <select  class="form-control" ng-model="propertyFilter.owner">
                     <option  selected="true"   value="None">Select Owner Name</option>
@@ -122,10 +122,10 @@
                     <label> <input ng-disabled="true" ng-model="appealStatus.ns"  type="checkbox"> Not started </label>
                   </li>
                   <li class="clearfix">
-                    <label> <input ng-model="appealStatus.ip" type="checkbox">In-progress </label>
+                    <label> <input ng-disabled="true"  ng-model="appealStatus.ip" type="checkbox">In-progress </label>
                   </li>
                   <li class="clearfix">
-                    <label> <input ng-model="appealStatus.don" type="checkbox">Done </label>
+                    <label> <input ng-disabled="true"  ng-model="appealStatus.don" type="checkbox">Done </label>
                   </li>
                   <!-- <li class="clearfix">
                     <label> <input type="checkbox">Properties apporching deadline</label>

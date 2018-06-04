@@ -49,7 +49,8 @@
                <thead>
                <tr style="top: 0" >
                  <th class="first-col-head" >
-                   <input type="checkbox">Property Name
+                   <!-- <input type="checkbox"> -->
+                   Property Name
                  </th>
                  <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events | AppealFilter:appealStatus" ng-click="changeComp(events,$index,pIndex,events.properties.name)">
                    <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
@@ -83,14 +84,17 @@
                <tr ng-repeat="prop in  item.properties | pZipCodeFilter :propertyFilter.zipCode | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {name: propertyFilter.name} as rPName" >
                 
                 <td class="first-col-body">
-                   <label><input type="checkbox">{{prop.name}}</label>
+                   <label>
+                     <!-- <input type="checkbox"> -->
+                    
+                    {{prop.name}}</label>
                    <p ng-if="prop.address">{{prop.address}}</p>
                    <p ng-if="!prop.address">{{prop.streetAddress}}</p>
-                
+                {{propertyFilter.owner}}
                    <p>{{prop.taxAccountNo}}</p>
                    <p>{{prop.ownerName}}</p>
                  </td>
-                 <td class="started-tr" ng-repeat="events in  prop.events  | AppealFilter:appealStatus">
+                 <td class="started-tr" ng-repeat="events in  prop.events  | AppealFilter:appealStatus ">
                    <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
                    <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
                  <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>
@@ -153,7 +157,7 @@
  <div ng-show="openSign">
     <div  ng-include="'modules/PropertyModule/taxAppeal/components/sign/sign.html'"></div>
 </div>
-<div ng-show="uploadModal">
+<div ng-if="uploadModal">
     <div  ng-include="'modules/PropertyModule/taxAppeal/components/uploadModal/uploadModal.html'"></div>
 </div>
 <div ng-show="configModal.details">

@@ -211,7 +211,7 @@ timeline.paradigms = {
 				toggle: true,
 				toggleValue: false,
 				dropdown: true,
-				dropdownValues: ["Mark as Yes", "Mark as No"],
+				dropdownValues: ["Mark all as Yes", "Mark all as No"],
 				type: 00,
 				order: 1
 		},
@@ -258,7 +258,7 @@ timeline.paradigms = {
 			button: false,
 			mandatory: true,
 			dropdown: true,
-			dropdownValues: ["Execute Signature"],
+			dropdownValues: ["Mark all as Yes", "Mark all as No"],
 			// state: "", 
 			order: 4
 		}, 
@@ -272,6 +272,8 @@ timeline.paradigms = {
 			toggleValue: "false",
 			button: false,
 			mandatory: true,
+			dropdown: true,
+			dropdownValues: ["Mark all as Yes", "Mark all as No"],
 			// state: "", 
 			order: 5
 		}
@@ -290,7 +292,7 @@ timeline.paradigms = {
 			button: true,
 			deadline: "",
 			order: 1,
-			field2: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"],
+			field1: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"],
 			field2: ["field","Net Operating Income", "$65,000", "Income Expense Statement 2015"],
 			field3: ["field","Total Expenses", "$12,000", "Income Expense Statement 2016"],
 			field4: ["field","Net Operating Income", "$33,000", "Income Expense Statement 2016"],
@@ -322,7 +324,7 @@ timeline.paradigms = {
 			button: true,
 			mandatory: true,
 			dropdown: true,
-			dropdownValues: ["Execute Signature"],
+			dropdownValues: ["Execute Signature on All"],
 			deadline: "",
 			// state: "", 
 			order: 3
