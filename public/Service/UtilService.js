@@ -191,17 +191,31 @@ function _UtilService($http, $filter) {
     }
 
     function filterZipCode(data) {
-        var owner = []
+        var zipCode = []
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                owner.push({zipCode: data[i].properties[s].zipCode});
+                zipCode.push({zipCode: data[i].properties[s].zipCode});
             }
            
         }
 
-        return owner;
+        zipCode = extractDistinct(zipCode, 'zipCode')
 
+        return zipCode;
+
+    }
+
+    function extractDistinct(array,property){
+        var unique = {};
+        var distinct = [];
+        for( var i in array ){
+           if( typeof(unique[array[i][property]]) == "undefined"){
+              distinct.push(array[i]);
+           }
+           unique[array[i][property]] = 0;
+        }
+        return distinct;
     }
 
 
