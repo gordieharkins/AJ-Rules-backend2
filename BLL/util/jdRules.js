@@ -292,7 +292,7 @@ timeline.paradigms = {
 			button: true,
 			deadline: "",
 			order: 1,
-			field2: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"],
+			field1: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"],
 			field2: ["field","Net Operating Income", "$65,000", "Income Expense Statement 2015"],
 			field3: ["field","Total Expenses", "$12,000", "Income Expense Statement 2016"],
 			field4: ["field","Net Operating Income", "$33,000", "Income Expense Statement 2016"],
