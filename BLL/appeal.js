@@ -1027,13 +1027,14 @@ function createEventsJson(value, finalResult, cb){
 		additionalItems: value.additionalItems
 	};
 	
+	// console.log(value.zipCode);
 	var property = {
 		id: value.propertyId,
 		name: value.propertyName,
 		address: value.address,
 		ownerName: value.ownerName,
 		taxAccountNo: value.taxAccountNo.replace(/,/g, ""),
-		zipCode: toString(value.zipCode).replace(/,/g, ""),
+		zipCode: (value.zipCode + "").replace(/,/g, ""),
 		streetAddress: value.streetAddress,
 		events: []
 	}
