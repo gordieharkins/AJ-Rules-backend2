@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/header/header.css">
+
 <form>
     <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
@@ -8,6 +9,13 @@
     <div class="col-md-8 col-sm-12 filter-sub">
         {{propertyFilter.name}}
       <ul class="head-filters">
+          <li>
+              <label class="Filter-expand" style="background: #36589b; color: #fff;">
+                  <i class="fa fa-filter" aria-hidden="true"></i> Hide Filters   <span class="filter-bubble">2</span>
+              </label>
+
+          </li>
+
         <li class="ad-jurisdiction">
           <button type="button" class="filter-btn"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction: All<i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown jurisdict" style="display:none">
