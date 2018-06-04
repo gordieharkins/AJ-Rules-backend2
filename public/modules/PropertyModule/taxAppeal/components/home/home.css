@@ -580,7 +580,9 @@ ul.dropdown-menu li a:hover {
 
 .table-row{
   width: 75%;
+  height: 92vh;
   padding-right: 0;
+  background: white;;
 }
 .notification-row{
   width: 24% !important;
@@ -602,8 +604,10 @@ ul.dropdown-menu li a:hover {
         padding-right: 9px;
       }
       .table-row{
-        width:70%;
+        width: 75%;
+        height: 92vh;
         padding-right: 0;
+        background: white;
       }
       .notification-row{
         width: 30% !important;
@@ -611,8 +615,10 @@ ul.dropdown-menu li a:hover {
     }
     @media (max-width: 767px){
       .table-row{
-        width: 100%;
+        width: 75%;
+        height: 92vh;
         padding-right: 0;
+        background: white;;
       }
       .notification-row{
         width: 100% !important;
