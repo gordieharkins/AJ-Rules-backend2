@@ -29,7 +29,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.search ={jurisdictions: [],zipCode: [], owner: []}
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
     $scope.appealStatus = {ns: false,ip: false,don : false};
-    $scope.propertyFilter = {name: '', add: '', zipCode: '',owner: 'None'}
+    $scope.propertyFilter = {name: '', add: '', zipCode: 'None',owner: 'None'}
 
 
     $scope.getPropertyDetails = function()  {
@@ -44,7 +44,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               console.log(result.data)
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
-            //   $scope.search.zipCode = UtilService.filterJurisdictions($scope.data.jurisdictions)
+               $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
               $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
               

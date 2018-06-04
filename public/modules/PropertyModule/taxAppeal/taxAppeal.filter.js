@@ -1,6 +1,8 @@
 _JurisDictionFilter.$inject = ["$http", "$filter"];
 module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
-    pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter};
+    pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter,
+    pZipCodeFilter: _pZipCodeFilter
+};
 
 
     // Create the return function and set the required parameter name to **input**
@@ -97,5 +99,9 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
           
            return result;
          }
+    }
+
+    function _pZipCodeFilter(){
+
     }
   

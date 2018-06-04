@@ -78,11 +78,10 @@
 
                     <label style=" font-size: 14px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
-                    <select class="form-control">
-                      <option>4500</option>
-                      <option >1500</option>
-                      <option>1600</option>
-                      <option>1900</option>
+                    <select class="form-control" ng-model="propertyFilter.zipCode">
+                        <option  selected="true"   value="None">Select Zip Code</option>
+                      <option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>
+                     
                     </select>
                   </div>
                 </div>

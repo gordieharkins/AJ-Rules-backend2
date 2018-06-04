@@ -190,6 +190,20 @@ function _UtilService($http, $filter) {
 
     }
 
+    function filterZipCode(data) {
+        var owner = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                owner.push({zipCode: data[i].properties[s].ZipCode});
+            }
+           
+        }
+
+        return owner;
+
+    }
+
 
     return {
         clearFile: clearFile,
@@ -199,7 +213,8 @@ function _UtilService($http, $filter) {
         keyValMaker: keyValMaker,
         reducedData: reducedData,
         filterJurisdictions: filterJurisdictions,
-        filterOwner: filterOwner
+        filterOwner: filterOwner,
+        filterZipCode: filterZipCode
 
     };
 }
