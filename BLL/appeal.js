@@ -535,7 +535,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 	
 									generateNotification(notification, value.event._id);
 								}
-								
+
 								createEventsJson(value, finalResult, function(){
 									callbackMain();
 								});
@@ -874,11 +874,11 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		}
 
 		if(remainingItems > 0){
-			warning += remainingItems+ " of "+totalItems+ " items remaing. "
+			warning += remainingItems+ " of "+totalItems+ " items remaining. "
 		} 
 
 		if(remainingFields > 0){
-			warning += remainingFields+ " of "+totalFields+ " fields remaing. "
+			warning += remainingFields+ " of "+totalFields+ " fields remaining. "
 		}
 		// requiredItems['notification'] = notification;
 		generateNotification(notification, itemId);
