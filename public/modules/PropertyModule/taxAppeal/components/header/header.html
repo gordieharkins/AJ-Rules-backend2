@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/header/header.css">
+
 <form>
     <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
@@ -8,6 +9,13 @@
     <div class="col-md-8 col-sm-12 filter-sub">
         {{propertyFilter.name}}
       <ul class="head-filters">
+          <li>
+              <label class="Filter-expand" style="background: #36589b; color: #fff;">
+                  <i class="fa fa-filter" aria-hidden="true"></i> Hide Filters   <span class="filter-bubble">2</span>
+              </label>
+
+          </li>
+
         <li class="ad-jurisdiction">
           <button type="button" class="filter-btn"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction: All<i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown jurisdict" style="display:none">
@@ -140,9 +148,42 @@
         </li> -->
       </ul>
     </div>
+    </div>
 
-</div>
-  <div class="show-filter-wrap" style="display: none">
+    <!--Filter Tags Start-->
+    <div class="row">
+    <div class="col-md-12 filter-tags">
+        <!--Tags Start-->
+      <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+      <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
+      <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+
+
+
+        <!--Tags End-->
+
+        <!--Clear all Start-->
+        <span class="clear">Clear all filters </span>
+        <!--Clear all End-->
+
+        <!--Hide Filters Start-->
+        <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
+        <!--Hide Filters End-->
+    </div>
+    </div>
+    <!--Filter Tags End-->
+
+
+    <div class="show-filter-wrap" style="display: none">
     <div class="filter-show clearfix">
       <h2>Advance Filter <span>(Filter will be applied to all properties)</span></h2>
       <span class="close-filter"><i class="fa fa-times-circle-o"></i>Clear all filters</span>

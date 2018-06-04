@@ -239,6 +239,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.executeSignature = function(req, res) {
 	var userId = req.user[0].userId;
+	console.log("hereeeeeeeeeeeee");
     DAL.executeSignature(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -267,7 +268,7 @@ BLL.prototype.executeSignature = function(req, res) {
 					}
 				});
 			} else {
-				Response.sendResponse(true, Response.REPLY_MSG.PIN_FAILED, result, res);
+				Response.sendResponse(false, Response.REPLY_MSG.PIN_FAILED, result, res);
 			}
 
 			
@@ -292,7 +293,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-			
+			// res.send(result);
 			var finalResult = {
 				jurisdictionsNames: [],
 				propertyIds: [],
@@ -471,12 +472,12 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									&& value.event.properties.message != value.subEvent[indexes[1][3]].properties.message){
 										value.event.properties.status = "In Progress";
 										value.event.properties.warning = "";
-										value.event.properties.message = "Data will be released to AJ on " + deadline;
+										value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
 										updateData(value.event.properties, value.event._id);
 									} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
 									&& value.event.properties.status != "Done"){
 										value.event.properties.status = "Done";
-										value.event.properties.message = "Data was released to AJ on " + deadline;
+										value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
 										value.event.properties.warning = "";
 										updateData(value.event.properties, value.event._id);
 										
@@ -524,17 +525,17 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									}
 								}
 
-								if(value.event.properties.status != "Done"){
-									var notification = {
-										heading: value.jurisdiction + " Properties",
-										text: "Need to complete IE survey package for " +value.jurisdiction
-												+ " properties before "+value.event.properties.deadline+".",
-										type: "warning",
-										remainingDays: ""
-									}
+								// if(value.event.properties.status != "Done"){
+								// 	var notification = {
+								// 		heading: value.jurisdiction + " Properties",
+								// 		text: "Need to complete income expense survey package for " +value.jurisdiction
+								// 				+ " properties before "+value.event.properties.deadline+".",
+								// 		type: "warning",
+								// 		remainingDays: ""
+								// 	}
 	
-									generateNotification(notification, value.event._id);
-								}
+								// 	generateNotification(notification, value.event._id);
+								// }
 
 								createEventsJson(value, finalResult, function(){
 									callbackMain();
@@ -749,6 +750,15 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 					}
 				}
 			}
+			var reqItemsLength = requiredItems.requiredItems.length;
+			for(var i = 0; i < reqItemsLength; i++){
+				if(requiredItems.requiredItems[i].value == "true"){
+					requiredItems.requiredItems.push(requiredItems.requiredItems[i]);
+					requiredItems.requiredItems.splice(i, 1);
+					i -= 1;
+					reqItemsLength -= 1;
+				}
+			}
 
 			cb(null, requiredItems) ;
 		}
@@ -765,7 +775,7 @@ function checkReivewStatus(requiredItemsStatus, subValue, id, cb){
 		console.log("dummy console. will find something better soon. ");
 	} else if(requiredItemsStatus == "Done" && reviewStatus.flag == false){
 		reviewStatus.flag = true;
-		reviewStatus.status = "In Progress";
+		// reviewStatus.status = "In Progress";
 		updateData(reviewStatus, id);
 	}
 
@@ -804,7 +814,7 @@ function checkSubmissionStatus(signatureStatus, subValue, id, cb){
 	} else if(signatureStatus == "Done" && submissionStatus.flag == false){
 		submissionStatus.flag = true;
 		submissionStatus.status = "In Progress";
-		submissionStatus.message = "Data will be released to AJ on " + submissionStatus.deadline;
+		submissionStatus.message = "Data will be released to assessing jurisdiction on " + submissionStatus.deadline;
 		updateData(submissionStatus, id);
 		
 	}
@@ -877,9 +887,9 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			warning += remainingItems+ " of "+totalItems+ " items remaining. "
 		} 
 
-		if(remainingFields > 0){
-			warning += remainingFields+ " of "+totalFields+ " fields remaining. "
-		}
+		// if(remainingFields > 0){
+		// 	warning += remainingFields+ " of "+totalFields+ " fields remaining. "
+		// }
 		// requiredItems['notification'] = notification;
 		generateNotification(notification, itemId);
 		warning += "Please complete the required information";
@@ -937,7 +947,7 @@ function checkReivewStatusPaper(ieForm, requiredItems, subValue, id, cb){
 		console.log("dummy console. will find something better soon. ");
 	} else if(requiredItems == "Done" && ieForm == "Done"){
 		reviewStatus.flag = true;
-		reviewStatus.status = "In Progress";
+		// reviewStatus.status = "In Progress";
 		reviewStatus.message = "Was review successful?"
 		reviewStatus.toggle = true;
 		reviewStatus.toggleValue = false;
@@ -1006,8 +1016,8 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
 
 		status.status = "In Progress";
 		var notification = {
-			heading: "Fill IE Survey form",
-			text:  " days remaining before submission. Fill IE survey forms for properties of "+jurisdiction+".",
+			heading: "Fill Income Expense Survey form",
+			text:  " days remaining before submission. Fill income expense survey forms for properties of "+jurisdiction+".",
 			type: "warning",
 			remainingDays: remainingDays
 		}

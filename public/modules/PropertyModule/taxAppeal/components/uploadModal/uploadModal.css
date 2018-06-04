@@ -137,9 +137,10 @@ a:focus, a:hover {
     background: #03a4fc;
     color: white;
     border: 1px solid #03a4fc;
-    height: 25px;
+    height: 28px;
     margin: 0 auto;
     text-align: center;
+    line-height: 26px;
   }
   .upload-button{
     background: #03a4fc;

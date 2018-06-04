@@ -30,6 +30,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
     $scope.appealStatus = {ns: false,ip: false,don : false};
     $scope.propertyFilter = {name: '', add: '', zipCode: 'None',owner: 'None'}
+    $scope.filterList = {jurisdictions: [],property: [], appealStatus: []}
 
 
     $scope.getPropertyDetails = function()  {
@@ -45,7 +46,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
               $scope.data = result.data.result
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
-              $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
+               $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
               
              
@@ -230,8 +231,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.buttonComp = function(state) {
         // if (state.status=='Not Started')  return 'disable-button'
         
-         if ('warning' in state && state.warning)  return 'red-button';
-        else if ('flag' in state && state.flag==false)  return 'disable-button'
+        if ('warning' in state && state.warning)  return 'red-button';
+         else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
      }
 
@@ -247,9 +248,16 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
                   console.log(result.data)
-                  $scope.resetSign.pin = null
-                  setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
-        
+                  if(result.data.success==true) {
+                     $scope.resetSign.pin = null
+                      setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
+                  } else {
+                    setTimeout(function(){ 
+                          $scope.$emit('error', result.data.message)
+                         $("#preloader").css("display", "none");
+                }, 700)
+                  
+                  }
              
                  
                 }, function (result) {
