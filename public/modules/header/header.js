@@ -40,6 +40,8 @@ function _header(User_Config, $state, $timeout) {
             $scope.name = userResult.userData.name;
         }
 
+     
+
         $scope.$on('userRole', function (ev, userRole) {
             $timeout(function () {
                 $scope.showUserTab = false;
@@ -111,10 +113,10 @@ function _header(User_Config, $state, $timeout) {
                                     }
                                 } catch (_e) {}
                             });
-                            $("#preloader").css("display", "none");
+                           
                         }, function () {
 
-                            $("#preloader").css("display", "none");
+                           
                         });
                 } else {
                     $scope.selectedNotification = _notf;

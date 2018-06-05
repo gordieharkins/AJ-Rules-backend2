@@ -43,6 +43,9 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
                 return items;
             }    
             angular.forEach(items, function(value, key){
+                if(!value) {
+                    
+                }
                 if(params.ns==true && value.properties.status=='Not Started') {
                     result.push(value)
                 } 

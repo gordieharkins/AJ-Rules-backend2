@@ -52,7 +52,7 @@
                    <!-- <input type="checkbox"> -->
                    Property Name
                  </th>
-                 <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events | AppealFilter:appealStatus" ng-click="changeComp(events,$index,pIndex,events.properties.name)">
+                 <th style="cursor: pointer !important;" ng-repeat="events in  item.properties[0].events | AppealFilter:appealStatus" ng-click="changeComp(events,$index,pIndex,events.properties.name)" ng-if="events">
                    <!--<span class="desktop-icon"><i class="fa fa-desktop" aria-hidden="true"></i></span>-->
                    <span style="cursor: pointer !important;"> <i  class="fa fa fa-eye"></i>{{events.properties.name}}</span>
                    <!--<span class="not-mandatory">(Not mandatory)</span>-->
@@ -94,7 +94,8 @@
                    <p>{{prop.taxAccountNo}}</p>
                    <p>{{prop.ownerName}}</p>
                  </td>
-                 <td class="started-tr" ng-repeat="events in  prop.events  | AppealFilter:appealStatus ">
+                 <ng-container ng-if="prop.events">
+                 <td  class="started-tr" ng-repeat="events in  prop.events  | AppealFilter:appealStatus " ng-if="prop.events">
                    <!-- <app-appeal-message [type]="events.properties.status" ></app-appeal-message> -->
                    <span ng-class="checkMessage(events.properties.status)">{{events.properties.status}}</span>
                  <p class="start-note" style="text-align: center" ><span>{{events.properties.message}}</span></p>
@@ -107,6 +108,7 @@
                          <i class="fa fa-envelope"></i>
                      </span>
                  </td>
+                </ng-container>
                  <!--<td class="done-tr">-->
                  <!--<app-appeal-message [type]="'Done'" ></app-appeal-message>-->
                  <!--<p style="text-align: center">Assigned value:<span>$1254</span></p>-->
