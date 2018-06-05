@@ -91,32 +91,15 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.newssourcestext = { buttonDefaultText: 'Select Source' };
     vm.newstimetext = { buttonDefaultText: 'Select Duration' };
 
-   
-   
-    function getNotifications(){
-        var url = '/appeal/getNotification'
-        AOTCService.getDataFromServer(url)
-        .then(function (result) {
-              console.log(result.data)
-              $scope.$emit('notifications',result.data.result)
-             
-              getNewsss({
-                "region": [],
-                "sources": [],
-                "time": 60
-            });
-              $("#preloader").css("display", "none");
-             
-            }, function (result) {
-            //some error
-            ////console.log(result);
-            console.log(result)
-            $("#preloader").css("display", "none");
-        });
-     }
+
+
+    getNewsss({
+        "region": [],
+        "sources": [],
+        "time": 60
+    });
 
     vm.filterObj = {};
-    getNotifications()
     function getNewsss(_data) {
         $("#preloader").css('display', 'block');
         var _time = vm.newstimemodel[0] || 60;
@@ -125,7 +108,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             .then(function (res) {
                 if (res.data.success) {
                     vm.newsData = res.data.result.results;
-                    getNotifications()
+
                     $timeout(function () {
                         $("#bn4").breakingNews({
                             effect: "slide-v",
@@ -178,7 +161,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 $("#preloader").css('display', 'none');
             });
     };
-    
+
     // ////console.log(User_Config);
     $('#preloader').css('display', 'block');
 

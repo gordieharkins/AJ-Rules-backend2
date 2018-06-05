@@ -15,7 +15,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-        $scope.allNotifications = []
+        $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
 
 
@@ -80,9 +80,13 @@ function _header(User_Config, $state, $timeout) {
 
         $scope.$on('notifications', function(ev, data) {
          console.log(data) 
-         $scope.allNotifications = data
+        //  $scope.allNotifications = data
         
         });
+
+        $rootScope.$watch('allNotifications', function(newValue, oldValue) {
+            $scope.allNotifications = newValue
+        })
 
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
