@@ -278,6 +278,29 @@ function _UtilService($http, $filter) {
 
     }
 
+    function restoreState(data,compare) {
+        if(compare.type==1) {
+        for (var i = 0 ; i < data.length ; i++) {
+            if(data[i].name==compare.data) {
+                data[i].value = false;
+                break;
+            }
+        }
+        return data
+    }
+
+    }
+
+    function restoreJurisdictions(data) {
+        for (var i = 0 ; i < data.length ; i++) {
+          
+                data[i].value = false;
+            }
+
+        return data    
+    }
+    
+
 
     return {
         clearFile: clearFile,
@@ -289,7 +312,9 @@ function _UtilService($http, $filter) {
         filterJurisdictions: filterJurisdictions,
         filterOwner: filterOwner,
         filterZipCode: filterZipCode,
-        extractZipCodes: extractZipCodes
+        extractZipCodes: extractZipCodes,
+        restoreState: restoreState,
+        restoreJurisdictions: restoreJurisdictions
 
     };
 }

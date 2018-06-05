@@ -83,9 +83,9 @@
     border-bottom: 1px solid #ededed;
   }
   .modal-button{
-    right: 30px;
+    right: 13px;
     position: absolute;
-    min-width: 60px;
+    min-width: 73px;
     background: #03a4fc;
     color: white;
     border: 1px solid #03a4fc;
@@ -109,7 +109,12 @@
   .select-label, .select-all-option {
     cursor: pointer !important;
   }
-  
+  .modal-footer {
+
+      padding: 15px !important;
+      border-top: 1px solid #e5e5e5 !important;
+      height: 46px !important;
+  }
 </style>
 <div class="popup-overlay">
     <div  class="modal fade" role="dialog">
@@ -209,13 +214,16 @@
               
               
                 </div>
-                <button ng-click="saveCheckList(configModal.data)"class="btn btn-primary" style="    position: fixed; bottom: 5px;
-                right: 30px;">Save</button>
+
             </div>
             <!--<div class="modal-footer">-->
             <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
             <!--</div>-->
           </div>
+            <div class="modal-footer">
+                <button ng-click="saveCheckList(configModal.data)"class="btn btn-primary" style="    position: fixed; bottom: 5px;
+                right: 30px;">Save</button>
+            </div>
         </div>
       </div>
     </div>

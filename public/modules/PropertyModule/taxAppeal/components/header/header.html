@@ -9,9 +9,12 @@
     <div class="col-md-8 col-sm-12 filter-sub">
         {{propertyFilter.name}}
       <ul class="head-filters">
-          <li>
-              <label class="Filter-expand" style="background: #36589b; color: #fff;">
-                  <i class="fa fa-filter" aria-hidden="true"></i> Hide Filters   <span class="filter-bubble">2</span>
+          <li  ng-show="filters.length>0" ng-click="propertyFilter.show==true ? propertyFilter.show=false : propertyFilter.show=true">
+              <label class="Filter-expand" style="background: #36589b; color: #fff;" ng-show="propertyFilter.show==true">
+                  <i class="fa fa-filter" aria-hidden="true"></i> Hide Filters   <span class="filter-bubble">{{filters.length}}</span>
+              </label>
+              <label class="Filter-expand" style="background: #36589b; color: #fff;" ng-show="propertyFilter.show==false">
+                  <i class="fa fa-filter" aria-hidden="true"></i> Show Filters   <span class="filter-bubble">{{filters.length}}</span>
               </label>
 
           </li>
@@ -71,13 +74,13 @@
                 <h3 style="margin: 0px;"><i class="fa fa-building-o" style="margin-left: 0"></i>Property</h3>
                 <div class="property-area" style="padding: 10px">
                   <label style="font-size: 14px; font-weight: 600">Search by Property Name</label>
-                  <input ng-model="propertyFilter.name" type="text" class="form-control jur-search" placeholder="Property Name">
+                  <input ng-change="selectFilters(propertyFilter.name,2)" ng-model="propertyFilter.name" type="text" class="form-control jur-search" placeholder="Property Name">
                   <i class="fa fa-search juris-icon-two"></i>
 
                 <div class="property-ad clearfix">
                   <div class="select-one">
                     <label style=" font-size: 14px; font-weight: 600">Search by Address</label>
-                    <input ng-model="propertyFilter.add" type="text" class="form-control jur-search" placeholder="Address">
+                    <input ng-change="selectFilters(propertyFilter.add,3)" ng-model="propertyFilter.add" type="text" class="form-control jur-search" placeholder="Address">
                     <i class="fa fa-search juris-icon-two search-three"></i>
                   </div>
                 </div>
@@ -86,7 +89,7 @@
 
                     <label style=" font-size: 14px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
-                    <select class="form-control" ng-model="propertyFilter.zipCode">
+                    <select class="form-control" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">
                         <option  selected="true"   value="None">Select Zip Code</option>
                       <option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>
                      
@@ -96,7 +99,7 @@
                 <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
                   <label style=" font-size: 14px; font-weight: 600">Search by Owner{{data.ownerName}}</label>
                   <i class="fa fa-caret-down select-dropdown"></i>
-                  <select  class="form-control" ng-model="propertyFilter.owner">
+                  <select  class="form-control" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">
                     <option  selected="true"   value="None">Select Owner Name</option>
                     <option ng-repeat="data in search.owner">{{data.ownerName}}</option>
                   </select>
@@ -152,27 +155,17 @@
 
     <!--Filter Tags Start-->
     <div class="row">
-    <div class="col-md-12 filter-tags">
+    <div class="col-md-12 filter-tags" ng-show="filters.length>0 && propertyFilter.show==true">
         <!--Tags Start-->
-      <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-      <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
-      <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Ny <i class="fa fa-times" aria-hidden="true"></i></span>
-        <span class="tag">Address <i class="fa fa-times" aria-hidden="true"></i></span>
+      <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
+      
 
 
 
         <!--Tags End-->
 
         <!--Clear all Start-->
-        <span class="clear">Clear all filters </span>
+        <span class="clear" ng-click="clearAll()">Clear all filters </span>
         <!--Clear all End-->
 
         <!--Hide Filters Start-->

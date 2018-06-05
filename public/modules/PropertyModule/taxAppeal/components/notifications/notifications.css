@@ -17,6 +17,17 @@
     min-height: 90vh;
   
   }
+
+
+.sidebar-notification-inner{
+  background-color: #f9f9f9;
+  padding: 0 10px 0 10px;
+  border: 1px solid #dddddd;
+  overflow: auto;
+  width: 100%;
+  max-height: 72vh;
+  min-height: 72vh;
+}
   
   /********************CARD************************/
   .card {
