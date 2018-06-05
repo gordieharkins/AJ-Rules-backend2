@@ -227,8 +227,8 @@ BLL.prototype.updateData = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	var data = req.body;
-	data = data[0];
-	console.log(JSON.stringify(data));
+	// data = data[0];
+	// console.log("sssssssssss",JSON.stringify(data));
 	for(var j = 0; j < data.length; j++){
 		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
 			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
@@ -243,7 +243,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 		delete data[j].properties.dataFields;
 		delete data[j].properties.notification;
 	}
-	DAL.updateData(data, null, function(error, result) {
+	DAL.updateData(data[0].properties, data[0]._id, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
@@ -913,16 +913,17 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 				if(requiredItems[element][2] == "false"){
 					remainingItems++;
 				}
-			} else if(requiredItems[element][0] == "field"){
-				totalFields++;
-				if(requiredItems[element][2] == "false"){
-					remainingFields++;
-				}
 			}
+			// } else if(requiredItems[element][0] == "field"){
+			// 	totalFields++;
+			// 	if(requiredItems[element][2] == "false"){
+			// 		remainingFields++;
+			// 	}
+			// }
 		}
 	}
 
-	if(remainingItems == 0 && remainingFields == 0){
+	if(remainingItems == 0){
 		requiredItems.message = "All items are complete.",
 		requiredItems.status = "Done";
 	} else {
