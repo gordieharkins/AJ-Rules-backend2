@@ -37943,17 +37943,20 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
 
     $scope.uplaodFile = function(file) {
         console.log(file.files)
+        $("#preloader").css("display", "block");
         sendFile = null;
         var files = file.files;
         $scope.fileName = files[0].name
         var FileNames = [];
         var selected  = 0;
         sendFile = files
-        $scope.$apply()
+         $scope.fileName = files[0].name
+       
         var url = '/aJRules/updateJurisdictionRules'
         AOTCService.uploadFiles(url, sendFile)
         .then(function (result) {
-              
+            $("#preloader").css("display", "none");
+   
             $scope.$emit('error', result.data.message)
             $scope.fileName = ''
             sendFile = null;

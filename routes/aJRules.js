@@ -21,7 +21,9 @@ router.post('/addAJRules', function(req, res, next) {
 	BLL.addAJRules(req.body,res);
 });
 
-
+router.post('/updateJurisdictionRules', function(req, res) {
+    BLL.updateJurisdictionRules(req, res);
+});
 
 router.get('/getAllAJProperties', function(req, res, next) {
     BLL.getAllAJProperties(req, res);
