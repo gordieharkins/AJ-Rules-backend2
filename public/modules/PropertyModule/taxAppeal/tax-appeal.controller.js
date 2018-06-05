@@ -41,14 +41,14 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
+              $scope.data.jurisdictions = UtilService.removeAllNull($scope.data.jurisdictions);
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
                $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
-              
+               getNotifications()
              
             }, function (result) {
             //some error
@@ -62,6 +62,25 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.getPropertyDetails();
+
+    function getNotifications() {
+        var url = '/appeal/getNotification'
+        AOTCService.getDataFromServer(url)
+        .then(function (result) {
+              console.log(result.data)
+              $scope.$emit('notifications',result.data.result)
+             
+        
+             
+              $("#preloader").css("display", "none");
+             
+            }, function (result) {
+            //some error
+            ////console.log(result);
+            console.log(result)
+            $("#preloader").css("display", "none");
+        });
+    }
 
     $scope.selectFilters = function(data,type){
         if(type==1) {
@@ -276,7 +295,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.buttonComp = function(state) {
         // if (state.status=='Not Started')  return 'disable-button'
-        
+        if(!state) return
         if ('warning' in state && state.warning)  return 'red-button';
          else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
@@ -316,6 +335,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
+        if(!state) return
      
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';

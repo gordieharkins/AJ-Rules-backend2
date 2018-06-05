@@ -299,6 +299,25 @@ function _UtilService($http, $filter) {
 
         return data    
     }
+
+
+    function  removeAllNull(data) {
+        var tempData = []
+        for (var i = 0 ; i  < data.length; i++) {
+
+            for (var j = 0 ; j  < data[i].properties.length;j++) {
+                
+                for (var k  = 0 ; k  < data[i].properties[j].events.length;k++) {
+            
+                    if(!data[i].properties[j].events[k]) {
+                        data[i].properties[j].events.splice(k,1)
+                    }
+                }
+            }
+        }
+
+        return data
+    }
     
 
 
@@ -314,7 +333,8 @@ function _UtilService($http, $filter) {
         filterZipCode: filterZipCode,
         extractZipCodes: extractZipCodes,
         restoreState: restoreState,
-        restoreJurisdictions: restoreJurisdictions
+        restoreJurisdictions: restoreJurisdictions,
+        removeAllNull: removeAllNull
 
     };
 }

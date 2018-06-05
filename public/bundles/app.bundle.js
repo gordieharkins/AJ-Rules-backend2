@@ -738,6 +738,9 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
                 return items;
             }    
             angular.forEach(items, function(value, key){
+                if(!value) {
+                    
+                }
                 if(params.ns==true && value.properties.status=='Not Started') {
                     result.push(value)
                 } 
@@ -24328,6 +24331,8 @@ function _header(User_Config, $state, $timeout) {
             $scope.name = userResult.userData.name;
         }
 
+     
+
         $scope.$on('userRole', function (ev, userRole) {
             $timeout(function () {
                 $scope.showUserTab = false;
@@ -24399,10 +24404,10 @@ function _header(User_Config, $state, $timeout) {
                                     }
                                 } catch (_e) {}
                             });
-                            $("#preloader").css("display", "none");
+                           
                         }, function () {
 
-                            $("#preloader").css("display", "none");
+                           
                         });
                 } else {
                     $scope.selectedNotification = _notf;
@@ -24574,6 +24579,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
                 $('#preloader').css("display", "none");
                 ////console.log("error is ", response);
             });
+            
 
     }
 
@@ -24691,15 +24697,32 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.newssourcestext = { buttonDefaultText: 'Select Source' };
     vm.newstimetext = { buttonDefaultText: 'Select Duration' };
 
-
-
-    getNewsss({
-        "region": [],
-        "sources": [],
-        "time": 60
-    });
+   
+   
+    function getNotifications(){
+        var url = '/appeal/getNotification'
+        AOTCService.getDataFromServer(url)
+        .then(function (result) {
+              console.log(result.data)
+              $scope.$emit('notifications',result.data.result)
+             
+              getNewsss({
+                "region": [],
+                "sources": [],
+                "time": 60
+            });
+              $("#preloader").css("display", "none");
+             
+            }, function (result) {
+            //some error
+            ////console.log(result);
+            console.log(result)
+            $("#preloader").css("display", "none");
+        });
+     }
 
     vm.filterObj = {};
+    getNotifications()
     function getNewsss(_data) {
         $("#preloader").css('display', 'block');
         var _time = vm.newstimemodel[0] || 60;
@@ -24708,7 +24731,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             .then(function (res) {
                 if (res.data.success) {
                     vm.newsData = res.data.result.results;
-
+                    getNotifications()
                     $timeout(function () {
                         $("#bn4").breakingNews({
                             effect: "slide-v",
@@ -24761,7 +24784,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 $("#preloader").css('display', 'none');
             });
     };
-
+    
     // ////console.log(User_Config);
     $('#preloader').css('display', 'block');
 
@@ -34087,14 +34110,14 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-            $("#preloader").css("display", "none");
               console.log(result.data)
               $scope.data = result.data.result
+              $scope.data.jurisdictions = UtilService.removeAllNull($scope.data.jurisdictions);
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
                $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
-              
+               getNotifications()
              
             }, function (result) {
             //some error
@@ -34108,6 +34131,25 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.getPropertyDetails();
+
+    function getNotifications() {
+        var url = '/appeal/getNotification'
+        AOTCService.getDataFromServer(url)
+        .then(function (result) {
+              console.log(result.data)
+              $scope.$emit('notifications',result.data.result)
+             
+        
+             
+              $("#preloader").css("display", "none");
+             
+            }, function (result) {
+            //some error
+            ////console.log(result);
+            console.log(result)
+            $("#preloader").css("display", "none");
+        });
+    }
 
     $scope.selectFilters = function(data,type){
         if(type==1) {
@@ -34322,7 +34364,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.buttonComp = function(state) {
         // if (state.status=='Not Started')  return 'disable-button'
-        
+        if(!state) return
         if ('warning' in state && state.warning)  return 'red-button';
          else if ('flag' in state && state.flag==false)  return 'disable-button'
         else return 'blue-button';
@@ -34362,6 +34404,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
      }
 
     $scope.noteComp = function(state) {
+        if(!state) return
      
         if ('warning' in state && state.warning)    return 'red-note';
         else  return 'blue-note';
@@ -38183,33 +38226,34 @@ function _AOTCService($http, $rootScope) {
     function getNotifications() {
             //$("#preloader").css("display", "block");
             $rootScope.unreadNotifications = 0;
-            var url = 'appeal/getNotification';
-            getDataFromServer(url)
-                .then(function (response) {
-                    try{
-                        if (response.data.success) {
-                            $rootScope.allNotifications =  response.data.result;
-                             var allData = response.data.result;
-                            // for(var i=0; i<allData.length;i++){
-                            //     var _item = allData[i];
-                            //     if(_item.notification.properties.readFlag==0) 
-                            //     $rootScope.unreadNotifications++;
-                            //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
-                            //     {$rootScope.allNotifications.internal.push(_item);}
-                            //     else
-                            //     {$rootScope.allNotifications.external.push(_item);}
-                            // }
-                        } else {
-                           // $scope.$emit('danger', response.data.message);
-                        }
-                    }
-                    catch(_e){}
+            // var url = 'appeal/getNotification';
+            // getDataFromServer(url)
+            //     .then(function (response) {
+            //         try{
+            //             if (response.data.success) {
+            //                 $rootScope.allNotifications =  response.data.result;
+            //                 $scope.$emit('notifications',result.data.result)
+            //                  var allData = response.data.result;
+            //                 // for(var i=0; i<allData.length;i++){
+            //                 //     var _item = allData[i];
+            //                 //     if(_item.notification.properties.readFlag==0) 
+            //                 //     $rootScope.unreadNotifications++;
+            //                 //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
+            //                 //     {$rootScope.allNotifications.internal.push(_item);}
+            //                 //     else
+            //                 //     {$rootScope.allNotifications.external.push(_item);}
+            //                 // }
+            //             } else {
+            //                // $scope.$emit('danger', response.data.message);
+            //             }
+            //         }
+            //         catch(_e){}
 
-                   // $("#preloader").css("display", "none");
+            //        // $("#preloader").css("display", "none");
 
-                }, function (result) {
-                   // $("#preloader").css("display", "none");
-                });
+            //     }, function (result) {
+            //        // $("#preloader").css("display", "none");
+            //     });
         }
 
     return {
@@ -38737,6 +38781,25 @@ function _UtilService($http, $filter) {
 
         return data    
     }
+
+
+    function  removeAllNull(data) {
+        var tempData = []
+        for (var i = 0 ; i  < data.length; i++) {
+
+            for (var j = 0 ; j  < data[i].properties.length;j++) {
+                
+                for (var k  = 0 ; k  < data[i].properties[j].events.length;k++) {
+            
+                    if(!data[i].properties[j].events[k]) {
+                        data[i].properties[j].events.splice(k,1)
+                    }
+                }
+            }
+        }
+
+        return data
+    }
     
 
 
@@ -38752,7 +38815,8 @@ function _UtilService($http, $filter) {
         filterZipCode: filterZipCode,
         extractZipCodes: extractZipCodes,
         restoreState: restoreState,
-        restoreJurisdictions: restoreJurisdictions
+        restoreJurisdictions: restoreJurisdictions,
+        removeAllNull: removeAllNull
 
     };
 }
