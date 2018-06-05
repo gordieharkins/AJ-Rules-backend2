@@ -207,6 +207,7 @@ BLL.prototype.getNotification = function(req, res) {
 // Update Appeal Data
 // ---------------------------------------------
 BLL.prototype.updateData = function(req, res) {
+	console.log(req.body);
     DAL.updateData(req.body, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -226,6 +227,8 @@ BLL.prototype.updateData = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	var data = req.body;
+	data = data[0];
+	console.log(JSON.stringify(data));
 	for(var j = 0; j < data.length; j++){
 		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
 			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
@@ -247,7 +250,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
         } else {
-            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_SUCCESS, null, res);
+            Response.sendResponse(true, Response.REPLY_MSG.UPDATE_SUCCESS, null, res);
         }
 	});
 	
@@ -351,8 +354,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						if(started){
 							async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 								var isComplete = true;
-								if(!subValue == undefined){
-									if(subValue.properties.type == 00){
+								if(!(subValue == undefined)){
+									if(subValue.properties.type == "00"){
 										indexes[0][0] = j;
 										checkIEFormStatus(subValue.properties, value.jurisdiction, 
 														value.event.properties.deadline, subValue._id, function(error, formStatus){
@@ -363,7 +366,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 01){
+									} else if(subValue.properties.type == "01"){
 										indexes[0][1] = j;
 										checkRequiredItemsPaper(subValue.properties, value.propertyId, 
 															subValue._id, value.event.properties.deadline, value.jurisdiction, 
@@ -378,10 +381,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											} 
 										});
-									} else if(subValue.properties.type == 02){
+									} else if(subValue.properties.type == "02"){
 										indexes[0][2] = j;
-										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
-										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
+										var ieFormStatus = validateValueAtIndexes(value.subEvent[indexes[0][0]], "Done");
+										var reqItemsStatus = validateValueAtIndexes(value.subEvent[indexes[0][1]], "Done");
 										checkReivewStatusPaper(ieFormStatus, reqItemsStatus, 
 											subValue.properties, subValue._id, function(error, reviewStatus){
 											if(error){
@@ -394,13 +397,13 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 03){
+									} else if(subValue.properties.type == "03"){
 										indexes[0][3] = j;
-										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
-										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
-										var reviewStatus = validateValueAtIndexes(indexes[0][2], true);
+										var ieFormStatus = validateValueAtIndexes(value.subEvent[indexes[0][0]], "Done");
+										var reqItemsStatus = validateValueAtIndexes(value.subEvent[indexes[0][1]], "Done");
+										var reviewStatus = validateValueAtIndexes(value.subEvent[indexes[0][2]], true);
 										
-										checkSignatureStatusPaper(reviewStatus, ieFormStatus, reqItemsStatus, 
+										checkSignatureStatusPaper(reviewStatus, ieFormStatus, reqItemsStatus, subValue.properties,
 											subValue._id, function(error, signatureStatus){
 											if(error){
 												callbackSubMain(error);
@@ -412,12 +415,12 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 04){
+									} else if(subValue.properties.type == "04"){
 										indexes[0][4] = j;
-										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
-										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
-										var reviewStatus = validateValueAtIndexes(indexes[0][2], true);
-										var signatureStatus = validateValueAtIndexes(indexes[0][3], "Done");
+										var ieFormStatus = validateValueAtIndexes(value.subEvent[indexes[0][0]], "Done");
+										var reqItemsStatus = validateValueAtIndexes(value.subEvent[indexes[0][1]], "Done");
+										var reviewStatus = validateValueAtIndexes(value.subEvent[indexes[0][2]], true);
+										var signatureStatus = validateValueAtIndexes(value.subEvent[indexes[0][3]], "Done");
 										checkSubmissionStatusPaper(reviewStatus, ieFormStatus,reqItemsStatus, 
 											signatureStatus, subValue.properties, subValue._id, function(error, submissionStatus){
 											if(error){
@@ -430,7 +433,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 10){
+									} else if(subValue.properties.type == "10"){
 										indexes[1][0] = j;
 										checkRequiredItems(subValue.properties, value.propertyId, 
 														subValue._id, value.event.properties.deadline, 
@@ -445,7 +448,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											} 
 										});
-									} else if(subValue.properties.type == 11){
+									} else if(subValue.properties.type == "11"){
 										indexes[1][1] = j;
 										checkReivewStatus(value.subEvent[indexes[1][0]].properties.status, 
 														subValue.properties, subValue._id, function(error, reviewStatus){
@@ -459,10 +462,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 12){
+									} else if(subValue.properties.type == "12"){
 										indexes[1][2] = j;
-										var reqItemsStatus = validateValueAtIndexes(indexes[1][0], "Done");
-										var reviewStatus = validateValueAtIndexes(indexes[1][1], true);
+										var reqItemsStatus = validateValueAtIndexes(value.subEvent[indexes[1][0]], "Done");
+										var reviewStatus = validateValueAtIndexes(value.subEvent[indexes[1][1]], true);
 										checkSignatureStatus(reqItemsStatus, reviewStatus,
 											subValue.properties, subValue._id, function(error, signatureStatus){
 											if(error){
@@ -475,9 +478,9 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												callbackSubMain();
 											}
 										});
-									} else if(subValue.properties.type == 13){
+									} else if(subValue.properties.type == "13"){
 										indexes[1][3] = j;
-										var signatureStatus = validateValueAtIndexes(indexes[1][2], "Done");
+										var signatureStatus = validateValueAtIndexes(value.subEvent[indexes[1][2]], "Done");
 										checkSubmissionStatus(signatureStatus, 
 											subValue.properties, subValue._id, function(error, submissionStatus){
 											if(error){
@@ -1191,14 +1194,14 @@ function createTimelineWithJson(timeline){
 				if(timeline.ieSurvey.main.submissionType == "machine"){
 					timeline.ieSurvey["submission"] = jurisdictionTimeline.paradigms.machine.submission;
 					timeline.ieSurvey.submission.deadline = deadline;
-				} else if(timeline.ieSurvey.main.submissionType == "mail"){
+				} else if(timeline.ieSurvey.main.submissionType == "paper"){
 					timeline.ieSurvey["submission"] = jurisdictionTimeline.paradigms.paper.submission;
 					timeline.ieSurvey.submission.deadline = deadline;
 				}
 			}
 		}
 	}
-
+	console.log(JSON.stringify(timeline));
 	return timeline;
 } 
 
@@ -1236,7 +1239,7 @@ function validateValueAtIndexes(indexes, value){
 		if(value == true){
 			status = indexes.properties.reviewResult;
 		} else {
-			status = indexes.properties.status
+			status = indexes.properties.status;
 		}
 	} catch (err){
 		status = value;

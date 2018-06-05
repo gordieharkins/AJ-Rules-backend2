@@ -1110,6 +1110,7 @@ BLL.prototype.getAJPublicProperties = function(data, res) {
             } else{
                 // console.log(JSON.stringify(jurisdictions));
                 data.body.state = jurisdictions[0].jurisdictions;
+                console.log(data.body);
                 DAL.getAJPublicProperties(data.body, function(error, properties) {
                     if (error) {
                         // console.log(error);

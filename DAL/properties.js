@@ -1129,6 +1129,26 @@ DAL.prototype.getAJPublicProperties = function(data, cb) {
         return prop
         ORDER BY id(prop) SKIP {skip} LIMIT {page}`;
     }
+
+    // else {
+    //     query += `MATCH(prop:publicProperty) where prop.isDeleted = false AND `
+    //     for(var i = 0; i < data.state.length; i++){
+    //         params["state" + i] = data.state[i];
+    //         if(i > 0){
+    //             query += ` OR `;
+    //             query += `prop.ownerState =~ '.*{state`+i+`}.*'`;
+    //         } else {
+    //             query += `(prop.ownerState =~ '.*{state`+i+`}.*'`;
+    //         }
+
+    //         if(i == data.state.length - 1){
+    //             query +=`)`;
+    //         }
+    //     }
+        
+    //     query += ` return prop
+    //     ORDER BY id(prop) SKIP {skip} LIMIT {page}`;
+    // }
     
 
     // console.log(query);
