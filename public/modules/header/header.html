@@ -422,50 +422,50 @@
         <div id="navbar" class="navbar-collapse collapse">
             <div class="header-btn">
                 <ul>
-                    <li class="metro-header ">
+                    <li class="metro-header" ui-sref-active="active-li">
                         <a ui-sref="TaxAppeal">
                             <span class=" appral-img image-lg" style="background-image: url(../../assets/img/tax.png); "></span>
                             <span> Tax Appeal</span>
                         </a>
                     </li>
-                    <li class="metro-header">
+                    <li class="metro-header" ui-sref-active="active-li">
                         <a ui-sref="inventory">
                             <span class="image-lg" style="background-image: url(../../assets/img/inventory.png);"></span>
                             <span>Inventory</span>
                         </a>
                     </li>
-                    <li class="metro-header" has-permission="role" permission-object="userObj">
+                    <li class="metro-header" has-permission="role" permission-object="userObj" ui-sref-active="active-li">
                         <a ui-sref="user-rights">
                             <span class="image-lg" style="background-image: url(../../assets/img/pr-u-right.png);"></span>
                             <span>User Rights</span>
                         </a>
                     </li>
-                    <li class="metro-header" has-permission='timeline'>
+                    <li class="metro-header" has-permission='timeline' ui-sref-active="active-li">
                         <a ui-sref="TimelineGraphical">
                             <span class="image-lg" style="background-image: url(../../assets/img/pr-time.png);"></span>
                             <span>Timeline</span>
                         </a>
                     </li>
-                    <li class="metro-header" has-permission='contracts'>
+                    <li class="metro-header" has-permission='contracts' ui-sref-active="active-li">
                         <a ui-sref="SavedContractList">
                             <span class="image-lg"></span>
                             <span>Contracts</span>
                         </a>
                     </li>
-                    <li class="metro-header" has-permission='surveys'>
+                    <li class="metro-header" has-permission='surveys' ui-sref-active="active-li">
                         <a ui-sref="SurveyList">
                             <span class="image-lg"></span>
                             <span>View Surveys</span>
                         </a>
                     </li>
 
-                    <li class="metro-header" id="prp" ng-hide="showSelectedTabs" has-permission='properties'>
+                    <li class="metro-header" id="prp" ng-hide="showSelectedTabs" has-permission='properties' ui-sref-active="active-li">
                         <a ui-sref="PropertyList.private_property_list">
                             <span class="image-pr"></span>
                             <span>Properties</span>
                         </a>
                     </li>
-                    <li class="metro-header" ng-hide="showSelectedTabs" has-permission='taskManager'>
+                    <li class="metro-header" ng-hide="showSelectedTabs" has-permission='taskManager' ui-sref-active="active-li">
                         <a ui-sref="TaskManager">
                             <span class="image-ts"></span>
                             <span>Task Manager</span>

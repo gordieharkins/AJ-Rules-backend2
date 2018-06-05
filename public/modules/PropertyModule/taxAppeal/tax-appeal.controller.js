@@ -60,7 +60,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.getPropertyDetails();
-    
+
 
     function getNotifications() {
         var url = '/appeal/getNotification'
@@ -256,7 +256,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         if(checkbox=='Mark all as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
-               if('toggle' in subEvent.properties) {
+               if('toggle' in subEvent.properties && subEvent.properties.flag) {
                       
                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = "true";
                       subEvent.properties.toggleValue = "true"
@@ -269,7 +269,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else if(checkbox=='Mark all as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
-                if('toggle' in subEvent.properties) {
+                if('toggle' in subEvent.properties  && subEvent.properties.flag) {
                        
                        $scope.subData.prop[i].subEvents[index].properties.toggleValue = "false";
                        subEvent.properties.toggleValue = "false"
@@ -391,16 +391,16 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         }else if (data.buttonText=='View Checklist' ) {
             $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
           
-            var dFields= $scope.configModal.data.data.properties.dataFields
-            for (var k = 0 ; k   < dFields.length; k++) {
-                $scope.configModal.dFieldsCb = "true"
-                if(dFields[k].value=="false") {
-                    $scope.configModal.dFieldsCb = "false"
-                    break;
-                } else {
-                    continue;
-                }
-            }
+            // var dFields= $scope.configModal.data.data.properties.dataFields
+            // for (var k = 0 ; k   < dFields.length; k++) {
+            //     $scope.configModal.dFieldsCb = "true"
+            //     if(dFields[k].value=="false") {
+            //         $scope.configModal.dFieldsCb = "false"
+            //         break;
+            //     } else {
+            //         continue;
+            //     }
+            // }
             var rFields= $scope.configModal.data.data.properties.requiredItems
             for (var k = 0 ; k   < rFields.length; k++) {
                 $scope.configModal.rItemCb = "true"
