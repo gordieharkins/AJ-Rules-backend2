@@ -34075,8 +34075,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.search ={jurisdictions: [],zipCode: [], owner: []}
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
     $scope.appealStatus = {ns: false,ip: false,don : false};
-    $scope.propertyFilter = {name: '', add: '', zipCode: 'None',owner: 'None'}
-    $scope.filterList = {jurisdictions: [],property: [], appealStatus: []}
+    $scope.propertyFilter = {name: '',show: true, add: '', zipCode: 'None',owner: 'None'}
+    $scope.filters = []
 
 
     $scope.getPropertyDetails = function()  {
@@ -34109,6 +34109,47 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
     $scope.getPropertyDetails();
 
+    $scope.selectFilters = function(data,type){
+        if(type==1) {
+            $scope.filters.push({data: data.name,type: type})
+        } else {
+            $scope.filters = $scope.filters.filter(item => item.type!=type)
+            if(data.length>0 && data !='None') {
+                  $scope.filters.push({data: data,type: type}) 
+                }
+            } 
+
+
+    }
+
+    $scope.clearAll =  function() {
+        $scope.filters = [];
+        var data = {value: false}
+        $scope.search.jurisdictions = UtilService.restoreJurisdictions($scope.search.jurisdictions)
+        $scope.selectFiltersJ(data)
+        $scope.propertyFilter.name = '';
+        $scope.propertyFilter.add = '';
+        $scope.propertyFilter.zipCode = 'None';
+        $scope.propertyFilter.owner = 'None';
+    }
+    
+
+    $scope.removeFilter = function(index,data) {
+        $scope.filters.splice(index,1)
+        if(data.type==1) {
+            $scope.search.jurisdictions = UtilService.restoreState($scope.search.jurisdictions,data)
+            $scope.selectFiltersJ(data)
+        } else if(data.type==2) {
+            $scope.propertyFilter.name = '';
+        } else if(data.type==3) {
+            $scope.propertyFilter.add = '';
+        }else if(data.type==4) {
+            $scope.propertyFilter.zipCode = 'None';
+        } else if(data.type==5) {
+            $scope.propertyFilter.owner = 'None';
+        }
+    }
+
     $scope.staticTable = function(pindex){
         console.log(pindex)
         $(document).ready(function() {
@@ -34126,6 +34167,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             });
 
         });
+    }
+
+    $scope.filterList = function (data){
+        
+
     }
     
     $scope.checkMessage = function(type){
@@ -34469,18 +34515,23 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
       
     }
     $scope.selectFiltersJ = function(data) {
+        if(data.value==true) {
+            $scope.selectFilters(data,1)
+        }
         var selected = []
+        
         for (var i = 0 ; i<$scope.search.jurisdictions.length ; i ++) {
             if($scope.search.jurisdictions[i].value==true) {
                 selected.push($scope.search.jurisdictions[i].name)
-            }
+            } else {
+                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.jurisdictions[i].name)
+        
+         }
         }
         var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions)
         $scope.search.zipCode = extractZip.zipCode;
         $scope.search.owner = extractZip.ownerName;
-        
-        $scope.propertyFilter.owner = 'None'
-        $scope.propertyFilter.zipCode = 'None'
+     
         $scope.inputSearch.name = selected
     }
 
@@ -38634,6 +38685,29 @@ function _UtilService($http, $filter) {
 
     }
 
+    function restoreState(data,compare) {
+        if(compare.type==1) {
+        for (var i = 0 ; i < data.length ; i++) {
+            if(data[i].name==compare.data) {
+                data[i].value = false;
+                break;
+            }
+        }
+        return data
+    }
+
+    }
+
+    function restoreJurisdictions(data) {
+        for (var i = 0 ; i < data.length ; i++) {
+          
+                data[i].value = false;
+            }
+
+        return data    
+    }
+    
+
 
     return {
         clearFile: clearFile,
@@ -38645,7 +38719,9 @@ function _UtilService($http, $filter) {
         filterJurisdictions: filterJurisdictions,
         filterOwner: filterOwner,
         filterZipCode: filterZipCode,
-        extractZipCodes: extractZipCodes
+        extractZipCodes: extractZipCodes,
+        restoreState: restoreState,
+        restoreJurisdictions: restoreJurisdictions
 
     };
 }
