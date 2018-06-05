@@ -91,7 +91,7 @@
     border: 1px solid #03a4fc;
     height: 25px;
     margin: 0 auto;
-    text-align: center;
+    text-align: center;    line-height: 21px;
   }
   .upload-btn{
     padding: 2px 0 0 !important;
@@ -103,8 +103,15 @@
   .red-back {
     background: red
   }
-  .select-label input {
-    margin: 3px 5px 0 57px !important;
+  label.select-label input {
+      float: right !important;
+      margin: 3px 5px 0 8px !important;
+  }
+  .select-label{
+
+  }
+  input[type="checkbox"] {
+      cursor: pointer;
   }
   .select-label, .select-all-option {
     cursor: pointer !important;
@@ -115,6 +122,10 @@
       border-top: 1px solid #e5e5e5 !important;
       height: 46px !important;
   }
+  .select-label {
+      margin: 0 0 0 -64px !important;
+  }
+
 </style>
 <div class="popup-overlay">
     <div  class="modal fade" role="dialog">
