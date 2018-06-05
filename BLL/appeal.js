@@ -122,7 +122,7 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 BLL.prototype.addPropertyTimelineData = function(data, cb) {
 	var year = (new Date()).getFullYear();
 	// var jurisdictionIndex = jurisdictionTimeline.jurisdictionsNames.indexOf(data[0].jurisdiction);
-	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[0];
+	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[1];
 	// console.log(data);
 	DAL.getJurisdictionTimelineData(data[0].jurisdiction, function(error, result) {
 		console.log("erererere");
@@ -131,12 +131,16 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             cb(error);
-        } else {
-			console.log(result);
-			jurisdictionTimelineData.ieSurvey.main = result[0].rules;
-			console.log(jurisdictionTimelineData);
+		} else {
+			try{
+				jurisdictionTimelineData.ieSurvey.main = result[0].rules;
+			} catch (err){
+					
+				jurisdictionTimelineData["ieSurvey"] = {};
+				jurisdictionTimelineData.ieSurvey["main"] = {};
+				jurisdictionTimelineData.ieSurvey.main = result[0].rules;
+			}
 			var timeline = createTimelineWithJson(jurisdictionTimelineData);
-			console.log(timeline);
 			DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
 				if (error) {
 					console.log(error);
@@ -347,198 +351,217 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						if(started){
 							async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
 								var isComplete = true;
-								if(subValue.properties.type == 00){
-									indexes[0][0] = j;
-									checkIEFormStatus(subValue.properties, value.jurisdiction, 
-													value.event.properties.deadline, subValue._id, function(error, formStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = formStatus;
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 01){
-									indexes[0][1] = j;
-									checkRequiredItemsPaper(subValue.properties, value.propertyId, 
-														subValue._id, value.event.properties.deadline, value.jurisdiction, 
-														function(error, requiredItems){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = requiredItems;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+								if(!subValue == undefined){
+									if(subValue.properties.type == 00){
+										indexes[0][0] = j;
+										checkIEFormStatus(subValue.properties, value.jurisdiction, 
+														value.event.properties.deadline, subValue._id, function(error, formStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = formStatus;
+												callbackSubMain();
 											}
-											callbackSubMain();
-										} 
-									});
-								} else if(subValue.properties.type == 02){
-									indexes[0][2] = j;
-									checkReivewStatusPaper(value.subEvent[indexes[0][0]].properties.status, 
-										value.subEvent[indexes[0][1]].properties.status, 
-										subValue.properties, subValue._id, function(error, reviewStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = reviewStatus;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 01){
+										indexes[0][1] = j;
+										checkRequiredItemsPaper(subValue.properties, value.propertyId, 
+															subValue._id, value.event.properties.deadline, value.jurisdiction, 
+															function(error, requiredItems){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = requiredItems;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
+											} 
+										});
+									} else if(subValue.properties.type == 02){
+										indexes[0][2] = j;
+										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
+										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
+										checkReivewStatusPaper(ieFormStatus, reqItemsStatus, 
+											subValue.properties, subValue._id, function(error, reviewStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = reviewStatus;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 03){
-									indexes[0][3] = j;
-									checkSignatureStatusPaper(value.subEvent[indexes[0][2]].properties.reviewResult, 
-										value.subEvent[indexes[0][0]].properties.status, 
-										value.subEvent[indexes[0][1]].properties.status, subValue.properties, 
-										subValue._id, function(error, signatureStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = signatureStatus;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 03){
+										indexes[0][3] = j;
+										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
+										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
+										var reviewStatus = validateValueAtIndexes(indexes[0][2], true);
+										
+										checkSignatureStatusPaper(reviewStatus, ieFormStatus, reqItemsStatus, 
+											subValue._id, function(error, signatureStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = signatureStatus;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 04){
-									indexes[0][4] = j;
-									checkSubmissionStatusPaper(value.subEvent[indexes[0][2]].properties.reviewResult, 
-										value.subEvent[indexes[0][0]].properties.status, 
-										value.subEvent[indexes[0][1]].properties.status, 
-										value.subEvent[indexes[0][3]].properties.status, 
-										subValue.properties, subValue._id, function(error, submissionStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = submissionStatus;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 04){
+										indexes[0][4] = j;
+										var ieFormStatus = validateValueAtIndexes(indexes[0][0], "Done");
+										var reqItemsStatus = validateValueAtIndexes(indexes[0][1], "Done");
+										var reviewStatus = validateValueAtIndexes(indexes[0][2], true);
+										var signatureStatus = validateValueAtIndexes(indexes[0][3], "Done");
+										checkSubmissionStatusPaper(reviewStatus, ieFormStatus,reqItemsStatus, 
+											signatureStatus, subValue.properties, subValue._id, function(error, submissionStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = submissionStatus;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 10){
-									indexes[1][0] = j;
-									checkRequiredItems(subValue.properties, value.propertyId, 
-													subValue._id, value.event.properties.deadline, 
-													value.jurisdiction, function(error, requiredItems){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = requiredItems;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 10){
+										indexes[1][0] = j;
+										checkRequiredItems(subValue.properties, value.propertyId, 
+														subValue._id, value.event.properties.deadline, 
+														value.jurisdiction, function(error, requiredItems){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = requiredItems;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
+											} 
+										});
+									} else if(subValue.properties.type == 11){
+										indexes[1][1] = j;
+										checkReivewStatus(value.subEvent[indexes[1][0]].properties.status, 
+														subValue.properties, subValue._id, function(error, reviewStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = reviewStatus;
+												if(subValue.properties.reviewResult != true){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										} 
-									});
-								} else if(subValue.properties.type == 11){
-									indexes[1][1] = j;
-									checkReivewStatus(value.subEvent[indexes[1][0]].properties.status, 
-													subValue.properties, subValue._id, function(error, reviewStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = reviewStatus;
-											if(subValue.properties.reviewResult != true){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 12){
+										indexes[1][2] = j;
+										var reqItemsStatus = validateValueAtIndexes(indexes[1][0], "Done");
+										var reviewStatus = validateValueAtIndexes(indexes[1][1], true);
+										checkSignatureStatus(reqItemsStatus, reviewStatus,
+											subValue.properties, subValue._id, function(error, signatureStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = signatureStatus;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 12){
-									indexes[1][2] = j;
-									checkSignatureStatus(value.subEvent[indexes[1][0]].properties.status, 
-										value.subEvent[indexes[1][1]].properties.reviewResult,
-										subValue.properties, subValue._id, function(error, signatureStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = signatureStatus;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
+										});
+									} else if(subValue.properties.type == 13){
+										indexes[1][3] = j;
+										var signatureStatus = validateValueAtIndexes(indexes[1][2], "Done");
+										checkSubmissionStatus(signatureStatus, 
+											subValue.properties, subValue._id, function(error, submissionStatus){
+											if(error){
+												callbackSubMain(error);
+											} else {
+												subValue.properties = submissionStatus;
+												if(subValue.properties.status != "Done"){
+													isComplete = false;
+												}
+												callbackSubMain();
 											}
-											callbackSubMain();
-										}
-									});
-								} else if(subValue.properties.type == 13){
-									indexes[1][3] = j;
-									checkSubmissionStatus(value.subEvent[indexes[1][2]].properties.status, 
-										subValue.properties, subValue._id, function(error, submissionStatus){
-										if(error){
-											callbackSubMain(error);
-										} else {
-											subValue.properties = submissionStatus;
-											if(subValue.properties.status != "Done"){
-												isComplete = false;
-											}
-											callbackSubMain();
-										}
-									});
+										});
+									}
+								} else {
+									callbackSubMain();
 								}
-								
 							}, function (err) {
 								var deadline = value.event.properties.deadline;
 								if(value.event.properties.paradigm == "machine"){
-									if(value.subEvent[indexes[1][3]].properties.status == "In Progress" 
-									&& value.event.properties.message != value.subEvent[indexes[1][3]].properties.message){
-										value.event.properties.status = "In Progress";
-										value.event.properties.warning = "";
-										value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
-										updateData(value.event.properties, value.event._id);
-									} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
-									&& value.event.properties.status != "Done"){
-										value.event.properties.status = "Done";
-										value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
-										value.event.properties.warning = "";
-										updateData(value.event.properties, value.event._id);
-										
-									} else if(value.subEvent[indexes[1][0]].properties.status == "In Progress" &&
-										value.event.properties.warning != "Complete required information."){
-										value.event.properties.message = "Deadline: " + deadline;
-										value.event.properties.warning = "Complete required information.";
-										updateData(value.event.properties, value.event._id);
-										
-									} else if(value.subEvent[indexes[1][2]].properties.status == "In Progress" &&
-										value.event.properties.warning != "Execute Signature."){
-										value.event.properties.warning = "Execute Signature.";
-										updateData(value.event.properties, value.event._id);
+									try {
+										if(value.subEvent[indexes[1][3]].properties.status == "In Progress" 
+										&& value.event.properties.message != value.subEvent[indexes[1][3]].properties.message){
+											value.event.properties.status = "In Progress";
+											value.event.properties.warning = "";
+											value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
+											updateData(value.event.properties, value.event._id);
+										} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
+										&& value.event.properties.status != "Done"){
+											value.event.properties.status = "Done";
+											value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
+											value.event.properties.warning = "";
+											updateData(value.event.properties, value.event._id);
+											
+										} else if(value.subEvent[indexes[1][0]].properties.status == "In Progress" &&
+											value.event.properties.warning != "Complete required information."){
+											value.event.properties.message = "Deadline: " + deadline;
+											value.event.properties.warning = "Complete required information.";
+											updateData(value.event.properties, value.event._id);
+											
+										} else if(value.subEvent[indexes[1][2]].properties.status == "In Progress" &&
+											value.event.properties.warning != "Execute Signature."){
+											value.event.properties.warning = "Execute Signature.";
+											updateData(value.event.properties, value.event._id);
+										}
+									} catch (err){
+
 									}
+									
 								} else if(value.event.properties.paradigm == "paper"){
-									if(value.subEvent[indexes[0][4]].properties.status == "Done" &&
-									value.event.properties.status != "Done"){
-										value.event.properties.status = "Done";
-										value.event.properties.warning = "";
-										value.event.properties.message = "Income expense survey submitted successfully.";
-										updateData(value.event.properties, value.event._id);
-									} else if(value.subEvent[indexes[0][4]].properties.status == "In Progress" &&
-										value.event.properties.warning != "Submit income expense survey package"){
-										value.event.properties.status = "In Progress";
-										value.event.properties.warning = "Submit income expense survey package";
-										updateData(value.event.properties, value.event._id);
-									} else if(value.subEvent[indexes[0][3]].properties.status == "In Progress" &&
-										value.event.properties.warning != "Execute Signature"){
-										value.event.properties.status = "In Progress";
-										value.event.properties.warning = "Execute Signature";
-										updateData(value.event.properties, value.event._id);
-									} else if(value.subEvent[indexes[0][0]].properties.status != "Done" ||
-									value.subEvent[indexes[0][1]].properties.status != "Done"){
-										value.event.properties.status = "In Progress";
-										value.event.properties.warning = "";
-										if(value.subEvent[indexes[0][0]].properties.status != "Done"){
-											value.event.properties.warning = "Complete income expense survey form. ";											
-										}
+									try{
+										if(value.subEvent[indexes[0][4]].properties.status == "Done" &&
+										value.event.properties.status != "Done"){
+											value.event.properties.status = "Done";
+											value.event.properties.warning = "";
+											value.event.properties.message = "Income expense survey submitted successfully.";
+											updateData(value.event.properties, value.event._id);
+										} else if(value.subEvent[indexes[0][4]].properties.status == "In Progress" &&
+											value.event.properties.warning != "Submit income expense survey package"){
+											value.event.properties.status = "In Progress";
+											value.event.properties.warning = "Submit income expense survey package";
+											updateData(value.event.properties, value.event._id);
+										} else if(value.subEvent[indexes[0][3]].properties.status == "In Progress" &&
+											value.event.properties.warning != "Execute Signature"){
+											value.event.properties.status = "In Progress";
+											value.event.properties.warning = "Execute Signature";
+											updateData(value.event.properties, value.event._id);
+										} else if(value.subEvent[indexes[0][0]].properties.status != "Done" ||
+										value.subEvent[indexes[0][1]].properties.status != "Done"){
+											value.event.properties.status = "In Progress";
+											value.event.properties.warning = "";
+											if(value.subEvent[indexes[0][0]].properties.status != "Done"){
+												value.event.properties.warning = "Complete income expense survey form. ";											
+											}
 
-										if(value.subEvent[indexes[0][1]].properties.status != "Done"){
-											value.event.properties.warning += "Complete required items. ";											
-										}
+											if(value.subEvent[indexes[0][1]].properties.status != "Done"){
+												value.event.properties.warning += "Complete required items. ";											
+											}
 
-										updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id);
+										}
+									} catch (err) {
+
 									}
+									
 								}
 
 								// if(value.event.properties.status != "Done"){
@@ -777,7 +800,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			requiredItems.remainingItems = sortByKey(requiredItems.requiredItems, 'year');
 			requiredItems.requiredItems = sortByKey(requiredItems.requiredItems, 'name');
 			requiredItems.dataFields = sortByKey(requiredItems.dataFields, 'year');
-			requiredItems.dataFields = sortByKey(requiredItems.dataFields, 'name');
+			// requiredItems.dataFields = sortByKey(requiredItems.dataFields, 'name');
 			var reqItemsLength = requiredItems.requiredItems.length;
 			for(var i = 0; i < reqItemsLength; i++){
 				if(requiredItems.requiredItems[i].value == "true"){
@@ -1129,7 +1152,7 @@ function createTimelineWithJson(timeline){
 			if(timeline.ieSurvey.main.formObtain == "machine"){
 				timeline.ieSurvey["completeRequiredInformation"] = jurisdictionTimeline.paradigms.machine.requiredItems;
 				timeline.ieSurvey.completeRequiredInformation.deadline = deadline; 
-			} else if(timeline.ieSurvey.main.formObtain == "mail"){
+			} else if(timeline.ieSurvey.main.formObtain == "paper"){
 				timeline.ieSurvey["completeIEform"] = jurisdictionTimeline.paradigms.paper.form;
 				timeline.ieSurvey.completeIEform.deadline = deadline;
 			}
@@ -1205,4 +1228,19 @@ function createRequiredItemsJson(event, itemsList, paradigm){
 		}
 	}
 	return event;
+}
+
+function validateValueAtIndexes(indexes, value){
+	var status = "";
+	try{
+		if(value == true){
+			status = indexes.properties.reviewResult;
+		} else {
+			status = indexes.properties.status
+		}
+	} catch (err){
+		status = value;
+	}
+
+	return status;
 }
