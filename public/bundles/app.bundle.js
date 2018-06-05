@@ -24306,7 +24306,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-        $scope.allNotifications = []
+        $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
 
 
@@ -24371,9 +24371,13 @@ function _header(User_Config, $state, $timeout) {
 
         $scope.$on('notifications', function(ev, data) {
          console.log(data) 
-         $scope.allNotifications = data
+        //  $scope.allNotifications = data
         
         });
+
+        $rootScope.$watch('allNotifications', function(newValue, oldValue) {
+            $scope.allNotifications = newValue
+        })
 
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
@@ -24697,32 +24701,15 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.newssourcestext = { buttonDefaultText: 'Select Source' };
     vm.newstimetext = { buttonDefaultText: 'Select Duration' };
 
-   
-   
-    function getNotifications(){
-        var url = '/appeal/getNotification'
-        AOTCService.getDataFromServer(url)
-        .then(function (result) {
-              console.log(result.data)
-              $scope.$emit('notifications',result.data.result)
-             
-              getNewsss({
-                "region": [],
-                "sources": [],
-                "time": 60
-            });
-              $("#preloader").css("display", "none");
-             
-            }, function (result) {
-            //some error
-            ////console.log(result);
-            console.log(result)
-            $("#preloader").css("display", "none");
-        });
-     }
+
+
+    getNewsss({
+        "region": [],
+        "sources": [],
+        "time": 60
+    });
 
     vm.filterObj = {};
-    getNotifications()
     function getNewsss(_data) {
         $("#preloader").css('display', 'block');
         var _time = vm.newstimemodel[0] || 60;
@@ -24731,7 +24718,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             .then(function (res) {
                 if (res.data.success) {
                     vm.newsData = res.data.result.results;
-                    getNotifications()
+
                     $timeout(function () {
                         $("#bn4").breakingNews({
                             effect: "slide-v",
@@ -24784,7 +24771,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 $("#preloader").css('display', 'none');
             });
     };
-    
+
     // ////console.log(User_Config);
     $('#preloader').css('display', 'block');
 
@@ -34117,7 +34104,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
                $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
-               getNotifications()
+               u
              
             }, function (result) {
             //some error
@@ -34615,7 +34602,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
+              
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -34638,7 +34625,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
-                  $scope.$emit('success', message)
+                  getNotifications()
                 }, function (result) {
                 //some error
         //         ////console.log(result);
@@ -38226,34 +38213,34 @@ function _AOTCService($http, $rootScope) {
     function getNotifications() {
             //$("#preloader").css("display", "block");
             $rootScope.unreadNotifications = 0;
-            // var url = 'appeal/getNotification';
-            // getDataFromServer(url)
-            //     .then(function (response) {
-            //         try{
-            //             if (response.data.success) {
-            //                 $rootScope.allNotifications =  response.data.result;
-            //                 $scope.$emit('notifications',result.data.result)
-            //                  var allData = response.data.result;
-            //                 // for(var i=0; i<allData.length;i++){
-            //                 //     var _item = allData[i];
-            //                 //     if(_item.notification.properties.readFlag==0) 
-            //                 //     $rootScope.unreadNotifications++;
-            //                 //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
-            //                 //     {$rootScope.allNotifications.internal.push(_item);}
-            //                 //     else
-            //                 //     {$rootScope.allNotifications.external.push(_item);}
-            //                 // }
-            //             } else {
-            //                // $scope.$emit('danger', response.data.message);
-            //             }
-            //         }
-            //         catch(_e){}
+            var url = 'appeal/getNotification';
+            getDataFromServer(url)
+                .then(function (response) {
+                    try{
+                        if (response.data.success) {
+                            $rootScope.allNotifications =  response.data.result;
+                            // $scope.$emit('notifications',result.data.result)
+                             var allData = response.data.result;
+                            // for(var i=0; i<allData.length;i++){
+                            //     var _item = allData[i];
+                            //     if(_item.notification.properties.readFlag==0) 
+                            //     $rootScope.unreadNotifications++;
+                            //     if((_item.notifications.properties.eventType.indexOf('inter'))!=-1)
+                            //     {$rootScope.allNotifications.internal.push(_item);}
+                            //     else
+                            //     {$rootScope.allNotifications.external.push(_item);}
+                            // }
+                        } else {
+                           // $scope.$emit('danger', response.data.message);
+                        }
+                    }
+                    catch(_e){}
 
-            //        // $("#preloader").css("display", "none");
+                   // $("#preloader").css("display", "none");
 
-            //     }, function (result) {
-            //        // $("#preloader").css("display", "none");
-            //     });
+                }, function (result) {
+                   // $("#preloader").css("display", "none");
+                });
         }
 
     return {

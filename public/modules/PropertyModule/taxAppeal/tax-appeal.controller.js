@@ -48,7 +48,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                $scope.search.zipCode = UtilService.filterZipCode($scope.data.jurisdictions)
                $scope.search.owner = UtilService.filterOwner($scope.data.jurisdictions)
               
-               getNotifications()
+               u
              
             }, function (result) {
             //some error
@@ -546,7 +546,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                $("#preloader").css("display", "none");
+              
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
@@ -569,7 +569,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
-                  $scope.$emit('success', message)
+                  getNotifications()
                 }, function (result) {
                 //some error
         //         ////console.log(result);
