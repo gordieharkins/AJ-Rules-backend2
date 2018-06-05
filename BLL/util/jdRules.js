@@ -29,6 +29,7 @@ timeline.jurisdictions = [
 	{
 		ieSurvey:{
 			main: {
+				jurisdictionsName: "State of Maryland",
 				name: "Income and Expense Survey",
 				type: 1, // do not change
 				obligatory: true,
@@ -286,18 +287,18 @@ timeline.paradigms = {
 			type: 10,
 			message: "",
 			warning: "",
-			flag: true,
+			flag: false,
 			mandatory: true,
 			buttonText: "Details",
 			button: true,
 			deadline: "",
 			order: 1,
-			field1: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015"],
-			field2: ["field","Net Operating Income", "$65,000", "Income Expense Statement 2015"],
-			field3: ["field","Total Expenses", "$12,000", "Income Expense Statement 2016"],
-			field4: ["field","Net Operating Income", "$33,000", "Income Expense Statement 2016"],
-			field5: ["field","Total Expenses", "$18,000", "Income Expense Statement 2017"],
-			field6: ["field","Net Operating Income", "$41,000", "Income Expense Statement 2017"]
+			field1: ["field","Total Expenses", "$32,000", "Income Expense Statement 2015||2015||IE"],
+			field2: ["field","Net Operating Income", "$65,000", "Income Expense Statement 2015||2015||IE"],
+			field3: ["field","Total Expenses", "$12,000", "Income Expense Statement 2016||2016||IE"],
+			field4: ["field","Net Operating Income", "$33,000", "Income Expense Statement 2016||2016||IE"],
+			field5: ["field","Total Expenses", "$18,000", "Income Expense Statement 2017||2017||IE"],
+			field6: ["field","Net Operating Income", "$41,000", "Income Expense Statement 2017||2017||IE"]
 		},
 
 		review: {

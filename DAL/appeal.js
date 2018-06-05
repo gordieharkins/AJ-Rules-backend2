@@ -211,6 +211,27 @@ DAL.prototype.generateNotification = function(notification, eventId, cb) {
     });
 }
 
+
+
+//--------------------------------------------------------
+// getJurisdictionTimelineData
+//--------------------------------------------------------
+DAL.prototype.getJurisdictionTimelineData = function(jurisdiction, cb) {
+    var params = {
+        jurisdiction: jurisdiction
+    };
+    console.log(params);
+    // delete notification.remainingDays;
+    var query = `MATCH(n:ajRUles) where n.jurisdictionName = {jurisdiction} return properties(n) as rules`;
+
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
 //--------------------------------------------------------
 // getNotification
 //--------------------------------------------------------

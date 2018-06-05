@@ -121,19 +121,35 @@ BLL.prototype.updateIESurveyInformation = function(data, res) {
 // ---------------------------------------------
 BLL.prototype.addPropertyTimelineData = function(data, cb) {
 	var year = (new Date()).getFullYear();
-	var jurisdictionIndex = jurisdictionTimeline.jurisdictionsNames.indexOf(data[0].jurisdiction);
-	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[jurisdictionIndex];
-	var timeline = createTimelineWithJson(jurisdictionTimelineData);
-    DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
+	// var jurisdictionIndex = jurisdictionTimeline.jurisdictionsNames.indexOf(data[0].jurisdiction);
+	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[0];
+	// console.log(data);
+	DAL.getJurisdictionTimelineData(data[0].jurisdiction, function(error, result) {
+		console.log("erererere");
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             cb(error);
         } else {
-            cb(null);
+			console.log(result);
+			jurisdictionTimelineData.ieSurvey.main = result[0].rules;
+			console.log(jurisdictionTimelineData);
+			var timeline = createTimelineWithJson(jurisdictionTimelineData);
+			console.log(timeline);
+			DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+					cb(error);
+				} else {
+					cb(null);
+				}
+			});
         }
 	});
+	
 }
 // ---------------------END---------------------
 
@@ -690,33 +706,35 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			} else {
 				var daysRemaining = new dateDiff(new Date(deadline), new Date());
 				daysRemaining = parseInt(daysRemaining.days()) + 1;
-				var notification = {
-					heading: "Complete Required Information",
-					text: "",
-					type: "warning",
-					remainingDays: daysRemaining
-				}
-
-				if(daysRemaining < 30 && daysRemaining > 0){
-					notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
-					message += daysRemaining+ " days remaining before submission. "
-				} else if (daysRemaining <= 0 ){
-					notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
-					message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
-				}
-				
-				if(remainingItems > 0){
-					message += remainingItems + " of " + totalItems+ " items needed for submission."
-				}
+				if(daysRemaining < 30){
+					var notification = {
+						heading: "Complete Required Information",
+						text: "",
+						type: "warning",
+						remainingDays: daysRemaining
+					}
 	
-				requiredItems.warning = message;
-				requiredItems.message = "";
-				requiredItems.button = true;
-				requiredItems.buttonText = "Details";
-				requiredItems.status = "In Progress";
-				requiredItems.flag = true;
-
-				generateNotification(notification, itemId);
+					if(daysRemaining > 0){
+						notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
+						message += daysRemaining+ " days remaining before submission. "
+					} else if (daysRemaining <= 0 ){
+						notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
+						message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
+					}
+					
+					if(remainingItems > 0){
+						message += remainingItems + " of " + totalItems+ " items needed for submission."
+					}
+		
+					requiredItems.warning = message;
+					requiredItems.message = "";
+					requiredItems.button = true;
+					requiredItems.buttonText = "Details";
+					requiredItems.status = "In Progress";
+					requiredItems.flag = true;
+	
+					generateNotification(notification, itemId);
+				}
 			}
 
 			updateData(requiredItems, itemId);
@@ -731,10 +749,14 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				}
 				if(Array.isArray(requiredItems[element])){
 					if(requiredItems[element][0] == "field"){
+						var tempItems = requiredItems[element][3].split("||");
+						console.log("tempItems: ", tempItems);
 						var temp = {
 							name: requiredItems[element][1],
 							value: requiredItems[element][2],
-							source: requiredItems[element][3]
+							source: tempItems[0],
+							year: tempItems[1],
+							type: tempItems[2]
 						}
 
 						requiredItems.dataFields.push(temp);
@@ -743,13 +765,19 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 						var temp = {
 							name: requiredItems[element][1],
 							value: requiredItems[element][2],
-							type: requiredItems[element][4]
+							type: requiredItems[element][4],
+							year: requiredItems[element][3]
 						}
 						requiredItems.requiredItems.push(temp);
 						delete requiredItems[element];
 					}
 				}
 			}
+
+			requiredItems.remainingItems = sortByKey(requiredItems.requiredItems, 'year');
+			requiredItems.requiredItems = sortByKey(requiredItems.requiredItems, 'name');
+			requiredItems.dataFields = sortByKey(requiredItems.dataFields, 'year');
+			requiredItems.dataFields = sortByKey(requiredItems.dataFields, 'name');
 			var reqItemsLength = requiredItems.requiredItems.length;
 			for(var i = 0; i < reqItemsLength; i++){
 				if(requiredItems.requiredItems[i].value == "true"){
@@ -763,6 +791,13 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			cb(null, requiredItems) ;
 		}
 	});
+}
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    });
 }
 
 function checkReivewStatus(requiredItemsStatus, subValue, id, cb){
