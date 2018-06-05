@@ -256,7 +256,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         if(checkbox=='Mark all as Yes'){
         for (var i = 0  ;i  < events.length ; i++) {
                var subEvent = events[i].subEvents[index]
-               if('toggle' in subEvent.properties) {
+               if('toggle' in subEvent.properties && subEvent.properties.flag) {
                       
                       $scope.subData.prop[i].subEvents[index].properties.toggleValue = "true";
                       subEvent.properties.toggleValue = "true"
@@ -269,7 +269,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         else if(checkbox=='Mark all as No') {
             for (var i = 0  ;i  < events.length ; i++) {
                 var subEvent = events[i].subEvents[index]
-                if('toggle' in subEvent.properties) {
+                if('toggle' in subEvent.properties  && subEvent.properties.flag) {
                        
                        $scope.subData.prop[i].subEvents[index].properties.toggleValue = "false";
                        subEvent.properties.toggleValue = "false"
