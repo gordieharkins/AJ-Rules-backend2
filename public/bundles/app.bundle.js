@@ -37864,7 +37864,8 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
 
     //Bindable Members
     var $ctrl = this;
-
+    var sendFile = null;
+    $scope.fileName = ''
     $ctrl.showNewRightModal = function () {
         $('#newRightModal').modal('show');
     };
@@ -37939,6 +37940,33 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
             });
 
     };
+
+    $scope.uplaodFile = function(file) {
+        console.log(file.files)
+        sendFile = null;
+        var files = file.files;
+        $scope.fileName = files[0].name
+        var FileNames = [];
+        var selected  = 0;
+        sendFile = files
+        $scope.$apply()
+        var url = '/aJRules/updateJurisdictionRules'
+        AOTCService.uploadFiles(url, sendFile)
+        .then(function (result) {
+              
+            $scope.$emit('error', result.data.message)
+            $scope.fileName = ''
+            sendFile = null;
+
+        }, function (result) {
+            $("#preloader").css("display", "none");
+            $scope.$emit('error', result.data.message)
+            sendFile = null;
+            $scope.fileName = ''
+            ////console.log(result);
+        });
+        
+  }
 
     $ctrl.addNewRole = function (_data, _form) {
         //if(!_form.name) return;
