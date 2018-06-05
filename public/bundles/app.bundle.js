@@ -24308,7 +24308,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.showUserTab = false;
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
-
+        $scope.active = ''
 
 
 
@@ -24368,7 +24368,10 @@ function _header(User_Config, $state, $timeout) {
             $("#head_danger").fadeIn(1500).delay(500).fadeOut(500);
         });
 
+        $scope.activateHeader = function(text){
+            $scope.active = text
 
+        }
         $scope.$on('notifications', function(ev, data) {
          console.log(data) 
         //  $scope.allNotifications = data

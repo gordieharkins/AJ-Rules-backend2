@@ -217,6 +217,9 @@ ul.appeal-check label {
   border: 1px solid #e6e6e6;
 }
 /***************************property dropdown***************/
+.form-control{
+  font-size: 13px;
+}
 .property-dropdown{
   width:400px;
   height: 285px;
@@ -232,7 +235,7 @@ ul.appeal-check label {
 }
 .property-ad{
   width: 100%;
-  margin: 10px 10px 10px 0;
+  margin: 10px 10px 0 0;
   float: left;
 }
 .juris-icon-two{
@@ -256,6 +259,7 @@ ul.appeal-check label {
 .property-ad select {
   padding: 0 5px !important;
   cursor: pointer;
+  font-size: 13px;
 }
 .select-dropdown {
   position: absolute;
@@ -267,12 +271,15 @@ ul.appeal-check label {
   right: 3px;
 }
 .owner-feild i {
-  top: 234px;
+  top: 220px;
   right: 11px;
 }
 /************************* show filter ********************/
 .header-col{
   width: 25% !important;
+}
+label.Filter-expand {
+  font-weight: normal !important;
 }
 
 .show-filter-wrap {
@@ -363,6 +370,7 @@ input[type="checkbox"] {
 input[type='text'] {
   padding: 5px 22px 5px 5px;
   height: 36px;
+  font-size: 13px;
 }
 .property-owner li {
   display: inline-block;
@@ -701,6 +709,7 @@ select {
     margin-left: 7px;
     border: none;
     border-radius: none;
+  cursor: pointer;
     padding: 2px 3px;
 }
 
@@ -725,21 +734,22 @@ select {
     color: #fff;
     padding: 4px;
     border-radius: 8px;
+  cursor: pointer;
 }
 
 .filter-bubble {
-    background: red;
-    display: inline-block;
-    min-width: 10px;
-    padding: 3px 6px;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    background-color: #ff4757;
-    border-radius: 10px;
+  display: inline-block;
+  min-width: 10px;
+  padding: 2px 5px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #ff4757;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0 0 0 5px;
 
-}
 
 }
