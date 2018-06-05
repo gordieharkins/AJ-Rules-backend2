@@ -146,9 +146,12 @@
   border-radius: 6px;
   background: #03a4fc;
 }
+.fixed-go {
+  top : 8% !important;
+}
  .fixed {
    position: fixed;
-   top: 0;
+   top:0;
    right: 20px;
     z-index: 9;
    width: 22.5%;
