@@ -251,25 +251,25 @@ function questions_to_variable_name(d, val) {
         return "name"
     } else if (d == "Is this process obligatory?") {
         return "obligatory"
-    } else if (d == "which paradigm this process is?") {
+    } else if (d == "in which paradigm does this process occur?") {
         return "paradigm"
-    } else if (d == "does this process includes a form") {
+    } else if (d == "does this process include a form?") {
         return "form"
-    } else if (d == "how the form is obtained") {
+    } else if (d == "how the form is obtained?") {
         return "formObtain"
-    } else if (d == "are there any required item in this process") {
+    } else if (d == "are there any required item(s) in this process?") {
         return "requiredItems"
-    } else if (d == "how will you assemble required item?") {
+    } else if (d == "how will you assemble required item(s)?") {
         return "requiredItemsForm"
-    } else if (d == "what are the required item") {
+    } else if (d == "what are the required item(s)?") {
         return "requiredItemsList"
-    } else if (d == "does this process requires signature") {
+    } else if (d == "does this process require signature?") {
         return "signature"
-    } else if (d == "what type of signatures are required") {
+    } else if (d == "what type of signature is required?") {
         return "signatureType"
-    } else if (d == "does this process includes submission of form") {
+    } else if (d == "does this process include submission of form?") {
         return "submission"
-    } else if (d == "how is the form submitted") {
+    } else if (d == "how is the form submitted?") {
         return "submissionType"
     } else if (d == "What is start date of this process?") {
         return "startDate"

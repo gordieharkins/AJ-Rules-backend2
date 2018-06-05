@@ -56,7 +56,7 @@
               <!--</i></span>-->
           <!--</th>-->
 
-          <th ng-repeat="events in  subData.prop[0].subEvents"  ng-init="idx= $index">
+          <th ng-repeat="events in  subData.prop[0].subEvents"  ng-init="idx= $index" ng-if="events">
             <span>{{events.properties.name}}
                   <span class="caret dropdown" style="cursor: pointer" ng-if="events.properties.dropdown" >
                  <i  class="fa fa-caret-down"></i>

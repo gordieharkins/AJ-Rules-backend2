@@ -60,6 +60,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.getPropertyDetails();
+    
 
     function getNotifications() {
         var url = '/appeal/getNotification'
