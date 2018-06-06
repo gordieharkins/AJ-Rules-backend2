@@ -34572,6 +34572,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.propertyFilter.zipCode = selected
     }
 
+    $scope.blurCheck = function () {
+        console.log('ooooooooook')
+    }
+    $("#focusedDiv").attr('tabindex',-1).focus(function () {
+        console.log('ooooooooook')
+    });
+
     $scope.selectOwnerName = function (data, type) {
         if(data.value==true) {
             $scope.selectFilters(data,5)
@@ -34586,7 +34593,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
          }
         }
-        $scope.propertyFilter.zipCode = selected
+        $scope.propertyFilter.owner = selected
     }
 
     $scope.selectFiltersJ = function(data) {

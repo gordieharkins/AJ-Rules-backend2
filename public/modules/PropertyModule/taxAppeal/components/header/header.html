@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/header/header.css">
 
-<form>
+<form >
+  <div >
     <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
       <h3 class="page-title">Sub-portfolio</h3>
@@ -64,7 +65,7 @@
             <!-- </div>
           </div>
         </li> -->
-        <li class="ad-property">
+        <li class="ad-property" >
           <button type="button" class="filter-btn"><i class="fa fa-building-o" style="margin-left: 0"></i>Property <i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown property" style="display:none">
 
@@ -81,7 +82,7 @@
 
                   <i class="fa fa-search juris-icon-two"></i>
 
-                <div class="property-ad clearfix">
+                <div class="property-ad clearfix" >
                   <div class="select-one">
                     <label style=" font-size: 13px; font-weight: 600">Search by Address</label>
                     <input ng-change="selectFilters(propertyFilter.add,3)" ng-model="propertyFilter.add" type="text" class="form-control jur-search" placeholder="Address">
@@ -90,51 +91,41 @@
                   </div>
                 </div>
                 <div class="property-ad clearfix" style="float: left; margin: 10px 0; width: 45%">
-                  <div class="select-one">
+                  <div class="select-one" data-ng-click="zipcode = true">
 
                     <label style=" font-size: 13px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
                     <!--<select class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">-->
-                    <span class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">Select Zip Code
+                    <span class="form-control zip-span"  >Select Zip Code
                       <i class="fa fa-caret-down zip-cart"></i>
                         <!--<option  selected="true"   value="None">Select Zip Code</option>-->
-                      <!--<option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>-->
-                          <ul class="appeal-check zip-check">
-                            <li class="clearfix">
-                              <label> <input type="checkbox"> 45200</label>
+                      <!--<option ></option>-->
+                          <ul class="appeal-check zip-check" ng-if="zipcode == true">
+                            <li class="clearfix" ng-repeat="data in search.zipCode" >
+                              <label> <input ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox"> {{data.zipCode}}</label>
                             </li>
-                            <li class="clearfix">
-                              <label> <input  type="checkbox">1200 </label>
-                            </li>
-                            <li class="clearfix">
-                              <label> <input type="checkbox">36822 </label>
-                            </li>
+                    
                         </ul>
                      
                     </span>
                     <!--</select>-->
                   </div>
                 </div>
-                <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
+                <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%" data-ng-click="ownerName = true">
 
-                  <label style=" font-size: 13px; font-weight: 600">Search by Owner{{data.ownerName}}</label>
+                  <label style=" font-size: 13px; font-weight: 600">Search by Owner</label>
 
                   <i class="fa fa-caret-down select-dropdown"></i>
                   <!--<select class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">-->
-                    <span class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">Select Owner Name
+                    <span class="form-control owner-span" >Select Owner Name
                     <i class="fa fa-caret-down owner-cart"></i>
                     <!--<option  selected="true"   value="None">Select Owner Name</option>-->
                     <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
-                    <ul class="appeal-check owner-check">
-                            <li class="clearfix">
-                              <label> <input type="checkbox">Abcd</label>
+                    <ul class="appeal-check owner-check" ng-if="ownerName == true">
+                            <li class="clearfix" ng-repeat="data in search.owner" >
+                              <label> <input  ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox">{{data.ownerName}}</label>
                             </li>
-                            <li class="clearfix">
-                              <label> <input  type="checkbox">Efgh</label>
-                            </li>
-                            <li class="clearfix">
-                              <label> <input type="checkbox">Ijkla</label>
-                            </li>
+                          
                         </ul>
                   </span>
                   <!--</select>-->
@@ -189,7 +180,7 @@
     </div>
 
     <!--Filter Tags Start-->
-    <div class="row">
+    <div class="row"  tabindex="-1"  id="focusedDiv" ng-focus="blurCheck()">
     <div class="col-md-12 filter-tags" ng-show="filters.length>0 && propertyFilter.show==true">
         <!--Tags Start-->
       <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
@@ -334,6 +325,6 @@
       </div>
     </div>
   </div>
-
+</div>
 </form>
   
