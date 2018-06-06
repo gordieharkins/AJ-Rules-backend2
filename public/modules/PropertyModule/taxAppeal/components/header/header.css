@@ -495,7 +495,7 @@ ul.appeal-check.appeal-new li{
   font-weight: normal;
   cursor: pointer;
   float: right;
-  background: red;
+  background: #fa7220;
   padding: 2px 8px;
   border-radius: 4px;
 }
@@ -810,7 +810,7 @@ select {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  background-color: #ff4757;
+  background-color: #cf0303;
   border-radius: 10px;
   cursor: pointer;
   margin: 0 0 0 5px;
