@@ -336,6 +336,9 @@
     .metro-header a:hover{
         background:#337ab7 !important;
     }
+    .image-lg{
+        width: 84px;
+    }
 
     @media (max-width: 1200px) {
         .image-lg {
@@ -603,7 +606,7 @@
                     <!--<li class="dropdown metro-header welcome">-->
                     <li class="dropdown metro-header">
                         <a class=" dropdown-toggle user-img" data-toggle="dropdown" href="">
-                            <span class="image-ph"></span> Welcome {{name}} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                            <span class="image-ph"></span><span class="user-name">{{name}}<i class="fa fa-caret-down" aria-hidden="true"></i></span> </a>
                         <ul class="dropdown-menu logout-drop">
                             <li class="clearfix">
                                 <a href="">
