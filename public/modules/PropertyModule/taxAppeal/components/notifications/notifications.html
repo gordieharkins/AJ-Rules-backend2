@@ -30,7 +30,7 @@
         <span class="card-tag" ng-if="not.count"  ng-class="warningCount(not)">{{not.count}} Remaining</span>
       </div>
     </div>
-    <div class="sidebar-body" ng-repeat=" not in data.notification" ng-if="data.notification.length==0">
+    <div class="sidebar-body"  ng-if="data.notification.length==0">
         <div class="no-notification">
           <i class="fa fa-exclamation-triangle"></i>
           <span>No Notification</span>
