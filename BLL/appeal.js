@@ -123,9 +123,7 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 	var year = (new Date()).getFullYear();
 	// var jurisdictionIndex = jurisdictionTimeline.jurisdictionsNames.indexOf(data[0].jurisdiction);
 	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[1];
-	// console.log(data);
 	DAL.getJurisdictionTimelineData(data[0].jurisdiction, function(error, result) {
-		console.log("erererere");
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
@@ -207,7 +205,6 @@ BLL.prototype.getNotification = function(req, res) {
 // Update Appeal Data
 // ---------------------------------------------
 BLL.prototype.updateData = function(req, res) {
-	console.log(req.body);
     DAL.updateData(req.body, null, function(error, result) {
         if (error) {
         	console.log(error);
@@ -227,8 +224,6 @@ BLL.prototype.updateData = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	var data = req.body;
-	// data = data[0];
-	// console.log("sssssssssss",JSON.stringify(data));
 	for(var j = 0; j < data.length; j++){
 		for(var i = 0; i < data[j].properties.requiredItems.length; i++){
 			data[j].properties[i+"req"] = ["item",data[j].properties.requiredItems[i].name,data[j].properties.requiredItems[i].value];
@@ -262,7 +257,6 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 // ---------------------------------------------
 BLL.prototype.executeSignature = function(req, res) {
 	var userId = req.user[0].userId;
-	console.log("hereeeeeeeeeeeee");
     DAL.executeSignature(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -306,8 +300,6 @@ BLL.prototype.executeSignature = function(req, res) {
 BLL.prototype.getPropertyTimelineData = function(req, res) {
 	var year = (new Date()).getFullYear();
 	var userId = req.user[0].userId;
-	// var userId = req.body.userId;
-	console.log(userId);
 	
     DAL.getPropertyTimelineData(userId, req.body.appealYear, function(error, result) {
         if (error) {
@@ -598,7 +590,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
 					} else {
-						console.log(JSON.stringify(result));
 						var notificationText = [];
 						var notifications = [];
 						
@@ -612,6 +603,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							}
 
 							if(result[i].notification1 != null){
+								// result[i].remainingDays = 1;
+								if(result[i].remainingDays == 1){
+									result[i].notification1.text = result[i].notification1.text.replace("days", "day");
+								}
+
 								result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
 								result[i].notification1["count"] = 1;
 								var notificationIndex = notificationText.indexOf(result[i].notification1.text);
@@ -777,7 +773,6 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				if(Array.isArray(requiredItems[element])){
 					if(requiredItems[element][0] == "field"){
 						var tempItems = requiredItems[element][3].split("||");
-						console.log("tempItems: ", tempItems);
 						var temp = {
 							name: requiredItems[element][1],
 							value: requiredItems[element][2],
@@ -904,7 +899,7 @@ function generateNotification(notification, id, cb){
 
 function calculateRemainingDays(deadline){
 	var daysRemaining = new dateDiff(new Date(deadline), new Date());
-	daysRemaining = parseInt(daysRemaining.days());
+	daysRemaining = parseFloat(daysRemaining.days());
 
 	return daysRemaining + 1;
 }
@@ -1124,7 +1119,6 @@ function createEventsJson(value, finalResult, cb){
 		additionalItems: value.additionalItems
 	};
 	
-	// console.log(value.zipCode);
 	var property = {
 		id: value.propertyId,
 		name: value.propertyName,
@@ -1163,8 +1157,6 @@ function createEventsJson(value, finalResult, cb){
 function updateData(data, id){
 	DAL.updateData(data, id, function(error, result) {
 		if (error) {
-			console.log(JSON.stringify(data));
-			console.log("_--------------------------------------");
 			console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
@@ -1227,7 +1219,6 @@ function createTimelineWithJson(timeline){
 			}
 		}
 	}
-	console.log(JSON.stringify(timeline));
 	return timeline;
 } 
 
