@@ -28,6 +28,10 @@
   max-height: 72vh;
   min-height: 72vh;
 }
+.sidebar-notification-inner2{
+  background-color: #f9f9f9;
+  
+}
   
   /********************CARD************************/
   .card {
