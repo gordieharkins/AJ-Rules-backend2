@@ -5,8 +5,17 @@
  <div class="row table-appeal" style="margin: 20px 0 0">
 
    <div class=" table-row col-md-9 col-sm-9" >
+  
+    <div class="no-record" ng-show=" data.jurisdictions.length==0">
+      <i class="fa fa-exclamation-triangle"></i>
 
-   <div ng-if="show" >
+      <span>No Related Properties</span>
+     </div>
+    </div>
+           <!-- <span>No Record Found</span> -->
+   </div>
+
+   <div ng-if="show && data.jurisdictions.length>0" >
      <div ng-repeat="item in  data.jurisdictions | FilterJ:inputSearch.name " ng-init="pIndex= $index;staticTable(1)">
        <div ng-show="rPName.length>0">
            <div class="row main-table-header">
@@ -83,11 +92,11 @@
                </thead>
                <tbody>
                <tr ng-repeat="prop in  item.properties | pZipCodeFilter :propertyFilter.zipCode | pOwnerNameFilter :propertyFilter.owner | PAddressFilter:propertyFilter.add  | filter : {name: propertyFilter.name} as rPName" >
-                
+
                 <td class="first-col-body">
                    <label>
                      <!-- <input type="checkbox"> -->
-                    
+
                     {{prop.name}}</label>
                    <p ng-if="prop.address">{{prop.address}}</p>
                    <p ng-if="!prop.address">{{prop.streetAddress}}</p>
@@ -127,12 +136,12 @@
                  <!--<td class="action-col">-->
                    <!--<a class="inventory-stroke-icon"></a>-->
                  <!--</td>-->
-                 
-               </tr>
-              
 
-               
-              
+               </tr>
+
+
+
+
                </tbody>
 
              </table>

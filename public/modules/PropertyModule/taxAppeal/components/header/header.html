@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/header/header.css">
 
-<form>
+<form >
+  <div >
     <div class="row page-heading clearfix">
     <div class="port-sub col-md-4 col-sm-12">
       <h3 class="page-title">Sub-portfolio</h3>
@@ -20,7 +21,7 @@
           </li>
 
         <li class="ad-jurisdiction">
-          <button type="button" class="filter-btn"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction: All<i class="fa fa-caret-down"></i></button>
+          <button type="button" class="filter-btn"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction<i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown jurisdict" style="display:none">
             <i class="fa fa-caret-up cart-dropdown"></i>
             <div class="jurisdiction-dropdown" >
@@ -60,13 +61,15 @@
                   <label> <input type="checkbox">Properties having deadline in between</label>
                 </li> -->
               <!-- </ul> -->
-  
+
             <!-- </div>
           </div>
-        </li> --> 
-        <li class="ad-property">
-          <button type="button" class="filter-btn"><i class="fa fa-building-o" style="margin-left: 0"></i>Property: All<i class="fa fa-caret-down"></i></button>
+        </li> -->
+        <li class="ad-property" >
+          <button type="button" class="filter-btn"><i class="fa fa-building-o" style="margin-left: 0"></i>Property <i class="fa fa-caret-down"></i></button>
           <div class="wrap-dropdown property" style="display:none">
+
+
             <i class="fa fa-caret-up cart-dropdown"></i>
 
             <div class="jurisdiction-dropdown property-dropdown clearfix">
@@ -79,7 +82,7 @@
 
                   <i class="fa fa-search juris-icon-two"></i>
 
-                <div class="property-ad clearfix">
+                <div class="property-ad clearfix" >
                   <div class="select-one">
                     <label style=" font-size: 13px; font-weight: 600">Search by Address</label>
                     <input ng-change="selectFilters(propertyFilter.add,3)" ng-model="propertyFilter.add" type="text" class="form-control jur-search" placeholder="Address">
@@ -88,26 +91,44 @@
                   </div>
                 </div>
                 <div class="property-ad clearfix" style="float: left; margin: 10px 0; width: 45%">
-                  <div class="select-one">
+                  <div class="select-one" data-ng-click="zipcode = true">
 
                     <label style=" font-size: 13px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
-                    <select class="form-control" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">
-                        <option  selected="true"   value="None">Select Zip Code</option>
-                      <option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>
+                    <!--<select class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">-->
+                    <span class="form-control zip-span">Select Zip Code
+                      <i class="fa fa-caret-down zip-cart"></i>
+                        <!--<option  selected="true"   value="None">Select Zip Code</option>-->
+                      <!--<option ></option>-->
+                          <ul class="appeal-check zip-check" style="display: none">
+                            <li class="clearfix" ng-repeat="data in search.zipCode" >
+                              <label> <input ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox"> {{data.zipCode}}</label>
+                            </li>
+                    
+                        </ul>
                      
-                    </select>
+                    </span>
+                    <!--</select>-->
                   </div>
                 </div>
-                <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
+                <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%" data-ng-click="ownerName = true">
 
-                  <label style=" font-size: 13px; font-weight: 600">Search by Owner{{data.ownerName}}</label>
+                  <label style=" font-size: 13px; font-weight: 600">Search by Owner</label>
 
                   <i class="fa fa-caret-down select-dropdown"></i>
-                  <select  class="form-control" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">
-                    <option  selected="true"   value="None">Select Owner Name</option>
-                    <option ng-repeat="data in search.owner">{{data.ownerName}}</option>
-                  </select>
+                  <!--<select class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">-->
+                    <span class="form-control owner-span" >Select Owner Name
+                    <i class="fa fa-caret-down owner-cart"></i>
+                    <!--<option  selected="true"   value="None">Select Owner Name</option>-->
+                    <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
+                    <ul class="appeal-check owner-check" style="display: none">
+                            <li class="clearfix" ng-repeat="data in search.owner" >
+                              <label> <input  ng-model="data.value" ng-change="selectOwnerName(data,5)" type="checkbox">{{data.ownerName}}</label>
+                            </li>
+                          
+                        </ul>
+                  </span>
+                  <!--</select>-->
                 </div>
               </div>
               </div>
@@ -120,7 +141,7 @@
           </div>
         </li>
         <li class="ad-appeal" >
-          <button type="button" class="filter-btn"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal status: All<i class="fa fa-caret-down"></i></button>
+          <button type="button" class="filter-btn"><i class="fa fa-bar-chart" style="margin-left: 0"></i>Appeal status <i class="fa fa-caret-down"></i></button>
           <div class="appeal-wrap" style="display:none">
             <i class="fa fa-caret-up cart-dropdown"></i>
             <div class="jurisdiction-dropdown appeal-dropdown">
@@ -135,12 +156,6 @@
                   <li class="clearfix">
                     <label> <input ng-disabled="true"  ng-model="appealStatus.don" type="checkbox">Done </label>
                   </li>
-                  <!-- <li class="clearfix">
-                    <label> <input type="checkbox">Properties apporching deadline</label>
-                  </li>
-                  <li class="clearfix">
-                    <label> <input type="checkbox">Properties having deadline in between</label>
-                  </li> -->
                 </ul>
 
             </div>
@@ -160,23 +175,21 @@
 
     <!--Filter Tags Start-->
     <div class="row">
-    <div class="col-md-12 filter-tags" ng-show="filters.length>0 && propertyFilter.show==true">
-        <!--Tags Start-->
-      <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
-      
+      <div class="col-md-12 filter-tags clearfix" ng-show="filters.length>0 && propertyFilter.show==true">
+          <!--Tags Start-->
+        <div class="filter-name">
+          <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+          <div class="clear-filter">
+            <span class="clear" ng-click="clearAll()">Clear all filters </span>
+          </div>
+          <!--Clear all End-->
 
 
-
-        <!--Tags End-->
-
-        <!--Clear all Start-->
-        <span class="clear" ng-click="clearAll()">Clear all filters </span>
-        <!--Clear all End-->
-
-        <!--Hide Filters Start-->
-        <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
-        <!--Hide Filters End-->
-    </div>
+          <!--Hide Filters Start-->
+          <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
+          <!--Hide Filters End-->
+      </div>
     </div>
     <!--Filter Tags End-->
 
@@ -304,6 +317,6 @@
       </div>
     </div>
   </div>
-
+</div>
 </form>
   

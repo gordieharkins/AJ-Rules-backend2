@@ -278,17 +278,16 @@ function _UtilService($http, $filter) {
 
     }
 
-    function restoreState(data,compare) {
-        if(compare.type==1) {
+    function restoreState(data,compare,property) {
+        
         for (var i = 0 ; i < data.length ; i++) {
-            if(data[i].name==compare.data) {
+            if(data[i][property]==compare.data) {
                 data[i].value = false;
                 break;
             }
         }
         return data
-    }
-
+    
     }
 
     function restoreJurisdictions(data) {

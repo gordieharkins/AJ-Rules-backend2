@@ -1,6 +1,7 @@
 <style>
     .header-btn ul li {
         color: #3b73af !important;
+        /*border-left: 1px solid #ffffff2e;*/
     }
     .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
         text-transform: none !important;
@@ -330,6 +331,21 @@
     .active-li{
         background:#337ab7;
     }
+    .metro-header:hover{
+        background:#337ab7 !important;
+    }
+    .metro-header a:hover{
+        background:#337ab7 !important;
+    }
+    .image-lg, .image-pr, .image-ts, .image-ph {
+        width: 84px;
+    }
+    .user-name {
+        padding: 0 0 0 19px;
+    }
+    .user-img{
+        padding: 0 !important;
+    }
 
     @media (max-width: 1200px) {
         .image-lg {
@@ -415,14 +431,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="main">Assessor on the
-                <span style="color:#47bcff;">Cloud</span>
+            <a class="navbar-brand" ui-sref="main" style="cursor: pointer">Assessor on the
+                <span style="color:#47bcff; cursor: pointer">Cloud</span>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="header-btn">
                 <ul>
+
                     <li class="metro-header" ui-sref-active="active-li">
+
+                        <a ui-sref="main"  >
+                            <span class="appral-img image-lg" style="background-image: url(../../assets/img/home.png); "></span>
+                            <span> Home</span>
+                        </a>
+                    </li>
+                    <li class="metro-header"  ui-sref-active="active-li">
                         <a ui-sref="TaxAppeal">
                             <span class=" appral-img image-lg" style="background-image: url(../../assets/img/tax.png); "></span>
                             <span> Tax Appeal</span>
@@ -471,7 +495,7 @@
                             <span>Task Manager</span>
                         </a>
                     </li>
-                    <li class="dropdown notifications" style="cursor: pointer;margin-right: 5px;text-align:center">
+                    <li class="metro-header dropdown notifications" style="cursor: pointer;margin-right: 5px;text-align:center">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span ng-show="allNotifications.length>0" class="badge" style="position: absolute;top: 13px;"> {{allNotifications.length}}</span>
                             <span class="image-lg" style="background-image: url(./assets/img/no.png);"></span>
@@ -591,7 +615,7 @@
                     <!--<li class="dropdown metro-header welcome">-->
                     <li class="dropdown metro-header">
                         <a class=" dropdown-toggle user-img" data-toggle="dropdown" href="">
-                            <span class="image-ph"></span> Welcome {{name}} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                            <span class="image-ph"></span><span class="user-name">{{name}}<i class="fa fa-caret-down" aria-hidden="true"></i></span> </a>
                         <ul class="dropdown-menu logout-drop">
                             <li class="clearfix">
                                 <a href="">

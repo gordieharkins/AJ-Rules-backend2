@@ -29,7 +29,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.search ={jurisdictions: [],zipCode: [], owner: []}
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
     $scope.appealStatus = {ns: false,ip: false,don : false};
-    $scope.propertyFilter = {name: '',show: true, add: '', zipCode: 'None',owner: 'None'}
+    $scope.propertyFilter = {name: '',show: true, add: '', zipCode: [],owner: []}
     $scope.filters = []
 
 
@@ -62,14 +62,16 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.getPropertyDetails();
 
 
-    function getNotifications() {
+    function getNotifications(message) {
         var url = '/appeal/getNotification'
         AOTCService.getDataFromServer(url)
         .then(function (result) {
               console.log(result.data)
               $scope.$emit('notifications',result.data.result)
              
-        
+              if(message) {
+                $scope.$emit('success', message)
+              }
              
               $("#preloader").css("display", "none");
              
@@ -81,9 +83,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         });
     }
 
+  
+
     $scope.selectFilters = function(data,type){
         if(type==1) {
             $scope.filters.push({data: data.name,type: type})
+        } else if(type==4) {
+            $scope.filters.push({data: data.zipCode,type: type})
+        } else if(type==5) {
+            $scope.filters.push({data: data.ownerName,type: type})
         } else {
             $scope.filters = $scope.filters.filter(item => item.type!=type)
             if(data.length>0 && data !='None') {
@@ -101,24 +109,28 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.selectFiltersJ(data)
         $scope.propertyFilter.name = '';
         $scope.propertyFilter.add = '';
-        $scope.propertyFilter.zipCode = 'None';
-        $scope.propertyFilter.owner = 'None';
+        $scope.search.owner = UtilService.restoreJurisdictions($scope.search.owner)
+        $scope.selectOwnerName(data)
+        $scope.search.zipCode = UtilService.restoreJurisdictions($scope.search.zipCode)
+        $scope.selectZipCode(data)
     }
     
 
     $scope.removeFilter = function(index,data) {
         $scope.filters.splice(index,1)
         if(data.type==1) {
-            $scope.search.jurisdictions = UtilService.restoreState($scope.search.jurisdictions,data)
+            $scope.search.jurisdictions = UtilService.restoreState($scope.search.jurisdictions,data,'name')
             $scope.selectFiltersJ(data)
         } else if(data.type==2) {
             $scope.propertyFilter.name = '';
         } else if(data.type==3) {
             $scope.propertyFilter.add = '';
         }else if(data.type==4) {
-            $scope.propertyFilter.zipCode = 'None';
+            $scope.search.zipCode = UtilService.restoreState( $scope.search.zipCode,data,'zipCode')
+            $scope.selectZipCode(data)
         } else if(data.type==5) {
-            $scope.propertyFilter.owner = 'None';
+            $scope.search.owner = UtilService.restoreState( $scope.search.owner,data,'ownerName')
+            $scope.selectOwnerName(data)
         }
     }
 
@@ -454,7 +466,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(3,"Data updated successfully.")
+               setTimeout(function(){ UpdateData(3,result.data.message)
              }, 5000)
                        
                 
@@ -487,6 +499,48 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('show class')
       
     }
+
+    $scope.selectZipCode = function (data, type) {
+        if(data.value==true) {
+            $scope.selectFilters(data,4)
+        }
+        var selected = []
+        
+        for (var i = 0 ; i<$scope.search.zipCode.length ; i ++) {
+            if($scope.search.zipCode[i].value==true) {
+                selected.push($scope.search.zipCode[i].zipCode)
+            } else {
+                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.zipCode[i].zipCode)
+        
+         }
+        }
+        $scope.propertyFilter.zipCode = selected
+    }
+
+    $scope.blurCheck = function () {
+        console.log('ooooooooook')
+    }
+    $("#focusedDiv").attr('tabindex',-1).focus(function () {
+        console.log('ooooooooook')
+    });
+
+    $scope.selectOwnerName = function (data, type) {
+        if(data.value==true) {
+            $scope.selectFilters(data,5)
+        }
+        var selected = []
+        
+        for (var i = 0 ; i<$scope.search.owner.length ; i ++) {
+            if($scope.search.owner[i].value==true) {
+                selected.push($scope.search.owner[i].ownerName)
+            } else {
+                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.owner[i].ownerName)
+        
+         }
+        }
+        $scope.propertyFilter.owner = selected
+    }
+
     $scope.selectFiltersJ = function(data) {
         if(data.value==true) {
             $scope.selectFilters(data,1)
@@ -515,7 +569,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        $scope.subData = null;
        var jProperty =  $scope.data.jurisdictions[pColumn].properties;
        var jName = $scope.data.jurisdictions[pColumn].name
-       subEventsDetect = {event: event, cloumn: column, pColumn: pColumn} 
+       subEventsDetect = {event: event, cloumn: column, pColumn: pColumn,eName:eName} 
        var extractSubEvents = [];
        for (var i  = 0 ; i  < jProperty.length;i++) {
            var subEvents = jProperty[i].events[column].subEvents;
@@ -549,7 +603,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
-                  $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
+                  $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn,subEventsDetect.eName)
                   if(type==1){
                       console.log('updating modal data')
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
@@ -568,7 +622,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
-                  getNotifications()
+                  getNotifications(message)
                 }, function (result) {
                 //some error
         //         ////console.log(result);
