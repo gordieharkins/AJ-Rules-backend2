@@ -88,8 +88,8 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
         return function(items, params) {
             var result = []
             console.log(items)
-            if(params=='None' || params==''){
-                return items;
+            if(params.length==0) {
+                return items
             }
             
             angular.forEach(items, function(item) {

@@ -783,8 +783,8 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
         return function(items, params) {
             var result = []
             console.log(items)
-            if(params=='None' || params==''){
-                return items;
+            if(params.length==0) {
+                return items
             }
             
             angular.forEach(items, function(item) {
@@ -34088,7 +34088,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.search ={jurisdictions: [],zipCode: [], owner: []}
     $scope.inputSearch = {name: [],ns: 'Not Started',ip: '',don : ''}
     $scope.appealStatus = {ns: false,ip: false,don : false};
-    $scope.propertyFilter = {name: '',show: true, add: '', zipCode: 'None',owner: 'None'}
+    $scope.propertyFilter = {name: '',show: true, add: '', zipCode: [],owner: []}
     $scope.filters = []
 
 
@@ -34140,9 +34140,15 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         });
     }
 
+  
+
     $scope.selectFilters = function(data,type){
         if(type==1) {
             $scope.filters.push({data: data.name,type: type})
+        } else if(type==4) {
+            $scope.filters.push({data: data.zipCode,type: type})
+        } else if(type==5) {
+            $scope.filters.push({data: data.ownerName,type: type})
         } else {
             $scope.filters = $scope.filters.filter(item => item.type!=type)
             if(data.length>0 && data !='None') {
@@ -34160,8 +34166,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.selectFiltersJ(data)
         $scope.propertyFilter.name = '';
         $scope.propertyFilter.add = '';
-        $scope.propertyFilter.zipCode = 'None';
-        $scope.propertyFilter.owner = 'None';
+        $scope.propertyFilter.zipCode = [];
+        $scope.propertyFilter.owner = [];
     }
     
 
@@ -34175,9 +34181,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         } else if(data.type==3) {
             $scope.propertyFilter.add = '';
         }else if(data.type==4) {
-            $scope.propertyFilter.zipCode = 'None';
+            $scope.selectZipCode(data)
         } else if(data.type==5) {
-            $scope.propertyFilter.owner = 'None';
+            $scope.propertyFilter.owner = [];
         }
     }
 
@@ -34546,6 +34552,41 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         console.log('show class')
       
     }
+
+    $scope.selectZipCode = function (data, type) {
+        if(data.value==true) {
+            $scope.selectFilters(data,4)
+        }
+        var selected = []
+        
+        for (var i = 0 ; i<$scope.search.zipCode.length ; i ++) {
+            if($scope.search.zipCode[i].value==true) {
+                selected.push($scope.search.zipCode[i].zipCode)
+            } else {
+                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.zipCode[i].zipCode)
+        
+         }
+        }
+        $scope.propertyFilter.zipCode = selected
+    }
+
+    $scope.selectOwnerName = function (data, type) {
+        if(data.value==true) {
+            $scope.selectFilters(data,5)
+        }
+        var selected = []
+        
+        for (var i = 0 ; i<$scope.search.owner.length ; i ++) {
+            if($scope.search.owner[i].value==true) {
+                selected.push($scope.search.owner[i].ownerName)
+            } else {
+                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.owner[i].ownerName)
+        
+         }
+        }
+        $scope.propertyFilter.zipCode = selected
+    }
+
     $scope.selectFiltersJ = function(data) {
         if(data.value==true) {
             $scope.selectFilters(data,1)
