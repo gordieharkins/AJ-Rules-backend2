@@ -123,7 +123,7 @@
                     <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
                     <ul class="appeal-check owner-check" ng-if="ownerName == true">
                             <li class="clearfix" ng-repeat="data in search.owner" >
-                              <label> <input  ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox">{{data.ownerName}}</label>
+                              <label> <input  ng-model="data.value" ng-change="selectOwnerName(data,5)" type="checkbox">{{data.ownerName}}</label>
                             </li>
                           
                         </ul>
