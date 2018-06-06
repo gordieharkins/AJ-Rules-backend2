@@ -96,11 +96,11 @@
                     <label style=" font-size: 13px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
                     <!--<select class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">-->
-                    <span class="form-control zip-span"  >Select Zip Code
+                    <span class="form-control zip-span">Select Zip Code
                       <i class="fa fa-caret-down zip-cart"></i>
                         <!--<option  selected="true"   value="None">Select Zip Code</option>-->
                       <!--<option ></option>-->
-                          <ul class="appeal-check zip-check" ng-if="zipcode == true">
+                          <ul class="appeal-check zip-check" style="display: none">
                             <li class="clearfix" ng-repeat="data in search.zipCode" >
                               <label> <input ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox"> {{data.zipCode}}</label>
                             </li>
@@ -121,7 +121,7 @@
                     <i class="fa fa-caret-down owner-cart"></i>
                     <!--<option  selected="true"   value="None">Select Owner Name</option>-->
                     <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
-                    <ul class="appeal-check owner-check" ng-if="ownerName == true">
+                    <ul class="appeal-check owner-check" style="display: none">
                             <li class="clearfix" ng-repeat="data in search.owner" >
                               <label> <input  ng-model="data.value" ng-change="selectOwnerName(data,5)" type="checkbox">{{data.ownerName}}</label>
                             </li>
@@ -156,12 +156,6 @@
                   <li class="clearfix">
                     <label> <input ng-disabled="true"  ng-model="appealStatus.don" type="checkbox">Done </label>
                   </li>
-                  <!-- <li class="clearfix">
-                    <label> <input type="checkbox">Properties apporching deadline</label>
-                  </li>
-                  <li class="clearfix">
-                    <label> <input type="checkbox">Properties having deadline in between</label>
-                  </li> -->
                 </ul>
 
             </div>
@@ -180,24 +174,22 @@
     </div>
 
     <!--Filter Tags Start-->
-    <div class="row"  tabindex="-1"  id="focusedDiv" ng-focus="blurCheck()">
-    <div class="col-md-12 filter-tags" ng-show="filters.length>0 && propertyFilter.show==true">
-        <!--Tags Start-->
-      <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
-      
+    <div class="row">
+      <div class="col-md-12 filter-tags clearfix" ng-show="filters.length>0 && propertyFilter.show==true">
+          <!--Tags Start-->
+        <div class="filter-name">
+          <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+          <div class="clear-filter">
+            <span class="clear" ng-click="clearAll()">Clear all filters </span>
+          </div>
+          <!--Clear all End-->
 
 
-
-        <!--Tags End-->
-
-        <!--Clear all Start-->
-        <span class="clear" ng-click="clearAll()">Clear all filters </span>
-        <!--Clear all End-->
-
-        <!--Hide Filters Start-->
-        <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
-        <!--Hide Filters End-->
-    </div>
+          <!--Hide Filters Start-->
+          <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
+          <!--Hide Filters End-->
+      </div>
     </div>
     <!--Filter Tags End-->
 

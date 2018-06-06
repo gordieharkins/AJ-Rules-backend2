@@ -296,6 +296,9 @@ ul.appeal-check label {
   right: 0;
   top: 10px;
 }
+.zip-span:hover .zip-check{
+  display: block !important;
+}
 .owner-span {
   text-align: left;
   cursor: pointer;
@@ -304,8 +307,8 @@ ul.appeal-check label {
 .owner-check {
   background: #ffffff;
   position: absolute;
-  left: -11px;
-  width: 101.5%;
+  right: -11px;
+  width: 300px;
   top: 23px;
   border: 1px solid #dddddd;
   padding: 5px 10px;
@@ -317,6 +320,9 @@ ul.appeal-check label {
   position: absolute;
   right: 0;
   top: 10px;
+}
+.owner-span:hover .owner-check{
+  display: block !important;
 }
 /************************* show filter ********************/
 .header-col{
@@ -482,6 +488,26 @@ ul.appeal-check.appeal-new {
 }
 ul.appeal-check.appeal-new li{
   cursor: pointer;
+}
+.clear {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: normal;
+  cursor: pointer;
+  float: right;
+  background: red;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.filter-name{
+  float: left;
+  width: 80%;
+}
+.clear-filter {
+  float: left;
+  width: 20%;
+  text-align: right;
+  padding: 6px 0 0;
 }
 
 
@@ -757,13 +783,7 @@ select {
     padding: 2px 3px;
 }
 
-.clear {
-    color: red;
-    text-decoration: underline;
-    font-weight: bold;
-    cursor: pointer;
 
-}
 .hide-filters {
     float: right;
     color: #0b58a2;

@@ -1,6 +1,7 @@
 <style>
     .header-btn ul li {
         color: #3b73af !important;
+        /*border-left: 1px solid #ffffff2e;*/
     }
     .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
         text-transform: none !important;
@@ -336,6 +337,15 @@
     .metro-header a:hover{
         background:#337ab7 !important;
     }
+    .image-lg, .image-pr, .image-ts, .image-ph {
+        width: 84px;
+    }
+    .user-name {
+        padding: 0 0 0 19px;
+    }
+    .user-img{
+        padding: 0 !important;
+    }
 
     @media (max-width: 1200px) {
         .image-lg {
@@ -605,7 +615,7 @@
                     <!--<li class="dropdown metro-header welcome">-->
                     <li class="dropdown metro-header">
                         <a class=" dropdown-toggle user-img" data-toggle="dropdown" href="">
-                            <span class="image-ph"></span> Welcome {{name}} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                            <span class="image-ph"></span><span class="user-name">{{name}}<i class="fa fa-caret-down" aria-hidden="true"></i></span> </a>
                         <ul class="dropdown-menu logout-drop">
                             <li class="clearfix">
                                 <a href="">
