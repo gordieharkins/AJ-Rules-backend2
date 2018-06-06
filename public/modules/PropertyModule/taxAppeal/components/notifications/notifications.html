@@ -11,13 +11,14 @@
 <div class="aside" id="notification"  ng-class="{'fixed-go': filters.length>0}">
 <div class="sidebar-header">
     <div class="">
-      <span>Notifications</span>
+      <span>Notification(s)</span>
 
     </div>
   </div>
   <div class="sidebar-notification" ng-class="{'sidebar-notification-inner': show==false}" >
 
-    <div class="sidebar-body" ng-repeat=" not in data.notification">
+    <div class="sidebar-body" ng-repeat=" not in data.notification" ng-if="data.notification.length>0">
+      
       <div class="card card-1 red-card" ng-class="setWarning(not)">
         <div class="col-md-12" style="padding: 0 ">
         <h2 class="card-title">{{not.heading}}</h2>
@@ -28,19 +29,12 @@
         <p style="margin: 25px 0 10px; ">{{not.text}}</p>
         <span class="card-tag" ng-if="not.count"  ng-class="warningCount(not)">{{not.count}} Remaining</span>
       </div>
-      <!--<div class="card card-1 blue-card">-->
-        <!--<h2 class="card-title">Required items</h2>-->
-        <!--<hr class="card-splitter">-->
-        <!--<span>Please submit the following:</span>-->
-        <!--<ul class="items">-->
-          <!--<li><span>Income expense statements of last 3 years.</span></li>-->
-          <!--<li><span>Rent Rolls of this year and last year.</span></li>-->
-          <!--<li><span>CapEx schedule.</span></li>-->
-        <!--</ul>-->
-        <!--<div class="card-action">-->
-          <!--<button class="black-button">View more</button>-->
-        <!--</div>-->
-      <!--</div>-->
     </div>
-  </div>
+    <div class="sidebar-body"  ng-if="data.notification.length==0">
+        <div class="no-notification">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span>No Notification</span>
+        </div>
+      </div>
+    </div>
 </div>

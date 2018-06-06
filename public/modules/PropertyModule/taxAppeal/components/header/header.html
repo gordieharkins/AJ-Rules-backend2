@@ -94,7 +94,6 @@
                   <div class="select-one" data-ng-click="zipcode = true">
 
                     <label style=" font-size: 13px; font-weight: 600">Search by Zip Code</label>
-                    <i class="fa fa-caret-down select-dropdown"></i>
                     <!--<select class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">-->
                     <span class="form-control zip-span">Select Zip Code
                       <i class="fa fa-caret-down zip-cart"></i>
@@ -114,8 +113,6 @@
                 <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%" data-ng-click="ownerName = true">
 
                   <label style=" font-size: 13px; font-weight: 600">Search by Owner</label>
-
-                  <i class="fa fa-caret-down select-dropdown"></i>
                   <!--<select class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">-->
                     <span class="form-control owner-span" >Select Owner Name
                     <i class="fa fa-caret-down owner-cart"></i>
@@ -174,13 +171,13 @@
     </div>
 
     <!--Filter Tags Start-->
-    <div class="row">
+    <div class="row clearfix">
       <div class="col-md-12 filter-tags clearfix" ng-show="filters.length>0 && propertyFilter.show==true">
           <!--Tags Start-->
-        <div class="filter-name">
+        <div class="filter-name clearfix">
           <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
         </div>
-          <div class="clear-filter">
+          <div class="clear-filter clearfix">
             <span class="clear" ng-click="clearAll()">Clear all filters </span>
           </div>
           <!--Clear all End-->
