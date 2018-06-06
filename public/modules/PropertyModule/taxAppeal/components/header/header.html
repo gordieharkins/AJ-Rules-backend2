@@ -190,23 +190,20 @@
 
     <!--Filter Tags Start-->
     <div class="row">
-    <div class="col-md-12 filter-tags" ng-show="filters.length>0 && propertyFilter.show==true">
-        <!--Tags Start-->
-      <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
-      
+      <div class="col-md-12 filter-tags clearfix" ng-show="filters.length>0 && propertyFilter.show==true">
+          <!--Tags Start-->
+        <div class="filter-name">
+          <span class="tag" ng-repeat="data in filters">{{data.data}} <i ng-click="removeFilter($index,data)" class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+          <div class="clear-filter">
+            <span class="clear" ng-click="clearAll()">Clear all filters </span>
+          </div>
+          <!--Clear all End-->
 
-
-
-        <!--Tags End-->
-
-        <!--Clear all Start-->
-        <span class="clear" ng-click="clearAll()">Clear all filters </span>
-        <!--Clear all End-->
-
-        <!--Hide Filters Start-->
-        <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
-        <!--Hide Filters End-->
-    </div>
+          <!--Hide Filters Start-->
+          <!--<span class="hide-filters"> Hide filters <i class="fa fa-toggle-up"></i> </span>-->
+          <!--Hide Filters End-->
+      </div>
     </div>
     <!--Filter Tags End-->
 
