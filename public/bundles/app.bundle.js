@@ -34123,14 +34123,16 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.getPropertyDetails();
 
 
-    function getNotifications() {
+    function getNotifications(message) {
         var url = '/appeal/getNotification'
         AOTCService.getDataFromServer(url)
         .then(function (result) {
               console.log(result.data)
               $scope.$emit('notifications',result.data.result)
              
-        
+              if(message) {
+                $scope.$emit('success', message)
+              }
              
               $("#preloader").css("display", "none");
              
@@ -34525,7 +34527,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
                console.log(result)
-               setTimeout(function(){ UpdateData(3,"Data updated successfully.")
+               setTimeout(function(){ UpdateData(3,result.data.message)
              }, 5000)
                        
                 
@@ -34628,7 +34630,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        $scope.subData = null;
        var jProperty =  $scope.data.jurisdictions[pColumn].properties;
        var jName = $scope.data.jurisdictions[pColumn].name
-       subEventsDetect = {event: event, cloumn: column, pColumn: pColumn} 
+       subEventsDetect = {event: event, cloumn: column, pColumn: pColumn,eName:eName} 
        var extractSubEvents = [];
        for (var i  = 0 ; i  < jProperty.length;i++) {
            var subEvents = jProperty[i].events[column].subEvents;
@@ -34662,7 +34664,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
-                  $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn)
+                  $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn,subEventsDetect.eName)
                   if(type==1){
                       console.log('updating modal data')
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
@@ -34681,7 +34683,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                   console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
-                  getNotifications()
+                  getNotifications(message)
                 }, function (result) {
                 //some error
         //         ////console.log(result);
