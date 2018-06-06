@@ -598,7 +598,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
 					} else {
-						// console.log(JSON.stringify(result));
+						console.log(JSON.stringify(result));
 						var notificationText = [];
 						var notifications = [];
 						
@@ -677,6 +677,13 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			var totalItems = 0;
 			var remainingItems = 0;
 			var message = "";
+			var notification = {
+				heading: "Complete Required Information",
+				text: "",
+				type: "warning",
+				remainingDays: 0
+			}
+
 			for(var element in requiredItems){
 				if(Array.isArray(requiredItems[element])){
 					if(requiredItems[element][4] == "IE"){
@@ -733,13 +740,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				var daysRemaining = new dateDiff(new Date(deadline), new Date());
 				daysRemaining = parseInt(daysRemaining.days()) + 1;
 				if(daysRemaining < 30){
-					var notification = {
-						heading: "Complete Required Information",
-						text: "",
-						type: "warning",
-						remainingDays: daysRemaining
-					}
-	
+					notification.remainingDays = daysRemaining;
 					if(daysRemaining > 0){
 						notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 						message += daysRemaining+ " days remaining before submission. "
@@ -759,7 +760,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 					requiredItems.status = "In Progress";
 					requiredItems.flag = true;
 	
-					generateNotification(notification, itemId);
+					
 				}
 			}
 
@@ -814,7 +815,14 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				}
 			}
 
-			cb(null, requiredItems) ;
+			if(requiredItems.status != "Done"){
+				generateNotification(notification, itemId, function(){
+					cb(null, requiredItems);
+				});
+			} else {
+				cb(null, requiredItems);
+			}
+			
 		}
 	});
 }
@@ -882,13 +890,15 @@ function checkSubmissionStatus(signatureStatus, subValue, id, cb){
 	cb(null,submissionStatus);
 }
 
-function generateNotification(notification, id){
+function generateNotification(notification, id, cb){
 	DAL.generateNotification(notification, id, function(error, result) {
 		if (error) {
 			console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} 
+
+		cb();
 	});
 }
 
@@ -906,6 +916,12 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 	var remainingFields = 0;
 	var remainingDays = parseInt(calculateRemainingDays(deadline));
 	var warning = "";
+	var notification = {
+		heading: "Complete Required Information",
+		text: "",
+		type: "warning",
+		remainingDays: 0
+	}
 	for(var element in requiredItems){
 		if(Array.isArray(requiredItems[element])){
 			if(requiredItems[element][0] == "item"){
@@ -929,12 +945,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 	} else {
 		requiredItems.message = "Complete required items in checklist.";
 		requiredItems.status = "In Progress";
-		var notification = {
-			heading: "Complete Required Information",
-			text: "",
-			type: "warning",
-			remainingDays: remainingDays
-		}
+		notification.remainingDays = remainingDays;
 		if(remainingDays < 30 && remainingDays > 0){
 			notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
 			// notification.remainingDays = daysRemaining;
@@ -953,7 +964,6 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		// 	warning += remainingFields+ " of "+totalFields+ " fields remaining. "
 		// }
 		// requiredItems['notification'] = notification;
-		generateNotification(notification, itemId);
 		warning += "Please complete the required information";
 	}
 
@@ -994,7 +1004,15 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			}
 		}
 	}
-	cb(null, requiredItems);
+
+	if(requiredItems.status != "Done"){
+		generateNotification(notification, itemId, function(){
+			cb(null, requiredItems);
+		});
+	} else {
+		cb(null, requiredItems);
+	}
+	
 }
 
 function checkReivewStatusPaper(ieForm, requiredItems, subValue, id, cb){
@@ -1073,9 +1091,12 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
 		remainingDays *= -1;
 	}
 
+	if(status.notificationGenerated == undefined){
+		status["notificationGenerated"] = false;
+	}
 
 	if(status.status != "Done"){
-
+		status.notificationGenerated = true;
 		status.status = "In Progress";
 		var notification = {
 			heading: "Fill Income Expense Survey form",
@@ -1084,11 +1105,15 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
 			remainingDays: remainingDays
 		}
 
-		generateNotification(notification, id);
+		generateNotification(notification, id, function(){
+			cb(null, status);
+		});
 		// status["notification"] = notification;
+	} else {
+		cb(null, status);
 	}
 
-	cb(null, status);
+	
 }
 
 function createEventsJson(value, finalResult, cb){
