@@ -589,7 +589,7 @@ ul.dropdown-menu li a:hover {
   padding-right: 0;
 }
 /********************* no record***********************/
-.no-record {
+.no-record-property{
   padding: 30px 0;
   text-align: center;
   position: absolute;
@@ -600,13 +600,13 @@ ul.dropdown-menu li a:hover {
   margin: auto;
   /* bottom: 0; */
 }
-.no-record i{
+.no-record-property i{
   display: block;
   text-align: center;
   font-size: 26px;
   color: #ffcc4d;
 }
-.no-record span {
+.no-record-property span {
   display: block;
   text-align: center;
   font-size:18px;

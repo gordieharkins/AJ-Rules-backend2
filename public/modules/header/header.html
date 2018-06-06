@@ -43,6 +43,7 @@
     .dropdown-menu.notify-drop .notify-drop-title {
         border-bottom: 1px solid #f9f9f9;
         padding:10px;
+        cursor: default;
     }
     .tab-content {
         background: #f9f9f9;
@@ -54,6 +55,7 @@
         overflow-y: auto;
         margin: 0;
         padding: 0;
+        cursor: default;
         background: #f9f9f9 !important;
     }
 
@@ -184,10 +186,12 @@
     .dropdown-menu.notify-drop .rIcon {
         float: right;
         color: #9b9ddc;
+        cursor: default;
     }
 
     .dropdown-menu.notify-drop .rIcon:hover {
-        color: #4647a3;
+        background: transparent !important;
+        cursor: default;
     }
 
     .dropdown-menu.notify-drop .drop-content>li a {
@@ -210,6 +214,7 @@
 
     .dropdown-menu.notify-drop .drop-content .pd-l0 {
         padding-left: 10px;
+        cursor: default;
     }
 
     .pd-0 {
@@ -221,6 +226,7 @@
         display: block;
         font-size: 14px;
         margin: 0 0 15px;
+        cursor: default;
     }
 
     .dropdown-menu.notify-drop .drop-content>li p {
@@ -233,7 +239,7 @@
     .dropdown-menu.notify-drop .drop-content>li p.notf-content {
         margin: 0;
         max-width: 330px;
-        word-break: break-all;
+        /*word-break: break-all;*/
         display: block;
     }
 
@@ -303,6 +309,7 @@
         padding: 3px 5px 3px 5px;
         border-radius: 6px;
         background: #cf0303;
+        cursor: default !important;
     }
     .header-btn ul li ul li a:hover {
         background: #205081;
@@ -345,6 +352,27 @@
     }
     .user-img{
         padding: 0 !important;
+    }
+    .no-notification {
+        border: 1px solid #ffcc4d;
+        border-left: 7px solid #ffcc4d;
+        height: 120px;
+        text-align: center !important;
+        padding: 32px 119px !important;
+        margin: 10px 0 !important;
+        width: 100%;
+    }
+    .no-notification span{
+        display: block;
+        font-size: 16px;
+        margin: 5px 0 0;
+        color: #000000;
+        font-weight: normal;
+    }
+    .no-notification i{
+        display: block;
+        color: #ffcc4d;
+        font-size: 24px;
     }
 
     @media (max-width: 1200px) {
@@ -504,12 +532,12 @@
                         <ul class="dropdown-menu notify-drop">
                             <div class="notify-drop-title">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 0px;color: white">
+                                    <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 0; color: white; cursor: default">
                                         Notifications
                                         <!-- <span ng-show="allNotifications.length>0"> (
                                             <b>{{allNotifications.length}}</b>)</span> -->
                                     </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right" style="padding-right: 0px;color: white">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right" style="padding-right: 0; color: white; cursor: default">
                                         <a href="" class="rIcon allRead">
                                             <i class="fa fa-bell"></i>
                                         </a>
@@ -528,12 +556,17 @@
                                     <a href="#external-events">Internal</a>
                                 </li>
                             </ul> -->
-                            <div class="tab-content" ng-show="allNotifications.length>0">
+                            <div class="tab-content" >
                                 <div id="internal-events" class="tab-pane fade in active">
                                     <ul class="drop-content">
+                                        <li class="no-notification" ng-show="allNotifications.length==0">
+                                            <div class="clearfix">
+                                                <i class="fa fa-exclamation-triangle"></i>
+                                                <span>No Notification</span>
+                                            </div>
+                                        </li>
                                         <li ng-repeat="notf in allNotifications" style="display:block" 
-                                        ng-class="notf.type=='warning' ? 'red-border':'blue-border'"    
-                                        >
+                                        ng-class="notf.type=='warning' ? 'red-border':'blue-border'">
                                             <div class="row">
                                                 <!--<div  class="col-xs-12 pd-l0 event-time">-->
                                                     <!--<div class="row">-->
