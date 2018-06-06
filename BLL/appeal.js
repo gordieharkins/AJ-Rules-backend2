@@ -1164,7 +1164,9 @@ function updateData(data, id){
 	});
 }
 
-function createTimelineWithJson(timeline){
+function createTimelineWithJson(timelineData){
+	var timeline = JSON.stringify(timelineData);
+	timeline = JSON.parse(timeline);
 	if(timeline.ieSurvey.main.obligatory == false){
 		delete timeline.ieSurvey;
 	} else {
