@@ -156,6 +156,27 @@
     z-index: 9;
    width: 22.5%;
  }
+.no-notification {
+  border: 1px solid #ffcc4d;
+  border-left: 7px solid #ffcc4d;
+  height: 120px;
+  text-align: center;
+  padding: 32px 0 ;
+  margin: 10px 0;
+}
+.no-notification span{
+  display: block;
+  font-size: 16px;
+  margin: 5px 0 0;
+}
+.no-notification i{
+  display: block;
+  color: #ffcc4d;
+  font-size: 24px;
+}
+
+
+
 @media (max-width: 1400px) {
   .fixed {
     right: 12px;
