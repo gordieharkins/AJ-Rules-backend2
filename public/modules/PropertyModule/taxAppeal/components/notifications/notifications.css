@@ -156,23 +156,23 @@
     z-index: 9;
    width: 22.5%;
  }
-.no-notification {
+.no-notification-new {
   border: 1px solid #ffcc4d;
   border-left: 7px solid #ffcc4d;
   height: 120px;
   text-align: center;
-  padding: 32px 0 ;
+  padding: 32px 0 !important;
   margin: 10px 0;
 }
-.no-notification span{
+.no-notification-new span{
   display: block;
-  font-size: 16px;
+  font-size: 14px;
   margin: 5px 0 0;
 }
-.no-notification i{
+.no-notification-new i{
   display: block;
   color: #ffcc4d;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 
