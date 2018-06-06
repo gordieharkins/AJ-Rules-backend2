@@ -330,6 +330,12 @@
     .active-li{
         background:#337ab7;
     }
+    .metro-header:hover{
+        background:#337ab7 !important;
+    }
+    .metro-header a:hover{
+        background:#337ab7 !important;
+    }
 
     @media (max-width: 1200px) {
         .image-lg {
@@ -415,14 +421,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="main">Assessor on the
-                <span style="color:#47bcff;">Cloud</span>
+            <a class="navbar-brand" ui-sref="main" style="cursor: pointer">Assessor on the
+                <span style="color:#47bcff; cursor: pointer">Cloud</span>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="header-btn">
                 <ul>
+
                     <li class="metro-header" ui-sref-active="active-li">
+
+                        <a ui-sref="TaxAppeal">
+                            <span class="appral-img image-lg" style="background-image: url(../../assets/img/home.png); "></span>
+                            <span> Home</span>
+                        </a>
+                    </li>
+                    <li class="metro-header active-li">
                         <a ui-sref="TaxAppeal">
                             <span class=" appral-img image-lg" style="background-image: url(../../assets/img/tax.png); "></span>
                             <span> Tax Appeal</span>
@@ -471,7 +485,7 @@
                             <span>Task Manager</span>
                         </a>
                     </li>
-                    <li class="dropdown notifications" style="cursor: pointer;margin-right: 5px;text-align:center">
+                    <li class="metro-header dropdown notifications" style="cursor: pointer;margin-right: 5px;text-align:center">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span ng-show="allNotifications.length>0" class="badge" style="position: absolute;top: 13px;"> {{allNotifications.length}}</span>
                             <span class="image-lg" style="background-image: url(./assets/img/no.png);"></span>
