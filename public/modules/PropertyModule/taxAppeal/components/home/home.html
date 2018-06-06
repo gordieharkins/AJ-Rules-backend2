@@ -5,15 +5,17 @@
  <div class="row table-appeal" style="margin: 20px 0 0">
 
    <div class=" table-row col-md-9 col-sm-9" >
-       <!-- <div class="no-record">
-           <i class="fa fa-exclamation-triangle"></i>
+  
+    <div class="no-record" ng-show=" data.jurisdictions.length==0">
+      <i class="fa fa-exclamation-triangle"></i>
 
-           <span>No Related Properties</span>
-       </div>
-           <span>No Record Found</span>
-       </div> -->
+      <span>No Related Properties</span>
+     </div>
+    </div>
+           <!-- <span>No Record Found</span> -->
+   </div>
 
-   <div ng-if="show" >
+   <div ng-if="show && data.jurisdictions.length>0" >
      <div ng-repeat="item in  data.jurisdictions | FilterJ:inputSearch.name " ng-init="pIndex= $index;staticTable(1)">
        <div ng-show="rPName.length>0">
            <div class="row main-table-header">

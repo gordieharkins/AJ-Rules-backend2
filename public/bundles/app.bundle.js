@@ -34168,24 +34168,28 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.selectFiltersJ(data)
         $scope.propertyFilter.name = '';
         $scope.propertyFilter.add = '';
-        $scope.propertyFilter.zipCode = [];
-        $scope.propertyFilter.owner = [];
+        $scope.search.owner = UtilService.restoreJurisdictions($scope.search.owner)
+        $scope.selectOwnerName(data)
+        $scope.search.zipCode = UtilService.restoreJurisdictions($scope.search.zipCode)
+        $scope.selectZipCode(data)
     }
     
 
     $scope.removeFilter = function(index,data) {
         $scope.filters.splice(index,1)
         if(data.type==1) {
-            $scope.search.jurisdictions = UtilService.restoreState($scope.search.jurisdictions,data)
+            $scope.search.jurisdictions = UtilService.restoreState($scope.search.jurisdictions,data,'name')
             $scope.selectFiltersJ(data)
         } else if(data.type==2) {
             $scope.propertyFilter.name = '';
         } else if(data.type==3) {
             $scope.propertyFilter.add = '';
         }else if(data.type==4) {
+            $scope.search.zipCode = UtilService.restoreState( $scope.search.zipCode,data,'zipCode')
             $scope.selectZipCode(data)
         } else if(data.type==5) {
-            $scope.propertyFilter.owner = [];
+            $scope.search.owner = UtilService.restoreState( $scope.search.owner,data,'ownerName')
+            $scope.selectOwnerName(data)
         }
     }
 
@@ -38799,17 +38803,16 @@ function _UtilService($http, $filter) {
 
     }
 
-    function restoreState(data,compare) {
-        if(compare.type==1) {
+    function restoreState(data,compare,property) {
+        
         for (var i = 0 ; i < data.length ; i++) {
-            if(data[i].name==compare.data) {
+            if(data[i][property]==compare.data) {
                 data[i].value = false;
                 break;
             }
         }
         return data
-    }
-
+    
     }
 
     function restoreJurisdictions(data) {
