@@ -483,6 +483,16 @@ ul.appeal-check.appeal-new {
 ul.appeal-check.appeal-new li{
   cursor: pointer;
 }
+.clear {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: normal;
+  cursor: pointer;
+  float: right;
+  background: red;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
 .filter-name{
   float: left;
   width: 80%;
@@ -491,7 +501,7 @@ ul.appeal-check.appeal-new li{
   float: left;
   width: 20%;
   text-align: right;
-  padding: 8px 0 0;
+  padding: 6px 0 0;
 }
 
 
@@ -767,13 +777,7 @@ select {
     padding: 2px 3px;
 }
 
-.clear {
-  color: red;
-  text-decoration: none;
-  font-weight: normal;
-  cursor: pointer;
-  float: right;
-}
+
 .hide-filters {
     float: right;
     color: #0b58a2;
