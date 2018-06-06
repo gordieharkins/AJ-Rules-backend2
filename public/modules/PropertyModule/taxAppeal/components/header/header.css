@@ -296,6 +296,9 @@ ul.appeal-check label {
   right: 0;
   top: 10px;
 }
+.zip-span:hover .zip-check{
+  display: block !important;
+}
 .owner-span {
   text-align: left;
   cursor: pointer;
@@ -304,8 +307,8 @@ ul.appeal-check label {
 .owner-check {
   background: #ffffff;
   position: absolute;
-  left: -11px;
-  width: 101.5%;
+  right: -11px;
+  width: 300px;
   top: 23px;
   border: 1px solid #dddddd;
   padding: 5px 10px;
@@ -317,6 +320,9 @@ ul.appeal-check label {
   position: absolute;
   right: 0;
   top: 10px;
+}
+.owner-span:hover .owner-check{
+  display: block !important;
 }
 /************************* show filter ********************/
 .header-col{
