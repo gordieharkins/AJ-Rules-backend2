@@ -66,7 +66,8 @@
         </li> -->
         <li class="ad-property">
           <button type="button" class="filter-btn"><i class="fa fa-building-o" style="margin-left: 0"></i>Property <i class="fa fa-caret-down"></i></button>
-          <div class="wrap-dropdown property" style="display:none">
+          <div class="wrap-dropdown property" style="display:block">
+
             <i class="fa fa-caret-up cart-dropdown"></i>
 
             <div class="jurisdiction-dropdown property-dropdown clearfix">
@@ -92,11 +93,25 @@
 
                     <label style=" font-size: 13px; font-weight: 600">Search by Zip Code</label>
                     <i class="fa fa-caret-down select-dropdown"></i>
-                    <select class="form-control" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">
-                        <option  selected="true"   value="None">Select Zip Code</option>
-                      <option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>
+                    <!--<select class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">-->
+                    <span class="form-control zip-span" ng-model="propertyFilter.zipCode" ng-change="selectFilters(propertyFilter.zipCode,4)">Select Zip Code
+                      <i class="fa fa-caret-down zip-cart"></i>
+                        <!--<option  selected="true"   value="None">Select Zip Code</option>-->
+                      <!--<option ng-repeat="data in search.zipCode">{{data.zipCode}}</option>-->
+                          <ul class="appeal-check zip-check">
+                            <li class="clearfix">
+                              <label> <input type="checkbox"> 45200</label>
+                            </li>
+                            <li class="clearfix">
+                              <label> <input  type="checkbox">1200 </label>
+                            </li>
+                            <li class="clearfix">
+                              <label> <input type="checkbox">36822 </label>
+                            </li>
+                        </ul>
                      
-                    </select>
+                    </span>
+                    <!--</select>-->
                   </div>
                 </div>
                 <div class="property-ad clearfix owner-feild" style="float: right; margin: 10px 0; width: 45%">
@@ -104,10 +119,24 @@
                   <label style=" font-size: 13px; font-weight: 600">Search by Owner{{data.ownerName}}</label>
 
                   <i class="fa fa-caret-down select-dropdown"></i>
-                  <select  class="form-control" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">
-                    <option  selected="true"   value="None">Select Owner Name</option>
-                    <option ng-repeat="data in search.owner">{{data.ownerName}}</option>
-                  </select>
+                  <!--<select class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">-->
+                    <span class="form-control owner-span" ng-model="propertyFilter.owner" ng-change="selectFilters(propertyFilter.owner,5)">Select Owner Name
+                    <i class="fa fa-caret-down owner-cart"></i>
+                    <!--<option  selected="true"   value="None">Select Owner Name</option>-->
+                    <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
+                    <ul class="appeal-check owner-check">
+                            <li class="clearfix">
+                              <label> <input type="checkbox">Abcd</label>
+                            </li>
+                            <li class="clearfix">
+                              <label> <input  type="checkbox">Efgh</label>
+                            </li>
+                            <li class="clearfix">
+                              <label> <input type="checkbox">Ijkla</label>
+                            </li>
+                        </ul>
+                  </span>
+                  <!--</select>-->
                 </div>
               </div>
               </div>

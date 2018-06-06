@@ -270,9 +270,53 @@ ul.appeal-check label {
   top: 36px;
   right: 3px;
 }
-.owner-feild i {
-  top: 220px;
-  right: 11px;
+/*.owner-feild i {*/
+  /*top: 220px;*/
+  /*right: 11px;*/
+/*}*/
+.zip-span {
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+.zip-check {
+  background: #ffffff;
+  position: absolute;
+  left: -11px;
+  width: 101.5%;
+  top: 23px;
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-top: none;
+  max-height: 150px;
+  overflow: auto;
+}
+.zip-cart {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.owner-span {
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+.owner-check {
+  background: #ffffff;
+  position: absolute;
+  left: -11px;
+  width: 101.5%;
+  top: 23px;
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-top: none;
+  max-height: 150px;
+  overflow: auto;
+}
+.owner-cart {
+  position: absolute;
+  right: 0;
+  top: 10px;
 }
 /************************* show filter ********************/
 .header-col{
