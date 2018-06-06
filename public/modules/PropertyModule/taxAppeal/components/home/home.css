@@ -588,6 +588,26 @@ ul.dropdown-menu li a:hover {
   width: 24% !important;
   padding-right: 0;
 }
+/********************* no record***********************/
+.no-record {
+  padding: 30px 0;
+  border: 1px solid #e6e6e6;
+  text-align: center;
+}
+.no-record i{
+  display: block;
+  text-align: center;
+  font-size: 40px;
+  color: #ffcc4d;
+}
+.no-record span {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  margin: 3px 0 5px;
+}
+
+
 
     @media (max-width: 1100px) {
       .button-filter{
