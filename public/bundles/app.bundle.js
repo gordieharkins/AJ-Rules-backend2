@@ -786,13 +786,14 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
             if(params.length==0) {
                 return items
             }
-            
-            angular.forEach(items, function(item) {
+            for (var i = 0 ; i < params.length;i++) {   
+                   angular.forEach(items, function(item) {
                
-                if(item.ownerName==params){
-                    result.push(item)
-                }
-            });   
+                        if(item.ownerName==params[i]){
+                            result.push(item)
+                         }
+                    });   
+          }
             
           
            return result;
@@ -805,16 +806,17 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
   return function(items, params) {
             var result = []
             console.log(items)
-            if(params=='None' || params==''){
-                return items;
+            if(params.length==0) {
+                return items
             }
-            
+            for (var i = 0 ; i < params.length;i++) {   
             angular.forEach(items, function(item) {
                
-                if(item.zipCode==params){
+                if(item.zipCode==params[i]){
                     result.push(item)
                 }
             });   
+        }
             
           
            return result;
