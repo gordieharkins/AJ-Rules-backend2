@@ -684,36 +684,36 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				if(Array.isArray(requiredItems[element])){
 					if(requiredItems[element][4] == "IE"){
 						totalItems++;
-						var found = "false";
-						// if(requiredItems[element][2] == "false"){
-						for(var j = 0;j < results[0].length; j++){
-							if(results[0][j].year.split(",")[1] == requiredItems[element][3]){
-								found = "true";
-								break;
+						if(requiredItems[element][2] == "false"){
+							for(var j = 0;j < results[0].length; j++){
+								if(results[0][j].year.split(",")[1] == requiredItems[element][3]){
+									requiredItems[element][2] = "true";
+									break;
+								}
+							}
+							if(requiredItems[element][2] == "false"){
+								remainingItems++;
 							}
 						}
 
-						requiredItems[element][2] = found;
-						if(requiredItems[element][2] == "false"){
+						if(requiredItems[element[2]] == "false"){
 							remainingItems++;
 						}
 					} else if(requiredItems[element][4] == "RR"){
 						totalItems++;
-						var found = "false";
-						// if(requiredItems[element][2] == "false"){
+						if(requiredItems[element][2] == "false"){
 							for(var j = 0;j < results[1].length; j++){
 								var asOfDate = new Date(requiredItems[element][3]).getTime();
 								if(results[1][j].asOfYear.split(",")[1] == asOfDate){
-									found = "true";
+									requiredItems[element][2] = "true";
 									break;
 								}
 							}
 							
-							requiredItems[element][2] = found;
 							if(requiredItems[element][2] == "false"){
 								remainingItems++;
 							}
-						// }
+						}
 					} else if(requiredItems[element][0] == "field"){
 						totalFields++;
 						if(requiredItems[element][2] == ""){
@@ -1177,7 +1177,7 @@ function updateData(data, id, cb){
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		}
-
+		
 		if(cb != null){
 			cb();
 		}
