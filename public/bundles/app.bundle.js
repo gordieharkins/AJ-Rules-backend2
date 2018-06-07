@@ -24376,7 +24376,7 @@ function _header(User_Config, $state, $timeout) {
         }
         $scope.$on('notifications', function(ev, data) {
          console.log(data) 
-        //  $scope.allNotifications = data
+         $scope.allNotifications = data
         
         });
 
