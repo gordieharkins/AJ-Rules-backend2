@@ -817,3 +817,7 @@ select {
 
 
 }
+.disabled-class {
+  cursor: not-allowed !important;
+  color: #8d928d;
+}

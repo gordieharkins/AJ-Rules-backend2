@@ -1,7 +1,8 @@
 _JurisDictionFilter.$inject = ["$http", "$filter"];
 module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
     pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter,
-    pZipCodeFilter: _pZipCodeFilter
+    pZipCodeFilter: _pZipCodeFilter,ownerInputFilter: _ownerInputFilter,
+    zipCodeInputFilter: _zipCodeInputFilter
 };
 
 
@@ -13,13 +14,13 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
            
            result = FilterJursidictions(items,params)     
           
-         console.log(result)
+        
           return result;
         }
 
         function FilterJursidictions(items, params) {
             var selected = [] 
-            console.log(items)
+         
             if(params.length==0) {
                 return items
             }
@@ -38,7 +39,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _AppealFilter(){
         return function(items, params) {
             var result = []
-            console.log(items)
+           
             if(params.ns==false && params.don==false && params.ip==false) {
                 return items;
             }    
@@ -64,7 +65,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _pAddressFilter() {
         return function(items, params) {
             var result = []
-            console.log(items)
+            
             if(params.length==0){
                 return items;
             }
@@ -87,7 +88,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _pOwnerNameFilter() {
         return function(items, params) {
             var result = []
-            console.log(items)
+          
             if(params.length==0) {
                 return items
             }
@@ -128,3 +129,37 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
          }
     }
   
+    function _ownerInputFilter(){
+        return function(data, params) {
+                  var result = []
+                  console.log(data)
+                  if(params.length==0) {
+                      return data
+                  }
+                  for (var  i = 0 ; i< params.length;i++) {
+                        
+                   result = result.concat(data.filter(item => item.name == params[i]))
+                  }
+                  
+                
+                 return result;
+               }
+         }
+
+         function _zipCodeInputFilter(){
+            return function(data, params) {
+                      var result = []
+                      console.log(data)
+                      if(params.length==0) {
+                          return data
+                      }
+                      for (var  i = 0 ; i< params.length;i++) {
+                            
+                       result = result.concat(data.filter(item => item.name == params[i]))
+                      }
+                      
+                    
+                     return result;
+                   }
+             }
+        

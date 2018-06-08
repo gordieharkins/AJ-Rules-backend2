@@ -333,7 +333,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 								value.event.properties.status = "In Progress";
 								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 								value.event.properties.warning = "Complete required information.";
-								updateData(value.event.properties, value.event._id);
+								updateData(value.event.properties, value.event._id, null);
 							} else {
 								value.event.properties.message = "Start date: "+ value.event.properties.startDate;
 								started = false;
@@ -344,7 +344,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 						}
 
 						if(started){
-							async.forEachOf(value.subEvent, function (subValue, j, callbackSubMain) {
+							async.forEachOfSeries(value.subEvent, function (subValue, j, callbackSubMain) {
 								var isComplete = true;
 								if(!(subValue == undefined)){
 									if(subValue.properties.type == "00"){
@@ -498,24 +498,24 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 											value.event.properties.status = "In Progress";
 											value.event.properties.warning = "";
 											value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
 										&& value.event.properties.status != "Done"){
 											value.event.properties.status = "Done";
 											value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
 											value.event.properties.warning = "";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 											
 										} else if(value.subEvent[indexes[1][0]].properties.status == "In Progress" &&
 											value.event.properties.warning != "Complete required information."){
 											value.event.properties.message = "Deadline: " + deadline;
 											value.event.properties.warning = "Complete required information.";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 											
 										} else if(value.subEvent[indexes[1][2]].properties.status == "In Progress" &&
 											value.event.properties.warning != "Execute Signature."){
 											value.event.properties.warning = "Execute Signature.";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										}
 									} catch (err){
 
@@ -528,17 +528,17 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 											value.event.properties.status = "Done";
 											value.event.properties.warning = "";
 											value.event.properties.message = "Income expense survey submitted successfully.";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										} else if(value.subEvent[indexes[0][4]].properties.status == "In Progress" &&
 											value.event.properties.warning != "Submit income expense survey package"){
 											value.event.properties.status = "In Progress";
 											value.event.properties.warning = "Submit income expense survey package";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										} else if(value.subEvent[indexes[0][3]].properties.status == "In Progress" &&
 											value.event.properties.warning != "Execute Signature"){
 											value.event.properties.status = "In Progress";
 											value.event.properties.warning = "Execute Signature";
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										} else if(value.subEvent[indexes[0][0]].properties.status != "Done" ||
 										value.subEvent[indexes[0][1]].properties.status != "Done"){
 											value.event.properties.status = "In Progress";
@@ -551,7 +551,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 												value.event.properties.warning += "Complete required items. ";											
 											}
 
-											updateData(value.event.properties, value.event._id);
+											updateData(value.event.properties, value.event._id, null);
 										}
 									} catch (err) {
 
@@ -760,7 +760,9 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				}
 			}
 
-			updateData(requiredItems, itemId);
+			var copytobeUpdated = JSON.stringify(requiredItems);
+			copytobeUpdated = JSON.parse(copytobeUpdated);
+			
 			
 			// requiredItems['notification'] = notification;
 			requiredItems["requiredItems"] = [];
@@ -810,11 +812,17 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				}
 			}
 
-			if(requiredItems.status != "Done"){
-				generateNotification(notification, itemId, function(){
-					cb(null, requiredItems);
+			try{
+				updateData(copytobeUpdated, itemId, function(){
+					if(requiredItems.status != "Done"){
+						generateNotification(notification, itemId, function(){
+							cb(null, requiredItems);
+						});
+					} else {
+						cb(null, requiredItems);
+					}
 				});
-			} else {
+			} catch (err){
 				cb(null, requiredItems);
 			}
 			
@@ -834,13 +842,13 @@ function checkReivewStatus(requiredItemsStatus, subValue, id, cb){
 	if(requiredItemsStatus != "Done" && subValue.flag == true){
 		reviewStatus.flag = false;
 		reviewStatus.status = "Not Started";
-		updateData(reviewStatus, id);
+		updateData(reviewStatus, id, null);
 	} else if(reviewStatus.status == "Done"){
 		console.log("dummy console. will find something better soon. ");
 	} else if(requiredItemsStatus == "Done" && reviewStatus.flag == false){
 		reviewStatus.flag = true;
 		// reviewStatus.status = "In Progress";
-		updateData(reviewStatus, id);
+		updateData(reviewStatus, id, null);
 	}
 
 	cb(null,reviewStatus);
@@ -853,14 +861,14 @@ function checkSignatureStatus(requiredItemsStatus, reviewStatus, subValue, id, c
 		signatureStatus.flag = false;
 		signatureStatus.status = "Not Started";
 		signatureStatus.message = "";
-		updateData(signatureStatus, id);
+		updateData(signatureStatus, id, null);
 	} else if(signatureStatus.status == "Done"){
 		console.log("dummy console. will find something better soon. ");
 	} else if((requiredItemsStatus == "Done" && reviewStatus == true) && 
 		(signatureStatus.flag == false && signatureStatus.status != "In Progress")){
 		signatureStatus.flag = true;
 		signatureStatus.status = "In Progress";
-		updateData(signatureStatus, id);
+		updateData(signatureStatus, id, null);
 	}
 	cb(null,signatureStatus);
 }
@@ -872,14 +880,14 @@ function checkSubmissionStatus(signatureStatus, subValue, id, cb){
 		submissionStatus.flag = false;
 		submissionStatus.status = "Not Started";
 		submissionStatus.message = "";
-		updateData(submissionStatus, id);
+		updateData(submissionStatus, id, null);
 	} else if(submissionStatus.status == "Done"){
 		console.log("dummy console. will find something better soon. ");
 	} else if(signatureStatus == "Done" && submissionStatus.flag == false){
 		submissionStatus.flag = true;
 		submissionStatus.status = "In Progress";
 		submissionStatus.message = "Data will be released to assessing jurisdiction on " + submissionStatus.deadline;
-		updateData(submissionStatus, id);
+		updateData(submissionStatus, id, null);
 		
 	}
 	cb(null,submissionStatus);
@@ -964,7 +972,9 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 
 	requiredItems.warning = warning;
 	
-	updateData(requiredItems, itemId);
+	var copytobeUpdated = JSON.stringify(requiredItems);
+	copytobeUpdated = JSON.parse(copytobeUpdated);
+	// updateData(requiredItems, itemId);
 
 	requiredItems["requiredItems"] = [];
 	requiredItems["dataFields"] = [];
@@ -1000,11 +1010,17 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		}
 	}
 
-	if(requiredItems.status != "Done"){
-		generateNotification(notification, itemId, function(){
-			cb(null, requiredItems);
+	try{
+		updateData(copytobeUpdated, itemId, function(){
+			if(requiredItems.status != "Done"){
+				generateNotification(notification, itemId, function(){
+					cb(null, requiredItems);
+				});
+			} else {
+				cb(null, requiredItems);
+			}
 		});
-	} else {
+	} catch (err){
 		cb(null, requiredItems);
 	}
 	
@@ -1154,12 +1170,16 @@ function createEventsJson(value, finalResult, cb){
 	cb();
 }
 
-function updateData(data, id){
+function updateData(data, id, cb){
 	DAL.updateData(data, id, function(error, result) {
 		if (error) {
 			console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
+		}
+		
+		if(cb != null){
+			cb();
 		}
 	});
 }

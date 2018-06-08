@@ -181,7 +181,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                owner.push({ownerName: data[i].properties[s].ownerName});
+                owner.push({ownerName: data[i].properties[s].ownerName, name: data[i].name});
             }
            
         }
@@ -195,7 +195,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                zipCode.push({zipCode: data[i].properties[s].zipCode});
+                zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
             }
            
         }
@@ -263,8 +263,8 @@ function _UtilService($http, $filter) {
                     if(input[t].name==data[i].name) {
                     for (var s = 0 ;s < data[i].properties.length ; s++) {
                        
-                        results.zipCode.push({zipCode: data[i].properties[s].zipCode});
-                        results.ownerName.push({ownerName: data[i].properties[s].ownerName})
+                        results.zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
+                        results.ownerName.push({ownerName: data[i].properties[s].ownerName,name: data[i].name})
                     }
                 }
                    
@@ -316,6 +316,10 @@ function _UtilService($http, $filter) {
         }
 
         return data
+    }
+
+    function checkStates(data, name){
+
     }
     
 

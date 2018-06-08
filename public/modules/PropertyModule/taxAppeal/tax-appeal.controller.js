@@ -31,6 +31,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.appealStatus = {ns: false,ip: false,don : false};
     $scope.propertyFilter = {name: '',show: true, add: '', zipCode: [],owner: []}
     $scope.filters = []
+    $scope.headerFilters = []
+    $scope.filterLength = {jurisdictions: 0, property: 0};
 
 
     $scope.getPropertyDetails = function()  {
@@ -157,6 +159,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
 
     }
+
+  
     
     $scope.checkMessage = function(type){
        
@@ -497,7 +501,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.subData = null;
         $scope.show =  true;
         console.log('show class')
-      
+        $scope.headerFilters = []
     }
 
     $scope.selectZipCode = function (data, type) {
@@ -517,12 +521,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.propertyFilter.zipCode = selected
     }
 
-    $scope.blurCheck = function () {
-        console.log('ooooooooook')
-    }
-    $("#focusedDiv").attr('tabindex',-1).focus(function () {
-        console.log('ooooooooook')
-    });
+    
 
     $scope.selectOwnerName = function (data, type) {
         if(data.value==true) {
@@ -555,9 +554,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
          }
         }
-        var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions)
-        $scope.search.zipCode = extractZip.zipCode;
-        $scope.search.owner = extractZip.ownerName;
+        // var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions,$scope.)
+        // $scope.search.zipCode = extractZip.zipCode;
+        // $scope.search.owner = extractZip.ownerName;
      
         $scope.inputSearch.name = selected
     }
@@ -571,6 +570,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        var jName = $scope.data.jurisdictions[pColumn].name
        subEventsDetect = {event: event, cloumn: column, pColumn: pColumn,eName:eName} 
        var extractSubEvents = [];
+       $scope.headerFilters[0] = jName
+    
        for (var i  = 0 ; i  < jProperty.length;i++) {
            var subEvents = jProperty[i].events[column].subEvents;
            var eventId = jProperty[i].events[column].eventId;

@@ -133,3 +133,5 @@ angular.module('AOTC').filter('AppealFilter', require('./taxAppeal/taxAppeal.fil
 angular.module('AOTC').filter('PAddressFilter', require('./taxAppeal/taxAppeal.filter').pAddressFilter);
 angular.module('AOTC').filter('pOwnerNameFilter', require('./taxAppeal/taxAppeal.filter').pOwnerNameFilter);
 angular.module('AOTC').filter('pZipCodeFilter', require('./taxAppeal/taxAppeal.filter').pZipCodeFilter)
+angular.module('AOTC').filter('ownerInputFilter', require('./taxAppeal/taxAppeal.filter').ownerInputFilter)
+angular.module('AOTC').filter('zipCodeInputFilter', require('./taxAppeal/taxAppeal.filter').zipCodeInputFilter)

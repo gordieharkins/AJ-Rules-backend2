@@ -30,7 +30,7 @@
               <h3 style="margin: 0;"><i class="fa fa-gavel" style="margin-left: 0"></i>Jurisdiction</h3>
               <ul class="jurisd-check">
                 <li class="clearfix" ng-repeat="data in search.jurisdictions">
-                  <label >{{data.name}} <input ng-model="data.value" ng-change="selectFiltersJ(data)" type="checkbox"></label>
+                  <label ng-class="{'disabled-class': show==false}" >{{data.name}} <input ng-disabled="show == false" ng-model="data.value" ng-change="selectFiltersJ(data)" type="checkbox"></label>
                 </li>
               </ul>
   
@@ -100,7 +100,7 @@
                         <!--<option  selected="true"   value="None">Select Zip Code</option>-->
                       <!--<option ></option>-->
                           <ul class="appeal-check zip-check" style="display: none">
-                            <li class="clearfix" ng-repeat="data in search.zipCode" >
+                            <li class="clearfix" ng-repeat="data in search.zipCode | zipCodeInputFilter:inputSearch.name  | zipCodeInputFilter:headerFilters " >
                               <label> <input ng-model="data.value" ng-change="selectZipCode(data,4)" type="checkbox"> {{data.zipCode}}</label>
                             </li>
                     
@@ -119,7 +119,7 @@
                     <!--<option  selected="true"   value="None">Select Owner Name</option>-->
                     <!--<option ng-repeat="data in search.owner">{{data.ownerName}}</option>-->
                     <ul class="appeal-check owner-check" style="display: none">
-                            <li class="clearfix" ng-repeat="data in search.owner" >
+                            <li class="clearfix" ng-repeat="data in search.owner | ownerInputFilter:inputSearch.name | ownerInputFilter:headerFilters" >
                               <label> <input  ng-model="data.value" ng-change="selectOwnerName(data,5)" type="checkbox">{{data.ownerName}}</label>
                             </li>
                           

@@ -696,7 +696,8 @@ module.exports = function maskFactory(maskDefinition) {
 _JurisDictionFilter.$inject = ["$http", "$filter"];
 module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _AppealFilter,
     pAddressFilter: _pAddressFilter,pOwnerNameFilter: _pOwnerNameFilter,
-    pZipCodeFilter: _pZipCodeFilter
+    pZipCodeFilter: _pZipCodeFilter,ownerInputFilter: _ownerInputFilter,
+    zipCodeInputFilter: _zipCodeInputFilter
 };
 
 
@@ -708,13 +709,13 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
            
            result = FilterJursidictions(items,params)     
           
-         console.log(result)
+        
           return result;
         }
 
         function FilterJursidictions(items, params) {
             var selected = [] 
-            console.log(items)
+         
             if(params.length==0) {
                 return items
             }
@@ -733,7 +734,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _AppealFilter(){
         return function(items, params) {
             var result = []
-            console.log(items)
+           
             if(params.ns==false && params.don==false && params.ip==false) {
                 return items;
             }    
@@ -759,7 +760,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _pAddressFilter() {
         return function(items, params) {
             var result = []
-            console.log(items)
+            
             if(params.length==0){
                 return items;
             }
@@ -782,7 +783,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _pOwnerNameFilter() {
         return function(items, params) {
             var result = []
-            console.log(items)
+          
             if(params.length==0) {
                 return items
             }
@@ -823,6 +824,40 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
          }
     }
   
+    function _ownerInputFilter(){
+        return function(data, params) {
+                  var result = []
+                  console.log(data)
+                  if(params.length==0) {
+                      return data
+                  }
+                  for (var  i = 0 ; i< params.length;i++) {
+                        
+                   result = result.concat(data.filter(item => item.name == params[i]))
+                  }
+                  
+                
+                 return result;
+               }
+         }
+
+         function _zipCodeInputFilter(){
+            return function(data, params) {
+                      var result = []
+                      console.log(data)
+                      if(params.length==0) {
+                          return data
+                      }
+                      for (var  i = 0 ; i< params.length;i++) {
+                            
+                       result = result.concat(data.filter(item => item.name == params[i]))
+                      }
+                      
+                    
+                     return result;
+                   }
+             }
+        
 
 
 /***/ }),
@@ -12032,7 +12067,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         var ER = PetitionerFormulae.Petitioner.effectiveRent(
             valuationObject.ARPetitioner,
-            percentage);
+            vacancyDolar);
 
 
         valuationObject.VacancyDolarPetitioner = vacancyDolar;
@@ -26108,6 +26143,9 @@ angular.module('AOTC').filter('AppealFilter', __webpack_require__(40).AppealFilt
 angular.module('AOTC').filter('PAddressFilter', __webpack_require__(40).pAddressFilter);
 angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(40).pOwnerNameFilter);
 angular.module('AOTC').filter('pZipCodeFilter', __webpack_require__(40).pZipCodeFilter)
+angular.module('AOTC').filter('ownerInputFilter', __webpack_require__(40).ownerInputFilter)
+angular.module('AOTC').filter('zipCodeInputFilter', __webpack_require__(40).zipCodeInputFilter)
+
 
 /***/ }),
 /* 248 */
@@ -34092,6 +34130,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.appealStatus = {ns: false,ip: false,don : false};
     $scope.propertyFilter = {name: '',show: true, add: '', zipCode: [],owner: []}
     $scope.filters = []
+    $scope.headerFilters = []
+    $scope.filterLength = {jurisdictions: 0, property: 0};
 
 
     $scope.getPropertyDetails = function()  {
@@ -34218,6 +34258,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
 
     }
+
+  
     
     $scope.checkMessage = function(type){
        
@@ -34558,7 +34600,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.subData = null;
         $scope.show =  true;
         console.log('show class')
-      
+        $scope.headerFilters = []
     }
 
     $scope.selectZipCode = function (data, type) {
@@ -34578,12 +34620,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $scope.propertyFilter.zipCode = selected
     }
 
-    $scope.blurCheck = function () {
-        console.log('ooooooooook')
-    }
-    $("#focusedDiv").attr('tabindex',-1).focus(function () {
-        console.log('ooooooooook')
-    });
+    
 
     $scope.selectOwnerName = function (data, type) {
         if(data.value==true) {
@@ -34616,9 +34653,9 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         
          }
         }
-        var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions)
-        $scope.search.zipCode = extractZip.zipCode;
-        $scope.search.owner = extractZip.ownerName;
+        // var extractZip = UtilService.extractZipCodes($scope.search.jurisdictions, $scope.data.jurisdictions,$scope.)
+        // $scope.search.zipCode = extractZip.zipCode;
+        // $scope.search.owner = extractZip.ownerName;
      
         $scope.inputSearch.name = selected
     }
@@ -34632,6 +34669,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
        var jName = $scope.data.jurisdictions[pColumn].name
        subEventsDetect = {event: event, cloumn: column, pColumn: pColumn,eName:eName} 
        var extractSubEvents = [];
+       $scope.headerFilters[0] = jName
+    
        for (var i  = 0 ; i  < jProperty.length;i++) {
            var subEvents = jProperty[i].events[column].subEvents;
            var eventId = jProperty[i].events[column].eventId;
@@ -38708,7 +38747,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                owner.push({ownerName: data[i].properties[s].ownerName});
+                owner.push({ownerName: data[i].properties[s].ownerName, name: data[i].name});
             }
            
         }
@@ -38722,7 +38761,7 @@ function _UtilService($http, $filter) {
         console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
-                zipCode.push({zipCode: data[i].properties[s].zipCode});
+                zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
             }
            
         }
@@ -38790,8 +38829,8 @@ function _UtilService($http, $filter) {
                     if(input[t].name==data[i].name) {
                     for (var s = 0 ;s < data[i].properties.length ; s++) {
                        
-                        results.zipCode.push({zipCode: data[i].properties[s].zipCode});
-                        results.ownerName.push({ownerName: data[i].properties[s].ownerName})
+                        results.zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
+                        results.ownerName.push({ownerName: data[i].properties[s].ownerName,name: data[i].name})
                     }
                 }
                    
@@ -38843,6 +38882,10 @@ function _UtilService($http, $filter) {
         }
 
         return data
+    }
+
+    function checkStates(data, name){
+
     }
     
 
