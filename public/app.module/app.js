@@ -797,7 +797,12 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
             templateUrl: 'modules/UserModule/UserRights/user-roles-list.template.html',
             controller: 'UserRolesListCtrl',
             controllerAs: '$ctrl'
-        });
+        })  .state('settings', {
+            url: '/settings',
+            templateUrl: 'modules/settings/main/main.html',
+            controller: '_settings',
+            controllerAs: '_settings'
+        });;
 
 
 
@@ -853,4 +858,5 @@ require('../Service');
 require('../config');
 require('../modules/Reports');
 require('../modules/Appeal');
+require('../modules/settings')
 require('../Directives');
