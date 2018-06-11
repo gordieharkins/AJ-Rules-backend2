@@ -30138,8 +30138,6 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                     filterModel: params.filterModel
                 };
 
-                $("#pri-preloader").css("display", "block");
-
                 PrivatePropertyService.getProps(myParams)
                     .then(function (response) {
                         serverInProgress = 0;
@@ -30568,9 +30566,7 @@ function _PublicPropertyCtrl(User_Config, PublicPropertyService, $http, $timeout
     vm.showDeleteButton = false;
     vm.showMultiPartAccount = false;
     var serverInProgress = 0;
-    $("#preloader").css("display", "none");
-    $("#pri-preloader").css("display", "none");
-
+   
     // vm.moveToMultiAccount = moveToMultiAccount;
     // vm.moveToMultiPart = moveToMultiPart;
 

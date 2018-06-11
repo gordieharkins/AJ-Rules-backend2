@@ -16,9 +16,7 @@ function _PublicPropertyCtrl(User_Config, PublicPropertyService, $http, $timeout
     vm.showDeleteButton = false;
     vm.showMultiPartAccount = false;
     var serverInProgress = 0;
-    $("#preloader").css("display", "none");
-    $("#pri-preloader").css("display", "none");
-
+   
     // vm.moveToMultiAccount = moveToMultiAccount;
     // vm.moveToMultiPart = moveToMultiPart;
 
