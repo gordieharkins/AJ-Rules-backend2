@@ -53,7 +53,7 @@ body {background: #f9f9f9;}
     height: 28px;
 }
 
-.fa-clock-o {
+table .fa-clock-o {
     font-size: 17px;
     background: #4fa1df;
     padding: 4px;
@@ -232,3 +232,5 @@ body {background: #f9f9f9;}
 .checkbox .form-control {
     border: 1px solid #c5c5c5;
 }
+
+.form-control::placeholder {color: #e4e4e4;}
