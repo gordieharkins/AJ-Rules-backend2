@@ -189,11 +189,12 @@ table .fa-clock-o {
 .dropbtn {
     background-color: #f9f9f9;
     color: #505050;
-    padding: 5px;
-    width: 290px;
+    padding: 9px;
+    width: 420px;
     font-size: 14px;
     border: 1px solid #ccc;
     text-align: left;
+    line-height: 26px;
 }
 
 .dropdown {
@@ -244,4 +245,11 @@ table .fa-clock-o {
     color: #3071ab;
 }
 
-.dropdown-content label {cursor: pointer;}
+.dropdown-content label {cursor: pointer; width: 90%;}
+
+.days-tag {
+    background: #009688;
+    color: #fff;
+    padding: 2px 11px 2px 10px;
+    border-radius: 6px;
+}
