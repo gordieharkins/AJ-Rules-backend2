@@ -1,3 +1,117 @@
 <header></header>
-<p>
-    Content goes here</p>
+<link rel="stylesheet" type="text/css" href="modules/settings/main/main.css">
+
+<span class="header-tag">
+    Alerts Preferences
+</span>
+
+<div class="wrapper-body">
+
+        <form>
+            <p>Select type of alert</p>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                   <span class="pull-left"> Email: </span>
+                    <input type="text" class="form-control" placeholder="hamza@gmail.com"> </label>
+            </div>
+            <br>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="pull-left"> SMS: </span>
+                    <input type="text" class="form-control" placeholder="00 00 0000 00"> </label>
+            </div>
+        </form>
+
+ <br>
+
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Set alert time</h3>
+                    <div class="pull-right button-class ">
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
+                        <button class="btn btn-default btn-xs btn-filter">  Select timezone</button>
+
+                    </div>
+                </div>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                    <tr class="filters">
+                        <th>Enable | Disable </th>
+                        <th>Days (s)</th>
+                        <th>Start & End time</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> Enable | Disable</td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td>Edit time</td>
+                    </tr>
+                    <tr>
+                        <td> Enable | Disable</td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td>Edit time</td>
+                    </tr>
+                    <tr>
+                        <td> Enable | Disable</td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td>Edit time</td>
+                    </tr>
+                    <tr>
+                        <td> Enable | Disable</td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td>Edit time</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Add new time alert</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label style="color: #0a0a0a;">Select day(s) for alert</label>
+                    <input type="text" class="form-control" placeholder="00 00 0000 00">
+                </form>
+
+
+                <label style="color: #0a0a0a;">Set time</label>
+
+                <div class="time-picker"> Time picker will come here</div>
+
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
+            </div>
+        </div>
+
+    </div>
+</div>
