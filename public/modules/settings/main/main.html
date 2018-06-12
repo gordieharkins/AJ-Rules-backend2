@@ -6,7 +6,6 @@
 </span>
 
 <div class="wrapper-body">
-
         <form class="form-inline">
             <p><b>Select type of alert</b></p>
             <div class="checkbox">
@@ -23,17 +22,14 @@
                     <input type="text" class="form-control" placeholder="00 00 0000 00"> </label>
             </div>
         </form>
-
  <br>
-
-        <div class="row">
+       <div class="row">
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
                     <h3 class="panel-title">Set alert time</h3>
                     <div class="pull-right button-class ">
-                        <button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
                         <button  class="btn btn-default btn-xs btn-filter">  Select timezone</button>
-
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <table class="table table-bordered table-responsive table-striped">
@@ -62,8 +58,6 @@
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-
-
                     <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
@@ -80,9 +74,6 @@
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-
-
-
                     <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
@@ -99,9 +90,6 @@
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-
-
-
                     <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
@@ -118,26 +106,11 @@
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-
-
-
-
-
                     </tbody>
                 </table>
             </div>
         </div>
-
-
-
-
-
 </div>
-
-
-
-
-
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
@@ -149,16 +122,38 @@
                 <h5 class="modal-title">Add new time alert</h5>
             </div>
             <div class="modal-body">
-                <form>
-                    <label style="color: #0a0a0a;">Select day(s) for alert</label>
-                    <input type="text" class="form-control" placeholder="00 00 0000 00">
-                </form>
+                <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
+                <br>
+                <div class="dropdown">
+                    <button class="dropbtn">Choose week days <i class="fa fa-caret-down pull-right"></i></button>
+                    <div class="dropdown-content">
+                        <span href="">All Week days
+                        <div class="checkbox">
+                                <input type="checkbox" value="">
+                            </div>
+                        </span>
+                        <span href="">Monday
+                        <div class="checkbox">
+                                <input type="checkbox" value="">
+                            </div>
+                        </span>
+                        <span href="">Tuesday
+                        <div class="checkbox">
+                                <input type="checkbox" value="">
+                            </div>
+                        </span>
+                        <span href="">Wednesday
+                        <div class="checkbox">
+                                <input type="checkbox" value="">
+                            </div>
+                        </span>
+                    </div>
+                </div>
 
+                <br> <br>
 
                 <label style="color: #0a0a0a;">Set time</label>
-
                 <div class="time-picker"> Time picker will come here</div>
-
             </div>
             <div class="modal-footer">
                 <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
