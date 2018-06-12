@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var bllFile = require(path.resolve(__dirname, '../BLL/scheduler/scheduler')); //change this
+var bllFile = require(path.resolve(__dirname, '../BLL/alerts/alerts')); //change this
 var BLL = new bllFile();
 
 
