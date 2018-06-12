@@ -243,3 +243,5 @@ table .fa-clock-o {
     font-weight: bold;
     color: #3071ab;
 }
+
+.dropdown-content label {cursor: pointer;}
