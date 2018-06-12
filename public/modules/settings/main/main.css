@@ -228,3 +228,7 @@ body {background: #f9f9f9;}
     position: absolute;
     right: 12px;
 }
+
+.checkbox .form-control {
+    border: 1px solid #c5c5c5;
+}
