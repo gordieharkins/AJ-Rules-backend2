@@ -216,6 +216,7 @@ table .fa-clock-o {
     text-decoration: none;
     border-bottom: 1px solid #ccc;
     display: block;
+    background: #fff;
 }
 
 .dropdown-content a:hover {background-color: #fff;}
