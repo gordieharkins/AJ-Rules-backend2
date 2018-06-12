@@ -5,7 +5,12 @@
     Alerts Preferences
 </span>
 
-<div class="wrapper-body">
+
+
+
+
+<div class="wrapper-body" ng-controller="settingsCTRL">
+        Load{{hello122}}asdas
         <form class="form-inline">
             <p><b>Select type of alert</b></p>
             <div class="checkbox">
@@ -125,37 +130,69 @@
                 <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
                 <br>
                 <div class="dropdown">
-                    <button class="dropbtn">Choose week days <i class="fa fa-caret-down pull-right"></i></button>
+                    <button class="dropbtn">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
                     <div class="dropdown-content">
                         <span href="">All Week days
                         <div class="checkbox">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" value="" ng-model="data.all">
                             </div>
                         </span>
                         <span href="">Monday
                         <div class="checkbox">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.mon">
                             </div>
                         </span>
                         <span href="">Tuesday
                         <div class="checkbox">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.tue">
                             </div>
                         </span>
                         <span href="">Wednesday
-                        <div class="checkbox">
-                                <input type="checkbox" value="">
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.wed">
                             </div>
                         </span>
+                        <span href="">Thursday
+                                <div class="checkbox">
+                                    <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.thur">
+                                </div>
+                            </span>
+                            <span href="">Friday
+                                    <div class="checkbox">
+                                        <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.fri">
+                                    </div>
+                                </span>
+                                <span href="">Saturday
+                                        <div class="checkbox">
+                                            <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sat">
+                                        </div>
+                                    </span>
+                                    <span href="">Sunday    
+                                            <div class="checkbox">
+                                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sun">
+                                            </div>
+                                        </span>
                     </div>
                 </div>
 
                 <br> <br>
 
                 <label style="color: #0a0a0a;">Set time</label>
-                <div class="time-picker"> Time picker will come here</div>
+                <div ng-repeat="t in user_times">
+                    <time-range
+                      start="t.start"
+                      end="t.end"
+                      on-change="changed()"
+                      on-change-start="changedStart()"
+                      on-change-end="changedEnd()"
+                      on-close="closed()" >
+                    </time-range>
+                    <button  type="button" class="btn btn-default btn-formats-active" ng-click="delete_time($index)" ng-disabled="user_times.length == 1">Delete</button>
+                </div>
+                <!-- <div class="time-picker"> Time picker will come here</div> -->
             </div>
             <div class="modal-footer">
+                <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>
                 <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
             </div>
         </div>
