@@ -234,3 +234,11 @@ table .fa-clock-o {
 }
 
 .form-control::placeholder {color: #e4e4e4;}
+
+.panel-btn {
+    border: none;
+    border-radius: 0;
+    padding: 5px 14px 2px 19px;
+    font-weight: bold;
+    color: #3071ab;
+}
