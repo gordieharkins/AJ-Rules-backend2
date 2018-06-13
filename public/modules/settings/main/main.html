@@ -9,22 +9,21 @@
 
 
 
-<div class="wrapper-body" ng-controller="settingsCTRL">
-        Load{{hello122}}asdas
+<div class="wrapper-body" >
         <form class="form-inline">
             <p><b>Select type of alert</b></p>
             <div class="checkbox">
                 <label>
-                    <input checked type="checkbox" value="">
+                    <input checked type="checkbox" value="" ng-model="data.email.flag">
                    <span class="pull-left"> Email: </span>
-                    <input type="text" class="form-control"  placeholder="e.g user@gmail.com"> </label>
+                    <input type="text" class="form-control"  placeholder="e.g user@gmail.com" ng-model="data.email.details"> </label>
             </div>
             <br>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="">
+                    <input type="checkbox" value="" ng-model="data.sms.flag">
                     <span class="pull-left"> SMS: </span>
-                    <input type="text" class="form-control" placeholder="e.g (444) 321 0432"> </label>
+                    <input type="text" class="form-control" placeholder="e.g (444) 321 0432" ng-model="data.sms.details">  </label>
             </div>
         </form>
  <br>
@@ -36,23 +35,10 @@
                         <!--<button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>-->
                         <div class="dropdown">
                             <button class="dropbtn timezone-dropdown-button"> Select timezone <i class="fa fa-caret-down pull-right"></i></button>
-                            <div class="dropdown-content">
-                        <span href="">Timezone 1
-                        <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </span>
-                                <span href="">Timezone 2
-                        <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </span>
-                                <span href="">Timezone 3
-                        <div class="checkbox">
-                                <input type="checkbox" value="">
-                            </div>
-                        </span>
-                            </div>
+                        <div class="dropdown-content">
+                            <span href="" ng-repeat = "time_z in timezones" ng-click=change_timezone(time_z)>{{time_z}}
+                            </span>
+                        </div>
                         </div>
                         <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
                     </div>
@@ -67,23 +53,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr ng-repeat="d in data.blackouts">
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
                             <form>
                                 <label class="toggle-switch toggle-progress">
-                                    <input class="progress-input"  type="checkbox"   name="progressToggle" >
+                                    <input class="progress-input"  type="checkbox" {{ischecked(d)}}  name="progressToggle" >
                                     <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
                                     <span class="progress-handle"></span>
                                 </label>
                             </form>
                         </div>
                         </td>
-                        <td>Monday, Tuesday , Friday</td>
-                        <td>09:20 AM to 10:00 PM</td>
+                        <td>{{d.days | array_join:", "}}</td>
+                        <!-- <td><div ng-repeat="interval in d.intervals">09:20 AM to 10:00 PM</div></td> -->
+                        <td><div ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div></td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
                                 <form>
@@ -130,14 +117,16 @@
                         <td>Monday, Tuesday , Friday</td>
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
-                    </tr>
+                    </tr> -->
                     </tbody>
                 </table>
+
+                <button  type="button" class="btn btn-default btn-formats-active" ng-click="save_settings()">Save</button>
             </div>
         </div>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade"  >
     <div class="modal-dialog modal-md">
 
         <!-- Modal content-->
@@ -154,42 +143,42 @@
                     <div class="dropdown-content">
                         <span href="">All Week days
                         <div class="checkbox">
-                                <input type="checkbox" value="" ng-model="data.all">
+                                <input type="checkbox" value="" ng-model="time_data.all" ng-change="all_changed()">
                             </div>
                         </span>
                         <span href="">Monday
                         <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.mon">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.mon">
                             </div>
                         </span>
                         <span href="">Tuesday
                         <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.tue">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.tue">
                             </div>
                         </span>
                         <span href="">Wednesday
                             <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.wed">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.wed">
                             </div>
                         </span>
                         <span href="">Thursday
                                 <div class="checkbox">
-                                    <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.thur">
+                                    <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.thur">
                                 </div>
                             </span>
                             <span href="">Friday
                                     <div class="checkbox">
-                                        <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.fri">
+                                        <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.fri">
                                     </div>
                                 </span>
                                 <span href="">Saturday
                                         <div class="checkbox">
-                                            <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sat">
+                                            <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sat">
                                         </div>
                                     </span>
                                     <span href="">Sunday    
                                             <div class="checkbox">
-                                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sun">
+                                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sun">
                                             </div>
                                         </span>
                     </div>
@@ -215,10 +204,10 @@
                 <label style="color: #0a0a0a;">Set time</label>
 
                 <div class="modal-scroll-area">
-                    <div ng-repeat="t in user_times">
+                    <div ng-repeat="t in time_data.intervals">
                         <time-range
-                          start="t.start"
-                          end="t.end"
+                          start="t.startTime"
+                          end="t.endTime"
                           on-change="changed()"
                           on-change-start="changedStart()"
                           on-change-end="changedEnd()"
@@ -229,12 +218,13 @@
                     <!-- <div class="time-picker"> Time picker will come here</div> -->
                 </div>
                 <div class="add-new-time-area">
+                    
                     <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()"><i class="fa fa-plus"></i>ADD NEW TIME</button>
                 </div>
             </div>
             <div class="modal-footer">
                 <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
-                <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
+                <button  type="button" class="btn btn-default btn-formats-active" ng-click="set_new_time()" data-dismiss="modal">SET TIME</button>
             </div>
         </div>
 
