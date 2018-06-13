@@ -59,4 +59,9 @@ router.post('/startJob', function(req, res, next) {
     BLL.startCronJob(req, res);
 });
 
+
+router.post('/addAlert', function(req, res, next) {
+    BLL.addAlert(req, res);
+});
+
 module.exports = router;
