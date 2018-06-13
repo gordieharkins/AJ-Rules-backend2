@@ -277,15 +277,13 @@ table .fa-clock-o {
     border-color: #ffffff;
 }
 .red-color{
+    float: right;
     background-color: #d21717 !important;
 }
 .red-color:hover{
     color: #ffffff !important;
     background-color: #be1515 !important;
     border-color: #ffffff !important;
-}
-.red-color i{
-    padding: 0 10px 0 0;
 }
 .add-new-time-area{
     text-align: center;
@@ -300,6 +298,10 @@ table .fa-clock-o {
 .datetime-range.time {
     min-height: 3em !important;
     font-size: 12px !important;
+    width: 93%;
+    display: inline-block;
+    float: left;
+    margin-bottom: 5px;
 }
 .datetime-range.time .end-datetime, .datetime-range.time .start-datetime {
     height: 3em !important;
@@ -315,8 +317,21 @@ table .fa-clock-o {
     border-width: 1.5em 0 1.5em 1em !important;
 }
 .modal-scroll-area{
-    height: fit-content;
+    width: 100%;
+    display: inline-block;
+    height: auto;
     max-height: 250px;
     overflow-y: auto;
     margin: 0 0 10px 0;
+}
+.timezone-dropdown-button{
+    background-color: #f9f9f9;
+    color: #3071be;
+    padding: 3px 10px 3px 10px;
+    width: 150px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.timezone-dropdown-button i{
+    padding: 3px 0 0 0;
 }
