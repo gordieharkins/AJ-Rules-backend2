@@ -3,4 +3,5 @@ module.exports = {
   email_address:"aotc.invite@gmail.com",
   email_password:"object00",
   email_host:"imap.gmail.com"
+
 }

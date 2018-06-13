@@ -31,7 +31,7 @@
        <div class="row">
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Set alert time</h3>
+                    <h3 class="panel-title">Set black-out time</h3>
                     <div class="pull-right button-class ">
                         <button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>
                         <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
@@ -177,7 +177,23 @@
 
                 <br> <br>
 
+                <div class="modal-checkbox-area">
+                    <div class="checkbox">
+                        <label>
+                            <input checked type="checkbox" value="">
+                            <span class="pull-left modal-checkbox-text"> All day </span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input checked type="checkbox" value="">
+                            <span class="pull-left modal-checkbox-text"> Specific time </span>
+                        </label>
+                    </div>
+                </div>
+
                 <label style="color: #0a0a0a;">Set time</label>
+
                 <div ng-repeat="t in user_times">
                     <time-range
                       start="t.start"
@@ -187,12 +203,15 @@
                       on-change-end="changedEnd()"
                       on-close="closed()" >
                     </time-range>
-                    <button  type="button" class="btn btn-default btn-formats-active" ng-click="delete_time($index)" ng-disabled="user_times.length == 1">Delete</button>
+                    <button  type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_time($index)" ng-disabled="user_times.length == 1"><i class="fa fa-trash-o"></i>Delete</button>
                 </div>
                 <!-- <div class="time-picker"> Time picker will come here</div> -->
+                <div class="add-new-time-area">
+                    <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()"><i class="fa fa-plus"></i>ADD NEW TIME</button>
+                </div>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>
+                <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
                 <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
             </div>
         </div>
