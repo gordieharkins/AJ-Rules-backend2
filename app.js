@@ -34,7 +34,7 @@ var newsFeed = require('./routes/newsFeed');
 var timeline = require('./routes/timeline');
 var admin = require('./routes/admin');
 var appeal = require('./routes/appeal');
-var alerts = require('./routes/alerts')
+var alerts = require('./BLL/alerts/alerts-routes');
 
 var zillow = require('./routes/zillow');
 // var cors = require('cors');
@@ -114,7 +114,7 @@ app.use('/newsFeed', passport.authenticate('jwt', { session: false }),newsFeed);
 app.use('/timeline', passport.authenticate('jwt', { session: false }), timeline);
 app.use('/properties', passport.authenticate('jwt', { session: false }), properties);
 app.use('/incomeExpenses', passport.authenticate('jwt', { session: false }), incomeExpenses);
-app.use('/alerts', alerts);
+app.use('/alerts', passport.authenticate('jwt', { session: false }), alerts);
 // app.use('/', routes);
 // app.use('/users', users);
 // app.use('/rentRolls', rentRolls);
