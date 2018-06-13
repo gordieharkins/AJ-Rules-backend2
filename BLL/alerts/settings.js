@@ -8,4 +8,5 @@ AlertsSettings.prototype.getSettings = function(){
 }
 
 
+
 module.exports = AlertsSettings;

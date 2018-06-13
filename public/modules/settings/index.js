@@ -2,4 +2,4 @@
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('_settings', require('./main/main'));
+angular.module('AOTC').controller('settingsCTRL', require('./main/main'));

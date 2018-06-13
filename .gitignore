@@ -11,6 +11,7 @@ public/otherfiles
 public/PropertyImages
 public/CompsImages
 public/Appeal
+public/bundles
 .vs/
 rows.js
 "sendgrid.env" 

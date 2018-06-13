@@ -18,6 +18,8 @@ require('../assets/css/rzslider.css');
 require('../../bower_components/angular-xeditable/dist/css/xeditable.css');
 require('../../bower_components/dragular/dist/dragular.css');
 require('../../bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.css');
+require('../../bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.css');
+require('../../bower_components/angular-datetime-range/dist/datetime-range.min.css');
 
 
 
@@ -801,8 +803,8 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
         })  .state('settings', {
             url: '/settings',
             templateUrl: 'modules/settings/main/main.html',
-            controller: '_settings',
-            controllerAs: '_settings'
+            controller: 'settingsCTRL',
+            controllerAs: 'settingsCTRL'
         });;
 
 
