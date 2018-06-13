@@ -1,3 +1,201 @@
 <header></header>
-<p>
-    Content goes here</p>
+<link rel="stylesheet" type="text/css" href="modules/settings/main/main.css">
+
+<span class="header-tag">
+    Alerts Preferences
+</span>
+
+
+
+
+
+<div class="wrapper-body" ng-controller="settingsCTRL">
+        Load{{hello122}}asdas
+        <form class="form-inline">
+            <p><b>Select type of alert</b></p>
+            <div class="checkbox">
+                <label>
+                    <input checked type="checkbox" value="">
+                   <span class="pull-left"> Email: </span>
+                    <input type="text" class="form-control"  placeholder="e.g user@gmail.com"> </label>
+            </div>
+            <br>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="pull-left"> SMS: </span>
+                    <input type="text" class="form-control" placeholder="e.g (444) 321 0432"> </label>
+            </div>
+        </form>
+ <br>
+       <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Set alert time</h3>
+                    <div class="pull-right button-class ">
+                        <button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>
+                        <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                    <tr class="filters">
+                        <th>Enable | Disable </th>
+                        <th>Days (s)</th>
+                        <th>Start & End time</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                            <form>
+                                <label class="toggle-switch toggle-progress">
+                                    <input class="progress-input"  type="checkbox"   name="progressToggle" >
+                                    <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                    <span class="progress-handle"></span>
+                                </label>
+                            </form>
+                        </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input" checked type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input"  type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input" checked type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Add new time alert</h5>
+            </div>
+            <div class="modal-body">
+                <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
+                <br>
+                <div class="dropdown">
+                    <button class="dropbtn">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
+                    <div class="dropdown-content">
+                        <span href="">All Week days
+                        <div class="checkbox">
+                                <input type="checkbox" value="" ng-model="data.all">
+                            </div>
+                        </span>
+                        <span href="">Monday
+                        <div class="checkbox">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.mon">
+                            </div>
+                        </span>
+                        <span href="">Tuesday
+                        <div class="checkbox">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.tue">
+                            </div>
+                        </span>
+                        <span href="">Wednesday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.wed">
+                            </div>
+                        </span>
+                        <span href="">Thursday
+                                <div class="checkbox">
+                                    <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.thur">
+                                </div>
+                            </span>
+                            <span href="">Friday
+                                    <div class="checkbox">
+                                        <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.fri">
+                                    </div>
+                                </span>
+                                <span href="">Saturday
+                                        <div class="checkbox">
+                                            <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sat">
+                                        </div>
+                                    </span>
+                                    <span href="">Sunday    
+                                            <div class="checkbox">
+                                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sun">
+                                            </div>
+                                        </span>
+                    </div>
+                </div>
+
+                <br> <br>
+
+                <label style="color: #0a0a0a;">Set time</label>
+                <div ng-repeat="t in user_times">
+                    <time-range
+                      start="t.start"
+                      end="t.end"
+                      on-change="changed()"
+                      on-change-start="changedStart()"
+                      on-change-end="changedEnd()"
+                      on-close="closed()" >
+                    </time-range>
+                    <button  type="button" class="btn btn-default btn-formats-active" ng-click="delete_time($index)" ng-disabled="user_times.length == 1">Delete</button>
+                </div>
+                <!-- <div class="time-picker"> Time picker will come here</div> -->
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>
+                <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
+            </div>
+        </div>
+
+    </div>
+</div>

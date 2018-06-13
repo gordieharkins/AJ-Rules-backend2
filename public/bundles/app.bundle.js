@@ -1600,7 +1600,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = startOfUTCISOWeekYear;
 
-var _index = __webpack_require__(91);
+var _index = __webpack_require__(92);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -3172,6 +3172,12 @@ module.exports = { nameFilter: _nameFilter, myDraggable: _myDraggable, arrangeSu
 /* 86 */,
 /* 87 */,
 /* 88 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3233,7 +3239,7 @@ function isValid(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3288,7 +3294,7 @@ exports.default = locale;
 module.exports = exports['default'];
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3329,7 +3335,7 @@ function getUTCISOWeek(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3377,7 +3383,7 @@ function getUTCISOWeekYear(dirtyDate, dirtyOptions) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3402,7 +3408,7 @@ function cloneObject(dirtyObject) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3447,8 +3453,8 @@ module.exports = {
 
 
 /***/ }),
-/* 94 */,
-/* 95 */
+/* 95 */,
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3967,7 +3973,7 @@ module.exports = { contractEditor: _contractEditor, directiveFunction: directive
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4063,7 +4069,7 @@ function _tel() {
 }
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4072,7 +4078,7 @@ function _tel() {
 _PropertyDetailsTab.$inject = ["User_Config", "fileReader", "UtilService", "$stateParams", "$location", "$scope", "$http", "__env", "$log", "AOTCService", "PropertyDetailsTabService", "$timeout"];
 module.exports = { PropertyDetailsTab: _PropertyDetailsTab, ngPropertyImageSelect: _ngPropertyImageSelect };
 
-var async = __webpack_require__(98);
+var async = __webpack_require__(99);
 
 
 
@@ -4496,7 +4502,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, process, global, module) {(function (global, factory) {
@@ -10095,10 +10101,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(99), __webpack_require__(46), __webpack_require__(65)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(100), __webpack_require__(46), __webpack_require__(65)(module)))
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10288,7 +10294,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10296,7 +10302,7 @@ process.umask = function() { return 0; };
 
 _PropValuation.$inject = ["$state", "$timeout", "$rootScope", "$stateParams", "AOTCService", "$scope", "ValuationService", "UtilService", "PetitionerFormulae"];
 module.exports = {PropValuation: _PropValuation, inputFocusFunction: _inputFocusFunction};
-var async = __webpack_require__(98);
+var async = __webpack_require__(99);
 //angular.module('AOTC')
 //    .directive('inputFocusFunction', _inputFocusFunction
 //    )
@@ -12623,7 +12629,7 @@ function _inputFocusFunction() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12923,7 +12929,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13116,8 +13122,8 @@ function _pwCheck() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 103 */,
-/* 104 */
+/* 104 */,
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13178,7 +13184,6 @@ function _Excel($window){
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 105 */,
 /* 106 */,
 /* 107 */,
 /* 108 */,
@@ -13212,30 +13217,33 @@ function _Excel($window){
 /* 136 */,
 /* 137 */,
 /* 138 */,
-/* 139 */
+/* 139 */,
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
-__webpack_require__(140);
 __webpack_require__(141);
-//require('../assets/css/font-awesome.min.css');
 __webpack_require__(142);
-//require('../assets/css/main2.css');
+//require('../assets/css/font-awesome.min.css');
 __webpack_require__(143);
+//require('../assets/css/main2.css');
 __webpack_require__(144);
+__webpack_require__(145);
 //require('../assets/css/datatables.min.css');
 //require('../assets/css/responsive.dataTables.min.css');
 //require('../assets/css/jquery.dataTables.min.css');
 //require('../assets/css/dataTables.jqueryui.min.css');
 //require('../assets/css/buttons.jqueryui.min.css');
 //require('../assets/css/buttons.dataTables.min.css');
-__webpack_require__(145);
 __webpack_require__(146);
 __webpack_require__(147);
 __webpack_require__(148);
+__webpack_require__(88);
+__webpack_require__(88);
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../bower_components/angular-datetime-range/dist/datetime-range.min.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 
 
@@ -13269,7 +13277,8 @@ var ngModule = angular.module('AOTC', [
     'dndLists',
     'angularjs-dropdown-multiselect',
     'ui.toggle',
-    'ckeditor'
+    'ckeditor',
+    'g1b.datetime-range'
 ]);
 // ngModule.config(['deviceDetectorProvider', function(deviceDetectorProvider) {
 //   deviceDetectorProvider.addCustom("Custom_UA_Entry", {or:["\\bChrome\\b","\\bFirefox\\b","\\bSafari\\b"]});
@@ -14018,8 +14027,8 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
         })  .state('settings', {
             url: '/settings',
             templateUrl: 'modules/settings/main/main.html',
-            controller: '_settings',
-            controllerAs: '_settings'
+            controller: 'settingsCTRL',
+            controllerAs: 'settingsCTRL'
         });;
 
 
@@ -14058,7 +14067,7 @@ ngModule.run(["$log", "__env", logEnvironment]);
 
 //agGrid.initialiseAgGridWithAngular1(angular);
 
-__webpack_require__(94);
+__webpack_require__(95);
 __webpack_require__(202);
 __webpack_require__(208);
 __webpack_require__(211);
@@ -14078,12 +14087,6 @@ __webpack_require__(331);
 __webpack_require__(333);
 __webpack_require__(335)
 __webpack_require__(337);
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 141 */
@@ -14223,7 +14226,7 @@ module.exports = maskFactory({
 
 var formatDate = __webpack_require__(154);
 var parseDate = __webpack_require__(170);
-var isValidDate = __webpack_require__(88);
+var isValidDate = __webpack_require__(89);
 var StringMask = __webpack_require__(10);
 
 function isISODateString(date) {
@@ -14315,11 +14318,11 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(88);
+var _index3 = __webpack_require__(89);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(89);
+var _index5 = __webpack_require__(90);
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -14327,7 +14330,7 @@ var _index7 = __webpack_require__(167);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(92);
+var _index9 = __webpack_require__(93);
 
 var _index10 = _interopRequireDefault(_index9);
 
@@ -15221,11 +15224,11 @@ var _index = __webpack_require__(168);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(90);
+var _index3 = __webpack_require__(91);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(91);
+var _index5 = __webpack_require__(92);
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -15567,7 +15570,7 @@ var _index3 = __webpack_require__(171);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(89);
+var _index5 = __webpack_require__(90);
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -15579,7 +15582,7 @@ var _index9 = __webpack_require__(175);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(92);
+var _index11 = __webpack_require__(93);
 
 var _index12 = _interopRequireDefault(_index11);
 
@@ -16796,7 +16799,7 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(90);
+var _index3 = __webpack_require__(91);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -17045,7 +17048,7 @@ module.exports = MoneyMaskDirective;
 
 
 var validators = __webpack_require__(62);
-var NumberMasks = __webpack_require__(93);
+var NumberMasks = __webpack_require__(94);
 var PreFormatters = __webpack_require__(63);
 
 function NumberMaskDirective($locale, $parse) {
@@ -17170,7 +17173,7 @@ module.exports = NumberMaskDirective;
 
 
 var validators = __webpack_require__(62);
-var NumberMasks = __webpack_require__(93);
+var NumberMasks = __webpack_require__(94);
 var PreFormatters = __webpack_require__(63);
 
 function preparePercentageToFormatter(value, decimals, modelMultiplier) {
@@ -22044,8 +22047,8 @@ function _ComparableUtil() {
 
 ////components
 //contract-editor
-angular.module('AOTC').component('contractEditor', __webpack_require__(95).contractEditor);
-angular.module('AOTC').directive('ckEditor', __webpack_require__(95).directiveFunction);
+angular.module('AOTC').component('contractEditor', __webpack_require__(96).contractEditor);
+angular.module('AOTC').directive('ckEditor', __webpack_require__(96).directiveFunction);
 
 angular.module('AOTC').factory('newContractService', __webpack_require__(225));
 
@@ -24309,8 +24312,8 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
 //var angular = require('angular');
 
 
-angular.module('AOTC').directive('phoneInput', __webpack_require__(96).phoneInput);
-angular.module('AOTC').filter('tel', __webpack_require__(96).tel);
+angular.module('AOTC').directive('phoneInput', __webpack_require__(97).phoneInput);
+angular.module('AOTC').filter('tel', __webpack_require__(97).tel);
 
 
 
@@ -26064,8 +26067,8 @@ angular.module('AOTC').controller('income_expense', __webpack_require__(259));
 angular.module('AOTC').controller('other_files', __webpack_require__(260));
 
 //propertyDetails
-angular.module('AOTC').controller('PropertyDetailsTab', __webpack_require__(97).PropertyDetailsTab);
-angular.module('AOTC').directive('ngPropertyImageSelect', __webpack_require__(97).ngPropertyImageSelect);
+angular.module('AOTC').controller('PropertyDetailsTab', __webpack_require__(98).PropertyDetailsTab);
+angular.module('AOTC').directive('ngPropertyImageSelect', __webpack_require__(98).ngPropertyImageSelect);
 
 
 angular.module('AOTC').factory('PropertyDetailsTabService', __webpack_require__(263));
@@ -26103,8 +26106,8 @@ angular.module('AOTC').service('PublicPropertyService', __webpack_require__(273)
 angular.module('AOTC').controller('TabsViewerCtrl', __webpack_require__(274));
 
 //*****property-valuation
-angular.module('AOTC').controller('PropValuation', __webpack_require__(100).PropValuation);
-angular.module('AOTC').directive('inputFocusFunction', __webpack_require__(100).inputFocusFunction);
+angular.module('AOTC').controller('PropValuation', __webpack_require__(101).PropValuation);
+angular.module('AOTC').directive('inputFocusFunction', __webpack_require__(101).inputFocusFunction);
 //angular.module('AOTC').service('ValuationHelper', require('./property-valuation/property-valuation.helper'));
 angular.module('AOTC').factory('ValuationService', __webpack_require__(275));
 angular.module('AOTC').factory('PetitionerFormulae', __webpack_require__(276));
@@ -26129,8 +26132,8 @@ angular.module('AOTC').controller('SensitivityThree', __webpack_require__(281));
 
 
 //*****UploadProperties
-angular.module('AOTC').controller('Properties', __webpack_require__(101).Properties);
-angular.module('AOTC').directive('upload', __webpack_require__(101).upload);
+angular.module('AOTC').controller('Properties', __webpack_require__(102).Properties);
+angular.module('AOTC').directive('upload', __webpack_require__(102).upload);
 //mapdata
 angular.module('AOTC').controller('Map', __webpack_require__(282));
 
@@ -28376,7 +28379,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46), __webpack_require__(99)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46), __webpack_require__(100)))
 
 /***/ }),
 /* 263 */
@@ -34797,8 +34800,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('Signup', __webpack_require__(102).Signup);
-angular.module('AOTC').directive('pwCheck', __webpack_require__(102).pwCheck);
+angular.module('AOTC').controller('Signup', __webpack_require__(103).Signup);
+angular.module('AOTC').directive('pwCheck', __webpack_require__(103).pwCheck);
 
 /***/ }),
 /* 287 */
@@ -39046,7 +39049,7 @@ function _auth($rootScope, $q, $http, $timeout, AOTCService) {
 "use strict";
 
 
-var angular = __webpack_require__(103);
+var angular = __webpack_require__(104);
 /////
 angular.module('AOTC').constant('User_Config', (__webpack_require__(330))());
 
@@ -39107,8 +39110,8 @@ function User_Config() {
 //var angular = require('angular');
 
 angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(332));
-angular.module('AOTC').service('ReportService', __webpack_require__(104).ReportService);
-angular.module('AOTC').factory('Excel', __webpack_require__(104).Excel);
+angular.module('AOTC').service('ReportService', __webpack_require__(105).ReportService);
+angular.module('AOTC').factory('Excel', __webpack_require__(105).Excel);
 
 /***/ }),
 /* 332 */
@@ -40039,7 +40042,7 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('_settings', __webpack_require__(336));
+angular.module('AOTC').controller('settingsCTRL', __webpack_require__(336));
 
 /***/ }),
 /* 336 */
@@ -40048,17 +40051,116 @@ angular.module('AOTC').controller('_settings', __webpack_require__(336));
 "use strict";
 
 
-_settings.$inject = ["UtilService", "$stateParams", "$anchorScroll","$state", "DTOptionsBuilder", "DTColumnDefBuilder", "$location", "$scope", "$http", "__env", "$log", "AOTCService", "$timeout"];
+_settings.$inject =["UtilService", "$stateParams", "$scope"];
 module.exports = _settings;
 
 //angular.module('AOTC')
 //    .directive('inputFocusFunction', _inputFocusFunction
 //    )
 //    .controller('PropValuation',_PropValuation );
-function _settings($state, $timeout, $rootScope, $stateParams, AOTCService, $scope, ValuationService, UtilService, PetitionerFormulae) {
-    ////console.log("PropValuation controller", $stateParams);
 
-    var vm = this;
+Object.defineProperty(Array.prototype, 'remove', {
+    enumerable: false,
+    value: function(from, to) {
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    }
+});
+
+function _settings(UtilService, $stateParams, $scope) {
+    ////console.log("PropValuation controller", $stateParams);
+    $scope.hello122 = "world";
+    // console.log( $scope.hello122)
+    // var vm = this;
+    $scope.data = {}
+
+    $scope.dropdown_label = function(){
+        var str = ""
+        if($scope.data.all){
+            return "All days"
+        }
+        
+        
+        if($scope.data.mon){
+            str += "Monday"
+        }
+        
+
+        if($scope.data.tue){
+            if (str.length > 0){
+                str += ", ";
+            }
+
+            str += "Tuesday"
+        }
+
+        if($scope.data.wed){
+            if (str.length > 0){
+                str += ", ";
+            }
+            str += "Wednesday"
+        }
+
+        if($scope.data.thur){
+            if (str.length > 0){
+                str += ", ";
+            }
+            str += "Thursday"
+        }
+
+        if($scope.data.fri){
+            if (str.length > 0){
+                str += ", ";
+            }
+            str += "Friday"
+        }
+
+        if($scope.data.sat){
+            if (str.length > 0){
+                str += ", ";
+            }
+            str += "Saturday"
+        }
+
+        if($scope.data.sun){
+            if (str.length > 0){
+                str += ", ";
+            }
+            str += "Sunday"
+        }
+
+        if (str.length > 0){
+            return str
+        }
+        return "Choose week days";
+    }
+    $scope.start = moment();
+    $scope.end = moment().add(1, 'days').add(1, 'hours');
+    
+    $scope.user_times = [{start:moment(),end:moment().add(1, 'days').add(1, 'hours')},{start:moment(),end:moment().add(1, 'days').add(1, 'hours')}]
+
+    $scope.changed = function () {
+        console.log('changed start or end datetime objects');
+      };
+      $scope.changedStart = function () {
+        console.log('changed start datetime object');
+      };
+      $scope.changedEnd = function () {
+        console.log('changed end datetime object');
+      };
+      $scope.closed = function () {
+        console.log('edit popover closed');
+      };
+      $scope.add_time = function(){
+        $scope.user_times.push({start:moment(),end:moment().add(1, 'days').add(1, 'hours')})
+      }
+
+      $scope.delete_time = function(index){
+
+        $scope.user_times.remove(index)
+        // delete obj;
+      }
 }
 
 /***/ }),
@@ -40187,5 +40289,5 @@ function _permissionPerProperty(AOTCPermissions) {
 }
 
 /***/ })
-],[139]);
+],[140]);
 //# sourceMappingURL=app.bundle.js.map
