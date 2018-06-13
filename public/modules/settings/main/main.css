@@ -243,3 +243,72 @@ table .fa-clock-o {
     font-weight: bold;
     color: #3071ab;
 }
+
+
+
+.modal-header{
+    background: #337ab7 !important;
+}
+.modal-checkbox-area{
+    width: 100%;
+}
+.modal-checkbox-area .checkbox{
+    display: inline-block;
+    width: 280px !important;
+}
+.modal-checkbox-text{
+    color: #000000;
+    width: 200px !important;
+}
+.btn-formats-active{
+    background: #337ab7 !important;
+    color: #ffffff;
+}
+.btn-formats-active:focus{
+    background: #337ab7 !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.btn-formats-active:hover{
+    background: #2b689a !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.red-color{
+    background-color: #d21717 !important;
+}
+.red-color:hover{
+    color: #ffffff !important;
+    background-color: #be1515 !important;
+    border-color: #ffffff !important;
+}
+.red-color i{
+    padding: 0 10px 0 0;
+}
+.add-new-time-area{
+    text-align: center;
+}
+.add-new-time-area button i{
+    padding: 0 10px 0 0;
+}
+.close:hover{
+    color: #222222;
+}
+
+.datetime-range.time {
+    min-height: 3em !important;
+    font-size: 12px !important;
+}
+.datetime-range.time .end-datetime, .datetime-range.time .start-datetime {
+    height: 3em !important;
+}
+.datetime-range.time .end-datetime .time, .datetime-range.time .start-datetime .time {
+    line-height: 1.5em !important;
+}
+.datetime-range.time .start-datetime:after {
+    border-top: 1.5em solid transparent !important;
+    border-bottom: 1.5em solid transparent !important;
+}
+.datetime-range.time .end-datetime:before {
+    border-width: 1.5em 0 1.5em 1em !important;
+}
