@@ -1,9 +1,9 @@
 var path = require('path')
-var async = require('async')
 var cron = require('node-cron')
 
 var SmsService = require(path.resolve(__dirname, './sms'));
 var smsService = new SmsService();
+
 var AlertSettings = require(path.resolve(__dirname, './settings'));
 var alertSettings = new AlertSettings();
 
@@ -26,20 +26,11 @@ BLL.prototype.startCronJob = function(req,res) {
 }
 
 function executeJob(data,res) {
-    var results  = []
-    async.forEachOf(data, function (value,index,callback) {
+       var results  = []
        
-        var data = smsService.sendSms(value,callback)
-        results.push(data)
+        var data = smsService.sendSms(data,res)
         console.log('returned', data)
      
-    }, function(err) {
-        if( err ) {
-          console.log('error');
-        } else {
-          console.log('All messages  deleiveered',results);
-         
-        }
-    });
+    
   
 }

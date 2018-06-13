@@ -51,7 +51,8 @@ var ngModule = angular.module('AOTC', [
     'dndLists',
     'angularjs-dropdown-multiselect',
     'ui.toggle',
-    'ckeditor'
+    'ckeditor',
+    'g1b.datetime-range'
 ]);
 // ngModule.config(['deviceDetectorProvider', function(deviceDetectorProvider) {
 //   deviceDetectorProvider.addCustom("Custom_UA_Entry", {or:["\\bChrome\\b","\\bFirefox\\b","\\bSafari\\b"]});

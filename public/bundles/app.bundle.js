@@ -680,17 +680,7 @@ module.exports = function maskFactory(maskDefinition) {
 /* 27 */,
 /* 28 */,
 /* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 30 */
 /***/ (function(module, exports) {
 
 _JurisDictionFilter.$inject = ["$http", "$filter"];
@@ -861,6 +851,16 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
 
 
 /***/ }),
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
 /* 41 */,
 /* 42 */,
 /* 43 */,
@@ -13269,7 +13269,8 @@ var ngModule = angular.module('AOTC', [
     'dndLists',
     'angularjs-dropdown-multiselect',
     'ui.toggle',
-    'ckeditor'
+    'ckeditor',
+    'g1b.datetime-range'
 ]);
 // ngModule.config(['deviceDetectorProvider', function(deviceDetectorProvider) {
 //   deviceDetectorProvider.addCustom("Custom_UA_Entry", {or:["\\bChrome\\b","\\bFirefox\\b","\\bSafari\\b"]});
@@ -14076,8 +14077,8 @@ __webpack_require__(320);
 __webpack_require__(328);
 __webpack_require__(331);
 __webpack_require__(333);
-__webpack_require__(416)
-__webpack_require__(335);
+__webpack_require__(335)
+__webpack_require__(337);
 
 /***/ }),
 /* 140 */
@@ -26144,13 +26145,13 @@ angular.module('AOTC').controller('AssignedUsersListCtrl', __webpack_require__(2
 //taxAppeal
 
 angular.module('AOTC').controller('TaxAppeal', __webpack_require__(285));
-angular.module('AOTC').filter('FilterJ', __webpack_require__(40).JurisdictionFilter);
-angular.module('AOTC').filter('AppealFilter', __webpack_require__(40).AppealFilter);
-angular.module('AOTC').filter('PAddressFilter', __webpack_require__(40).pAddressFilter);
-angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(40).pOwnerNameFilter);
-angular.module('AOTC').filter('pZipCodeFilter', __webpack_require__(40).pZipCodeFilter)
-angular.module('AOTC').filter('ownerInputFilter', __webpack_require__(40).ownerInputFilter)
-angular.module('AOTC').filter('zipCodeInputFilter', __webpack_require__(40).zipCodeInputFilter)
+angular.module('AOTC').filter('FilterJ', __webpack_require__(30).JurisdictionFilter);
+angular.module('AOTC').filter('AppealFilter', __webpack_require__(30).AppealFilter);
+angular.module('AOTC').filter('PAddressFilter', __webpack_require__(30).pAddressFilter);
+angular.module('AOTC').filter('pOwnerNameFilter', __webpack_require__(30).pOwnerNameFilter);
+angular.module('AOTC').filter('pZipCodeFilter', __webpack_require__(30).pZipCodeFilter)
+angular.module('AOTC').filter('ownerInputFilter', __webpack_require__(30).ownerInputFilter)
+angular.module('AOTC').filter('zipCodeInputFilter', __webpack_require__(30).zipCodeInputFilter)
 
 
 /***/ }),
@@ -40039,8 +40040,39 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(336));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(337));
+angular.module('AOTC').controller('_settings', __webpack_require__(336));
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+_settings.$inject = ["UtilService", "$stateParams", "$anchorScroll","$state", "DTOptionsBuilder", "DTColumnDefBuilder", "$location", "$scope", "$http", "__env", "$log", "AOTCService", "$timeout"];
+module.exports = _settings;
+
+//angular.module('AOTC')
+//    .directive('inputFocusFunction', _inputFocusFunction
+//    )
+//    .controller('PropValuation',_PropValuation );
+function _settings($state, $timeout, $rootScope, $stateParams, AOTCService, $scope, ValuationService, UtilService, PetitionerFormulae) {
+    ////console.log("PropValuation controller", $stateParams);
+
+    var vm = this;
+}
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//var angular = require('angular');
+
+angular.module('AOTC').directive('hasPermission', __webpack_require__(338));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(339));
 
 
 
@@ -40052,7 +40084,7 @@ angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(33
 
 
 /***/ }),
-/* 336 */
+/* 338 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('hasPermission', _hasPermission);
@@ -40108,7 +40140,7 @@ function _hasPermission(AOTCPermissions) {
 }
 
 /***/ }),
-/* 337 */
+/* 339 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
@@ -40153,115 +40185,6 @@ function _permissionPerProperty(AOTCPermissions) {
             //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
         }
     };
-}
-
-/***/ }),
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-//var angular = require('angular');
-
-angular.module('AOTC').controller('_settings', __webpack_require__(417));
-
-/***/ }),
-/* 417 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-_settings.$inject = ["UtilService", "$stateParams", "$anchorScroll","$state", "DTOptionsBuilder", "DTColumnDefBuilder", "$location", "$scope", "$http", "__env", "$log", "AOTCService", "$timeout"];
-module.exports = _settings;
-
-//angular.module('AOTC')
-//    .directive('inputFocusFunction', _inputFocusFunction
-//    )
-//    .controller('PropValuation',_PropValuation );
-function _settings($state, $timeout, $rootScope, $stateParams, AOTCService, $scope, ValuationService, UtilService, PetitionerFormulae) {
-    ////console.log("PropValuation controller", $stateParams);
-
-    var vm = this;
 }
 
 /***/ })

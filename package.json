@@ -15,6 +15,7 @@
     "angular-ckeditor": "^0.3.1",
     "angular-datatables": "^4.2.0",
     "angular-datatables-zz": "^0.5.4",
+    "angular-datetime-range": "^0.4.0",
     "angular-input-masks": "^4.1.0",
     "async": "^2.4.0",
     "body-parser": "~1.15.2",
