@@ -10101,11 +10101,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(262).setImmediate, __webpack_require__(100), __webpack_require__(46), __webpack_require__(65)(module)))
-=======
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(261).setImmediate, __webpack_require__(100), __webpack_require__(46), __webpack_require__(65)(module)))
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 
 /***/ }),
 /* 100 */
@@ -13247,11 +13243,7 @@ __webpack_require__(147);
 __webpack_require__(148);
 __webpack_require__(88);
 __webpack_require__(88);
-<<<<<<< HEAD
 __webpack_require__(149);
-=======
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../bower_components/angular-datetime-range/dist/datetime-range.min.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 
 
 
@@ -14076,25 +14068,16 @@ ngModule.run(["$log", "__env", logEnvironment]);
 //agGrid.initialiseAgGridWithAngular1(angular);
 
 __webpack_require__(95);
-<<<<<<< HEAD
 __webpack_require__(203);
 __webpack_require__(209);
 __webpack_require__(212);
 __webpack_require__(225);
-=======
-__webpack_require__(202);
-__webpack_require__(208);
-__webpack_require__(211);
-__webpack_require__(224);
-__webpack_require__(239);
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 __webpack_require__(240);
 __webpack_require__(241);
 __webpack_require__(243);
 __webpack_require__(245);
 __webpack_require__(248);
 __webpack_require__(287);
-<<<<<<< HEAD
 __webpack_require__(288);
 __webpack_require__(313);
 __webpack_require__(316);
@@ -14104,16 +14087,6 @@ __webpack_require__(332);
 __webpack_require__(334);
 __webpack_require__(336)
 __webpack_require__(338);
-=======
-__webpack_require__(312);
-__webpack_require__(315);
-__webpack_require__(320);
-__webpack_require__(328);
-__webpack_require__(331);
-__webpack_require__(333);
-__webpack_require__(335)
-__webpack_require__(337);
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 
 /***/ }),
 /* 141 */
@@ -14257,13 +14230,8 @@ module.exports = maskFactory({
 "use strict";
 
 
-<<<<<<< HEAD
 var formatDate = __webpack_require__(155);
 var parseDate = __webpack_require__(171);
-=======
-var formatDate = __webpack_require__(154);
-var parseDate = __webpack_require__(170);
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 var isValidDate = __webpack_require__(89);
 var StringMask = __webpack_require__(10);
 
@@ -39147,11 +39115,7 @@ function User_Config() {
 
 //var angular = require('angular');
 
-<<<<<<< HEAD
 angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(333));
-=======
-angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(332));
->>>>>>> 952998bc9477efb8aefb85f52961af4388c2de55
 angular.module('AOTC').service('ReportService', __webpack_require__(105).ReportService);
 angular.module('AOTC').factory('Excel', __webpack_require__(105).Excel);
 
@@ -40086,6 +40050,18 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 angular.module('AOTC').controller('settingsCTRL', __webpack_require__(337));
 
+angular.module('AOTC').filter('array_join', function () {
+    return function join(array, separator, prop) {
+        if (!Array.isArray(array)) {
+            return array; // if not array return original - can also throw error
+        }
+
+        return (!angular.isUndefined(prop) ? array.map(function (item) {
+            return item[prop];
+        }) : array).join(separator);
+    };
+});
+
 /***/ }),
 /* 337 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -40111,61 +40087,140 @@ Object.defineProperty(Array.prototype, 'remove', {
 });
 
 function _settings(UtilService, $stateParams, $scope) {
-    ////console.log("PropValuation controller", $stateParams);
-    $scope.hello122 = "world";
-    // console.log( $scope.hello122)
-    // var vm = this;
+
+    $scope.timezones = ["Timezone 1", "Timezone 2", "Timezone 3", "Timezone 4"]
     $scope.data = {}
+    $scope.data["sms"] = {"flag": true,"verified": false}
+    $scope.data["email"] = {"flag": true,"verified": false}
+    $scope.data["blackouts"] = [];
+
+    $scope.time_data = {};
+
+    $scope.time_data.intervals = [{startTime:moment(),endTime:moment().add(10, 'hours')}]
+
+    $scope.set_new_time = function(){
+        var day = [];
+        if($scope.time_data.mon){
+            day.push("Monday")
+        }
+        
+        if($scope.time_data.tue){
+            day.push("Tuesday")
+        }
+
+        if($scope.time_data.wed){
+            day.push("Wednesday")
+        }
+
+        if($scope.time_data.thur){
+            day.push("Thursday")
+        }
+
+        if($scope.time_data.fri){
+            day.push("Friday")
+        }
+
+        if($scope.time_data.sat){
+            day.push("Saturday")
+        }
+
+        if($scope.time_data.sun){
+            day.push("Sunday")
+        }
+        
+        $scope.data.blackouts.push({days:day,intervals:JSON.parse(JSON.stringify($scope.time_data.intervals)), checked:true})
+
+    }
+    $scope.save_settings = function(){
+        console.log($scope.data)
+    }
+
+    $scope.ischecked = function(d){
+        if(d){
+            return "checked"
+        }
+        return "";
+    }
+
+    $scope.change_timezone = function(t){
+        $scope.data.timezone = t;
+    }
+
+    $scope.all_changed = function(){
+
+        if($scope.time_data.all){
+            $scope.time_data.mon = true;
+            $scope.time_data.tue = true;
+            $scope.time_data.wed = true;
+            $scope.time_data.thur = true;
+            $scope.time_data.fri = true;
+            $scope.time_data.sat = true;
+            $scope.time_data.sun = true;
+        }else{
+            $scope.time_data.mon = false;
+            $scope.time_data.tue = false;
+            $scope.time_data.wed = false;
+            $scope.time_data.thur = false;
+            $scope.time_data.fri = false;
+            $scope.time_data.sat = false;
+            $scope.time_data.sun = false;
+        }
+    }
+
+    $scope.single_changed = function(){
+        if($scope.time_data.mon == true && $scope.time_data.tue == true && $scope.time_data.wed == true && $scope.time_data.thur == true && $scope.time_data.fri == true && $scope.time_data.sat == true && $scope.time_data.sun == true){
+            $scope.time_data.all = true;
+        }else{
+            $scope.time_data.all = false;
+        }
+    }
 
     $scope.dropdown_label = function(){
         var str = ""
-        if($scope.data.all){
-            return "All days"
+        if($scope.time_data.all){
+            return "All Week days"
         }
-        
-        
-        if($scope.data.mon){
+
+        if($scope.time_data.mon){
             str += "Monday"
         }
         
-
-        if($scope.data.tue){
+        if($scope.time_data.tue){
             if (str.length > 0){
                 str += ", ";
             }
-
             str += "Tuesday"
         }
 
-        if($scope.data.wed){
+        if($scope.time_data.wed){
             if (str.length > 0){
                 str += ", ";
             }
             str += "Wednesday"
         }
 
-        if($scope.data.thur){
+        if($scope.time_data.thur){
             if (str.length > 0){
                 str += ", ";
             }
             str += "Thursday"
         }
 
-        if($scope.data.fri){
+        if($scope.time_data.fri){
             if (str.length > 0){
                 str += ", ";
             }
             str += "Friday"
         }
 
-        if($scope.data.sat){
+        if($scope.time_data.sat){
             if (str.length > 0){
                 str += ", ";
             }
             str += "Saturday"
         }
 
-        if($scope.data.sun){
+        if($scope.time_data.sun){
             if (str.length > 0){
                 str += ", ";
             }
@@ -40177,32 +40232,29 @@ function _settings(UtilService, $stateParams, $scope) {
         }
         return "Choose week days";
     }
-    $scope.start = moment();
-    $scope.end = moment().add(1, 'days').add(1, 'hours');
+
     
-    $scope.user_times = [{start:moment(),end:moment().add(1, 'days').add(1, 'hours')},{start:moment(),end:moment().add(1, 'days').add(1, 'hours')}]
+    $scope.add_time = function(){
+        $scope.time_data.intervals.push({startTime:moment(),endTime:moment().add(10, 'hours')})
+      }
+    $scope.delete_time = function(index){
+      $scope.time_data.intervals.remove(index)
+      // delete obj;
+    }
 
     $scope.changed = function () {
-        console.log('changed start or end datetime objects');
-      };
-      $scope.changedStart = function () {
-        console.log('changed start datetime object');
-      };
-      $scope.changedEnd = function () {
-        console.log('changed end datetime object');
-      };
-      $scope.closed = function () {
-        console.log('edit popover closed');
-      };
-      $scope.add_time = function(){
-        $scope.user_times.push({start:moment(),end:moment().add(1, 'days').add(1, 'hours')})
-      }
-
-      $scope.delete_time = function(index){
-
-        $scope.user_times.remove(index)
-        // delete obj;
-      }
+      console.log('changed start or end datetime objects');
+    };
+    $scope.changedStart = function () {
+      console.log('changed start datetime object');
+    };
+    $scope.changedEnd = function () {
+      console.log('changed end datetime object');
+    };
+    $scope.closed = function () {
+      console.log('edit popover closed');
+    };
+    
 }
 
 /***/ }),

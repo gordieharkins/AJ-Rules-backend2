@@ -321,6 +321,7 @@ table .fa-clock-o {
     display: inline-block;
     height: auto;
     max-height: 250px;
+    min-height: 200px;
     overflow-y: auto;
     margin: 0 0 10px 0;
 }
@@ -334,4 +335,21 @@ table .fa-clock-o {
 }
 .timezone-dropdown-button i{
     padding: 3px 0 0 0;
+}
+.green-color{
+    background: #43b733 !important;
+}
+.green-color:hover{
+    background: #38a229 !important;
+}
+.no-record-div{
+    text-align: center;
+}
+.info-icon{
+    font-size: 18px;
+    color: #f1b821;
+}
+.info-text{
+    font-size: 16px;
+    font-weight: 600;
 }

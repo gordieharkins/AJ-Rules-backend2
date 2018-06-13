@@ -70,6 +70,14 @@
                         <td><div ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div></td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div class="no-record-div">
+                                <i class="fa fa-info-circle info-icon"></i>
+                                <span class="info-text">No record found!</span>
+                            </div>
+                        </td>
+                    </tr>
                     <!-- <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
@@ -120,8 +128,9 @@
                     </tr> -->
                     </tbody>
                 </table>
-
-                <button  type="button" class="btn btn-default btn-formats-active" ng-click="save_settings()">Save</button>
+                <div>
+                    <button  type="button" class="btn btn-default btn-formats-active green-color" ng-click="save_settings()">Save</button>
+                </div>
             </div>
         </div>
 </div>
@@ -138,8 +147,8 @@
             <div class="modal-body">
                 <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
                 <br>
-                <div class="dropdown">
-                    <button class="dropbtn">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
+                <div class="dropdown" style="width: 100% !important;">
+                    <button class="dropbtn" style="width: 100% !important;">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
                     <div class="dropdown-content">
                         <span href="">All Week days
                         <div class="checkbox">
@@ -182,7 +191,9 @@
                                             </div>
                                         </span>
                     </div>
+                    <span style="color: #be1515">*Please select day(s) for alert before setting time.</span>
                 </div>
+
 
                 <br> <br>
 
@@ -224,7 +235,7 @@
             </div>
             <div class="modal-footer">
                 <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
-                <button  type="button" class="btn btn-default btn-formats-active" ng-click="set_new_time()" data-dismiss="modal">SET TIME</button>
+                <button  type="button" class="btn btn-default btn-formats-active green-color" ng-click="set_new_time()" data-dismiss="modal">SET TIME</button>
             </div>
         </div>
 
