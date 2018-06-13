@@ -1,46 +1,29 @@
 var async = require('async')
+var path = require('path')
+var config = require(path.resolve(__dirname,'./config'))
 
-const accountSid = 'ACd366f6e0e8d68a78f4504a3b69b66bf2';
-const authToken = 'efc6edb09267a1f32b59acf6b2762052';
-const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(config.sms.account_sid, config.sms.auth_token);
 
-function SmsService() {
+function SmsService() {}
 
-}
-
-SmsService.prototype.sendSms = function(data, cb) {
-    var results = []
-    async.forEachOf(data, function(value, index, callback) {
-
-        client.messages
+SmsService.prototype.sendSms = function(value, callback) {
+       var res = null;
+       client.messages
             .create({
                 body: value.body,
                 from: value.from,
                 to: value.to
             })
             .then(message => {
-                console.log('meesage going', message.sid);
-                results.push({taceId: message.sid,value: value,sucess: true})
-                callback()
+               res = {message: message.sid,value: value,status:200}
+                callback(null,res)
             })
             .catch(e => {
-                console.error('Got an error:', e.code,index, e.message),
-                results.push({traceId: null,value: value,sucess: false})
-                callback()
-            })
-    }, function(err) {
-        if (err) {
-            console.log('error');
-        } else {
-            console.log('All messages  deleiveered', results);
+                 res = {message: e.message.sid,status:e.code,value: value}
+                 callback(null,res)
 
-            return results;
-
-        }
-    });
-
-
-}
+            }).done()
+   }
 
 
 module.exports = SmsService;
