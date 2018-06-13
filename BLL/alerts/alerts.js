@@ -17,7 +17,7 @@ function BLL() {}
 BLL.prototype.startCronJob = function(req,res) {
     console.log('coming')
     var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
-    {body:'1234',from:'+14242173909',to:'+923152579777'},]
+    {body:'1234',from:'+14242173909',to:'+923335375272'},]
 
     var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
         
@@ -34,8 +34,11 @@ function executeJob(data,res) {
      console.log(data.length)
      async.forEachOf(data, function (value, i, cb) {
         console.log('started',i)
-        sendSms(value,result,cb)
-            
+            smsService.sendSms(value, function(error, result) {
+                console.log('sending',i,value.to)
+                results.push(result)
+                cb()
+            })
      }, function (err) {
         if (err) console.error(err.message);
          console.log('all done')
@@ -43,11 +46,3 @@ function executeJob(data,res) {
     });
        
 }
-
-function sendSms(value,result,cb) {
-    smsService.sendSms(value, function(error, result) {
-        console.log('sending',i,value.to)
-        results.push(result)
-        cb()
-    })
-} 
