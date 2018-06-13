@@ -24,6 +24,15 @@ function _settings(UtilService, $stateParams, $scope) {
     // var vm = this;
     $scope.data = {}
 
+
+    $scope.all_changed = function(){
+        if($scope.data.all){
+            $scope.data.forEach(element => {
+                element = true;
+            });
+        }
+    }
+
     $scope.dropdown_label = function(){
         var str = ""
         if($scope.data.all){
