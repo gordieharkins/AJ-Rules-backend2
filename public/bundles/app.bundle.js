@@ -41505,7 +41505,21 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 return
             }else{
                 console.log("Called")
-                AOTCService.postDataToServer("/alerts/saveSettings", $scope.data)
+
+                var data = JSON.parse(JSON.stringify($scope.data));
+                if(data.sms.flag){
+                    data.sms.flag = "true";
+                }else{
+                    data.sms.flag = "false"
+                }
+
+                if(data.email.flag){
+                    data.email.flag = "true"
+                }else{
+                    data.email.flag = "false"
+                }
+
+                AOTCService.postDataToServer("/alerts/saveSettings", data)
                 .then(
                 function successCallback(response) {
                     console.log(response)

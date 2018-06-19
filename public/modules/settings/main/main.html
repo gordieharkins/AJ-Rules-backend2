@@ -29,7 +29,7 @@
                 <label>
                     <input type="checkbox" value="" ng-model="data.sms.flag"  ng-change="none_selected_error_reset()">
                     <span class="pull-left"> SMS </span>
-                    <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details" ng-required="data.sms.flag" ui-us-phone-number-mask>  </label>
+                    <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details" ng-required="data.sms.flag" ui-us-phone-number-mask maxlength="14">  </label>
                 <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel" ng-if="data.sms.flag" ng-click="open_dialog('smsverifyModal')">Verify</button>
                 <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
             </div>
