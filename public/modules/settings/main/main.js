@@ -285,7 +285,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 
 
-    AOTCService.getDataFromServer('/alerts/saveSettings')
+    AOTCService.getDataFromServer('/alerts/getSettings')
         .then(function (result) {
             ////console.log(result);
             console.log(result);
