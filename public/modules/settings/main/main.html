@@ -10,21 +10,28 @@
 
 
 <div class="wrapper-body" >
-        <form class="form-inline">
+        <form class="form-inline" name="alert_type">
             <p><b>Select type of alert</b></p>
+            
+            <div style="color: #be1515" ng-show="email_sms_error">*Please select atleast one type of alert.</div>
+            
             <div class="checkbox">
                 <label>
                     <input checked type="checkbox" value="" ng-model="data.email.flag">
                    <span class="pull-left"> Email: </span>
-                    <input type="text" class="form-control"  placeholder="e.g user@gmail.com" ng-model="data.email.details"> </label>
+                    <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details"  placeholder="e.g user@gmail.com" ng-model="data.email.details"> </label>
             </div>
+            <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please Enter Correct email address.</div>
+            
             <br>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="" ng-model="data.sms.flag">
                     <span class="pull-left"> SMS: </span>
-                    <input type="text" class="form-control" placeholder="e.g (444) 321 0432" ng-model="data.sms.details">  </label>
+                    <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details" ng-required="data.sms.flag" ui-us-phone-number-mask>  </label>
             </div>
+            <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please Enter Correct phone number.</div>
+            
         </form>
  <br>
        <div class="row">
@@ -36,11 +43,15 @@
                         <div class="dropdown">
                             <button class="dropbtn timezone-dropdown-button"> Select timezone <i class="fa fa-caret-down pull-right"></i></button>
                         <div class="dropdown-content">
+                            <span href="">A
+                            </span>
                             <span href="" ng-repeat = "time_z in timezones" ng-click=change_timezone(time_z)>{{time_z}}
                             </span>
+
+                            
                         </div>
                         </div>
-                        <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
+                        <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter" ng-click="newTimeAlert(true)">  Add new time alert <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <table class="table table-bordered table-responsive table-striped">
@@ -67,7 +78,7 @@
                         </td>
                         <td>{{d.days | array_join:", "}}</td>
                         <!-- <td><div ng-repeat="interval in d.intervals">09:20 AM to 10:00 PM</div></td> -->
-                        <td><div ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div></td>
+                        <td><div ng-if ="d.span!='all_day'" ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div><div ng-if ="d.span=='all_day'">All Day</div></td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
                     <tr>
@@ -129,13 +140,13 @@
                     </tbody>
                 </table>
                 <div>
-                    <button  type="button" class="btn btn-default btn-formats-active green-color" ng-click="save_settings()">Save</button>
+                    <button  type="submit" class="btn btn-default btn-formats-active green-color" ng-click="save_settings(alert_type)">Save</button>
                 </div>
             </div>
         </div>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal fade"  >
+<div id="myModal" class="modal fade"  my-modal>
     <div class="modal-dialog modal-md">
 
         <!-- Modal content-->
@@ -191,7 +202,7 @@
                                             </div>
                                         </span>
                     </div>
-                    <span style="color: #be1515">*Please select day(s) for alert before setting time.</span>
+                    <span style="color: #be1515" ng-show="time_data_error">*Please select day(s) for alert before setting time.</span>
                 </div>
 
 
@@ -200,21 +211,21 @@
                 <div class="modal-checkbox-area">
                     <div class="checkbox">
                         <label>
-                            <input checked type="checkbox" value="">
+                            <input type="radio" value="all_day" ng-model="time_data.span">
                             <span class="pull-left modal-checkbox-text"> All day </span>
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input checked type="checkbox" value="">
+                            <input type="radio" value="specific_time" ng-model="time_data.span">
                             <span class="pull-left modal-checkbox-text"> Specific time </span>
                         </label>
                     </div>
                 </div>
 
-                <label style="color: #0a0a0a;">Set time</label>
+                <label style="color: #0a0a0a;" ng-show="time_data.span!='all_day'">Set time</label>
 
-                <div class="modal-scroll-area">
+                <div class="modal-scroll-area" ng-show="time_data.span!='all_day'">
                     <div ng-repeat="t in time_data.intervals">
                         <time-range
                           start="t.startTime"
@@ -235,7 +246,7 @@
             </div>
             <div class="modal-footer">
                 <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
-                <button  type="button" class="btn btn-default btn-formats-active green-color" ng-click="set_new_time()" data-dismiss="modal">SET TIME</button>
+                <button  type="button" class="btn btn-default btn-formats-active green-color" ng-click="set_new_time()" >SET TIME</button>
             </div>
         </div>
 
