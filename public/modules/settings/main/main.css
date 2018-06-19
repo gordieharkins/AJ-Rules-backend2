@@ -396,7 +396,7 @@ table .fa-clock-o {
     text-align: center;
 }
 .dropdown .dropdown-content {
-    display: block;
+    display: none;
 }
 .verification-modal-dialog {
     width: 450px;

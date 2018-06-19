@@ -41451,8 +41451,8 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.error_check = false;
     $scope.timezones = ["Timezone 1", "Timezone 2", "Timezone 3", "Timezone 4"]
     $scope.data = {}
-    $scope.data["sms"] = { "flag": true, "verified": false }
-    $scope.data["email"] = { "flag": true, "verified": false }
+    $scope.data["sms"] = { "flag": false, "verified": false }
+    $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
     $scope.time_data = {};
@@ -41710,6 +41710,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             return "selected-option";
         }
     }
+
+    $scope.toggle_dropdown = function(id){
+        $("#"+id).toggle();
+    }
+
 
 
 

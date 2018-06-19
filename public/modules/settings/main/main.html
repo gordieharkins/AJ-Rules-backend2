@@ -43,9 +43,9 @@
                     <div class="pull-right button-class ">
                         <!--<button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>-->
                         <div class="dropdown">
-                            <button class="dropbtn timezone-dropdown-button"> Select timezone <i class="fa fa-caret-down pull-right"></i></button>
-                        <div class="dropdown-content">
-                            <span class="{{isSelected(time_z)}}" ng-repeat = "time_z in timezones" ng-click=change_timezone(time_z)>{{time_z}}
+                            <button class="dropbtn timezone-dropdown-button" ng-click="toggle_dropdown('timezone_selection')"> Select timezone <i class="fa fa-caret-down pull-right"></i></button>
+                        <div class="dropdown-content" id="timezone_selection">
+                            <span class="{{isSelected(time_z)}}" ng-repeat = "time_z in timezones" ng-click="change_timezone(time_z);toggle_dropdown('timezone_selection');">{{time_z}}
                             </span>
 
                             
@@ -81,7 +81,7 @@
                         <td><div ng-if ="d.span!='all_day'" ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div><div ng-if ="d.span=='all_day'">All Day</div></td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr>
-                    <tr>
+                    <tr ng-if="data.blackouts.length == 0">
                         <td colspan="4">
                             <div class="no-record-div">
                                 <i class="fa fa-info-circle info-icon"></i>
@@ -158,9 +158,9 @@
             <div class="modal-body">
                 <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
                 <br>
-                <div class="dropdown" style="width: 100% !important;">
-                    <button class="dropbtn" style="width: 100% !important;">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
-                    <div class="dropdown-content">
+                <div class="dropdown" style="width: 100% !important;" >
+                    <button class="dropbtn" style="width: 100% !important;" ng-click="toggle_dropdown('days_selection')">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
+                    <div class="dropdown-content" id ="days_selection">
                         <span href="">All Week days
                         <div class="checkbox">
                                 <input type="checkbox" value="" ng-model="time_data.all" ng-change="all_changed()">
