@@ -17,21 +17,21 @@
             
             <div class="checkbox">
                 <label>
-                    <input checked type="checkbox" value="" ng-model="data.email.flag">
+                    <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
                    <span class="pull-left"> Email </span>
                     <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details"  placeholder="e.g user@gmail.com" ng-model="data.email.details"> </label>
-                <button  type="submit" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel">Verify</button>
-                <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a correct email address.</div>
+                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel" ng-if="data.email.flag" ng-click="open_dialog('emailverifyModal')">Verify</button>
+                <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
             </div>
 
             <br>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="" ng-model="data.sms.flag">
+                    <input type="checkbox" value="" ng-model="data.sms.flag"  ng-change="none_selected_error_reset()">
                     <span class="pull-left"> SMS </span>
                     <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details" ng-required="data.sms.flag" ui-us-phone-number-mask>  </label>
-                <button  type="submit" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel">Verify</button>
-                <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a correct phone number.</div>
+                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel" ng-if="data.sms.flag" ng-click="open_dialog('smsverifyModal')">Verify</button>
+                <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
             </div>
 
         </form>
@@ -45,9 +45,7 @@
                         <div class="dropdown">
                             <button class="dropbtn timezone-dropdown-button"> Select timezone <i class="fa fa-caret-down pull-right"></i></button>
                         <div class="dropdown-content">
-                            <span href="" class="selected-option">Selected option
-                            </span>
-                            <span href="" ng-repeat = "time_z in timezones" ng-click=change_timezone(time_z)>{{time_z}}
+                            <span class="{{isSelected(time_z)}}" ng-repeat = "time_z in timezones" ng-click=change_timezone(time_z)>{{time_z}}
                             </span>
 
                             

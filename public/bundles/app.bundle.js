@@ -41428,7 +41428,7 @@ angular.module('AOTC').directive('myModal', function() {
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-_settings.$inject = ["UtilService", "$stateParams", "$scope"];
+_settings.$inject = ["UtilService", "$stateParams", "$scope", "AOTCService"];
 module.exports = _settings;
 
 //angular.module('AOTC')
@@ -41445,7 +41445,7 @@ Object.defineProperty(Array.prototype, 'remove', {
     }
 });
 
-function _settings(UtilService, $stateParams, $scope) {
+function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 
     $scope.error_check = false;
@@ -41503,12 +41503,22 @@ function _settings(UtilService, $stateParams, $scope) {
         if($scope.data.email.flag || $scope.data.sms.flag){
             if(!form_alert_type.$valid){
                 return
+            }else{
+                console.log("Called")
+                AOTCService.postDataToServer("/alerts/saveSettings", $scope.data)
+                .then(
+                function successCallback(response) {
+                    console.log(response)
+                },
+                function errorCallback(response) {
+                    console.log(response)
+                })
             }
             
         }else{
             $scope.email_sms_error = true;
         }
-        console.log($scope.data)
+        // console.log($scope.data)
     }
 
     $scope.ischecked = function (d) {
@@ -41561,7 +41571,14 @@ function _settings(UtilService, $stateParams, $scope) {
         if ($scope.time_data.mon == true || $scope.time_data.tue == true || $scope.time_data.wed == true || $scope.time_data.thur == true || $scope.time_data.fri == true || $scope.time_data.sat == true || $scope.time_data.sun == true) {
             $scope.time_data_error = false;
         }
-        
+    }
+
+    $scope.none_selected_error_reset = function(){
+        if($scope.data.email.flag || $scope.data.sms.flag){
+            $scope.email_sms_error = false;
+        }else{
+            $scope.email_sms_error = true;            
+        }
     }
 
     $scope.dropdown_label = function () {
@@ -41655,6 +41672,33 @@ function _settings(UtilService, $stateParams, $scope) {
     $scope.closed = function () {
         console.log('edit popover closed');
     };
+
+
+    // hello
+    $scope.open_dialog = function(modal){
+        $('#'+modal).modal('show');
+    }
+
+    $scope.isSelected = function(item){
+        if($scope.data.timezone == item){
+            return "selected-option";
+        }
+    }
+
+
+
+    AOTCService.getDataFromServer('/alerts/saveSettings')
+        .then(function (result) {
+            ////console.log(result);
+            console.log(result);
+
+        }, function (result) {
+            ////console.log(result);
+            console.log("error", result)
+
+
+        });
+
 
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))

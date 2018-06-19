@@ -146,7 +146,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     }
 
     $scope.none_selected_error_reset = function(){
-        if($scope.data.email.flag || $scope.data.email.sms){
+        if($scope.data.email.flag || $scope.data.sms.flag){
             $scope.email_sms_error = false;
         }else{
             $scope.email_sms_error = true;            
@@ -244,5 +244,32 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.closed = function () {
         console.log('edit popover closed');
     };
+
+
+    // hello
+    $scope.open_dialog = function(modal){
+        $('#'+modal).modal('show');
+    }
+
+    $scope.isSelected = function(item){
+        if($scope.data.timezone == item){
+            return "selected-option";
+        }
+    }
+
+
+
+    AOTCService.getDataFromServer('/alerts/saveSettings')
+        .then(function (result) {
+            ////console.log(result);
+            console.log(result);
+
+        }, function (result) {
+            ////console.log(result);
+            console.log("error", result)
+
+
+        });
+
 
 }
