@@ -281,7 +281,7 @@ table .fa-clock-o {
     border-color: #ffffff;
 }
 .red-color{
-    float: right;
+    margin-left: 2px;
     background-color: #d21717 !important;
 }
 .red-color:hover{
@@ -365,4 +365,39 @@ table .fa-clock-o {
     float: right;
     margin: 0 0 0 10px;
     padding: 4px 10px 4px 10px;
+}
+.verification-modal-head{
+    background-color: #3071be !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+    font-weight: 600;
+}
+.verification-modal-body{
+    text-align: center;
+}
+.verification-modal-body span, .verification-modal-body strong{
+    color: #3c3c3c;
+    display: block;
+}
+.verification-modal-footer{
+    border-top: inherit;
+}
+.digit-container{
+
+}
+.digit{
+    border: 2px solid #cccccc;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    display: inline-block;
+    color: #3c3c3c;
+    font-size: 18px;
+    text-align: center;
+}
+.dropdown .dropdown-content {
+    display: block;
+}
+.verification-modal-dialog {
+    width: 450px;
 }
