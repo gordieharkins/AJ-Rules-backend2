@@ -42,7 +42,7 @@ DAL.prototype.saveSettings = function(data, userId, cb) {
 DAL.prototype.getSettings = function(userId, cb) {
 	// console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
-                Return properties(s) as settings`;
+                Return properties(s) as settings, id(s) as id`;
 
     var params = {
         userId: userId
