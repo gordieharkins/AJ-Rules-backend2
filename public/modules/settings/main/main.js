@@ -91,6 +91,18 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                     data.email.flag = "false"
                 }
 
+                if(data.email.verified){
+                    data.email.verified = "true"
+                }else{
+                    data.email.verified = "false"
+                }
+
+                if(data.sms.verified){
+                    data.sms.verified = "true"
+                }else{
+                    data.sms.verified = "false"
+                }
+
                 AOTCService.postDataToServer("/alerts/saveSettings", data)
                 .then(
                 function successCallback(response) {
