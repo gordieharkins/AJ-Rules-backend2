@@ -145,7 +145,35 @@ BLL.prototype.getSettings = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
             
-            var finalResult = createSettingsJSON(result);
+            var finalResult = {
+                id: result[0].id,
+                settings: createSettingsJSON(result)
+            }
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.verifyPhone = function(req, res) {
+    var userId = req.user[0].userId;
+
+    // console.log(dbObject);
+    DAL.verifyPhone(userId, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+            var finalResult = {
+                id: result[0].id,
+                settings: createSettingsJSON(result)
+            }
+            // var finalResult = createSettingsJSON(result);
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
         }
     });
@@ -153,6 +181,7 @@ BLL.prototype.getSettings = function(req, res) {
 // ---------------------END---------------------
 
 function createSettingsJSON(result){
+    // console.log(result);
     var data =  result[0].settings;
     var finalResult = {
         sms: {
