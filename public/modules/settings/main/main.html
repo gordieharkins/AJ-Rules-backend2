@@ -20,7 +20,7 @@
                     <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
                    <span class="pull-left"> Email </span>
                     <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details"  placeholder="e.g user@gmail.com" ng-model="data.email.details"> </label>
-                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel" ng-if="data.email.flag" ng-click="open_dialog('emailverifyModal')">Verify</button>
+                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel" ng-if="data.email.flag && data.email.verified == false" ng-click="open_dialog('emailverifyModal')">Verify</button>
                 <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
             </div>
 
@@ -30,7 +30,7 @@
                     <input type="checkbox" value="" ng-model="data.sms.flag"  ng-change="none_selected_error_reset()">
                     <span class="pull-left"> SMS </span>
                     <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details" ng-required="data.sms.flag" ui-us-phone-number-mask maxlength="14">  </label>
-                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel" ng-if="data.sms.flag" ng-click="open_dialog('smsverifyModal')">Verify</button>
+                <button  type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel" ng-if="data.sms.flag  && data.email.verified == false" ng-click="open_dialog('smsverifyModal')">Verify</button>
                 <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
             </div>
 
@@ -266,12 +266,12 @@
                 <br>
                 <strong>Enter the code here</strong>
                 <div class="digit-container">
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
                 </div>
                 <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
             </div>
@@ -296,12 +296,12 @@
                 <br>
                 <strong>Enter the code here</strong>
                 <div class="digit-container">
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
-                    <input class="digit"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r"[0-9]"></input>
                 </div>
                 <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
             </div>

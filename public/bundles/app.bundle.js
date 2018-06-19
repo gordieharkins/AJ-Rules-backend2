@@ -41531,6 +41531,14 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                     data.sms.verified = "false"
                 }
 
+                for(var i =0; i< data.blackouts.length;i++){
+                    if(data.blackouts[i].checked == true){
+                        data.blackouts[i].checked = "true";
+                    }else{
+                        data.blackouts[i].checked = "false";
+                    }
+                }
+
                 AOTCService.postDataToServer("/alerts/saveSettings", data)
                 .then(
                 function successCallback(response) {
@@ -41722,12 +41730,54 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         .then(function (result) {
             ////console.log(result);
             console.log(result);
+            $scope.data =  result.data.result.settings
+
+            if($scope.data.sms.flag == "true"){
+                $scope.data.sms.flag = true;
+            }else{
+                $scope.data.sms.flag = false;
+            }
+
+            if($scope.data.email.flag == "true"){
+                $scope.data.email.flag = true;
+            }else{
+                $scope.data.email.flag = false;
+            }
+
+            if($scope.data.email.verified == "true"){
+                $scope.data.email.verified = true;
+            }else{
+                $scope.data.email.verified = false;
+            }
+
+            if($scope.data.sms.verified == "true"){
+                $scope.data.sms.verified = true;
+            }else{
+                $scope.data.sms.verified = false;
+            }
+            $scope.data.email.verified = false
+            $scope.data.sms.verified = false;
+
+            for(var i =0; i< $scope.data.blackouts.length;i++){
+                if($scope.data.blackouts[i].checked == "true"){
+                    $scope.data.blackouts[i].checked = true;
+                }else{
+                    $scope.data.blackouts[i].checked = false;
+                }
+            }
 
         }, function (result) {
             ////console.log(result);
             console.log("error", result)
 
 
+        });
+
+
+        $(".digit").keyup(function () {
+              if (this.value.length == this.maxLength) {
+                $(this).next('.digit').focus();
+              }
         });
 
 
