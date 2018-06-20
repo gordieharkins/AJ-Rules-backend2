@@ -32,6 +32,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.time_data.intervals = [{ startTime: moment(), endTime: moment().add(10, 'hours') }]
 
     $scope.set_new_time = function () {
+        
         var day = [];
         if ($scope.time_data.mon) {
             day.push("Monday")
@@ -66,9 +67,17 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             return;
         }
 
+        
+        if($scope.editing){
+            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span:$scope.time_data.span }
+            $scope.dismiss();
+            return;
+        }
+
         $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span:$scope.time_data.span })
         $scope.dismiss();
     }
+    
     $scope.save_settings = function (form_alert_type) {
         $scope.error_check = true;
         
@@ -245,8 +254,10 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         return "Choose week days";
     }
 
-    $scope.newTimeAlert = function(reset){
-
+    $scope.editing = false;
+    $scope.newTimeAlert = function(reset, elem, index){
+        $scope.editing = false;
+        
         $('#myModal').modal('show');
         
         if(reset){
@@ -255,6 +266,60 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
             
+        }else if (elem){
+            $scope.editing = true;
+            $scope.edit_index = index;
+            $scope.time_data = null;
+            $scope.time_data = JSON.parse(JSON.stringify(elem));
+            var a_check = false;
+            if($.inArray('Monday', elem.days) > -1){
+                $scope.time_data.mon = true;
+            }else{
+                a_check = true;
+            }
+
+            if($.inArray('Tuesday', elem.days) > -1){
+                $scope.time_data.tue = true;
+            }else{
+                a_check = true;
+            }
+
+            if($.inArray('Wednesday', elem.days) > -1){
+                $scope.time_data.wed = true;
+            }else{
+                a_check = true;
+            }
+
+            if($.inArray('Thursday', elem.days) > -1){
+                $scope.time_data.thur = true;
+            }else{
+                a_check = true;
+            }
+
+            if($.inArray('Friday', elem.days) > -1){
+                $scope.time_data.fri = true;
+            }else{
+                a_check = true;
+            }
+
+            if($.inArray('Saturday', elem.days) > -1){
+                $scope.time_data.sat = true;
+            }else{
+                a_check = true;
+            }
+
+            console.log($.inArray("Sunday", elem.days))
+            if($.inArray("Sunday", elem.days) > -1){
+                $scope.time_data.sun = true;
+            }else{
+                a_check = true;
+            }
+
+            if(!a_check){
+                $scope.time_data.all = true;
+            }
+
+            console.log(elem)
         }
     }
 
@@ -296,6 +361,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     }
 
 
+    $scope.delete_interval = function(index){
+        $scope.data.blackouts.remove(index);
+    }
+
+
 
 
     AOTCService.getDataFromServer('/alerts/getSettings')
@@ -327,8 +397,8 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             }else{
                 $scope.data.sms.verified = false;
             }
-            $scope.data.email.verified = false
-            $scope.data.sms.verified = false;
+            // $scope.data.email.verified = false
+            // $scope.data.sms.verified = false;
 
             for(var i =0; i< $scope.data.blackouts.length;i++){
                 if($scope.data.blackouts[i].checked == "true"){
