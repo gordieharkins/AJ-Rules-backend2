@@ -109,14 +109,22 @@ BLL.prototype.saveSettings = function(req, res) {
 
     for(var i = 0; i < data.blackouts.length; i++){
         var days = data.blackouts[i].days.join("||");
+        // dbObject.span = data.blackouts[i].span;
+        // dbObject.checked = data.blackouts[i].checked;
         for(var j = 0; j < data.blackouts[i].intervals.length; j++){
             var startTime = data.blackouts[i].intervals[j].startTime;
             var endTime = data.blackouts[i].intervals[j].endTime;
-            dbObject[i+""+j] = [days, startTime, endTime];
+            var checked = data.blackouts[i].checked;
+            if(data.blackouts[i].span != undefined){
+                var span = data.blackouts[i].span;
+            } else {
+                var span = "";
+            }
+            dbObject[i+""+j] = [days, checked, span, startTime, endTime];
         }
     }
 
-    console.log(dbObject);
+    // console.log(dbObject);
     DAL.saveSettings(dbObject, userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -204,19 +212,32 @@ function createSettingsJSON(result){
     for(var element in data){
         if(element == "sms" || element == "email" || element == "timezone"){
             continue;
-        } else {
+        } else{
             var daysIndex = daysList.indexOf[data[element][0]];
             var interval = {
-                startTime: data[element][1],
-                endTime: data[element][2]
+                startTime: data[element][3],
+                endTime: data[element][4]
             };
 
             if(daysIndex > -1){
                 blackouts[daysIndex].intervals.push(interval);
             } else {
+
                 var blackout = {
+                    checked: data[element][1],
                     days: data[element][0].split("||"),
                     intervals: [interval]
+                }
+
+
+                if(data[element][1] != "true"){
+                    blackout.checked = true;
+                } else if(data[element][1] != "false"){
+                    blackout.checked = false;
+                }
+
+                if(data[element][2] != undefined){
+                    blackout.span = data[element][2];
                 }
 
                 blackouts.push(blackout);
@@ -224,6 +245,7 @@ function createSettingsJSON(result){
             }
         }
     }
+    // console.log(JSON.stringify(blackouts));
     finalResult.blackouts = blackouts;
     return finalResult;
 }
