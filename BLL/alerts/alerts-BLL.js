@@ -17,6 +17,7 @@ var smsService = new SmsService();
 
 var AlertSettings = require(path.resolve(__dirname, './settings'));
 var alertSettings = new AlertSettings();
+var moment = require('moment');
 
 // var IEDAL = new IEDAL();
 // var RRDAL = new RRDAL();
@@ -213,7 +214,10 @@ function createSettingsJSON(result){
         if(element == "sms" || element == "email" || element == "timezone"){
             continue;
         } else{
-            var daysIndex = daysList.indexOf[data[element][0]];
+            // console.log(daysList);
+        //    console.log(data[element][0]);
+            var daysIndex = daysList.indexOf(data[element][0]);
+            // console.log(daysIndex);
             var interval = {
                 startTime: data[element][3],
                 endTime: data[element][4]
@@ -245,7 +249,290 @@ function createSettingsJSON(result){
             }
         }
     }
-    // console.log(JSON.stringify(blackouts));
+    getActiveTime(blackouts);
     finalResult.blackouts = blackouts;
     return finalResult;
+}
+
+function getActiveTime(blackouts){
+    
+    var blackoutTimes = [
+            {
+                day: "Sunday",
+                intervals: []
+            }, 
+            {
+                day: "Monday",
+                intervals: []
+            }, 
+            {
+                day: "Tuesday",
+                intervals: []
+            }, 
+            {
+                day: "Wednesday",
+                intervals: []
+            }, 
+            {
+                day: "Thursday",
+                intervals: []
+            }, 
+            {
+                day: "Friday",
+                intervals: []
+            }, 
+            {
+                day: "Saturday",
+                intervals: []
+            }
+        ];
+
+        var activeTimes = [
+            {
+                day: "Sunday",
+                intervals: []
+            }, 
+            {
+                day: "Monday",
+                intervals: []
+            }, 
+            {
+                day: "Tuesday",
+                intervals: []
+            }, 
+            {
+                day: "Wednesday",
+                intervals: []
+            }, 
+            {
+                day: "Thursday",
+                intervals: []
+            }, 
+            {
+                day: "Friday",
+                intervals: []
+            }, 
+            {
+                day: "Saturday",
+                intervals: []
+            }
+        ];
+    
+        for(var i = 0; i < blackouts.length; i++){
+            // var intervals = [];
+            for(var j = 0; j < blackouts[i].intervals.length; j++){
+                var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
+                var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+                var blackout = {
+                    startTime: currentStartTime,
+                    endTime: currentEndTime
+                }
+                
+                blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
+            }
+
+            // blackoutTimes
+        }
+
+        // blackoutTimes.sort(function(a, b){
+        //     return b.startTime > a.startTime;
+        // });
+
+        console.log(JSON.stringify(blackouts));
+
+        
+
+        for(var i = 0; i < blackoutTimes.length; i++){
+            blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
+                return b.startTime < a.startTime;
+            });
+
+            // blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
+            //     return b.endTime < a.endTime;
+            // });
+
+            for(var j = 0; j < blackoutTimes[i].intervals.length; j++){
+                // console.log("cccccccccccccc",blackoutTimes[i].intervals[j]);
+                var currentStartTime = blackoutTimes[i].intervals[j].startTime;
+                var currentEndTime = blackoutTimes[i].intervals[j].endTime;
+                
+                if(blackoutTimes[i].intervals.length == 1){
+                    if(currentStartTime != "00:00"){
+                        var activeTime1  = {};
+                        activeTime1.startTime = "00:00";
+                        activeTime1.endTime = currentStartTime;
+                        activeTimes = addActiveTime(activeTime1, activeTimes, blackoutTimes[i].day);                    
+                    }
+
+                    if(currentEndTime != "23:59"){
+                        var activeTime2 = {};
+                        activeTime2.startTime = currentEndTime;
+                        activeTime2.endTime = "23:59";
+                        activeTimes = addActiveTime(activeTime2, activeTimes, blackoutTimes[i].day);
+                    }
+                    
+
+                } else {
+                    var activeTime = {};
+                    if( j == 0 && currentStartTime != "00:00"){
+                        activeTime.startTime = "00:00";
+                        activeTime.endTime = currentStartTime;
+                        activeTimes = addActiveTime(activeTime, activeTimes, blackoutTimes[i].day);
+                    } else if(j > 0) {
+                        var previousEndTime = blackoutTimes[i].intervals[j-1].endTime;
+                        if(currentStartTime == previousEndTime){
+                            // if(previousEndTime > currentEndTime){
+                            //     // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
+                            //     blackoutTimes[i].intervals[j].endTime = previousEndTime;
+                            // }
+                            // continue;
+                        } else if(currentStartTime < previousEndTime){
+                            // if(currentEndTime > previousEndTime){
+                            //     activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
+                            // }
+
+                            if(previousEndTime > currentEndTime){
+                                // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
+                                blackoutTimes[i].intervals[j].endTime = previousEndTime;
+                                currentEndTime = previousEndTime;
+                            }
+                            // continue;
+                        } else {
+                            activeTime.startTime = previousEndTime;
+                            activeTime.endTime = currentStartTime;
+                            activeTimes = addActiveTime(activeTime, activeTimes, blackoutTimes[i].day);
+                        }
+                        
+                    } 
+                    
+                    if (j == blackoutTimes[i].intervals.length - 1 && currentEndTime != "23:59"){
+                        var activeTime3 = {};
+                        activeTime3.startTime = currentEndTime;
+                        activeTime3.endTime = "23:59";
+                        activeTimes = addActiveTime(activeTime3, activeTimes, blackoutTimes[i].day);
+                    }
+
+                    
+
+                    
+                }
+            }
+
+            // console.log(blackoutTimes[i].intervals);
+        }
+    // for(var i = 0; i < blackouts.length; i++){
+    //     var intervals = [];
+    //     for(var j = 0; j < blackouts[i].intervals.length; j++){
+    //         var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
+    //         var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+            
+    //         if(blackouts[i].intervals.length == 1){
+    //             if(currentStartTime != "00:00"){
+    //                 var activeTime1  = {};
+    //                 activeTime1.startTime = "00:00";
+    //                 activeTime1.endTime = currentStartTime;
+    //                 activeTimes = addActiveTime(activeTime1, activeTimes, blackouts[i].days);                    
+    //             }
+
+    //             if(currentEndTime != "00:00"){
+    //                 var activeTime2 = {};
+    //                 activeTime2.startTime = currentEndTime;
+    //                 activeTime2.endTime = "00:00";
+    //                 activeTimes = addActiveTime(activeTime2, activeTimes, blackouts[i].days);
+    //             }
+                
+
+    //         } else {
+    //             var activeTime = {};
+    //             if( j == 0 && currentStartTime != "00:00"){
+    //                 activeTime.startTime = "00:00";
+    //                 activeTime.endTime = currentStartTime;
+    //             } 
+
+    //             if(j > 0) {
+    //                 var previousEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+    //                 if(currentStartTime == previousEndTime){
+    //                     continue;
+    //                 } else {
+    //                     activeTime.startTime = previousEndTime;
+    //                     activeTime.endTime = currentStartTime;
+    //                 }
+    //             }
+
+    //             activeTimes = addActiveTime(activeTime, activeTimes, blackouts[i].days);
+                
+    //         }
+    //     }
+    // }
+
+    console.log("AAAAAAAAAAAA",JSON.stringify(blackoutTimes));
+    console.log("BBBBBBBBBBBBBB",JSON.stringify(activeTimes));
+    
+}
+
+
+function addActiveTime(activeTime, activeTimes, days){
+    // console.log(activeTimes[1]);
+    if(days.indexOf("Sunday") > -1 || days == "Sunday"){
+        activeTimes[0].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Monday") > -1 || days == "Monday"){
+        activeTimes[1].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Tuesday") > -1 || days == "Tuesday"){
+        activeTimes[2].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Wednesday") > -1 || days == "Wednesday"){
+        activeTimes[3].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Thursday") > -1 || days == "Thursday"){
+        activeTimes[4].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Friday") > -1 || days == "Friday"){
+        activeTimes[5].intervals.push(activeTime);
+    }
+
+    if(days.indexOf("Saturday") > -1 || days == "Saturday"){
+        activeTimes[6].intervals.push(activeTime);
+    }
+
+    return activeTimes;
+}
+
+function updateActiveTime (endTime, activeTimes, days){
+    if(days.indexOf("Sunday") > -1 || days == "Sunday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Monday") > -1 || days == "Monday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Tuesday") > -1 || days == "Tuesday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Wednesday") > -1 || days == "Wednesday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Thursday") > -1 || days == "Thursday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Friday") > -1 || days == "Friday"){
+
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    if(days.indexOf("Saturday") > -1 || days == "Saturday"){
+        activeTimes[0].intervals[activeTimes[0].intervals.length - 1].endTime = endTime;
+    }
+
+    return activeTimes;
 }
