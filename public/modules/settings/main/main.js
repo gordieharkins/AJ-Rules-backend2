@@ -78,9 +78,18 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         $scope.dismiss();
     }
     
-    $scope.save_settings = function (form_alert_type) {
-        $scope.error_check = true;
+    $scope.toggle_input = function(index){
+        $scope.data.blackouts[index].checked  = !$scope.data.blackouts[index].checked;
+        // console.log("Working", d)
+        // d.checked = !d.checked;
+        console.log("Working", $scope.data)
         
+    }
+
+    $scope.save_settings = function (form_alert_type) {
+        $scope.saving = true;
+        $scope.error_check = true;
+        console.log($scope.data)
         if($scope.data.email.flag || $scope.data.sms.flag){
             if(!form_alert_type.$valid){
                 return
@@ -124,9 +133,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 .then(
                 function successCallback(response) {
                     console.log(response)
+                    $scope.saving = false;
                 },
                 function errorCallback(response) {
                     console.log(response)
+                    $scope.saving = false;
                 })
             }
             
@@ -137,7 +148,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     }
 
     $scope.ischecked = function (d) {
-        if (d) {
+        if (d.checked && d.checked == true) {
             return "checked"
         }
         return "";
@@ -399,6 +410,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             }
             // $scope.data.email.verified = false
             // $scope.data.sms.verified = false;
+            $scope.data.blackouts[0].checked = true;
 
             for(var i =0; i< $scope.data.blackouts.length;i++){
                 if($scope.data.blackouts[i].checked == "true"){
