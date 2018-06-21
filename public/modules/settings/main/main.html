@@ -24,7 +24,7 @@
                 <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
                     ng-model="data.email.details" ng-disabled="data.email.verified"> </label>
             <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
-                ng-if="data.email.flag && data.email.verified == false" ng-click="open_dialog('emailverifyModal')">Verify</button>
+                ng-if="data.email.flag && data.email.verified == false" ng-disabled="sending_email_code || alert_type.email_details.$invalid" ng-click="open_dialog('emailverifyModal');send_code_to_email();">Verify</button>
             <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
         </div>
 
@@ -36,7 +36,7 @@
                 <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
                     ng-required="data.sms.flag" ng-disabled="data.sms.verified" ui-us-phone-number-mask maxlength="14"> </label>
             <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
-                ng-if="data.sms.flag  && data.email.verified == false" ng-click="open_dialog('smsverifyModal')">Verify</button>
+                ng-if="data.sms.flag  && data.email.verified == false" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid" ng-click="open_dialog('smsverifyModal');send_code_to_sms();">Verify</button>
             <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
         </div>
 
@@ -307,7 +307,7 @@
                     <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
                     <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
                 </div>
-                <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer" ng-click="send_code_to_email();">Didn't get the verification code? Resend</span>
             </div>
             <div class="modal-footer verification-modal-footer">
                 <button type="button" class="btn btn-default btn-formats-active red-color clearfix btn-fix" data-dismiss="modal">Cancel</button>
@@ -337,7 +337,7 @@
                     <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
                     <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
                 </div>
-                <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer" ng-click="send_code_to_sms();">Didn't get the verification code? Resend</span>
             </div>
             <div class="modal-footer verification-modal-footer">
                 <button type="button" class="btn btn-default btn-formats-active red-color clearfix btn-fix" data-dismiss="modal">Cancel</button>
