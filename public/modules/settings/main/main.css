@@ -1,0 +1,403 @@
+body {background: #f9f9f9;}
+.header-tag {
+    border-bottom: 1px solid #ccc;
+    background: #ffffff;
+    padding: 5px 30px 8px 30px;
+    color: #323a85;
+    line-height: 2;
+    font-weight: bold;
+    font-size: 15px;
+    width: 100%;
+    display: block;
+}
+
+.wrapper-body {
+    padding-top:20px;
+    width: 70%;
+    margin: 0px auto; }
+
+.checkbox input {
+    border: 2px solid #0c84e4;
+    border-radius: 5px;
+    display: inline;
+    float: left;
+}
+
+.checkbox span {
+    width: 50px;
+    padding-left: 20px;
+    padding-right: 54px;
+}
+
+
+.checkbox { margin-bottom: 20px !important;}
+
+.checkbox label {
+    line-height: 2;
+}
+ .button-class {
+    margin-top: -19px;
+}
+
+.modal-content {
+   background-color: #fff;
+}
+
+.time-picker {background: #cccccc; width: 100%;}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    font-weight: 400;
+    height: 28px;
+}
+
+table .fa-clock-o {
+    font-size: 17px;
+    background: #4fa1df;
+    padding: 4px;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.actions {
+    color: #4fa1df;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+.toggle-progress {
+    padding: 0;
+    margin: 15px 0 0;
+    background: #FFF;
+    border-radius: 0;
+    background-image: none;
+}
+.toggle-progress .progress-label {
+    box-shadow: none;
+    background: none;
+    overflow: hidden;
+}
+.toggle-progress .progress-label:after, .toggle-progress .progress-label:before {
+    width: 100%;
+    height: 65%;
+    top: 5px;
+    left: 0;
+    text-align: center;
+    padding-top: 10%;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.progress-label:before, .progress-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+}
+.switch-label:after {
+    content: attr(data-progress-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+}
+.toggle-progress .progress-label:after {
+    color: #FFFFFF;
+    background: #4fa1df;
+    left: -100px;
+}
+
+.toggle-progress .progress-label:before {
+    background: #eceeef;
+}
+.toggle-progress .progress-handle {
+    display: none;
+}
+.toggle-progress .progress-input:checked ~ .progress-label {
+    background: #FFF;
+    border-color: #0088cc;
+}
+.toggle-progress .progress-input:checked ~ .progress-label:before {
+    left: 100px;
+}
+.toggle-progress .progress-input:checked ~ .progress-label:after {
+    left: 0;
+}
+.progress-label, .progress-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+.progress-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    box-sizing: content-box;
+}
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 29px;
+    padding: 0;
+    margin: 0 10px 10px 0;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+    border-radius: 5px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    box-sizing: content-box;
+}
+.progress-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    box-sizing: content-box;
+}
+.progress-label:before {
+    content: attr(data-progreess-off);
+    right: 11px;
+    color: #aaaaaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+.progress-label:after {
+    content: attr(data-progress-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+}
+
+
+.dropbtn {
+    background-color: #f9f9f9;
+    color: #505050;
+    padding: 5px;
+    width: 290px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content span {
+    color: black;
+    padding: 10px 14px;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    background: #fff;
+    cursor: pointer;
+}
+.dropdown-content span:hover {
+    background: #f5f5f5;
+}
+
+.dropdown-content a:hover {background-color: #fff;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown .checkbox {
+    display: inline-block;
+
+    position: absolute;
+    right: 12px;
+}
+
+.checkbox .form-control {
+    border: 1px solid #c5c5c5;
+}
+
+.form-control::placeholder {color: #e4e4e4;}
+
+.panel-btn {
+    border: none;
+    border-radius: 0;
+    padding: 5px 14px 2px 19px;
+    font-weight: bold;
+    color: #3071ab;
+}
+
+
+.dropdown-content {
+    z-index: 10;
+}
+.modal-header{
+    background: #337ab7 !important;
+}
+.modal-checkbox-area{
+    width: 100%;
+}
+.modal-checkbox-area .checkbox{
+    display: inline-block;
+    width: 280px !important;
+}
+.modal-checkbox-text{
+    color: #000000;
+    width: 200px !important;
+}
+.btn-formats-active{
+    background: #337ab7 !important;
+    color: #ffffff;
+}
+.btn-formats-active:focus{
+    background: #337ab7 !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.btn-formats-active:hover{
+    background: #2b689a !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.red-color{
+    margin-left: 2px;
+    background-color: #d21717 !important;
+}
+.red-color:hover{
+    color: #ffffff !important;
+    background-color: #be1515 !important;
+    border-color: #ffffff !important;
+}
+.add-new-time-area{
+    text-align: center;
+}
+.add-new-time-area button i{
+    padding: 0 10px 0 0;
+}
+.close:hover{
+    color: #222222;
+}
+
+.datetime-range.time {
+    min-height: 3em !important;
+    font-size: 12px !important;
+    width: 93%;
+    display: inline-block;
+    float: left;
+    margin-bottom: 5px;
+}
+.datetime-range.time .end-datetime, .datetime-range.time .start-datetime {
+    height: 3em !important;
+}
+.datetime-range.time .end-datetime .time, .datetime-range.time .start-datetime .time {
+    line-height: 1.5em !important;
+}
+.datetime-range.time .start-datetime:after {
+    border-top: 1.5em solid transparent !important;
+    border-bottom: 1.5em solid transparent !important;
+}
+.datetime-range.time .end-datetime:before {
+    border-width: 1.5em 0 1.5em 1em !important;
+}
+.modal-scroll-area{
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    max-height: 250px;
+    min-height: 200px;
+    overflow-y: auto;
+    margin: 0 0 10px 0;
+}
+.timezone-dropdown-button{
+    background-color: #f9f9f9;
+    color: #3071be;
+    padding: 3px 10px 3px 10px;
+    width: 150px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.timezone-dropdown-button i{
+    padding: 3px 0 0 0;
+}
+.green-color{
+    background: #43b733 !important;
+}
+.green-color:hover{
+    background: #38a229 !important;
+}
+.no-record-div{
+    text-align: center;
+}
+.info-icon{
+    font-size: 18px;
+    color: #f1b821;
+}
+.info-text{
+    font-size: 16px;
+    font-weight: 600;
+}
+.selected-option{
+    background: #f2f2f2 !important;
+    font-weight: 600;
+}
+.verify-button{
+    float: right;
+    margin: 0 0 0 10px;
+    padding: 4px 10px 4px 10px;
+}
+.verification-modal-head{
+    background-color: #3071be !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+    font-weight: 600;
+}
+.verification-modal-body{
+    text-align: center;
+}
+.verification-modal-body span, .verification-modal-body strong{
+    color: #3c3c3c;
+    display: block;
+}
+.verification-modal-footer{
+    border-top: inherit;
+}
+.digit-container{
+
+}
+.digit{
+    border: 2px solid #cccccc;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    display: inline-block;
+    color: #3c3c3c;
+    font-size: 18px;
+    text-align: center;
+}
+.dropdown .dropdown-content {
+    display: none;
+}
+.verification-modal-dialog {
+    width: 450px;
+}

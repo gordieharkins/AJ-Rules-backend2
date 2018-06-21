@@ -18,6 +18,8 @@ require('../assets/css/rzslider.css');
 require('../../bower_components/angular-xeditable/dist/css/xeditable.css');
 require('../../bower_components/dragular/dist/dragular.css');
 require('../../bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.css');
+require('../../bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.css');
+require('../../bower_components/angular-datetime-range/dist/datetime-range.min.css');
 
 
 
@@ -51,7 +53,8 @@ var ngModule = angular.module('AOTC', [
     'dndLists',
     'angularjs-dropdown-multiselect',
     'ui.toggle',
-    'ckeditor'
+    'ckeditor',
+    'g1b.datetime-range'
 ]);
 // ngModule.config(['deviceDetectorProvider', function(deviceDetectorProvider) {
 //   deviceDetectorProvider.addCustom("Custom_UA_Entry", {or:["\\bChrome\\b","\\bFirefox\\b","\\bSafari\\b"]});
@@ -800,8 +803,8 @@ function ($locationProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMap
         })  .state('settings', {
             url: '/settings',
             templateUrl: 'modules/settings/main/main.html',
-            controller: '_settings',
-            controllerAs: '_settings'
+            controller: 'settingsCTRL',
+            controllerAs: 'settingsCTRL'
         });;
 
 
