@@ -27,9 +27,13 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
+    $scope.min_date = moment().startOf('day');
+
+    console.log($scope.min_date.add(-1,'hours'))
+    $scope.max_date = moment().endOf('day');
     $scope.time_data = {};
 
-    $scope.time_data.intervals = [{ startTime: moment(), endTime: moment().add(10, 'hours') }]
+    $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
 
     $scope.set_new_time = function () {
         
@@ -273,7 +277,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         
         if(reset){
             $scope.time_data = {};
-            $scope.time_data.intervals = [{ startTime: moment(), endTime: moment().add(10, 'hours') }]
+            $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
             
