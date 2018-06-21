@@ -64,12 +64,12 @@ router.post('/addAlert', function(req, res, next) {
     BLL.addAlert(req, res);
 });
 
-router.post('/verifyEmail', function(req, res, next) {
-    BLL.verifyEmail(req, res);
+router.post('/saveEmailCode', function(req, res, next) {
+    BLL.saveEmailCode(req, res);
 });
 
-router.post('/verifyPhone', function(req, res, next) {
-    BLL.verifyPhone(req, res);
+router.post('/savePhoneCode', function(req, res, next) {
+    BLL.savePhoneCode(req, res);
 });
 
 
