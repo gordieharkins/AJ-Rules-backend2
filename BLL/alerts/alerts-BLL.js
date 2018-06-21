@@ -234,11 +234,11 @@ function createSettingsJSON(result){
                 }
 
 
-                if(data[element][1] != "true"){
-                    blackout.checked = true;
-                } else if(data[element][1] != "false"){
-                    blackout.checked = false;
-                }
+                // if(data[element][1] != "true"){
+                //     blackout.checked = true;
+                // } else if(data[element][1] != "false"){
+                //     blackout.checked = false;
+                // }
 
                 if(data[element][2] != undefined){
                     blackout.span = data[element][2];
