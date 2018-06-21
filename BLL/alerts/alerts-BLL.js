@@ -168,23 +168,49 @@ BLL.prototype.getSettings = function(req, res) {
 // ---------------------------------------------
 // getSettings
 // ---------------------------------------------
-BLL.prototype.verifyPhone = function(req, res) {
+BLL.prototype.saveEmailCode = function(req, res) {
     var userId = req.user[0].userId;
 
     // console.log(dbObject);
-    DAL.verifyPhone(userId, function(error, result) {
+    var date = new Date();
+    var data = req.body;
+    data.createdDate = date;
+    data.code = generateCode();
+    
+    DAL.saveEmailCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            var finalResult = {
-                id: result[0].id,
-                settings: createSettingsJSON(result)
-            }
-            // var finalResult = createSettingsJSON(result);
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.savePhoneCode = function(req, res) {
+    var userId = req.user[0].userId;
+
+    var date = new Date();
+    var data = req.body;
+    data.createdDate = date;
+    data.code = generateCode();
+    // console.log(dbObject);
+    DAL.savePhoneCode(userId, data, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
 }
@@ -539,4 +565,8 @@ function updateActiveTime (endTime, activeTimes, days){
     }
 
     return activeTimes;
+}
+
+function generateCode(){
+    return Math.floor(100000 + Math.random() * 900000);
 }
