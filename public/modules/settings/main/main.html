@@ -77,14 +77,24 @@
                 <tbody>
                     <tr ng-repeat="d in data.blackouts">
                         <td>
-                            <div id="wpr-progress" class="pogress-btn">
-                                <form>
-                                    <label class="toggle-switch toggle-progress" >
-                                        <input class="progress-input" type="checkbox" name="progressToggle" ng-model="d.checked">
-                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
-                                        <span class="progress-handle"></span>
-                                    </label>
-                                </form>
+                            <!--<div id="wpr-progress" class="pogress-btn">-->
+                                <!--<form>-->
+                                    <!--<label class="toggle-switch toggle-progress" >-->
+                                        <!--<input class="progress-input" type="checkbox" name="progressToggle" ng-model="d.checked">-->
+                                        <!--<span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>-->
+                                        <!--<span class="progress-handle"></span>-->
+                                    <!--</label>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                            <div class="switch-toggle switch-3 switch-candy">
+                                <input id="on" name="state-d" type="radio" checked="">
+                                <label for="on" onclick="">Enable</label>
+
+
+                                <input id="off" name="state-d" type="radio">
+                                <label for="off" onclick="">Disable</label>
+
+                                <a></a>
                             </div>
                         </td>
                         <td>{{d.days | array_join:", "}}</td>
@@ -94,7 +104,8 @@
                             <div ng-if="d.span=='all_day'">All Day</div>
                         </td>
                         <td class="actions">
-                            <span ng-click="newTimeAlert(false,d, $index)">Edit time
+                            <span ng-click="newTimeAlert(false,d, $index)">
+                                <!--Edit time-->
                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                             </span>
                             <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_interval($index)" >
@@ -161,8 +172,9 @@
                 </tbody>
             </table>
             <div>
-                <button type="submit" class="btn btn-default btn-formats-active green-color" ng-click="save_settings(alert_type)" ng-disabled="saving">Save</button>
+                <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix" ng-click="save_settings(alert_type)" ng-disabled="saving">Save</button>
             </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>
