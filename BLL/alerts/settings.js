@@ -12,7 +12,8 @@ AlertsSettings.prototype.getSettings = function(){
 AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     console.log(JSON.stringify(settings))
     console.log(alert)
-  var sendingTime = null;
+    
+   var sendingTime = null;
    var result = null;
    var type= 'immediate' 
    if (type=='immediate') {
