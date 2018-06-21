@@ -9,61 +9,108 @@
 
 
 
-<div class="wrapper-body" ng-controller="settingsCTRL">
-        Load{{hello122}}asdas
-        <form class="form-inline">
-            <p><b>Select type of alert</b></p>
-            <div class="checkbox">
-                <label>
-                    <input checked type="checkbox" value="">
-                   <span class="pull-left"> Email: </span>
-                    <input type="text" class="form-control"  placeholder="e.g user@gmail.com"> </label>
-            </div>
-            <br>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    <span class="pull-left"> SMS: </span>
-                    <input type="text" class="form-control" placeholder="e.g (444) 321 0432"> </label>
-            </div>
-        </form>
- <br>
-       <div class="row">
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Set alert time</h3>
-                    <div class="pull-right button-class ">
-                        <button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>
-                        <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter">  Add new time alert <i class="fa fa-plus"></i></button>
+<div class="wrapper-body">
+    <form class="form-inline" name="alert_type">
+        <p>
+            <b>Select the alert method(s)</b>
+        </p>
+
+        <div style="color: #be1515" ng-show="email_sms_error">*Please select atleast one alert method.</div>
+
+        <div class="checkbox">
+            <label>
+                <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
+                <span class="pull-left"> Email </span>
+                <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
+                    ng-model="data.email.details"> </label>
+            <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
+                ng-if="data.email.flag && data.email.verified == false" ng-click="open_dialog('emailverifyModal')">Verify</button>
+            <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
+        </div>
+
+        <br>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="" ng-model="data.sms.flag" ng-change="none_selected_error_reset()">
+                <span class="pull-left"> SMS </span>
+                <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
+                    ng-required="data.sms.flag" ui-us-phone-number-mask maxlength="14"> </label>
+            <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
+                ng-if="data.sms.flag  && data.email.verified == false" ng-click="open_dialog('smsverifyModal')">Verify</button>
+            <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
+        </div>
+
+    </form>
+    <br>
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Set black-out time</h3>
+                <div class="pull-right button-class ">
+                    <!--<button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>-->
+                    <div class="dropdown">
+                        <button class="dropbtn timezone-dropdown-button" ng-click="toggle_dropdown('timezone_selection')"> Select timezone
+                            <i class="fa fa-caret-down pull-right"></i>
+                        </button>
+                        <div class="dropdown-content" id="timezone_selection">
+                            <span class="{{isSelected(time_z)}}" ng-repeat="time_z in timezones" ng-click="change_timezone(time_z);toggle_dropdown('timezone_selection');">{{time_z}}
+                            </span>
+
+
+                        </div>
                     </div>
+                    <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter" ng-click="newTimeAlert(true)">
+                    Add new time alert
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
-                <table class="table table-bordered table-responsive table-striped">
-                    <thead>
+            </div>
+            <table class="table table-bordered table-responsive table-striped">
+                <thead>
                     <tr class="filters">
                         <th>Enable | Disable </th>
                         <th>Days (s)</th>
                         <th>Start & End time</th>
                         <th>Action</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data.blackouts">
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
-                            <form>
-                                <label class="toggle-switch toggle-progress">
-                                    <input class="progress-input"  type="checkbox"   name="progressToggle" >
-                                    <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
-                                    <span class="progress-handle"></span>
-                                </label>
-                            </form>
-                        </div>
+                                <form>
+                                    <label class="toggle-switch toggle-progress" >
+                                        <input class="progress-input" type="checkbox" name="progressToggle" ng-model="d.checked">
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
                         </td>
-                        <td>Monday, Tuesday , Friday</td>
-                        <td>09:20 AM to 10:00 PM</td>
-                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                        <td>{{d.days | array_join:", "}}</td>
+                        <!-- <td><div ng-repeat="interval in d.intervals">09:20 AM to 10:00 PM</div></td> -->
+                        <td>
+                            <div ng-if="d.span!='all_day'" ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div>
+                            <div ng-if="d.span=='all_day'">All Day</div>
+                        </td>
+                        <td class="actions">
+                            <span ng-click="newTimeAlert(false,d, $index)">Edit time
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            </span>
+                            <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_interval($index)" >
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr ng-if="data.blackouts.length == 0">
+                        <td colspan="4">
+                            <div class="no-record-div">
+                                <i class="fa fa-info-circle info-icon"></i>
+                                <span class="info-text">No record found!</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
                                 <form>
@@ -110,14 +157,17 @@
                         <td>Monday, Tuesday , Friday</td>
                         <td>09:20 AM to 10:00 PM</td>
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
-                    </tr>
-                    </tbody>
-                </table>
+                    </tr> -->
+                </tbody>
+            </table>
+            <div>
+                <button type="submit" class="btn btn-default btn-formats-active green-color" ng-click="save_settings(alert_type)" ng-disabled="saving">Save</button>
             </div>
         </div>
+    </div>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" my-modal>
     <div class="modal-dialog modal-md">
 
         <!-- Modal content-->
@@ -129,73 +179,158 @@
             <div class="modal-body">
                 <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
                 <br>
-                <div class="dropdown">
-                    <button class="dropbtn">{{dropdown_label()}} <i class="fa fa-caret-down pull-right"></i></button>
-                    <div class="dropdown-content">
+                <div class="dropdown" style="width: 100% !important;">
+                    <button class="dropbtn" style="width: 100% !important;" ng-click="toggle_dropdown('days_selection')">{{dropdown_label()}}
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </button>
+                    <div class="dropdown-content" id="days_selection">
                         <span href="">All Week days
-                        <div class="checkbox">
-                                <input type="checkbox" value="" ng-model="data.all">
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-model="time_data.all" ng-change="all_changed()">
                             </div>
                         </span>
                         <span href="">Monday
-                        <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.mon">
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.mon">
                             </div>
                         </span>
                         <span href="">Tuesday
-                        <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.tue">
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.tue">
                             </div>
                         </span>
                         <span href="">Wednesday
                             <div class="checkbox">
-                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.wed">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.wed">
                             </div>
                         </span>
                         <span href="">Thursday
-                                <div class="checkbox">
-                                    <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.thur">
-                                </div>
-                            </span>
-                            <span href="">Friday
-                                    <div class="checkbox">
-                                        <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.fri">
-                                    </div>
-                                </span>
-                                <span href="">Saturday
-                                        <div class="checkbox">
-                                            <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sat">
-                                        </div>
-                                    </span>
-                                    <span href="">Sunday    
-                                            <div class="checkbox">
-                                                <input type="checkbox" value="" ng-disabled="data.all" ng-model="data.sun">
-                                            </div>
-                                        </span>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.thur">
+                            </div>
+                        </span>
+                        <span href="">Friday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.fri">
+                            </div>
+                        </span>
+                        <span href="">Saturday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sat">
+                            </div>
+                        </span>
+                        <span href="">Sunday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sun">
+                            </div>
+                        </span>
+                    </div>
+                    <span style="color: #be1515" ng-show="time_data_error">*Please select day(s) for alert before setting time.</span>
+                </div>
+
+
+                <br>
+                <br>
+
+                <div class="modal-checkbox-area">
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" value="all_day" ng-model="time_data.span" style="margin: 7px 0 0 0;">
+                            <span class="pull-left modal-checkbox-text"> All day </span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" value="specific_time" ng-model="time_data.span" style="margin: 7px 0 0 0;">
+                            <span class="pull-left modal-checkbox-text"> Specific time </span>
+                        </label>
                     </div>
                 </div>
 
-                <br> <br>
+                <label style="color: #0a0a0a;" ng-show="time_data.span!='all_day'">Set time</label>
 
-                <label style="color: #0a0a0a;">Set time</label>
-                <div ng-repeat="t in user_times">
-                    <time-range
-                      start="t.start"
-                      end="t.end"
-                      on-change="changed()"
-                      on-change-start="changedStart()"
-                      on-change-end="changedEnd()"
-                      on-close="closed()" >
-                    </time-range>
-                    <button  type="button" class="btn btn-default btn-formats-active" ng-click="delete_time($index)" ng-disabled="user_times.length == 1">Delete</button>
+                <div class="modal-scroll-area" ng-show="time_data.span!='all_day'">
+                    <div ng-repeat="t in time_data.intervals">
+                        <time-range start="t.startTime" end="t.endTime" on-change="changed()" on-change-start="changedStart()" on-change-end="changedEnd()"
+                            on-close="closed()">
+                        </time-range>
+                        <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_time($index)" ng-disabled="time_data.intervals.length == 1">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                    <!-- <div class="time-picker"> Time picker will come here</div> -->
                 </div>
-                <!-- <div class="time-picker"> Time picker will come here</div> -->
+                <div class="add-new-time-area">
+
+                    <button type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">
+                        <i class="fa fa-plus"></i>Add new time</button>
+                </div>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>
-                <button  type="button" class="btn btn-default btn-formats-active" data-dismiss="modal">SET TIME</button>
+                <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
+                <button type="button" class="btn btn-default btn-formats-active green-color" ng-click="set_new_time()">Set time</button>
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="emailverifyModal" role="dialog">
+    <div class=" modal-dialog verification-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-head verification-modal-head">
+                <span>Email verification</span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body verification-modal-body">
+                <strong>An email with the verification code has been sent to</strong>
+                <span style="color: #9c9c9c;">muhammad.hamza@spsnet.com</span>
+                <br>
+                <strong>Enter the code here</strong>
+                <div class="digit-container">
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                </div>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
+            </div>
+            <div class="modal-footer verification-modal-footer">
+                <button type="button" class="btn btn-default btn-formats-active red-color" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default btn-formats-active green-color" style="float: right; margin-left: 0px" data-dismiss="modal">Verify</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="smsverifyModal" role="dialog">
+    <div class=" modal-dialog verification-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-head verification-modal-head">
+                <span>SMS verification</span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body verification-modal-body">
+                <strong>An SMS with the verification code has been sent to</strong>
+                <span style="color: #9c9c9c;">muhammad.hamza@spsnet.com</span>
+                <br>
+                <strong>Enter the code here</strong>
+                <div class="digit-container">
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                    <input class="digit" maxlength="1" pattern=r "[0-9]"></input>
+                </div>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer">Didn't get the verification code? Resend</span>
+            </div>
+            <div class="modal-footer verification-modal-footer">
+                <button type="button" class="btn btn-default btn-formats-active red-color" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default btn-formats-active green-color" style="float: right; margin-left: 0px" data-dismiss="modal">Verify</button>
+            </div>
+        </div>
     </div>
 </div>
