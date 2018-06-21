@@ -85,7 +85,12 @@ BLL.prototype.addAlert = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
             var settingsJSON = createSettingsJSON(result);
-            var settings = getActiveTime(settingsJSON.blackouts);
+            var settings = {
+              sms: settingsJSON.sms,
+              email: settingsJSON.email,
+              settings: getActiveTime(settingsJSON.blackouts)  
+            };
+            
             var alert = req.body;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
                 console.log("finalAlert: ",finalAlert);
