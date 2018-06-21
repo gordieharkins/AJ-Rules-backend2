@@ -87,11 +87,11 @@
                                 <!--</form>-->
                             <!--</div>-->
                             <div class="switch-toggle switch-3 switch-candy">
-                                <input id="on" name="state-d" type="radio" checked="d.checked" >
+                                <input id="on" name="state-d" type="radio" checked="" >
                                 <label for="on" onclick="">Enable</label>
 
 
-                                <input id="off" name="state-d" type="radio" checked="!d.checked"  >
+                                <input id="off" name="state-d" type="radio" >
                                 <label for="off" onclick="">Disable</label>
 
                                 <a></a>
@@ -106,10 +106,10 @@
                         <td class="actions">
                             <span ng-click="newTimeAlert(false,d, $index)">
                                 <!--Edit time-->
-                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <i class="fa fa-clock-o" aria-hidden="true" data-toggle="tooltip" title="Edit Time!"></i>
                             </span>
                             <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_interval($index)" >
-                                <i class="fa fa-trash-o"></i>
+                                <i class="fa fa-trash-o" data-toggle="tooltip" title="Delete!"></i>
                             </button>
                         </td>
                     </tr>
