@@ -79,8 +79,8 @@
                         <td>
                             <div id="wpr-progress" class="pogress-btn">
                                 <form>
-                                    <label class="toggle-switch toggle-progress">
-                                        <input class="progress-input" type="checkbox" {{ischecked(d)}} name="progressToggle">
+                                    <label class="toggle-switch toggle-progress" >
+                                        <input class="progress-input" type="checkbox" name="progressToggle" ng-model="d.checked">
                                         <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
                                         <span class="progress-handle"></span>
                                     </label>
@@ -161,7 +161,7 @@
                 </tbody>
             </table>
             <div>
-                <button type="submit" class="btn btn-default btn-formats-active green-color" ng-click="save_settings(alert_type)">Save</button>
+                <button type="submit" class="btn btn-default btn-formats-active green-color" ng-click="save_settings(alert_type)" ng-disabled="saving">Save</button>
             </div>
         </div>
     </div>
