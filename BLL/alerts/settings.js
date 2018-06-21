@@ -10,134 +10,57 @@ AlertsSettings.prototype.getSettings = function(){
 
 
 AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
-    console.log(alert,settings)
-    var res = { "activeTime": [
-        {
-          day: "Sunday",
-          intervals: [
-            
-          ]
-        },
-        {
-          day: "Monday",
-          intervals: [
-            // {
-            //     "startTime": "09:20PM",
-            //     "endTime": "09:30PM"
-            // }
-          ]
-        },
-        {
-          day: "Tuesday",
-          intervals: [
-            // {
-            //     "startTime": "09:20PM",
-            //     "endTime": "09:30PM"
-            // }
-          ]
-        },
-        {
-          day: "Wednesday",
-          intervals: [
-            // {
-            //     "startTime": "09:10AM",
-            //     "endTime": "09:50AM"
-            // },
-            // {
-            //     "startTime": "12:50AM",
-            //     "endTime": "01:20PM"
-            // }
-            // ,
-            
-            // {
-            //     "startTime": "04:20PM",
-            //     "endTime": "05:00PM"
-            // }
-            // ,
-            // {
-            //     "startTime": "06:00PM",
-            //     "endTime": "06:08PM"
-            // }
-            // ,
-            {
-                "startTime": "06:50PM",
-                "endTime": "07:50PM"
-            }
-          
-          ]
-        },
-        {
-          day: "Thursday",
-          intervals: [
-            {
-                "startTime": "09:20AM",
-                "endTime": "09:30AM"
-            },
-            // {
-            //     "startTime": "09:40PM",
-            //     "endTime": "09:50PM"
-            // }
-            // ,
-            {
-                "startTime": "10:40AM",
-                "endTime": "10:50AM"
-            }
-          ]
-        },
-        {
-          day: "Friday",
-          intervals: [
-             {
-                "startTime": "09:20PM",
-                "endTime": "09:30PM"
-             }
-          ]
-        },
-        {
-          day: "Saturday",
-          intervals: [
-            // {
-            //     "startTime": "09:20PM",
-            //     "endTime": "09:30PM"
-            // }
-          ]
-        }
-      ]
-    }
+    console.log(JSON.stringify(settings))
+    console.log(alert)
+   settings =  [{"day":"Sunday","intervals":[]},{"day":"Monday","intervals":[]},{"day":"Tuesday","intervals":[]},{"day":"Wednesday","intervals":[{"startTime":"10:41","endTime":"10:59"}]},
+   {"day":"Thursday","intervals":[]},{"day":"Friday","intervals":[]},{"day":"Saturday","intervals":[]}]
    var sendingTime = null;
-   var type= 'future' 
+   var result = null;
+   var type= 'immediate' 
    if (type=='immediate') {
-            immedaiateTime = immediateAlert(res.activeTime)
-            sendingTime = caclculateSendingTime(immedaiateTime.intervals.startTime,immedaiateTime.index,'immediate');
-            immedaiateTime['sendingTime'] = sendingTime
+             result = immediateAlert(settings,alert.dateTime)
+             console.log(result)
+             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
+            result['sendingTime'] = sendingTime
+            result['sendingTimeLong'] = sendingTime.format('x')
   
-            console.log('ISTtime',immedaiateTime)
+            console.log('ISTtime',result)
    } else {
-            futureTime =   futureAlert(res.activeTime)
-            sendingTime = caclculateSendingTime(futureTime.intervals.endTime,futureTime.index,'futrue');
-            futureTime['sendingTime'] = sendingTime
-            console.log('ISTtime',futureTime)
+             result =  futureAlert(settings,alert.dateTime)
+             console.log('resuktsr',result)
+
+             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
+            result['sendingTimeDate'] = sendingTime
+            result['sendingTimeLong'] = sendingTime.format('x')
+            console.log('future',result)
 
    }
     
-//    checkFutureAlert(settings.activeWindow)
+   alert['sendingTimeDate'] = result['sendingTimeDate']
+   alert['sendingTimeLong'] = result['sendingTimeLong']
+   
    cb(alert);
 }
 
-function futureAlert(activeWindow){
-    var dateTime = moment().seconds(0).millisecond(0);
+function futureAlert(activeWindow, dateIncome){
+    console.log(dateIncome)
+    var dateTime = moment(dateIncome).seconds(0).millisecond(0);
+    console.log('datEITME',dateTime)
+    var date = moment(dateTime).format('MM/DD/YYYY');
     var time = moment(dateTime).format('HH:mm A');
     var day = moment(dateTime).format('dddd');
     var activeListSorted = findArrayFuture(activeWindow,day)
+    console.log('day',day,'list',activeListSorted)
     var positiveList = []
     var negativeList = []
     var extractedTime = null
     for(var i = 0 ; i< activeListSorted.length;i++) {
         for(var s = 0 ; s < activeListSorted[i].intervals.length;s++) {
-            var curStartTime = moment(activeListSorted[i].intervals[s].startTime, 'HH:mm A').seconds(0).millisecond(0).subtract(i, 'days')
-            var curEndTime = moment(activeListSorted[i].intervals[s].endTime, 'HH:mm A').seconds(0).millisecond(0).subtract(i, 'days')
+            var curStartTime = moment(date + ' '+activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).subtract(i, 'days')
+            var curEndTime = moment(date+ ' '+activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).subtract(i, 'days')
             var duration = moment.duration(curEndTime.diff(dateTime));
             var hours = duration.asHours();
+            console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
             if(hours>0) {
                 positiveList.push({index: i,day: activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s]})
             }else {
@@ -145,10 +68,11 @@ function futureAlert(activeWindow){
                 
             }
           
-            console.log(activeListSorted[i].intervals[s].startTime,curStartTime,activeListSorted[i].intervals[s].endTime,curEndTime,'curre',dateTime,'diff',hours)
-
+           
+            
         }
     }
+    
     if(negativeList.length>0) {
         var extractedNTime = SortArray(negativeList)
        
@@ -157,15 +81,17 @@ function futureAlert(activeWindow){
         var extractedPTime = SortArray(positiveList)
         extractedPTime[extractedPTime.length-1].index = 7;
         
-        return extractedPTime
+        return extractedPTime[extractedPTime.length-1]
     }
     console.log('pos',positiveList)
     console.log('neg',extractedNTime)
     
 }
 
-function immediateAlert(activeWindow) {
-    var dateTime = moment().seconds(0).millisecond(0);
+function immediateAlert(activeWindow,time) {
+    var dateTime = moment(time).seconds(0).millisecond(0);
+    var date = moment(dateTime).format('MM/DD/YYYY');
+    console.log('date',date)
     var time = moment(dateTime).format('HH:mm A');
     var day = moment(dateTime).format('dddd');
     var activeListSorted = findArrayImmediate(activeWindow,day)
@@ -177,11 +103,13 @@ function immediateAlert(activeWindow) {
     for(var i = 0 ; i< activeListSorted.length;i++) {
         
         for(var s = 0 ; s < activeListSorted[i].intervals.length;s++) {
-            var curStartTime = moment(activeListSorted[i].intervals[s].startTime, 'HH:mm A').seconds(0).millisecond(0).add(i, 'days')
-            var curEndTime = moment(activeListSorted[i].intervals[s].endTime, 'HH:mm A').seconds(0).millisecond(0).add(i, 'days')
-            console.log('start',curStartTime,'end',curEndTime,'curre',dateTime)
+            console.log('checking',activeListSorted[i].intervals[s].startTime,'date',date,"index",i)
+            // console.log(moment(date+ " " +activeListSorted[i].intervals[s].startTime))
+            var time = date+ " " +activeListSorted[i].intervals[s].startTime
+            var curStartTime = moment(date+ " " +activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).add(i, 'days')
+            var curEndTime =   moment(date+ " " +  activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).add(i, 'days')
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
-                console.log('Fire Out')
+                
                 found=1;
                 extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s]}
                 break;
@@ -322,12 +250,14 @@ function availableFutureTime(blackouts, min,time){
 
 }
 
-function caclculateSendingTime(time,days,type) {
+function caclculateSendingTime(time,days,type,dateTime) {
     var sendingTime  = null;
+    var date = moment(dateTime).format('MM/DD/YYYY');
+
     if(type=='immediate') {
-    sendingTime = moment(time, 'HH:mm A').seconds(0).millisecond(0).add(days, 'days')
+    sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
     } else {
-    sendingTime = moment(time, 'HH:mm A').seconds(0).millisecond(0).subtract(days, 'days')
+    sendingTime = moment(date + ' ' +time).seconds(0).millisecond(0).subtract(days, 'days')
 
     }
     return  sendingTime
