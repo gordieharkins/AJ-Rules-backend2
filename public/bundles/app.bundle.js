@@ -41408,6 +41408,7 @@ angular.module('AOTC').filter('array_join', function () {
             return item[prop];
         }) : array).join(separator);
     };
+    
 });
 
 angular.module('AOTC').directive('myModal', function() {
@@ -41418,8 +41419,11 @@ angular.module('AOTC').directive('myModal', function() {
             element.modal('hide');
         };
       }
-    } 
+    }
  });
+
+
+
 
 /***/ }),
 /* 337 */
@@ -41859,10 +41863,10 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             for(var i =0; i< $scope.data.blackouts.length;i++){
                 if($scope.data.blackouts[i].checked == "true"){
                     $scope.data.blackouts[i].checked = true;
-                }else{
+                }else if($scope.data.blackouts[i].checked=="false"){
                     $scope.data.blackouts[i].checked = false;
                 }
-                console.log($scope.data.blackouts[i].checked);
+                // console.log($scope.data.blackouts[i].checked);
                 
             }
 
