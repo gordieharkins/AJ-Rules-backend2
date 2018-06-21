@@ -84,7 +84,8 @@ BLL.prototype.addAlert = function(req, res) {
             // cb(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            var settings = createSettingsJSON(result);
+            var settingsJSON = createSettingsJSON(result);
+            var settings = getActiveTime(settingsJSON.blackouts);
             var alert = req.body;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
                 console.log("finalAlert: ",finalAlert);
@@ -467,6 +468,9 @@ function getActiveTime(blackouts){
 
     console.log("AAAAAAAAAAAA",JSON.stringify(blackoutTimes));
     console.log("BBBBBBBBBBBBBB",JSON.stringify(activeTimes));
+
+
+    return activeTimes;
     
 }
 
