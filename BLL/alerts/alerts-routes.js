@@ -64,4 +64,13 @@ router.post('/addAlert', function(req, res, next) {
     BLL.addAlert(req, res);
 });
 
+router.post('/verifyEmail', function(req, res, next) {
+    BLL.verifyEmail(req, res);
+});
+
+router.post('/verifyPhone', function(req, res, next) {
+    BLL.verifyPhone(req, res);
+});
+
+
 module.exports = router;

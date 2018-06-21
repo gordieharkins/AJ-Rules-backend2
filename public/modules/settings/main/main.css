@@ -217,6 +217,10 @@ table .fa-clock-o {
     border-bottom: 1px solid #ccc;
     display: block;
     background: #fff;
+    cursor: pointer;
+}
+.dropdown-content span:hover {
+    background: #f5f5f5;
 }
 
 .dropdown-content a:hover {background-color: #fff;}
@@ -242,4 +246,158 @@ table .fa-clock-o {
     padding: 5px 14px 2px 19px;
     font-weight: bold;
     color: #3071ab;
+}
+
+
+.dropdown-content {
+    z-index: 10;
+}
+.modal-header{
+    background: #337ab7 !important;
+}
+.modal-checkbox-area{
+    width: 100%;
+}
+.modal-checkbox-area .checkbox{
+    display: inline-block;
+    width: 280px !important;
+}
+.modal-checkbox-text{
+    color: #000000;
+    width: 200px !important;
+}
+.btn-formats-active{
+    background: #337ab7 !important;
+    color: #ffffff;
+}
+.btn-formats-active:focus{
+    background: #337ab7 !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.btn-formats-active:hover{
+    background: #2b689a !important;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.red-color{
+    margin-left: 2px;
+    background-color: #d21717 !important;
+}
+.red-color:hover{
+    color: #ffffff !important;
+    background-color: #be1515 !important;
+    border-color: #ffffff !important;
+}
+.add-new-time-area{
+    text-align: center;
+}
+.add-new-time-area button i{
+    padding: 0 10px 0 0;
+}
+.close:hover{
+    color: #222222;
+}
+
+.datetime-range.time {
+    min-height: 3em !important;
+    font-size: 12px !important;
+    width: 93%;
+    display: inline-block;
+    float: left;
+    margin-bottom: 5px;
+}
+.datetime-range.time .end-datetime, .datetime-range.time .start-datetime {
+    height: 3em !important;
+}
+.datetime-range.time .end-datetime .time, .datetime-range.time .start-datetime .time {
+    line-height: 1.5em !important;
+}
+.datetime-range.time .start-datetime:after {
+    border-top: 1.5em solid transparent !important;
+    border-bottom: 1.5em solid transparent !important;
+}
+.datetime-range.time .end-datetime:before {
+    border-width: 1.5em 0 1.5em 1em !important;
+}
+.modal-scroll-area{
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    max-height: 250px;
+    min-height: 200px;
+    overflow-y: auto;
+    margin: 0 0 10px 0;
+}
+.timezone-dropdown-button{
+    background-color: #f9f9f9;
+    color: #3071be;
+    padding: 3px 10px 3px 10px;
+    width: 150px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.timezone-dropdown-button i{
+    padding: 3px 0 0 0;
+}
+.green-color{
+    background: #43b733 !important;
+}
+.green-color:hover{
+    background: #38a229 !important;
+}
+.no-record-div{
+    text-align: center;
+}
+.info-icon{
+    font-size: 18px;
+    color: #f1b821;
+}
+.info-text{
+    font-size: 16px;
+    font-weight: 600;
+}
+.selected-option{
+    background: #f2f2f2 !important;
+    font-weight: 600;
+}
+.verify-button{
+    float: right;
+    margin: 0 0 0 10px;
+    padding: 4px 10px 4px 10px;
+}
+.verification-modal-head{
+    background-color: #3071be !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+    font-weight: 600;
+}
+.verification-modal-body{
+    text-align: center;
+}
+.verification-modal-body span, .verification-modal-body strong{
+    color: #3c3c3c;
+    display: block;
+}
+.verification-modal-footer{
+    border-top: inherit;
+}
+.digit-container{
+
+}
+.digit{
+    border: 2px solid #cccccc;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    display: inline-block;
+    color: #3c3c3c;
+    font-size: 18px;
+    text-align: center;
+}
+.dropdown .dropdown-content {
+    display: none;
+}
+.verification-modal-dialog {
+    width: 450px;
 }
