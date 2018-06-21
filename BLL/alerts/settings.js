@@ -10,34 +10,45 @@ AlertsSettings.prototype.getSettings = function(){
 
 
 AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
-    console.log(JSON.stringify(settings))
-    console.log(alert)
+   
+   console.log("asdasdasds",JSON.stringify(settings))
+   console.log('alerttt',alert)
 
    var sendingTime = null;
    var result = null;
-   var type= 'immediate' 
+   var finalResult = null;
+   
+   var type= 'immediate';
+
    if (type=='immediate') {
-             result = immediateAlert(settings,alert.dateTime)
-             console.log(result)
+             result = immediateAlert(settings.settings,alert.dateTime)
+            
              sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
   
-            console.log('ISTtime',result)
+      
    } else {
-             result =  futureAlert(settings,alert.dateTime)
-             console.log('resuktsr',result)
-
-             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
+            result =  futureAlert(settings.settings,alert.dateTime)
+            sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            console.log('future',result)
+           
 
    }
-    
-   alert['sendingTimeDate'] = result['sendingTimeDate']
-   alert['sendingTimeLong'] = result['sendingTimeLong']
-   
+   result['dateTime'] = alert['dateTime'] 
+   alert['sendingTimeDate'] = result['sendingTimeDate'];
+   alert['sendingTimeLong'] = result['sendingTimeLong'];
+   alert['sms'] = null
+   console.log('asdasdas',settings.sms,'emai;l',settings.email)
+   if(settings.sms.verified=='true' && settings.sms.flag=='true') {
+       alert['sms'] = settings.sms.details
+   }
+   alert['email'] =  null
+   if(settings.email.flag=='true') {
+    alert['email'] =  settings.email.details
+    }
+    console.log(alert)
    cb(alert);
 }
 
