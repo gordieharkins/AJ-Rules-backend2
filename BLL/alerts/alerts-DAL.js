@@ -131,3 +131,69 @@ DAL.prototype.verifyPhone = function(userId, data, cb) {
     });
 }
 
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.addAlert = function(userId, data, cb) {
+	// console.log("here it is00")
+    var query = `MATCH (n:user) where id(n) = {userId}
+                MERGE (n)-[:HAS]->(e:alert{alert}})`;
+
+    var params = {
+        userId: userId,
+        alert: alert
+    }
+
+     db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getAlert = function(userId, data, cb) {
+    // console.log("here it is00")
+    // var startTime = new Date
+    // var date = new Date();
+    // var startTime = date.getTime() - (15*60000);
+    var endTime = date.getTime();
+    
+
+    var query = `MATCH (n:user)-[:HAS]->(alert:alert) where
+        {endTime} > alert.sendingTimeLong AND alert.sent <> true
+        RETURN alert`;
+
+    var params = {
+        userId: userId,
+        startTime: startTime,
+        endTime: endTime
+    }
+
+     db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+DAL.prototype.updateAlert = function(alertId, cb) {
+    var query = `MATCH (alert:alert) where id(alert) = {alertId}
+                SET alert.sent = true`;
+
+    var params = {
+        alertId: alertId
+    };
+
+     db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}

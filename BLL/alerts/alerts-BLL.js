@@ -90,13 +90,21 @@ BLL.prototype.addAlert = function(req, res) {
               email: settingsJSON.email,
               settings: getActiveTime(settingsJSON.blackouts)  
             };
-            
+
+            // console.log(JSON.stringify(settings));
             var alert = req.body;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
-                console.log("finalAlert: ",finalAlert);
-                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, null, res);
+               DAL.addAlert(finalAlert, userId, function(error, result) {
+                    if (error) {
+                        console.log(error);
+                        error.userName = loginUserName;
+                        ErrorLogDAL.addErrorLog(error);
+                        Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                    } else {
+                        Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+                    }
+                });
             });
-            
         }
     });
 }
