@@ -12,9 +12,7 @@ AlertsSettings.prototype.getSettings = function(){
 AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     console.log(JSON.stringify(settings))
     console.log(alert)
-   settings =  [{"day":"Sunday","intervals":[]},{"day":"Monday","intervals":[]},{"day":"Tuesday","intervals":[]},{"day":"Wednesday","intervals":[{"startTime":"10:41","endTime":"10:59"}]},
-   {"day":"Thursday","intervals":[]},{"day":"Friday","intervals":[]},{"day":"Saturday","intervals":[]}]
-   var sendingTime = null;
+  var sendingTime = null;
    var result = null;
    var type= 'immediate' 
    if (type=='immediate') {
