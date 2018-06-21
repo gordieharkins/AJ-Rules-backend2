@@ -12,7 +12,7 @@ AlertsSettings.prototype.getSettings = function(){
 AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     console.log(JSON.stringify(settings))
     console.log(alert)
-    
+
    var sendingTime = null;
    var result = null;
    var type= 'immediate' 
@@ -20,7 +20,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
              result = immediateAlert(settings,alert.dateTime)
              console.log(result)
              sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
-            result['sendingTime'] = sendingTime
+            result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
   
             console.log('ISTtime',result)
