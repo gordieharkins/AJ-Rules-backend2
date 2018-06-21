@@ -228,7 +228,7 @@ table .fa-clock-o {
 
 .dropdown-content a:hover {background-color: #fff;}
 
-.dropdown:hover .dropdown-content {display: block;}
+/*.dropdown:hover .dropdown-content {display: block;}*/
 
 .dropdown .checkbox {
     display: inline-block;
@@ -916,5 +916,13 @@ table .fa-clock-o {
         -webkit-transform: translate3d(0, 0, 0); } }
 
 /*# sourceMappingURL=toggle-switch.css.map */
+
+
+.btn-fix {
+    margin-right: 9px;
+    width: 71px;
+    border-radius: 6px;
+    line-height: 1;
+}
 
 
