@@ -279,7 +279,7 @@ footer {
 
 
 .logout-drop {
-    background: #205081;
+    background: #205081 !important;
 }
 
 input[type="checkbox"] {
@@ -5223,3 +5223,6 @@ select::-ms-expand {
 
 
 
+.dropdown.metro-header.show{
+    display:inline-flex!important;
+}

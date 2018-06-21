@@ -14,6 +14,7 @@ angular.module('AOTC').filter('array_join', function () {
             return item[prop];
         }) : array).join(separator);
     };
+    
 });
 
 angular.module('AOTC').directive('myModal', function() {
@@ -24,5 +25,7 @@ angular.module('AOTC').directive('myModal', function() {
             element.modal('hide');
         };
       }
-    } 
+    }
  });
+
+

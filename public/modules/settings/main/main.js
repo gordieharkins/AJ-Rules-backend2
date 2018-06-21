@@ -27,9 +27,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
+    $scope.min_date = moment().startOf('day').subtract(1,'hours');
+
+    $scope.max_date = moment().endOf('day');
     $scope.time_data = {};
 
-    $scope.time_data.intervals = [{ startTime: moment(), endTime: moment().add(10, 'hours') }]
+    $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
 
     $scope.set_new_time = function () {
         
@@ -70,7 +73,13 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         
         if($scope.editing){
             $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span:$scope.time_data.span }
-            $scope.dismiss();
+            
+            $scope.editing = false;
+            // $scope.dismiss();
+            setTimeout(function(){
+                $('#myModal').modal('hide');
+            }, 500)
+
             return;
         }
 
@@ -84,6 +93,14 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         // d.checked = !d.checked;
         console.log("Working", $scope.data)
         
+    }
+
+    $scope.select_timezone_label = function(){
+        if($scope.data.timezone){
+            return $scope.data.timezone;
+        }
+
+        return "Select timezone"
     }
 
     $scope.save_settings = function (form_alert_type) {
@@ -273,7 +290,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         
         if(reset){
             $scope.time_data = {};
-            $scope.time_data.intervals = [{ startTime: moment(), endTime: moment().add(10, 'hours') }]
+            $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
             
@@ -409,17 +426,15 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 $scope.data.sms.verified = false;
             }
             // $scope.data.email.verified = false
-            // $scope.data.sms.verified = false;
-            $scope.data.blackouts[0].checked = true;
+            // $scope.data.sms.verified = true;
 
             for(var i =0; i< $scope.data.blackouts.length;i++){
-                console.log($scope.data.blackouts[i].checked);
                 if($scope.data.blackouts[i].checked == "true"){
                     $scope.data.blackouts[i].checked = true;
-                }else{
+                }else if($scope.data.blackouts[i].checked=="false"){
                     $scope.data.blackouts[i].checked = false;
                 }
-                console.log($scope.data.blackouts[i].checked);
+                // console.log($scope.data.blackouts[i].checked);
                 
             }
 
