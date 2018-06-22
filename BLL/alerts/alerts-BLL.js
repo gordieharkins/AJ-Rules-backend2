@@ -40,31 +40,48 @@ module.exports = BLL;
 
 function BLL() {}
 
-BLL.prototype.startCronJob = function(req,res) {
+BLL.prototype.startCronJob = function() {
     console.log('coming')
     var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
     {body:'1234',from:'+14242173909',to:'+923335375272'},]
 
-    var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
+    // var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
+    var task = cron.schedule('1 * * * * *', function(){
         
-        executeJob(array, res)
+        DAL.getAlert(function(error, result) {
+            if (error) {
+                console.log(error);
+                error.userName = loginUserName;
+                ErrorLogDAL.addErrorLog(error);
+                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            } else {
+                console.log(JSON.stringify(result));
+                executeJob(result);
+                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            }
+        });
+
+        // executeJob(array, res)
         
     });
     
     task.start()  
 }
 
-function executeJob(data,res) {
+function executeJob(data) {
   
      var results = []
      console.log(data.length)
      async.forEachOf(data, function (value, i, cb) {
-        console.log('started',i)
-            smsService.sendSms(value, function(error, result) {
-                console.log('sending',i,value.to)
-                results.push(result)
-                cb()
-            })
+        console.log('started',value);
+            if(value.alert.properties.sms != "null"){
+                smsService.sendSms(value.alert.properties, function(error, result) {
+                    console.log('sending',i,value.to)
+                    results.push(result)
+                    cb()
+                });
+            }
+            
      }, function (err) {
         if (err) console.error(err.message);
          console.log('all done')
@@ -91,10 +108,12 @@ BLL.prototype.addAlert = function(req, res) {
               settings: getActiveTime(settingsJSON.blackouts)  
             };
 
-            // console.log(JSON.stringify(settings));
+            // console.log("ssssssssssssss",JSON.stringify(settings));
             var alert = req.body;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
-               DAL.addAlert(finalAlert, userId, function(error, result) {
+                console.log(JSON.stringify(finalAlert));
+
+                DAL.addAlert(finalAlert, userId, function(error, result) {
                     if (error) {
                         console.log(error);
                         error.userName = loginUserName;

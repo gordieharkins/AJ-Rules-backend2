@@ -16,7 +16,8 @@ function DAL() {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.saveSettings = function(data, userId, cb) {
-	// console.log("here it is00")
+    // console.log("here it is00")
+    console.log(JSON.stringify(data));
     var query = `MATCH (n:user) where id(n) = {userId}
                 MERGE(n)-[:settings]->(s:userSettings)
                 ON MATCH SET s = {settings}
@@ -135,10 +136,11 @@ DAL.prototype.verifyPhone = function(userId, data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.addAlert = function(userId, data, cb) {
-	// console.log("here it is00")
+DAL.prototype.addAlert = function(alert, userId, cb) {
+    // console.log("here it is00")
+    console.log(alert);
     var query = `MATCH (n:user) where id(n) = {userId}
-                MERGE (n)-[:HAS]->(e:alert{alert}})`;
+                MERGE (n)-[:HAS{sent:false}]->(e:alert`+ converter.cypherJsonConverter(alert)+`)`;
 
     var params = {
         userId: userId,
@@ -156,35 +158,35 @@ DAL.prototype.addAlert = function(userId, data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getAlert = function(userId, data, cb) {
+DAL.prototype.getAlert = function(cb) {
     // console.log("here it is00")
     // var startTime = new Date
-    // var date = new Date();
+    var date = new Date();
     // var startTime = date.getTime() - (15*60000);
     var endTime = date.getTime();
     
 
-    var query = `MATCH (n:user)-[:HAS]->(alert:alert) where
-        {endTime} > alert.sendingTimeLong AND alert.sent <> true
+    var query = `MATCH (n:user)-[:HAS{sent: false}]->(alert:alert) where
+        {endTime} > toInteger(alert.sendingTimeLong)
         RETURN alert`;
 
-    var params = {
-        userId: userId,
-        startTime: startTime,
-        endTime: endTime
-    }
 
+        console.log(endTime);
+        console.log(query);
      db.cypher({
         query: query,
-        params: params
+        params: {
+            endTime: endTime
+        }
+        
     }, function(err, results) {
         cb(err, results);
     });
 }
 
 DAL.prototype.updateAlert = function(alertId, cb) {
-    var query = `MATCH (alert:alert) where id(alert) = {alertId}
-                SET alert.sent = true`;
+    var query = `MATCH (a)-[rel:HAS]->(alert:alert) where id(alert) = {alertId}
+                SET rel.sent = true`;
 
     var params = {
         alertId: alertId

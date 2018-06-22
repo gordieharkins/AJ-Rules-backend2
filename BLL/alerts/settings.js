@@ -38,16 +38,16 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
    }
    result['dateTime'] = alert['dateTime'] 
    alert['sendingTimeDate'] = result['sendingTimeDate'];
-   alert['sendingTimeLong'] = result['sendingTimeLong'];
-   alert['sms'] = null
+   alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
+   alert['sms'] = "null";
    console.log('asdasdas',settings.sms,'emai;l',settings.email)
-   if(settings.sms.verified=='true' && settings.sms.flag=='true') {
+//    if(settings.sms.verified=='true' && settings.sms.flag=='true') {
        alert['sms'] = settings.sms.details
-   }
-   alert['email'] =  null
-   if(settings.email.flag=='true') {
+//    }
+   alert['email'] =  "null";
+//    if(settings.email.flag=='true') {
     alert['email'] =  settings.email.details
-    }
+    // }
     console.log(alert)
    cb(alert);
 }

@@ -8,13 +8,15 @@ function SmsService() {}
 
 SmsService.prototype.sendSms = function(value, callback) {
        var res = null;
+       var from = "+14242173909";
        client.messages
             .create({
-                body: value.body,
-                from: value.from,
-                to: value.to
+                body: value.message + "Property Name: "+ value.property + "Jurisdiction: " +value.jurisdiction,
+                from: from,
+                to: value.sms
             })
             .then(message => {
+                console.log("here");
                res = {message: message.sid,value: value,status:200}
                 callback(null,res)
             })
