@@ -40118,6 +40118,40 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
     $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
 
+    $scope.sending_email_code = false;
+
+    $scope.send_code_to_email = function(){
+        $scope.sending_email_code = true;
+        
+        AOTCService.postDataToServer("/alerts/saveEmailCode", {email:$scope.data.email})
+            .then(
+            function successCallback(response) {
+                console.log(response)
+                $scope.sending_email_code = false;
+            },
+            function errorCallback(response) {
+                console.log(response)
+                $scope.sending_email_code = false;
+            })
+    }
+
+    $scope.sending_sms_code = false;
+
+    $scope.send_code_to_sms = function(){
+        $scope.sending_sms_code = true;
+        
+        AOTCService.postDataToServer("/alerts/savePhoneCode", {email:$scope.data.email})
+            .then(
+            function successCallback(response) {
+                console.log(response)
+                $scope.sending_sms_code = false;
+            },
+            function errorCallback(response) {
+                console.log(response)
+                $scope.sending_sms_code = false;
+            })
+    }
+
     $scope.set_new_time = function () {
         
         var day = [];
