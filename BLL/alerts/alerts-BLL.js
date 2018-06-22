@@ -15,6 +15,9 @@ var config = require(path.resolve(__dirname,'./config'));
 var SmsService = require(path.resolve(__dirname, './sms'));
 var smsService = new SmsService();
 
+
+var EmailService = require(path.resolve(__dirname, './email_sender'))(config);
+
 var AlertSettings = require(path.resolve(__dirname, './settings'));
 var alertSettings = new AlertSettings();
 var moment = require('moment');
@@ -76,12 +79,30 @@ function executeJob(data) {
         console.log('started',value);
             if(value.alert.properties.sms != "null"){
                 console.log("Send SMS");
-                cb();
-                // smsService.sendSms(value.alert.properties, function(error, result) {
-                //     console.log('sending',i,value.to)
-                //     results.push(result)
-                //     cb()
-                // });
+                if(value.alert.properties.sms== "null"){
+                    cb();
+                
+                    // smsService.sendSms(value.alert.properties, function(error, result) {
+                    //     console.log('sending',i,value.to)
+                    //     results.push(result)
+                    //     cb()
+                    // });
+                }
+            }
+            
+            if (value.alert.properties.email != "null"){
+                var emailOption = {
+                    text: value.alert.properties.message + "Property Name: "+ value.alert.properties.property + "Jurisdiction: " +value.alert.properties.jurisdiction,
+                    from:"AOTC <aotc.invite@gmail.com>", 
+                    subject:"AOTC Email Verification",
+                    to: value.alert.properties.email
+                };
+
+                EmailService.send_email(emailOption, function(error, result) {
+                    console.log('sending',i,emailOption.to)
+                    results.push(result)
+                    cb()
+                });
             }
             
      }, function (err) {
