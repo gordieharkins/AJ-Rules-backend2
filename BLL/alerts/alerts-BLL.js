@@ -75,11 +75,13 @@ function executeJob(data) {
      async.forEachOf(data, function (value, i, cb) {
         console.log('started',value);
             if(value.alert.properties.sms != "null"){
-                smsService.sendSms(value.alert.properties, function(error, result) {
-                    console.log('sending',i,value.to)
-                    results.push(result)
-                    cb()
-                });
+                console.log("Send SMS");
+                cb();
+                // smsService.sendSms(value.alert.properties, function(error, result) {
+                //     console.log('sending',i,value.to)
+                //     results.push(result)
+                //     cb()
+                // });
             }
             
      }, function (err) {
