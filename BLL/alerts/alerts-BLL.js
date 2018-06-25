@@ -231,7 +231,7 @@ BLL.prototype.saveEmailCode = function(req, res) {
     var data = req.body;
     data.createdDate = date;
     data.code = generateCode();
-    
+    console.log(JSON.stringify(data));
     DAL.saveEmailCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
