@@ -72,5 +72,14 @@ router.post('/savePhoneCode', function(req, res, next) {
     BLL.savePhoneCode(req, res);
 });
 
+router.post('/verifyEmailCode', function(req, res, next) {
+    BLL.verifyEmailCode(req, res);
+});
+
+router.post('/verifyPhoneCode', function(req, res, next) {
+    BLL.verifyPhoneCode(req, res);
+});
+
+
 
 module.exports = router;
