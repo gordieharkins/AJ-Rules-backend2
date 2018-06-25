@@ -41483,12 +41483,66 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             })
     }
 
+    $scope.verifying_email = false;
+
+
+    $scope.verify_email_code = function(code_email_form){
+        
+        console.log(code_email_form.$invalid)
+        if(code_email_form.$invalid){
+            return
+        }
+        $scope.verifying_email = true;
+        var code = $scope.code_email.a+$scope.code_email.b+$scope.code_email.c+$scope.code_email.d+$scope.code_email.e+$scope.code_email.f
+
+        AOTCService.postDataToServer("/alerts/verifyEmailCode", {email:$scope.data.email.details,code:code})
+            .then(
+            function successCallback(response) {
+                console.log(response)
+                $scope.verifying_email = false;
+                setTimeout(function(){
+                    $('#emailverifyModal').modal('hide');
+                    intialize()
+                }, 500)
+            },
+            function errorCallback(response) {
+                console.log(response)
+                $scope.verifying_email = false;
+            })
+    }
+    $scope.verifying_sms = false;
+
+    $scope.verify_sms_code = function(code_sms_form){
+
+        if(code_sms_form.$invalid){
+            return
+        }
+        $scope.verifying_sms = true;
+        
+        var code = $scope.code_sms.a+$scope.code_sms.b+$scope.code_sms.c+$scope.code_sms.d+$scope.code_sms.e+$scope.code_sms.f
+        
+        AOTCService.postDataToServer("/alerts/verifyPhoneCode", {email:$scope.data.sms.details, code:code})
+            .then(
+            function successCallback(response) {
+                console.log(response)
+                $scope.verifying_sms = false;
+                setTimeout(function(){
+                    $('#smsverifyModal').modal('hide');
+                    intialize();
+                }, 500)
+            },
+            function errorCallback(response) {
+                console.log(response)
+                $scope.verifying_sms = false;
+            })
+    }
+
     $scope.sending_sms_code = false;
 
     $scope.send_code_to_sms = function(){
         $scope.sending_sms_code = true;
         
-        AOTCService.postDataToServer("/alerts/savePhoneCode", {email:$scope.data.email})
+        AOTCService.postDataToServer("/alerts/savePhoneCode", {email:$scope.data.sms.details})
             .then(
             function successCallback(response) {
                 console.log(response)
@@ -41861,11 +41915,9 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 
 
-
+    function intialize(){
     AOTCService.getDataFromServer('/alerts/getSettings')
         .then(function (result) {
-            ////console.log(result);
-            console.log("Batista",result.data.result);
 
             if(!result.data.result.settings){
                 return
@@ -41896,7 +41948,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 $scope.data.sms.verified = false;
             }
             // $scope.data.email.verified = false
-            // $scope.data.sms.verified = true;
+            $scope.data.sms.verified = false;
 
             for(var i =0; i< $scope.data.blackouts.length;i++){
                 if($scope.data.blackouts[i].checked == "true"){
@@ -41921,6 +41973,9 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 $(this).next('.digit').focus();
               }
         });
+    }
+
+    intialize();
 
 
 }
