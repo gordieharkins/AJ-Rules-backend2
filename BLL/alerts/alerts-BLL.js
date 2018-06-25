@@ -258,18 +258,20 @@ BLL.prototype.verifyEmailCode = function(req, res) {
 
     // console.log(dbObject);
     var date = new Date();
-    var data = req.body;
-    data.createdDate = date;
-    data.code = generateCode();
+    var email = req.body.email;
+    var verificationCode = req.body.code;
+    // var data = req.body;
+    // data.createdDate = date;
+    // data.code = generateCode();
     
-    DAL.verifyEmailCode(userId, data, function(error, result) {
+    DAL.verifyEmailCode(userId, email, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-
+            
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -282,12 +284,15 @@ BLL.prototype.verifyEmailCode = function(req, res) {
 BLL.prototype.verifyPhoneCode = function(req, res) {
     var userId = req.user[0].userId;
 
-    var date = new Date();
-    var data = req.body;
-    data.createdDate = date;
-    data.code = generateCode();
     // console.log(dbObject);
-    DAL.verifyPhoneCode(userId, data, function(error, result) {
+    var date = new Date();
+    var email = req.body.email;
+    var verificationCode = req.body.code;
+    // var data = req.body;
+    // data.createdDate = date;
+    // data.code = generateCode();
+    
+    DAL.verifyEmailCode(userId, email, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
