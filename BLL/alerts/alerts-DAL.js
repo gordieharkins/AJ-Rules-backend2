@@ -61,7 +61,7 @@ DAL.prototype.getSettings = function(userId, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.saveEmailCode = function(userId, data, cb) {
-	// console.log("here it is00")
+	console.log("here it is00");
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MERGE (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
                 ON MATCH SET e.code = {code}, e.createdDate = {date}
@@ -71,8 +71,10 @@ DAL.prototype.saveEmailCode = function(userId, data, cb) {
         userId: userId,
         emailId: data.email,
         code: data.code,
-        date: date.createdDate
-    }
+        date: data.createdDate
+    }   
+
+    console.log(query);
 
      db.cypher({
         query: query,
@@ -111,7 +113,7 @@ DAL.prototype.savePhoneCode = function(userId, data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
-	// console.log("here it is00")
+	console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MATCH (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
                 return e`;
@@ -133,7 +135,7 @@ DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
+DAL.prototype.verifyPhoneCode = function(userId, phoneNumber, cb) {
 	// console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MATCH (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
@@ -141,7 +143,7 @@ DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
 
     var params = {
         userId: userId,
-        emailId: emailId
+        phoneNumber: phoneNumber
     }
 
      db.cypher({

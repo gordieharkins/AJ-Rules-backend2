@@ -158,7 +158,13 @@ BLL.prototype.saveSettings = function(req, res) {
     var userId = req.user[0].userId;
     var data = req.body;
     var dbObject = {};
-    
+    if(data.sms.details == null){
+        data.sms.details = "null";
+    }
+
+    if(data.email.details == null){
+        data.email.details = "null";
+    }
 
     dbObject.sms = [data.sms.flag, data.sms.details, data.sms.verified];
     dbObject.email = [data.email.flag, data.email.details, data.email.verified];
@@ -296,8 +302,44 @@ BLL.prototype.verifyEmailCode = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            if(result.length > 0){
+                var endingTime = new Date(result[0].e.properties.createdDate);
+                endingTime = endingTime.setDate(endingTime.getDate() + 1);
+                if(moment(date).isBefore(endingTime)){
+                    if(result[0].e.properties.code == verificationCode){
+                        DAL.getSettings(userId, function(error, settings) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                                Response.sendResponse(false, "Something went wrong.", null, res);
+                                
+                            } else {
+                                try{
+                                    var tempSettings = settings[0].settings;
+                                    tempSettings.email[2] = "true";
+                                    DAL.saveSettings(tempSettings, userId, function(error, result) {
+                                        if (error) {
+                                            console.log(error);
+                                            error.userName = loginUserName;
+                                            ErrorLogDAL.addErrorLog(error);
+                                            Response.sendResponse(false, "Something went wrong.", null, res);
+                                        } else {
+                                            Response.sendResponse(true, "Verification Successful.", null, res); 
+                                        }
+                                    });
+                                } catch(e){
+                                    var finalResult = {};
+                                }
+                            }
+                        });
+                    } else {
+                        Response.sendResponse(false, "Verfication Failed.", null, res);
+                    }
+                } else {
+                    Response.sendResponse(false, "Verfication code expired.", null, res);
+                }
+            }
         }
     });
 }
@@ -309,23 +351,55 @@ BLL.prototype.verifyEmailCode = function(req, res) {
 BLL.prototype.verifyPhoneCode = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     var date = new Date();
-    var email = req.body.email;
+    var phone = req.body.phone;
     var verificationCode = req.body.code;
-    // var data = req.body;
-    // data.createdDate = date;
-    // data.code = generateCode();
     
-    DAL.verifyEmailCode(userId, email, function(error, result) {
+    DAL.verifyPhoneCode(userId, phone, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            if(result.length > 0){
+                var endingTime = new Date(result[0].e.properties.createdDate);
+                endingTime = endingTime.setDate(endingTime.getDate() + 1);
+                if(moment(date).isBefore(endingTime)){
+                    if(result[0].e.properties.code == verificationCode){
+                        DAL.getSettings(userId, function(error, settings) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                                Response.sendResponse(false, "Something went wrong.", null, res);
+                                
+                            } else {
+                                try{
+                                    var tempSettings = settings[0].settings;
+                                    tempSettings.sms[2] = "true";
+                                    DAL.saveSettings(tempSettings, userId, function(error, result) {
+                                        if (error) {
+                                            console.log(error);
+                                            error.userName = loginUserName;
+                                            ErrorLogDAL.addErrorLog(error);
+                                            Response.sendResponse(false, "Something went wrong.", null, res);
+                                        } else {
+                                            Response.sendResponse(true, "Verification Successful.", null, res); 
+                                        }
+                                    });
+                                } catch(e){
+                                    var finalResult = {};
+                                }
+                            }
+                        });
+                    } else {
+                        Response.sendResponse(false, "Verfication Failed.", null, res);
+                    }
+                } else {
+                    Response.sendResponse(false, "Verfication code expired.", null, res);
+                }
+            }
         }
     });
 }
