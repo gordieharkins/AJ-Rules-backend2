@@ -92,11 +92,8 @@ function executeJob(data) {
             
             if (value.alert.properties.email != "null"){
                 var emailOption = {
-                    text: `Hi,
-                            This email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
-                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `Sincerely,
-                            AOTC
-                            `,
+                    text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
+                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
                     from:"AOTC <aotc.invite@gmail.com>", 
                     subject:"AOTC Alert for " +(new Date().getDate()),
                     to: value.alert.properties.email

@@ -17,7 +17,7 @@ var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
-var ALERT =  new alert();
+var ALERT =  new alerts();
 
 
 module.exports = BLL;
