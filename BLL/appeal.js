@@ -352,7 +352,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									if(subValue.properties.type == "00"){
 										indexes[0][0] = j;
 										checkIEFormStatus(subValue.properties, value.jurisdiction, 
-														value.event.properties.deadline, subValue._id, function(error, formStatus){
+														value.event.properties.deadline, subValue._id, userId, function(error, formStatus){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -824,7 +824,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 							cb(null, requiredItems);
 						});
 						
-						generateAlert(alert, userId, jurisdiction);
+						generateAlert(alert, userId, jurisdiction, 1);
 					} else {
 						cb(null, requiredItems);
 					}
@@ -1028,7 +1028,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 					cb(null, requiredItems);
 				});
 
-				generateAlert(alert, userId, jurisdiction);
+				generateAlert(alert, userId, jurisdiction, 1);
 			} else {
 				cb(null, requiredItems);
 			}
@@ -1108,7 +1108,7 @@ function checkSignatureStatusPaper(reviewStatus, ieForm, requiredItemsStatus, su
 	cb(null,signatureStatus);
 }
 
-function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
+function checkIEFormStatus(subValue, jurisdiction, deadline, id, userId, cb){
 	var status = subValue;
 	var remainingDays = parseInt(calculateRemainingDays(deadline));
 	if(remainingDays <= 0){
@@ -1129,9 +1129,13 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
 			remainingDays: remainingDays
 		}
 
+		var alert = remainingDays+ " days remaining before submission. Fill income expense survey forms for properties of "+jurisdiction+".";
+
 		generateNotification(notification, id, function(){
 			cb(null, status);
 		});
+
+		generateAlert(alert, userId, jurisdiction, 1);
 		// status["notification"] = notification;
 	} else {
 		cb(null, status);
@@ -1300,12 +1304,13 @@ function validateValueAtIndexes(indexes, value){
 	return status;
 }
 
-function generateAlert(alert, userId, jurisdiction){
+function generateAlert(alert, userId, jurisdiction, type){
 	var dateTime = new Date().toISOString();
 	var finalAlert = {
 		message: alert,
 		dateTime: dateTime,
-		jurisdiction: jurisdiction
+		jurisdiction: jurisdiction,
+		type: "immediate"
 	};
 	
 	ALERT.addAlert(finalAlert, userId);

@@ -58,7 +58,6 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-                console.log(JSON.stringify(result));
                 executeJob(result);
                 // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
@@ -74,19 +73,28 @@ BLL.prototype.startCronJob = function() {
 function executeJob(data) {
   
      var results = []
-     console.log(data.length)
      async.forEachOf(data, function (value, i, cb) {
-        console.log('started',value);
             if(value.alert.properties.sms != "null"){
-                console.log("Send SMS");
                 if(value.alert.properties.sms== "null"){
-                    cb();
+                    // cb();
                 
-                    // smsService.sendSms(value.alert.properties, function(error, result) {
-                    //     console.log('sending',i,value.to)
-                    //     results.push(result)
-                    //     cb()
-                    // });
+                    smsService.sendSms(value.alert.properties, function(error, result) {
+                        if(error){
+                            cb();
+                        } else {
+                            DAL.updateAlert(value.alert._id, function(error, result) {
+                                if (error) {
+                                    console.log(error);
+                                    error.userName = loginUserName;
+                                    ErrorLogDAL.addErrorLog(error);
+                                }
+                            });
+                            console.log("done");
+                            results.push(result)
+                            cb();
+                        }
+                        
+                    });
                 }
             }
             
@@ -100,16 +108,26 @@ function executeJob(data) {
                 };
 
                 EmailService.send_email(emailOption, function(error, result) {
-                    console.log('sending',i,emailOption.to)
-                    results.push(result)
-                    cb()
+                    if(error){
+                        cb();
+                    } else {
+                        DAL.updateAlert(value.alert._id, function(error, result) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                            }
+                        });
+                        console.log("done Email");
+                        
+                        results.push(result)
+                        cb();
+                    }
                 });
             }
             
      }, function (err) {
         if (err) console.error(err.message);
-         console.log('all done')
-        console.log(results);
     });
        
 }
@@ -133,7 +151,7 @@ BLL.prototype.addAlert = function(alert, userId) {
             };
 
             // console.log("ssssssssssssss",JSON.stringify(settings));
-            var alert = req.body;
+            // var alert = alert;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
                 // console.log(JSON.stringify(finalAlert));
 
@@ -142,9 +160,7 @@ BLL.prototype.addAlert = function(alert, userId) {
                         console.log(error);
                         error.userName = loginUserName;
                         ErrorLogDAL.addErrorLog(error);
-                        Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-                    } else {
-                        Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+                        // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                     }
                 });
             });
@@ -188,7 +204,6 @@ BLL.prototype.saveSettings = function(req, res) {
         }
     }
 
-    // console.log(dbObject);
     DAL.saveSettings(dbObject, userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -208,7 +223,6 @@ BLL.prototype.saveSettings = function(req, res) {
 BLL.prototype.getSettings = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     DAL.getSettings(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -237,12 +251,10 @@ BLL.prototype.getSettings = function(req, res) {
 BLL.prototype.saveEmailCode = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     var date = new Date();
     var data = req.body;
     data.createdDate = date;
     data.code = generateCode();
-    console.log(JSON.stringify(data));
     DAL.saveEmailCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
@@ -278,7 +290,6 @@ BLL.prototype.savePhoneCode = function(req, res) {
     var data = req.body;
     data.createdDate = date;
     data.code = generateCode();
-    // console.log(dbObject);
     DAL.savePhoneCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
@@ -299,7 +310,6 @@ BLL.prototype.savePhoneCode = function(req, res) {
 BLL.prototype.verifyEmailCode = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     var date = new Date();
     var email = req.body.email;
     var verificationCode = req.body.code;
@@ -566,7 +576,6 @@ function getActiveTime(blackouts){
         //     return b.startTime > a.startTime;
         // });
 
-        console.log(JSON.stringify(blackouts));
 
         
 
@@ -693,17 +702,12 @@ function getActiveTime(blackouts){
     //     }
     // }
 
-    console.log("AAAAAAAAAAAA",JSON.stringify(blackoutTimes));
-    console.log("BBBBBBBBBBBBBB",JSON.stringify(activeTimes));
-
-
     return activeTimes;
     
 }
 
 
 function addActiveTime(activeTime, activeTimes, days){
-    // console.log(activeTimes[1]);
     if(days.indexOf("Sunday") > -1 || days == "Sunday"){
         activeTimes[0].intervals.push(activeTime);
     }

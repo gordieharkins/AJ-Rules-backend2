@@ -17,7 +17,6 @@ function DAL() {
 //--------------------------------------------------------
 DAL.prototype.saveSettings = function(data, userId, cb) {
     // console.log("here it is00")
-    console.log(JSON.stringify(data));
     var query = `MATCH (n:user) where id(n) = {userId}
                 MERGE(n)-[:settings]->(s:userSettings)
                 ON MATCH SET s = {settings}
@@ -113,7 +112,6 @@ DAL.prototype.savePhoneCode = function(userId, data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
-	console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MATCH (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
                 return e`;
@@ -136,7 +134,6 @@ DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.verifyPhoneCode = function(userId, phoneNumber, cb) {
-	// console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MATCH (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
                 return e`;
@@ -159,14 +156,19 @@ DAL.prototype.verifyPhoneCode = function(userId, phoneNumber, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.addAlert = function(alert, userId, cb) {
-    // console.log("here it is00")
-    console.log(alert);
+    var dateTime = alert.dateTime;
+    delete alert.dateTime;
     var query = `MATCH (n:user) where id(n) = {userId}
-                MERGE (n)-[:HAS{sent:false}]->(e:alert`+ converter.cypherJsonConverter(alert)+`)`;
+                MERGE (n)-[:HAS{sent:false}]->(e:alert`+ converter.cypherJsonConverter(alert)+`)
+                ON MATCH SET e.dateTime = {dateTime}
+                ON CREATE SET e.dateTime = {dateTime}`;
 
+    
     var params = {
         userId: userId,
-        alert: alert
+        alert: alert,
+        dateTime: dateTime
+
     }
 
      db.cypher({
@@ -193,8 +195,6 @@ DAL.prototype.getAlert = function(cb) {
         RETURN alert`;
 
 
-        console.log(endTime);
-        console.log(query);
      db.cypher({
         query: query,
         params: {
