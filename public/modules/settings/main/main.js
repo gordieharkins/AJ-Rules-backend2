@@ -433,7 +433,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     AOTCService.getDataFromServer('/alerts/getSettings')
         .then(function (result) {
             ////console.log(result);
-            console.log(result);
+            console.log("Batista",result.data.result);
+
+            if(!result.data.result.settings){
+                return
+            }
             $scope.data =  result.data.result.settings
 
             if($scope.data.sms.flag == "true"){
