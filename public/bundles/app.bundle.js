@@ -41464,7 +41464,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.max_date = moment().endOf('day');
     $scope.time_data = {};
 
-    $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
+    $scope.time_data.intervals = [{ startTime:  moment().startOf('day'), endTime:  moment().startOf('day').add(8,'hours') }]
 
     $scope.sending_email_code = false;
 
@@ -41756,7 +41756,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         
         if(reset){
             $scope.time_data = {};
-            $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
+            $scope.time_data.intervals = [{ startTime:  moment().startOf('day'), endTime:  moment().startOf('day').add(8,'hours') }]
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
             
