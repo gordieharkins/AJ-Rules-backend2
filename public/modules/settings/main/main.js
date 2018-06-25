@@ -89,7 +89,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         
         var code = $scope.code_sms.a+$scope.code_sms.b+$scope.code_sms.c+$scope.code_sms.d+$scope.code_sms.e+$scope.code_sms.f
         
-        AOTCService.postDataToServer("/alerts/verifyPhoneCode", {email:$scope.data.sms.details, code:code})
+        AOTCService.postDataToServer("/alerts/verifyPhoneCode", {phone:$scope.data.sms.details, code:code})
             .then(
             function successCallback(response) {
                 console.log(response)
@@ -516,7 +516,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 $scope.data.sms.verified = false;
             }
             // $scope.data.email.verified = false
-            $scope.data.sms.verified = false;
+            // $scope.data.sms.verified = false;
 
             for(var i =0; i< $scope.data.blackouts.length;i++){
                 if($scope.data.blackouts[i].checked == "true"){
