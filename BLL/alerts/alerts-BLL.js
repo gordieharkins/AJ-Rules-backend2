@@ -44,9 +44,9 @@ module.exports = BLL;
 function BLL() {}
 
 BLL.prototype.startCronJob = function() {
-    console.log('coming')
-    var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
-    {body:'1234',from:'+14242173909',to:'+923335375272'},]
+    // console.log('coming')
+    // var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
+    // {body:'1234',from:'+14242173909',to:'+923335375272'},]
 
     // var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
     var task = cron.schedule('1 * * * * *', function(){
@@ -92,9 +92,13 @@ function executeJob(data) {
             
             if (value.alert.properties.email != "null"){
                 var emailOption = {
-                    text: value.alert.properties.message + "Property Name: "+ value.alert.properties.property + "Jurisdiction: " +value.alert.properties.jurisdiction,
+                    text: `Hi,
+                            This email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
+                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `Sincerely,
+                            AOTC
+                            `,
                     from:"AOTC <aotc.invite@gmail.com>", 
-                    subject:"AOTC Email Verification",
+                    subject:"AOTC Alert for " +(new Date().getDate()),
                     to: value.alert.properties.email
                 };
 
@@ -114,8 +118,8 @@ function executeJob(data) {
 }
 
 // BLL.prototype.addAlert = function(alert, userId, cb) {
-BLL.prototype.addAlert = function(req, res) {
-    var userId = req.user[0].userId;
+BLL.prototype.addAlert = function(alert, userId) {
+    // var userId = req.user[0].userId;
     DAL.getSettings(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -249,7 +253,18 @@ BLL.prototype.saveEmailCode = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
+            // var emailOption = {
+            //     text: "Please use this verfication code: "+ data.code,
+            //     from:"AOTC <aotc.invite@gmail.com>", 
+            //     subject:"AOTC Email Verification",
+            //     to: value.alert.properties.email
+            // };
 
+            // EmailService.send_email(emailOption, function(error, result) {
+            //     console.log('sending',i,emailOption.to)
+            //     results.push(result)
+            //     cb()
+            // });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
