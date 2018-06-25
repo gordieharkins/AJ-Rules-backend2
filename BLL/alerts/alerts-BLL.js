@@ -209,11 +209,15 @@ BLL.prototype.getSettings = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            
-            var finalResult = {
-                id: result[0].id,
-                settings: createSettingsJSON(result)
+            try{
+                var finalResult = {
+                    id: result[0].id,
+                    settings: createSettingsJSON(result)
+                }
+            } catch(e){
+                var finalResult = {};
             }
+            
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
         }
     });

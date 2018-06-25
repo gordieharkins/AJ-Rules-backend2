@@ -40123,7 +40123,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.send_code_to_email = function(){
         $scope.sending_email_code = true;
         
-        AOTCService.postDataToServer("/alerts/saveEmailCode", {email:$scope.data.email})
+        AOTCService.postDataToServer("/alerts/saveEmailCode", {email:$scope.data.email.details})
             .then(
             function successCallback(response) {
                 console.log(response)
