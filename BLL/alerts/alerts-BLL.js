@@ -134,7 +134,7 @@ BLL.prototype.addAlert = function(req, res) {
             // console.log("ssssssssssssss",JSON.stringify(settings));
             var alert = req.body;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
-                console.log(JSON.stringify(finalAlert));
+                // console.log(JSON.stringify(finalAlert));
 
                 DAL.addAlert(finalAlert, userId, function(error, result) {
                     if (error) {
@@ -258,6 +258,57 @@ BLL.prototype.savePhoneCode = function(req, res) {
     data.code = generateCode();
     // console.log(dbObject);
     DAL.savePhoneCode(userId, data, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.verifyEmailCode = function(req, res) {
+    var userId = req.user[0].userId;
+
+    // console.log(dbObject);
+    var date = new Date();
+    var data = req.body;
+    data.createdDate = date;
+    data.code = generateCode();
+    
+    DAL.verifyEmailCode(userId, data, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.verifyPhoneCode = function(req, res) {
+    var userId = req.user[0].userId;
+
+    var date = new Date();
+    var data = req.body;
+    data.createdDate = date;
+    data.code = generateCode();
+    // console.log(dbObject);
+    DAL.verifyPhoneCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
