@@ -34,7 +34,7 @@
     "async": "^2.3.0",
     "angular-input-masks": "^2.5.0",
     "ag-grid": "^9.1.0",
-    "moment-timezone": "^0.5.13",
+    "moment-timezone": "^0.5.17",
     "angular-spinkit": "^0.3.4",
     "ng-device-detector": "^4.0.3",
     "angular-xeditable": "^0.8.0",

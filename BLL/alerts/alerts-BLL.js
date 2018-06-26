@@ -15,6 +15,9 @@ var config = require(path.resolve(__dirname,'./config'));
 var SmsService = require(path.resolve(__dirname, './sms'));
 var smsService = new SmsService();
 
+
+var EmailService = require(path.resolve(__dirname, './email_sender'))(config);
+
 var AlertSettings = require(path.resolve(__dirname, './settings'));
 var alertSettings = new AlertSettings();
 var moment = require('moment');
@@ -41,9 +44,9 @@ module.exports = BLL;
 function BLL() {}
 
 BLL.prototype.startCronJob = function() {
-    console.log('coming')
-    var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
-    {body:'1234',from:'+14242173909',to:'+923335375272'},]
+    // console.log('coming')
+    // var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
+    // {body:'1234',from:'+14242173909',to:'+923335375272'},]
 
     // var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
     var task = cron.schedule('1 * * * * *', function(){
@@ -55,7 +58,6 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-                console.log(JSON.stringify(result));
                 executeJob(result);
                 // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
@@ -71,30 +73,68 @@ BLL.prototype.startCronJob = function() {
 function executeJob(data) {
   
      var results = []
-     console.log(data.length)
      async.forEachOf(data, function (value, i, cb) {
-        console.log('started',value);
             if(value.alert.properties.sms != "null"){
-                console.log("Send SMS");
-                cb();
-                // smsService.sendSms(value.alert.properties, function(error, result) {
-                //     console.log('sending',i,value.to)
-                //     results.push(result)
-                //     cb()
-                // });
+                if(value.alert.properties.sms== "null"){
+                    // cb();
+                
+                    smsService.sendSms(value.alert.properties, function(error, result) {
+                        if(error){
+                            cb();
+                        } else {
+                            DAL.updateAlert(value.alert._id, function(error, result) {
+                                if (error) {
+                                    console.log(error);
+                                    error.userName = loginUserName;
+                                    ErrorLogDAL.addErrorLog(error);
+                                }
+                            });
+                            console.log("done");
+                            results.push(result)
+                            cb();
+                        }
+                        
+                    });
+                }
+            }
+            
+            if (value.alert.properties.email != "null"){
+                var emailOption = {
+                    text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
+                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
+                    from:"AOTC <aotc.invite@gmail.com>", 
+                    subject:"AOTC Alert for " +(new Date().getDate()),
+                    to: value.alert.properties.email
+                };
+
+                EmailService.send_email(emailOption, function(error, result) {
+                    if(error){
+                        cb();
+                    } else {
+                        DAL.updateAlert(value.alert._id, function(error, result) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                            }
+                        });
+                        console.log("done Email");
+                        
+                        results.push(result)
+                        cb();
+                    }
+                });
             }
             
      }, function (err) {
         if (err) console.error(err.message);
-         console.log('all done')
-        console.log(results);
     });
        
 }
 
 // BLL.prototype.addAlert = function(alert, userId, cb) {
-BLL.prototype.addAlert = function(req, res) {
-    var userId = req.user[0].userId;
+BLL.prototype.addAlert = function(alert, userId) {
+    // var userId = req.user[0].userId;
     DAL.getSettings(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -111,18 +151,16 @@ BLL.prototype.addAlert = function(req, res) {
             };
 
             // console.log("ssssssssssssss",JSON.stringify(settings));
-            var alert = req.body;
+            // var alert = alert;
             alertSettings.configureAlert(alert, settings, function(finalAlert){
-                console.log(JSON.stringify(finalAlert));
+                // console.log(JSON.stringify(finalAlert));
 
                 DAL.addAlert(finalAlert, userId, function(error, result) {
                     if (error) {
                         console.log(error);
                         error.userName = loginUserName;
                         ErrorLogDAL.addErrorLog(error);
-                        Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-                    } else {
-                        Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+                        // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                     }
                 });
             });
@@ -137,7 +175,13 @@ BLL.prototype.saveSettings = function(req, res) {
     var userId = req.user[0].userId;
     var data = req.body;
     var dbObject = {};
-    
+    if(data.sms.details == null){
+        data.sms.details = "null";
+    }
+
+    if(data.email.details == null){
+        data.email.details = "null";
+    }
 
     dbObject.sms = [data.sms.flag, data.sms.details, data.sms.verified];
     dbObject.email = [data.email.flag, data.email.details, data.email.verified];
@@ -160,7 +204,6 @@ BLL.prototype.saveSettings = function(req, res) {
         }
     }
 
-    // console.log(dbObject);
     DAL.saveSettings(dbObject, userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -180,7 +223,6 @@ BLL.prototype.saveSettings = function(req, res) {
 BLL.prototype.getSettings = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     DAL.getSettings(userId, function(error, result) {
         if (error) {
         	console.log(error);
@@ -188,11 +230,15 @@ BLL.prototype.getSettings = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            
-            var finalResult = {
-                id: result[0].id,
-                settings: createSettingsJSON(result)
+            try{
+                var finalResult = {
+                    id: result[0].id,
+                    settings: createSettingsJSON(result)
+                }
+            } catch(e){
+                var finalResult = {};
             }
+            
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
         }
     });
@@ -205,12 +251,10 @@ BLL.prototype.getSettings = function(req, res) {
 BLL.prototype.saveEmailCode = function(req, res) {
     var userId = req.user[0].userId;
 
-    // console.log(dbObject);
     var date = new Date();
     var data = req.body;
     data.createdDate = date;
     data.code = generateCode();
-    
     DAL.saveEmailCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
@@ -218,7 +262,18 @@ BLL.prototype.saveEmailCode = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
+            // var emailOption = {
+            //     text: "Please use this verfication code: "+ data.code,
+            //     from:"AOTC <aotc.invite@gmail.com>", 
+            //     subject:"AOTC Email Verification",
+            //     to: value.alert.properties.email
+            // };
 
+            // EmailService.send_email(emailOption, function(error, result) {
+            //     console.log('sending',i,emailOption.to)
+            //     results.push(result)
+            //     cb()
+            // });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -235,7 +290,6 @@ BLL.prototype.savePhoneCode = function(req, res) {
     var data = req.body;
     data.createdDate = date;
     data.code = generateCode();
-    // console.log(dbObject);
     DAL.savePhoneCode(userId, data, function(error, result) {
         if (error) {
         	console.log(error);
@@ -245,6 +299,129 @@ BLL.prototype.savePhoneCode = function(req, res) {
         } else {
 
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.verifyEmailCode = function(req, res) {
+    var userId = req.user[0].userId;
+
+    var date = new Date();
+    var email = req.body.email;
+    var verificationCode = req.body.code;
+    // var data = req.body;
+    // data.createdDate = date;
+    // data.code = generateCode();
+    
+    DAL.verifyEmailCode(userId, email, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+            if(result.length > 0){
+                var endingTime = new Date(result[0].e.properties.createdDate);
+                endingTime = endingTime.setDate(endingTime.getDate() + 1);
+                if(moment(date).isBefore(endingTime)){
+                    if(result[0].e.properties.code == verificationCode){
+                        DAL.getSettings(userId, function(error, settings) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                                Response.sendResponse(false, "Something went wrong.", null, res);
+                                
+                            } else {
+                                try{
+                                    var tempSettings = settings[0].settings;
+                                    tempSettings.email[2] = "true";
+                                    DAL.saveSettings(tempSettings, userId, function(error, result) {
+                                        if (error) {
+                                            console.log(error);
+                                            error.userName = loginUserName;
+                                            ErrorLogDAL.addErrorLog(error);
+                                            Response.sendResponse(false, "Something went wrong.", null, res);
+                                        } else {
+                                            Response.sendResponse(true, "Verification Successful.", null, res); 
+                                        }
+                                    });
+                                } catch(e){
+                                    var finalResult = {};
+                                }
+                            }
+                        });
+                    } else {
+                        Response.sendResponse(false, "Verfication Failed.", null, res);
+                    }
+                } else {
+                    Response.sendResponse(false, "Verfication code expired.", null, res);
+                }
+            }
+        }
+    });
+}
+// ---------------------END---------------------
+
+// ---------------------------------------------
+// getSettings
+// ---------------------------------------------
+BLL.prototype.verifyPhoneCode = function(req, res) {
+    var userId = req.user[0].userId;
+
+    var date = new Date();
+    var phone = req.body.phone;
+    var verificationCode = req.body.code;
+    
+    DAL.verifyPhoneCode(userId, phone, function(error, result) {
+        if (error) {
+        	console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+        } else {
+            if(result.length > 0){
+                var endingTime = new Date(result[0].e.properties.createdDate);
+                endingTime = endingTime.setDate(endingTime.getDate() + 1);
+                if(moment(date).isBefore(endingTime)){
+                    if(result[0].e.properties.code == verificationCode){
+                        DAL.getSettings(userId, function(error, settings) {
+                            if (error) {
+                                console.log(error);
+                                error.userName = loginUserName;
+                                ErrorLogDAL.addErrorLog(error);
+                                Response.sendResponse(false, "Something went wrong.", null, res);
+                                
+                            } else {
+                                try{
+                                    var tempSettings = settings[0].settings;
+                                    tempSettings.sms[2] = "true";
+                                    DAL.saveSettings(tempSettings, userId, function(error, result) {
+                                        if (error) {
+                                            console.log(error);
+                                            error.userName = loginUserName;
+                                            ErrorLogDAL.addErrorLog(error);
+                                            Response.sendResponse(false, "Something went wrong.", null, res);
+                                        } else {
+                                            Response.sendResponse(true, "Verification Successful.", null, res); 
+                                        }
+                                    });
+                                } catch(e){
+                                    var finalResult = {};
+                                }
+                            }
+                        });
+                    } else {
+                        Response.sendResponse(false, "Verfication Failed.", null, res);
+                    }
+                } else {
+                    Response.sendResponse(false, "Verfication code expired.", null, res);
+                }
+            }
         }
     });
 }
@@ -399,7 +576,6 @@ function getActiveTime(blackouts){
         //     return b.startTime > a.startTime;
         // });
 
-        console.log(JSON.stringify(blackouts));
 
         
 
@@ -526,17 +702,12 @@ function getActiveTime(blackouts){
     //     }
     // }
 
-    console.log("AAAAAAAAAAAA",JSON.stringify(blackoutTimes));
-    console.log("BBBBBBBBBBBBBB",JSON.stringify(activeTimes));
-
-
     return activeTimes;
     
 }
 
 
 function addActiveTime(activeTime, activeTimes, days){
-    // console.log(activeTimes[1]);
     if(days.indexOf("Sunday") > -1 || days == "Sunday"){
         activeTimes[0].intervals.push(activeTime);
     }

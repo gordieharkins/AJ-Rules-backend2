@@ -926,3 +926,8 @@ table .fa-clock-o {
 }
 
 
+
+
+.edit-popover .header{
+    display: none;
+}

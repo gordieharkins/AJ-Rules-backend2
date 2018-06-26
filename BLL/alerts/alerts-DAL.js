@@ -17,7 +17,6 @@ function DAL() {
 //--------------------------------------------------------
 DAL.prototype.saveSettings = function(data, userId, cb) {
     // console.log("here it is00")
-    console.log(JSON.stringify(data));
     var query = `MATCH (n:user) where id(n) = {userId}
                 MERGE(n)-[:settings]->(s:userSettings)
                 ON MATCH SET s = {settings}
@@ -61,7 +60,7 @@ DAL.prototype.getSettings = function(userId, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.saveEmailCode = function(userId, data, cb) {
-	// console.log("here it is00")
+	console.log("here it is00");
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MERGE (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
                 ON MATCH SET e.code = {code}, e.createdDate = {date}
@@ -71,8 +70,10 @@ DAL.prototype.saveEmailCode = function(userId, data, cb) {
         userId: userId,
         emailId: data.email,
         code: data.code,
-        date: date.createdDate
-    }
+        date: data.createdDate
+    }   
+
+    console.log(query);
 
      db.cypher({
         query: query,
@@ -110,18 +111,36 @@ DAL.prototype.savePhoneCode = function(userId, data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.verifyPhone = function(userId, data, cb) {
-	// console.log("here it is00")
+DAL.prototype.verifyEmailCode = function(userId, emailId, cb) {
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
-                MERGE (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
-                ON MATCH SET e.code = {code}, e.createdDate = {date}
-                ON CREATE SET e.code = {code}, e.createdDate = {date}`;
+                MATCH (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
+                return e`;
 
     var params = {
         userId: userId,
-        phoneNumber: data.phoneNumber,
-        code: data.code,
-        date: data.createdDate
+        emailId: emailId
+    }
+
+     db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.verifyPhoneCode = function(userId, phoneNumber, cb) {
+    var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
+                MATCH (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
+                return e`;
+
+    var params = {
+        userId: userId,
+        phoneNumber: phoneNumber
     }
 
      db.cypher({
@@ -137,14 +156,19 @@ DAL.prototype.verifyPhone = function(userId, data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.addAlert = function(alert, userId, cb) {
-    // console.log("here it is00")
-    console.log(alert);
+    var dateTime = alert.dateTime;
+    delete alert.dateTime;
     var query = `MATCH (n:user) where id(n) = {userId}
-                MERGE (n)-[:HAS{sent:false}]->(e:alert`+ converter.cypherJsonConverter(alert)+`)`;
+                MERGE (n)-[:HAS{sent:false}]->(e:alert`+ converter.cypherJsonConverter(alert)+`)
+                ON MATCH SET e.dateTime = {dateTime}
+                ON CREATE SET e.dateTime = {dateTime}`;
 
+    
     var params = {
         userId: userId,
-        alert: alert
+        alert: alert,
+        dateTime: dateTime
+
     }
 
      db.cypher({
@@ -171,8 +195,6 @@ DAL.prototype.getAlert = function(cb) {
         RETURN alert`;
 
 
-        console.log(endTime);
-        console.log(query);
      db.cypher({
         query: query,
         params: {

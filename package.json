@@ -17,6 +17,7 @@
     "angular-datatables-zz": "^0.5.4",
     "angular-datetime-range": "^0.4.0",
     "angular-input-masks": "^4.1.0",
+    "angular-moment-timezone": "^1.7.1",
     "async": "^2.4.0",
     "body-parser": "~1.15.2",
     "bower": "^1.8.0",
@@ -41,8 +42,13 @@
     "jsonwebtoken": "^7.4.0",
     "lodash": "^4.17.4",
     "mammoth": "^1.4.2",
+<<<<<<< HEAD
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.13",
+=======
+    "moment": "^2.17.1",
+    "moment-timezone": "^0.5.21",
+>>>>>>> a1f01c541341a606ed01b0abb23305ced58014e9
     "morgan": "~1.7.0",
     "mssql": "^3.3.0",
     "neo4j": "^2.0.0-alpha5",

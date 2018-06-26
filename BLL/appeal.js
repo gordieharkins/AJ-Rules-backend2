@@ -12,10 +12,12 @@ var RRDAL = require(path.resolve(__dirname, '../DAL/rentRolls'));
 var async = require('async');
 var dateDiff = require('date-diff');
 var jurisdictionTimeline = require(path.resolve(__dirname, './util/jdRules'));
+var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
 
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
+var ALERT =  new alerts();
 
 
 module.exports = BLL;
@@ -350,7 +352,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									if(subValue.properties.type == "00"){
 										indexes[0][0] = j;
 										checkIEFormStatus(subValue.properties, value.jurisdiction, 
-														value.event.properties.deadline, subValue._id, function(error, formStatus){
+														value.event.properties.deadline, subValue._id, userId, function(error, formStatus){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -361,7 +363,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									} else if(subValue.properties.type == "01"){
 										indexes[0][1] = j;
 										checkRequiredItemsPaper(subValue.properties, value.propertyId, 
-															subValue._id, value.event.properties.deadline, value.jurisdiction, 
+															subValue._id, value.event.properties.deadline, value.jurisdiction, userId,
 															function(error, requiredItems){
 											if(error){
 												callbackSubMain(error);
@@ -429,7 +431,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										indexes[1][0] = j;
 										checkRequiredItems(subValue.properties, value.propertyId, 
 														subValue._id, value.event.properties.deadline, 
-														value.jurisdiction, function(error, requiredItems){
+														value.jurisdiction, userId, function(error, requiredItems){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -631,7 +633,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 }
 // ---------------------END---------------------
 
-function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction, cb){
+function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction, userId, cb){
 	var requiredItems = subValue;
 	async.parallel([
 		function(callback) {
@@ -679,6 +681,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				type: "warning",
 				remainingDays: 0
 			}
+			var alert = "";
 
 			for(var element in requiredItems){
 				if(Array.isArray(requiredItems[element])){
@@ -738,11 +741,13 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 				if(daysRemaining < 30){
 					notification.remainingDays = daysRemaining;
 					if(daysRemaining > 0){
-						notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
+						notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information.";
 						message += daysRemaining+ " days remaining before submission. "
+						alert += daysRemaining+ " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information.";
 					} else if (daysRemaining <= 0 ){
 						notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
 						message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
+						alert += "Income Expense Survey submission overdue by " +daysRemaining+ " days for "+jurisdiction+" properties. Please complete the required information.";
 					}
 					
 					if(remainingItems > 0){
@@ -818,6 +823,8 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 						generateNotification(notification, itemId, function(){
 							cb(null, requiredItems);
 						});
+						
+						generateAlert(alert, userId, jurisdiction, 1);
 					} else {
 						cb(null, requiredItems);
 					}
@@ -912,7 +919,7 @@ function calculateRemainingDays(deadline){
 	return daysRemaining + 1;
 }
 
-function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, cb){
+function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, userId, cb){
 	var totalItems = 0;
 	var remainingItems = 0;
 	var totalFields = 0;
@@ -924,7 +931,9 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		text: "",
 		type: "warning",
 		remainingDays: 0
-	}
+	};
+	
+	var alert = "";
 	for(var element in requiredItems){
 		if(Array.isArray(requiredItems[element])){
 			if(requiredItems[element][0] == "item"){
@@ -950,13 +959,15 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 		requiredItems.status = "In Progress";
 		notification.remainingDays = remainingDays;
 		if(remainingDays < 30 && remainingDays > 0){
-			notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information."
+			notification.text = " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information.";
 			// notification.remainingDays = daysRemaining;
-			warning += remainingDays+ " days remaining before submission. "
+			warning += remainingDays+ " days remaining before submission. ";
+			alert += remainingDays+ " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information.";
 		} else if (remainingDays <= 0 ){
 			notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
 			// notification.remainingDays = daysRemaining;
-			warning += "Income Expense Survey submission overdue by " +parseInt(remainingDays)*(-1)+ " days. "
+			warning += "Income Expense Survey submission overdue by " +parseInt(remainingDays)*(-1)+ " days. ";
+			alert += "Income Expense Survey submission overdue by "+remainingDays+" days for "+jurisdiction+" properties. Please complete the required information.";
 		}
 
 		if(remainingItems > 0){
@@ -1016,6 +1027,8 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 				generateNotification(notification, itemId, function(){
 					cb(null, requiredItems);
 				});
+
+				generateAlert(alert, userId, jurisdiction, 1);
 			} else {
 				cb(null, requiredItems);
 			}
@@ -1095,7 +1108,7 @@ function checkSignatureStatusPaper(reviewStatus, ieForm, requiredItemsStatus, su
 	cb(null,signatureStatus);
 }
 
-function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
+function checkIEFormStatus(subValue, jurisdiction, deadline, id, userId, cb){
 	var status = subValue;
 	var remainingDays = parseInt(calculateRemainingDays(deadline));
 	if(remainingDays <= 0){
@@ -1116,9 +1129,13 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, cb){
 			remainingDays: remainingDays
 		}
 
+		var alert = remainingDays+ " days remaining before submission. Fill income expense survey forms for properties of "+jurisdiction+".";
+
 		generateNotification(notification, id, function(){
 			cb(null, status);
 		});
+
+		generateAlert(alert, userId, jurisdiction, 1);
 		// status["notification"] = notification;
 	} else {
 		cb(null, status);
@@ -1286,3 +1303,15 @@ function validateValueAtIndexes(indexes, value){
 
 	return status;
 }
+
+function generateAlert(alert, userId, jurisdiction, type){
+	var dateTime = new Date().toISOString();
+	var finalAlert = {
+		message: alert,
+		dateTime: dateTime,
+		jurisdiction: jurisdiction,
+		type: "immediate"
+	};
+	
+	ALERT.addAlert(finalAlert, userId);
+};

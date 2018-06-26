@@ -19,57 +19,111 @@ Object.defineProperty(Array.prototype, 'remove', {
 
 function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
-
     $scope.error_check = false;
-    $scope.timezones = ["Timezone 1", "Timezone 2", "Timezone 3", "Timezone 4"]
+    $scope.timezones = [{ name: "Hawaii", value: 10 }, { name: "Alaska", value: 8 }, { name: "Pacific", value: 7 }, { name: "Mountain", value: 6 }, { name: "Central", value: 6 }, { name: "Eastern US, Standard Time", value: 4 }]
     $scope.data = {}
     $scope.data["sms"] = { "flag": false, "verified": false }
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
-    $scope.min_date = moment().startOf('day').subtract(1,'hours');
+    $scope.min_date = moment().startOf('day').subtract(1, 'hours');
 
     $scope.max_date = moment().endOf('day');
+    // console.log($scope.min_date, $scope.min_date.tz("America/Los_Aneles").format())
     $scope.time_data = {};
 
-    $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
+    $scope.time_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(8, 'hours') }]
 
     $scope.sending_email_code = false;
 
-    $scope.send_code_to_email = function(){
+    $scope.send_code_to_email = function () {
         $scope.sending_email_code = true;
-        
-        AOTCService.postDataToServer("/alerts/saveEmailCode", {email:$scope.data.email})
+
+        AOTCService.postDataToServer("/alerts/saveEmailCode", { email: $scope.data.email.details })
             .then(
-            function successCallback(response) {
-                console.log(response)
-                $scope.sending_email_code = false;
-            },
-            function errorCallback(response) {
-                console.log(response)
-                $scope.sending_email_code = false;
-            })
+                function successCallback(response) {
+                    console.log(response)
+                    $scope.sending_email_code = false;
+                },
+                function errorCallback(response) {
+                    console.log(response)
+                    $scope.sending_email_code = false;
+                })
+    }
+
+    $scope.verifying_email = false;
+
+
+    $scope.verify_email_code = function (code_email_form) {
+
+        console.log(code_email_form.$invalid)
+        if (code_email_form.$invalid) {
+            return
+        }
+        $scope.verifying_email = true;
+        var code = $scope.code_email.a + $scope.code_email.b + $scope.code_email.c + $scope.code_email.d + $scope.code_email.e + $scope.code_email.f
+
+        AOTCService.postDataToServer("/alerts/verifyEmailCode", { email: $scope.data.email.details, code: code })
+            .then(
+                function successCallback(response) {
+                    console.log(response)
+                    $scope.verifying_email = false;
+                    setTimeout(function () {
+                        $('#emailverifyModal').modal('hide');
+                        intialize()
+                    }, 500)
+                },
+                function errorCallback(response) {
+                    console.log(response)
+                    $scope.verifying_email = false;
+                })
+    }
+    $scope.verifying_sms = false;
+
+    $scope.verify_sms_code = function (code_sms_form) {
+
+        if (code_sms_form.$invalid) {
+            return
+        }
+        $scope.verifying_sms = true;
+
+        var code = $scope.code_sms.a + $scope.code_sms.b + $scope.code_sms.c + $scope.code_sms.d + $scope.code_sms.e + $scope.code_sms.f
+
+        AOTCService.postDataToServer("/alerts/verifyPhoneCode", { phone: $scope.data.sms.details, code: code })
+            .then(
+                function successCallback(response) {
+                    console.log(response)
+                    $scope.verifying_sms = false;
+                    setTimeout(function () {
+                        $('#smsverifyModal').modal('hide');
+                        intialize();
+                    }, 500)
+                },
+                function errorCallback(response) {
+                    console.log(response)
+                    $scope.verifying_sms = false;
+                })
     }
 
     $scope.sending_sms_code = false;
 
-    $scope.send_code_to_sms = function(){
+    $scope.send_code_to_sms = function () {
         $scope.sending_sms_code = true;
-        
-        AOTCService.postDataToServer("/alerts/savePhoneCode", {email:$scope.data.email})
+
+        AOTCService.postDataToServer("/alerts/savePhoneCode", { email: $scope.data.sms.details })
             .then(
-            function successCallback(response) {
-                console.log(response)
-                $scope.sending_sms_code = false;
-            },
-            function errorCallback(response) {
-                console.log(response)
-                $scope.sending_sms_code = false;
-            })
+                function successCallback(response) {
+                    console.log(response)
+                    $scope.sending_sms_code = false;
+                },
+                function errorCallback(response) {
+                    console.log(response)
+                    $scope.sending_sms_code = false;
+                })
     }
 
     $scope.set_new_time = function () {
-        
+
         var day = [];
         if ($scope.time_data.mon) {
             day.push("Monday")
@@ -104,33 +158,33 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
             return;
         }
 
-        
-        if($scope.editing){
-            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span:$scope.time_data.span }
-            
+
+        if ($scope.editing) {
+            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span }
+
             $scope.editing = false;
             // $scope.dismiss();
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#myModal').modal('hide');
             }, 500)
 
             return;
         }
 
-        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span:$scope.time_data.span })
+        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span })
         $scope.dismiss();
     }
-    
-    $scope.toggle_input = function(index){
-        $scope.data.blackouts[index].checked  = !$scope.data.blackouts[index].checked;
+
+    $scope.toggle_input = function (index) {
+        $scope.data.blackouts[index].checked = !$scope.data.blackouts[index].checked;
         // console.log("Working", d)
         // d.checked = !d.checked;
         console.log("Working", $scope.data)
-        
+
     }
 
-    $scope.select_timezone_label = function(){
-        if($scope.data.timezone){
+    $scope.select_timezone_label = function () {
+        if ($scope.data.timezone) {
             return $scope.data.timezone;
         }
 
@@ -141,58 +195,90 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
         $scope.saving = true;
         $scope.error_check = true;
         console.log($scope.data)
-        if($scope.data.email.flag || $scope.data.sms.flag){
-            if(!form_alert_type.$valid){
+        if ($scope.data.email.flag || $scope.data.sms.flag) {
+            if (!form_alert_type.$valid) {
                 return
-            }else{
+            } else {
                 console.log("Called")
 
                 var data = JSON.parse(JSON.stringify($scope.data));
-                if(data.sms.flag){
+                if (data.sms.flag) {
                     data.sms.flag = "true";
-                }else{
+                } else {
                     data.sms.flag = "false"
                 }
 
-                if(data.email.flag){
+                if (data.email.flag) {
                     data.email.flag = "true"
-                }else{
+                } else {
                     data.email.flag = "false"
                 }
 
-                if(data.email.verified){
+                if (data.email.verified) {
                     data.email.verified = "true"
-                }else{
+                } else {
                     data.email.verified = "false"
                 }
 
-                if(data.sms.verified){
+                if (data.sms.verified) {
                     data.sms.verified = "true"
-                }else{
+                } else {
                     data.sms.verified = "false"
                 }
 
-                for(var i =0; i< data.blackouts.length;i++){
-                    if(data.blackouts[i].checked == true){
+                for (var i = 0; i < data.blackouts.length; i++) {
+                    if (data.blackouts[i].checked == true) {
                         data.blackouts[i].checked = "true";
-                    }else{
+                    } else {
                         data.blackouts[i].checked = "false";
                     }
                 }
 
+                var check = false;
+                var value = 0;
+                for (var i = 0; i < $scope.timezones.length; i++) {
+                    if ($scope.timezones[i].name == $scope.data.timezone) {
+                        check = true;
+                        value = $scope.timezones[i].value;
+                    }
+                }
+
+                if (!check) {
+                    $scope.timezones[i].name = "Eastern US, Standard Time";
+                    value = 4;
+                }
+
+
+                for (var i = 0; i < data.blackouts.length; i++) {
+
+                    // console.log($scope.data.blackouts[i].checked);
+                    for (var j = 0; j < data.blackouts[i].intervals.length; j++) {
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        data.blackouts[i].intervals[j].startTime = moment(data.blackouts[i].intervals[j].startTime).add(value, 'hours');
+                        // data.blackouts[i].intervals[j].startTime.add(value, 'hours')
+                        data.blackouts[i].intervals[j].endTime = moment(data.blackouts[i].intervals[j].endTime).add(value, 'hours');
+                        // data.blackouts[i].intervals[j].endTime.add(value, 'hours')
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+
+                    }
+                    // if($scope.data.blackouts[i])
+
+                }
+
+
                 AOTCService.postDataToServer("/alerts/saveSettings", data)
-                .then(
-                function successCallback(response) {
-                    console.log(response)
-                    $scope.saving = false;
-                },
-                function errorCallback(response) {
-                    console.log(response)
-                    $scope.saving = false;
-                })
+                    .then(
+                        function successCallback(response) {
+                            console.log(response)
+                            $scope.saving = false;
+                        },
+                        function errorCallback(response) {
+                            console.log(response)
+                            $scope.saving = false;
+                        })
             }
-            
-        }else{
+
+        } else {
             $scope.email_sms_error = true;
         }
         // console.log($scope.data)
@@ -241,20 +327,20 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
         $scope.error_reset();
 
-        
+
     }
 
-    $scope.error_reset = function(){
+    $scope.error_reset = function () {
         if ($scope.time_data.mon == true || $scope.time_data.tue == true || $scope.time_data.wed == true || $scope.time_data.thur == true || $scope.time_data.fri == true || $scope.time_data.sat == true || $scope.time_data.sun == true) {
             $scope.time_data_error = false;
         }
     }
 
-    $scope.none_selected_error_reset = function(){
-        if($scope.data.email.flag || $scope.data.sms.flag){
+    $scope.none_selected_error_reset = function () {
+        if ($scope.data.email.flag || $scope.data.sms.flag) {
             $scope.email_sms_error = false;
-        }else{
-            $scope.email_sms_error = true;            
+        } else {
+            $scope.email_sms_error = true;
         }
     }
 
@@ -317,67 +403,67 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     }
 
     $scope.editing = false;
-    $scope.newTimeAlert = function(reset, elem, index){
+    $scope.newTimeAlert = function (reset, elem, index) {
         $scope.editing = false;
-        
+
         $('#myModal').modal('show');
-        
-        if(reset){
+
+        if (reset) {
             $scope.time_data = {};
-            $scope.time_data.intervals = [{ startTime:  $scope.min_date, endTime:  $scope.min_date.add(1, 'hours') }]
+            $scope.time_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(8, 'hours') }]
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
-            
-        }else if (elem){
+
+        } else if (elem) {
             $scope.editing = true;
             $scope.edit_index = index;
             $scope.time_data = null;
             $scope.time_data = JSON.parse(JSON.stringify(elem));
             var a_check = false;
-            if($.inArray('Monday', elem.days) > -1){
+            if ($.inArray('Monday', elem.days) > -1) {
                 $scope.time_data.mon = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if($.inArray('Tuesday', elem.days) > -1){
+            if ($.inArray('Tuesday', elem.days) > -1) {
                 $scope.time_data.tue = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if($.inArray('Wednesday', elem.days) > -1){
+            if ($.inArray('Wednesday', elem.days) > -1) {
                 $scope.time_data.wed = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if($.inArray('Thursday', elem.days) > -1){
+            if ($.inArray('Thursday', elem.days) > -1) {
                 $scope.time_data.thur = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if($.inArray('Friday', elem.days) > -1){
+            if ($.inArray('Friday', elem.days) > -1) {
                 $scope.time_data.fri = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if($.inArray('Saturday', elem.days) > -1){
+            if ($.inArray('Saturday', elem.days) > -1) {
                 $scope.time_data.sat = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
             console.log($.inArray("Sunday", elem.days))
-            if($.inArray("Sunday", elem.days) > -1){
+            if ($.inArray("Sunday", elem.days) > -1) {
                 $scope.time_data.sun = true;
-            }else{
+            } else {
                 a_check = true;
             }
 
-            if(!a_check){
+            if (!a_check) {
                 $scope.time_data.all = true;
             }
 
@@ -408,83 +494,114 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 
     // hello
-    $scope.open_dialog = function(modal){
-        $('#'+modal).modal('show');
+    $scope.open_dialog = function (modal) {
+        $('#' + modal).modal('show');
     }
 
-    $scope.isSelected = function(item){
-        if($scope.data.timezone == item){
+    $scope.isSelected = function (item) {
+        if ($scope.data.timezone == item) {
             return "selected-option";
         }
     }
 
-    $scope.toggle_dropdown = function(id){
-        $("#"+id).toggle();
+    $scope.toggle_dropdown = function (id) {
+        $("#" + id).toggle();
     }
 
 
-    $scope.delete_interval = function(index){
+    $scope.delete_interval = function (index) {
         $scope.data.blackouts.remove(index);
     }
 
 
 
+    function intialize() {
+        AOTCService.getDataFromServer('/alerts/getSettings')
+            .then(function (result) {
 
-    AOTCService.getDataFromServer('/alerts/getSettings')
-        .then(function (result) {
-            ////console.log(result);
-            console.log(result);
-            $scope.data =  result.data.result.settings
-
-            if($scope.data.sms.flag == "true"){
-                $scope.data.sms.flag = true;
-            }else{
-                $scope.data.sms.flag = false;
-            }
-
-            if($scope.data.email.flag == "true"){
-                $scope.data.email.flag = true;
-            }else{
-                $scope.data.email.flag = false;
-            }
-
-            if($scope.data.email.verified == "true"){
-                $scope.data.email.verified = true;
-            }else{
-                $scope.data.email.verified = false;
-            }
-
-            if($scope.data.sms.verified == "true"){
-                $scope.data.sms.verified = true;
-            }else{
-                $scope.data.sms.verified = false;
-            }
-            // $scope.data.email.verified = false
-            // $scope.data.sms.verified = true;
-
-            for(var i =0; i< $scope.data.blackouts.length;i++){
-                if($scope.data.blackouts[i].checked == "true"){
-                    $scope.data.blackouts[i].checked = true;
-                }else if($scope.data.blackouts[i].checked=="false"){
-                    $scope.data.blackouts[i].checked = false;
+                if (!result.data.result.settings) {
+                    return
                 }
-                // console.log($scope.data.blackouts[i].checked);
-                
-            }
+                $scope.data = result.data.result.settings
+                if ($scope.data.sms.flag == "true") {
+                    $scope.data.sms.flag = true;
+                } else {
+                    $scope.data.sms.flag = false;
+                }
 
-        }, function (result) {
-            ////console.log(result);
-            console.log("error", result)
+                if ($scope.data.email.flag == "true") {
+                    $scope.data.email.flag = true;
+                } else {
+                    $scope.data.email.flag = false;
+                }
+
+                if ($scope.data.email.verified == "true") {
+                    $scope.data.email.verified = true;
+                } else {
+                    $scope.data.email.verified = false;
+                }
+
+                if ($scope.data.sms.verified == "true") {
+                    $scope.data.sms.verified = true;
+                } else {
+                    $scope.data.sms.verified = false;
+                }
+                // $scope.data.email.verified = false
+                // $scope.data.sms.verified = false;
+
+                var check = false;
+                var value = 0;
+                for (var i = 0; i < $scope.timezones.length; i++) {
+                    if ($scope.timezones[i].name == $scope.data.timezone) {
+                        check = true;
+                        value = $scope.timezones[i].value;
+                    }
+                }
+
+                if (!check) {
+                    $scope.timezones[i].name = "Eastern US, Standard Time";
+                    value = 4;
+                }
 
 
-        });
+                for (var i = 0; i < $scope.data.blackouts.length; i++) {
+                    if ($scope.data.blackouts[i].checked == "true") {
+                        $scope.data.blackouts[i].checked = true;
+                    } else if ($scope.data.blackouts[i].checked == "false") {
+                        $scope.data.blackouts[i].checked = false;
+                    }
+                    // console.log($scope.data.blackouts[i].checked);
+                    for (var j = 0; j < $scope.data.blackouts[i].intervals.length; j++) {
+                        // console.log($scope.data.blackouts[i].intervals[j])
+                        $scope.data.blackouts[i].intervals[j].startTime = new Date($scope.data.blackouts[i].intervals[j].startTime);
+                        $scope.data.blackouts[i].intervals[j].startTime.subtractHours(value)
+                        $scope.data.blackouts[i].intervals[j].endTime = new Date($scope.data.blackouts[i].intervals[j].endTime);
+                        $scope.data.blackouts[i].intervals[j].endTime.subtractHours(value)
+                        // console.log($scope.data.blackouts[i].intervals[j])
+
+                    }
+                    // if($scope.data.blackouts[i])
+
+                }
+
+
+
+            }, function (result) {
+                ////console.log(result);
+                console.log("error", result)
+
+
+            });
 
 
         $(".digit").keyup(function () {
-              if (this.value.length == this.maxLength) {
+            if (this.value.length == this.maxLength) {
                 $(this).next('.digit').focus();
-              }
+            }
         });
+    }
+
+    intialize();
 
 
 }

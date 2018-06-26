@@ -8,21 +8,21 @@ function SmsService() {}
 
 SmsService.prototype.sendSms = function(value, callback) {
        var res = null;
-       var from = "+14242173909";
+       var from = config.sms.sms_sending_number;
+       console.log(from);
        client.messages
             .create({
-                body: value.message + "Property Name: "+ value.property + "Jurisdiction: " +value.jurisdiction,
+                body: "AOTC System Reminder\n"+ value.message + "\nJurisdiction: " +value.jurisdiction,
                 from: from,
                 to: value.sms
             })
             .then(message => {
-                console.log("here");
                res = {message: message.sid,value: value,status:200}
                 callback(null,res)
             })
             .catch(e => {
                  res = {message: e.message.sid,status:e.code,value: value}
-                 callback(null,res)
+                 callback(e.code, res)
 
             }).done()
    }
