@@ -253,12 +253,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
                     // console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < data.blackouts[i].intervals.length; j++) {
-                        console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
                         data.blackouts[i].intervals[j].startTime = moment(data.blackouts[i].intervals[j].startTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].startTime.add(value, 'hours')
                         data.blackouts[i].intervals[j].endTime = moment(data.blackouts[i].intervals[j].endTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].endTime.add(value, 'hours')
-                        console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
 
                     }
                     // if($scope.data.blackouts[i])
@@ -572,12 +572,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                     }
                     // console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < $scope.data.blackouts[i].intervals.length; j++) {
-                        console.log($scope.data.blackouts[i].intervals[j])
+                        // console.log($scope.data.blackouts[i].intervals[j])
                         $scope.data.blackouts[i].intervals[j].startTime = new Date($scope.data.blackouts[i].intervals[j].startTime);
                         $scope.data.blackouts[i].intervals[j].startTime.subtractHours(value)
                         $scope.data.blackouts[i].intervals[j].endTime = new Date($scope.data.blackouts[i].intervals[j].endTime);
                         $scope.data.blackouts[i].intervals[j].endTime.subtractHours(value)
-                        console.log($scope.data.blackouts[i].intervals[j])
+                        // console.log($scope.data.blackouts[i].intervals[j])
 
                     }
                     // if($scope.data.blackouts[i])

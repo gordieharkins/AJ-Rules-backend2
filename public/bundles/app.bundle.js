@@ -14100,7 +14100,7 @@ __webpack_require__(329);
 __webpack_require__(332);
 __webpack_require__(334);
 __webpack_require__(336)
-__webpack_require__(339);
+__webpack_require__(338);
 
 /***/ }),
 /* 141 */
@@ -40376,12 +40376,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
                     // console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < data.blackouts[i].intervals.length; j++) {
-                        console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
                         data.blackouts[i].intervals[j].startTime = moment(data.blackouts[i].intervals[j].startTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].startTime.add(value, 'hours')
                         data.blackouts[i].intervals[j].endTime = moment(data.blackouts[i].intervals[j].endTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].endTime.add(value, 'hours')
-                        console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
 
                     }
                     // if($scope.data.blackouts[i])
@@ -40695,12 +40695,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                     }
                     // console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < $scope.data.blackouts[i].intervals.length; j++) {
-                        console.log($scope.data.blackouts[i].intervals[j])
+                        // console.log($scope.data.blackouts[i].intervals[j])
                         $scope.data.blackouts[i].intervals[j].startTime = new Date($scope.data.blackouts[i].intervals[j].startTime);
                         $scope.data.blackouts[i].intervals[j].startTime.subtractHours(value)
                         $scope.data.blackouts[i].intervals[j].endTime = new Date($scope.data.blackouts[i].intervals[j].endTime);
                         $scope.data.blackouts[i].intervals[j].endTime.subtractHours(value)
-                        console.log($scope.data.blackouts[i].intervals[j])
+                        // console.log($scope.data.blackouts[i].intervals[j])
 
                     }
                     // if($scope.data.blackouts[i])
@@ -40731,8 +40731,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 338 */,
-/* 339 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40740,8 +40739,8 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(340));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(341));
+angular.module('AOTC').directive('hasPermission', __webpack_require__(339));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(340));
 
 
 
@@ -40753,7 +40752,7 @@ angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(34
 
 
 /***/ }),
-/* 340 */
+/* 339 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('hasPermission', _hasPermission);
@@ -40809,7 +40808,7 @@ function _hasPermission(AOTCPermissions) {
 }
 
 /***/ }),
-/* 341 */
+/* 340 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
