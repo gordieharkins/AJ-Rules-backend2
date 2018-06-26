@@ -40360,6 +40360,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 var check = false;
                 var value = 0;
                 for (var i = 0; i < $scope.timezones.length; i++) {
+                    console.log( $scope.timezones);
                     if ($scope.timezones[i].name == $scope.data.timezone) {
                         check = true;
                         value = $scope.timezones[i].value;
@@ -40367,7 +40368,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 }
 
                 if (!check) {
-                    $scope.timezones[i].name = "Eastern US, Standard Time";
+                    $scope.timezone = "Eastern US, Standard Time";
                     value = 4;
                 }
 
@@ -40682,7 +40683,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 }
 
                 if (!check) {
-                    $scope.timezones[i].name = "Eastern US, Standard Time";
+                    $scope.timezone = "Eastern US, Standard Time";
                     value = 4;
                 }
 
