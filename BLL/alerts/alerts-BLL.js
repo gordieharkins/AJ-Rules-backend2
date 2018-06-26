@@ -143,27 +143,29 @@ BLL.prototype.addAlert = function(alert, userId) {
             // cb(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            var settingsJSON = createSettingsJSON(result);
-            var settings = {
-              sms: settingsJSON.sms,
-              email: settingsJSON.email,
-              settings: getActiveTime(settingsJSON.blackouts)  
-            };
+            if(result.length > 0){
+                var settingsJSON = createSettingsJSON(result);
+                var settings = {
+                sms: settingsJSON.sms,
+                email: settingsJSON.email,
+                settings: getActiveTime(settingsJSON.blackouts)  
+                };
 
-            // console.log("ssssssssssssss",JSON.stringify(settings));
-            // var alert = alert;
-            alertSettings.configureAlert(alert, settings, function(finalAlert){
-                // console.log(JSON.stringify(finalAlert));
+                // console.log("ssssssssssssss",JSON.stringify(settings));
+                // var alert = alert;
+                alertSettings.configureAlert(alert, settings, function(finalAlert){
+                    // console.log(JSON.stringify(finalAlert));
 
-                DAL.addAlert(finalAlert, userId, function(error, result) {
-                    if (error) {
-                        console.log(error);
-                        error.userName = loginUserName;
-                        ErrorLogDAL.addErrorLog(error);
-                        // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-                    }
+                    DAL.addAlert(finalAlert, userId, function(error, result) {
+                        if (error) {
+                            console.log(error);
+                            error.userName = loginUserName;
+                            ErrorLogDAL.addErrorLog(error);
+                            // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                        }
+                    });
                 });
-            });
+            }
         }
     });
 }
@@ -230,12 +232,13 @@ BLL.prototype.getSettings = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            try{
+            if(result[0].settings != undefined){
+                console.log("***********8",result);
                 var finalResult = {
                     id: result[0].id,
                     settings: createSettingsJSON(result)
                 }
-            } catch(e){
+            } else {
                 var finalResult = {};
             }
             
@@ -429,7 +432,11 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
 
 function createSettingsJSON(result){
     // console.log(result);
-    var data =  result[0].settings;
+    try{
+        var data =  result[0].settings;
+    } catch(e){
+        console.log("ssssssssss",result);
+    }
     var finalResult = {
         sms: {
             flag: data.sms[0],
@@ -452,10 +459,7 @@ function createSettingsJSON(result){
         if(element == "sms" || element == "email" || element == "timezone"){
             continue;
         } else{
-            // console.log(daysList);
-        //    console.log(data[element][0]);
             var daysIndex = daysList.indexOf(data[element][0]);
-            // console.log(daysIndex);
             var interval = {
                 startTime: data[element][3],
                 endTime: data[element][4]
@@ -487,7 +491,7 @@ function createSettingsJSON(result){
             }
         }
     }
-    getActiveTime(blackouts);
+    blackouts = getActiveTime(blackouts);
     finalResult.blackouts = blackouts;
     return finalResult;
 }
@@ -561,6 +565,10 @@ function getActiveTime(blackouts){
             for(var j = 0; j < blackouts[i].intervals.length; j++){
                 var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
                 var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+                if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
+                    continue;
+                }
+                
                 var blackout = {
                     startTime: currentStartTime,
                     endTime: currentEndTime
@@ -568,30 +576,20 @@ function getActiveTime(blackouts){
                 
                 blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
             }
-
-            // blackoutTimes
         }
-
-        // blackoutTimes.sort(function(a, b){
-        //     return b.startTime > a.startTime;
-        // });
-
-
-        
 
         for(var i = 0; i < blackoutTimes.length; i++){
             blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
                 return b.startTime < a.startTime;
             });
 
-            // blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
-            //     return b.endTime < a.endTime;
-            // });
-
             for(var j = 0; j < blackoutTimes[i].intervals.length; j++){
-                // console.log("cccccccccccccc",blackoutTimes[i].intervals[j]);
                 var currentStartTime = blackoutTimes[i].intervals[j].startTime;
                 var currentEndTime = blackoutTimes[i].intervals[j].endTime;
+
+                if(currentStartTime > currentEndTime){
+
+                }
                 
                 if(blackoutTimes[i].intervals.length == 1){
                     if(currentStartTime != "00:00"){
@@ -607,8 +605,6 @@ function getActiveTime(blackouts){
                         activeTime2.endTime = "23:59";
                         activeTimes = addActiveTime(activeTime2, activeTimes, blackoutTimes[i].day);
                     }
-                    
-
                 } else {
                     var activeTime = {};
                     if( j == 0 && currentStartTime != "00:00"){
@@ -618,22 +614,12 @@ function getActiveTime(blackouts){
                     } else if(j > 0) {
                         var previousEndTime = blackoutTimes[i].intervals[j-1].endTime;
                         if(currentStartTime == previousEndTime){
-                            // if(previousEndTime > currentEndTime){
-                            //     // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
-                            //     blackoutTimes[i].intervals[j].endTime = previousEndTime;
-                            // }
                             // continue;
                         } else if(currentStartTime < previousEndTime){
-                            // if(currentEndTime > previousEndTime){
-                            //     activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
-                            // }
-
                             if(previousEndTime > currentEndTime){
-                                // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
                                 blackoutTimes[i].intervals[j].endTime = previousEndTime;
                                 currentEndTime = previousEndTime;
                             }
-                            // continue;
                         } else {
                             activeTime.startTime = previousEndTime;
                             activeTime.endTime = currentStartTime;
@@ -648,66 +634,15 @@ function getActiveTime(blackouts){
                         activeTime3.endTime = "23:59";
                         activeTimes = addActiveTime(activeTime3, activeTimes, blackoutTimes[i].day);
                     }
-
-                    
-
-                    
                 }
             }
-
-            // console.log(blackoutTimes[i].intervals);
         }
-    // for(var i = 0; i < blackouts.length; i++){
-    //     var intervals = [];
-    //     for(var j = 0; j < blackouts[i].intervals.length; j++){
-    //         var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
-    //         var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-            
-    //         if(blackouts[i].intervals.length == 1){
-    //             if(currentStartTime != "00:00"){
-    //                 var activeTime1  = {};
-    //                 activeTime1.startTime = "00:00";
-    //                 activeTime1.endTime = currentStartTime;
-    //                 activeTimes = addActiveTime(activeTime1, activeTimes, blackouts[i].days);                    
-    //             }
-
-    //             if(currentEndTime != "00:00"){
-    //                 var activeTime2 = {};
-    //                 activeTime2.startTime = currentEndTime;
-    //                 activeTime2.endTime = "00:00";
-    //                 activeTimes = addActiveTime(activeTime2, activeTimes, blackouts[i].days);
-    //             }
-                
-
-    //         } else {
-    //             var activeTime = {};
-    //             if( j == 0 && currentStartTime != "00:00"){
-    //                 activeTime.startTime = "00:00";
-    //                 activeTime.endTime = currentStartTime;
-    //             } 
-
-    //             if(j > 0) {
-    //                 var previousEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-    //                 if(currentStartTime == previousEndTime){
-    //                     continue;
-    //                 } else {
-    //                     activeTime.startTime = previousEndTime;
-    //                     activeTime.endTime = currentStartTime;
-    //                 }
-    //             }
-
-    //             activeTimes = addActiveTime(activeTime, activeTimes, blackouts[i].days);
-                
-    //         }
-    //     }
-    // }
-
     return activeTimes;
-    
 }
 
 
 function addActiveTime(activeTime, activeTimes, days){
+    console.log("WWWWWWWWWWWw", days);
     if(days.indexOf("Sunday") > -1 || days == "Sunday"){
         activeTimes[0].intervals.push(activeTime);
     }
