@@ -28,4 +28,13 @@ angular.module('AOTC').directive('myModal', function() {
     }
  });
 
+ Date.prototype.addHours = function(h) {    
+    this.setTime(this.getTime() + (h*60*60*1000)); 
+    return this;   
+ }
+
+ Date.prototype.subtractHours = function(h) {    
+    this.setTime(this.getTime() - (h*60*60*1000)); 
+    return this;   
+ }
 
