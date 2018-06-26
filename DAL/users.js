@@ -176,3 +176,21 @@ DAL.prototype.getUSstates = function(data, cb) {
 }
 // ---------------------END---------------------
 
+// ---------------------------------------------
+// getUSstates
+// ---------------------------------------------
+DAL.prototype.getAllUsers = function(cb) {
+    var query = `MATCH(n:user)-[]->(:property) return DISTINCT(id(n)) as id`;
+
+    db.cypher({
+        query: query
+    }, function(err, results) {
+        if(err){
+            cb(err,null);
+        } else {
+            cb(null, results)
+        }
+    });
+}
+// ---------------------END---------------------
+

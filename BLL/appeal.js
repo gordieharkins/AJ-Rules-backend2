@@ -9,15 +9,19 @@ var loginUserName = 'Ali'; // Infutre will get logged in user name
 var AppealDAL = require(path.resolve(__dirname, '../DAL/appeal'));
 var IEDAL = require(path.resolve(__dirname, '../DAL/incomeExpenses'));
 var RRDAL = require(path.resolve(__dirname, '../DAL/rentRolls'));
+var UsersDAL = require(path.resolve(__dirname, '../DAL/users'));
 var async = require('async');
 var dateDiff = require('date-diff');
 var jurisdictionTimeline = require(path.resolve(__dirname, './util/jdRules'));
 var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
+var cron = require('node-cron');
 
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
 var ALERT =  new alerts();
+var USERDAL =  new UsersDAL();
+
 
 
 module.exports = BLL;
@@ -299,9 +303,11 @@ BLL.prototype.executeSignature = function(req, res) {
 // ---------------------------------------------
 // get Property timeline data
 // ---------------------------------------------
-BLL.prototype.getPropertyTimelineData = function(req, res) {
+BLL.prototype.getPropertyTimelineData = function(req, res, userId, cronCallback) {
 	var year = (new Date()).getFullYear();
-	var userId = req.user[0].userId;
+	if(req != null){
+		var userId = req.user[0].userId;
+	}
 	
     DAL.getPropertyTimelineData(userId, req.body.appealYear, function(error, result) {
         if (error) {
@@ -1315,3 +1321,34 @@ function generateAlert(alert, userId, jurisdiction, type){
 	
 	ALERT.addAlert(finalAlert, userId);
 };
+
+BLL.prototype.startCronJob = function() {
+    var task = cron.schedule('1 * * * * *', function(){
+        
+        USERDAL.getAllUsers(function(error, result) {
+            if (error) {
+                console.log(error);
+                error.userName = loginUserName;
+                ErrorLogDAL.addErrorLog(error);
+                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            } else {
+				console.log(JSON.stringify(result), "\n");
+
+				async.forEachOf(result, function (value, key, callback) {
+					BLL.getPropertyTimelineData(null, null, value.id);
+				}, function (err) {
+					if (err) console.error(err.message);
+					// configs is now a map of JSON data
+					doSomethingWith(configs);
+				});
+                // executeJob(result);
+                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            }
+        });
+
+        // executeJob(array, res)
+        
+    });
+    
+    task.start()  
+}

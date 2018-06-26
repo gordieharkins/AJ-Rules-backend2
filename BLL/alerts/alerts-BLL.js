@@ -452,10 +452,7 @@ function createSettingsJSON(result){
         if(element == "sms" || element == "email" || element == "timezone"){
             continue;
         } else{
-            // console.log(daysList);
-        //    console.log(data[element][0]);
             var daysIndex = daysList.indexOf(data[element][0]);
-            // console.log(daysIndex);
             var interval = {
                 startTime: data[element][3],
                 endTime: data[element][4]
@@ -487,7 +484,7 @@ function createSettingsJSON(result){
             }
         }
     }
-    getActiveTime(blackouts);
+    blackouts = getActiveTime(blackouts);
     finalResult.blackouts = blackouts;
     return finalResult;
 }
@@ -568,30 +565,20 @@ function getActiveTime(blackouts){
                 
                 blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
             }
-
-            // blackoutTimes
         }
-
-        // blackoutTimes.sort(function(a, b){
-        //     return b.startTime > a.startTime;
-        // });
-
-
-        
 
         for(var i = 0; i < blackoutTimes.length; i++){
             blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
                 return b.startTime < a.startTime;
             });
 
-            // blackoutTimes[i].intervals = blackoutTimes[i].intervals.sort(function(a, b){
-            //     return b.endTime < a.endTime;
-            // });
-
             for(var j = 0; j < blackoutTimes[i].intervals.length; j++){
-                // console.log("cccccccccccccc",blackoutTimes[i].intervals[j]);
                 var currentStartTime = blackoutTimes[i].intervals[j].startTime;
                 var currentEndTime = blackoutTimes[i].intervals[j].endTime;
+
+                if(currentStartTime > currentEndTime){
+
+                }
                 
                 if(blackoutTimes[i].intervals.length == 1){
                     if(currentStartTime != "00:00"){
@@ -607,8 +594,6 @@ function getActiveTime(blackouts){
                         activeTime2.endTime = "23:59";
                         activeTimes = addActiveTime(activeTime2, activeTimes, blackoutTimes[i].day);
                     }
-                    
-
                 } else {
                     var activeTime = {};
                     if( j == 0 && currentStartTime != "00:00"){
@@ -618,22 +603,12 @@ function getActiveTime(blackouts){
                     } else if(j > 0) {
                         var previousEndTime = blackoutTimes[i].intervals[j-1].endTime;
                         if(currentStartTime == previousEndTime){
-                            // if(previousEndTime > currentEndTime){
-                            //     // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
-                            //     blackoutTimes[i].intervals[j].endTime = previousEndTime;
-                            // }
                             // continue;
                         } else if(currentStartTime < previousEndTime){
-                            // if(currentEndTime > previousEndTime){
-                            //     activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
-                            // }
-
                             if(previousEndTime > currentEndTime){
-                                // activeTimes = updateActiveTime(currentEndTime, activeTimes, blackoutTimes[i].day);
                                 blackoutTimes[i].intervals[j].endTime = previousEndTime;
                                 currentEndTime = previousEndTime;
                             }
-                            // continue;
                         } else {
                             activeTime.startTime = previousEndTime;
                             activeTime.endTime = currentStartTime;
@@ -648,62 +623,10 @@ function getActiveTime(blackouts){
                         activeTime3.endTime = "23:59";
                         activeTimes = addActiveTime(activeTime3, activeTimes, blackoutTimes[i].day);
                     }
-
-                    
-
-                    
                 }
             }
-
-            // console.log(blackoutTimes[i].intervals);
         }
-    // for(var i = 0; i < blackouts.length; i++){
-    //     var intervals = [];
-    //     for(var j = 0; j < blackouts[i].intervals.length; j++){
-    //         var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
-    //         var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-            
-    //         if(blackouts[i].intervals.length == 1){
-    //             if(currentStartTime != "00:00"){
-    //                 var activeTime1  = {};
-    //                 activeTime1.startTime = "00:00";
-    //                 activeTime1.endTime = currentStartTime;
-    //                 activeTimes = addActiveTime(activeTime1, activeTimes, blackouts[i].days);                    
-    //             }
-
-    //             if(currentEndTime != "00:00"){
-    //                 var activeTime2 = {};
-    //                 activeTime2.startTime = currentEndTime;
-    //                 activeTime2.endTime = "00:00";
-    //                 activeTimes = addActiveTime(activeTime2, activeTimes, blackouts[i].days);
-    //             }
-                
-
-    //         } else {
-    //             var activeTime = {};
-    //             if( j == 0 && currentStartTime != "00:00"){
-    //                 activeTime.startTime = "00:00";
-    //                 activeTime.endTime = currentStartTime;
-    //             } 
-
-    //             if(j > 0) {
-    //                 var previousEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-    //                 if(currentStartTime == previousEndTime){
-    //                     continue;
-    //                 } else {
-    //                     activeTime.startTime = previousEndTime;
-    //                     activeTime.endTime = currentStartTime;
-    //                 }
-    //             }
-
-    //             activeTimes = addActiveTime(activeTime, activeTimes, blackouts[i].days);
-                
-    //         }
-    //     }
-    // }
-
     return activeTimes;
-    
 }
 
 
