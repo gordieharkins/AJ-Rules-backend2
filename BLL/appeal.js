@@ -9,15 +9,19 @@ var loginUserName = 'Ali'; // Infutre will get logged in user name
 var AppealDAL = require(path.resolve(__dirname, '../DAL/appeal'));
 var IEDAL = require(path.resolve(__dirname, '../DAL/incomeExpenses'));
 var RRDAL = require(path.resolve(__dirname, '../DAL/rentRolls'));
+var UsersDAL = require(path.resolve(__dirname, '../DAL/users'));
 var async = require('async');
 var dateDiff = require('date-diff');
 var jurisdictionTimeline = require(path.resolve(__dirname, './util/jdRules'));
 var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
+var cron = require('node-cron');
 
 var IEDAL = new IEDAL();
 var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
 var ALERT =  new alerts();
+var USERDAL =  new UsersDAL();
+
 
 
 module.exports = BLL;
@@ -26,6 +30,7 @@ function BLL() {
 
 }
 
+var object = new BLL();
 // ---------------------------------------------
 // getFormDataForJurisdiction
 // ---------------------------------------------
@@ -299,16 +304,30 @@ BLL.prototype.executeSignature = function(req, res) {
 // ---------------------------------------------
 // get Property timeline data
 // ---------------------------------------------
-BLL.prototype.getPropertyTimelineData = function(req, res) {
-	var year = (new Date()).getFullYear();
-	var userId = req.user[0].userId;
+BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
+	// var year = (new Date()).getFullYear();
+
+	if(req == null){
+		var alert = true;
+	} else {
+		var alert = false;
+	}
+	if(!alert){
+		var userId = req.user[0].userId;
+		var appealYear = req.body.appealYear;
+	} else {
+		var appealYear = (new Date()).getFullYear();
+	}
+
 	
-    DAL.getPropertyTimelineData(userId, req.body.appealYear, function(error, result) {
+    DAL.getPropertyTimelineData(userId, appealYear, function(error, result) {
         if (error) {
         	console.log(error);
             error.userName = loginUserName;
-            ErrorLogDAL.addErrorLog(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+			ErrorLogDAL.addErrorLog(error);
+			if(!alert){
+				Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+			}
         } else {
 			// res.send(result);
 			var finalResult = {
@@ -352,7 +371,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									if(subValue.properties.type == "00"){
 										indexes[0][0] = j;
 										checkIEFormStatus(subValue.properties, value.jurisdiction, 
-														value.event.properties.deadline, subValue._id, userId, function(error, formStatus){
+														value.event.properties.deadline, subValue._id, userId, alert, function(error, formStatus){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -363,7 +382,8 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 									} else if(subValue.properties.type == "01"){
 										indexes[0][1] = j;
 										checkRequiredItemsPaper(subValue.properties, value.propertyId, 
-															subValue._id, value.event.properties.deadline, value.jurisdiction, userId,
+															subValue._id, value.event.properties.deadline, 
+															value.jurisdiction, userId, alert,
 															function(error, requiredItems){
 											if(error){
 												callbackSubMain(error);
@@ -431,7 +451,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 										indexes[1][0] = j;
 										checkRequiredItems(subValue.properties, value.propertyId, 
 														subValue._id, value.event.properties.deadline, 
-														value.jurisdiction, userId, function(error, requiredItems){
+														value.jurisdiction, userId, alert, function(error, requiredItems){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -622,8 +642,9 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 							}
 						}
 						finalResult["notification"] = notifications;
-						Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
-						
+						if(req != null){
+							Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
+						}
 					}
 				});
 				
@@ -633,7 +654,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res) {
 }
 // ---------------------END---------------------
 
-function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction, userId, cb){
+function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction, userId, alert, cb){
 	var requiredItems = subValue;
 	async.parallel([
 		function(callback) {
@@ -823,8 +844,9 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 						generateNotification(notification, itemId, function(){
 							cb(null, requiredItems);
 						});
-						
-						generateAlert(alert, userId, jurisdiction, 1);
+						if(alert){
+							generateAlert(alert, userId, jurisdiction, 1);
+						}
 					} else {
 						cb(null, requiredItems);
 					}
@@ -919,7 +941,7 @@ function calculateRemainingDays(deadline){
 	return daysRemaining + 1;
 }
 
-function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, userId, cb){
+function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, jurisdiction, userId, alert, cb){
 	var totalItems = 0;
 	var remainingItems = 0;
 	var totalFields = 0;
@@ -1027,8 +1049,10 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 				generateNotification(notification, itemId, function(){
 					cb(null, requiredItems);
 				});
+				if(alert){
+					generateAlert(alert, userId, jurisdiction, 1);
+				}
 
-				generateAlert(alert, userId, jurisdiction, 1);
 			} else {
 				cb(null, requiredItems);
 			}
@@ -1108,7 +1132,7 @@ function checkSignatureStatusPaper(reviewStatus, ieForm, requiredItemsStatus, su
 	cb(null,signatureStatus);
 }
 
-function checkIEFormStatus(subValue, jurisdiction, deadline, id, userId, cb){
+function checkIEFormStatus(subValue, jurisdiction, deadline, id, userId, alert, cb){
 	var status = subValue;
 	var remainingDays = parseInt(calculateRemainingDays(deadline));
 	if(remainingDays <= 0){
@@ -1134,8 +1158,9 @@ function checkIEFormStatus(subValue, jurisdiction, deadline, id, userId, cb){
 		generateNotification(notification, id, function(){
 			cb(null, status);
 		});
-
-		generateAlert(alert, userId, jurisdiction, 1);
+		if(alert){
+			generateAlert(alert, userId, jurisdiction, 1);
+		}
 		// status["notification"] = notification;
 	} else {
 		cb(null, status);
@@ -1315,3 +1340,34 @@ function generateAlert(alert, userId, jurisdiction, type){
 	
 	ALERT.addAlert(finalAlert, userId);
 };
+
+BLL.prototype.startCronJob = function() {
+    var task = cron.schedule('1 * * * * *', function(){
+        
+        USERDAL.getAllUsers(function(error, result) {
+            if (error) {
+                console.log(error);
+                error.userName = loginUserName;
+                ErrorLogDAL.addErrorLog(error);
+                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            } else {
+				console.log(JSON.stringify(result), "\n");
+
+				async.forEachOf(result, function (value, key, callback) {
+					object.getPropertyTimelineData(null, null, value.id);
+					callback();
+				}, function (err) {
+					if (err) console.error(err.message);
+					
+				});
+                // executeJob(result);
+                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            }
+        });
+
+        // executeJob(array, res)
+        
+    });
+    
+    task.start()  
+}
