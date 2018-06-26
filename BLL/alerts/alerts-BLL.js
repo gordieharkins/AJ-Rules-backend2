@@ -143,27 +143,29 @@ BLL.prototype.addAlert = function(alert, userId) {
             // cb(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            var settingsJSON = createSettingsJSON(result);
-            var settings = {
-              sms: settingsJSON.sms,
-              email: settingsJSON.email,
-              settings: getActiveTime(settingsJSON.blackouts)  
-            };
+            if(result.length > 0){
+                var settingsJSON = createSettingsJSON(result);
+                var settings = {
+                sms: settingsJSON.sms,
+                email: settingsJSON.email,
+                settings: getActiveTime(settingsJSON.blackouts)  
+                };
 
-            // console.log("ssssssssssssss",JSON.stringify(settings));
-            // var alert = alert;
-            alertSettings.configureAlert(alert, settings, function(finalAlert){
-                // console.log(JSON.stringify(finalAlert));
+                // console.log("ssssssssssssss",JSON.stringify(settings));
+                // var alert = alert;
+                alertSettings.configureAlert(alert, settings, function(finalAlert){
+                    // console.log(JSON.stringify(finalAlert));
 
-                DAL.addAlert(finalAlert, userId, function(error, result) {
-                    if (error) {
-                        console.log(error);
-                        error.userName = loginUserName;
-                        ErrorLogDAL.addErrorLog(error);
-                        // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-                    }
+                    DAL.addAlert(finalAlert, userId, function(error, result) {
+                        if (error) {
+                            console.log(error);
+                            error.userName = loginUserName;
+                            ErrorLogDAL.addErrorLog(error);
+                            // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                        }
+                    });
                 });
-            });
+            }
         }
     });
 }
@@ -230,12 +232,13 @@ BLL.prototype.getSettings = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            try{
+            if(result[0].settings != undefined){
+                console.log("***********8",result);
                 var finalResult = {
                     id: result[0].id,
                     settings: createSettingsJSON(result)
                 }
-            } catch(e){
+            } else {
                 var finalResult = {};
             }
             
@@ -429,7 +432,11 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
 
 function createSettingsJSON(result){
     // console.log(result);
-    var data =  result[0].settings;
+    try{
+        var data =  result[0].settings;
+    } catch(e){
+        console.log("ssssssssss",result);
+    }
     var finalResult = {
         sms: {
             flag: data.sms[0],
@@ -558,6 +565,10 @@ function getActiveTime(blackouts){
             for(var j = 0; j < blackouts[i].intervals.length; j++){
                 var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
                 var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+                if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
+                    continue;
+                }
+                
                 var blackout = {
                     startTime: currentStartTime,
                     endTime: currentEndTime
@@ -631,6 +642,7 @@ function getActiveTime(blackouts){
 
 
 function addActiveTime(activeTime, activeTimes, days){
+    console.log("WWWWWWWWWWWw", days);
     if(days.indexOf("Sunday") > -1 || days == "Sunday"){
         activeTimes[0].intervals.push(activeTime);
     }
