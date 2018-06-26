@@ -19,17 +19,30 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime)
             console.log('sadasadasd',result)
-
+            if(!result) {
+                result = {};
+                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
+            }
+            else {
             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-  
+            }
       
    } else {
             result =  futureAlert(settings.settings,alert.dateTime)
+            if(!result) {
+                result = {};
+                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
+            } else {
             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
+            }
    }
    result['dateTime'] = alert['dateTime'] 
    alert['sendingTimeDate'] = result['sendingTimeDate'];
