@@ -9,7 +9,7 @@ function SmsService() {}
 SmsService.prototype.sendSms = function(value, callback) {
        var res = null;
        var from = config.sms.sms_sending_number;
-    //    console.log(from);
+       console.log(from);
        client.messages
             .create({
                 body: "AOTC System Reminder\n"+ value.message + "\nJurisdiction: " +value.jurisdiction,

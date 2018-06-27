@@ -13,37 +13,40 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
    var sendingTime = null;
    var result = null;
    var finalResult = null;
-   
    var type= 'immediate';
 
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime)
+            // console.log('sadasadasd',result)
             if(!result) {
                 result = {};
-                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeDate'] =  moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
                
             }
             else {
             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            }
+            
+        }
       
    } else {
             result =  futureAlert(settings.settings,alert.dateTime)
             if(!result) {
                 result = {};
-                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeDate'] = moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
                
             } else {
-            sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
+            sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime,result.found);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
             }
    }
    result['dateTime'] = alert['dateTime'] 
+   alert['dateTimeLong'] = Number(moment(alert.dateTime.split('Z')[0]).format('x'))
    alert['sendingTimeDate'] = result['sendingTimeDate'];
    alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
    alert['sms'] = "null";
@@ -118,15 +121,15 @@ function immediateAlert(activeWindow,time) {
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
                 found=1;
-                extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s]}
+                 extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s],found: 0}
                 break;
             }  else {
                 var duration = moment.duration(curStartTime.diff(dateTime));
                 var hours = duration.asHours();
                 if(hours>0){
-                    extractMinWindowPositive.push({index: i,day:  activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s]})
+                    extractMinWindowPositive.push({index: i,day:  activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s],found: 0})
                 } else {
-                    extractMinWindowNegative.push({index: i,day:  activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s]})
+                    extractMinWindowNegative.push({index: i,day:  activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s],found: 0})
                 }
             }
         
@@ -139,6 +142,7 @@ function immediateAlert(activeWindow,time) {
            
     }
     if(found==1){
+    
         return extractedTime
     } else {
          var time = []
@@ -236,14 +240,24 @@ function availableFutureTime(blackouts, min,time){
     }
 }
 
-function caclculateSendingTime(time,days,type,dateTime) {
+function caclculateSendingTime(time,days,type,dateTime,found) {
     var sendingTime  = null;
     var date = moment(dateTime).format('MM/DD/YYYY');
-
+    
     if(type=='immediate') {
-        sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
+        if(found==0) {
+            sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
+        }else {
+            sendingTime =  moment(dateTime.split('Z')[0])
+        }
+       
     } else {
-        sendingTime = moment(date + ' ' +time).seconds(0).millisecond(0).subtract(days, 'days')
+        if(found==0) {
+            sendingTime = moment(date + ' ' +time).seconds(0).millisecond(0).subtract(days, 'days')
+        } else {
+            sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
+        }
+     
     }
     return  sendingTime
 }

@@ -70,30 +70,34 @@ function executeJob(data) {
   
      var results = []
      async.forEachOf(data, function (value, i, cb) {
-            if(value.alert.properties.sms != "null"){
-                if(value.alert.properties.sms== "null"){
-                    // cb();
-                
-                    smsService.sendSms(value.alert.properties, function(error, result) {
-                        if(error){
-                            cb();
-                        } else {
-                            DAL.updateAlert(value.alert._id, function(error, result) {
-                                if (error) {
-                                    console.log(error);
-                                    error.userName = loginUserName;
-                                    ErrorLogDAL.addErrorLog(error);
-                                }
-                            });
-                            results.push(result)
-                            cb();
-                        }
-                        
-                    });
+        async.parallel([
+            function(callback) {
+                console.log('sending sms')
+
+                if(value.alert.properties.sms != "null"){
+                    // if(value.alert.properties.sms== "null"){
+                        smsService.sendSms(value.alert.properties, function(error, result) {
+                            if(error){
+                                callback(error,null);
+                            } else {
+                                DAL.updateAlert(value.alert._id, function(error, result) {
+                                    if (error) {
+                                        console.log(error);
+                                        callback(error,null);
+                                        error.userName = loginUserName;
+                                        ErrorLogDAL.addErrorLog(error);
+                                    }
+                                });
+                                callback(null,result);
+                             }
+                        });
+                    // }
                 }
-            }
-            
-            if (value.alert.properties.email != "null"){
+
+            },
+            function(callback) {
+                console.log('sending email')
+                 if (value.alert.properties.email != "null"){
                 var emailOption = {
                     text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
                             `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
@@ -104,7 +108,7 @@ function executeJob(data) {
 
                 EmailService.send_email(emailOption, function(error, result) {
                     if(error){
-                        cb();
+                        callback(error,null);
                     } else {
                         DAL.updateAlert(value.alert._id, function(error, result) {
                             if (error) {
@@ -113,11 +117,27 @@ function executeJob(data) {
                                 ErrorLogDAL.addErrorLog(error);
                             }
                         });
-                        results.push(result)
-                        cb();
+                        
+                        callback(null,result);
                     }
                 });
             }
+            }
+        ],
+        // optional callback
+        function(err, results) {
+            // the results array will equal ['one','two'] even though
+            // the second function had a shorter timeout.
+            if (err) {
+                console.log(error);
+            }
+            console.log('done')
+            results.push(results)
+            cb()
+        })
+            
+            
+          
             
      }, function (err) {
         if (err) console.error(err.message);
@@ -144,7 +164,6 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
-                console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {
@@ -536,19 +555,21 @@ function getActiveTime(blackouts){
     
         for(var i = 0; i < blackouts.length; i++){
             // var intervals = [];
-            for(var j = 0; j < blackouts[i].intervals.length; j++){
-                var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
-                var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-                if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
-                    continue;
+            if(blackouts[i].checked == "true"){
+                for(var j = 0; j < blackouts[i].intervals.length; j++){
+                    var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
+                    var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+                    if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
+                        continue;
+                    }
+    
+                    var blackout = {
+                        startTime: currentStartTime,
+                        endTime: currentEndTime
+                    }
+                    
+                    blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
                 }
-
-                var blackout = {
-                    startTime: currentStartTime,
-                    endTime: currentEndTime
-                }
-                
-                blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
             }
         }
 
