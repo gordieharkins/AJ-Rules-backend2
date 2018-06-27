@@ -121,6 +121,8 @@ function immediateAlert(activeWindow,time) {
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
                 found=1;
+                var changeTme = moment(dateTime).format('HH:mm A');
+                activeListSorted[i].intervals[s].startTime = changeTme
                 extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s]}
                 break;
             }  else {
