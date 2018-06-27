@@ -71,7 +71,7 @@ function executeJob(data) {
      var results = []
      async.forEachOf(data, function (value, i, cb) {
             if(value.alert.properties.sms != "null"){
-                if(value.alert.properties.sms== "null"){
+                // if(value.alert.properties.sms== "null"){
                     smsService.sendSms(value.alert.properties, function(error, result) {
                         if(error){
                             cb();
@@ -87,7 +87,7 @@ function executeJob(data) {
                             cb();
                         }
                     });
-                }
+                // }
             }
             
             if (value.alert.properties.email != "null"){
@@ -532,19 +532,21 @@ function getActiveTime(blackouts){
     
         for(var i = 0; i < blackouts.length; i++){
             // var intervals = [];
-            for(var j = 0; j < blackouts[i].intervals.length; j++){
-                var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
-                var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
-                if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
-                    continue;
+            if(blackouts[i].checked == "true"){
+                for(var j = 0; j < blackouts[i].intervals.length; j++){
+                    var currentStartTime = moment(blackouts[i].intervals[j].startTime).format("HH:mm");
+                    var currentEndTime = moment(blackouts[i].intervals[j].endTime).format("HH:mm");
+                    if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
+                        continue;
+                    }
+    
+                    var blackout = {
+                        startTime: currentStartTime,
+                        endTime: currentEndTime
+                    }
+                    
+                    blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
                 }
-
-                var blackout = {
-                    startTime: currentStartTime,
-                    endTime: currentEndTime
-                }
-                
-                blackoutTimes = addActiveTime(blackout, blackoutTimes, blackouts[i].days);
             }
         }
 
