@@ -13,28 +13,30 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
    var sendingTime = null;
    var result = null;
    var finalResult = null;
-   
    var type= 'immediate';
 
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime)
+            console.log('sadasadasd',result)
             if(!result) {
                 result = {};
-                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeDate'] =  moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
                
             }
             else {
             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            }
+            
+        }
       
    } else {
             result =  futureAlert(settings.settings,alert.dateTime)
             if(!result) {
                 result = {};
-                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeDate'] = moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
                
             } else {
@@ -44,6 +46,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
             }
    }
    result['dateTime'] = alert['dateTime'] 
+   alert['dateTimeLong'] = moment(alert.dateTime.split('Z')[0]).format('x')
    alert['sendingTimeDate'] = result['sendingTimeDate'];
    alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
    alert['sms'] = "null";
@@ -113,7 +116,7 @@ function immediateAlert(activeWindow,time) {
             var time = date+ " " +activeListSorted[i].intervals[s].startTime
             var curStartTime = moment(date+ " " +activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).add(i, 'days')
             var curEndTime =   moment(date+ " " +  activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).add(i, 'days')
-            // console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
+            console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
 
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
