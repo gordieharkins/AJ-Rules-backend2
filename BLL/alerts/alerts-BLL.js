@@ -72,8 +72,6 @@ function executeJob(data) {
      async.forEachOf(data, function (value, i, cb) {
             if(value.alert.properties.sms != "null"){
                 if(value.alert.properties.sms== "null"){
-                    // cb();
-                
                     smsService.sendSms(value.alert.properties, function(error, result) {
                         if(error){
                             cb();
@@ -88,7 +86,6 @@ function executeJob(data) {
                             results.push(result)
                             cb();
                         }
-                        
                     });
                 }
             }
