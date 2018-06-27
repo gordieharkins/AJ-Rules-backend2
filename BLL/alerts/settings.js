@@ -22,16 +22,12 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
                 result = {};
                 result['sendingTimeDate'] =  moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
-               
-               
             }
             else {
             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            
         }
-      
    } else {
             result =  futureAlert(settings.settings,alert.dateTime)
             if(!result) {
@@ -44,21 +40,20 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
             }
-   }
-   result['dateTime'] = alert['dateTime'] 
-   alert['dateTimeLong'] = Number(moment(alert.dateTime.split('Z')[0]).format('x'))
-   alert['sendingTimeDate'] = result['sendingTimeDate'];
-   alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
-   alert['sms'] = "null";
-//    if(settings.sms.verified=='true' && settings.sms.flag=='true') {
-       alert['sms'] = settings.sms.details
-//    }
-   alert['email'] =  "null";
-//    if(settings.email.flag=='true') {
-    alert['email'] =  settings.email.details
-    // }
-    // console.log(alert)
-   cb(alert);
+    }
+    result['dateTime'] = alert['dateTime'] 
+    alert['dateTimeLong'] = Number(moment(alert.dateTime.split('Z')[0]).format('x'))
+    alert['sendingTimeDate'] = result['sendingTimeDate'];
+    alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
+    alert['sms'] = "null";
+    if(settings.sms.verified=='true' && settings.sms.flag=='true') {
+        alert['sms'] = settings.sms.details
+    }
+        alert['email'] =  "null";
+    if(settings.email.flag=='true') {
+        alert['email'] =  settings.email.details
+        }
+    cb(alert);
 }
 
 function futureAlert(activeWindow, dateIncome){
@@ -82,9 +77,6 @@ function futureAlert(activeWindow, dateIncome){
                 negativeList.push({index: i,day: activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s]})
                 
             }
-          
-           
-            
         }
     }
     
@@ -95,7 +87,6 @@ function futureAlert(activeWindow, dateIncome){
     }else {
         var extractedPTime = SortArray(positiveList)
         extractedPTime[extractedPTime.length-1].index = 7;
-        
         return extractedPTime[extractedPTime.length-1]
     }
 }
@@ -132,14 +123,11 @@ function immediateAlert(activeWindow,time) {
                     extractMinWindowNegative.push({index: i,day:  activeListSorted[i].day,diff: hours, intervals: activeListSorted[i].intervals[s],found: 0})
                 }
             }
-        
         }
         if(found==1){
            
            break;
        } 
-        
-           
     }
     if(found==1){
     
@@ -171,7 +159,6 @@ function findArrayImmediate(activeList,day){
             break;
         }
         splicedArray.push(activeList[i])
-        
     }
     var leftArray = []
     for(var i =index ; i< activeList.length; i++) {
@@ -185,7 +172,6 @@ function findArrayImmediate(activeList,day){
   
 }
 
-
 function findArrayFuture(activeList,day){
     var index = -1;
     var splicedArray = []
@@ -195,8 +181,6 @@ function findArrayFuture(activeList,day){
             index = i
             break;
         }
-        
-        
     }
   
     splicedArray = splicedArray.reverse();
@@ -211,8 +195,6 @@ function findArrayFuture(activeList,day){
     }
     
    return splicedArray
-  
-  
 }
 
 function availableFutureTime(blackouts, min,time){
@@ -226,7 +208,6 @@ function availableFutureTime(blackouts, min,time){
                 filterArray = blackouts[i]
              }
         })
-        
     }
     var timeExist = null;
     if(filterArray) {

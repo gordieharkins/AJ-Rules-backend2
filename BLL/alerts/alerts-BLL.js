@@ -242,7 +242,7 @@ BLL.prototype.getSettings = function(req, res) {
             if(result[0].settings != undefined){
                 var finalResult = {
                     id: result[0].id,
-                    settings: createSettingsJSON(result)
+                    settings: createSettingsJSONFrontend(result)
                 }
             } else {
                 var finalResult = {};
@@ -483,6 +483,54 @@ function createSettingsJSON(result){
                 blackouts.push(blackout);
                 daysList.push(data[element][0]);
             }
+        }
+    }
+    finalResult.blackouts = blackouts;
+    return finalResult;
+}
+
+function createSettingsJSONFrontend(result){
+    var data =  result[0].settings;
+    var finalResult = {
+        sms: {
+            flag: data.sms[0],
+            details: data.sms[1],
+            verified: data.sms[2]
+        },
+        email: {
+            flag: data.email[0],
+            details: data.email[1],
+            verified: data.email[2]
+        },
+        timezone: data.timezone,
+        blackouts: []
+    };
+
+    var blackouts = [];
+    var daysList = [];
+
+    for(var element in data){
+        if(element == "sms" || element == "email" || element == "timezone"){
+            continue;
+        } else{
+            var daysIndex = daysList.indexOf(data[element][0]);
+            var interval = {
+                startTime: data[element][3],
+                endTime: data[element][4]
+            };
+
+            var blackout = {
+                checked: data[element][1],
+                days: data[element][0].split("||"),
+                intervals: [interval]
+            }
+
+            if(data[element][2] != undefined){
+                blackout.span = data[element][2];
+            }
+
+            blackouts.push(blackout);
+            daysList.push(data[element][0]);
         }
     }
     finalResult.blackouts = blackouts;
