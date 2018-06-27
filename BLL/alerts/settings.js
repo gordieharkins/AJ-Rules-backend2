@@ -18,16 +18,31 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
 
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime)
+            console.log('sadasadasd',result)
+            if(!result) {
+                result = {};
+                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
+            }
+            else {
             sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-  
+            }
       
    } else {
             result =  futureAlert(settings.settings,alert.dateTime)
+            if(!result) {
+                result = {};
+                result['sendingTimeDate'] = moment(alert.dateTime)
+                result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
+               
+            } else {
             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
+            }
    }
    result['dateTime'] = alert['dateTime'] 
    alert['sendingTimeDate'] = result['sendingTimeDate'];
@@ -99,6 +114,8 @@ function immediateAlert(activeWindow,time) {
             var time = date+ " " +activeListSorted[i].intervals[s].startTime
             var curStartTime = moment(date+ " " +activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).add(i, 'days')
             var curEndTime =   moment(date+ " " +  activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).add(i, 'days')
+            console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
+
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
                 found=1;

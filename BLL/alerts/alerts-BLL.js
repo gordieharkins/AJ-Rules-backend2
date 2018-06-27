@@ -568,7 +568,7 @@ function getActiveTime(blackouts){
                 if(currentEndTime == "Invalid date" || currentStartTime == "Invalid date"){
                     continue;
                 }
-                
+
                 var blackout = {
                     startTime: currentStartTime,
                     endTime: currentEndTime
