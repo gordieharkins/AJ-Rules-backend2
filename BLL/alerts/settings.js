@@ -46,7 +46,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
             }
    }
    result['dateTime'] = alert['dateTime'] 
-   alert['dateTimeLong'] = moment(alert.dateTime.split('Z')[0]).format('x')
+   alert['dateTimeLong'] = Number(moment(alert.dateTime.split('Z')[0]).format('x'))
    alert['sendingTimeDate'] = result['sendingTimeDate'];
    alert['sendingTimeLong'] = Number(result['sendingTimeLong']);
    alert['sms'] = "null";
