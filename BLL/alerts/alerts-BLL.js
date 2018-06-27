@@ -44,11 +44,6 @@ module.exports = BLL;
 function BLL() {}
 
 BLL.prototype.startCronJob = function() {
-    // console.log('coming')
-    // var array = [{body:'1234',from:'+14242173909',to:'+923335375372'},
-    // {body:'1234',from:'+14242173909',to:'+923335375272'},]
-
-    // var task = cron.schedule('*/'+config.cron_time+' * * * *', function(){
     var task = cron.schedule('1 * * * * *', function(){
         
         DAL.getAlert(function(error, result) {
@@ -58,6 +53,7 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
+                console.log("Here are the alerts: ", result);
                 executeJob(result);
                 // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
@@ -89,7 +85,6 @@ function executeJob(data) {
                                     ErrorLogDAL.addErrorLog(error);
                                 }
                             });
-                            console.log("done");
                             results.push(result)
                             cb();
                         }
@@ -118,8 +113,6 @@ function executeJob(data) {
                                 ErrorLogDAL.addErrorLog(error);
                             }
                         });
-                        console.log("done Email");
-                        
                         results.push(result)
                         cb();
                     }
@@ -151,11 +144,8 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
-                // console.log("ssssssssssssss",JSON.stringify(settings));
-                // var alert = alert;
+                console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
-                    // console.log(JSON.stringify(finalAlert));
-
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {
                             console.log(error);
@@ -191,8 +181,6 @@ BLL.prototype.saveSettings = function(req, res) {
 
     for(var i = 0; i < data.blackouts.length; i++){
         var days = data.blackouts[i].days.join("||");
-        // dbObject.span = data.blackouts[i].span;
-        // dbObject.checked = data.blackouts[i].checked;
         for(var j = 0; j < data.blackouts[i].intervals.length; j++){
             var startTime = data.blackouts[i].intervals[j].startTime;
             var endTime = data.blackouts[i].intervals[j].endTime;
@@ -233,7 +221,6 @@ BLL.prototype.getSettings = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
             if(result[0].settings != undefined){
-                console.log("***********8",result);
                 var finalResult = {
                     id: result[0].id,
                     settings: createSettingsJSON(result)
@@ -431,12 +418,7 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
 // ---------------------END---------------------
 
 function createSettingsJSON(result){
-    // console.log(result);
-    try{
-        var data =  result[0].settings;
-    } catch(e){
-        console.log("ssssssssss",result);
-    }
+    var data =  result[0].settings;
     var finalResult = {
         sms: {
             flag: data.sms[0],
@@ -475,13 +457,6 @@ function createSettingsJSON(result){
                     intervals: [interval]
                 }
 
-
-                // if(data[element][1] != "true"){
-                //     blackout.checked = true;
-                // } else if(data[element][1] != "false"){
-                //     blackout.checked = false;
-                // }
-
                 if(data[element][2] != undefined){
                     blackout.span = data[element][2];
                 }
@@ -491,7 +466,6 @@ function createSettingsJSON(result){
             }
         }
     }
-    blackouts = getActiveTime(blackouts);
     finalResult.blackouts = blackouts;
     return finalResult;
 }
@@ -642,7 +616,6 @@ function getActiveTime(blackouts){
 
 
 function addActiveTime(activeTime, activeTimes, days){
-    console.log("WWWWWWWWWWWw", days);
     if(days.indexOf("Sunday") > -1 || days == "Sunday"){
         activeTimes[0].intervals.push(activeTime);
     }

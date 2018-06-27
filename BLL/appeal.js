@@ -1351,7 +1351,7 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-				console.log(JSON.stringify(result), "\n");
+				// console.log(JSON.stringify(result), "\n");
 
 				async.forEachOf(result, function (value, key, callback) {
 					object.getPropertyTimelineData(null, null, value.id);

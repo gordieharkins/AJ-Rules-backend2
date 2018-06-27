@@ -18,7 +18,6 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
 
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime)
-            console.log('sadasadasd',result)
             if(!result) {
                 result = {};
                 result['sendingTimeDate'] = moment(alert.dateTime)
@@ -114,7 +113,7 @@ function immediateAlert(activeWindow,time) {
             var time = date+ " " +activeListSorted[i].intervals[s].startTime
             var curStartTime = moment(date+ " " +activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).add(i, 'days')
             var curEndTime =   moment(date+ " " +  activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).add(i, 'days')
-            console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
+            // console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
 
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
