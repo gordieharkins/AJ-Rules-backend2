@@ -57,7 +57,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
 //    if(settings.email.flag=='true') {
     alert['email'] =  settings.email.details
     // }
-    // console.log(alert)
+    console.log(alert)
    cb(alert);
 }
 
@@ -121,9 +121,7 @@ function immediateAlert(activeWindow,time) {
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
                 found=1;
-                var changeTme = moment(dateTime).format('HH:mm A');
-                activeListSorted[i].intervals[s].startTime = changeTme
-                extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s]}
+                 extractedTime = {index: i,day: activeListSorted[i].day,diff: 0, intervals: activeListSorted[i].intervals[s]}
                 break;
             }  else {
                 var duration = moment.duration(curStartTime.diff(dateTime));
@@ -144,6 +142,10 @@ function immediateAlert(activeWindow,time) {
            
     }
     if(found==1){
+        var changeTme = moment(dateTime).format('HH:mm');
+        console.log('eeeeee',changeTme,'ss',extractedTime)
+        extractedTime.intervals.startTime = changeTme
+        console.log('eeeeee',extractedTime)
         return extractedTime
     } else {
          var time = []
