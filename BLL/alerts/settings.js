@@ -57,7 +57,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
 //    if(settings.email.flag=='true') {
     alert['email'] =  settings.email.details
     // }
-    console.log(alert)
+    // console.log(alert)
    cb(alert);
 }
 
@@ -143,9 +143,9 @@ function immediateAlert(activeWindow,time) {
     }
     if(found==1){
         var changeTme = moment(dateTime).format('HH:mm');
-        console.log('eeeeee',changeTme,'ss',extractedTime)
+       
         extractedTime.intervals.startTime = changeTme
-        console.log('eeeeee',extractedTime)
+      
         return extractedTime
     } else {
          var time = []
