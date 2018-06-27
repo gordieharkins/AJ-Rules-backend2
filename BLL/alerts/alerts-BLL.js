@@ -70,27 +70,34 @@ function executeJob(data) {
   
      var results = []
      async.forEachOf(data, function (value, i, cb) {
-            if(value.alert.properties.sms != "null"){
-                // if(value.alert.properties.sms== "null"){
-                    smsService.sendSms(value.alert.properties, function(error, result) {
-                        if(error){
-                            cb();
-                        } else {
-                            DAL.updateAlert(value.alert._id, function(error, result) {
-                                if (error) {
-                                    console.log(error);
-                                    error.userName = loginUserName;
-                                    ErrorLogDAL.addErrorLog(error);
-                                }
-                            });
-                            results.push(result)
-                            cb();
-                        }
-                    });
-                // }
-            }
-            
-            if (value.alert.properties.email != "null"){
+        async.parallel([
+            function(callback) {
+                console.log('sending sms')
+
+                if(value.alert.properties.sms != "null"){
+                    // if(value.alert.properties.sms== "null"){
+                        smsService.sendSms(value.alert.properties, function(error, result) {
+                            if(error){
+                                callback(error,null);
+                            } else {
+                                DAL.updateAlert(value.alert._id, function(error, result) {
+                                    if (error) {
+                                        console.log(error);
+                                        callback(error,null);
+                                        error.userName = loginUserName;
+                                        ErrorLogDAL.addErrorLog(error);
+                                    }
+                                });
+                                callback(null,result);
+                             }
+                        });
+                    // }
+                }
+
+            },
+            function(callback) {
+                console.log('sending email')
+                 if (value.alert.properties.email != "null"){
                 var emailOption = {
                     text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
                             `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
@@ -101,7 +108,7 @@ function executeJob(data) {
 
                 EmailService.send_email(emailOption, function(error, result) {
                     if(error){
-                        cb();
+                        callback(error,null);
                     } else {
                         DAL.updateAlert(value.alert._id, function(error, result) {
                             if (error) {
@@ -110,11 +117,27 @@ function executeJob(data) {
                                 ErrorLogDAL.addErrorLog(error);
                             }
                         });
-                        results.push(result)
-                        cb();
+                        
+                        callback(null,result);
                     }
                 });
             }
+            }
+        ],
+        // optional callback
+        function(err, results) {
+            // the results array will equal ['one','two'] even though
+            // the second function had a shorter timeout.
+            if (err) {
+                console.log(error);
+            }
+            console.log('done')
+            results.push(results)
+            cb()
+        })
+            
+            
+          
             
      }, function (err) {
         if (err) console.error(err.message);
