@@ -931,3 +931,11 @@ table .fa-clock-o {
 .edit-popover .header{
     display: none;
 }
+
+.m_fix input[type="checkbox"]{
+    margin-left: 0px !important;
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
+    margin-left: 0px !important;
+}
