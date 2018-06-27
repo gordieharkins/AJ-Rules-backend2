@@ -144,7 +144,6 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
-                console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {
