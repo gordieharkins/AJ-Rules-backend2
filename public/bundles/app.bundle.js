@@ -40365,10 +40365,16 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                         function successCallback(response) {
                             console.log(response)
                             $scope.saving = false;
+                            $scope.successMessage = "Settings saved succesfully";
+                            // $scope.$apply();
+                            $("#head_success").fadeIn(1500).delay(500).fadeOut(500);
                         },
                         function errorCallback(response) {
                             console.log(response)
                             $scope.saving = false;
+                            $scope.errorMessage = "Unable to save settings. Please try again";
+                            // $scope.$apply();
+                            $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
                         })
             }
 
@@ -40684,7 +40690,9 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
                 ////console.log(result);
                 console.log("error", result)
 
-
+                $scope.errorMessage = "Unable to get settings. Please Reload";
+                // $scope.$apply();
+                $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
             });
 
 
