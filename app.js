@@ -39,8 +39,8 @@ var alertsCronJobFile = require('./BLL/alerts/alerts-BLL');
 var appealCronJobFile = require('./BLL/appeal');
 
 
-var alertsCronJob = new alertsCronJobFile();
-var appealCronJob = new appealCronJobFile();
+// var alertsCronJob = new alertsCronJobFile();
+// var appealCronJob = new appealCronJobFile();
 
 var zillow = require('./routes/zillow');
 // var cors = require('cors');
@@ -139,8 +139,8 @@ app.use('/alerts', passport.authenticate('jwt', { session: false }), alerts);
 // app.use('/timeline', timeline);
 // // app.use('/properties', properties);
 // app.use('/incomeExpenses', incomeExpenses);
-alertsCronJob.startCronJob();
-appealCronJob.startCronJob();
+// alertsCronJob.startCronJob();
+// appealCronJob.startCronJob();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
