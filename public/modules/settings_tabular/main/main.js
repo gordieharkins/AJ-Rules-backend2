@@ -152,7 +152,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 
         if ($scope.editing) {
-            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span }
+            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span, mon: $scope.time_data.mon, tue: $scope.time_data.tue, wed: $scope.time_data.wed, thur: $scope.time_data.thur, fri: $scope.time_data.fri, sat: $scope.time_data.sat, sun: $scope.time_data.sun }
 
             $scope.editing = false;
             // $scope.dismiss();
@@ -163,7 +163,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
             return;
         }
 
-        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span })
+        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span, mon: $scope.time_data.mon, tue: $scope.time_data.tue, wed: $scope.time_data.wed, thur: $scope.time_data.thur, fri: $scope.time_data.fri, sat: $scope.time_data.sat, sun: $scope.time_data.sun })
         $scope.dismiss();
     }
 
@@ -186,12 +186,17 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     $scope.save_settings = function (form_alert_type) {
         $scope.saving = true;
         $scope.error_check = true;
-        console.log($scope.data)
+
         if ($scope.data.email.flag || $scope.data.sms.flag) {
             if (!form_alert_type.$valid) {
+                $scope.errorMessage = "Error in data";
+                // $scope.$apply();
+                $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
                 return
             } else {
                 console.log("Called")
+
+
 
                 var data = JSON.parse(JSON.stringify($scope.data));
                 if (data.sms.flag) {
@@ -224,6 +229,37 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         data.blackouts[i].checked = "false";
                     }
+
+                    var day = [];
+                    if (data.blackouts[i].mon) {
+                        day.push("Monday")
+                    }
+
+                    if (data.blackouts[i].tue) {
+                        day.push("Tuesday")
+                    }
+
+                    if (data.blackouts[i].wed) {
+                        day.push("Wednesday")
+                    }
+
+                    if (data.blackouts[i].thur) {
+                        day.push("Thursday")
+                    }
+
+                    if (data.blackouts[i].fri) {
+                        day.push("Friday")
+                    }
+
+                    if (data.blackouts[i].sat) {
+                        day.push("Saturday")
+                    }
+
+                    if (data.blackouts[i].sun) {
+                        day.push("Sunday")
+                    }
+
+                    data.blackouts[i].days = day;
                 }
 
                 var check = false;
@@ -612,7 +648,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         a_check = true;
                     }
-                    
+
                     if (!a_check) {
                         $scope.data.blackouts[i].all = true;
                     }

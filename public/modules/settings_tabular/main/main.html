@@ -78,6 +78,8 @@
                         <th>Wed</th>
                         <th>Thur</th>
                         <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,6 +132,16 @@
                         <td>
                             <div class="checkbox">
                                 <input type="checkbox" value="" ng-model="d.fri" ng-change="all_changed()">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-model="d.sat" ng-change="all_changed()">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-model="d.sun" ng-change="all_changed()">
                             </div>
                         </td>
                         <!-- <td>{{d.days | array_join:", "}}</td> -->

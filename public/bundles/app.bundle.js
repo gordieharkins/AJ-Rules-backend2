@@ -5171,10 +5171,13 @@ var reIsUint = /^(?:0|[1-9]\d*)$/;
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
  */
 function isIndex(value, length) {
+  var type = typeof value;
   length = length == null ? MAX_SAFE_INTEGER$1 : length;
+
   return !!length &&
-    (typeof value == 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length);
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
 }
 
 /** `Object#toString` result references. */
@@ -5260,6 +5263,14 @@ var freeProcess = moduleExports$1 && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule$1 && freeModule$1.require && freeModule$1.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
     return freeProcess && freeProcess.binding && freeProcess.binding('util');
   } catch (e) {}
 }());
@@ -5475,6 +5486,7 @@ function _eachOfLimit(limit) {
         var nextElem = iterator(obj);
         var done = false;
         var running = 0;
+        var looping = false;
 
         function iterateeCallback(err, value) {
             running -= 1;
@@ -5486,12 +5498,13 @@ function _eachOfLimit(limit) {
                 done = true;
                 return callback(null);
             }
-            else {
+            else if (!looping) {
                 replenish();
             }
         }
 
         function replenish () {
+            looping = true;
             while (running < limit && !done) {
                 var elem = nextElem();
                 if (elem === null) {
@@ -5504,6 +5517,7 @@ function _eachOfLimit(limit) {
                 running += 1;
                 iteratee(elem.value, elem.key, onlyOnce(iterateeCallback));
             }
+            looping = false;
         }
 
         replenish();
@@ -8324,7 +8338,7 @@ function memoize(fn, hasher) {
 
 /**
  * Calls `callback` on a later loop around the event loop. In Node.js this just
- * calls `process.nextTicl`.  In the browser it will use `setImmediate` if
+ * calls `process.nextTick`.  In the browser it will use `setImmediate` if
  * available, otherwise `setTimeout(callback, 0)`, which means other higher
  * priority events may precede the execution of `callback`.
  *
@@ -14246,12 +14260,19 @@ function isISODateString(date) {
 		.test(date.toString());
 }
 
-function DateMaskDirective($locale) {
-	var dateFormatMapByLocale = {
-		'pt-br': 'DD/MM/YYYY',
-		'ru': 'DD.MM.YYYY'
-	};
+var dateFormatMapByLocale = {
+	'pt-br': 'DD/MM/YYYY',
+	'es-ar': 'DD/MM/YYYY',
+	'es-mx': 'DD/MM/YYYY',
+	'es'   : 'DD/MM/YYYY',
+	'en-us': 'MM/DD/YYYY',
+	'en'   : 'MM/DD/YYYY',
+	'fr-fr': 'DD/MM/YYYY',
+	'fr'   : 'DD/MM/YYYY',
+	'ru'   : 'DD.MM.YYYY'
+};
 
+function DateMaskDirective($locale) {
 	var dateFormat = dateFormatMapByLocale[$locale.id] || 'YYYY-MM-DD';
 
 	return {
@@ -16937,16 +16958,20 @@ function MoneyMaskDirective($locale, $parse) {
 
 			function formatter(value) {
 				if (ctrl.$isEmpty(value)) {
-					return value;
+					return '';
 				}
+
 				if (angular.isDefined(attrs.uiIntegerModel)) {
-						value = value / Math.pow(10, decimals);
+					value /= Math.pow(10, decimals);
 				}
+
 				var prefix = (angular.isDefined(attrs.uiNegativeNumber) && value < 0) ? '-' : '';
 				var valueToFormat = PreFormatters.prepareNumberToFormatter(value, decimals);
+
 				if (angular.isDefined(attrs.uiCurrencyAfter)) {
 					return prefix + moneyMask.apply(valueToFormat) + currencySym;
 				}
+
 				return prefix + currencySym + moneyMask.apply(valueToFormat);
 			}
 
@@ -16988,14 +17013,16 @@ function MoneyMaskDirective($locale, $parse) {
 				}
 
 				var retValue = parseInt(formatedValue.replace(/[^\d\-]+/g,''));
+
 				if (!isNaN(retValue)) {
-						if (!angular.isDefined(attrs.uiIntegerModel)) {
-								retValue = retValue / Math.pow(10, decimals);
-						}
-						return retValue;
-				} else {
-						return null;
+					if (!angular.isDefined(attrs.uiIntegerModel)) {
+						retValue /= Math.pow(10, decimals);
+					}
+
+					return retValue;
 				}
+
+				return null;
 			}
 
 			ctrl.$formatters.push(formatter);
@@ -28137,15 +28164,18 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
 /* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
+            (typeof self !== "undefined" && self) ||
+            window;
+var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
 exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
 };
 exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
 };
 exports.clearTimeout =
 exports.clearInterval = function(timeout) {
@@ -28160,7 +28190,7 @@ function Timeout(id, clearFn) {
 }
 Timeout.prototype.unref = Timeout.prototype.ref = function() {};
 Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
+  this._clearFn.call(scope, this._id);
 };
 
 // Does not start the time, just sets up the members needed.
@@ -28188,7 +28218,7 @@ exports._unrefActive = exports.active = function(item) {
 
 // setimmediate attaches itself to the global object
 __webpack_require__(263);
-// On some exotic environments, it's not clear which object `setimmeidate` was
+// On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
 exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
@@ -40886,7 +40916,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 
         if ($scope.editing) {
-            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span }
+            $scope.data.blackouts[$scope.edit_index] = { days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span, mon: $scope.time_data.mon, tue: $scope.time_data.tue, wed: $scope.time_data.wed, thur: $scope.time_data.thur, fri: $scope.time_data.fri, sat: $scope.time_data.sat, sun: $scope.time_data.sun }
 
             $scope.editing = false;
             // $scope.dismiss();
@@ -40897,7 +40927,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
             return;
         }
 
-        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span })
+        $scope.data.blackouts.push({ days: day, intervals: JSON.parse(JSON.stringify($scope.time_data.intervals)), checked: true, span: $scope.time_data.span, mon: $scope.time_data.mon, tue: $scope.time_data.tue, wed: $scope.time_data.wed, thur: $scope.time_data.thur, fri: $scope.time_data.fri, sat: $scope.time_data.sat, sun: $scope.time_data.sun })
         $scope.dismiss();
     }
 
@@ -40920,12 +40950,17 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     $scope.save_settings = function (form_alert_type) {
         $scope.saving = true;
         $scope.error_check = true;
-        console.log($scope.data)
+
         if ($scope.data.email.flag || $scope.data.sms.flag) {
             if (!form_alert_type.$valid) {
+                $scope.errorMessage = "Error in data";
+                // $scope.$apply();
+                $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
                 return
             } else {
                 console.log("Called")
+
+
 
                 var data = JSON.parse(JSON.stringify($scope.data));
                 if (data.sms.flag) {
@@ -40958,6 +40993,37 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         data.blackouts[i].checked = "false";
                     }
+
+                    var day = [];
+                    if (data.blackouts[i].mon) {
+                        day.push("Monday")
+                    }
+
+                    if (data.blackouts[i].tue) {
+                        day.push("Tuesday")
+                    }
+
+                    if (data.blackouts[i].wed) {
+                        day.push("Wednesday")
+                    }
+
+                    if (data.blackouts[i].thur) {
+                        day.push("Thursday")
+                    }
+
+                    if (data.blackouts[i].fri) {
+                        day.push("Friday")
+                    }
+
+                    if (data.blackouts[i].sat) {
+                        day.push("Saturday")
+                    }
+
+                    if (data.blackouts[i].sun) {
+                        day.push("Sunday")
+                    }
+
+                    data.blackouts[i].days = day;
                 }
 
                 var check = false;
@@ -41346,7 +41412,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         a_check = true;
                     }
-                    
+
                     if (!a_check) {
                         $scope.data.blackouts[i].all = true;
                     }
