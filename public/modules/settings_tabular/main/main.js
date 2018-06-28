@@ -229,6 +229,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         data.blackouts[i].checked = "false";
                     }
+
+                    if(data.blackouts[i].span == "all_day")
                     
                     data.blackouts[i].intervals = [{ startTime: moment().startOf('day'), endTime: moment().endOf('day')}]
 
