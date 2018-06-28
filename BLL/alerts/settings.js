@@ -17,7 +17,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
    var type= 'immediate';
 
    if (type=='immediate') {
-            result = immediateAlert(settings.settings,alert.dateTime)
+            result = immediateAlert(settings.settings,alert.dateTime.split('Z')[0])
             // console.log('sadasadasd',result)
             if(!result) {
                 result = {};
@@ -25,21 +25,24 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
             }
             else {
-            sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime);
+            sendingTime = caclculateSendingTime(result.intervals.startTime,result.index,'immediate',alert.dateTime,result.found);
+  
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
         }
    } else {
-            result =  futureAlert(settings.settings,alert.dateTime)
+            result =  futureAlert(settings.settings,alert.dateTime.split('Z')[0])
             if(!result) {
                 result = {};
                 result['sendingTimeDate'] = moment(alert.dateTime.split('Z')[0])
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
                
             } else {
+            console.log('sssssss',result)
             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime,result.found);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
+            console.log(result)
             }
     }
     result['dateTime'] = alert['dateTime'] 
@@ -54,7 +57,8 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     if(settings.email.flag=='true') {
         alert['email'] =  settings.email.details
         }
-    cb(alert);
+   console.log(alert)
+        // cb(alert);
 }
 
 function futureAlert(activeWindow, dateIncome){
@@ -140,6 +144,7 @@ function immediateAlert(activeWindow,time) {
         } else {
             time =  SortArray(extractMinWindowNegative)
         }
+        console.log('free time',time[0])
         return time[0] 
     }
 }
@@ -227,11 +232,16 @@ function caclculateSendingTime(time,days,type,dateTime,found) {
     var date = moment(dateTime).format('MM/DD/YYYY');
     
     if(type=='immediate') {
+        console.log(found==0)
         if(found==0) {
             sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
+          
         }else {
             sendingTime =  moment(dateTime.split('Z')[0])
+       
+
         }
+        
        
     } else {
         if(found==0) {
