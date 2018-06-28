@@ -5171,13 +5171,10 @@ var reIsUint = /^(?:0|[1-9]\d*)$/;
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
  */
 function isIndex(value, length) {
-  var type = typeof value;
   length = length == null ? MAX_SAFE_INTEGER$1 : length;
-
   return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
+    (typeof value == 'number' || reIsUint.test(value)) &&
+    (value > -1 && value % 1 == 0 && value < length);
 }
 
 /** `Object#toString` result references. */
@@ -5263,14 +5260,6 @@ var freeProcess = moduleExports$1 && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
-    // Use `util.types` for Node.js 10+.
-    var types = freeModule$1 && freeModule$1.require && freeModule$1.require('util').types;
-
-    if (types) {
-      return types;
-    }
-
-    // Legacy `process.binding('util')` for Node.js < 10.
     return freeProcess && freeProcess.binding && freeProcess.binding('util');
   } catch (e) {}
 }());
@@ -5486,7 +5475,6 @@ function _eachOfLimit(limit) {
         var nextElem = iterator(obj);
         var done = false;
         var running = 0;
-        var looping = false;
 
         function iterateeCallback(err, value) {
             running -= 1;
@@ -5498,13 +5486,12 @@ function _eachOfLimit(limit) {
                 done = true;
                 return callback(null);
             }
-            else if (!looping) {
+            else {
                 replenish();
             }
         }
 
         function replenish () {
-            looping = true;
             while (running < limit && !done) {
                 var elem = nextElem();
                 if (elem === null) {
@@ -5517,7 +5504,6 @@ function _eachOfLimit(limit) {
                 running += 1;
                 iteratee(elem.value, elem.key, onlyOnce(iterateeCallback));
             }
-            looping = false;
         }
 
         replenish();
@@ -8338,7 +8324,7 @@ function memoize(fn, hasher) {
 
 /**
  * Calls `callback` on a later loop around the event loop. In Node.js this just
- * calls `process.nextTick`.  In the browser it will use `setImmediate` if
+ * calls `process.nextTicl`.  In the browser it will use `setImmediate` if
  * available, otherwise `setTimeout(callback, 0)`, which means other higher
  * priority events may precede the execution of `callback`.
  *
@@ -14105,8 +14091,8 @@ __webpack_require__(329);
 __webpack_require__(332);
 __webpack_require__(334);
 __webpack_require__(336)
-__webpack_require__(338)
-__webpack_require__(340);
+__webpack_require__(420)
+__webpack_require__(338);
 
 /***/ }),
 /* 141 */
@@ -14260,19 +14246,12 @@ function isISODateString(date) {
 		.test(date.toString());
 }
 
-var dateFormatMapByLocale = {
-	'pt-br': 'DD/MM/YYYY',
-	'es-ar': 'DD/MM/YYYY',
-	'es-mx': 'DD/MM/YYYY',
-	'es'   : 'DD/MM/YYYY',
-	'en-us': 'MM/DD/YYYY',
-	'en'   : 'MM/DD/YYYY',
-	'fr-fr': 'DD/MM/YYYY',
-	'fr'   : 'DD/MM/YYYY',
-	'ru'   : 'DD.MM.YYYY'
-};
-
 function DateMaskDirective($locale) {
+	var dateFormatMapByLocale = {
+		'pt-br': 'DD/MM/YYYY',
+		'ru': 'DD.MM.YYYY'
+	};
+
 	var dateFormat = dateFormatMapByLocale[$locale.id] || 'YYYY-MM-DD';
 
 	return {
@@ -16958,20 +16937,16 @@ function MoneyMaskDirective($locale, $parse) {
 
 			function formatter(value) {
 				if (ctrl.$isEmpty(value)) {
-					return '';
+					return value;
 				}
-
 				if (angular.isDefined(attrs.uiIntegerModel)) {
-					value /= Math.pow(10, decimals);
+						value = value / Math.pow(10, decimals);
 				}
-
 				var prefix = (angular.isDefined(attrs.uiNegativeNumber) && value < 0) ? '-' : '';
 				var valueToFormat = PreFormatters.prepareNumberToFormatter(value, decimals);
-
 				if (angular.isDefined(attrs.uiCurrencyAfter)) {
 					return prefix + moneyMask.apply(valueToFormat) + currencySym;
 				}
-
 				return prefix + currencySym + moneyMask.apply(valueToFormat);
 			}
 
@@ -17013,16 +16988,14 @@ function MoneyMaskDirective($locale, $parse) {
 				}
 
 				var retValue = parseInt(formatedValue.replace(/[^\d\-]+/g,''));
-
 				if (!isNaN(retValue)) {
-					if (!angular.isDefined(attrs.uiIntegerModel)) {
-						retValue /= Math.pow(10, decimals);
-					}
-
-					return retValue;
+						if (!angular.isDefined(attrs.uiIntegerModel)) {
+								retValue = retValue / Math.pow(10, decimals);
+						}
+						return retValue;
+				} else {
+						return null;
 				}
-
-				return null;
 			}
 
 			ctrl.$formatters.push(formatter);
@@ -28164,18 +28137,15 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
 /* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
-            (typeof self !== "undefined" && self) ||
-            window;
-var apply = Function.prototype.apply;
+/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
 exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
 };
 exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
 };
 exports.clearTimeout =
 exports.clearInterval = function(timeout) {
@@ -28190,7 +28160,7 @@ function Timeout(id, clearFn) {
 }
 Timeout.prototype.unref = Timeout.prototype.ref = function() {};
 Timeout.prototype.close = function() {
-  this._clearFn.call(scope, this._id);
+  this._clearFn.call(window, this._id);
 };
 
 // Does not start the time, just sets up the members needed.
@@ -28218,7 +28188,7 @@ exports._unrefActive = exports.active = function(item) {
 
 // setimmediate attaches itself to the global object
 __webpack_require__(263);
-// On some exotic environments, it's not clear which object `setimmediate` was
+// On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
 exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
@@ -40754,11 +40724,215 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(339));
+angular.module('AOTC').directive('hasPermission', __webpack_require__(339));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(340));
+
+
+
+
+
+
+
+
 
 
 /***/ }),
 /* 339 */
+/***/ (function(module, exports) {
+
+//angular.module('AOTC').directive('hasPermission', _hasPermission);
+_hasPermission.$inject = ['AOTCPermissions'];
+module.exports = _hasPermission;
+
+
+function _hasPermission(AOTCPermissions) {
+    return {
+        link: function (scope, element, attrs) {
+            // if (!_.isString(attrs.hasPermission)) {
+            //     throw 'hasPermission value must be a string'
+            // }
+            var _key = attrs.hasPermission.trim();
+            var _obj = 'permissionMainObj';
+            try {
+                _obj = attrs.permissionObject.trim() || 'permissionMainObj';
+            } catch (_e) {_obj = 'permissionMainObj';}
+
+            // var notPermissionFlag = value[0] === '!';
+            // if (notPermissionFlag) {
+            //     value = value.slice(1).trim();
+            // }
+
+            function toggleVisibilityBasedOnPermission() {
+                //console.log(value);
+                try{
+
+                    var hasPermission;
+                    if(_obj=='userObj'){
+                        var _permissionStatus =  AOTCPermissions.hasPermission(_key, _obj).trim();
+                        hasPermission = (_permissionStatus =='Admin') ? true: false;
+                    }
+                    else{
+                        hasPermission = AOTCPermissions.hasPermission(_key, _obj);
+                    }
+                    
+                    if (hasPermission) {
+                        //element[0].setAttribute("disabled", null);
+                        // element[0].style.display = 'block';
+                    } else {
+                        element[0].style.display = 'none';
+                    }            
+                }
+                catch(_e){}
+
+            }
+
+            toggleVisibilityBasedOnPermission();
+            scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
+        }
+    };
+}
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports) {
+
+//angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
+_permissionPerProperty.$inject = ['AOTCPermissions'];
+module.exports = _permissionPerProperty;
+
+
+function _permissionPerProperty(AOTCPermissions) {
+    return {
+        link: function (scope, element, attrs) {
+            // if (!_.isString(attrs.hasPermission)) {
+            //     throw 'hasPermission value must be a string'
+            // }
+            var _key = attrs.permissionPerProperty.trim();
+            var behaviourType = attrs.behaviourType.trim();
+            
+            /// var notPermissionFlag = value[0] === '!';
+            // if (notPermissionFlag) {
+            //     value = value.slice(1).trim();
+            // }
+
+            function toggleVisibilityBasedOnPermission() {
+                try{
+                    var hasPermission = AOTCPermissions.hasPermission(_key, 'permissionPerPropertyObj');
+                    if (hasPermission) {
+                        //element[0].style.display = 'none';
+                        //element[0].setAttribute("disabled", null);
+                    } else {
+                        if(behaviourType=='hide') element[0].style.display = 'none';
+                        if(behaviourType=='disable'){
+                            element[0].setAttribute("disabled", true);
+                        } 
+                        
+                    }
+                }
+                catch(_e){}
+                //console.log(value);
+
+            }
+
+            toggleVisibilityBasedOnPermission();
+            //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
+        }
+    };
+}
+
+/***/ }),
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//var angular = require('angular');
+
+angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(421));
+
+
+/***/ }),
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41455,131 +41629,6 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 340 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-//var angular = require('angular');
-
-angular.module('AOTC').directive('hasPermission', __webpack_require__(341));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(342));
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-/* 341 */
-/***/ (function(module, exports) {
-
-//angular.module('AOTC').directive('hasPermission', _hasPermission);
-_hasPermission.$inject = ['AOTCPermissions'];
-module.exports = _hasPermission;
-
-
-function _hasPermission(AOTCPermissions) {
-    return {
-        link: function (scope, element, attrs) {
-            // if (!_.isString(attrs.hasPermission)) {
-            //     throw 'hasPermission value must be a string'
-            // }
-            var _key = attrs.hasPermission.trim();
-            var _obj = 'permissionMainObj';
-            try {
-                _obj = attrs.permissionObject.trim() || 'permissionMainObj';
-            } catch (_e) {_obj = 'permissionMainObj';}
-
-            // var notPermissionFlag = value[0] === '!';
-            // if (notPermissionFlag) {
-            //     value = value.slice(1).trim();
-            // }
-
-            function toggleVisibilityBasedOnPermission() {
-                //console.log(value);
-                try{
-
-                    var hasPermission;
-                    if(_obj=='userObj'){
-                        var _permissionStatus =  AOTCPermissions.hasPermission(_key, _obj).trim();
-                        hasPermission = (_permissionStatus =='Admin') ? true: false;
-                    }
-                    else{
-                        hasPermission = AOTCPermissions.hasPermission(_key, _obj);
-                    }
-                    
-                    if (hasPermission) {
-                        //element[0].setAttribute("disabled", null);
-                        // element[0].style.display = 'block';
-                    } else {
-                        element[0].style.display = 'none';
-                    }            
-                }
-                catch(_e){}
-
-            }
-
-            toggleVisibilityBasedOnPermission();
-            scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
-        }
-    };
-}
-
-/***/ }),
-/* 342 */
-/***/ (function(module, exports) {
-
-//angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
-_permissionPerProperty.$inject = ['AOTCPermissions'];
-module.exports = _permissionPerProperty;
-
-
-function _permissionPerProperty(AOTCPermissions) {
-    return {
-        link: function (scope, element, attrs) {
-            // if (!_.isString(attrs.hasPermission)) {
-            //     throw 'hasPermission value must be a string'
-            // }
-            var _key = attrs.permissionPerProperty.trim();
-            var behaviourType = attrs.behaviourType.trim();
-            
-            /// var notPermissionFlag = value[0] === '!';
-            // if (notPermissionFlag) {
-            //     value = value.slice(1).trim();
-            // }
-
-            function toggleVisibilityBasedOnPermission() {
-                try{
-                    var hasPermission = AOTCPermissions.hasPermission(_key, 'permissionPerPropertyObj');
-                    if (hasPermission) {
-                        //element[0].style.display = 'none';
-                        //element[0].setAttribute("disabled", null);
-                    } else {
-                        if(behaviourType=='hide') element[0].style.display = 'none';
-                        if(behaviourType=='disable'){
-                            element[0].setAttribute("disabled", true);
-                        } 
-                        
-                    }
-                }
-                catch(_e){}
-                //console.log(value);
-
-            }
-
-            toggleVisibilityBasedOnPermission();
-            //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
-        }
-    };
-}
 
 /***/ })
 ],[140]);
