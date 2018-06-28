@@ -57,8 +57,8 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     if(settings.email.flag=='true') {
         alert['email'] =  settings.email.details
         }
-   console.log(alert)
-        // cb(alert);
+//    console.log(alert)
+        cb(alert);
 }
 
 function futureAlert(activeWindow, dateIncome){

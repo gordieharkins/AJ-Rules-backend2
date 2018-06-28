@@ -686,6 +686,15 @@ function getActiveTime(blackouts){
                 }
             }
         }
+        for(var i = 0; i < activeTimes.length; i++){
+            if(activeTimes[i].intervals.length == 0){
+                activeTimes[i].intervals.push({
+                    startTime: "00:00",
+                    endTime: "23:59"
+                });
+            }
+        }
+        
     return activeTimes;
 }
 
