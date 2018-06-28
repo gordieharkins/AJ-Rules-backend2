@@ -21,6 +21,9 @@ var EmailService = require(path.resolve(__dirname, './email_sender'))(config);
 var AlertSettings = require(path.resolve(__dirname, './settings'));
 var alertSettings = new AlertSettings();
 var moment = require('moment');
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 // var IEDAL = new IEDAL();
 // var RRDAL = new RRDAL();
@@ -98,11 +101,13 @@ function executeJob(data) {
             function(callback) {
                 console.log('sending email')
                  if (value.alert.properties.email != "null"){
+                     var tempDate = new Date();
+                     var sendingDate = monthNames[tempDate.getMonth()] + " " + tempDate.getDate() + ", "+ tempDate.getFullYear();                     
                 var emailOption = {
                     text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
                             `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
                     from:"AOTC <aotc.invite@gmail.com>", 
-                    subject:"AOTC Alert for " +(new Date().getDate()),
+                    subject:"AOTC Alert for " +sendingDate,
                     to: value.alert.properties.email
                 };
 
@@ -129,7 +134,7 @@ function executeJob(data) {
             // the results array will equal ['one','two'] even though
             // the second function had a shorter timeout.
             if (err) {
-                console.log(error);
+                console.log(err);
             }
             console.log('done')
             results.push(results)
@@ -164,6 +169,7 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
+                console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {
