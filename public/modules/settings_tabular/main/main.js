@@ -18,7 +18,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
-    $scope.min_date = moment().startOf('day').subtract(1, 'hours');
+    $scope.min_date = moment().startOf('day').subtract(1, 'seconds');
 
     $scope.max_date = moment().endOf('day');
     // console.log($scope.min_date, $scope.min_date.tz("America/Los_Aneles").format())
@@ -229,6 +229,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     } else {
                         data.blackouts[i].checked = "false";
                     }
+                    
+                    data.blackouts[i].intervals = [{ startTime: moment().startOf('day'), endTime: moment().endOf('day')}]
 
                     var day = [];
                     if (data.blackouts[i].mon) {
@@ -445,6 +447,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
         if (reset) {
             $scope.time_data = {};
+            $scope.time_data.day_start = moment().startOf('day')
+            $scope.time_data.day_end = moment().endOf('day')
             $scope.time_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(8, 'hours') }]
             $scope.time_data_error = false;
             $scope.time_data.span = "specific_time";
@@ -454,6 +458,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
             $scope.edit_index = index;
             $scope.time_data = null;
             $scope.time_data = JSON.parse(JSON.stringify(elem));
+            $scope.time_data.day_start = moment().startOf('day')
+            $scope.time_data.day_end = moment().endOf('day')
             var a_check = false;
             if ($.inArray('Monday', elem.days) > -1) {
                 $scope.time_data.mon = true;
