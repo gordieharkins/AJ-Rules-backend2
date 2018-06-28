@@ -71,7 +71,7 @@
             <table class="table table-bordered table-responsive table-striped">
                 <thead>
                     <tr class="filters">
-                        <th>Enable | Disable </th>
+                        <!-- <th>Enable | Disable </th> -->
                         <th>Start & End time</th>
                         <th>Mon</th>
                         <th>Tue</th>
@@ -84,16 +84,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="d in data.blackouts">
-                        <td>
-                            <!--<div id="wpr-progress" class="pogress-btn">-->
-                            <!--<form>-->
-                            <!--<label class="toggle-switch toggle-progress" >-->
-                            <!--<input class="progress-input" type="checkbox" name="progressToggle" ng-model="d.checked">-->
-                            <!--<span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>-->
-                            <!--<span class="progress-handle"></span>-->
-                            <!--</label>-->
-                            <!--</form>-->
-                            <!--</div>-->
+                        <!-- <td>
                             <div class="switch-toggle switch-3 switch-candy">
                                 <input id="on{{$index}}" type="radio" ng-check="{{d.checked}}" ng-model="d.checked" ng-value="true">
                                 <label for="on{{$index}}" onclick="">Enable</label>
@@ -104,7 +95,7 @@
 
                                 <a></a>
                             </div>
-                        </td>
+                        </td> -->
                         <td>
                             <div ng-if="d.span!='all_day'" ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div>
                             <div ng-if="d.span=='all_day'">All Day</div>
@@ -290,12 +281,13 @@
                 <br>
 
                 <div class="modal-checkbox-area">
-                    <!-- <div class="checkbox">
+                    <div class="checkbox">
                         <label>
                             <input type="radio" value="all_day" ng-model="time_data.span" style="margin: 7px 0 0 0;">
                             <span class="pull-left modal-checkbox-text"> All day </span>
                         </label>
-                    </div> -->
+                    </div>
+                    
                     <div class="checkbox">
                         <label>
                             <input type="radio" value="specific_time" ng-model="time_data.span" style="margin: 7px 0 0 0;">
@@ -315,7 +307,17 @@
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </div>
-                    <!-- <div class="time-picker"> Time picker will come here</div> -->
+                </div>
+
+                <div class="modal-scroll-area" ng-show="time_data.span=='all_day'">
+                    <div style="pointer-events: none">
+                        <time-range start="time_data.day_start" end="time_data.day_end" on-change="changed()" on-change-start="changedStart($event)" on-change-end="changedEnd()"
+                            on-close="closed()" >
+                        </time-range>
+                        <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_time($index)" ng-disabled="true">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="add-new-time-area">
 
