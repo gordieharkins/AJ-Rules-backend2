@@ -12,9 +12,9 @@ SmsService.prototype.sendSms = function(value, callback) {
        console.log(from);
        client.messages
             .create({
-                body: "AOTC System Reminder\n"+ value.message + "\nJurisdiction: " +value.jurisdiction,
+                body: value.message,
                 from: from,
-                to: value.sms
+                to: value.to
             })
             .then(message => {
                res = {message: message.sid,value: value,status:200}

@@ -989,7 +989,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
 			// notification.remainingDays = daysRemaining;
 			warning += "Income Expense Survey submission overdue by " +parseInt(remainingDays)*(-1)+ " days. ";
-			alert += "Income Expense Survey submission overdue by "+remainingDays+" days for "+jurisdiction+" properties. Please complete the required information.";
+			alert += "Income Expense Survey submission overdue by "+parseInt(remainingDays)*(-1)+" days for "+jurisdiction+" properties. Please complete the required information.";
 		}
 
 		if(remainingItems > 0){
