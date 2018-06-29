@@ -38,11 +38,11 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
                
             } else {
-            console.log('sssssss',result)
+            // console.log('sssssss',result)
             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime,result.found);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            console.log(result)
+            // console.log(result)
             }
     }
     result['dateTime'] = alert['dateTime'] 
@@ -144,7 +144,7 @@ function immediateAlert(activeWindow,time) {
         } else {
             time =  SortArray(extractMinWindowNegative)
         }
-        console.log('free time',time[0])
+        // console.log('free time',time[0])
         return time[0] 
     }
 }
