@@ -14091,8 +14091,8 @@ __webpack_require__(329);
 __webpack_require__(332);
 __webpack_require__(334);
 __webpack_require__(336)
-__webpack_require__(420)
-__webpack_require__(338);
+__webpack_require__(338)
+__webpack_require__(340);
 
 /***/ }),
 /* 141 */
@@ -40724,215 +40724,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(339));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(340));
-
-
-
-
-
-
-
-
+angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(339));
 
 
 /***/ }),
 /* 339 */
-/***/ (function(module, exports) {
-
-//angular.module('AOTC').directive('hasPermission', _hasPermission);
-_hasPermission.$inject = ['AOTCPermissions'];
-module.exports = _hasPermission;
-
-
-function _hasPermission(AOTCPermissions) {
-    return {
-        link: function (scope, element, attrs) {
-            // if (!_.isString(attrs.hasPermission)) {
-            //     throw 'hasPermission value must be a string'
-            // }
-            var _key = attrs.hasPermission.trim();
-            var _obj = 'permissionMainObj';
-            try {
-                _obj = attrs.permissionObject.trim() || 'permissionMainObj';
-            } catch (_e) {_obj = 'permissionMainObj';}
-
-            // var notPermissionFlag = value[0] === '!';
-            // if (notPermissionFlag) {
-            //     value = value.slice(1).trim();
-            // }
-
-            function toggleVisibilityBasedOnPermission() {
-                //console.log(value);
-                try{
-
-                    var hasPermission;
-                    if(_obj=='userObj'){
-                        var _permissionStatus =  AOTCPermissions.hasPermission(_key, _obj).trim();
-                        hasPermission = (_permissionStatus =='Admin') ? true: false;
-                    }
-                    else{
-                        hasPermission = AOTCPermissions.hasPermission(_key, _obj);
-                    }
-                    
-                    if (hasPermission) {
-                        //element[0].setAttribute("disabled", null);
-                        // element[0].style.display = 'block';
-                    } else {
-                        element[0].style.display = 'none';
-                    }            
-                }
-                catch(_e){}
-
-            }
-
-            toggleVisibilityBasedOnPermission();
-            scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
-        }
-    };
-}
-
-/***/ }),
-/* 340 */
-/***/ (function(module, exports) {
-
-//angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
-_permissionPerProperty.$inject = ['AOTCPermissions'];
-module.exports = _permissionPerProperty;
-
-
-function _permissionPerProperty(AOTCPermissions) {
-    return {
-        link: function (scope, element, attrs) {
-            // if (!_.isString(attrs.hasPermission)) {
-            //     throw 'hasPermission value must be a string'
-            // }
-            var _key = attrs.permissionPerProperty.trim();
-            var behaviourType = attrs.behaviourType.trim();
-            
-            /// var notPermissionFlag = value[0] === '!';
-            // if (notPermissionFlag) {
-            //     value = value.slice(1).trim();
-            // }
-
-            function toggleVisibilityBasedOnPermission() {
-                try{
-                    var hasPermission = AOTCPermissions.hasPermission(_key, 'permissionPerPropertyObj');
-                    if (hasPermission) {
-                        //element[0].style.display = 'none';
-                        //element[0].setAttribute("disabled", null);
-                    } else {
-                        if(behaviourType=='hide') element[0].style.display = 'none';
-                        if(behaviourType=='disable'){
-                            element[0].setAttribute("disabled", true);
-                        } 
-                        
-                    }
-                }
-                catch(_e){}
-                //console.log(value);
-
-            }
-
-            toggleVisibilityBasedOnPermission();
-            //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
-        }
-    };
-}
-
-/***/ }),
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-//var angular = require('angular');
-
-angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(421));
-
-
-/***/ }),
-/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41637,6 +41433,131 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//var angular = require('angular');
+
+angular.module('AOTC').directive('hasPermission', __webpack_require__(341));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(342));
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports) {
+
+//angular.module('AOTC').directive('hasPermission', _hasPermission);
+_hasPermission.$inject = ['AOTCPermissions'];
+module.exports = _hasPermission;
+
+
+function _hasPermission(AOTCPermissions) {
+    return {
+        link: function (scope, element, attrs) {
+            // if (!_.isString(attrs.hasPermission)) {
+            //     throw 'hasPermission value must be a string'
+            // }
+            var _key = attrs.hasPermission.trim();
+            var _obj = 'permissionMainObj';
+            try {
+                _obj = attrs.permissionObject.trim() || 'permissionMainObj';
+            } catch (_e) {_obj = 'permissionMainObj';}
+
+            // var notPermissionFlag = value[0] === '!';
+            // if (notPermissionFlag) {
+            //     value = value.slice(1).trim();
+            // }
+
+            function toggleVisibilityBasedOnPermission() {
+                //console.log(value);
+                try{
+
+                    var hasPermission;
+                    if(_obj=='userObj'){
+                        var _permissionStatus =  AOTCPermissions.hasPermission(_key, _obj).trim();
+                        hasPermission = (_permissionStatus =='Admin') ? true: false;
+                    }
+                    else{
+                        hasPermission = AOTCPermissions.hasPermission(_key, _obj);
+                    }
+                    
+                    if (hasPermission) {
+                        //element[0].setAttribute("disabled", null);
+                        // element[0].style.display = 'block';
+                    } else {
+                        element[0].style.display = 'none';
+                    }            
+                }
+                catch(_e){}
+
+            }
+
+            toggleVisibilityBasedOnPermission();
+            scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
+        }
+    };
+}
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports) {
+
+//angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
+_permissionPerProperty.$inject = ['AOTCPermissions'];
+module.exports = _permissionPerProperty;
+
+
+function _permissionPerProperty(AOTCPermissions) {
+    return {
+        link: function (scope, element, attrs) {
+            // if (!_.isString(attrs.hasPermission)) {
+            //     throw 'hasPermission value must be a string'
+            // }
+            var _key = attrs.permissionPerProperty.trim();
+            var behaviourType = attrs.behaviourType.trim();
+            
+            /// var notPermissionFlag = value[0] === '!';
+            // if (notPermissionFlag) {
+            //     value = value.slice(1).trim();
+            // }
+
+            function toggleVisibilityBasedOnPermission() {
+                try{
+                    var hasPermission = AOTCPermissions.hasPermission(_key, 'permissionPerPropertyObj');
+                    if (hasPermission) {
+                        //element[0].style.display = 'none';
+                        //element[0].setAttribute("disabled", null);
+                    } else {
+                        if(behaviourType=='hide') element[0].style.display = 'none';
+                        if(behaviourType=='disable'){
+                            element[0].setAttribute("disabled", true);
+                        } 
+                        
+                    }
+                }
+                catch(_e){}
+                //console.log(value);
+
+            }
+
+            toggleVisibilityBasedOnPermission();
+            //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
+        }
+    };
+}
 
 /***/ })
 ],[140]);

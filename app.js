@@ -37,6 +37,7 @@ var appeal = require('./routes/appeal');
 var alerts = require('./BLL/alerts/alerts-routes');
 var alertsCronJobFile = require('./BLL/alerts/alerts-BLL');
 var appealCronJobFile = require('./BLL/appeal');
+var calendarInvites = require('./routes/calendar_invites')
 
 
 var alertsCronJob = new alertsCronJobFile();
@@ -121,6 +122,8 @@ app.use('/timeline', passport.authenticate('jwt', { session: false }), timeline)
 app.use('/properties', passport.authenticate('jwt', { session: false }), properties);
 app.use('/incomeExpenses', passport.authenticate('jwt', { session: false }), incomeExpenses);
 app.use('/alerts', passport.authenticate('jwt', { session: false }), alerts);
+app.use('/calendarInvites', calendarInvites);
+
 // app.use('/', routes);
 // app.use('/users', users);
 // app.use('/rentRolls', rentRolls);
