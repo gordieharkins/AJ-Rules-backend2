@@ -1,6 +1,6 @@
 // var calendar_invites = require(path.resolve(__dirname, '../DAL/admin'));
 // var DAL = new calendar_invites();
-var ical = require('ical-generator')
+// var ical = require('ical-generator')
 
 
 module.exports = BLL;

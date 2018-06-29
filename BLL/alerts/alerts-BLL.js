@@ -108,8 +108,8 @@ function executeJob(data) {
                      var tempDate = new Date();
                      var sendingDate = monthNames[tempDate.getMonth()] + " " + tempDate.getDate() + ", "+ tempDate.getFullYear();                     
                 var emailOption = {
-                    text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
-                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
+                    text: `Hi,\n\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
+                            `.\n\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\n\nSincerely,\nAOTC`,
                     from:"AOTC <aotc.invite@gmail.com>", 
                     subject:"AOTC Alert for " +sendingDate,
                     to: value.alert.properties.email
