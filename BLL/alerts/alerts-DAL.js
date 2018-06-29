@@ -190,9 +190,10 @@ DAL.prototype.getAlert = function(cb) {
     
 
     var query = `MATCH (n:user)-[:HAS{sent: false}]->(alert:alert) where
-        {endTime} < toInteger(alert.sendingTimeLong) OR alert.dateTimeLong = alert.sendingTimeLong
+        {endTime} > toInteger(alert.sendingTimeLong) OR alert.dateTimeLong = alert.sendingTimeLong
         RETURN alert`;
 
+    console.log(query);
      db.cypher({
         query: query,
         params: {
