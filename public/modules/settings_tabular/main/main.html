@@ -24,7 +24,7 @@
                 <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
                     ng-model="data.email.details" ng-disabled="data.email.verified"> </label>
             <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
-                ng-if="data.email.flag && data.email.verified == false" ng-disabled="sending_email_code || alert_type.email_details.$invalid"
+                ng-if="data.email.flag && data.email.verified == false && email_saved" ng-disabled="sending_email_code || alert_type.email_details.$invalid"
                 ng-click="open_dialog('emailverifyModal');send_code_to_email();">Verify</button>
             <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
         </div>
@@ -37,7 +37,7 @@
                 <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
                     ng-required="data.sms.flag" ng-disabled="data.sms.verified" ui-us-phone-number-mask maxlength="14"> </label>
             <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
-                ng-if="data.sms.flag  && data.email.verified == false" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid"
+                ng-if="data.sms.flag  && data.email.verified == false && sms_saved" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid"
                 ng-click="open_dialog('smsverifyModal');send_code_to_sms();">Verify</button>
             <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
         </div>
@@ -138,7 +138,8 @@
                         <!-- <td>{{d.days | array_join:", "}}</td> -->
                         <!-- <td><div ng-repeat="interval in d.intervals">09:20 AM to 10:00 PM</div></td> -->
                         
-                        <td class="actions">
+                        <td class="actions"  >
+                            <div ng-show="d.fix !='true'">
                             <span ng-click="newTimeAlert(false,d, $index)">
                                 <!--Edit time-->
                                 <i class="fa fa-clock-o" aria-hidden="true" data-toggle="tooltip" title="Edit Time"></i>
@@ -146,6 +147,7 @@
                             <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_interval($index)">
                                 <i class="fa fa-trash-o" data-toggle="tooltip" title="Delete"></i>
                             </button>
+                        </div>
                         </td>
                     </tr>
                     <tr ng-if="data.blackouts.length == 0">

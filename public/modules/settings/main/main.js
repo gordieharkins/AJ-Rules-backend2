@@ -19,18 +19,30 @@ Object.defineProperty(Array.prototype, 'remove', {
 
 function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
+
     $scope.error_check = false;
     $scope.timezones = [{ name: "Hawaii", value: 10 }, { name: "Alaska", value: 8 }, { name: "Pacific", value: 7 }, { name: "Mountain", value: 6 }, { name: "Central", value: 6 }, { name: "Eastern US, Standard Time", value: 4 }]
     $scope.data = {}
     $scope.data["sms"] = { "flag": false, "verified": false }
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
+    
 
     // add default times
-    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(18,'hours'), endTime: moment().startOf('day').add(21, 'hours') })
-    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(21,'hours'), endTime: moment().endOf('day') })
-    $scope.data["blackouts"].append({ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(6,'hours') })
-    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(6,'hours'), endTime: moment().startOf('day').add(8, 'hours') })
+
+    var default_data = {};
+    default_data.span = "specific_time";
+
+    default_data.intervals = [{ startTime: moment().startOf('day').add(18,'hours'), endTime: moment().startOf('day').add(21, 'hours') }]
+    $scope.data.blackouts.push(default_data)    
+    default_data.intervals = [{ startTime: moment().startOf('day').add(21,'hours'), endTime: moment().endOf('day') }]
+    $scope.data.blackouts.push(default_data)    
+    default_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(6,'hours') }]
+    $scope.data.blackouts.push(default_data)    
+    default_data.intervals = [{ startTime: moment().startOf('day').add(6,'hours'), endTime: moment().startOf('day').add(8, 'hours') }]
+    $scope.data.blackouts.push(default_data)
+
+    // end default timers
 
     $scope.min_date = moment().startOf('day').subtract(1, 'hours');
 
@@ -529,6 +541,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 
     function intialize() {
+        return
         AOTCService.getDataFromServer('/alerts/getSettings')
             .then(function (result) {
 
@@ -617,6 +630,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     }
 
     intialize();
-
+    console.log($scope.data)
+    console.log("Hello")
 
 }
