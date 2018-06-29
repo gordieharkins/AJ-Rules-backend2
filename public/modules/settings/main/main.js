@@ -26,6 +26,12 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
 
+    // add default times
+    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(18,'hours'), endTime: moment().startOf('day').add(21, 'hours') })
+    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(21,'hours'), endTime: moment().endOf('day') })
+    $scope.data["blackouts"].append({ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(6,'hours') })
+    $scope.data["blackouts"].append({ startTime: moment().startOf('day').add(6,'hours'), endTime: moment().startOf('day').add(8, 'hours') })
+
     $scope.min_date = moment().startOf('day').subtract(1, 'hours');
 
     $scope.max_date = moment().endOf('day');
