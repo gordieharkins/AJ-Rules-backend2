@@ -79,7 +79,11 @@ function executeJob(data) {
 
                 if(value.alert.properties.sms != "null"){
                     // if(value.alert.properties.sms== "null"){
-                        smsService.sendSms(value.alert.properties, function(error, result) {
+                        var smsOptions = {
+                            message: "AOTC System Reminder\n"+ value.alert.properties.message + "\n\nJurisdiction: " +value.alert.properties.jurisdiction,
+                            to: value.alert.properties.sms
+                        }
+                        smsService.sendSms(smsOptions, function(error, result) {
                             if(error){
                                 callback(error,null);
                             } else {
@@ -245,7 +249,7 @@ BLL.prototype.getSettings = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            if(result[0].settings != undefined){
+            if(result.length > 0){
                 var finalResult = {
                     id: result[0].id,
                     settings: createSettingsJSONFrontend(result)
@@ -277,18 +281,20 @@ BLL.prototype.saveEmailCode = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-            // var emailOption = {
-            //     text: "Please use this verfication code: "+ data.code,
-            //     from:"AOTC <aotc.invite@gmail.com>", 
-            //     subject:"AOTC Email Verification",
-            //     to: value.alert.properties.email
-            // };
+            var email = result[0].email;
+            var emailOption = {
+                text: "Please use this verfication code: "+ data.code,
+                from:"AOTC <aotc.invite@gmail.com>", 
+                subject:"AOTC Email Verification",
+                to: email
+            };
 
-            // EmailService.send_email(emailOption, function(error, result) {
-            //     console.log('sending',i,emailOption.to)
-            //     results.push(result)
-            //     cb()
-            // });
+            EmailService.send_email(emailOption, function(error, result) {
+                // console.log('sending',i,emailOption.to)
+                // results.push(result)
+                // cb()
+                console.log("email sent");
+            });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -312,7 +318,18 @@ BLL.prototype.savePhoneCode = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
-
+            var phone = result[0].phone;
+            var smsOptions = {
+                message: "Verfication Code: " + data.code,
+                to: phone
+            }
+            smsService.sendSms(value.alert.properties, function(error, result) {
+                if(error){
+                    console.log("error");
+                } else {
+                    console.log("success");
+                }
+            });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -694,7 +711,7 @@ function getActiveTime(blackouts){
                 });
             }
         }
-        
+
     return activeTimes;
 }
 

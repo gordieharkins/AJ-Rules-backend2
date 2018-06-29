@@ -63,7 +63,8 @@ DAL.prototype.saveEmailCode = function(userId, data, cb) {
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MERGE (s)-[:emailVerificationCode]->(e:emailCode{email: {emailId}})
                 ON MATCH SET e.code = {code}, e.createdDate = {date}
-                ON CREATE SET e.code = {code}, e.createdDate = {date}`;
+                ON CREATE SET e.code = {code}, e.createdDate = {date}
+                RETURN s.email[1] as email`;
 
     var params = {
         userId: userId,
@@ -88,7 +89,8 @@ DAL.prototype.savePhoneCode = function(userId, data, cb) {
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MERGE (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
                 ON MATCH SET e.code = {code}, e.createdDate = {date}
-                ON CREATE SET e.code = {code}, e.createdDate = {date}`;
+                ON CREATE SET e.code = {code}, e.createdDate = {date}
+                RETURN s.sms[1] as phone`;
 
     var params = {
         userId: userId,
