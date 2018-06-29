@@ -768,7 +768,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 					} else if (daysRemaining <= 0 ){
 						notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
 						message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
-						alert += "Income Expense Survey submission overdue by " +daysRemaining+ " days for "+jurisdiction+" properties. Please complete the required information.";
+						alert += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days for "+jurisdiction+" properties. Please complete the required information.";
 					}
 					
 					if(remainingItems > 0){
