@@ -16,7 +16,7 @@ BLL.prototype.postCalendarInvites = function(data, cb) {
 		'end' : data.end,
 		'title' : data.title,
 		'description' : data.description,
-		'id' : data.uid,//new Date().getTime(), //Some unique identifier
+		'uid' : data.uid,//new Date().getTime(), //Some unique identifier
 		'organiser' : data.organiser,
 		'location' : data.location,
 		'alarms': data.alarms,   
@@ -30,7 +30,7 @@ BLL.prototype.postCalendarInvites = function(data, cb) {
 		start: eventObj.start,
 		end: eventObj.end,
 		summary: eventObj.title,
-		uid: eventObj.id, // Some unique identifier
+		uid: eventObj.uid, // Some unique identifier
 		sequence: 1,
 		description: eventObj.description,
 		location: eventObj.location,
