@@ -1071,3 +1071,7 @@ blockquote {
     width: 93px;
     /*border-radius: 9px;*/
 }
+
+td:first-child {
+    font-weight: bold;
+}
