@@ -1,18 +1,8 @@
 <header></header>
 <link rel="stylesheet" type="text/css" href="modules/settings/main/main.css">
-<script>
-    $(window).scroll(function(){
-        if ($(this).scrollTop() >145) {
-            $('#notification').addClass('fixed');
-        } else {
-            $('#notification').removeClass('fixed');
-        }
-    });
 
-
-</script>
 <span class="header-tag">
-    Alerts Preferences
+  <i class="fa fa-bell"></i>&nbsp;  Alerts Preferences
 </span>
 
  <div class="row wrapper-body">
@@ -20,13 +10,13 @@
 
 
     <div class="panel panel-primary">
-        <div class="panel-heading"><i class="fa fa-bell"></i> &nbsp;  Alerts Settings</div>
+        <div class="panel-heading"><i class="fa fa-cog"></i> &nbsp;  Alerts Settings</div>
         <div class="left-panel">
             <ul>
-                <li><a> <i class="fa fa-cog"></i>  &nbsp; Email & SMS Settings</a></li>
-                <li><a> <i class="fa fa-clock-o"></i> &nbsp; Set black-out time</a></li>
-                <li class="active"><a ><i class="fa fa-gavel"></i>  &nbsp; Appeal Module Settings</a></li>
-                <li><a> <i class="fa fa-calendar"></i>  &nbsp; Calender invites</a></li>
+                <li id="1"><a> <i class="fa fa-send-o"></i>  &nbsp; Email & SMS Settings</a></li>
+                <li id="2"><a > <i class="fa fa-clock-o"></i> &nbsp; Set black-out time</a></li>
+                <li id="3" class="active"><a ><i class="fa fa-gavel"></i>  &nbsp; Appeal Module Settings</a></li>
+                <li id="4"><a > <i class="fa fa-calendar"></i>  &nbsp; Calender invites</a></li>
 
             </ul>
         </div>
@@ -37,47 +27,48 @@
 
 </div>
 <div class="col-md-9 right-panel">
-<div class="">
-    <div class="panel panel-primary">
-        <div class="panel-heading"><i class="fa fa-cog"></i>  &nbsp; Email & SMS Settings</div>
-        <form class="form-inline" name="alert_type" style="padding: 20px;">
-            <p>
-                <b>Select the alert method(s)</b>
-            </p>
 
-            <div style="color: #be1515" ng-show="email_sms_error">*Please select atleast one alert method.</div>
+    <div id="1a">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-send-o"></i>  &nbsp; Email & SMS Settings</div>
+            <form class="form-inline" name="alert_type" style="padding: 20px;">
+                <p>
+                    <b>Select the alert method(s)</b>
+                </p>
 
-            <div class="checkbox">
-                <label>
-                    <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
-                    <span class="pull-left"> Email </span>
-                    <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
-                           ng-model="data.email.details" ng-disabled="data.email.verified"> </label>
-                <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
-                        ng-if="data.email.flag && data.email.verified == false && email_saved" ng-disabled="sending_email_code || alert_type.email_details.$invalid"
-                        ng-click="open_dialog('emailverifyModal');send_code_to_email();">Verify</button>
-                <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
-            </div>
+                <div style="color: #be1515" ng-show="email_sms_error">*Please select atleast one alert method.</div>
 
-            <br>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="" ng-model="data.sms.flag" ng-change="none_selected_error_reset()">
-                    <span class="pull-left"> SMS </span>
-                    <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
-                           ng-required="data.sms.flag" ng-disabled="data.sms.verified" ui-us-phone-number-mask maxlength="14"> </label>
-                <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
-                        ng-if="data.sms.flag  && data.email.verified == false && sms_saved" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid"
-                        ng-click="open_dialog('smsverifyModal');send_code_to_sms();">Verify</button>
-                <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
-            </div>
+                <div class="checkbox">
+                    <label>
+                        <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
+                        <span class="pull-left"> Email </span>
+                        <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
+                               ng-model="data.email.details" ng-disabled="data.email.verified"> </label>
+                    <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
+                            ng-if="data.email.flag && data.email.verified == false && email_saved" ng-disabled="sending_email_code || alert_type.email_details.$invalid"
+                            ng-click="open_dialog('emailverifyModal');send_code_to_email();">Verify</button>
+                    <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
+                </div>
 
-        </form>
+                <br>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="" ng-model="data.sms.flag" ng-change="none_selected_error_reset()">
+                        <span class="pull-left"> SMS </span>
+                        <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
+                               ng-required="data.sms.flag" ng-disabled="data.sms.verified" ui-us-phone-number-mask maxlength="14"> </label>
+                    <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
+                            ng-if="data.sms.flag  && data.email.verified == false && sms_saved" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid"
+                            ng-click="open_dialog('smsverifyModal');send_code_to_sms();">Verify</button>
+                    <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
+                </div>
 
+            </form>
+
+        </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="panel panel-primary filterable">
+    <div id="2a">
+    <div class="panel panel-primary filterable" >
             <div class="panel-heading">
                  <i class="fa fa-clock-o"></i> &nbsp; Set black-out time
                 <div class="pull-right button-class ">
@@ -113,6 +104,7 @@
                         <th>Fri</th>
                         <th>Sat</th>
                         <th>Sun</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -240,16 +232,22 @@
                         <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     </tr> -->
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="9">
+                        <div>
+                            <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix" ng-click="save_settings(alert_type)"
+                                    ng-disabled="saving">Save</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
-            <div>
-                <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix" ng-click="save_settings(alert_type)"
-                    ng-disabled="saving">Save</button>
-            </div>
-            <div class="clearfix"></div>
+
         </div>
     </div>
-</div>
-
+    <div id="3a">
     <div class="panel panel-primary">
         <div class="panel-heading"><i class="fa fa-gavel"></i> &nbsp; Appeal Module Settings</div>
         <table class="table table-bordered table-responsive table-striped">
@@ -543,9 +541,10 @@
 
         </table>
     </div>
+    </div>
 
-
-    <div class="panel panel-primary">
+    <div id="4a">
+    <div class="panel panel-primary" >
         <div class="panel-heading"><i class="fa fa-calendar"></i> &nbsp; Calender Invites</div>
     <div class="calender-invite">
         <blockquote>
@@ -578,13 +577,16 @@
             </label>
         </div>
 
-
+        <div>
+            <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
+            <div class="clearfix"></div>
+        </div>
 
 
     </div>
 
     </div>
-
+    </div>
 
 
 </div>
@@ -780,3 +782,43 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    $(window).scroll(function(){
+        if ($(this).scrollTop() >145) {
+            $('#notification').addClass('fixed');
+        } else {
+            $('#notification').removeClass('fixed');
+        }
+    });
+
+    $("#1").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#1a").offset().top},
+            'slow');
+    });
+
+
+    $("#2").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#2a").offset().top},
+            'slow');
+    });
+
+
+    $("#3").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#3a").offset().top},
+            'slow');
+    });
+
+
+    $("#4").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#4a").offset().top},
+            'slow');
+    });
+
+</script>
