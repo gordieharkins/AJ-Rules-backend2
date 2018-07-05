@@ -1075,3 +1075,16 @@ blockquote {
 td:first-child {
     font-weight: bold;
 }
+
+.bell-ico {
+    background-image: url(../../../assets/img/bell.png);
+    width: 34px;
+    height: 34px;
+    float: left;
+    display: block;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 18px;
+}
+}
