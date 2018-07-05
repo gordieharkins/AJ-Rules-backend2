@@ -969,6 +969,7 @@ table .fa-clock-o {
     padding: 10px 0px 10px 20px;
     border-bottom: 1px solid #e6e6e6;
     transition: 0.5s;
+    background: #fff;
     border-left: 5px solid #fff;
 }
 
