@@ -360,7 +360,7 @@ table .fa-clock-o {
 
 
 .green-color {
-    background: #32c976 !important;
+    background: #1dcdad !important;
     margin: 9px;
     width: 90px;
     border: 0;
@@ -368,12 +368,12 @@ table .fa-clock-o {
     border-radius: 0;
     display: inline-block;
     position: relative;
-    width: 90px;
-    height: 32px;
+    width: 84px;
+    height: 28px;
     line-height: 18px;
     border-radius: 2px;
     /* font-size: 0.9em; */
-    font-size: 14px;
+    font-size: 13px;
     background-color: #fff;
     font-weight: bold;
     text-shadow: none;
