@@ -572,9 +572,15 @@
                 <div class="form-group">
                     <input checked="" type="checkbox" value="">
                     <span class="pull-left" style="width: 100%;"> Choose specific date </span>
+                    <input  style="margin: 10px 0px 0px 20px;" type="text" id="date1" name="date1"/>
 
                 </div>
             </label>
+
+
+
+
+
         </div>
 
         <div>
@@ -820,5 +826,15 @@
                 scrollTop: $("#4a").offset().top},
             'slow');
     });
+
+
+
+    $('#date1').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: false,
+        dateFormat: "m/d/yy"
+    });
+
 
 </script>

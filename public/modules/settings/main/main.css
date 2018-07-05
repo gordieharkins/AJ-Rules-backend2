@@ -969,11 +969,13 @@ table .fa-clock-o {
     padding: 10px 0px 10px 20px;
     border-bottom: 1px solid #e6e6e6;
     transition: 0.5s;
+    border-left: 5px solid #fff;
 }
 
 
  .active {
-   background: rgba(0, 179, 238, 0.13);
+   background: rgba(9, 238, 0, 0.13);
+     border-left: 5px solid #32c976 !important;
 
 }
 
@@ -981,6 +983,8 @@ table .fa-clock-o {
     cursor: pointer;
     background:#00b3ee;
     color: #fff !important;
+    border-left: 5px solid #00b3ee !important;
+
 }
 
 .left-panel ul li:hover a  {
@@ -994,6 +998,7 @@ table .fa-clock-o {
 .right-panel {
     position: absolute;
     right: 0;
+    padding-left: 0;
 }
 
 
@@ -1032,7 +1037,7 @@ blockquote {
 }
 
 
-.left-panel {height: 92vh;}
+.left-panel {height: 90.7vh;}
 
 
 .timezone-dropdown-button {
@@ -1053,4 +1058,8 @@ blockquote {
 .checkbox input[type="checkbox"]:after, .checkbox-inline input[type="checkbox"]:after {
     color: #ffffff !important;
     background: white;
+}
+
+#notification {
+    padding-right: 5px;
 }
