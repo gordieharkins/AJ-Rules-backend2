@@ -63,6 +63,12 @@
                     <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
                 </div>
 
+                <div>
+                    <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
+                    <div class="clearfix"></div>
+                </div>
+
+
             </form>
 
         </div>
@@ -254,8 +260,17 @@
             <thead>
             <tr>
                 <th scope="col"></th>
-                <th>Every ___ days until Event is Marked Complete</th>
-                <th>Every ___ days until Pre-requisite task is Marked Complete</th>
+                <th style="width: 200px;">
+                    Every
+                    <input type="number" required class="custom-input">
+                    days until Event is Marked Complete</th>
+
+                <th style="width: 200px;">
+                    Every
+                    <input type="number" required class="custom-input">
+                    days until Pre-requisite task is Marked Complete</th>
+
+
                 <th>7 Days Before Even</th>
                 <th>48 Hours Before Event</th>
                 <th>24 Hours Before Event</th>
@@ -548,7 +563,7 @@
         <div class="panel-heading"><i class="fa fa-calendar"></i> &nbsp; Calender Invites</div>
     <div class="calender-invite">
         <blockquote>
-            Set your calender invites for appeal
+          Please choose from the list when you want to get calender invites.
         </blockquote>
         <div class="checkbox">
             <label>
@@ -567,21 +582,7 @@
 
 
 
-        <div class="checkbox">
-            <label>
-                <div class="form-group">
-                    <input checked="" type="checkbox" value="">
-                    <span class="pull-left" style="width: 100%;"> Choose specific date </span>
-                    <input  style="margin: 10px 0px 0px 20px;" type="text" id="date1" name="date1"/>
 
-                </div>
-            </label>
-
-
-
-
-
-        </div>
 
         <div>
             <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
@@ -827,14 +828,6 @@
             'slow');
     });
 
-
-
-    $('#date1').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: false,
-        dateFormat: "m/d/yy"
-    });
 
 
 </script>

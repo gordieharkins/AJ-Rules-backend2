@@ -1063,3 +1063,10 @@ blockquote {
 #notification {
     padding-right: 5px;
 }
+
+.custom-input {
+    border: 1.5px solid #2196F3;
+    box-shadow: none !important;
+    width: 93px;
+    /*border-radius: 9px;*/
+}
