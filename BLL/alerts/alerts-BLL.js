@@ -54,7 +54,7 @@ BLL.prototype.startCronJob = function() {
                 console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
-                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
                 console.log("Here are the alerts: ", result);
                 executeJob(result);

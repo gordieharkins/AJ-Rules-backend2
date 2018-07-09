@@ -142,7 +142,7 @@ app.use('/calendarInvites', calendarInvites);
 // app.use('/timeline', timeline);
 // // app.use('/properties', properties);
 // app.use('/incomeExpenses', incomeExpenses);
-alertsCronJob.startCronJob();
+// alertsCronJob.startCronJob();
 appealCronJob.startCronJob();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

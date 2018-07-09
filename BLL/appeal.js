@@ -143,7 +143,7 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 					
 				jurisdictionTimelineData["ieSurvey"] = {};
 				jurisdictionTimelineData.ieSurvey["main"] = {};
-				jurisdictionTimelineData.ieSurvey.main = result[0].rules;
+				// jurisdictionTimelineData.ieSurvey.main = result[0].rules;
 			}
 			var timeline = createTimelineWithJson(jurisdictionTimelineData);
 			DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
@@ -336,6 +336,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				jurisdictions: []
 			};
 
+			var calendarInviteFlag = false;
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event == null){
 					callbackMain();
@@ -348,9 +349,21 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
 						value.subEvent = tempEvent;
+
+						
+						if(value.event.properties.calendarInvite != true){
+							// var endDate = calculateRemainingDays(value.event.properties.deadline);
+							// if(endDate <= 7){
+							addCalendarInvite(value.propertyId, value.event.properties.deadline);
+							// }
+						}
+
 						if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 							var startDate = calculateRemainingDays(value.event.properties.startDate);
 							if(startDate <= 0){
+								
+								calendarInviteFlag = true;
+								// addCalendarInvite(value.propertyId, value.event.properties.deadline);
 								value.event.properties.status = "In Progress";
 								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 								value.event.properties.warning = "Complete required information.";
@@ -465,7 +478,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									} else if(subValue.properties.type == "11"){
 										indexes[1][1] = j;
 										checkReivewStatus(value.subEvent[indexes[1][0]].properties.status, 
-														subValue.properties, subValue._id, function(error, reviewStatus){
+														subValue.properties, subValue._id, value.propertyId, function(error, reviewStatus){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -580,18 +593,6 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									}
 									
 								}
-
-								// if(value.event.properties.status != "Done"){
-								// 	var notification = {
-								// 		heading: value.jurisdiction + " Properties",
-								// 		text: "Need to complete income expense survey package for " +value.jurisdiction
-								// 				+ " properties before "+value.event.properties.deadline+".",
-								// 		type: "warning",
-								// 		remainingDays: ""
-								// 	}
-	
-								// 	generateNotification(notification, value.event._id);
-								// }
 
 								createEventsJson(value, finalResult, function(){
 									callbackMain();
@@ -854,7 +855,6 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			} catch (err){
 				cb(null, requiredItems);
 			}
-			
 		}
 	});
 }
@@ -866,11 +866,12 @@ function sortByKey(array, key) {
     });
 }
 
-function checkReivewStatus(requiredItemsStatus, subValue, id, cb){
+function checkReivewStatus(requiredItemsStatus, subValue, id, propertyId, cb){
 	var reviewStatus = subValue;
 	if(requiredItemsStatus != "Done" && subValue.flag == true){
 		reviewStatus.flag = false;
 		reviewStatus.status = "Not Started";
+		sendCalendarInvite("ie",id, "Cancel", propertyId);
 		updateData(reviewStatus, id, null);
 	} else if(reviewStatus.status == "Done"){
 		console.log("dummy console. will find something better soon. ");
@@ -1351,8 +1352,6 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-				// console.log(JSON.stringify(result), "\n");
-
 				async.forEachOf(result, function (value, key, callback) {
 					object.getPropertyTimelineData(null, null, value.id);
 					callback();
@@ -1360,14 +1359,102 @@ BLL.prototype.startCronJob = function() {
 					if (err) console.error(err.message);
 					
 				});
-                // executeJob(result);
-                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
         });
-
-        // executeJob(array, res)
-        
     });
     
     task.start()  
+}
+
+function sendCalendarInvite(module, id, status, propertyId){
+	DAL.getUsersforProperty(propertyId, function(error, result) {
+		if (error) {
+			console.log(error);
+			error.userName = loginUserName;
+			ErrorLogDAL.addErrorLog(error);
+		}
+
+		if(result.length > 0){
+			DAL.getAlreadyCreadyInviteId(id, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+				}
+		
+				if(result.length > 0){	
+					console.log("Sending new calendar invite no previous invites found!");
+				} else {
+					if(status.toLowerCase() != "cancel"){
+						var ownerName = result[0].owner.name + " " + result[0].owner.lastName;
+						var agentName = result[0].agent.name + " " + result[0].agent.lastName;
+						var ownerEmail = result[0].owner.email1;
+						var agentEmail = result[0].agent.email1;
+						
+						var dateObject = new Date();
+						var calendarInvite = {};
+						calendarInvite.startTime = dateObject.setTime(dateObject.getTime() + (60*60*1000));
+						calendarInvite.endTime = dateObject.setTime(getTime() + (2*60*60*1000));
+						calendarInvite.title = "Income Expense Survey Review Meeting";
+						calendarInvite.description = "Some description";
+						calendarInvite.organizer = {
+							name: agentName,
+							email: agentEmail 
+						}
+						calendarInvite.attendies = [{email: agentEmail, name: agentName},
+													{email: ownerEmail, name: ownerName}]
+
+						calendarInvite.from = agentName + "<" + agentEmail + ">";
+						calendarInvite.to = ownerName + "<" + ownerEmail + ">";
+						calendarInvite.subject = "IE Review meeting";
+						calendarInvite.text = "Some demo text";
+						calendarInvite.method = "request";
+						calendarInvite.status = "TENTATIVE";
+						calendarInvite.uid = dateObject.getTime();
+						DAL.addCalendarInvite(id, calendarInvite, function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							}
+						});
+					}
+				}
+			});
+		} else {
+			console.log("No agents found!");
+		}
+	});
+}
+
+function addCalendarInvite(propertyId, deadline){
+	console.log("its here");
+	var tempDate = new Date(deadline);
+	var sendingDate = tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000));
+	DAL.getUsersforProperty(propertyId, function(error, result) {
+		if (error) {
+			console.log(error);
+			error.userName = loginUserName;
+			ErrorLogDAL.addErrorLog(error);
+		} else {
+			// console.log("its here: ", JSON.stringify(result));
+			var ids = result[0].agent.map(function(a) {return a._id;});
+			var ids = ids.concat(result[0].owner.map(function(a) {return a._id;}));
+			var agents = result[0].agent.map(function(a) {return {agentName: a.properties.name, agentEmail: a.properties.email1}});
+			console.log(agents);
+			// console.log(ids);
+			DAL.getAlreadyCreadyInviteId(ids, sendingDate, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+				} else {
+					console.log(result);
+					if(result.length < 1){
+
+					}
+				}
+			});
+		}
+	});
 }

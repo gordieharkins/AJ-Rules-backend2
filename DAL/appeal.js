@@ -275,3 +275,100 @@ DAL.prototype.executeSignature = function(userId, cb) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// getJurisdictionTimelineData
+//--------------------------------------------------------
+DAL.prototype.getUsersforProperty = function(propertyId, cb) {
+    var params = {
+        propertyId: propertyId
+    };
+    // delete notification.remainingDays;
+    var query = `MATCH(n:property) where id(n) = {propertyId}
+                OPTIONAL MATCH(n)-[:OWNS]-(owner:user)
+                OPTIONAL MATCH(n)-[:ASSIGNED_TO]-(agent:user)
+                return collect(owner) as owner, collect(agent) as agent`;
+
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
+    var params = {
+        userIds: userIds,
+        sendingDate: sendingDate
+    };
+    // delete notification.remainingDays;
+    var query = `MATCH(users:user)-[:HAS]->(invite:calendarInvite)
+                WHERE invite.sendingDate = {sendingDate} AND id(users) IN {userIds}
+                WITH invite, size({userIds}) as usersCount, count(DISTINCT users) as cnt
+                WHERE usersCount = cnt
+                RETURN invite
+                `;
+
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+DAL.prototype.addCalendarInvite = function(eventId, calendarInvite, cb) {
+    
+    var mainInvite = {
+        startDate: calendarInvite.startDate,
+        endDate: calendarInvite.endDate,
+        title: calendarInvite.title,
+        description: calendarInvite.description,
+        location: calendarInvite.location,
+        from: calendarInvite.from,
+        to: calendarInvite.to,
+        method: calendarInvite.method,
+        uid: calendarInvite.uid,
+        subject: calendarInvite.subject,
+        text: calendarInvite.text,
+        status: calendarInvite.status
+    };
+
+    var organizer = calendarInvite.organizer
+
+    var alarmSettings = {
+        type: "audio",
+        trigger: 60
+    }
+
+    var attendies = calendarInvite.attendies;
+
+    var params = {
+        eventId: eventId,
+        mainInvite
+    };
+
+
+    // delete notification.remainingDays;
+    var query = `MATCH(event) where id(event) = {eventId}
+                MERGE(event)-[:HAS]->(invite:meetingInvite)
+                ON MATCH SET invite = {mainInvite}
+                ON CREATE SET invite = {mainInvite}
+                WITH *
+                MERGE (invite)-[:HAS]->(organizer: organizer)
+                ON MATCH SET organizer = {organizer}
+                ON CREATE SET organizer = {organizer}
+                MERGE (invite)
+
+
+                RETURN invite.id`;
+
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
