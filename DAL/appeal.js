@@ -304,13 +304,15 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
         sendingDate: sendingDate
     };
     // delete notification.remainingDays;
-    var query = `MATCH(users:user)-[:HAS]->(invite:calendarInvite)
-                WHERE invite.sendingDate = {sendingDate} AND id(users) IN {userIds}
+    var query = `MATCH(users:user)-[]->(invite:calendarInvite)
+                WHERE invite.startTime = {sendingDate} AND id(users) IN {userIds} AND invite.sent = false
                 WITH invite, size({userIds}) as usersCount, count(DISTINCT users) as cnt
                 WHERE usersCount = cnt
                 RETURN invite
                 `;
-
+    // console.log(query);
+    // console.log(params);
+    // params.push("S");
     db.cypher({
         query: query,
         params: params
@@ -319,11 +321,11 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
     });
 }
 
-DAL.prototype.addCalendarInvite = function(eventId, calendarInvite, cb) {
+DAL.prototype.addCalendarInvite = function(ownerIds, agentsIds, calendarInvite, cb) {
     
     var mainInvite = {
-        startDate: calendarInvite.startDate,
-        endDate: calendarInvite.endDate,
+        start: calendarInvite.start,
+        end: calendarInvite.end,
         title: calendarInvite.title,
         description: calendarInvite.description,
         location: calendarInvite.location,
@@ -333,42 +335,60 @@ DAL.prototype.addCalendarInvite = function(eventId, calendarInvite, cb) {
         uid: calendarInvite.uid,
         subject: calendarInvite.subject,
         text: calendarInvite.text,
-        status: calendarInvite.status
+        status: calendarInvite.status,
+        alarmType: "audio",
+        trigger: 60,
+        sent: calendarInvite.sent
     };
 
-    var organizer = calendarInvite.organizer
 
-    var alarmSettings = {
-        type: "audio",
-        trigger: 60
-    }
+    // console.log(mainInvite);
+    // var organizer = calendarInvite.organizer
 
-    var attendies = calendarInvite.attendies;
+    // var alarmSettings = {
+    //     type: "audio",
+    //     trigger: 60
+    // }
+
+    // var attendies = calendarInvite.attendies;
 
     var params = {
-        eventId: eventId,
-        mainInvite
+        ownerIds: ownerIds,
+        agentsIds: agentsIds,
+        mainInvite: mainInvite
     };
 
 
     // delete notification.remainingDays;
-    var query = `MATCH(event) where id(event) = {eventId}
-                MERGE(event)-[:HAS]->(invite:meetingInvite)
-                ON MATCH SET invite = {mainInvite}
-                ON CREATE SET invite = {mainInvite}
-                WITH *
-                MERGE (invite)-[:HAS]->(organizer: organizer)
-                ON MATCH SET organizer = {organizer}
-                ON CREATE SET organizer = {organizer}
-                MERGE (invite)
+    var query = `MATCH(owner:user) where id(owner) IN {ownerIds}
+                OPTIONAL MATCH(agents:user) where id(agents) IN {agentsIds}
+                CREATE (invite:calendarInvite{mainInvite})
+                CREATE (owner)-[rel:organizer]->(invite)
+                FOREACH (o IN CASE WHEN agents IS NOT NULL THEN [agents] ELSE [] END |
+                        CREATE(agents)-[:attends]->(invite)
+                )
+                RETURN id(invite)`;
 
-
-                RETURN invite.id`;
-
+    // console.log("aaaaaaaaaaa",ownerIds);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
+        // console.log("qaaaaaaaaaaaaaaaa", results);
+        // console.log("AAAAAAAAAAAAAAAAA", params);
         cb(err, results);
     });
-}
+};
+
+DAL.prototype.getCalendarInvite = function(cb) {
+    var query = `MATCH(invites:calendarInvite) where invites.sent = false
+                MATCH(invites)<-[:organizer]-(owner:user)
+                OPTIONAL MATCH(invites)<-[:attends]-(agent:user)
+                RETURN invites, owner.name as ownerName, owner.email1 as ownerEmail, collect(DISTINCT agent.email1) as agentEmails`;
+
+    db.cypher({
+        query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+};

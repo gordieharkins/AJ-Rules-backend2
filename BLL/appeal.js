@@ -14,6 +14,7 @@ var async = require('async');
 var dateDiff = require('date-diff');
 var jurisdictionTimeline = require(path.resolve(__dirname, './util/jdRules'));
 var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
+var calendar_invites = require(path.resolve(__dirname, './calendar_invites/calendar_invites'));
 var cron = require('node-cron');
 
 var IEDAL = new IEDAL();
@@ -354,6 +355,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 						if(value.event.properties.calendarInvite != true){
 							// var endDate = calculateRemainingDays(value.event.properties.deadline);
 							// if(endDate <= 7){
+							calendarInviteFlag = true;
 							addCalendarInvite(value.propertyId, value.event.properties.deadline);
 							// }
 						}
@@ -607,6 +609,39 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				}
 			}, function (err) {
 				if (err) console.error(err.message);
+
+				if(calendarInviteFlag == true){
+					DAL.getCalendarInvite(function(error, result) {
+						if (error) {
+							console.log(error);
+							error.userName = loginUserName;
+							ErrorLogDAL.addErrorLog(error);
+						} else {
+							async.forEachOf(result, function (value, key, callback) {
+								var calendarInvite = JSON.parse(JSON.stringify(value.invites.properties));
+								calendarInvite.alarms = [{type: calendarInvite.alarmType, trigger: calendarInvite.trigger}];
+								// calendarInvite.attendees = value.agentEmails.reduce((json, value, key) => { "email" = value; return json; }, {});
+								calendarInvite.attendees = [{email: value.ownerEmail}];
+								for(var i = 0; i < value.agentEmails.length; i++){
+									calendarInvite.attendees.push({email: value.agentEmails[i]});
+								}
+
+								calendarInvite.organiser = {name: value.ownerName, email: value.ownerEmail};
+								calendar_invites.postCalendarInvites(calendarInvite);
+								// console.log(calendarInvite);
+
+							}, function (err) {
+								if (err) console.error(err.message);
+								// configs is now a map of JSON data
+								// doSomethingWith(configs);
+							});
+							// console.log(JSON.stringify(result));
+							console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+						}
+						
+						
+					});
+				}
 				DAL.getNotification(userId, function(error, result) {
 					if (error) {
 						console.log(error);
@@ -1343,7 +1378,7 @@ function generateAlert(alert, userId, jurisdiction, type){
 };
 
 BLL.prototype.startCronJob = function() {
-    var task = cron.schedule('1 * * * * *', function(){
+    var task = cron.schedule('* * * * * *', function(){
         
         USERDAL.getAllUsers(function(error, result) {
             if (error) {
@@ -1411,6 +1446,7 @@ function sendCalendarInvite(module, id, status, propertyId){
 						calendarInvite.method = "request";
 						calendarInvite.status = "TENTATIVE";
 						calendarInvite.uid = dateObject.getTime();
+						
 						DAL.addCalendarInvite(id, calendarInvite, function(error, result) {
 							if (error) {
 								console.log(error);
@@ -1428,9 +1464,12 @@ function sendCalendarInvite(module, id, status, propertyId){
 }
 
 function addCalendarInvite(propertyId, deadline){
-	console.log("its here");
+	// console.log("its here");
+	
 	var tempDate = new Date(deadline);
-	var sendingDate = tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000));
+	// console.log("8888888888",tempDate);
+	var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000)));
+	// console.log("9999999999999999",sendingDate);
 	DAL.getUsersforProperty(propertyId, function(error, result) {
 		if (error) {
 			console.log(error);
@@ -1438,11 +1477,23 @@ function addCalendarInvite(propertyId, deadline){
 			ErrorLogDAL.addErrorLog(error);
 		} else {
 			// console.log("its here: ", JSON.stringify(result));
-			var ids = result[0].agent.map(function(a) {return a._id;});
-			var ids = ids.concat(result[0].owner.map(function(a) {return a._id;}));
-			var agents = result[0].agent.map(function(a) {return {agentName: a.properties.name, agentEmail: a.properties.email1}});
-			console.log(agents);
+			var agentIds = result[0].agent.map((a) => {return a._id});
+			var ownerIds = result[0].owner.map((a) => {return a._id});
+			var ids = agentIds.concat(ownerIds);
+			var agents = result[0].agent.map(function(a) {return {name: a.properties.name, email: a.properties.email1}});
+			var owner = result[0].owner.map(function(a) {return {name: a.properties.name, email: a.properties.email1}});
+			// console.log(agents);
+			// agents = [
+			// {
+			// 	name: "Hamza",
+			// 	email: "muhammad.hamza@spsnet.com"
+			// },
+			// {
+			// 	name: "Noaman",
+			// 	email: "noaman.ilyas@spsnet.com"
+			// }]
 			// console.log(ids);
+			// var dateobjec = new Date(sendingDate);
 			DAL.getAlreadyCreadyInviteId(ids, sendingDate, function(error, result) {
 				if (error) {
 					console.log(error);
@@ -1451,7 +1502,42 @@ function addCalendarInvite(propertyId, deadline){
 				} else {
 					console.log(result);
 					if(result.length < 1){
+						var dateObject = new Date();
+						// console.log(sendingDate);
+						var calendarInvite = {};
+						calendarInvite.sent = false;
+						calendarInvite.start = JSON.parse(JSON.stringify(sendingDate));
+						calendarInvite.end = JSON.parse(JSON.stringify(new Date(sendingDate.setTime(sendingDate.getTime() + (2*60*60*1000)))));
+						calendarInvite.title = "Income Expense Survey Review Meeting";
+						calendarInvite.description = "Some description";
+						// calendarInvite.organizer = {
+						// 	name: owner[0].name,
+						// 	email: owner[0].email 
+						// }
+						// calendarInvite.attendies = owner.concat(agent);
 
+						calendarInvite.from = owner[0].email;
+						
+						calendarInvite.to = agents.map((value) => {return value.email});
+						calendarInvite.to.push(owner[0].email);
+						// calendarInvite.to = ownerName + "<" + ownerEmail + ">";
+						calendarInvite.subject = "IE Review meeting";
+						calendarInvite.text = "Some demo text";
+						calendarInvite.propertyCount = 1;
+						calendarInvite.method = "request";
+						calendarInvite.status = "TENTATIVE";
+						calendarInvite.uid = dateObject.getTime();
+						calendarInvite.location = "USA";
+						// console.log(JSON.stringify(calendarInvite));
+						DAL.addCalendarInvite(ownerIds, agentIds, calendarInvite, function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							}
+						});
+					} else {
+						console.log("============================Invite found=================================");
 					}
 				}
 			});
