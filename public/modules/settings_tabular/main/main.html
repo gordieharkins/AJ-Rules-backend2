@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="modules/settings/main/main.css">
 
 <span class="header-tag">
-  <i class="fa fa-bell"></i>&nbsp;  Alerts Preferences
+  <span class="bell-ico"></span> Alerts Preferences
 </span>
 
  <div class="row wrapper-body">
@@ -10,12 +10,12 @@
 
 
     <div class="panel panel-primary">
-        <div class="panel-heading"><i class="fa fa-cog"></i> &nbsp;  Alerts Settings</div>
+        <div class="panel-heading">  <i class="fa fa-bell"></i>&nbsp;  Alerts settings</div>
         <div class="left-panel">
             <ul>
-                <li id="1"><a> <i class="fa fa-send-o"></i>  &nbsp; Email & SMS Settings</a></li>
+                <li id="1" class="active-1"><a> <i class="fa fa-send-o"></i>  &nbsp; Email & SMS settings</a></li>
                 <li id="2"><a > <i class="fa fa-clock-o"></i> &nbsp; Set black-out time</a></li>
-                <li id="3" class="active"><a ><i class="fa fa-gavel"></i>  &nbsp; Appeal Module Settings</a></li>
+                <li id="3"><a ><i class="fa fa-gavel"></i>  &nbsp; Appeal module settings</a></li>
                 <li id="4"><a > <i class="fa fa-calendar"></i>  &nbsp; Calender invites</a></li>
 
             </ul>
@@ -30,7 +30,7 @@
 
     <div id="1a">
         <div class="panel panel-primary">
-            <div class="panel-heading"><i class="fa fa-send-o"></i>  &nbsp; Email & SMS Settings</div>
+            <div class="panel-heading"><i class="fa fa-send-o"></i>  &nbsp; Email & SMS settings</div>
             <form class="form-inline" name="alert_type" style="padding: 20px;">
                 <p>
                     <b>Select the alert method(s)</b>
@@ -255,7 +255,7 @@
     </div>
     <div id="3a">
     <div class="panel panel-primary">
-        <div class="panel-heading"><i class="fa fa-gavel"></i> &nbsp; Appeal Module Settings</div>
+        <div class="panel-heading"><i class="fa fa-gavel"></i> &nbsp; Appeal Module settings</div>
         <table class="table table-bordered table-responsive table-striped">
             <thead>
             <tr>
@@ -833,8 +833,8 @@
 
     $('.panel-primary li').click(function(e) {
         e.preventDefault(); //prevent the link from being followed
-        $('.panel-primary li').removeClass('active');
-        $(this).addClass('active');
+        $('.panel-primary li').removeClass('active-1');
+        $(this).addClass('active-1');
     });
 
 
