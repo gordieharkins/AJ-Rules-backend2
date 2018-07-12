@@ -136,6 +136,7 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
+    // console.log(userId);
     var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId} AND prop.isDeleted <> true
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
@@ -304,10 +305,14 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
         sendingDate: sendingDate
     };
     // delete notification.remainingDays;
+    console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    
     var query = `MATCH(users:user)-[]->(invite:calendarInvite)
-                WHERE invite.startTime = {sendingDate} AND id(users) IN {userIds} AND invite.sent = false
-                WITH invite, size({userIds}) as usersCount, count(DISTINCT users) as cnt
-                WHERE usersCount = cnt
+                WHERE invite.start = {sendingDate} AND id(users) IN {userIds} AND invite.sent = false           
+                MATCH(otherUsers:user)-[]->(invite)
+                WITH invite, size({userIds}) as usersCount, count(DISTINCT users) as cnt, 
+                count(DISTINCT otherUsers) as otherCount 
+                WHERE cnt = otherCount AND usersCount = cnt
                 RETURN invite
                 `;
     // console.log(query);
@@ -317,6 +322,8 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
         query: query,
         params: params
     }, function(err, results) {
+        console.log("DALUseridsqdasdasdasdasd",userIds,results);
+        // console.log("DALresults: ", );
         cb(err, results);
     });
 }
@@ -338,7 +345,8 @@ DAL.prototype.addCalendarInvite = function(ownerIds, agentsIds, calendarInvite, 
         status: calendarInvite.status,
         alarmType: "audio",
         trigger: 60,
-        sent: calendarInvite.sent
+        sent: calendarInvite.sent,
+        propertyCount: calendarInvite.propertyCount
     };
 
 
@@ -384,10 +392,24 @@ DAL.prototype.getCalendarInvite = function(cb) {
     var query = `MATCH(invites:calendarInvite) where invites.sent = false
                 MATCH(invites)<-[:organizer]-(owner:user)
                 OPTIONAL MATCH(invites)<-[:attends]-(agent:user)
-                RETURN invites, owner.name as ownerName, owner.email1 as ownerEmail, collect(DISTINCT agent.email1) as agentEmails`;
+                RETURN invites, owner.name as ownerName, owner.company as ownerEmail, collect(DISTINCT agent.company) as agentEmails`;
 
     db.cypher({
         query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+};
+
+DAL.prototype.updateCalendarInvite = function(inviteId, data, cb) {
+    var query = `MATCH(invite:calendarInvite) where id(invite) = {inviteId} SET invite = {data}`;
+
+    db.cypher({
+        query: query,
+        params: {
+            inviteId: inviteId,
+            data: data
+        }
     }, function(err, results) {
         cb(err, results);
     });
