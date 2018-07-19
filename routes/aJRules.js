@@ -29,4 +29,8 @@ router.get('/getAllAJProperties', function(req, res, next) {
     BLL.getAllAJProperties(req, res);
 });
 
+router.get('/getFormSubmissions', function(req, res, next) {
+    BLL.getFormSubmissions(req, res);
+});
+
 module.exports = router;
