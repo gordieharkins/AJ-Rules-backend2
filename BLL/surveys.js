@@ -853,3 +853,65 @@ function parseAnswers(answer) {
 
     return answers;
 }
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.getFormSubmissions = function(data, res) {
+    if (!data || data === null || data === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    DAL.getFormSubmissions(function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.addNewSubmission = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // console.log(req.user[0]);
+    var userId = req.user[0].userId;
+    var userName = req.user[0].userName;
+    var time = (new Date()).getTime();
+    var data = JSON.parse(JSON.stringify(req.body.formData));
+    data.updatedByUserId = userId;
+    data.createdAt = time;
+    data.updatedAt = time;
+    data.createdByUserId = userId;
+    data.updatedByUserName = userName;
+    var formId = req.body.formId;
+    
+    // console.log(data);
+    DAL.addNewSubmission(formId, data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+    // res.send(data);
+}
+// ---------------------END---------------------

@@ -102,7 +102,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes);
 app.use('/users', users);
 // app.use('/appeal', appeal);
-app.use('/aJRules', aJRules);
+app.use('/aJRules', passport.authenticate('jwt', { session: false }), aJRules);
 app.use('/appeal', passport.authenticate('jwt', { session: false }), appeal);
 app.use('/admin', passport.authenticate('jwt', { session: false }), admin);
 app.use('/rentRolls', passport.authenticate('jwt', { session: false }), rentRolls);

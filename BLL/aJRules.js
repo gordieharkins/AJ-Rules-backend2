@@ -308,7 +308,7 @@ function is_type_date(name){
 }
 
 //----------------------------------------------
-// getAJPublicProperties
+// getFormSubmissions
 //----------------------------------------------
 BLL.prototype.getFormSubmissions = function(data, res) {
     if (!data || data === null || data === undefined) {
@@ -316,6 +316,27 @@ BLL.prototype.getFormSubmissions = function(data, res) {
         return;
     }
     DAL.getFormSubmissions(function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.addNewSubmission = function(data, res) {
+    if (!data || data === null || data === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    DAL.addNewSubmission(function(error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);

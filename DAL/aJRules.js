@@ -233,10 +233,29 @@ DAL.prototype.updateJurisdictionRules = function(data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getFormSubmissions = function(cb) {
-	var query = "MATCH(n:surveyForm) return n";
+	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	with collect(a) as paths
+	CALL apoc.convert.toTree(paths) yield value
+	RETURN value`;
 	db.cypher({
 		query: query
     }, function(err, results) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.addNewSubmission = function(cb) {
+	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	with collect(a) as paths
+	CALL apoc.convert.toTree(paths) yield value
+	RETURN value`;
+	db.cypher({
+		query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+

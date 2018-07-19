@@ -760,3 +760,51 @@ DAL.prototype.getSurveyReport = function(data, cb) {
     // });
 }
 // ---------------------END---------------------
+
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getFormSubmissions = function(cb) {
+	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	with collect(a) as paths
+	CALL apoc.convert.toTree(paths) yield value
+	RETURN value`;
+	db.cypher({
+		query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.addNewSubmission = function(formId, data, cb) {
+    var params = {
+        formId: formId,
+        data: data
+    }
+    var query = `MATCH (form: formVersion) where id(form) = {formId}
+    CREATE(sub:surveySubmission{data})
+    CREATE(form)-[:hasSubmission]->(sub)            
+    WITH * 
+    MATCH (form)-[:HAS*]->(question) 
+    MERGE(question)-[:hasAnswer]->(ans: answer{value: ""})
+    CREATE(sub)-[:HAS]->(ans)`;
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
