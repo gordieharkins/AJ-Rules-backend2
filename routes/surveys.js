@@ -114,4 +114,14 @@ router.post('/addNewSubmission', function(req, res, next) {
     BLL.addNewSubmission(req, res);
 });
 
+router.get('/getSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.getSubmissionData(req, res);
+});
+
+router.post('/updateSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.updateSubmissionData(req, res);
+});
+
 module.exports = router;

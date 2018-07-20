@@ -773,10 +773,13 @@ DAL.prototype.getSurveyReport = function(data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getFormSubmissions = function(cb) {
-	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
-	with collect(a) as paths
-	CALL apoc.convert.toTree(paths) yield value
-	RETURN value`;
+	// var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	// with collect(a) as paths
+	// CALL apoc.convert.toTree(paths) yield value
+    // RETURN value`;
+    
+    var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(submission:surveySubmission)
+    RETURN collect(version) as versions, collect(submission) as submissions, survey`
 	db.cypher({
 		query: query
     }, function(err, results) {
@@ -807,4 +810,70 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
     });
 }
 
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getSubmissionData = function(data, cb) {
+    // var params = {
+    //     formId: formId,
+    //     data: data
+    // }
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)-[:hasHistory]->(:history) where id(sub) = 9944534
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query,
+        // params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
+    // var params = {
+    //     formId: formId,
+    //     data: data
+    // }
+    var time = (new Date()).getTime();
+    console.log(data);
+    var params = {
+        submissionId: data.submissionId,
+        answers: data.answers, 
+        time: time,
+        userName: userName,
+        userId: userId,
+        surveyeeName: data.surveyeeName
+    }
+    var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
+                SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, sub.updatedAt = {time}\n`;
+
+    data.answers.forEach(function(answer, index){
+        params['answerId'+index] = answer._id;
+        params['answerValue'+index] = answer.value;
+        query += `
+        WITH *
+        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`} \n
+        CREATE(a`+index+`)-[:hasHistory]->(:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+        answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})\n`;
+        
+    });
+
+
+    // query += `Foreach (answer in {answers}:
+    //     MATCH(a: answer) where id(a) = answer._id SET a.value = answer.value
+    //     CREATE(a)-[:HAS]->(:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+    //         answer: {answer.value}, surveyeeName: {surveyeeName}})
+    //     )`;
+
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
 

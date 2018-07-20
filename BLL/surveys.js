@@ -872,9 +872,28 @@ BLL.prototype.getFormSubmissions = function(data, res) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
+            console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
+            var result = JSON.parse(JSON.stringify(result[0]));
+            // var finalResult = {
+            //     formData: {
+            //         name: result.name,
+            //         id: result._id
+            //     },
+            //     versions: [],
+            //     submissions: []
+            // }
+
+            // result.version.forEach(function(version){
+            //     var v = {
+            //         name: version.versionNumber,
+            //         id: version._id
+            //     }
+
+            //     versions.push(versions)
+            // })
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -899,6 +918,8 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.updatedAt = time;
     data.createdByUserId = userId;
     data.updatedByUserName = userName;
+    data.conflict = false;
+    data.status = "Completed";
     var formId = req.body.formId;
     
     // console.log(data);
@@ -906,6 +927,68 @@ BLL.prototype.addNewSubmission = function(req, res) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+    // res.send(data);
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.getSubmissionData = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getSubmissionData(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+    // res.send(data);
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.updateSubmissionData = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+
+    var userId = req.user[0].userId;
+    var userName = req.user[0].userName;
+    var data = req.body;
+    // var time = (new Date()).getTime();
+    // var submission = {
+    //     updatedAt: time,
+    //     updatedByUserId: userId,
+    //     updatedByUserName: userName,
+    //     submissionId: data.submissionId 
+    // }
+    
+    
+
+    DAL.updateSubmissionData(data, userName, userId, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
