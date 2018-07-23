@@ -10,6 +10,7 @@ function DAL() {
 
 }
 
+var object = new DAL();
 // ---------------------------------------------
 // getSurvysList
 // ---------------------------------------------
@@ -801,12 +802,20 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
     WITH * 
     MATCH (form)-[:HAS*]->(question) 
     MERGE(question)-[:hasAnswer]->(ans: answer{value: []})
-    CREATE(sub)-[:HAS]->(ans)`;
+    CREATE(sub)-[:HAS]->(ans)
+    RETURN DISTINCT id(sub) as submissionId`;
 	db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        cb(err, results);
+        if(results.length>0){
+            var data = results[0];
+            object.getSubmissionData(data, function(error, result){
+                cb(err, results);
+            });
+        } else {
+            cb("Failed", null);
+        }
     });
 }
 
