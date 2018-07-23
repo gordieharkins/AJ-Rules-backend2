@@ -811,7 +811,7 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
         if(results.length>0){
             var data = results[0];
             object.getSubmissionData(data, function(error, result){
-                cb(err, results);
+                cb(err, result);
             });
         } else {
             cb("Failed", null);
