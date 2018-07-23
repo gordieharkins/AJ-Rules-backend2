@@ -814,17 +814,16 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getSubmissionData = function(data, cb) {
-    // var params = {
-    //     formId: formId,
-    //     data: data
-    // }
-    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer) where id(sub) = 9944745
+    var params = {
+        submissionId: data.submissionId
+    }
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer) where id(sub) = {submissionId}
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
 	db.cypher({
         query: query,
-        // params: params
+        params: params
     }, function(err, results) {
         cb(err, results);
     });

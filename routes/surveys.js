@@ -114,7 +114,7 @@ router.post('/addNewSubmission', function(req, res, next) {
     BLL.addNewSubmission(req, res);
 });
 
-router.get('/getSubmissionData', function(req, res, next) {
+router.post('/getSubmissionData', function(req, res, next) {
     // console.log("here");
     BLL.getSubmissionData(req, res);
 });
