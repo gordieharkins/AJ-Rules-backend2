@@ -800,7 +800,7 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
     CREATE(form)-[:hasSubmission]->(sub)            
     WITH * 
     MATCH (form)-[:HAS*]->(question) 
-    MERGE(question)-[:hasAnswer]->(ans: answer{value: ""})
+    MERGE(question)-[:hasAnswer]->(ans: answer{value: []})
     CREATE(sub)-[:HAS]->(ans)`;
 	db.cypher({
         query: query,
@@ -818,7 +818,7 @@ DAL.prototype.getSubmissionData = function(data, cb) {
     //     formId: formId,
     //     data: data
     // }
-    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)-[:hasHistory]->(:history) where id(sub) = 9944534
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer) where id(sub) = 9944745
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
