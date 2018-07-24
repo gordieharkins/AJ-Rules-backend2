@@ -128,4 +128,9 @@ router.get('/getFormQuestions', function(req, res, next) {
     // console.log("here");
     BLL.getFormQuestions(req, res);
 });
+
+router.post('/addNewForm', function(req, res, next) {
+    // console.log("here");
+    BLL.addNewForm(req, res);
+});
 module.exports = router;

@@ -904,3 +904,263 @@ DAL.prototype.getFormQuestions = function(data, cb) {
         cb(err, results);
     });
 }
+
+
+//--------------------------------------------------------
+// addNewForm
+//--------------------------------------------------------
+DAL.prototype.addNewForm = function(data, userData, cb) {
+    // var data = {
+    //     formName: "Sample 2",
+    //     questions: [
+    //         {
+    //           "sidePanelText": "Appeal submission deadline",
+    //           "ajRule": "Is the appeal deadline always the same date or is it relative to the date of notice?",
+    //           "module": "Appeal 1 Decision",
+    //           "answerType": "Radio",
+    //           "answerValues": [
+                
+    //           ],
+    //           "script": "Is the appeal deadlines always the same dates or is it relative to the date of notice?",
+    //           "answerOptions": [
+    //             "Same Data",
+    //             "Relative Date"
+    //           ],
+    //           "order": 6,
+    //           "has": [
+    //             {
+    //               "sidePanelText": "Appeal submission deadline",
+    //               "ajRule": "How many days from notice the appeal is due?",
+    //               "module": "Appeal 1 Decision",
+    //               "answerType": "Number",
+    //               "answerValues": [
+                    
+    //               ],
+    //               "enabled": "Relative Date",
+    //               "script": "How many days from notice the appeal is due?",
+    //               "answerOptions": [
+                    
+    //               ],
+    //               "order": 2
+    //             },
+    //             {
+    //               "sidePanelText": "Appeal submission deadline",
+    //               "ajRule": "What is the deadline for appeal submission?",
+    //               "module": "Appeal 1 Decision",
+    //               "answerType": "Date",
+    //               "answerValues": [
+                    
+    //               ],
+    //               "enabled": "Same Date",
+    //               "script": "What is the deadline for submission of appeal?",
+    //               "answerOptions": [
+                    
+    //               ],
+    //               "order": 1
+    //             }
+    //           ],
+    //           "edited": false
+    //         },
+    //         {
+    //           "sidePanelText": "Sent by US Mail",
+    //           "ajRule": "What % are sent via US Mail?",
+    //           "module": "IE Survey Submission",
+    //           "answerType": "Number",
+    //           "answerValues": [
+                
+    //           ],
+    //           "script": "What is the percentage of forms sent by US Mail?",
+    //           "answerOptions": [
+                
+    //           ],
+    //           "order": 5
+    //         },
+    //         {
+    //           "sidePanelText": "Survey Form",
+    //           "ajRule": "Does this process involve a survey form?",
+    //           "module": "IE Survey Submission",
+    //           "answerType": "Radio",
+    //           "answerValues": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "script": "Does this process involve an income and expense survey form?",
+    //           "answerOptions": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "order": 3,
+    //           "has": [
+    //             {
+    //               "sidePanelText": "Obtain Form",
+    //               "ajRule": "How is the Form obtained? ",
+    //               "module": "IE Survey Submission",
+    //               "answerType": "Radio",
+    //               "answerValues": [
+    //                 "Mail",
+    //                 "Email"
+    //               ],
+    //               "enabled": "Yes",
+    //               "script": "How does a property owner notified that they have to fill out an income and expense form?",
+    //               "answerOptions": [
+    //                 "Mail",
+    //                 "Email"
+    //               ],
+    //               "order": 1
+    //             },
+    //             {
+    //               "ajRule": "What are the required submission items in addition to the form?",
+    //               "sidePanelText": "Required items",
+    //               "module": "IE Survey Submission",
+    //               "answerType": "Multiple Choice",
+    //               "answerValues": [
+    //                 "IE 2018, IE 2019, IE 2017",
+    //                 "RR 2017, RR 2018"
+    //               ],
+    //               "enabled": "Yes",
+    //               "script": "What are the required submission items in addition to the form?",
+    //               "answerOptions": [
+    //                 "3 IE's",
+    //                 "2 RR's"
+    //               ],
+    //               "order": 2
+    //             }
+    //           ]
+    //         },
+    //         {
+    //           "sidePanelText": "Signature Requirements",
+    //           "ajRule": "Do you require a Signature on this form?",
+    //           "module": "IE Survey Submission",
+    //           "answerType": "Radio",
+    //           "answerValues": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "script": "Do you require a Signature on the income and expense survey form?",
+    //           "answerOptions": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "order": 4,
+    //           "has": [
+    //             {
+    //               "ajRule": "What are the signature requirements?",
+    //               "sidePanelText": "Signature Requirements",
+    //               "module": "IE Survey Submission",
+    //               "answerType": "Multiple Choice",
+    //               "answerValues": [
+    //                 "Notary",
+    //                 "No Notary & Original Signature",
+    //                 "Signature Scan adequate",
+    //                 "No Sign"
+    //               ],
+    //               "enabled": "Yes",
+    //               "script": "What are the signature requirements for the income and expense survey form?",
+    //               "answerOptions": [
+    //                 "Notary",
+    //                 "No Notary & Original Signature",
+    //                 "Signature Scan adequate",
+    //                 "No Sign"
+    //               ],
+    //               "order": 2
+    //             },
+    //             {
+    //               "sidePanelText": "Signature Requirements",
+    //               "ajRule": "Are there specific signature Requirements for this form?",
+    //               "module": "IE Survey Submission",
+    //               "answerType": "Radio",
+    //               "answerValues": [
+    //                 "Yes",
+    //                 "No"
+    //               ],
+    //               "enabled": "Yes",
+    //               "script": "Are there specific signature Requirements for this form?",
+    //               "answerOptions": [
+    //                 "Yes",
+    //                 "No"
+    //               ],
+    //               "order": 1
+    //             }
+    //           ]
+    //         },
+    //         {
+    //           "sidePanelText": "IE Survey",
+    //           "ajRule": "Is IE survey obligatory",
+    //           "module": "IE Survey Submission",
+    //           "answerType": "Radio",
+    //           "answerValues": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "script": "Is it mandatory for a property owner to turn in a survey form where they list the property's income and expenses?",
+    //           "answerOptions": [
+    //             "Yes",
+    //             "No"
+    //           ],
+    //           "order": 1,
+    //           "has": [
+    //             {
+    //               "sidePanelText": "Penalty",
+    //               "ajRule": "What is the penalty? ",
+    //               "module": "IE Survey Submission",
+    //               "answerType": "Radio",
+    //               "answerValues": [
+    //                 "Fine",
+    //                 "None1",
+    //                 "None2"
+    //               ],
+    //               "enabled": "Yes",
+    //               "script": "What happens to a property owner who forgets to reply to the survey form?",
+    //               "answerOptions": [
+    //                 "Fine $",
+    //                 "No Use of Income Approach",
+    //                 "No Use of actual IE"
+    //               ],
+    //               "order": 1
+    //             }
+    //           ]
+    //         },
+    //         {
+    //           "sidePanelText": "Submission Deadline",
+    //           "ajRule": "When is Submission Deadline?",
+    //           "module": "IE Survey Submission",
+    //           "answerType": "Date",
+    //           "script": "When is the income and expense survey form due?",
+    //           "answerOptions": [
+                
+    //           ],
+    //           "order": 2
+    //         }
+    //       ]
+    // }
+    var params = {
+        userName: userData.userName,
+        userId: userData.userId,
+        formName: data.formName,
+        createdAt: (new Date()).getTime()
+    }
+    var query = `MATCH(survey: surveyForm) where id(survey) = 9946540
+    MERGE(survey)-[:version]-(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}})\n`;
+    for(var i = 0; i < data.questions.length; i++){
+        var question = JSON.parse(JSON.stringify(data.questions[i]));
+        delete question.has;
+        params['question'+i] = question;
+        query += `CREATE(question`+i+`:surveyQuestion{question`+i+`})
+                CREATE(form)-[:HAS]->(question`+i+`)\n`;
+        if(data.questions[i].has != undefined){
+            for(var j = 0; j < data.questions[i].has.length; j++){
+                params['child'+i+""+j] = data.questions[i].has[j];
+                query += `CREATE(child`+i+""+j+`:childQuestion{child`+i+""+j+`})
+                CREATE(question`+i+`)-[:HAS]->(child`+i+""+j+`)\n`;
+            }
+        }
+    }
+
+    // var query = ``;
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}

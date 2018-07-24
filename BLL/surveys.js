@@ -997,6 +997,30 @@ BLL.prototype.getFormQuestions = function(req, res) {
 }
 // ---------------------END---------------------
 
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.addNewForm = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    var userData = req.user[0];
+    var data = req.body;
+    DAL.addNewForm(data, userData, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
 function sortFormData(formData, cb){
     console.log(formData.value.hassubmission[0].has);
     formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
