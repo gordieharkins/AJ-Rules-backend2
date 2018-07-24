@@ -950,7 +950,7 @@ DAL.prototype.getHistory = function(data, cb) {
     var params = {
         answerId: data.answerId
     }
-    var query = `MATCH(answer)-[:hasHistory]->(history:history) where id(answer) = {answerId}`;
+    var query = `MATCH(answer)-[:hasHistory]->(history:history) where id(answer) = {answerId} return history ORDER BY history.updatedAt DESC`;
 	db.cypher({
         query: query,
         params: params
