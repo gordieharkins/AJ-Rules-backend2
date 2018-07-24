@@ -779,7 +779,8 @@ DAL.prototype.getFormSubmissions = function(cb) {
 	// CALL apoc.convert.toTree(paths) yield value
     // RETURN value`;
     
-    var query = `OPTIONAL MATCH (survey:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(submission:surveySubmission)
+    var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission)
     RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
 	db.cypher({
 		query: query
