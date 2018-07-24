@@ -1034,7 +1034,7 @@ BLL.prototype.getHistory = function(req, res) {
     }
     // var userData = req.user[0];
     var data = req.body;
-    DAL.getHistory(data, userData, function(error, result) {
+    DAL.getHistory(data, function(error, result) {
         if (error) {
             console.log(error);
             error.userName = loginUserName;
