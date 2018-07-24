@@ -139,4 +139,9 @@ router.post('/getHistory', function(req, res, next) {
     BLL.getHistory(req, res);
 });
 
+router.get('/getReports', function(req, res, next) {
+    // console.log("here");
+    BLL.getReports(req, res);
+});
+
 module.exports = router;

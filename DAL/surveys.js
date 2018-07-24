@@ -958,3 +958,22 @@ DAL.prototype.getHistory = function(data, cb) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getReports = function(cb) {
+    // var params = {
+    //     answerId: data.answerId
+    // }
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query,
+        // params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
