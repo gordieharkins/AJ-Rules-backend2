@@ -133,4 +133,10 @@ router.post('/addNewForm', function(req, res, next) {
     // console.log("here");
     BLL.addNewForm(req, res);
 });
+
+router.post('/getHistory', function(req, res, next) {
+    // console.log("here");
+    BLL.getHistory(req, res);
+});
+
 module.exports = router;
