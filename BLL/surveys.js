@@ -876,7 +876,12 @@ BLL.prototype.getFormSubmissions = function(data, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            var result = JSON.parse(JSON.stringify(result[0]));
+            if(result.length > 0){
+                var result = JSON.parse(JSON.stringify(result[0]));
+                
+            } else {
+                var result = {};
+            }
             // var finalResult = {
             //     formData: {
             //         name: result.name,
