@@ -878,27 +878,9 @@ BLL.prototype.getFormSubmissions = function(data, res) {
         } else{
             if(result.length > 0){
                 var result = JSON.parse(JSON.stringify(result[0]));
-                
             } else {
                 var result = {};
             }
-            // var finalResult = {
-            //     formData: {
-            //         name: result.name,
-            //         id: result._id
-            //     },
-            //     versions: [],
-            //     submissions: []
-            // }
-
-            // result.version.forEach(function(version){
-            //     var v = {
-            //         name: version.versionNumber,
-            //         id: version._id
-            //     }
-
-            //     versions.push(versions)
-            // })
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -935,10 +917,11 @@ BLL.prototype.addNewSubmission = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormData(JSON.parse(JSON.stringify(result[0])), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
+            });
         }
     });
-    // res.send(data);
 }
 // ---------------------END---------------------
 
@@ -962,7 +945,6 @@ BLL.prototype.getSubmissionData = function(req, res) {
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
-    // res.send(data);
 }
 // ---------------------END---------------------
 
@@ -979,15 +961,6 @@ BLL.prototype.updateSubmissionData = function(req, res) {
     var userId = req.user[0].userId;
     var userName = req.user[0].userName;
     var data = req.body;
-    // var time = (new Date()).getTime();
-    // var submission = {
-    //     updatedAt: time,
-    //     updatedByUserId: userId,
-    //     updatedByUserName: userName,
-    //     submissionId: data.submissionId 
-    // }
-    
-    
 
     DAL.updateSubmissionData(data, userName, userId, function(error, result) {
         if (error) {
@@ -1003,3 +976,62 @@ BLL.prototype.updateSubmissionData = function(req, res) {
     // res.send(data);
 }
 // ---------------------END---------------------
+
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.getFormQuestions = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getFormQuestions(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.addNewForm = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    var userData = req.user[0];
+    var data = req.body;
+    DAL.addNewForm(data, userData, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+function sortFormData(formData, cb){
+    console.log(formData.value.hassubmission[0].has);
+    formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
+    formData.value.hassubmission[0].has.forEach(function(question){
+        // console.log(has);
+        if(question.has != undefined){
+            question.has.sort(function(a, b){ return a.order - b.order});
+        }
+    });
+    cb(formData);
+}
