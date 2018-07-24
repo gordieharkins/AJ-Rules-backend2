@@ -780,7 +780,7 @@ DAL.prototype.getFormSubmissions = function(cb) {
     // RETURN value`;
     
     var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(submission:surveySubmission)
-    RETURN collect(version) as versions, collect(submission) as submissions, survey`
+    RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
 	db.cypher({
 		query: query
     }, function(err, results) {
