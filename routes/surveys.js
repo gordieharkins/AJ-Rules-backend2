@@ -124,4 +124,8 @@ router.post('/updateSubmissionData', function(req, res, next) {
     BLL.updateSubmissionData(req, res);
 });
 
+router.get('/getFormQuestions', function(req, res, next) {
+    // console.log("here");
+    BLL.getFormQuestions(req, res);
+});
 module.exports = router;

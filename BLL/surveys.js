@@ -958,15 +958,6 @@ BLL.prototype.updateSubmissionData = function(req, res) {
     var userId = req.user[0].userId;
     var userName = req.user[0].userName;
     var data = req.body;
-    // var time = (new Date()).getTime();
-    // var submission = {
-    //     updatedAt: time,
-    //     updatedByUserId: userId,
-    //     updatedByUserName: userName,
-    //     submissionId: data.submissionId 
-    // }
-    
-    
 
     DAL.updateSubmissionData(data, userName, userId, function(error, result) {
         if (error) {
@@ -980,6 +971,29 @@ BLL.prototype.updateSubmissionData = function(req, res) {
         }
     });
     // res.send(data);
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.getFormQuestions = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getFormQuestions(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
 }
 // ---------------------END---------------------
 

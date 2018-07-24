@@ -886,3 +886,21 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
     });
 }
 
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getFormQuestions = function(data, cb) {
+    var params = {
+        submissionId: data.submissionId
+    }
+    var query = `match path = (:formVersion)-[:HAS*]->(a)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
