@@ -877,23 +877,7 @@ BLL.prototype.getFormSubmissions = function(data, res) {
             return;
         } else{
             var result = JSON.parse(JSON.stringify(result[0]));
-            // var finalResult = {
-            //     formData: {
-            //         name: result.name,
-            //         id: result._id
-            //     },
-            //     versions: [],
-            //     submissions: []
-            // }
-
-            // result.version.forEach(function(version){
-            //     var v = {
-            //         name: version.versionNumber,
-            //         id: version._id
-            //     }
-
-            //     versions.push(versions)
-            // })
+            
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -930,10 +914,11 @@ BLL.prototype.addNewSubmission = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormData(JSON.parse(JSON.stringify(result[0])), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
+            });
         }
     });
-    // res.send(data);
 }
 // ---------------------END---------------------
 
@@ -957,7 +942,6 @@ BLL.prototype.getSubmissionData = function(req, res) {
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
-    // res.send(data);
 }
 // ---------------------END---------------------
 
@@ -998,3 +982,15 @@ BLL.prototype.updateSubmissionData = function(req, res) {
     // res.send(data);
 }
 // ---------------------END---------------------
+
+function sortFormData(formData, cb){
+    console.log(formData.value.hassubmission[0].has);
+    formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
+    formData.value.hassubmission[0].has.forEach(function(question){
+        // console.log(has);
+        if(question.has != undefined){
+            question.has.sort(function(a, b){ return a.order - b.order});
+        }
+    });
+    cb(formData);
+}
