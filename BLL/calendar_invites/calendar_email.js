@@ -10,7 +10,7 @@ var cron = require('node-cron');
 var nodemailer = require('nodemailer');
 
 
-var ical = require(path.resolve(__dirname, './util/my-ical-generator'));
+// var ical = require(path.resolve(__dirname, './util/my-ical-generator'));
 // var nodemailer = require('nodemailer');
 
 // var ical = require('my-ical-generator');

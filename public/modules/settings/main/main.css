@@ -13,7 +13,7 @@ body {background: #f9f9f9;}
 
 .wrapper-body {
     padding-top:20px;
-    width: 70%;
+    width: 100%;
     margin: 0px auto; }
 
 .checkbox input {
@@ -357,10 +357,31 @@ table .fa-clock-o {
 .timezone-dropdown-button i{
     padding: 3px 0 0 0;
 }
-.green-color{
-    background: #43b733 !important;
+
+
+.green-color {
+    background: #1dcdad !important;
     margin: 9px;
+    width: 90px;
+    border: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    border-radius: 0;
+    display: inline-block;
+    position: relative;
+    width: 84px;
+    height: 28px;
+    line-height: 18px;
+    border-radius: 2px;
+    /* font-size: 0.9em; */
+    font-size: 13px;
+    background-color: #fff;
+    font-weight: bold;
+    text-shadow: none;
+    color: #ffffff;
+    text-transform: uppercase;
 }
+
+
 .green-color:hover{
     background: #38a229 !important;
 }
@@ -930,4 +951,140 @@ table .fa-clock-o {
 
 .edit-popover .header{
     display: none;
+}
+
+
+.left-panel ul{
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.left-panel ul li a{
+    padding: 0;
+    text-decoration: none;
+    color: #0D3349;
+}
+
+.left-panel ul li {
+    padding: 10px 0px 10px 20px;
+    border-bottom: 1px solid #e6e6e6;
+    transition: 0.5s;
+    background: #fff;
+    border-left: 5px solid #fff;
+}
+
+
+ .active-1 {
+   background: rgba(9, 238, 0, 0.13) !important;
+     border-left: 5px solid #32c976 !important;
+
+}
+
+.left-panel ul li:hover  {
+    cursor: pointer;
+    background:#00b3ee;
+    color: #fff !important;
+    border-left: 5px solid #00b3ee !important;
+
+}
+
+.left-panel ul li:hover a  {
+
+    color: #fff !important;
+}
+
+
+
+
+.right-panel {
+    position: absolute;
+    right: 0;
+    padding-left: 0;
+}
+
+
+.panel-primary>.panel-heading {
+    font-weight: bold;
+}
+
+.calender-invite {
+    padding: 20px;
+}
+
+
+select {
+    -webkit-appearance: menulist-button;
+}
+
+
+.panel-primary>.panel-heading {
+    background-image: linear-gradient(to bottom,#323d87 0,#2f2777 100%);
+    border-radius: 0;
+}
+
+.panel-primary {
+    border-color: #dddddd;
+    /*box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);*/
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #E91E63;
+}
+
+
+.left-panel {height: 90.7vh;}
+
+
+.timezone-dropdown-button {
+    background-color: #ffffff;
+    color: #3071be;
+    padding: 3px 10px 3px 10px;
+    width: 150px;
+    font-size: 12px;
+    height: 26px;
+    font-weight: 700;
+    line-height: 48px;
+    top: 15px;
+    border: 0;
+    position: relative;
+}
+
+
+.checkbox input[type="checkbox"]:after, .checkbox-inline input[type="checkbox"]:after {
+    color: #ffffff !important;
+    background: white;
+}
+
+#notification {
+    padding-right: 5px;
+}
+
+.custom-input {
+    border: 1.5px solid #2196F3;
+    box-shadow: none !important;
+    width: 93px;
+    /*border-radius: 9px;*/
+}
+
+td:first-child {
+    font-weight: bold;
+}
+
+.bell-ico {
+    background-image: url(../../../assets/img/bell.png);
+    width: 34px;
+    height: 34px;
+    float: left;
+    display: block;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 18px;
+}
 }

@@ -10,13 +10,32 @@ module.exports = settings_tabular;
 
 
 function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
-
+    $scope.email_saved = false;
+    $scope.sms_saved = false;
     $scope.error_check = false;
     $scope.timezones = [{ name: "Hawaii", value: 10 }, { name: "Alaska", value: 8 }, { name: "Pacific", value: 7 }, { name: "Mountain", value: 6 }, { name: "Central", value: 6 }, { name: "Eastern US, Standard Time", value: 4 }]
     $scope.data = {}
     $scope.data["sms"] = { "flag": false, "verified": false }
     $scope.data["email"] = { "flag": false, "verified": false }
     $scope.data["blackouts"] = [];
+
+    // add default times
+
+    var default_data = {};
+    default_data.span = "specific_time";
+    default_data.fix = "true";
+
+    default_data.intervals = [{ startTime: moment().startOf('day').add(18,'hours'), endTime: moment().startOf('day').add(21, 'hours') }]
+    $scope.data.blackouts.push(JSON.parse(JSON.stringify(default_data)))  
+    default_data.intervals = [{ startTime: moment().startOf('day').add(21,'hours'), endTime: moment().endOf('day') }]
+    $scope.data.blackouts.push(JSON.parse(JSON.stringify(default_data)))    
+    default_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(6,'hours') }]
+    $scope.data.blackouts.push(JSON.parse(JSON.stringify(default_data)))   
+    default_data.intervals = [{ startTime: moment().startOf('day').add(6,'hours'), endTime: moment().startOf('day').add(8, 'hours') }]
+    $scope.data.blackouts.push(JSON.parse(JSON.stringify(default_data)))
+
+    // end default timers
+
 
     $scope.min_date = moment().startOf('day').subtract(1, 'seconds');
 
@@ -303,6 +322,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     .then(
                         function successCallback(response) {
                             console.log(response)
+                            intialize();
                             $scope.saving = false;
                             $scope.successMessage = "Settings saved succesfully";
                             // $scope.$apply();
@@ -592,6 +612,13 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 // $scope.data.email.verified = false
                 // $scope.data.sms.verified = false;
 
+                if($scope.data.email.flag && !$scope.data.email.verified){
+                    $scope.email_saved = true;
+                }
+
+                if($scope.data.sms.flag && !$scope.data.sms.verified){
+                    $scope.sms_saved = true;
+                }
                 var check = false;
                 var value = 0;
                 for (var i = 0; i < $scope.timezones.length; i++) {
@@ -674,7 +701,6 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     // if($scope.data.blackouts[i])
 
                 }
-                console.log($scope.data)
 
 
             }, function (result) {

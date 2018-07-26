@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sebbo.net//ical-generator//EN
+METHOD:REQUEST
+NAME:Timeline Event Notifications
+X-WR-CALNAME:Timeline Event Notifications
+BEGIN:VEVENT
+UID:wdcwe76234e127eugb12@http://aotc-prod.mybluemix.net/
+SEQUENCE:0
+DTSTAMP:20180702T060654Z
+DTSTART:20180702T060954Z
+DTEND:20180702T061654Z
+SUMMARY:Testing an ICS file
+LOCATION:Islamabad
+DESCRIPTION:Lets check this module
+ORGANIZER;CN="Kumail Hussain":mailto:kumail.hussain@spsnet.com
+ATTENDEE;ROLE=REQ-PARTICIPANT;CN="Muhammad Hamza":MAILTO:muhammad.hamza@sp
+ snet.com
+ATTENDEE;ROLE=REQ-PARTICIPANT;CN="Person B":MAILTO:b@example.com
+BEGIN:VALARM
+ACTION:AUDIO
+TRIGGER:-PT1M
+ATTACH;VALUE=URI:Basso
+END:VALARM
+END:VEVENT
+END:VCALENDAR

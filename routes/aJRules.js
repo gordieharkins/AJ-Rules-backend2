@@ -29,4 +29,12 @@ router.get('/getAllAJProperties', function(req, res, next) {
     BLL.getAllAJProperties(req, res);
 });
 
+router.get('/getFormSubmissions', function(req, res, next) {
+    BLL.getFormSubmissions(req, res);
+});
+
+router.post('/addNewSubmission', function(req, res, next) {
+    BLL.addNewSubmission(req, res);
+});
+
 module.exports = router;

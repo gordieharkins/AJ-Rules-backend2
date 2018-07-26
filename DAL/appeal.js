@@ -136,6 +136,7 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
+    // console.log(userId);
     var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId} AND prop.isDeleted <> true
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
@@ -275,3 +276,141 @@ DAL.prototype.executeSignature = function(userId, cb) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// getJurisdictionTimelineData
+//--------------------------------------------------------
+DAL.prototype.getUsersforProperty = function(propertyId, cb) {
+    var params = {
+        propertyId: propertyId
+    };
+    // delete notification.remainingDays;
+    var query = `MATCH(n:property) where id(n) = {propertyId}
+                OPTIONAL MATCH(n)-[:OWNS]-(owner:user)
+                OPTIONAL MATCH(n)-[:ASSIGNED_TO]-(agent:user)
+                return collect(owner) as owner, collect(agent) as agent`;
+
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
+    var params = {
+        userIds: userIds,
+        sendingDate: sendingDate
+    };
+    // delete notification.remainingDays;
+    console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    
+    var query = `MATCH(users:user)-[]->(invite:calendarInvite)
+                WHERE invite.start = {sendingDate} AND id(users) IN {userIds} AND invite.sent = false           
+                MATCH(otherUsers:user)-[]->(invite)
+                WITH invite, size({userIds}) as usersCount, count(DISTINCT users) as cnt, 
+                count(DISTINCT otherUsers) as otherCount 
+                WHERE cnt = otherCount AND usersCount = cnt
+                RETURN invite
+                `;
+    // console.log(query);
+    // console.log(params);
+    // params.push("S");
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        console.log("DALUseridsqdasdasdasdasd",userIds,results);
+        // console.log("DALresults: ", );
+        cb(err, results);
+    });
+}
+
+DAL.prototype.addCalendarInvite = function(ownerIds, agentsIds, calendarInvite, cb) {
+    
+    var mainInvite = {
+        start: calendarInvite.start,
+        end: calendarInvite.end,
+        title: calendarInvite.title,
+        description: calendarInvite.description,
+        location: calendarInvite.location,
+        from: calendarInvite.from,
+        to: calendarInvite.to,
+        method: calendarInvite.method,
+        uid: calendarInvite.uid,
+        subject: calendarInvite.subject,
+        text: calendarInvite.text,
+        status: calendarInvite.status,
+        alarmType: "audio",
+        trigger: 60,
+        sent: calendarInvite.sent,
+        propertyCount: calendarInvite.propertyCount
+    };
+
+
+    // console.log(mainInvite);
+    // var organizer = calendarInvite.organizer
+
+    // var alarmSettings = {
+    //     type: "audio",
+    //     trigger: 60
+    // }
+
+    // var attendies = calendarInvite.attendies;
+
+    var params = {
+        ownerIds: ownerIds,
+        agentsIds: agentsIds,
+        mainInvite: mainInvite
+    };
+
+
+    // delete notification.remainingDays;
+    var query = `MATCH(owner:user) where id(owner) IN {ownerIds}
+                OPTIONAL MATCH(agents:user) where id(agents) IN {agentsIds}
+                CREATE (invite:calendarInvite{mainInvite})
+                CREATE (owner)-[rel:organizer]->(invite)
+                FOREACH (o IN CASE WHEN agents IS NOT NULL THEN [agents] ELSE [] END |
+                        CREATE(agents)-[:attends]->(invite)
+                )
+                RETURN id(invite)`;
+
+    // console.log("aaaaaaaaaaa",ownerIds);
+    db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        // console.log("qaaaaaaaaaaaaaaaa", results);
+        // console.log("AAAAAAAAAAAAAAAAA", params);
+        cb(err, results);
+    });
+};
+
+DAL.prototype.getCalendarInvite = function(cb) {
+    var query = `MATCH(invites:calendarInvite) where invites.sent = false
+                MATCH(invites)<-[:organizer]-(owner:user)
+                OPTIONAL MATCH(invites)<-[:attends]-(agent:user)
+                RETURN invites, owner.name as ownerName, owner.company as ownerEmail, collect(DISTINCT agent.company) as agentEmails`;
+
+    db.cypher({
+        query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+};
+
+DAL.prototype.updateCalendarInvite = function(inviteId, data, cb) {
+    var query = `MATCH(invite:calendarInvite) where id(invite) = {inviteId} SET invite = {data}`;
+
+    db.cypher({
+        query: query,
+        params: {
+            inviteId: inviteId,
+            data: data
+        }
+    }, function(err, results) {
+        cb(err, results);
+    });
+};

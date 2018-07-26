@@ -14,6 +14,7 @@ var async = require('async');
 var dateDiff = require('date-diff');
 var jurisdictionTimeline = require(path.resolve(__dirname, './util/jdRules'));
 var alerts = require(path.resolve(__dirname, './alerts/alerts-BLL'));
+var calendar_invites = require(path.resolve(__dirname, './calendar_invites/calendar_invites'));
 var cron = require('node-cron');
 
 var IEDAL = new IEDAL();
@@ -21,6 +22,7 @@ var RRDAL = new RRDAL();
 var DAL = new AppealDAL();
 var ALERT =  new alerts();
 var USERDAL =  new UsersDAL();
+var INVITES = new calendar_invites();
 
 
 
@@ -143,7 +145,7 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 					
 				jurisdictionTimelineData["ieSurvey"] = {};
 				jurisdictionTimelineData.ieSurvey["main"] = {};
-				jurisdictionTimelineData.ieSurvey.main = result[0].rules;
+				// jurisdictionTimelineData.ieSurvey.main = result[0].rules;
 			}
 			var timeline = createTimelineWithJson(jurisdictionTimelineData);
 			DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
@@ -336,10 +338,20 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				jurisdictions: []
 			};
 
+			var calendarInvitesArray = [];
+			// var calendarInviteFlag = false;
+			// console.log(result.length);
+			// console.log(JSON.stringify(result));
+			// console.log(userId);
+			// if(userId == 9933039){
+			// 	console.log(JSON.stringify(result));
+			// }
+			// console.log(result.length);
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event == null){
 					callbackMain();
 				} else {
+					
 					if(value.event.properties.type == 1){
 						var tempEvent = [];
 						var started = true;
@@ -348,12 +360,30 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
 						value.subEvent = tempEvent;
+						// console.log(userId);
+						// console.log(result.length);
+						// console.log(i);
+						// console.log("Index: ",i);
+						// if(value.event.properties.calendarInvite != true){
+							// var endDate = calculateRemainingDays(value.event.properties.deadline);
+							// if(endDate <= 7){
+							
+							// calendarInviteFlag = true;
+							// addCalendarInvite(value.propertyId, value.event.properties.deadline);
+							// }
+						// }
+
 						if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 							var startDate = calculateRemainingDays(value.event.properties.startDate);
+							// console.log("StartDate: ", startDate);
 							if(startDate <= 0){
+								
+								calendarInviteFlag = true;
+								// addCalendarInvite(value.propertyId, value.event.properties.deadline);
 								value.event.properties.status = "In Progress";
 								value.event.properties.message = "Deadline: "+ value.event.properties.deadline;
 								value.event.properties.warning = "Complete required information.";
+								calendarInvitesArray.push(value);
 								updateData(value.event.properties, value.event._id, null);
 							} else {
 								value.event.properties.message = "Start date: "+ value.event.properties.startDate;
@@ -465,7 +495,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									} else if(subValue.properties.type == "11"){
 										indexes[1][1] = j;
 										checkReivewStatus(value.subEvent[indexes[1][0]].properties.status, 
-														subValue.properties, subValue._id, function(error, reviewStatus){
+														subValue.properties, subValue._id, value.propertyId, function(error, reviewStatus){
 											if(error){
 												callbackSubMain(error);
 											} else {
@@ -512,90 +542,85 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									callbackSubMain();
 								}
 							}, function (err) {
-								var deadline = value.event.properties.deadline;
-								if(value.event.properties.paradigm == "machine"){
-									try {
-										if(value.subEvent[indexes[1][3]].properties.status == "In Progress" 
-										&& value.event.properties.message != value.subEvent[indexes[1][3]].properties.message){
-											value.event.properties.status = "In Progress";
-											value.event.properties.warning = "";
-											value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
-											updateData(value.event.properties, value.event._id, null);
-										} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
-										&& value.event.properties.status != "Done"){
-											value.event.properties.status = "Done";
-											value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
-											value.event.properties.warning = "";
-											updateData(value.event.properties, value.event._id, null);
-											
-										} else if(value.subEvent[indexes[1][0]].properties.status == "In Progress" &&
-											value.event.properties.warning != "Complete required information."){
-											value.event.properties.message = "Deadline: " + deadline;
-											value.event.properties.warning = "Complete required information.";
-											updateData(value.event.properties, value.event._id, null);
-											
-										} else if(value.subEvent[indexes[1][2]].properties.status == "In Progress" &&
-											value.event.properties.warning != "Execute Signature."){
-											value.event.properties.warning = "Execute Signature.";
-											updateData(value.event.properties, value.event._id, null);
-										}
-									} catch (err){
-
-									}
-									
-								} else if(value.event.properties.paradigm == "paper"){
-									try{
-										if(value.subEvent[indexes[0][4]].properties.status == "Done" &&
-										value.event.properties.status != "Done"){
-											value.event.properties.status = "Done";
-											value.event.properties.warning = "";
-											value.event.properties.message = "Income expense survey submitted successfully.";
-											updateData(value.event.properties, value.event._id, null);
-										} else if(value.subEvent[indexes[0][4]].properties.status == "In Progress" &&
-											value.event.properties.warning != "Submit income expense survey package"){
-											value.event.properties.status = "In Progress";
-											value.event.properties.warning = "Submit income expense survey package";
-											updateData(value.event.properties, value.event._id, null);
-										} else if(value.subEvent[indexes[0][3]].properties.status == "In Progress" &&
-											value.event.properties.warning != "Execute Signature"){
-											value.event.properties.status = "In Progress";
-											value.event.properties.warning = "Execute Signature";
-											updateData(value.event.properties, value.event._id, null);
-										} else if(value.subEvent[indexes[0][0]].properties.status != "Done" ||
-										value.subEvent[indexes[0][1]].properties.status != "Done"){
-											value.event.properties.status = "In Progress";
-											value.event.properties.warning = "";
-											if(value.subEvent[indexes[0][0]].properties.status != "Done"){
-												value.event.properties.warning = "Complete income expense survey form. ";											
+								if(err){
+									callbackMain(err);
+								} else {
+									var deadline = value.event.properties.deadline;
+									if(value.event.properties.paradigm == "machine"){
+										try {
+											if(value.subEvent[indexes[1][3]].properties.status == "In Progress" 
+											&& value.event.properties.message != value.subEvent[indexes[1][3]].properties.message){
+												value.event.properties.status = "In Progress";
+												value.event.properties.warning = "";
+												value.event.properties.message = "Data will be released to assessing jurisdiction on this date: " + deadline;
+												updateData(value.event.properties, value.event._id, null);
+											} else if(value.subEvent[indexes[1][3]].properties.status == "Done" 
+											&& value.event.properties.status != "Done"){
+												value.event.properties.status = "Done";
+												value.event.properties.message = "Data was released to assessing jurisdiction on this date: " + deadline;
+												value.event.properties.warning = "";
+												updateData(value.event.properties, value.event._id, null);
+												
+											} else if(value.subEvent[indexes[1][0]].properties.status == "In Progress" &&
+												value.event.properties.warning != "Complete required information."){
+												value.event.properties.message = "Deadline: " + deadline;
+												value.event.properties.warning = "Complete required information.";
+												updateData(value.event.properties, value.event._id, null);
+												
+											} else if(value.subEvent[indexes[1][2]].properties.status == "In Progress" &&
+												value.event.properties.warning != "Execute Signature."){
+												value.event.properties.warning = "Execute Signature.";
+												updateData(value.event.properties, value.event._id, null);
 											}
-
-											if(value.subEvent[indexes[0][1]].properties.status != "Done"){
-												value.event.properties.warning += "Complete required items. ";											
-											}
-
-											updateData(value.event.properties, value.event._id, null);
+										} catch (err){
+											console.log(err);
 										}
-									} catch (err) {
+										
+									} else if(value.event.properties.paradigm == "paper"){
+										try{
+											if(value.subEvent[indexes[0][4]].properties.status == "Done" &&
+											value.event.properties.status != "Done"){
+												value.event.properties.status = "Done";
+												value.event.properties.warning = "";
+												value.event.properties.message = "Income expense survey submitted successfully.";
+												updateData(value.event.properties, value.event._id, null);
+											} else if(value.subEvent[indexes[0][4]].properties.status == "In Progress" &&
+												value.event.properties.warning != "Submit income expense survey package"){
+												value.event.properties.status = "In Progress";
+												value.event.properties.warning = "Submit income expense survey package";
+												value.event.properties.message = "Deadline: "+ deadline;
+												updateData(value.event.properties, value.event._id, null);
+											} else if(value.subEvent[indexes[0][3]].properties.status == "In Progress" &&
+												value.event.properties.warning != "Execute Signature"){
+												value.event.properties.status = "In Progress";
+												value.event.properties.warning = "Execute Signature";
+												value.event.properties.message = "Deadline: "+ deadline;
+												updateData(value.event.properties, value.event._id, null);
+											} else if(value.subEvent[indexes[0][0]].properties.status != "Done" ||
+											value.subEvent[indexes[0][1]].properties.status != "Done"){
+												value.event.properties.status = "In Progress";
+												value.event.properties.warning = "";
+												if(value.subEvent[indexes[0][0]].properties.status != "Done"){
+													value.event.properties.message = "Deadline: "+ deadline;
+													value.event.properties.warning = "Complete income expense survey form. ";											
+												}
 
+												if(value.subEvent[indexes[0][1]].properties.status != "Done"){
+													value.event.properties.warning += "Complete required items. ";											
+												}
+
+												updateData(value.event.properties, value.event._id, null);
+											}
+										} catch (err) {
+											console.log(err);
+										}
+										
 									}
-									
+
+									createEventsJson(value, finalResult, function(){
+										callbackMain();
+									});
 								}
-
-								// if(value.event.properties.status != "Done"){
-								// 	var notification = {
-								// 		heading: value.jurisdiction + " Properties",
-								// 		text: "Need to complete income expense survey package for " +value.jurisdiction
-								// 				+ " properties before "+value.event.properties.deadline+".",
-								// 		type: "warning",
-								// 		remainingDays: ""
-								// 	}
-	
-								// 	generateNotification(notification, value.event._id);
-								// }
-
-								createEventsJson(value, finalResult, function(){
-									callbackMain();
-								});
 							});
 						}
 					} else {
@@ -606,6 +631,68 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				}
 			}, function (err) {
 				if (err) console.error(err.message);
+				// console.log(userId);
+				if(calendarInvitesArray.length > 0){
+					// console.log(userId);
+					// console.log(result.length);
+					// console.log(calendarInvitesArray);
+					async.forEachOfSeries(calendarInvitesArray, function (value, key, calendarInviteCallback) {
+						addCalendarInvite(value.propertyId, value.event.properties.deadline, function(){
+							calendarInviteCallback();
+						});
+					}, function (err) {
+						DAL.getCalendarInvite(function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							} else {
+								async.forEachOf(result, function (value, key, callback) {
+									var calendarInvite = JSON.parse(JSON.stringify(value.invites.properties));
+									calendarInvite.alarms = [{type: calendarInvite.alarmType, trigger: calendarInvite.trigger}];
+									// calendarInvite.attendees = value.agentEmails.reduce((json, value, key) => { "email" = value; return json; }, {});
+									calendarInvite.attendees = [{email: value.ownerEmail}];
+									for(var i = 0; i < value.agentEmails.length; i++){
+										calendarInvite.attendees.push({email: value.agentEmails[i]});
+									}
+									
+									calendarInvite.text = "This meeting has been scheduled to review Income Expense Survey for "+calendarInvite.propertyCount +" properties";
+									calendarInvite.organiser = {name: value.ownerName, email: value.ownerEmail};
+									INVITES.postCalendarInvites(calendarInvite, function(error, result){
+										if(error){
+											console.log("error occured!"); 
+										} else {
+											var data = value.invites.properties;
+											data.sent = true;
+											var inviteId = value.invites._id;
+											DAL.updateCalendarInvite(inviteId, data, function(error, result) {
+												if (error) {
+													console.log(error);
+													error.userName = loginUserName;
+													ErrorLogDAL.addErrorLog(error);
+												}
+					
+												callback();
+											});
+											
+										}
+									});
+									// console.log(calendarInvite);
+	
+								}, function (err) {
+									if (err) console.error(err.message);
+									// configs is now a map of JSON data
+									// doSomethingWith(configs);
+								});
+								// console.log(JSON.stringify(result));
+								console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+							}
+							
+							
+						});
+					});
+					
+				}
 				DAL.getNotification(userId, function(error, result) {
 					if (error) {
 						console.log(error);
@@ -630,7 +717,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									result[i].notification1.text = result[i].notification1.text.replace("days", "day");
 								}
 
-								result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
+								if(result[i].remainingDays < 0){
+									result[i].notification1.text = (result[i].notification1.text.replace("||", parseInt(result[i].remainingDays)*(-1)));
+								} else {
+									result[i].notification1.text = result[i].remainingDays + result[i].notification1.text;
+								}
 								result[i].notification1["count"] = 1;
 								var notificationIndex = notificationText.indexOf(result[i].notification1.text);
 								if(notificationIndex > -1){
@@ -768,7 +859,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 					} else if (daysRemaining <= 0 ){
 						notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
 						message += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days. "
-						alert += "Income Expense Survey submission overdue by " +daysRemaining+ " days for "+jurisdiction+" properties. Please complete the required information.";
+						alert += "Income Expense Survey submission overdue by " +parseInt(daysRemaining)*(-1)+ " days for "+jurisdiction+" properties. Please complete the required information.";
 					}
 					
 					if(remainingItems > 0){
@@ -854,7 +945,6 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 			} catch (err){
 				cb(null, requiredItems);
 			}
-			
 		}
 	});
 }
@@ -866,11 +956,12 @@ function sortByKey(array, key) {
     });
 }
 
-function checkReivewStatus(requiredItemsStatus, subValue, id, cb){
+function checkReivewStatus(requiredItemsStatus, subValue, id, propertyId, cb){
 	var reviewStatus = subValue;
 	if(requiredItemsStatus != "Done" && subValue.flag == true){
 		reviewStatus.flag = false;
 		reviewStatus.status = "Not Started";
+		sendCalendarInvite("ie",id, "Cancel", propertyId);
 		updateData(reviewStatus, id, null);
 	} else if(reviewStatus.status == "Done"){
 		console.log("dummy console. will find something better soon. ");
@@ -986,7 +1077,7 @@ function checkRequiredItemsPaper(requiredItems, propertyId, itemId, deadline, ju
 			warning += remainingDays+ " days remaining before submission. ";
 			alert += remainingDays+ " days remaining before submission of Income Expense Survey package for "+jurisdiction+" properties. Please complete the required information.";
 		} else if (remainingDays <= 0 ){
-			notification.text = "Income Expense Survey submission overdue by || days for "+jurisdiction+" properties. Please complete the required information.";
+			notification.text = "Income Expense Survey submission overdue by "+remainingDays+" days for "+jurisdiction+" properties. Please complete the required information.";
 			// notification.remainingDays = daysRemaining;
 			warning += "Income Expense Survey submission overdue by " +parseInt(remainingDays)*(-1)+ " days. ";
 			alert += "Income Expense Survey submission overdue by "+parseInt(remainingDays)*(-1)+" days for "+jurisdiction+" properties. Please complete the required information.";
@@ -1351,8 +1442,6 @@ BLL.prototype.startCronJob = function() {
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-				// console.log(JSON.stringify(result), "\n");
-
 				async.forEachOf(result, function (value, key, callback) {
 					object.getPropertyTimelineData(null, null, value.id);
 					callback();
@@ -1360,14 +1449,176 @@ BLL.prototype.startCronJob = function() {
 					if (err) console.error(err.message);
 					
 				});
-                // executeJob(result);
-                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
         });
-
-        // executeJob(array, res)
-        
     });
     
     task.start()  
+}
+
+function sendCalendarInvite(module, id, status, propertyId){
+	DAL.getUsersforProperty(propertyId, function(error, result) {
+		if (error) {
+			console.log(error);
+			error.userName = loginUserName;
+			ErrorLogDAL.addErrorLog(error);
+		}
+
+		if(result.length > 0){
+			DAL.getAlreadyCreadyInviteId(id, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+				}
+		
+				if(result.length > 0){	
+					console.log("Sending new calendar invite no previous invites found!");
+				} else {
+					if(status.toLowerCase() != "cancel"){
+						var ownerName = result[0].owner.name + " " + result[0].owner.lastName;
+						var agentName = result[0].agent.name + " " + result[0].agent.lastName;
+						var ownerEmail = result[0].owner.email1;
+						var agentEmail = result[0].agent.email1;
+						
+						var dateObject = new Date();
+						var calendarInvite = {};
+						calendarInvite.startTime = dateObject.setTime(dateObject.getTime() + (60*60*1000));
+						calendarInvite.endTime = dateObject.setTime(getTime() + (2*60*60*1000));
+						calendarInvite.title = "Income Expense Survey Review Meeting";
+						calendarInvite.description = "Some description";
+						calendarInvite.organizer = {
+							name: agentName,
+							email: agentEmail 
+						}
+						calendarInvite.attendies = [{email: agentEmail, name: agentName},
+													{email: ownerEmail, name: ownerName}]
+
+						calendarInvite.from = agentName + "<" + agentEmail + ">";
+						calendarInvite.to = ownerName + "<" + ownerEmail + ">";
+						calendarInvite.subject = "IE Review meeting";
+						calendarInvite.text = "Some demo text";
+						calendarInvite.method = "request";
+						calendarInvite.status = "TENTATIVE";
+						calendarInvite.uid = dateObject.getTime();
+						
+						DAL.addCalendarInvite(id, calendarInvite, function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							}
+						});
+					}
+				}
+			});
+		} else {
+			console.log("No agents found!");
+		}
+	});
+}
+
+function addCalendarInvite(propertyId, deadline, cb){
+	// console.log("its here");
+	
+	var tempDate = new Date(deadline);
+	// console.log("8888888888",tempDate);
+	var endingDate = calculateRemainingDays(deadline);
+	if(endingDate >= 8){
+		var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000)));
+	} else {
+		var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (1*24*60*60*1000)));
+	}
+	// var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000)));
+	// console.log("9999999999999999",sendingDate);
+	DAL.getUsersforProperty(propertyId, function(error, result) {
+		if (error) {
+			console.log(error);
+			error.userName = loginUserName;
+			ErrorLogDAL.addErrorLog(error);
+		} else {
+			// console.log("its here: ", JSON.stringify(result));
+			// if(result[0].agent.length > 0){
+			// 	// console.log(result);
+			// }
+			var agentIds = result[0].agent.map((a) => {return a._id});
+			var ownerIds = result[0].owner.map((a) => {return a._id});
+			var ids = agentIds.concat(ownerIds);
+			var agents = result[0].agent.map(function(a) {return {name: a.properties.name, email: a.properties.company}});
+			var owner = result[0].owner.map(function(a) {return {name: a.properties.name, email: a.properties.company}});
+			// console.log(agents);
+			// agents = [
+			// {
+			// 	name: "Hamza",
+			// 	email: "muhammad.hamza@spsnet.com"
+			// },
+			// {
+			// 	name: "Noaman",
+			// 	email: "noaman.ilyas@spsnet.com"
+			// }]
+			// console.log(ids);
+			// var dateobjec = new Date(sendingDate);
+			DAL.getAlreadyCreadyInviteId(ids, sendingDate, function(error, result) {
+				if (error) {
+					console.log(error);
+					error.userName = loginUserName;
+					ErrorLogDAL.addErrorLog(error);
+				} else {
+					console.log(result);
+					if(result.length < 1){
+						var dateObject = new Date();
+						// console.log(sendingDate);
+						console.log("still here for adding new calendar invite");
+						var calendarInvite = {};
+						calendarInvite.sent = false;
+						calendarInvite.start = JSON.parse(JSON.stringify(sendingDate));
+						calendarInvite.end = JSON.parse(JSON.stringify(new Date(sendingDate.setTime(sendingDate.getTime() + (2*60*60*1000)))));
+						calendarInvite.title = "Income Expense Survey Review Meeting";
+						calendarInvite.description = "Some description";
+						// calendarInvite.organizer = {
+						// 	name: owner[0].name,
+						// 	email: owner[0].email 
+						// }
+						// calendarInvite.attendies = owner.concat(agent);
+
+						calendarInvite.from = owner[0].email;
+						
+						calendarInvite.to = agents.map((value) => {return value.email});
+						calendarInvite.to.push(owner[0].email);
+						// calendarInvite.to = ownerName + "<" + ownerEmail + ">";
+						calendarInvite.subject = "IE Review meeting";
+						calendarInvite.text = "Some demo text";
+						calendarInvite.propertyCount = 1;
+						calendarInvite.method = "request";
+						calendarInvite.status = "TENTATIVE";
+						calendarInvite.uid = dateObject.getTime();
+						calendarInvite.location = "USA";
+						// console.log(JSON.stringify(calendarInvite));
+						DAL.addCalendarInvite(ownerIds, agentIds, calendarInvite, function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							}
+
+							cb();
+						});
+					} else {
+						var data = result[0].invite.properties;
+						data.propertyCount += 1;
+						var inviteId = result[0].invite._id;
+						DAL.updateCalendarInvite(inviteId, data, function(error, result) {
+							if (error) {
+								console.log(error);
+								error.userName = loginUserName;
+								ErrorLogDAL.addErrorLog(error);
+							}
+
+							cb();
+						});
+					}
+				}
+			});
+		}
+	});
 }

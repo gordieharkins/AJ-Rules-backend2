@@ -54,7 +54,7 @@ BLL.prototype.startCronJob = function() {
                 console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
-                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
                 console.log("Here are the alerts: ", result);
                 executeJob(result);
@@ -108,8 +108,8 @@ function executeJob(data) {
                      var tempDate = new Date();
                      var sendingDate = monthNames[tempDate.getMonth()] + " " + tempDate.getDate() + ", "+ tempDate.getFullYear();                     
                 var emailOption = {
-                    text: `Hi,\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
-                            `.\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\nSincerely,\nAOTC`,
+                    text: `Hi,\n\nThis email message has been sent by the AOTC System to remind you that `+ value.alert.properties.message +
+                            `.\n\nJurisdiction: ` +value.alert.properties.jurisdiction+ `\n\nSincerely,\nAOTC`,
                     from:"AOTC <aotc.invite@gmail.com>", 
                     subject:"AOTC Alert for " +sendingDate,
                     to: value.alert.properties.email
@@ -173,7 +173,7 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
-                console.log(JSON.stringify(settings.settings));
+                // console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {

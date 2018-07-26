@@ -104,4 +104,44 @@ router.get('/getSurveyReport', function(req, res, next) {
 router.post('/deleteSubmission', function(req, res, next) {
     BLL.deleteSubmission(req.body, res);
 });
+
+router.get('/getFormSubmissions', function(req, res, next) {
+    BLL.getFormSubmissions(req, res);
+});
+
+router.post('/addNewSubmission', function(req, res, next) {
+    // console.log("here");
+    BLL.addNewSubmission(req, res);
+});
+
+router.post('/getSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.getSubmissionData(req, res);
+});
+
+router.post('/updateSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.updateSubmissionData(req, res);
+});
+
+router.get('/getFormQuestions', function(req, res, next) {
+    // console.log("here");
+    BLL.getFormQuestions(req, res);
+});
+
+router.post('/addNewForm', function(req, res, next) {
+    // console.log("here");
+    BLL.addNewForm(req, res);
+});
+
+router.post('/getHistory', function(req, res, next) {
+    // console.log("here");
+    BLL.getHistory(req, res);
+});
+
+router.get('/getReports', function(req, res, next) {
+    // console.log("here");
+    BLL.getReports(req, res);
+});
+
 module.exports = router;

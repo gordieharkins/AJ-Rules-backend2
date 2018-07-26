@@ -5,10 +5,10 @@ module.exports = {
   email_password:"object00",
   email_host:"imap.gmail.com",
   sms: {
-    sms_sending_number: +14242173909,
+    sms_sending_number: +12252300616,
     name_api: 'twilio',
-    account_sid: 'ACd366f6e0e8d68a78f4504a3b69b66bf2',
-    auth_token: 'efc6edb09267a1f32b59acf6b2762052'
+    account_sid: 'ACed8a884ae9628406de2e890af1d2b689',
+    auth_token: '503d3c839879f931e600df14c1fdb2fd'
   },
 
   
