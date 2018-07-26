@@ -1056,8 +1056,7 @@ BLL.prototype.getReports = function(req, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    // var userData = req.user[0];
-    // var data = req.body;
+
     DAL.getReports(function(error, result) {
         if (error) {
             console.log(error);
@@ -1066,21 +1065,69 @@ BLL.prototype.getReports = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            var report = [];
+            sortFormData(result, function(sortedData){
+                sortedData.forEach(function(value){
+                    var survey = {
+                        jurisdiction: value.value.jurisdiction,
+                        id: value.value.jurisdiction,
+                        formName: value.value.formName,
+                        questions: []
+                    };
+
+                    value.value.hassubmission[0].has.forEach(function(parent){
+                        var parentQuestion = {
+                            ajrule: parent.ajRule,
+                            answer: parent.hasanswer[0].value
+                        };
+                        if(report.length > 0){
+                            var parentIndex = report[0].questions.findIndex(function(pq){
+                                return pq.ajrule == parentQuestion.ajrule;
+                            });
+                            survey.questions[parentIndex] = parentQuestion;
+                        } else {
+                            survey.questions.push(parentQuestion);
+                        }
+                        if(parent.has != undefined){
+                            parent.has.forEach(function(child){
+                                var childQuestion = {
+                                    ajrule: child.ajRule,
+                                    answer: child.hasanswer[0].value
+                                };
+                                if(report.length > 0){
+                                    var childIndex = report[0].questions.findIndex(function(cq){
+                                        return cq.ajrule == childQuestion.ajrule;
+                                    });
+                                    survey.questions[childIndex] = childQuestion;
+                                } else {
+                                    survey.questions.push(childQuestion);
+                                }
+                            });
+                        }
+                    });
+                    report.push(survey);
+                });
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, report, res);
+            });
+
+            
         }
     });
 }
 // ---------------------END---------------------
 
 
-function sortFormData(formData, cb){
-    console.log(formData.value.hassubmission[0].has);
-    formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
-    formData.value.hassubmission[0].has.forEach(function(question){
-        // console.log(has);
-        if(question.has != undefined){
-            question.has.sort(function(a, b){ return a.order - b.order});
-        }
+function sortFormData(data, cb){
+    // console.log(formData.value.hassubmission[0].has);
+    data.forEach(function(formData){
+        formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
+        formData.value.hassubmission[0].has.forEach(function(question){
+            // console.log(has);
+            if(question.has != undefined){
+                question.has.sort(function(a, b){ return a.order - b.order});
+            }
+        });
     });
-    cb(formData);
+    
+    cb(data);
 }
