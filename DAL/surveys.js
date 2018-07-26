@@ -866,7 +866,7 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         params['answerValue'+index] = answer.value;
         query += `
         WITH *
-        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`} \n
+        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {answerValue`+contradict+`} \n
         CREATE(a`+index+`)-[:hasHistory]->(:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
         answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})\n`;
         
@@ -954,6 +954,25 @@ DAL.prototype.getHistory = function(data, cb) {
 	db.cypher({
         query: query,
         params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getReports = function(cb) {
+    // var params = {
+    //     answerId: data.answerId
+    // }
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query,
+        // params: params
     }, function(err, results) {
         cb(err, results);
     });
