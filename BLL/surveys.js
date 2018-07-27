@@ -1072,6 +1072,7 @@ BLL.prototype.getReports = function(req, res) {
                         jurisdiction: value.value.jurisdiction,
                         id: value.value.jurisdiction,
                         formName: value.value.formName,
+                        contradict: value.value.contradict,
                         questions: []
                     };
 
