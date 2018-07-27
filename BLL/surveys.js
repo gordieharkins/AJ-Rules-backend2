@@ -905,11 +905,13 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.updatedAt = time;
     data.createdByUserId = userId;
     data.updatedByUserName = userName;
-    data.conflict = false;
-    data.status = "Completed";
+    data.contradict = false;
+    data.status = "Not Started";
+    data.total = 20;
+    data.filled = 0;    
     var formId = req.body.formId;
     
-    // console.log(data);
+    // console.log(data);rs
     DAL.addNewSubmission(formId, data, function(error, result) {
         if (error) {
             error.userName = loginUserName;

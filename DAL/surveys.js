@@ -844,12 +844,7 @@ DAL.prototype.getSubmissionData = function(data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
-    // var params = {
-    //     formId: formId,
-    //     data: data
-    // }
     var time = (new Date()).getTime();
-    console.log(data);
     var params = {
         submissionId: data.submissionId,
         answers: data.answers, 
@@ -860,26 +855,26 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         phone: data.phone,
         contradict: data.contradict,
         total: data.total,
-        filled: data.filled
+        filled: data.filled,
+        status: data.status
     }
     var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
                 SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, 
                 sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict},
-                sub.total = {total}, sub.filled = {filled}\n`;
+                sub.total = {total}, sub.filled = {filled}, sub.status = {status}\n`;
 
     data.answers.forEach(function(answer, index){
-        console.log("testing contradiction",answer);
         params['answerId'+index] = answer._id;
         params['answerValue'+index] = answer.value;
         params['contradict'+index] = answer.contradict;
+
         query += `
         WITH *
         MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`} \n
-        CREATE(history:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+        CREATE(history`+index+`:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
             answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})
-        CREATE(a`+index+`)-[:hasHistory]->(history)\n`;
+        CREATE(a`+index+`)-[:hasHistory]->(history`+index+`)\n`;
     });
-    console.log("mmmmmmmmm",params)
 	db.cypher({
         query: query,
         params: params
