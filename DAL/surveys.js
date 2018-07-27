@@ -858,11 +858,14 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         userId: userId,
         surveyeeName: data.surveyeeName,
         phone: data.phone,
-        contradict: data.contradict
+        contradict: data.contradict,
+        total: data.total,
+        filled: data.filled
     }
     var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
                 SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, 
-                sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict}\n`;
+                sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict},
+                sub.total = {total}, sub.filled = {filled}\n`;
 
     data.answers.forEach(function(answer, index){
         console.log("testing contradiction",answer);
@@ -872,11 +875,11 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         query += `
         WITH *
         MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`} \n
-        CREATE(history::history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
-            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}}))
+        CREATE(history:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})
         CREATE(a`+index+`)-[:hasHistory]->(history)\n`;
     });
-
+    console.log("mmmmmmmmm",params)
 	db.cypher({
         query: query,
         params: params
