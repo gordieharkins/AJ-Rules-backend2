@@ -856,10 +856,13 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         time: time,
         userName: userName,
         userId: userId,
-        surveyeeName: data.surveyeeName
+        surveyeeName: data.surveyeeName,
+        phone: data.phone,
+        contradict: data.contradict
     }
     var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
-                SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, sub.updatedAt = {time}\n`;
+                SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, 
+                sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict}\n`;
 
     data.answers.forEach(function(answer, index){
         params['answerId'+index] = answer._id;
@@ -870,15 +873,7 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         CREATE(history::history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
             answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}}))
         CREATE(a`+index+`)-[:hasHistory]->(history)\n`;
-        
     });
-
-
-    // query += `Foreach (answer in {answers}:
-    //     MATCH(a: answer) where id(a) = answer._id SET a.value = answer.value
-    //     CREATE(a)-[:HAS]->(:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
-    //         answer: {answer.value}, surveyeeName: {surveyeeName}})
-    //     )`;
 
 	db.cypher({
         query: query,

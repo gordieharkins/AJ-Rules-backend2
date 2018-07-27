@@ -917,8 +917,8 @@ BLL.prototype.addNewSubmission = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            sortFormData(JSON.parse(JSON.stringify(result[0])), function(sortedData){
-                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
             });
         }
     });
@@ -1120,6 +1120,7 @@ BLL.prototype.getReports = function(req, res) {
 
 function sortFormData(data, cb){
     // console.log(formData.value.hassubmission[0].has);
+    console.log(data);
     data.forEach(function(formData){
         formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
         formData.value.hassubmission[0].has.forEach(function(question){
