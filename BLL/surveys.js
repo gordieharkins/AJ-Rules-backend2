@@ -942,7 +942,9 @@ BLL.prototype.getSubmissionData = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
         }
     });
 }
@@ -994,7 +996,9 @@ BLL.prototype.getFormQuestions = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
         }
     });
 }
