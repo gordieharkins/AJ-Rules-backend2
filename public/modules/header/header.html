@@ -521,8 +521,8 @@
                             <span>Contracts</span>
                         </a>
                     </li>
-                    <li  class="metro-header"  ui-sref-active="active-li">
-                        <a id="survey" ng-init="bindLink()" href=sendSurveylink>
+                    <li class="metro-header" has-permission='surveys' ui-sref-active="active-li">
+                        <a id="survey" href=sendSurveylink ng-init="bindLink()">
                             <span class="image-lg"></span>
                             <span>View Surveys</span>
                         </a>

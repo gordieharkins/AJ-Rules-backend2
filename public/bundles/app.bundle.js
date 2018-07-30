@@ -24374,7 +24374,7 @@ function _header(User_Config, $state, $timeout) {
         var token = localStorage.getItem('token');
         
         $scope.bindLink = function(){
-            $scope.sendSurveylink = "http://localhost:4200/login/"+role+"/"+token
+            $scope.sendSurveylink = "http://localhost:4200/login/"+token+"/"+role
             document.getElementById("survey").href = $scope.sendSurveylink;
         }
       
