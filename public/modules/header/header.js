@@ -25,7 +25,7 @@ function _header(User_Config, $state, $timeout) {
         var token = localStorage.getItem('token');
         
         $scope.bindLink = function(){
-            $scope.sendSurveylink = "http://localhost:4200/login/"+token+"/"+role
+            $scope.sendSurveylink = "http://aotc-app.mybluemix.net/login/"+token+"/"+role
             document.getElementById("survey").href = $scope.sendSurveylink;
         }
       
