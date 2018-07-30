@@ -944,7 +944,9 @@ BLL.prototype.getSubmissionData = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
         }
     });
 }
@@ -996,7 +998,9 @@ BLL.prototype.getFormQuestions = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            sortFormQuestions(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
+            });
         }
     });
 }
@@ -1126,6 +1130,22 @@ function sortFormData(data, cb){
     data.forEach(function(formData){
         formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
         formData.value.hassubmission[0].has.forEach(function(question){
+            // console.log(has);
+            if(question.has != undefined){
+                question.has.sort(function(a, b){ return a.order - b.order});
+            }
+        });
+    });
+    
+    cb(data);
+}
+
+function sortFormQuestions(data, cb){
+    // console.log(formData.value.hassubmission[0].has);
+    // console.log(data);
+    data.forEach(function(formData){
+        formData.value.has.sort(function(a,b){ return a.order - b.order});
+        formData.value.has.forEach(function(question){
             // console.log(has);
             if(question.has != undefined){
                 question.has.sort(function(a, b){ return a.order - b.order});
