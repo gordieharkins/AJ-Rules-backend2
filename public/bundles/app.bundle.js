@@ -24371,6 +24371,13 @@ function _header(User_Config, $state, $timeout) {
 
 
         var role = localStorage.getItem('role');
+        var token = localStorage.getItem('token');
+        
+        $scope.bindLink = function(){
+            $scope.sendSurveylink = "http://localhost:4200/login/"+role+"/"+token
+            document.getElementById("survey").href = $scope.sendSurveylink;
+        }
+      
         $scope.role = role;
 
         if (role == User_Config.AJ_USER) {
