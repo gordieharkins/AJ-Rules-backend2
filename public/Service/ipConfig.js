@@ -16,7 +16,7 @@ function ipConfig(type) {
     }if(type=='oDev'){
         return 'http://172.19.0.89:4300'
     }
-
+  //asdasd
    
 }
 return {
