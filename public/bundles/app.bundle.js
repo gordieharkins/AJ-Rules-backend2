@@ -24349,7 +24349,6 @@ angular.module('AOTC').directive('header', __webpack_require__(242));
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-
 _header.$inject = ["User_Config", "$state", "$timeout"];
 module.exports = _header;
 
@@ -24357,7 +24356,7 @@ module.exports = _header;
 //    .directive('header', _header
 //    );
 function _header(User_Config, $state, $timeout) {
-    var controller = ['$scope', '$location', 'AOTCService', '$rootScope', function ($scope, $location, AOTCService, $rootScope) {
+    var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
         ////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
@@ -24367,14 +24366,15 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-
+        var ip = AotcIp.ipConfig('oDev')
 
 
         var role = localStorage.getItem('role');
         var token = localStorage.getItem('token');
         
         $scope.bindLink = function(){
-            $scope.sendSurveylink = "http://aotc-app.mybluemix.net/login/"+token+"/"+role
+            
+            $scope.sendSurveylink = ip+"/login/"+token+"/"+role
             document.getElementById("survey").href = $scope.sendSurveylink;
         }
       
@@ -38222,6 +38222,7 @@ angular.module('AOTC').factory('UtilService', __webpack_require__(326));
 
 angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(327));
 angular.module('AOTC').factory('AOTCAuth', __webpack_require__(328));
+angular.module('AOTC').factory('AotcIp', __webpack_require__(422));
 
 
 
@@ -41610,6 +41611,116 @@ function _permissionPerProperty(AOTCPermissions) {
             //scope.$on('permissionsChanged', toggleVisibilityBasedOnPermission);
         }
     };
+}
+
+/***/ }),
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+_AOTCIpConfig.$inject = ["$http", "$filter"];
+module.exports = _AOTCIpConfig;
+function _AOTCIpConfig() {
+
+function ipConfig(type) {
+    if(type=='local'){
+        return 'http://localhost:4300'
+    }
+    if(type=='server'){
+        return 'http://aotc-app.mybluemix.net'
+    }
+    if(type=='pDev'){
+        return 'http://115.186.56.78:4300'
+    }if(type=='oDev'){
+        return 'http://172.19.0.89:4300'
+    }
+
+   
+}
+return {
+        ipConfig: ipConfig,
+};
 }
 
 /***/ })

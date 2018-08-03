@@ -45,7 +45,6 @@ BLL.prototype.userSignIn = function(credentials, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    console.log(credentials)
     DAL.userSignIn(credentials, function(error,result) {
         if (error) {
             Response.sendResponse(false, Response.REPLY_MSG.LOG_IN_FAIL, null, res);
