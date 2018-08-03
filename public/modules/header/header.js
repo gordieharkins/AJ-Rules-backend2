@@ -21,12 +21,13 @@ function _header(User_Config, $state, $timeout) {
 
 
         var role = localStorage.getItem('role');
-        var token = localStorage.getItem('token');
+
         
         $scope.bindLink = function(){
-            
-            $scope.sendSurveylink = ip+"/login/"+token+"/"+role
-            document.getElementById("survey").href = $scope.sendSurveylink;
+            var role2 = localStorage.getItem('role');
+            var token = localStorage.getItem('token');
+             $scope.sendSurveylink = ip+"/login/"+token+"/"+role2
+            window.location.href = $scope.sendSurveylink;
         }
       
         $scope.role = role;
