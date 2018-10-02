@@ -144,4 +144,9 @@ router.get('/getReports', function(req, res, next) {
     BLL.getReports(req, res);
 });
 
+router.post('/autoSave', function(req, res, next) {
+    // console.log("here");
+    BLL.autoSave(req, res);
+});
+
 module.exports = router;

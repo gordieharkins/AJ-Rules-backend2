@@ -973,3 +973,23 @@ DAL.prototype.getReports = function(cb) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// autoSave
+//--------------------------------------------------------
+DAL.prototype.autoSave = function(data, cb) {
+    var params = {
+        answerId: data._id,
+        contradiction: data.contradict,
+        answerValue: data.value
+    }
+
+    var query = `MATCH(ans:answer) WHERE id(ans) = {answerId}
+                SET ans.value = {answerValue}, ans.contradict = {contradiction}`;
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}

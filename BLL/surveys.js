@@ -1123,6 +1123,30 @@ BLL.prototype.getReports = function(req, res) {
 }
 // ---------------------END---------------------
 
+//----------------------------------------------
+// autoSave
+//----------------------------------------------
+BLL.prototype.autoSave = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // var userData = req.user[0];
+    var data = req.body;
+    DAL.autoSave(data, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.UPDATE_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
 
 function sortFormData(data, cb){
     // console.log(formData.value.hassubmission[0].has);
