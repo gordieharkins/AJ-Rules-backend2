@@ -1,6 +1,5 @@
 'use strict';
 
-
 _header.$inject = ["User_Config", "$state", "$timeout"];
 module.exports = _header;
 
@@ -8,7 +7,7 @@ module.exports = _header;
 //    .directive('header', _header
 //    );
 function _header(User_Config, $state, $timeout) {
-    var controller = ['$scope', '$location', 'AOTCService', '$rootScope', function ($scope, $location, AOTCService, $rootScope) {
+    var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
         ////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
@@ -18,15 +17,17 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-
+        var ip = AotcIp.ipConfig('oDev')
 
 
         var role = localStorage.getItem('role');
-        var token = localStorage.getItem('token');
+
         
         $scope.bindLink = function(){
-            $scope.sendSurveylink = "http://aotc-app.mybluemix.net/login/"+token+"/"+role
-            document.getElementById("survey").href = $scope.sendSurveylink;
+            var role2 = localStorage.getItem('role');
+            var token = localStorage.getItem('token');
+             $scope.sendSurveylink = ip+"/login/"+token+"/"+role2
+            window.location.href = $scope.sendSurveylink;
         }
       
         $scope.role = role;

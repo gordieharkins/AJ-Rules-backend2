@@ -14087,12 +14087,12 @@ __webpack_require__(288);
 __webpack_require__(313);
 __webpack_require__(316);
 __webpack_require__(321);
-__webpack_require__(329);
-__webpack_require__(332);
-__webpack_require__(334);
-__webpack_require__(336)
-__webpack_require__(338)
-__webpack_require__(340);
+__webpack_require__(330);
+__webpack_require__(333);
+__webpack_require__(335);
+__webpack_require__(337)
+__webpack_require__(339)
+__webpack_require__(341);
 
 /***/ }),
 /* 141 */
@@ -24349,7 +24349,6 @@ angular.module('AOTC').directive('header', __webpack_require__(242));
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-
 _header.$inject = ["User_Config", "$state", "$timeout"];
 module.exports = _header;
 
@@ -24357,7 +24356,7 @@ module.exports = _header;
 //    .directive('header', _header
 //    );
 function _header(User_Config, $state, $timeout) {
-    var controller = ['$scope', '$location', 'AOTCService', '$rootScope', function ($scope, $location, AOTCService, $rootScope) {
+    var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
         ////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
@@ -24367,15 +24366,17 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-
+        var ip = AotcIp.ipConfig('oDev')
 
 
         var role = localStorage.getItem('role');
-        var token = localStorage.getItem('token');
+
         
         $scope.bindLink = function(){
-            $scope.sendSurveylink = "http://aotc-app.mybluemix.net/login/"+token+"/"+role
-            document.getElementById("survey").href = $scope.sendSurveylink;
+            var role2 = localStorage.getItem('role');
+            var token = localStorage.getItem('token');
+             $scope.sendSurveylink = ip+"/login/"+token+"/"+role2
+            window.location.href = $scope.sendSurveylink;
         }
       
         $scope.role = role;
@@ -38222,6 +38223,7 @@ angular.module('AOTC').factory('UtilService', __webpack_require__(326));
 
 angular.module('AOTC').factory('AOTCPermissions', __webpack_require__(327));
 angular.module('AOTC').factory('AOTCAuth', __webpack_require__(328));
+angular.module('AOTC').factory('AotcIp', __webpack_require__(329));
 
 
 
@@ -39068,13 +39070,44 @@ function _auth($rootScope, $q, $http, $timeout, AOTCService) {
 "use strict";
 
 
-var angular = __webpack_require__(104);
-/////
-angular.module('AOTC').constant('User_Config', (__webpack_require__(331))());
+_AOTCIpConfig.$inject = ["$http", "$filter"];
+module.exports = _AOTCIpConfig;
+function _AOTCIpConfig() {
+
+function ipConfig(type) {
+    if(type=='local'){
+        return 'http://localhost:4300'
+    }
+    if(type=='server'){
+        return 'http://aotc-app.mybluemix.net'
+    }
+    if(type=='pDev'){
+        return 'http://115.186.56.78:4300'
+    }if(type=='oDev'){
+        return 'http://172.19.0.89:4300'
+    }
+  //asdasd
+   
+}
+return {
+        ipConfig: ipConfig,
+};
+}
 
 /***/ }),
-/* 330 */,
-/* 331 */
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var angular = __webpack_require__(104);
+/////
+angular.module('AOTC').constant('User_Config', (__webpack_require__(332))());
+
+/***/ }),
+/* 331 */,
+/* 332 */
 /***/ (function(module, exports) {
 
 //User_Config.$inject = [];
@@ -39120,7 +39153,7 @@ function User_Config() {
 };
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39128,12 +39161,12 @@ function User_Config() {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(333));
+angular.module('AOTC').controller('ViewReportsCtrl', __webpack_require__(334));
 angular.module('AOTC').service('ReportService', __webpack_require__(105).ReportService);
 angular.module('AOTC').factory('Excel', __webpack_require__(105).Excel);
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39386,7 +39419,7 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39396,10 +39429,10 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
 
 ////components
 //contract-editor
-angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(335));
+angular.module('AOTC').controller('timelineGraphicalCtrl', __webpack_require__(336));
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {_timelineGraphicalCtrl.$inject = ["$stateParams", "$state", "$location", "$scope", "AOTCService", "$timeout", "$filter", "$q", "$rootScope"];
@@ -40053,7 +40086,7 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40061,7 +40094,7 @@ function _timelineGraphicalCtrl($stateParams, $state, $location, $scope, AOTCSer
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('settingsCTRL', __webpack_require__(337));
+angular.module('AOTC').controller('settingsCTRL', __webpack_require__(338));
 
 angular.module('AOTC').filter('array_join', function () {
     return function join(array, separator, prop) {
@@ -40100,7 +40133,7 @@ angular.module('AOTC').directive('myModal', function() {
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40743,7 +40776,7 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40751,11 +40784,11 @@ function _settings(UtilService, $stateParams, $scope, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(339));
+angular.module('AOTC').controller('settings_tabularCTRL', __webpack_require__(340));
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41488,7 +41521,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41496,8 +41529,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 //var angular = require('angular');
 
-angular.module('AOTC').directive('hasPermission', __webpack_require__(341));
-angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(342));
+angular.module('AOTC').directive('hasPermission', __webpack_require__(342));
+angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(343));
 
 
 
@@ -41509,7 +41542,7 @@ angular.module('AOTC').directive('permissionPerProperty', __webpack_require__(34
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('hasPermission', _hasPermission);
@@ -41565,7 +41598,7 @@ function _hasPermission(AOTCPermissions) {
 }
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports) {
 
 //angular.module('AOTC').directive('permissionPerProperty', _permissionPerProperty);
