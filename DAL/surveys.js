@@ -802,7 +802,7 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
     CREATE(form)-[:hasSubmission]->(sub)            
     WITH * 
     MATCH (form)-[:HAS*]->(question) 
-    CREATE(ans: answer{value: []})
+    CREATE(ans: answer{value: [], comment: ""})
     CREATE(question)-[:hasAnswer]->(ans)
     CREATE(sub)-[:HAS]->(ans)
     RETURN DISTINCT id(sub) as submissionId`;
