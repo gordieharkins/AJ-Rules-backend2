@@ -867,10 +867,11 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         params['answerId'+index] = answer._id;
         params['answerValue'+index] = answer.value;
         params['contradict'+index] = answer.contradict;
+        params['comment'+ index] = answer.comment;
 
         query += `
         WITH *
-        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`} \n
+        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`}, a`+index+`.comment = {comment`+index+`} \n
         CREATE(history`+index+`:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
             answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})
         CREATE(a`+index+`)-[:hasHistory]->(history`+index+`)\n`;
