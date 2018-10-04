@@ -792,21 +792,23 @@ DAL.prototype.getFormSubmissions = function(cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.addNewSubmission = function(formId, data, cb) {
+DAL.prototype.addNewSubmission = function(data, cb) {
     var params = {
-        formId: formId,
         data: data
     }
     var query = `MATCH (form: formVersion) where form.isActive = true
     CREATE(sub:surveySubmission{data})
-    CREATE(form)-[:hasSubmission]->(sub)            
+    CREATE(form)-[:hasSubmission]->(sub)
+    SET sub.formName = form.formName            
     WITH * 
-    SET sub.formName = form.formName
     MATCH (form)-[:HAS*]->(question) 
     CREATE(ans: answer{value: [], comment: ""})
     CREATE(question)-[:hasAnswer]->(ans)
     CREATE(sub)-[:HAS]->(ans)
     RETURN DISTINCT id(sub) as submissionId`;
+
+    // console.log(query);
+    // console.log(params);
 	db.cypher({
         query: query,
         params: params

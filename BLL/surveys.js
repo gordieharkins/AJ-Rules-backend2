@@ -899,7 +899,8 @@ BLL.prototype.addNewSubmission = function(req, res) {
     var userId = req.user[0].userId;
     var userName = req.user[0].userName;
     var time = (new Date()).getTime();
-    var data = JSON.parse(JSON.stringify(req.body.formData));
+    console.log(req.body)
+    var data = JSON.parse(JSON.stringify(req.body));
     data.updatedByUserId = userId;
     data.createdAt = time;
     data.updatedAt = time;
@@ -909,10 +910,10 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.status = "Not Started";
     data.total = 20;
     data.filled = 0;    
-    var formId = req.body.formId;
+    // var formId = req.body.formId;
     
     // console.log(data);rs
-    DAL.addNewSubmission(formId, data, function(error, result) {
+    DAL.addNewSubmission(data, function(error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
