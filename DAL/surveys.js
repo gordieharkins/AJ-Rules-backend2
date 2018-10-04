@@ -986,11 +986,12 @@ DAL.prototype.autoSave = function(data, cb) {
     var params = {
         answerId: data._id,
         contradiction: data.contradict,
-        answerValue: data.value
+        answerValue: data.value,
+        comment: data.comment
     }
 
     var query = `MATCH(ans:answer) WHERE id(ans) = {answerId}
-                SET ans.value = {answerValue}, ans.contradict = {contradiction}`;
+                SET ans.value = {answerValue}, ans.contradict = {contradiction}, ans.comment = {comment}`;
 	db.cypher({
         query: query,
         params: params
