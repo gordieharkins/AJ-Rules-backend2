@@ -801,6 +801,7 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
     CREATE(sub:surveySubmission{data})
     CREATE(form)-[:hasSubmission]->(sub)            
     WITH * 
+    SET sub.formName = form.formName
     MATCH (form)-[:HAS*]->(question) 
     CREATE(ans: answer{value: [], comment: ""})
     CREATE(question)-[:hasAnswer]->(ans)
