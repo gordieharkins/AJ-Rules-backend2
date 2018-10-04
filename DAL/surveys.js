@@ -797,7 +797,7 @@ DAL.prototype.addNewSubmission = function(formId, data, cb) {
         formId: formId,
         data: data
     }
-    var query = `MATCH (form: formVersion) where id(form) = {formId}
+    var query = `MATCH (form: formVersion) where form.isActive = true
     CREATE(sub:surveySubmission{data})
     CREATE(form)-[:hasSubmission]->(sub)            
     WITH * 
@@ -914,7 +914,8 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
         createdAt: (new Date()).getTime()
     }
     var query = `MATCH(survey: surveyForm) where id(survey) = 9946540
-    MERGE(survey)-[:version]-(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}})\n`;
+                MATCH(survey)-[:version]->(prevForm: formVersion) SET prevForm.isActive = false
+    MERGE(survey)-[:version]->(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive = true})\n`;
     for(var i = 0; i < data.questions.length; i++){
         var question = JSON.parse(JSON.stringify(data.questions[i]));
         delete question.has;
