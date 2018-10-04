@@ -1147,7 +1147,29 @@ BLL.prototype.autoSave = function(req, res) {
 }
 // ---------------------END---------------------
 
-
+//----------------------------------------------
+// getStates
+//----------------------------------------------
+BLL.prototype.getStates = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // var userData = req.user[0];
+    // var data = req.body;
+    DAL.getStates(function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
 function sortFormData(data, cb){
     // console.log(formData.value.hassubmission[0].has);
     console.log(data);

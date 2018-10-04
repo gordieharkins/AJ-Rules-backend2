@@ -994,3 +994,15 @@ DAL.prototype.autoSave = function(data, cb) {
         cb(err, results);
     });
 }
+
+//--------------------------------------------------------
+// getStates
+//--------------------------------------------------------
+DAL.prototype.getStates = function(cb) {
+    var query  = 'MATCH(n:State) OPTIONAL MATCH(n)-[]->(m:Jurisdiction) Return n.State as state, collect(m.Jurisdiction) as jurisdiction';
+    db.cypher({
+        query: query,
+    }, function(err, results) {
+        cb(err, results);
+    });
+}

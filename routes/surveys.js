@@ -149,4 +149,9 @@ router.post('/autoSave', function(req, res, next) {
     BLL.autoSave(req, res);
 });
 
+router.get('/getStates', function(req, res, next) {
+    // console.log("here");
+    BLL.getStates(req, res);
+});
+
 module.exports = router;
