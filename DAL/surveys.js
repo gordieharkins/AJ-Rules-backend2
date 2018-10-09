@@ -992,10 +992,10 @@ DAL.prototype.autoSave = function(data, cb) {
         submissionId: data.submissionId
     }
 
-    var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId} SET sub.contradict = {submissionContradict}
+    var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
                 MATCH(ans:answer) WHERE id(ans) = {answerId}
-                SET ans.value = {answerValue}, ans.contradict = {contradiction}, ans.comment = {comment}`;
-                console.log("something");
+                SET ans.value = {answerValue}, ans.contradict = {contradiction}, 
+                ans.comment = {comment}, sub.contradict = {submissionContradict}`;
 
     console.log(query);
     console.log(params);
