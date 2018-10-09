@@ -1128,7 +1128,7 @@ BLL.prototype.getReports = function(req, res) {
 // autoSave
 //----------------------------------------------
 BLL.prototype.autoSave = function(req, res) {
-    if (!req || req === null || req === undefined) {
+    if (!req.body || req.body === null || req.body === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
@@ -1190,6 +1190,7 @@ function sortFormData(data, cb){
 function sortFormQuestions(data, cb){
     // console.log(formData.value.hassubmission[0].has);
     // console.log(data);
+   
     data.forEach(function(formData){
         formData.value.has.sort(function(a,b){ return a.order - b.order});
         formData.value.has.forEach(function(question){
