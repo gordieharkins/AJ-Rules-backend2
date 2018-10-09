@@ -17,7 +17,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-        var ip = AotcIp.ipConfig('oDev')
+        var ip = AotcIp.ipConfig('local')
 
 
         var role = localStorage.getItem('role');
