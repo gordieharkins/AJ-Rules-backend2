@@ -899,7 +899,7 @@ BLL.prototype.addNewSubmission = function(req, res) {
     var userId = req.user[0].userId;
     var userName = req.user[0].userName;
     var time = (new Date()).getTime();
-    console.log(req.body)
+    // console.log(req.body)
     var data = JSON.parse(JSON.stringify(req.body));
     data.updatedByUserId = userId;
     data.createdAt = time;
@@ -1173,7 +1173,7 @@ BLL.prototype.getStates = function(req, res) {
 // ---------------------END---------------------
 function sortFormData(data, cb){
     // console.log(formData.value.hassubmission[0].has);
-    console.log(data);
+    // console.log(data);
     data.forEach(function(formData){
         formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
         formData.value.hassubmission[0].has.forEach(function(question){

@@ -32,10 +32,10 @@ DAL.prototype.getSurveysList = function(cb) {
     var sqlRequest = new SQL.Request();
 
     sqlRequest.query(getSurveysList).then(function(result) {
-        console.log("result : "+result);
+        // console.log("result : "+result);
         cb(null, result);
     }).catch(function(err) {
-        console.log("Error : "+err);
+        // console.log("Error : "+err);
         cb(err, null);
     });
 
@@ -831,10 +831,13 @@ DAL.prototype.getSubmissionData = function(data, cb) {
     var params = {
         submissionId: data.submissionId
     }
-    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer) where id(sub) = {submissionId}
+    var query = `MATCH(sub:surveySubmission)-[:HAS]->(ans:answer) where id(sub) = {submissionId}
+    match path = (sub)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(ans)
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
+
+    // console.log(query,params);
 	db.cypher({
         query: query,
         params: params
@@ -935,7 +938,7 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
     }
 
     // var query = ``;
-    console.log(params);
+    // console.log(params);
 	db.cypher({
         query: query,
         params: params
@@ -997,8 +1000,8 @@ DAL.prototype.autoSave = function(data, cb) {
                 SET ans.value = {answerValue}, ans.contradict = {contradiction}, 
                 ans.comment = {comment}, sub.contradict = {submissionContradict}`;
 
-    console.log(query);
-    console.log(params);
+    // console.log(query);
+    // console.log(params);
 	db.cypher({
         query: query,
         params: params
