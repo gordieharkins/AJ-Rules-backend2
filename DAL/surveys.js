@@ -760,3 +760,27 @@ DAL.prototype.getSurveyReport = function(data, cb) {
     // });
 }
 // ---------------------END---------------------
+
+// ---------------------------------------------
+// Single RR adding against a propertyId
+// ---------------------------------------------
+DAL.prototype.addAJRules = function(data, cb) {
+    var params = data;
+
+    const query = 'create(jurisdiction1:jurisdictionRules{jurisdiction: {jurisdiction} }) \
+    create(jurisdiction1)-[:rule]->(appealDeadline:appealDeadline{deadline: {appealDeadline} , type: {appealDateType}, isAppealForm: {isAppealForm} }) \
+    create(jurisdiction1)-[:rule]->(appealFormSubmittalFormat:appealFormSubmittalFormat{value: {appealFormSubmittalFormat} }) \
+    create(jurisdiction1)-[:rule]->(appealFromSignatureRequirements:appealFromSignatureRequirements{value: {appealFromSignatureRequirements} }) \
+    create(jurisdiction1)-[:rule]->(appealEvidenceSubmission:appealEvidenceSubmission{value: {appealEvidenceSubmissionValue} , days: {appealEvidenceSubmissionDays} }) \
+    create(jurisdiction1)-[:rule]->(appealPackageItems:appealPackageItems{value: {appealPackageItems} }) \
+    create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
+
+
+    db.cypher({
+        query: query,
+        params:params
+    }, function(err, results) {
+        cb(err, results);
+    });
+};
+// ---------------------END---------------------
