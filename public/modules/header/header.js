@@ -1,6 +1,5 @@
 'use strict';
 
-
 _header.$inject = ["User_Config", "$state", "$timeout"];
 module.exports = _header;
 
@@ -8,20 +7,29 @@ module.exports = _header;
 //    .directive('header', _header
 //    );
 function _header(User_Config, $state, $timeout) {
-    var controller = ['$scope', '$location', 'AOTCService', '$rootScope', function ($scope, $location, AOTCService, $rootScope) {
+    var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
         ////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-
+        $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
-
-
+        $scope.active = ''
+        var ip = AotcIp.ipConfig('local')
 
 
         var role = localStorage.getItem('role');
+
+        
+        $scope.bindLink = function(){
+            var role2 = localStorage.getItem('role');
+            var token = localStorage.getItem('token');
+             $scope.sendSurveylink = ip+"/login/"+token+"/"+role2
+            window.location.href = $scope.sendSurveylink;
+        }
+      
         $scope.role = role;
 
         if (role == User_Config.AJ_USER) {
@@ -39,6 +47,8 @@ function _header(User_Config, $state, $timeout) {
             var userResult = JSON.parse(localStorage.getItem('userJson'));
             $scope.name = userResult.userData.name;
         }
+
+     
 
         $scope.$on('userRole', function (ev, userRole) {
             $timeout(function () {
@@ -75,46 +85,59 @@ function _header(User_Config, $state, $timeout) {
             $("#head_danger").fadeIn(1500).delay(500).fadeOut(500);
         });
 
+        $scope.activateHeader = function(text){
+            $scope.active = text
+
+        }
+        $scope.$on('notifications', function(ev, data) {
+         console.log(data) 
+         $scope.allNotifications = data
+        
+        });
+
+        $rootScope.$watch('allNotifications', function(newValue, oldValue) {
+            $scope.allNotifications = newValue
+        })
 
         $scope.OpenNotfModal = function (_notf) {
             $scope.openNotModal = true;
-            // try {
-            //     var url = '/timeline/markAsRead';
-            //     var _data = {
-            //         "notId": _notf.notifications._id
-            //     };
-            //     if (_notf.notification.properties.readFlag == 0) {
-            //         $("#preloader").css("display", "block");
-            //         AOTCService.postDataToServer(url, _data)
-            //             .then(function (result) {
-            //                 $scope.selectedNotification = _notf;
-            //                 $("#myNotificationModal").modal('show');
-            //                 $rootScope.unreadNotifications = 0;
-            //                 $timeout(function () {
-            //                     try {
-            //                         //
-            //                         _notf.notification.properties.readFlag = 1;
-            //                         for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
-            //                             var _item = $rootScope.allNotifications.external[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+            try {
+                var url = '/timeline/markAsRead';
+                var _data = {
+                    "notId": _notf.notifications._id
+                };
+                if (_notf.notification.properties.readFlag == 0) {
+                    $("#preloader").css("display", "block");
+                    AOTCService.postDataToServer(url, _data)
+                        .then(function (result) {
+                            $scope.selectedNotification = _notf;
+                            $("#myNotificationModal").modal('show');
+                            $rootScope.unreadNotifications = 0;
+                            $timeout(function () {
+                                try {
+                                    //
+                                    _notf.notification.properties.readFlag = 1;
+                                    for (var i = 0; i < $rootScope.allNotifications.external.length; i++) {
+                                        var _item = $rootScope.allNotifications.external[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
 
-            //                         }
-            //                         for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
-            //                             var _item = $rootScope.allNotifications.internal[i];
-            //                             if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
-            //                         }
-            //                     } catch (_e) {}
-            //                 });
-            //                 $("#preloader").css("display", "none");
-            //             }, function () {
+                                    }
+                                    for (var i = 0; i < $rootScope.allNotifications.internal.length; i++) {
+                                        var _item = $rootScope.allNotifications.internal[i];
+                                        if (_item.notification.properties.readFlag == 0) $rootScope.unreadNotifications++;
+                                    }
+                                } catch (_e) {}
+                            });
+                           
+                        }, function () {
 
-            //                 $("#preloader").css("display", "none");
-            //             });
-            //     } else {
-            //         $scope.selectedNotification = _notf;
-            //         $("#myNotificationModal").modal('show');
-            //     }
-            // } catch (_e) {}
+                           
+                        });
+                } else {
+                    $scope.selectedNotification = _notf;
+                    $("#myNotificationModal").modal('show');
+                }
+            } catch (_e) {}
 
 
 

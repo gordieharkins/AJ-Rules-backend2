@@ -13,9 +13,13 @@ console.log("Connecting to GraphDB...");
 
 //office server
 
-var test = 'http://neo4j:object00@71.114.64.10:7474';
-//var test = 'http://neo4j:object00@172.19.44.41:7474';
+// var test = 'http://neo4j:object00@202.69.61.245:7474';
+// var test = 'http://neo4j:object00@localhost:7474';
 
+// var test = 'http://neo4j:object00@172.19.0.89:7474';
+// var test = 'http://neo4j:object00@115.186.56.78:7474';http://71.114.64.10:
+// var test = 'http://neo4j:object00@71.114.64.10:7474';http://169.62.218.108
+var test = 'http://neo4j:object00@169.62.218.108:7474';
 var db = new neo4j.GraphDatabase(test);
 // console.log(test);
 

@@ -43,13 +43,11 @@ function IncomeExpenseParser(){
 
 IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fileName, originalFileName1, mycb) {
 	var incomeExpense = {};
-	// console.log("file buffer: ",fileBuffer);
     var fileType = getFileType(fileBuffer);
-	console.log("fileType: ****",fileType);
+	// console.log("fileType: ****",fileType);
 
 	if (fileType == UNKNOWN_FILE_TYPE ){
 		incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-		// console.log("IE parser.js" , incomeExpense);
 		mycb(incomeExpense);
 	}
 	else if (fileType == YARDI_IE_16_FILE_TYPE ){
@@ -69,18 +67,10 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 		],
 		function(err, results) {
 			var incomeExpense = results[1];
-			// console.log("results[1]: ",results[1]);
 			if(incomeExpense === null  || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js false" , incomeExpense);
 				mycb(incomeExpense);
-			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
-			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
-			// 	mycb(incomeExpense);
-			// }else{
 			}else{
-				// console.log("IE parser.js true" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -106,15 +96,8 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
-			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
-			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
-			// 	mycb(incomeExpense);
-			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -139,15 +122,8 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
-			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
-			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
-			// 	mycb(incomeExpense);
-			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}

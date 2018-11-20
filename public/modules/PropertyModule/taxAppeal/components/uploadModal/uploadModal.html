@@ -169,6 +169,32 @@
         outline: none !important;
         box-shadow: none !important;
     }
+    .black-button{
+    min-width: 60px;
+    background: #03a4fc;
+    color: #ffffff;
+    border: 1px solid #03a4fc;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    right: 8px;
+    position: absolute;
+    bottom: 10px;
+  }
+  .disabled-button{
+    min-width: 60px;
+    background: #cacaca;
+    color: #ffffff;
+    border: 1px solid #cacaca;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    right: 8px;
+    position: absolute;
+    bottom: 10px;
+  }
 
 </style>
 <div class="popup-overlay">
@@ -181,7 +207,7 @@
                     <button ng-click="signModal(2)" type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="height:200px">
-                    <label class="choose-type">Choose Type File</label>
+                    <label class="choose-type">Choose File Type</label>
                     <div class="radio-box">
                         <form>
                             <label class="radio" style=" padding-right: 15px;">
@@ -205,7 +231,7 @@
                         position: absolute;
                         margin-left: 140px;">{{fileName}}</span>
                     </div>
-                    <button ng-click="sendData(uploadRadio)" class="black-button">Done</button>
+                <button   ng-class="fileName.length> 0 ? 'black-button':'disabled-button'"  ng-click=" sendData(uploadRadio)">Done</button>
                 </div>
             </div>
         </div>

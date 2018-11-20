@@ -165,6 +165,164 @@ function _UtilService($http, $filter) {
             });
     }
 
+    function filterJurisdictions(data) {
+        var jurisdictions = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+             jurisdictions.push({name: data[i].name});
+        }
+
+        return jurisdictions;
+
+    }
+
+    function filterOwner(data) {
+        var owner = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                owner.push({ownerName: data[i].properties[s].ownerName, name: data[i].name});
+            }
+           
+        }
+
+        return owner;
+
+    }
+
+    function filterZipCode(data) {
+        var zipCode = []
+        console.log(data)
+        for (var i = 0 ; i < data.length; i++) {
+            for (var s = 0 ;s < data[i].properties.length ; s++) {
+                zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
+            }
+           
+        }
+
+        zipCode = extractDistinct(zipCode, 'zipCode')
+
+        return zipCode;
+
+    }
+
+    function extractDistinct(array,property){
+        var unique = {};
+        var distinct = [];
+        for( var i in array ){
+           if( typeof(unique[array[i][property]]) == "undefined"){
+              distinct.push(array[i]);
+           }
+           unique[array[i][property]] = 0;
+        }
+        return distinct;
+    }
+
+    function checkMarkingData(input) {
+        var countFalse = 0;
+        var countTrue  = 0 ;
+        for (var i = 0 ; i < input.length ; i++) {
+             if(input[i].value == true) {
+                 countTrue++
+             }  
+
+        }
+
+        for (var i = 0 ; i < input.length ; i++) {
+            if(input[i].value == false) {
+                countFalse++
+            }  
+
+       }
+
+        if (countTrue == input.length || countFalse == input.length) {
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+
+    function extractZipCodes(input, data) {
+
+        var markAll = checkMarkingData(input)
+        var results ={zipCode: [], ownerName: []}
+        if(markAll==true) {
+            results.zipCode =  filterZipCode(data);
+            results.ownerName = filterOwner(data)
+
+            return results;
+        }
+
+        
+        for (var t = 0 ; t < input.length ;t++) {
+            if(input[t].value==true) {
+                for (var i = 0 ; i < data.length; i++) {
+                    if(input[t].name==data[i].name) {
+                    for (var s = 0 ;s < data[i].properties.length ; s++) {
+                       
+                        results.zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});
+                        results.ownerName.push({ownerName: data[i].properties[s].ownerName,name: data[i].name})
+                    }
+                }
+                   
+                }
+            }
+        }
+
+        results.zipCode = extractDistinct(results.zipCode, 'zipCode')
+
+        return results;
+
+    }
+
+    function restoreState(data,compare,property) {
+        
+        for (var i = 0 ; i < data.length ; i++) {
+            if(data[i][property]==compare.data) {
+                data[i].value = false;
+                break;
+            }
+        }
+        return data
+    
+    }
+
+    function restoreJurisdictions(data) {
+        for (var i = 0 ; i < data.length ; i++) {
+          
+                data[i].value = false;
+            }
+
+        return data    
+    }
+
+
+    function  removeAllNull(data) {
+        var tempData = []
+        for (var i = 0 ; i  < data.length; i++) {
+
+            for (var j = 0 ; j  < data[i].properties.length;j++) {
+                
+                for (var k  = 0 ; k  < data[i].properties[j].events.length;k++) {
+            
+                    if(!data[i].properties[j].events[k]) {
+                        data[i].properties[j].events.splice(k,1)
+                    }
+                }
+            }
+        }
+
+        return data
+    }
+
+    function checkStates(data, name){
+
+    }
+    
+
 
     return {
         clearFile: clearFile,
@@ -173,6 +331,13 @@ function _UtilService($http, $filter) {
         numberFormatterValuation: numberFormatterValuation,
         keyValMaker: keyValMaker,
         reducedData: reducedData,
+        filterJurisdictions: filterJurisdictions,
+        filterOwner: filterOwner,
+        filterZipCode: filterZipCode,
+        extractZipCodes: extractZipCodes,
+        restoreState: restoreState,
+        restoreJurisdictions: restoreJurisdictions,
+        removeAllNull: removeAllNull
 
     };
 }

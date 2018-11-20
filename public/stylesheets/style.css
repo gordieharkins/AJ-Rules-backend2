@@ -9,6 +9,10 @@ body,html {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	color: #ffffff;
 }
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	text-transform: capitalize !important;
+	letter-spacing: 0 !important;
+}
 
 a {
 	text-decoration: none;
@@ -79,3 +83,25 @@ pre {
 	padding: 0;
 	margin: 0;
 }
+
+@media (max-width: 800px) {
+
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+		text-transform: capitalize !important;
+		letter-spacing: 0 !important;
+		margin: 0 !important;
+		padding: 12px 0 0 8px;
+		font-size: 14px;
+	}
+	.image-lg {
+		width: 60px;
+	}
+	.image-pr {
+		width: 52px;
+	}
+	.image-ts {
+		width: 79px;
+	}
+
+}
+

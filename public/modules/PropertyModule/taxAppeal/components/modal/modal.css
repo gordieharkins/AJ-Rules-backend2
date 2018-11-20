@@ -124,13 +124,13 @@ thead tr th span{
     border-bottom: 1px solid #ededed;
   }
   .modal-button{
-    right: 30px;
+    right: 13px;
     position: absolute;
-    min-width: 60px;
+    min-width: 73px;
     background: #03a4fc;
     color: white;
     border: 1px solid #03a4fc;
     height: 25px;
     margin: 0 auto;
-    text-align: center;
+    text-align: center;    line-height: 21px;
   }

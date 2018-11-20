@@ -1,6 +1,6 @@
 var SQL = require('mssql');
 
-var connectionString = "mssql://sa:Spring!@2018@71.114.64.10/aotc";
+var connectionString = "mssql://sa:Spring!@2018@172.19.0.89/aotc";
 // var connectionString = "mssql://admin:root@172.19.44.41/aotc";
 
 // var connectionString = "mssql://admin:root@208.109.52.74/aotc_mvp";

@@ -866,16 +866,17 @@ DAL.prototype.linkExistingProperties = function(privateId, publicId, cb) {
 // ---------------------------------------------
 // Delete multiple properties by ID
 // ---------------------------------------------
-DAL.prototype.deletePropertiesByIds = function(propertiesIds, userId, cb) {
+DAL.prototype.deletePropertiesByIds = function(propertyIds, userId, cb) {
 
     var deleteDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
-    var query = `MATCH (prop:property) WHERE id(prop) IN ` + JSON.stringify(propertiesIds.propertiesIds) + `
+    var query = `MATCH (prop:property) WHERE id(prop) IN {propertyIds}
         SET prop.isDeleted = true
         SET prop.deleteDate = {deleteDate}
         SET prop.deletedBy = {deletedBy}`;
     db.cypher({
         query: query,
         params:{
+            propertyIds: propertyIds,
             deletedBy:userId,
             deleteDate:deleteDate
         }
@@ -1128,6 +1129,26 @@ DAL.prototype.getAJPublicProperties = function(data, cb) {
         return prop
         ORDER BY id(prop) SKIP {skip} LIMIT {page}`;
     }
+
+    // else {
+    //     query += `MATCH(prop:publicProperty) where prop.isDeleted = false AND `
+    //     for(var i = 0; i < data.state.length; i++){
+    //         params["state" + i] = data.state[i];
+    //         if(i > 0){
+    //             query += ` OR `;
+    //             query += `prop.ownerState =~ '.*{state`+i+`}.*'`;
+    //         } else {
+    //             query += `(prop.ownerState =~ '.*{state`+i+`}.*'`;
+    //         }
+
+    //         if(i == data.state.length - 1){
+    //             query +=`)`;
+    //         }
+    //     }
+        
+    //     query += ` return prop
+    //     ORDER BY id(prop) SKIP {skip} LIMIT {page}`;
+    // }
     
 
     // console.log(query);

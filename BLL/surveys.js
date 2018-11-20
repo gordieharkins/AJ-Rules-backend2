@@ -170,7 +170,7 @@ BLL.prototype.getEditedSurveyById = function (id, res) {
 }
 // ---------------------------------------------
 function AJruleToCypher(json) {
-    let jurisdiction = json.result.value.jurisdiction
+    let jurisdiction = json.value.jurisdiction
     let appealDeadline = ""
     let appealDateType = ""
     let isAppealForm = ""
@@ -183,8 +183,8 @@ function AJruleToCypher(json) {
     let appealPackageSubmittalFormatDeadline = ""
     let daysFromNotice = null
     console.log(jurisdiction)
-    for (let i = 0; i < json.result.value.hassubmission[0].has.length; i++) {
-        let question = json.result.value.hassubmission[0].has[i]
+    for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
+        let question = json.value.hassubmission[0].has[i]
         if (question.ajRule == "Appeal Deadline Format") {
             console.log(question.hasanswer[0].value.length)
             if (question.hasanswer[0].value.length == 1) {
@@ -1016,4 +1016,541 @@ function parseAnswers(answer) {
     }
 
     return answers;
+}
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+//==========================================================================================================
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.getFormSubmissions = function(data, res) {
+    if (!data || data === null || data === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    DAL.getFormSubmissions(function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            console.log(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            if(result.length > 0){
+                var result = JSON.parse(JSON.stringify(result[0]));
+            } else {
+                var result = {};
+            }
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.addNewSubmission = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // console.log(req.user[0]);
+    var userId = req.user[0].userId;
+    var userName = req.user[0].userName;
+    var time = (new Date()).getTime();
+    // console.log(req.body)
+    var data = JSON.parse(JSON.stringify(req.body));
+    data.updatedByUserId = userId;
+    data.createdAt = time;
+    data.updatedAt = time;
+    data.createdByUserId = userId;
+    data.updatedByUserName = userName;
+    data.contradict = false;
+    data.status = "Not Started";
+    data.total = 20;
+    data.filled = 0;    
+    // var formId = req.body.formId;
+    
+    // console.log(data);rs
+    DAL.addNewSubmission(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.getSubmissionData = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getSubmissionData(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormSubmissions
+//----------------------------------------------
+BLL.prototype.updateSubmissionData = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+
+    var userId = req.user[0].userId;
+    var userName = req.user[0].userName;
+    var data = req.body;
+
+    DAL.updateSubmissionData(data, userName, userId, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            console.log(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+    // res.send(data);
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.getFormQuestions = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getFormQuestions(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            sortFormQuestions(JSON.parse(JSON.stringify(result)), function(sortedData){
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
+            });
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getFormQuestions
+//----------------------------------------------
+BLL.prototype.addNewForm = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    var userData = req.user[0];
+    var data = req.body;
+    DAL.addNewForm(data, userData, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getHistory
+//----------------------------------------------
+BLL.prototype.getHistory = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // var userData = req.user[0];
+    var data = req.body;
+    DAL.getHistory(data, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getHistory
+//----------------------------------------------
+BLL.prototype.getReports = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    DAL.getReports(function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            var report = [];
+            sortFormData(result, function(sortedData){
+                sortedData.forEach(function(value){
+                    var survey = {
+                        jurisdiction: value.value.jurisdiction,
+                        id: value.value.jurisdiction,
+                        formName: value.value.formName,
+                        contradict: value.value.contradict,
+                        questions: []
+                    };
+
+                    value.value.hassubmission[0].has.forEach(function(parent){
+                        var parentQuestion = {
+                            ajrule: parent.ajRule,
+                            answer: parent.hasanswer[0].value
+                        };
+                        if(report.length > 0){
+                            var parentIndex = report[0].questions.findIndex(function(pq){
+                                return pq.ajrule == parentQuestion.ajrule;
+                            });
+                            survey.questions[parentIndex] = parentQuestion;
+                        } else {
+                            survey.questions.push(parentQuestion);
+                        }
+                        if(parent.has != undefined){
+                            parent.has.forEach(function(child){
+                                var childQuestion = {
+                                    ajrule: child.ajRule,
+                                    answer: child.hasanswer[0].value
+                                };
+                                if(report.length > 0){
+                                    var childIndex = report[0].questions.findIndex(function(cq){
+                                        return cq.ajrule == childQuestion.ajrule;
+                                    });
+                                    survey.questions[childIndex] = childQuestion;
+                                } else {
+                                    survey.questions.push(childQuestion);
+                                }
+                            });
+                        }
+                    });
+                    report.push(survey);
+                });
+                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, report, res);
+            });
+
+            
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// autoSave
+//----------------------------------------------
+BLL.prototype.autoSave = function(req, res) {
+    if (!req.body || req.body === null || req.body === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // var userData = req.user[0];
+    var data = req.body;
+    DAL.autoSave(data, function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.UPDATE_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+//----------------------------------------------
+// getStates
+//----------------------------------------------
+BLL.prototype.getStates = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+    // var userData = req.user[0];
+    // var data = req.body;
+    DAL.getStates(function(error, result) {
+        if (error) {
+            console.log(error);
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+        }
+    });
+}
+// ---------------------END---------------------
+function sortFormData(data, cb){
+    // console.log(formData.value.hassubmission[0].has);
+    // console.log(data);
+    data.forEach(function(formData){
+        formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
+        formData.value.hassubmission[0].has.forEach(function(question){
+            // console.log(has);
+            if(question.has != undefined){
+                question.has.sort(function(a, b){ return a.order - b.order});
+            }
+        });
+    });
+    
+    cb(data);
+}
+
+function sortFormQuestions(data, cb){
+    // console.log(formData.value.hassubmission[0].has);
+    // console.log(data);
+   
+    data.forEach(function(formData){
+        formData.value.has.sort(function(a,b){ return a.order - b.order});
+        formData.value.has.forEach(function(question){
+            // console.log(has);
+            if(question.has != undefined){
+                question.has.sort(function(a, b){ return a.order - b.order});
+            }
+        });
+    });
+    
+    cb(data);
+}
+
+//----------------------------------------------
+// surveysToAJrules
+//----------------------------------------------
+BLL.prototype.surveysToAJrules = function(req, res) {
+    if (!req || req === null || req === undefined) {
+        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+        return;
+    }
+
+    var data = req.body;
+    DAL.getSubmissionData(data, function(error, result) {
+        if (error) {
+            error.userName = loginUserName;
+            ErrorLogDAL.addErrorLog(error);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            return;
+        } else{
+            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                var myJson = sortedData[0]
+                var params = AJruleToCypher(myJson)
+                DAL.surveysToAJrules(params, function(error, result2) {
+                    if (error) {
+                        error.userName = loginUserName;
+                        ErrorLogDAL.addErrorLog(error);
+                        Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+                        return;
+                    } else{
+                        Response.sendResponse(true, Response.REPLY_MSG.SAVE_SUCCESS ,result2, res);
+                    }
+                });
+                // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+            });
+        }
+    });
+}
+// ---------------------END---------------------
+
+
+function AJruleToCypher(json) {
+    console.log(JSON.stringify(json))
+    let jurisdiction = json.value.jurisdiction
+    let appealDeadline = ""
+    let appealDateType = ""
+    let isAppealForm = ""
+    let appealFormSubmittalFormat = ""
+    let appealFromSignatureRequirements = ""
+    let appealEvidenceSubmissionValue = ""
+    let appealEvidenceSubmissionDays = ""
+    let appealPackageItems = ""
+    let appealPackageSubmittalFormatValue = ""
+    let appealPackageSubmittalFormatDeadline = ""
+    let daysFromNotice = null
+    console.log(jurisdiction)
+    for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
+        let question = json.value.hassubmission[0].has[i]
+        if (question.ajRule == "Appeal Deadline Format") {
+            console.log(question.hasanswer[0].value.length)
+            if (question.hasanswer[0].value.length == 1) {
+                appealDateType = question.hasanswer[0].value[0]
+            } else {
+                appealDateType = question.hasanswer[0].value
+            }
+            console.log(appealDateType)
+
+            for (let j = 0; j < question.has.length; j++) {
+                if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
+                    if (appealDateType == "A Firm Date") {
+
+                        if (question.has[j].hasanswer[0].value.length == 1) {
+                            appealDeadline = question.has[j].hasanswer[0].value[0]
+                        } else {
+                            appealDeadline = question.has[j].hasanswer[0].value
+                        }
+                    } else if (appealDateType == "Approx Deadline") {
+                        daysFromNotice = question.has[j].hasanswer[0].value[0]
+                    }
+
+                    console.log(appealDeadline)
+                    break
+                }
+            }
+        }
+
+        if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
+            let myans = question.hasanswer[0].value[0]
+            console.log("temp", myans)
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].enabled == myans) {
+                    let tempappealDeadline = question.has[k].hasanswer[0].value[0]
+                    console.log("temp", tempappealDeadline)
+                    var tdate = new Date(tempappealDeadline);
+                    var newdate = new Date(tdate);
+                    newdate.setDate(newdate.getDate() + daysFromNotice);
+                    appealDeadline = newdate
+                    console.log("temp1, ", newdate)
+
+
+                }
+            }
+
+
+            console.log(isAppealForm)
+        }
+
+        if (question.ajRule == "Appeal Form") {
+            if (question.hasanswer[0].value == "Yes") {
+                isAppealForm = true
+            } else {
+                isAppealForm = false
+            }
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].ajRule == "Appeal Form Signature Requirements") {
+                    appealFromSignatureRequirements = question.has[k].hasanswer[0].value
+                    console.log(appealFromSignatureRequirements)
+                }
+            }
+
+
+            console.log(isAppealForm)
+        }
+
+        if (question.ajRule == "Appeal Form Submittal Format") {
+            appealFormSubmittalFormat = question.hasanswer[0].value
+            console.log(appealFormSubmittalFormat)
+        }
+        if (question.ajRule == "Event when evidence is due") {
+            appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
+            console.log(appealEvidenceSubmissionValue)
+            if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
+                // appealEvidenceSubmissionValue = question.hasanswer[0].value
+                appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
+                console.log(appealEvidenceSubmissionDays)
+            } else {
+                appealEvidenceSubmissionDays = ""
+            }
+        }
+        if (question.ajRule == "Appeal Package Items") {
+            if (question.hasanswer[0].value.length == 2) {
+                appealPackageItems = ["IE||3", "RR||2"]
+            } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "RR 2017, RR 2018") {
+                appealPackageItems = ["RR||2"]
+            } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "IE 2018, IE 2019, IE 2017") {
+                appealPackageItems = ["IE||3"]
+            } else {
+                appealPackageItems = question.hasanswer[0].value
+            }
+            console.log(appealPackageItems)
+            console.log(appealPackageItems.length)
+        }
+
+        if (question.ajRule == "Appeal Package Submittal Format") {
+            appealPackageSubmittalFormatValue = question.hasanswer[0].value
+            console.log(appealPackageSubmittalFormatValue)
+        }
+        if (question.ajRule == "Appeal Deadline Format") {
+
+        }
+    }
+    //create cypher
+
+    const params = {
+        jurisdiction,
+        appealDeadline,
+        appealDateType,
+        isAppealForm,
+        appealFormSubmittalFormat,
+        appealFromSignatureRequirements,
+        appealEvidenceSubmissionValue,
+        appealEvidenceSubmissionDays,
+        appealPackageItems,
+        appealPackageSubmittalFormatValue,
+        appealPackageSubmittalFormatDeadline,
+        daysFromNotice
+    };
+    return params;
+    // const query = 'create(jurisdiction1:jurisdictionRules{jurisdiction: {jurisdiction} }) \
+    // create(jurisdiction1)-[:rule]->(appealDeadline:appealDeadline{deadline: {appealDeadline} , type: {appealDateType}, isAppealForm: {isAppealForm} }) \
+    // create(jurisdiction1)-[:rule]->(appealFormSubmittalFormat:appealFormSubmittalFormat{value: {appealFormSubmittalFormat} }) \
+    // create(jurisdiction1)-[:rule]->(appealFromSignatureRequirements:appealFromSignatureRequirements{value: {appealFromSignatureRequirements} }) \
+    // create(jurisdiction1)-[:rule]->(appealEvidenceSubmission:appealEvidenceSubmission{value: {appealEvidenceSubmissionValue} , days: {appealEvidenceSubmissionDays} }) \
+    // create(jurisdiction1)-[:rule]->(appealPackageItems:appealPackageItems{value: {appealPackageItems} }) \
+    // create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
+
+    // // db.executeQuery(query, params);
+    // console.log(query)
 }

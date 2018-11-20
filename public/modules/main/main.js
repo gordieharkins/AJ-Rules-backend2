@@ -355,7 +355,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
         showOverlay: true,
         zoom: 6,
         options: {
-            mapTypeId: google.maps.MapTypeId.SATELLITE
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         }
 
     };
@@ -391,7 +391,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.mapOptions = {
         styles: mapStyleArray,
         maxZoom: 0,
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        mapTypeId: google.maps.MapTypeId.TERRAIN
 
     };
 

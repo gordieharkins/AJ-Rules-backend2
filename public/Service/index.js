@@ -12,6 +12,7 @@ angular.module('AOTC').factory('UtilService', require('./UtilService'));
 
 angular.module('AOTC').factory('AOTCPermissions', require('./permissions.service'));
 angular.module('AOTC').factory('AOTCAuth', require('./auth.service'));
+angular.module('AOTC').factory('AotcIp', require('./ipConfig'));
 
 
 

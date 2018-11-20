@@ -10,6 +10,7 @@ function DAL() {
 
 }
 
+var object = new DAL();
 // ---------------------------------------------
 // getSurvysList
 // ---------------------------------------------
@@ -31,10 +32,10 @@ DAL.prototype.getSurveysList = function(cb) {
     var sqlRequest = new SQL.Request();
 
     sqlRequest.query(getSurveysList).then(function(result) {
-        console.log("result : "+result);
+        // console.log("result : "+result);
         cb(null, result);
     }).catch(function(err) {
-        console.log("Error : "+err);
+        // console.log("Error : "+err);
         cb(err, null);
     });
 
@@ -784,3 +785,288 @@ DAL.prototype.addAJRules = function(data, cb) {
     });
 };
 // ---------------------END---------------------
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getFormSubmissions = function(cb) {
+	// var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	// with collect(a) as paths
+	// CALL apoc.convert.toTree(paths) yield value
+    // RETURN value`;
+    
+    var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission)
+    RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
+	db.cypher({
+		query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.addNewSubmission = function(data, cb) {
+    var params = {
+        data: data
+    }
+    var query = `MATCH (form: formVersion) where form.isActive = true
+    CREATE(sub:surveySubmission{data})
+    CREATE(form)-[:hasSubmission]->(sub)
+    SET sub.formName = form.formName            
+    WITH * 
+    MATCH (form)-[:HAS*]->(question) 
+    CREATE(ans: answer{value: [], comment: ""})
+    CREATE(question)-[:hasAnswer]->(ans)
+    CREATE(sub)-[:HAS]->(ans)
+    RETURN DISTINCT id(sub) as submissionId`;
+
+    // console.log(query);
+    // console.log(params);
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        if(results.length>0){
+            var data = results[0];
+            object.getSubmissionData(data, function(error, result){
+                cb(err, result);
+            });
+        } else {
+            cb("Failed", null);
+        }
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getSubmissionData = function(data, cb) {
+    var params = {
+        submissionId: data.submissionId
+    }
+    var query = `MATCH(sub:surveySubmission)-[:HAS]->(ans:answer) where id(sub) = {submissionId}
+    match path = (sub)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(ans)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+
+    // console.log(query,params);
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
+    var time = (new Date()).getTime();
+    var params = {
+        submissionId: data.submissionId,
+        answers: data.answers, 
+        time: time,
+        userName: userName,
+        userId: userId,
+        surveyeeName: data.surveyeeName,
+        phone: data.phone,
+        contradict: data.contradict,
+        total: data.total,
+        filled: data.filled,
+        status: data.status
+    }
+    var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
+                SET sub.updatedByUserName = {userName}, sub.updatedByUserId = {userId}, 
+                sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict},
+                sub.total = {total}, sub.filled = {filled}, sub.status = {status}\n`;
+
+    data.answers.forEach(function(answer, index){
+        params['answerId'+index] = answer._id;
+        params['answerValue'+index] = answer.value;
+        params['contradict'+index] = answer.contradict;
+        params['comment'+ index] = answer.comment;
+
+        query += `
+        WITH *
+        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`}, a`+index+`.comment = {comment`+index+`} \n
+        CREATE(history`+index+`:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})
+        CREATE(a`+index+`)-[:hasHistory]->(history`+index+`)\n`;
+    });
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getFormQuestions = function(data, cb) {
+    // var params = {
+    //     submissionId: data.submissionId
+    // }
+    var query = `match path = (:formVersion)-[:HAS*]->(a)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// addNewForm
+//--------------------------------------------------------
+DAL.prototype.addNewForm = function(data, userData, cb) {
+    var params = {
+        userName: userData.userName,
+        userId: userData.userId,
+        formName: data.formName,
+        createdAt: (new Date()).getTime()
+    }
+    var query = `MATCH(survey: surveyForm) where id(survey) = 9946540
+                MATCH(survey)-[:version]->(prevForm: formVersion) SET prevForm.isActive = false
+    MERGE(survey)-[:version]->(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive = true})\n`;
+    for(var i = 0; i < data.questions.length; i++){
+        var question = JSON.parse(JSON.stringify(data.questions[i]));
+        delete question.has;
+        params['question'+i] = question;
+        query += `CREATE(question`+i+`:surveyQuestion{question`+i+`})
+                CREATE(form)-[:HAS]->(question`+i+`)\n`;
+        if(data.questions[i].has != undefined){
+            for(var j = 0; j < data.questions[i].has.length; j++){
+                params['child'+i+""+j] = data.questions[i].has[j];
+                query += `CREATE(child`+i+""+j+`:childQuestion{child`+i+""+j+`})
+                CREATE(question`+i+`)-[:HAS]->(child`+i+""+j+`)\n`;
+            }
+        }
+    }
+
+    // var query = ``;
+    // console.log(params);
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getHistory = function(data, cb) {
+    var params = {
+        answerId: data.answerId
+    }
+    var query = `MATCH(answer)-[:hasHistory]->(history:history) where id(answer) = {answerId} return history ORDER BY history.updatedAt DESC`;
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getReports = function(cb) {
+    // var params = {
+    //     answerId: data.answerId
+    // }
+    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)
+    with collect(path) as paths
+    CALL apoc.convert.toTree(paths) yield value
+    RETURN value`;
+	db.cypher({
+        query: query,
+        // params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// autoSave
+//--------------------------------------------------------
+DAL.prototype.autoSave = function(data, cb) {
+    var params = {
+        answerId: data._id,
+        contradiction: data.contradict,
+        answerValue: data.value,
+        comment: data.comment, 
+        submissionContradict: data.submissionContradict,
+        submissionId: data.submissionId
+    }
+
+    var query = `MATCH(sub:surveySubmission) where id(sub) = {submissionId}
+                MATCH(ans:answer) WHERE id(ans) = {answerId}
+                SET ans.value = {answerValue}, ans.contradict = {contradiction}, 
+                ans.comment = {comment}, sub.contradict = {submissionContradict}`;
+
+    // console.log(query);
+    // console.log(params);
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+//comment
+
+//--------------------------------------------------------
+// getStates
+//--------------------------------------------------------
+DAL.prototype.getStates = function(cb) {
+    var query  = 'MATCH(n:State) OPTIONAL MATCH(n)-[]->(m:Jurisdiction) Return n.State as state, collect(m.Jurisdiction) as jurisdiction';
+    db.cypher({
+        query: query,
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+
+//--------------------------------------------------------
+// surveysToAJrules
+//--------------------------------------------------------
+
+DAL.prototype.surveysToAJrules = function(data, cb) {
+    var params = data
+
+    var query = 'create(jurisdiction1:jurisdictionRules{jurisdiction: {jurisdiction} }) \
+    create(jurisdiction1)-[:rule]->(appealDeadline:appealDeadline{deadline: {appealDeadline} , type: {appealDateType}, isAppealForm: {isAppealForm} }) \
+    create(jurisdiction1)-[:rule]->(appealFormSubmittalFormat:appealFormSubmittalFormat{value: {appealFormSubmittalFormat} }) \
+    create(jurisdiction1)-[:rule]->(appealFromSignatureRequirements:appealFromSignatureRequirements{value: {appealFromSignatureRequirements} }) \
+    create(jurisdiction1)-[:rule]->(appealEvidenceSubmission:appealEvidenceSubmission{value: {appealEvidenceSubmissionValue} , days: {appealEvidenceSubmissionDays} }) \
+    create(jurisdiction1)-[:rule]->(appealPackageItems:appealPackageItems{value: {appealPackageItems} }) \
+    create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
+
+	db.cypher({
+        query: query,
+        params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}

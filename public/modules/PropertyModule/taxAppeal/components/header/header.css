@@ -7,6 +7,10 @@ label{
 i{
   margin: 0 5px;
 }
+.head-filters {
+  padding: 9px 0 0;
+  margin: 0;
+}
 /******************* portfolio area ****************/
 .port-sub {
   text-align: left;
@@ -14,17 +18,17 @@ i{
 .page-heading{
   position: relative;
   margin: 0 0 1px !important;
-  background: #f4f7ff;
+  background: #f9f9f9;
   border-bottom: 1px solid #dddddd;
   padding: 10px;
-  box-shadow:0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+  /*box-shadow:0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);*/
 }
 .page-title{
   color: #00568a;
   font-weight: 700;
   display: inline-block;
   font-size: 16px;
-  margin:12px 0 0;
+  margin:7px 0 0 10px;
   vertical-align: unset;
 }
 .header h1 {
@@ -63,6 +67,7 @@ i{
 .head-filters .filter-btn {
   background: transparent;
   border: none;
+  padding-bottom: 8px;
 }
 .filter-btn i {
   margin: 0 5px;
@@ -105,22 +110,19 @@ i{
 .ad-search, .ad-appeal, .ad-property, .ad-jurisdiction, .jur-search {
   position: relative;
 }
-.head-filters {
-  padding: 0;
-}
 /******************* jurisdiction dropdown ****************** */
 .jurisdiction-dropdown {
   position: absolute;
   background: #ffffff;
-  padding: 10px;
+  padding:0 0 10px;
   border-radius: 2px;
   border: 1px solid #e6e6e6;
   z-index: 9999;
   width: 200px;
-  height: 200px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
   right: 0;
-  overflow: auto;
-  top: 30px;
+  /*overflow: auto;*/
+  top:24px;
 }
 .juris-icon {
   position: absolute;
@@ -130,9 +132,11 @@ i{
 }
 .jurisd-check li{
   display: block;
-  padding:3px 2px !important;
+  padding: 3px 2px !important;
   margin: 0 !important;
   border-radius: 2px;
+  cursor: pointer;
+  border-bottom: 1px solid #e6e6e6;
 }
 .jurisd-check li:last-child{
   margin: 0 !important;
@@ -142,19 +146,23 @@ i{
   width: 100%;
   margin: 0;
   text-align: left;
+  font-weight: normal;
+  cursor: pointer;
 }
 .jurisd-check input {
   float: right;
   margin: 5px 0 0 0;
 }
 .jurisd-check {
-  margin: 15px 0 0;
+  margin: 10px 10px 0;
+  height: 130px;
+  overflow: auto;
 }
 .cart-dropdown {
   position: absolute;
   right: 6px;
-  top: 15px;
-  color: #ffffff;
+  top: 9px;
+  color:#355095;
   font-size: 22px;
 }
 .jurisd-check li:hover {
@@ -164,8 +172,10 @@ i{
   margin: 0 5px;
 }
 /******************* appeal dropdown ****************** */
-.appeal-check{
-  margin-top: 10px;
+.appeal-check {
+  margin: 10px 10px 0;
+  height: 110px;
+  overflow: auto;
 }
 .appeal-check li {
   display: block;
@@ -174,6 +184,12 @@ i{
   padding:3px 2px !important;
   margin: 0 !important;
   border-radius: 2px;
+  cursor: pointer;
+  border-bottom: 1px solid #e6e6e6;
+}
+ul.appeal-check label {
+  font-weight: normal;
+  cursor: pointer;
 }
 .appeal-check li:hover {
   background: #f5f5f5;
@@ -182,24 +198,31 @@ i{
   margin: 0 !important;
 }
 .jurisdiction-dropdown h3 {
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
-  color:#355095;
+  background: #355095;
   font-weight: 600;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px;
+  color: #ffffff;
 }
 .appeal-check li input{
   margin-right: 5px;
   vertical-align: middle;
+  cursor: pointer;
 }
 .appeal-dropdown{
-  width: 282px;
-  height: 220px;
+  width: 200px;
+  /*height: 220px;*/
   border: 1px solid #e6e6e6;
 }
 /***************************property dropdown***************/
+.form-control{
+  font-size: 13px;
+}
 .property-dropdown{
   width:400px;
-  height: 245px;
+  height: 285px;
   border: 1px solid #e6e6e6;
 }
 .property-filter label{
@@ -211,14 +234,14 @@ i{
   display: block;
 }
 .property-ad{
-  width: 45%;
-  margin: 10px 10px 10px 0;
+  width: 100%;
+  margin: 10px 10px 0 0;
   float: left;
 }
 .juris-icon-two{
   position: absolute;
   right: 12px;
-  top: 42px;
+  top: 84px;
   color: #cccccc;
 }
 .juris-icon-five{
@@ -236,15 +259,77 @@ i{
 .property-ad select {
   padding: 0 5px !important;
   cursor: pointer;
+  font-size: 13px;
 }
 .select-dropdown {
   position: absolute;
   right: 1px;
-  top: 30px;
+  top: 35px;
+}
+.search-three {
+  top: 36px;
+  right: 3px;
+}
+/*.owner-feild i {*/
+  /*top: 220px;*/
+  /*right: 11px;*/
+/*}*/
+.zip-span {
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+.zip-check {
+  background: #ffffff;
+  position: absolute;
+  left: -11px;
+  width: 101.5%;
+  top: 23px;
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-top: none;
+  max-height: 150px;
+  overflow: auto;
+}
+.zip-cart {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.zip-span:hover .zip-check{
+  display: block !important;
+}
+.owner-span {
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+.owner-check {
+  background: #ffffff;
+  position: absolute;
+  right: -11px;
+  width: 300px;
+  top: 23px;
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-top: none;
+  max-height: 150px;
+  overflow: auto;
+}
+.owner-cart {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.owner-span:hover .owner-check{
+  display: block !important;
 }
 /************************* show filter ********************/
 .header-col{
   width: 25% !important;
+}
+label.Filter-expand {
+  font-weight: normal !important;
 }
 
 .show-filter-wrap {
@@ -254,6 +339,7 @@ i{
   border-top:1px solid #dddddd;
   margin: 0;
   background: #f4f7ff;
+  z-index: 9;
 }
 .filter-show h2 {
   font-size: 16px;
@@ -274,11 +360,13 @@ i{
   float: right;
   color: #d03031;
   font-weight: 600;
+  cursor: pointer;
 }
 .close-filter i{
   margin: 0 5px 0 0;
   color: #d03031;
   font-weight: normal;
+  cursor: pointer;
 }
 
 /********************************** new row ******************************/
@@ -314,6 +402,7 @@ select{
 }
 ul.jurisd-check input[type="checkbox"] {
   float: right;
+  cursor: pointer;
 }
 input[type="checkbox"] {
   display: block;
@@ -321,8 +410,7 @@ input[type="checkbox"] {
 }
 .select-icon-two {
   position: absolute;
-  right: 4px;
-  top: 68px;
+  right: 73px;
 }
 .advance-filter select{
  padding: 0 5px !important;
@@ -332,10 +420,15 @@ input[type="checkbox"] {
 input[type='text'] {
   padding: 5px 22px 5px 5px;
   height: 36px;
+  font-size: 13px;
 }
 .property-owner li {
   display: inline-block;
   width: 30%;
+  cursor: pointer;
+}
+.property-owner li label {
+  cursor: pointer;
 }
 .property-owner li input[type='radio'] {
   margin: 5px 10px 0 0 !important;
@@ -393,6 +486,29 @@ input[type='text'] {
 ul.appeal-check.appeal-new {
   padding: 0;
 }
+ul.appeal-check.appeal-new li{
+  cursor: pointer;
+}
+.clear {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: normal;
+  cursor: pointer;
+  float: right;
+  background: #fa7220;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.filter-name{
+  float: left;
+  width: 80%;
+}
+.clear-filter {
+  float: left;
+  width: 20%;
+  text-align: right;
+  padding: 6px 0 0;
+}
 
 
     @media (max-width: 1200px) {
@@ -410,6 +526,7 @@ ul.appeal-check.appeal-new {
       .head-filters .filter-btn{
         padding: 0;
       }
+
     }
 
     @media (max-width: 1023px ) {
@@ -418,6 +535,7 @@ ul.appeal-check.appeal-new {
         width: 100%;
         display: block;
       }
+
 
       .filter-sub {
         padding: 0;
@@ -503,6 +621,24 @@ ul.appeal-check.appeal-new {
 
 
     }
+@media (max-width: 800px) {
+
+  .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    text-transform: capitalize !important;
+    letter-spacing: 0 !important;
+  }
+  .image-lg {
+    width: 60px;
+  }
+  .image-pr {
+    width: 52px;
+  }
+  .image-ts {
+    width: 79px;
+  }
+
+}
+
     @media (max-width: 767px){
       .show-filter-wrap{
         top:145px;
@@ -578,3 +714,110 @@ select {
   padding: 0 !important;
 }
 
+.filter-btn:hover + .appeal-wrap {
+  display: block !important;
+}
+
+.filter-btn:hover + .property {
+  display: block !important;
+}
+
+.filter-btn:hover + .jurisdict {
+  display: block !important;
+}
+
+.appeal-wrap:hover, .property:hover, .jurisdict:hover{
+  display: block !important;
+}
+
+
+.filter-tags {
+  background: #f9f9f9;
+  padding: 14px 30px 14px 19px;
+}
+
+.tag {
+    background: #26de85;
+    color: #fff;
+    padding: 5px;
+    border-radius: 9px;
+    margin-right: 9px;
+    display: inline-block;
+    margin: 3px;
+}
+
+
+
+
+/*i.fa.fa-times {*/
+    /*margin: 0;*/
+    /*padding: 2px;*/
+    /*color: #fff !important;*/
+    /*background: #19b76b;*/
+    /*text-align: center;*/
+    /*float: none;*/
+    /*margin-left: 9px;*/
+    /*border-radius: 12px;*/
+/*}*/
+
+/*.fa-close:before, .fa-remove:before, .fa-times:before {*/
+    /*content: "\F00D"  !important;*/
+    /*color: #ffffff !important;*/
+    /*margin-left: 1px !important;*/
+    /*font-size: inherit !important;*/
+    /*border: none !important;*/
+    /*border-radius: none !important;*/
+    /*cursor: pointer;*/
+    /*padding: 0px 0px !important;*/
+/*}*/
+
+
+.tag .fa-times:before {
+    content: "\F00D";
+    color: #ffffff !important;
+    background: #1abf6f;
+    margin-left: 7px;
+    border: none;
+    border-radius: none;
+  cursor: pointer;
+    padding: 2px 3px;
+}
+
+
+.hide-filters {
+    float: right;
+    color: #0b58a2;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 34px;
+    font-weight: bold;
+}
+
+.Filter-expand {
+    background: #36589b;
+    color: #fff;
+    padding: 4px;
+    border-radius: 8px;
+  cursor: pointer;
+}
+
+.filter-bubble {
+  display: inline-block;
+  min-width: 10px;
+  padding: 2px 5px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #cf0303;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0 0 0 5px;
+
+
+}
+.disabled-class {
+  cursor: not-allowed !important;
+  color: #8d928d;
+}

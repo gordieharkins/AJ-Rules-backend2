@@ -360,8 +360,6 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                     filterModel: params.filterModel
                 };
 
-                $("#pri-preloader").css("display", "block");
-
                 PrivatePropertyService.getProps(myParams)
                     .then(function (response) {
                         serverInProgress = 0;

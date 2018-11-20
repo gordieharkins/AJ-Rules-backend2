@@ -34,6 +34,14 @@ var newsFeed = require('./routes/newsFeed');
 var timeline = require('./routes/timeline');
 var admin = require('./routes/admin');
 var appeal = require('./routes/appeal');
+var alerts = require('./BLL/alerts/alerts-routes');
+var alertsCronJobFile = require('./BLL/alerts/alerts-BLL');
+var appealCronJobFile = require('./BLL/appeal');
+var calendarInvites = require('./routes/calendar_invites')
+
+
+var alertsCronJob = new alertsCronJobFile();
+var appealCronJob = new appealCronJobFile();
 
 var zillow = require('./routes/zillow');
 // var cors = require('cors');
@@ -71,14 +79,14 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 // app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 
-// var cors = require('cors');
-// app.use(cors());
-// app.all('*', function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
+var cors = require('cors');
+app.use(cors());
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
@@ -94,6 +102,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes);
 app.use('/users', users);
 // app.use('/appeal', appeal);
+app.use('/aJRules', passport.authenticate('jwt', { session: false }), aJRules);
 app.use('/appeal', passport.authenticate('jwt', { session: false }), appeal);
 app.use('/admin', passport.authenticate('jwt', { session: false }), admin);
 app.use('/rentRolls', passport.authenticate('jwt', { session: false }), rentRolls);
@@ -112,6 +121,8 @@ app.use('/newsFeed', passport.authenticate('jwt', { session: false }),newsFeed);
 app.use('/timeline', passport.authenticate('jwt', { session: false }), timeline);
 app.use('/properties', passport.authenticate('jwt', { session: false }), properties);
 app.use('/incomeExpenses', passport.authenticate('jwt', { session: false }), incomeExpenses);
+app.use('/alerts', passport.authenticate('jwt', { session: false }), alerts);
+app.use('/calendarInvites', calendarInvites);
 
 // app.use('/', routes);
 // app.use('/users', users);
@@ -131,7 +142,8 @@ app.use('/incomeExpenses', passport.authenticate('jwt', { session: false }), inc
 // app.use('/timeline', timeline);
 // // app.use('/properties', properties);
 // app.use('/incomeExpenses', incomeExpenses);
-
+// alertsCronJob.startCronJob();
+// appealCronJob.startCronJob();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
