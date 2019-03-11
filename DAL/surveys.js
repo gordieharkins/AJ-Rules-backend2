@@ -796,17 +796,24 @@ DAL.prototype.addAJRules = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getFormSubmissions = function(cb) {
+DAL.prototype.getFormSubmissions = function(userId, cb) {
 	// var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
 	// with collect(a) as paths
 	// CALL apoc.convert.toTree(paths) yield value
     // RETURN value`;
+    var params = {
+        userId: userId
+    };
     
+    console.log(params);
     var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
-    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission)
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission) where submission.createdByUserId = {userId}
     RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
+
+    console.log(query);
 	db.cypher({
-		query: query
+        query: query,
+        params: params
     }, function(err, results) {
         cb(err, results);
     });
@@ -852,15 +859,18 @@ DAL.prototype.addNewSubmission = function(data, cb) {
 //--------------------------------------------------------
 DAL.prototype.getSubmissionData = function(data, cb) {
     var params = {
-        submissionId: data.submissionId
+        submissionId: data.submissionId,
     }
+
+    // console.log("params: ",params);
+
     var query = `MATCH(sub:surveySubmission)-[:HAS]->(ans:answer) where id(sub) = {submissionId}
     match path = (sub)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(ans)
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
 
-    // console.log(query,params);
+    console.log(query,params);
 	db.cypher({
         query: query,
         params: params

@@ -14,7 +14,7 @@ function ipConfig(type) {
     if(type=='pDev'){
         return 'http://115.186.56.78:4300'
     }if(type=='oDev'){
-        return 'http://172.19.0.89:4300'
+        return 'http://172.19.200.21:4300'
     }
   //asdasd
    

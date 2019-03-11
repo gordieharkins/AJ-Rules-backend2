@@ -1027,12 +1027,15 @@ function parseAnswers(answer) {
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.getFormSubmissions = function(data, res) {
-    if (!data || data === null || data === undefined) {
+BLL.prototype.getFormSubmissions = function(req, res) {
+    if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    DAL.getFormSubmissions(function(error, result) {
+
+    var userId = req.user[0].userId;
+    
+    DAL.getFormSubmissions(userId, function(error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);

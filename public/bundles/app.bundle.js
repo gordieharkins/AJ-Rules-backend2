@@ -24366,7 +24366,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-        var ip = AotcIp.ipConfig('local')
+        var ip = AotcIp.ipConfig('oDev')
 
 
         var role = localStorage.getItem('role');
@@ -39084,7 +39084,7 @@ function ipConfig(type) {
     if(type=='pDev'){
         return 'http://115.186.56.78:4300'
     }if(type=='oDev'){
-        return 'http://172.19.0.89:4300'
+        return 'http://172.19.200.21:4300'
     }
   //asdasd
    
