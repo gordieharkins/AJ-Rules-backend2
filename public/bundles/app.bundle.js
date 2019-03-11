@@ -24366,7 +24366,7 @@ function _header(User_Config, $state, $timeout) {
         $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
         $scope.active = ''
-        var ip = AotcIp.ipConfig('oDev')
+        var ip = AotcIp.ipConfig('server')
 
 
         var role = localStorage.getItem('role');
@@ -39079,7 +39079,7 @@ function ipConfig(type) {
         return 'http://localhost:4300'
     }
     if(type=='server'){
-        return 'http://aotc-app.mybluemix.net'
+        return 'https://aj-rules.mybluemix.net/'
     }
     if(type=='pDev'){
         return 'http://115.186.56.78:4300'
