@@ -137,8 +137,9 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
                       return data
                   }
                   for (var  i = 0 ; i< params.length;i++) {
+                   var filtered =    data.filter(item => item.name == params[i])
                         
-                   result = result.concat(data.filter(item => item.name == params[i]))
+                   result = result.concat(filtered)
                   }
                   
                 
