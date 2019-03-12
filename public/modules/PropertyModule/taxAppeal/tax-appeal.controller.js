@@ -95,7 +95,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         } else if(type==5) {
             $scope.filters.push({data: data.ownerName,type: type})
         } else {
-            $scope.filters = $scope.filters.filter(item => item.type!=type)
+            $scope.filters = $scope.filters.filter(function(item){ item.type!=type})
             if(data.length>0 && data !='None') {
                   $scope.filters.push({data: data,type: type}) 
                 }
@@ -514,7 +514,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             if($scope.search.zipCode[i].value==true) {
                 selected.push($scope.search.zipCode[i].zipCode)
             } else {
-                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.zipCode[i].zipCode)
+                
+                $scope.filters = $scope.filters.filter(function(item){
+                    return item.data != $scope.search.zipCode[i].zipCode
+                })
         
          }
         }
@@ -533,8 +536,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             if($scope.search.owner[i].value==true) {
                 selected.push($scope.search.owner[i].ownerName)
             } else {
-                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.owner[i].ownerName)
-        
+                $scope.filters = $scope.filters.filter(function(item){
+                  return   item.data != $scope.search.owner[i].ownerName}
+                )
+                   
          }
         }
         $scope.propertyFilter.owner = selected
@@ -550,7 +555,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             if($scope.search.jurisdictions[i].value==true) {
                 selected.push($scope.search.jurisdictions[i].name)
             } else {
-                $scope.filters = $scope.filters.filter(item => item.data != $scope.search.jurisdictions[i].name)
+                
+                $scope.filters = $scope.filters.filter(function(item){
+                    return   item.data != $scope.search.jurisdictions[i].name}
+                  )
         
          }
         }
