@@ -96,7 +96,18 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
     data.pipe(busboy);
     var userId = data.user[0].userId;
     var propertyId = data.query.propId;
+    console.log(propertyId);
+    console.log(data.query);
+    try{
+        var timelineDataid = data.query.tId;
+    } catch(error){ 
+        var timelineDataid = null;
+    }
     var files = [];
+
+    // if(data.query.timelineDataid != null){
+    //     timelineDataid = 
+    // }
 
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
         file.on('limit', function() {
@@ -160,8 +171,15 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
                 if(isError) {
                     Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
                 } else {
-                    addFiles(files, propertyId, userId);
-                    Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+
+                    if(timelineDataid == null){
+                        addFiles(files, propertyId, userId, null);
+                        Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+                    } else {
+                        console.log("here is tafkasf44444444444444444444");
+                        addFiles(files, propertyId, userId, res);
+                    }
+                    
                 }
             });
         }
@@ -705,7 +723,7 @@ BLL.prototype.propertyValuationIE = function(data, res, next) {
 //----------------------------------------------
 // addFiles
 //----------------------------------------------
-function addFiles(files, propertyId, userId) {
+function addFiles(files, propertyId, userId, res) {
     var task = cron.schedule('* * * * * *', function() {
         var parsingFiles = [];
         var counter = 0;
@@ -744,6 +762,10 @@ function addFiles(files, propertyId, userId) {
         }
 
         // Destroy the task as we are done
+        if(res != null){
+            console.log("here is tafkasf44444444====================444444444444");
+            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+        }
         task.destroy();
     }, false);
     task.start();

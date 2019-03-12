@@ -1773,7 +1773,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         var ER = PetitionerFormulae.Petitioner.effectiveRent(
             valuationObject.ARPetitioner,
-            percentage);
+            vacancyDolar);
 
 
         valuationObject.VacancyDolarPetitioner = vacancyDolar;

@@ -1,0 +1,239 @@
+<link rel="stylesheet" type="text/css" href="modules/PropertyModule/taxAppeal/components/uploadModal/uploadModal.css">
+<style>
+    .modal {
+        display: contents;
+    }
+    .modal-content{
+        border: 1px solid #cccccc;
+    }
+    .popup-overlay{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: rgba(51,51,51,0.3);
+        top: 0;
+        left: 0;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000 !important;
+    }
+    .modal-dialog{
+        max-width: 75%;
+        top: 25%;
+    }
+    .black-button{
+        min-width: 60px;
+        background: #03a4fc;
+        color: #ffffff;
+        border: 1px solid #03a4fc;
+        height: 25px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    /********************************************************NEW MODAL START************************************************************************/
+
+    .dialog-box-header {
+        background-color: #2f71ab;
+        color: #ffffff;
+    }
+    .modal-dialog{
+        width: 1000px;
+    }
+    /*.modal-body{*/
+    /*padding: 0 !important;*/
+    /*}*/
+    tbody tr td{
+        text-align: left !important;
+        font-size: 13px !important;
+    }
+    thead tr th{
+        text-align: center !important;
+        /*background-color: #f5f5f5 !important;*/
+        color: #ffffff !important;
+        font-size: 13px !important;
+    }
+    .table-wrapper-2 {
+        display: block;
+        max-height: 300px;
+        overflow-y: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    #TableModal .list-group-item-danger, #TableModal .list-group-item-success{
+        background-color: #ffffff;
+    }
+    #TableModal a.list-group-item-danger:hover, #TableModal a.list-group-item-success:hover{
+        background-color: #ffffff;
+        cursor: default;
+    }
+    #TableModal a.list-group-item-danger:visited, #TableModal a.list-group-item-success:visited{
+        background-color: #ffffff;
+        cursor: default;
+    }
+    .req-btn{
+        position: absolute;
+        top: 7px;
+        right: 15px;
+    }
+    .req-list li{
+        position: relative;
+        padding: 10px 20px 10px 0px;
+        border-bottom: 1px solid #ededed;
+    }
+    .radio input, .radio{
+        color: #747474;
+        font-weight: normal;
+    }
+    label.radio {
+        margin: 0 0 5px !important;
+    }
+    .radio-box {
+        margin: 0 25px 20px;
+
+    }
+    .modal-dialog.file-type {
+        max-width:420px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto !important;
+    }
+
+    .black-button{
+        right: 15px !important;
+        position: absolute;
+        min-width: 60px;
+        background: #339900 !important;
+        color: white;
+        border: 1px solid #339900 !important;
+        height: 25px;
+        margin: 0 auto;
+        text-align: center;
+        top:162px !important;
+    }
+    .close:hover, .close:focus{
+        opacity: 0.7 !important;
+        color: #ffffff;
+    }
+    .radio input[type="radio"]:checked:after{
+        border-color: #334890;
+    }
+    .radio input[type="radio"]:before{
+        background-color: #334890;
+    }
+    .upload-box .inputfile + label {
+        max-width: 80%;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+        padding: 0.625rem 1.25rem;
+    }
+    .inputfile-1 + label {
+        color: #fff;
+        background-color: #3070ab;
+    }
+    label.choose-type {
+        color: #3c3c3c;
+        margin: 0 0 10px !important;
+    }
+    .modal-dialog.file-type {
+        top: 27% !important;
+    }
+    .inputfile {
+        position: relative;
+        border: none;
+        box-shadow: none;
+        padding: 0 0 0 34px;
+        cursor: pointer;
+    }
+    .upload-box {
+        position: relative;
+    }
+    .upload-btn span {
+        cursor: pointer;
+    }
+    .upload-btn {
+        position: absolute;
+        top: -3px;
+        height: 25px;
+        cursor: pointer;
+        padding: 5px 5px 0 !important;
+    }
+    .inputfile:focus {
+        border-color: transparent !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    .black-button{
+    min-width: 60px;
+    background: #03a4fc;
+    color: #ffffff;
+    border: 1px solid #03a4fc;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    right: 8px;
+    position: absolute;
+    bottom: 10px;
+  }
+  .disabled-button{
+    min-width: 60px;
+    background: #cacaca;
+    color: #ffffff;
+    border: 1px solid #cacaca;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    right: 8px;
+    position: absolute;
+    bottom: 10px;
+  }
+
+</style>
+<div class="popup-overlay">
+    <div  class="modal fade" role="dialog">
+        <div class="modal-dialog file-type">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header dialog-box-header">
+                    <h5 class="modal-title">Required Document</h5>
+                    <button ng-click="signModal(2)" type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="height:200px">
+                    <label class="choose-type">Choose File Type</label>
+                    <div class="radio-box">
+                        <form>
+                            <label class="radio" style=" padding-right: 15px;">
+                                <input ng-model="uploadRadio" type="radio" name="1" value="1"> Income Expense Statements
+                            </label>
+                            <label class="radio" style="padding-right: 15px;">
+                                <input ng-model="uploadRadio" type="radio" name="2" value="2">Rent Rolls
+                            </label>
+                            <label class="radio">
+                                <input  ng-model="uploadRadio" type="radio"  name="3" value="3">Additional Document
+                            </label>
+                        </form>
+                    </div>
+                    <div class="upload-box">
+                        <input onchange="angular.element(this).scope().uplaodFile(this)"  type="file" class="form-control upload-input inputfile inputfile-1" style="display:none" name="file-1[]" id="file-1">
+                        <label for="file-1" class="upload-btn">
+                            <span> <i class="fa fa-upload" aria-hidden="true"></i> Upload a file…</span>
+                           
+                        </label>
+                        <span style="    color: black;
+                        position: absolute;
+                        margin-left: 140px;">{{fileName}}</span>
+                    </div>
+                <button   ng-class="fileName.length> 0 ? 'black-button':'disabled-button'"  ng-click=" sendData(uploadRadio)">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

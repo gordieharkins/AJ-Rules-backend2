@@ -84,7 +84,8 @@ router.get('/getSubmittedSurveyById', function(req, res, next) {
 });
 
 router.get('/getUSstates', function(req, res, next) {
-    BLL.getUSstates(req, res);
+    res.send("ok");
+    // BLL.getUSstates(req, res);
 });
 
 router.post('/updateSubmittedForm', function(req, res, next) {
@@ -103,4 +104,59 @@ router.get('/getSurveyReport', function(req, res, next) {
 router.post('/deleteSubmission', function(req, res, next) {
     BLL.deleteSubmission(req.body, res);
 });
+
+router.get('/getFormSubmissions', function(req, res, next) {
+    BLL.getFormSubmissions(req, res);
+});
+
+router.post('/addNewSubmission', function(req, res, next) {
+    // console.log("here");
+    BLL.addNewSubmission(req, res);
+});
+
+router.post('/getSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.getSubmissionData(req, res);
+});
+
+router.post('/surveysToAJrules', function(req, res, next) {
+    // console.log("here");
+    BLL.surveysToAJrules(req, res);
+});
+
+router.post('/updateSubmissionData', function(req, res, next) {
+    // console.log("here");
+    BLL.updateSubmissionData(req, res);
+});
+
+router.get('/getFormQuestions', function(req, res, next) {
+    // console.log("here");
+    BLL.getFormQuestions(req, res);
+});
+
+router.post('/addNewForm', function(req, res, next) {
+    // console.log("here");
+    BLL.addNewForm(req, res);
+});
+
+router.post('/getHistory', function(req, res, next) {
+    // console.log("here");
+    BLL.getHistory(req, res);
+});
+
+router.get('/getReports', function(req, res, next) {
+    // console.log("here");
+    BLL.getReports(req, res);
+});
+
+router.post('/autoSave', function(req, res, next) {
+    // console.log("here");
+    BLL.autoSave(req, res);
+});
+
+router.get('/getStates', function(req, res, next) {
+    // console.log("here");
+    BLL.getStates(req, res);
+});
+
 module.exports = router;

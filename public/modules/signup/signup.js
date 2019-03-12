@@ -106,8 +106,9 @@ function _Signup(AOTCService, $state, $q) {
             AOTCService.postDataToServer(url, vm.signupData)
                 .then(function (result) {
 
-                    ////console.log(result);
-
+                    console.log(result);
+                   
+                    localStorage.setItem('tokenTemp', result.data.result);
                     vm.signupData = {
                         name: "", //done
                         lastName: "", //done

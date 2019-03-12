@@ -6,7 +6,7 @@ var Response = require(path.resolve(__dirname, './util/response'));
 var loginUserName = 'Ali'; // Infutre will get logged in user name
 var AppealDAL = require(path.resolve(__dirname, '../DAL/timeline'));
 var DAL = new AppealDAL();
-var cron = require('node-cron');
+// var cron = require('node-cron');
 // var nodemailer = require('nodemailer'); // required for sending email
 
 
@@ -18,11 +18,11 @@ var cron = require('node-cron');
 // var ical = require('my-ical-generator');
 
 //Create notifications for users everyday
-var task = cron.schedule('30 10 * * *', function() { //min hour
-    console.log("notifications extracted");
-	extractNotifications(); //extract notifications and store them in the DB everyday
-}, false);
-task.start();
+// var task = cron.schedule('30 10 * * *', function() { //min hour
+//     console.log("notifications extracted");
+// 	extractNotifications(); //extract notifications and store them in the DB everyday
+// }, false);
+// task.start();
 
 
 module.exports = BLL;
@@ -238,56 +238,55 @@ BLL.prototype.getAllPropertiesTimelineStatus = function(data, res) {
 }
 // ---------------------END---------------------
 function getAllPropertiesTimelineStatus2(userId, role) {
-		
 		//var userId = data.userId;
-		DAL.getAllPropertiesTimelineStatus(null, userId, function(error, result) {
-			if (error) {
-				console.log(error);
-				error.userName = loginUserName;
-				ErrorLogDAL.addErrorLog(error);
-			} else {
-				// console.log(role,result);
-				
-				if (result.length > 0){
-					// console.log("timeline status: ", result);
-				var jurisdictions = [];
-				for(var i = 0; i < result.length; i++){
-					if (jurisdictions.indexOf(result[i].jurisdiction.trim()) === -1){
-						jurisdictions.push(result[i].jurisdiction.trim());
-					}
-					
-				}
-
-				for(var j = 0; j < jurisdictions.length;j++){
-					var mydata = [];
-					mydata.userId = userId;
-					mydata.jurisdictionName = jurisdictions[j];
-					mydata.role = role;
-					getJurisdictionTimeline2(mydata);
-				}
-			}else{
-				// console.log("empty status");
-			}
-
-			}
-		});
-	}
-
-function extractNotifications() {
-	DAL.getUserIds(function(error, result) {
+	DAL.getAllPropertiesTimelineStatus(null, userId, function(error, result) {
 		if (error) {
 			console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} else {
-			// console.log("user ids: ", result);
+			// console.log(role,result);
+			
+			if (result.length > 0){
+				// console.log("timeline status: ", result);
+			var jurisdictions = [];
 			for(var i = 0; i < result.length; i++){
-				getAllPropertiesTimelineStatus2(result[i].id, result[i].role);
+				if (jurisdictions.indexOf(result[i].jurisdiction.trim()) === -1){
+					jurisdictions.push(result[i].jurisdiction.trim());
+				}
+				
 			}
-		
+
+			for(var j = 0; j < jurisdictions.length;j++){
+				var mydata = [];
+				mydata.userId = userId;
+				mydata.jurisdictionName = jurisdictions[j];
+				mydata.role = role;
+				getJurisdictionTimeline2(mydata);
+			}
+		}else{
+			// console.log("empty status");
+		}
+
 		}
 	});
 }
+
+// function extractNotifications() {
+// 	DAL.getUserIds(function(error, result) {
+// 		if (error) {
+// 			console.log(error);
+// 			error.userName = loginUserName;
+// 			ErrorLogDAL.addErrorLog(error);
+// 		} else {
+// 			// console.log("user ids: ", result);
+// 			for(var i = 0; i < result.length; i++){
+// 				getAllPropertiesTimelineStatus2(result[i].id, result[i].role);
+// 			}
+		
+// 		}
+// 	});
+// }
 
 
 BLL.prototype.markAsRead = function(data,res){

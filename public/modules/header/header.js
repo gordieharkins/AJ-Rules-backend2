@@ -1,6 +1,5 @@
 'use strict';
 
-
 _header.$inject = ["User_Config", "$state", "$timeout"];
 module.exports = _header;
 
@@ -8,20 +7,29 @@ module.exports = _header;
 //    .directive('header', _header
 //    );
 function _header(User_Config, $state, $timeout) {
-    var controller = ['$scope', '$location', 'AOTCService', '$rootScope', function ($scope, $location, AOTCService, $rootScope) {
+    var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
         ////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
         $scope.errorMessage = '';
         $scope.dangerMessage = '';
         $scope.showUserTab = false;
-
+        $scope.allNotifications =$rootScope.allNotifications
         $scope.role = '';
-
-
+        $scope.active = ''
+        var ip = AotcIp.ipConfig('server')
 
 
         var role = localStorage.getItem('role');
+
+        
+        $scope.bindLink = function(){
+            var role2 = localStorage.getItem('role');
+            var token = localStorage.getItem('token');
+             $scope.sendSurveylink = ip+"/login/"+token+"/"+role2
+            window.location.href = $scope.sendSurveylink;
+        }
+      
         $scope.role = role;
 
         if (role == User_Config.AJ_USER) {
@@ -39,6 +47,8 @@ function _header(User_Config, $state, $timeout) {
             var userResult = JSON.parse(localStorage.getItem('userJson'));
             $scope.name = userResult.userData.name;
         }
+
+     
 
         $scope.$on('userRole', function (ev, userRole) {
             $timeout(function () {
@@ -75,8 +85,22 @@ function _header(User_Config, $state, $timeout) {
             $("#head_danger").fadeIn(1500).delay(500).fadeOut(500);
         });
 
+        $scope.activateHeader = function(text){
+            $scope.active = text
+
+        }
+        $scope.$on('notifications', function(ev, data) {
+         console.log(data) 
+         $scope.allNotifications = data
+        
+        });
+
+        $rootScope.$watch('allNotifications', function(newValue, oldValue) {
+            $scope.allNotifications = newValue
+        })
 
         $scope.OpenNotfModal = function (_notf) {
+            $scope.openNotModal = true;
             try {
                 var url = '/timeline/markAsRead';
                 var _data = {
@@ -104,10 +128,10 @@ function _header(User_Config, $state, $timeout) {
                                     }
                                 } catch (_e) {}
                             });
-                            $("#preloader").css("display", "none");
+                           
                         }, function () {
 
-                            $("#preloader").css("display", "none");
+                           
                         });
                 } else {
                     $scope.selectedNotification = _notf;

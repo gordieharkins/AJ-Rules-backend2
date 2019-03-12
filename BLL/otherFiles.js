@@ -33,6 +33,12 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
     //     return;
     // }
 
+    try{
+        var timelineDataId = data.query.tId;
+    } catch(error){ 
+        var timelineDataId = null;
+    }
+
     var propertyId = data.query.propId;
     var loginUserId = data.user[0].userId;
     var files = [];
@@ -67,6 +73,7 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
+            console.log(error);
             return;
         }
     });
@@ -98,17 +105,19 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
                 }, function() {
                     if(isError) {
                         Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
+                        console.log("!", error);
                     } else {
                         // Delete the fileStream attribute as we don't need to save it in db.
                         for (var i = 0; i < files.length; i++) {
                             delete files[i].fileStream;
                         }
 
-                        OtherFilesDAL.uploadOtherFiles(files, propertyId, loginUserId, description, function(error, result) {
+                        OtherFilesDAL.uploadOtherFiles(files, propertyId, loginUserId, description, timelineDataId, function(error, result) {
                             if (error) {
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                                 Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
+                                console.log("!!", error);
                                 return;
                             }
                             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);

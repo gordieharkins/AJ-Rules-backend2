@@ -15,6 +15,9 @@ var PropertiesParserBLL = require(path.resolve(__dirname, 'parsers/properties/pr
 var PropertiesParser = new PropertiesParserBLL();
 var PropertiesFilesPath = path.resolve(__dirname, '../public/properties/');
 var TaskManagerDAL = require(path.resolve(__dirname, '../DAL/taskManager'));
+var AppealBLL = require(path.resolve(__dirname, './appeal'));
+var Appeal = new AppealBLL();
+
 var taskManagerDAL = new TaskManagerDAL();
 
 var UtilityFunctions = require(path.resolve(__dirname, '../BLL/util/functions'));
@@ -570,6 +573,7 @@ function parseFiles(file,  mapping, userId) {
                                 DAL.addProperty(propertyArr, file.fileName, userId, function(error, result) {
                                     var i = 0;
                                     var isError = false;
+                                    var propertiesJurisdictions = [];
                                     if (error) {
                                         error.userName = loginUserName;
                                         ErrorLogDAL.addErrorLog(error);
@@ -580,10 +584,24 @@ function parseFiles(file,  mapping, userId) {
                                         if(result[0] !== undefined){
                                             result = result[0];
                                             for (var element in result){
+                                                var tempPropData = result[element].split("||");
+                                                var propertyJurisdiction = {
+                                                    propId: tempPropData[0],
+                                                    jurisdiction: tempPropData[1]
+                                                }
+                                                propertiesJurisdictions.push(propertyJurisdiction);
                                                 propertyArr[i].propertyDBId = result[element];
                                                 i++;
                                                 successPropsCount ++;
                                             }
+                                            // this code snippet adds the timeline data for everyproperty
+                                            Appeal.addPropertyTimelineData(propertiesJurisdictions, function(timelineError){
+                                                if (timelineError) {
+                                                    error.userName = loginUserName;
+                                                    ErrorLogDAL.addErrorLog(error);
+                                                    isError = true;
+                                                }
+                                            });
                                         } else {
                                             isError = true;
                                         }
@@ -594,7 +612,6 @@ function parseFiles(file,  mapping, userId) {
                                     }
 
                                     if(!isError){
-                                        // successPropsCount += i; // Testing
                                         callback();
                                     } else {
                                         callbackMain();
@@ -879,8 +896,12 @@ BLL.prototype.deletePropertiesByIds = function(data, res, userId) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    DAL.deletePropertiesByIds(data, userId, function(error, slaveProperties) {
+
+    var propertyIds = data.body.propIds;
+    var userId = data.user[0].userId;
+    DAL.deletePropertiesByIds(propertyIds, userId, function(error, slaveProperties) {
         if (error) {
+            console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.DELETE_FAIL, null, res);
@@ -1089,6 +1110,7 @@ BLL.prototype.getAJPublicProperties = function(data, res) {
             } else{
                 // console.log(JSON.stringify(jurisdictions));
                 data.body.state = jurisdictions[0].jurisdictions;
+                console.log(data.body);
                 DAL.getAJPublicProperties(data.body, function(error, properties) {
                     if (error) {
                         // console.log(error);

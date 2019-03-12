@@ -2,6 +2,9 @@ var moment = require('moment-timezone');
 var path = require('path');
 var execute_query = require(path.resolve(__dirname, './execute_sql'));
 var db = require(path.resolve(__dirname, './graphConnection'));
+var func = require(path.resolve(__dirname, '../BLL/util/functions'));
+var userRoles = require(path.resolve(__dirname, '../BLL/util/userRoles'));
+var converter = new func();
 
 module.exports = DAL;
 
@@ -184,3 +187,75 @@ DAL.prototype.addAJRules = function(aJRules, cb) {
 //     });
 // };
 // ---------------------END---------------------
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.updateJurisdictionRules = function(data, cb) {
+	// console.log("here it is00")
+    // var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)<-[*]-(user:user)-[:appealForm]->(form)
+    // 			 where id(n) = 115386 return DISTINCT(form), publicProperty.landArea as landArea,
+	//             publicProperty.buildingArea as buildingArea`;
+	var params = {};
+	var query = "";
+	// console.log(JSON.stringify(data));
+	for(var i = 0; i < data.length; i++){
+		var jurisdictionName = data[i].jurisdictionName;
+		params["jurisdictionName" + i] = jurisdictionName;
+		params["data" + i] = data[i];
+		if(i > 0){
+			query += "WITH * ";
+		}
+
+		query += `MERGE(n`+i+`:ajRUles{jurisdictionName: {jurisdictionName`+i+`}}) 
+		ON MATCH SET n`+i+` = {data`+i+`}
+		ON CREATE SET n`+i+` = {data`+i+`}`;
+
+		// query += `MATCH(n`+i+`:ajRules) where n`+i+`.jurisdictionName = '`+jurisdictionName+`'
+		// 		SET n`+i+` = {data`+i+`}\n`;
+	}
+
+    // var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)-[*]-(user:user)-[:appealForm]->(form:appealForm)
+    //  where id(n) = 115386 return form`;
+
+	// console.log(JSON.stringify(params));
+	console.log(query);
+     db.cypher({
+		query: query,
+		params: params
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.getFormSubmissions = function(cb) {
+	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	with collect(a) as paths
+	CALL apoc.convert.toTree(paths) yield value
+	RETURN value`;
+	db.cypher({
+		query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+
+//--------------------------------------------------------
+// getFormDataForJurisdiction
+//--------------------------------------------------------
+DAL.prototype.addNewSubmission = function(cb) {
+	var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+	with collect(a) as paths
+	CALL apoc.convert.toTree(paths) yield value
+	RETURN value`;
+	db.cypher({
+		query: query
+    }, function(err, results) {
+        cb(err, results);
+    });
+}
+

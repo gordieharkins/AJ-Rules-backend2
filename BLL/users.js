@@ -211,13 +211,16 @@ BLL.prototype.addSingleUserNonRef = function(data, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
+    var timestamp = (new Date()).getTime();
+    var pin = (Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)) + timestamp;
+    data["pin"] = pin;
     DAL.addSingleUserNonRef(data, function(error) {
         if (error) {
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
         } else {
-            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
+            Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, pin, res);
         }
     });
 }

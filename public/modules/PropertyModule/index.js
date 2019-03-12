@@ -125,4 +125,13 @@ angular.module('AOTC').controller('Map', require('./UploadProperties/map_data/ma
 angular.module('AOTC').controller('PropAssignment', require('./PropertyAssignment/property-assignment.controller'));
 angular.module('AOTC').controller('AssignedUsersListCtrl', require('./PropertyAssignment/AssignedUsers/assigned-users-list.controller'));
 
+//taxAppeal
 
+angular.module('AOTC').controller('TaxAppeal', require('./taxAppeal/tax-appeal.controller'));
+angular.module('AOTC').filter('FilterJ', require('./taxAppeal/taxAppeal.filter').JurisdictionFilter);
+angular.module('AOTC').filter('AppealFilter', require('./taxAppeal/taxAppeal.filter').AppealFilter);
+angular.module('AOTC').filter('PAddressFilter', require('./taxAppeal/taxAppeal.filter').pAddressFilter);
+angular.module('AOTC').filter('pOwnerNameFilter', require('./taxAppeal/taxAppeal.filter').pOwnerNameFilter);
+angular.module('AOTC').filter('pZipCodeFilter', require('./taxAppeal/taxAppeal.filter').pZipCodeFilter)
+angular.module('AOTC').filter('ownerInputFilter', require('./taxAppeal/taxAppeal.filter').ownerInputFilter)
+angular.module('AOTC').filter('zipCodeInputFilter', require('./taxAppeal/taxAppeal.filter').zipCodeInputFilter)

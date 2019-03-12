@@ -9,6 +9,7 @@ function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptions
     ////console.log("viewAJData controller", $stateParams);
     var vm = this;
     vm.tableData = [];
+    $scope.$emit('error', "unable to parse")
     vm.dtOptions = DTOptionsBuilder.newOptions()
         .withDisplayLength(20)
         .withOption('lengthMenu', [

@@ -1,0 +1,841 @@
+<header></header>
+<link rel="stylesheet" type="text/css" href="modules/settings/main/main.css">
+
+<span class="header-tag">
+  <span class="bell-ico"></span> Alerts Preferences
+</span>
+
+ <div class="row wrapper-body">
+<div class="col-md-3" class="aside" id="notification" >
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">  <i class="fa fa-bell"></i>&nbsp;  Alerts settings</div>
+        <div class="left-panel">
+            <ul>
+                <li id="1" class="active-1"><a> <i class="fa fa-send-o"></i>  &nbsp; Email & SMS settings</a></li>
+                <li id="2"><a > <i class="fa fa-clock-o"></i> &nbsp; Set black-out time</a></li>
+                <li id="3"><a ><i class="fa fa-gavel"></i>  &nbsp; Appeal module settings</a></li>
+                <li id="4"><a > <i class="fa fa-calendar"></i>  &nbsp; Calender invites</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div class="col-md-9 right-panel">
+
+    <div id="1a">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-send-o"></i>  &nbsp; Email & SMS settings</div>
+            <form class="form-inline" name="alert_type" style="padding: 20px;">
+                <p>
+                    <b>Select the alert method(s)</b>
+                </p>
+
+                <div style="color: #be1515" ng-show="email_sms_error">*Please select atleast one alert method.</div>
+
+                <div class="checkbox">
+                    <label>
+                        <input checked type="checkbox" value="" ng-model="data.email.flag" ng-change="none_selected_error_reset()">
+                        <span class="pull-left"> Email </span>
+                        <input type="email" class="form-control" ng-if="data.email.flag" ng-required="data.email.flag" name="email_details" placeholder="e.g user@gmail.com"
+                               ng-model="data.email.details" ng-disabled="data.email.verified"> </label>
+                    <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#emailverifyModel"
+                            ng-if="data.email.flag && data.email.verified == false && email_saved" ng-disabled="sending_email_code || alert_type.email_details.$invalid"
+                            ng-click="open_dialog('emailverifyModal');send_code_to_email();">Verify</button>
+                    <div style="color: #be1515" ng-show="error_check && data.email.flag && alert_type.email_details.$touched && alert_type.email_details.$invalid">*Please enter a valid email address.</div>
+                </div>
+
+                <br>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="" ng-model="data.sms.flag" ng-change="none_selected_error_reset()">
+                        <span class="pull-left"> SMS </span>
+                        <input type="tel" class="form-control" ng-if="data.sms.flag" name="sms_details" placeholder="e.g (444) 321 0432" ng-model="data.sms.details"
+                               ng-required="data.sms.flag" ng-disabled="data.sms.verified" ui-us-phone-number-mask maxlength="14"> </label>
+                    <button type="button" class="btn btn-default btn-formats-active verify-button" data-toggle="modal" data-target="#smsverifyModel"
+                            ng-if="data.sms.flag  && data.email.verified == false && sms_saved" ng-disabled="sending_sms_code || alert_type.sms_details.$invalid"
+                            ng-click="open_dialog('smsverifyModal');send_code_to_sms();">Verify</button>
+                    <div style="color: #be1515" ng-show="error_check && data.sms.flag && alert_type.sms_details.$touched && alert_type.sms_details.$invalid">*Please enter a valid phone number.</div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
+                    <div class="clearfix"></div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+    <div id="2a">
+    <div class="panel panel-primary filterable" >
+            <div class="panel-heading">
+                 <i class="fa fa-clock-o"></i> &nbsp; Set black-out time
+                <div class="pull-right button-class ">
+                    <!--<button  class=" panel-btn btn btn-default btn-xs btn-filter">  Select timezone <i class="fa fa-clock-o" aria-hidden="true"></i></button>-->
+                    <div class="dropdown">
+                        <button class="dropbtn timezone-dropdown-button" ng-click="toggle_dropdown('timezone_selection')">
+                            <span style="    position: relative; top: -14px;">{{select_timezone_label()}}</span>
+                            <i class="fa fa-caret-down pull-right"></i>
+                        </button>
+                        
+                        <div class="dropdown-content" id="timezone_selection">
+                            <span class="{{isSelected(time_z.name)}}" ng-repeat="time_z in timezones" ng-click="change_timezone(time_z.name);toggle_dropdown('timezone_selection');">{{time_z.name}}
+                            </span>
+
+
+                        </div>
+                    </div>
+                    <button data-toggle="modal" data-target="#myModal" class=" panel-btn btn btn-default btn-xs btn-filter" ng-click="newTimeAlert(true)">
+                        Add new time alert
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <table class="table table-bordered table-responsive table-striped">
+                <thead>
+                    <tr class="filters">
+                        <!-- <th>Enable | Disable </th> -->
+                        <th>Start & End time</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data.blackouts">
+                        <!-- <td>
+                            <div class="switch-toggle switch-3 switch-candy">
+                                <input id="on{{$index}}" type="radio" ng-check="{{d.checked}}" ng-model="d.checked" ng-value="true">
+                                <label for="on{{$index}}" onclick="">Enable</label>
+
+
+                                <input id="off{{$index}}" type="radio" ng-check="{{!d.checked}}" ng-model="d.checked" ng-value="false">
+                                <label for="off{{$index}}" onclick="">Disable</label>
+
+                                <a></a>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div ng-if="d.span!='all_day'" ng-repeat="interval in d.intervals">{{interval.startTime | date :"hh:mm a"}} to {{interval.endTime| date :"hh:mm a"}}</div>
+                            <div ng-if="d.span=='all_day'">All Day</div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.mon" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.tue" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.wed" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.thur" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.fri" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.sat" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox m_fix">
+                                <input type="checkbox" value="" ng-model="d.sun" ng-change="all_changed()" style="margin-left: 0px!important">
+                            </div>
+                        </td>
+                        <!-- <td>{{d.days | array_join:", "}}</td> -->
+                        <!-- <td><div ng-repeat="interval in d.intervals">09:20 AM to 10:00 PM</div></td> -->
+                        
+                        <td class="actions"  >
+                            <div ng-show="d.fix !='true'">
+                            <span ng-click="newTimeAlert(false,d, $index)">
+                                <!--Edit time-->
+                                <i class="fa fa-clock-o" aria-hidden="true" data-toggle="tooltip" title="Edit Time"></i>
+                            </span>
+                            <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_interval($index)">
+                                <i class="fa fa-trash-o" data-toggle="tooltip" title="Delete"></i>
+                            </button>
+                        </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="data.blackouts.length == 0">
+                        <td colspan="8">
+                            <div class="no-record-div">
+                                <i class="fa fa-info-circle info-icon"></i>
+                                <span class="info-text">No record found!</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input" checked type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input"  type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="wpr-progress" class="pogress-btn">
+                                <form>
+                                    <label class="toggle-switch toggle-progress">
+                                        <input class="progress-input" checked type="checkbox"   name="progressToggle" >
+                                        <span data-progress-on="Enable" data-progreess-off="Disable" class="progress-label"></span>
+                                        <span class="progress-handle"></span>
+                                    </label>
+                                </form>
+                            </div>
+                        </td>
+                        <td>Monday, Tuesday , Friday</td>
+                        <td>09:20 AM to 10:00 PM</td>
+                        <td class="actions">Edit time <i class="fa fa-clock-o" aria-hidden="true"></i></td>
+                    </tr> -->
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="9">
+                        <div>
+                            <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix" ng-click="save_settings(alert_type)"
+                                    ng-disabled="saving">Save</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+    <div id="3a">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><i class="fa fa-gavel"></i> &nbsp; Appeal Module settings</div>
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th style="width: 200px;">
+                    Every
+                    <input type="number" required class="custom-input">
+                    days until Event is Marked Complete</th>
+
+                <th style="width: 200px;">
+                    Every
+                    <input type="number" required class="custom-input">
+                    days until Pre-requisite task is Marked Complete</th>
+
+
+                <th>7 Days Before Even</th>
+                <th>48 Hours Before Event</th>
+                <th>24 Hours Before Event</th>
+                <th>2 Hours Before Event</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">IE Survey Deadline</th>
+                <td>
+                    <div class="checkbox m_fix">
+                    <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th scope="row">Appeal #1 Filing Deadline</th>
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <th scope="row">Appeal #1 Evidence Submission Deadline</th>
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th scope="row">Appeal #1 Hearng Date</th>
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th scope="row">Regarding any review meeting (e.g., merit, evidence, submission, etc.)</th>
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th scope="row">Repeat for Appeal #2</th>
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="checkbox m_fix">
+                        <input type="checkbox" value=""  style="margin-left: 0px!important">
+                    </div>
+                </td>
+
+            </tr>
+
+
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7">
+                <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
+                </td>
+            </tr>
+            </tfoot>
+
+        </table>
+    </div>
+    </div>
+
+    <div id="4a">
+    <div class="panel panel-primary" >
+        <div class="panel-heading"><i class="fa fa-calendar"></i> &nbsp; Calender Invites</div>
+    <div class="calender-invite">
+        <blockquote>
+          Please choose from the list when you want to get calender invites.
+        </blockquote>
+        <div class="checkbox">
+            <label>
+              <div class="form-group">
+                    <input checked="" type="checkbox" value="">
+                    <span class="pull-left" style="width: 100%;"> Default reminder </span>
+                    <select class="form-control" style="margin: 20px">
+                        <option>15 days before</option>
+                        <option>20 days before</option>
+                        <option>1 month before</option>
+                        <option>3 months before</option>
+                    </select>
+                </div>
+           </label>
+        </div>
+
+
+
+
+
+        <div>
+            <button type="submit" class="btn btn-default btn-formats-active green-color pull-right clearfix">Save</button>
+            <div class="clearfix"></div>
+        </div>
+
+
+    </div>
+
+    </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+ </div>
+
+
+    <!-- Modal -->
+<div id="myModal" class="modal fade" my-modal>
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Add new time alert</h5>
+            </div>
+            <div class="modal-body">
+                <label style="color: #0a0a0a; font-weight: bold;">Select day(s) for alerts:</label>
+                <br>
+                <div class="dropdown" style="width: 100% !important;">
+                    <button class="dropbtn" style="width: 100% !important;" ng-click="toggle_dropdown('days_selection')">{{dropdown_label()}}
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </button>
+                    <div class="dropdown-content" id="days_selection">
+                        <span href="">All Week days
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-model="time_data.all" ng-change="all_changed()">
+                            </div>
+                        </span>
+                        <span href="">Monday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.mon">
+                            </div>
+                        </span>
+                        <span href="">Tuesday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.tue">
+                            </div>
+                        </span>
+                        <span href="">Wednesday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.wed">
+                            </div>
+                        </span>
+                        <span href="">Thursday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.thur">
+                            </div>
+                        </span>
+                        <span href="">Friday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.fri">
+                            </div>
+                        </span>
+                        <span href="">Saturday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sat">
+                            </div>
+                        </span>
+                        <span href="">Sunday
+                            <div class="checkbox">
+                                <input type="checkbox" value="" ng-change="single_changed()" ng-model="time_data.sun">
+                            </div>
+                        </span>
+                    </div>
+                    <span style="color: #be1515" ng-show="time_data_error">*Please select day(s) for alert before setting time.</span>
+                </div>
+
+
+                <br>
+                <br>
+
+                <div class="modal-checkbox-area">
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" value="all_day" ng-model="time_data.span" style="margin: 7px 0 0 0;">
+                            <span class="pull-left modal-checkbox-text"> All day </span>
+                        </label>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" value="specific_time" ng-model="time_data.span" style="margin: 7px 0 0 0;">
+                            <span class="pull-left modal-checkbox-text"> Specific time </span>
+                        </label>
+                    </div>
+                </div>
+
+                <label style="color: #0a0a0a;" ng-show="time_data.span!='all_day'">Set time</label>
+
+                <div class="modal-scroll-area" ng-show="time_data.span!='all_day'">
+                    <div ng-repeat="t in time_data.intervals">
+                        <time-range start="t.startTime" end="t.endTime" on-change="changed()" on-change-start="changedStart()" on-change-end="changedEnd()"
+                            on-close="closed()" min-date="min_date" max-date="max_date">
+                        </time-range>
+                        <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_time($index)" ng-disabled="time_data.intervals.length == 1">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-scroll-area" ng-show="time_data.span=='all_day'">
+                    <div style="pointer-events: none">
+                        <time-range start="time_data.day_start" end="time_data.day_end" on-change="changed()" on-change-start="changedStart($event)" on-change-end="changedEnd()"
+                            on-close="closed()" >
+                        </time-range>
+                        <button type="button" class="btn btn-default btn-formats-active red-color" ng-click="delete_time($index)" ng-disabled="true">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="add-new-time-area">
+
+                    <!-- <button type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">
+                        <i class="fa fa-plus"></i>Add new time</button> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button  type="button" class="btn btn-default btn-formats-active" ng-click="add_time()">ADD</button>-->
+                <button type="button" class="btn btn-default btn-formats-active green-color" ng-click="set_new_time()">Set time</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="emailverifyModal" role="dialog">
+    <div class=" modal-dialog verification-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-head verification-modal-head">
+                <span>Email verification</span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body verification-modal-body">
+                <strong>An email with the verification code has been sent to</strong>
+                <span style="color: #9c9c9c;">{{data.email.details}}</span>
+                <br>
+                <strong>Enter the code here</strong>
+                <form name="code_email_form">
+                <div class="digit-container">
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c1" ng-model="code_email.a" ng-change="working()" required ></input>
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c2" ng-model="code_email.b" ng-change="working()" required ></input>
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c3" ng-model="code_email.c" ng-change="working()" required ></input>
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c4" ng-model="code_email.d" ng-change="working()" required ></input>
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c5" ng-model="code_email.e" ng-change="working()" required ></input>
+                    <input class="digit" maxlength="1" type="text" pattern="[0-9]" id="c6" ng-model="code_email.f" ng-change="working()" required ></input>
+                </div>
+            </form>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer" ng-click="send_code_to_email()">Didn't get the verification code? Resend</span>
+            </div>
+            <div class="modal-footer verification-modal-footer">
+                <button type="button" class="btn btn-default btn-formats-active red-color clearfix btn-fix" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-disabled="verifying_email || code_email_form.$invalid" class="btn btn-default btn-formats-active green-color"
+                    style="float: right; margin-left: 0px" ng-click="verify_email_code(code_email_form)" >Verify</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="smsverifyModal" role="dialog">
+    <div class=" modal-dialog verification-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-head verification-modal-head">
+                <span>SMS verification</span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body verification-modal-body">
+                <strong>An SMS with the verification code has been sent to</strong>
+                <span style="color: #9c9c9c;">{{data.sms.details}}</span>
+                <br>
+                <strong>Enter the code here</strong>
+                <form name="code_sms_form">
+                    <div class="digit-container">
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.a" required></input>
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.b" required></input>
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.c" required></input>
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.d" required></input>
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.e" required></input>
+                        <input class="digit" maxlength="1" pattern="[0-9]" type="text" ng-model="code_sms.f" required></input>
+                    </div>
+                </form>
+                <span style="color: #3071be; font-weight: 600; cursor: pointer" ng-click="send_code_to_sms();">Didn't get the verification code? Resend</span>
+            </div>
+            <div class="modal-footer verification-modal-footer">
+                <button type="button" class="btn btn-default btn-formats-active red-color clearfix btn-fix" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default btn-formats-active green-color" style="float: right; margin-left: 0px" ng-click="verify_sms_code(code_sms_form)" ng-disabled="verifying_sms || code_sms_form.$invalid">Verify</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(window).scroll(function(){
+        if ($(this).scrollTop() >145) {
+            $('#notification').addClass('fixed');
+        } else {
+            $('#notification').removeClass('fixed');
+        }
+    });
+
+    $("#1").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#1a").offset().top},
+            'slow');
+    });
+
+
+    $("#2").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#2a").offset().top},
+            'slow');
+    });
+
+
+    $("#3").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#3a").offset().top},
+            'slow');
+    });
+
+
+    $("#4").click(function() {
+        $('html,body').animate({
+                scrollTop: $("#4a").offset().top},
+            'slow');
+    });
+
+
+
+
+    $('.panel-primary li').click(function(e) {
+        e.preventDefault(); //prevent the link from being followed
+        $('.panel-primary li').removeClass('active-1');
+        $(this).addClass('active-1');
+    });
+
+
+</script>

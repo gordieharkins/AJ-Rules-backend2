@@ -9,7 +9,9 @@ module.exports = _updateIERR;
 function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
     ////console.log("updateIERR controller", $stateParams);
     var vm = this;
-
+    // if($stateParams.id) {
+    // console.log($stateParams.id)
+    // }
     vm.property = {};
     vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
     vm.propertyId = JSON.parse(localStorage.getItem('propertyId'));

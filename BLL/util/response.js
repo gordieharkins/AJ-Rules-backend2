@@ -43,6 +43,8 @@ REPLY_MSG.APPEAL_SUCCESS = "Submitted for appeal successfully.";
 REPLY_MSG.APPEAL_FAIL = "Error in submitting for appeal.";
 REPLY_MSG.PROPERTY_ASSIGNED_SUCCESS = "Property successfully assigned to agent.";
 REPLY_MSG.PROPERTY_ASSIGNED_FAIL = "Failed to assign property to agent.";
+REPLY_MSG.PIN_SUCCESS = "Token matched successfully.";
+REPLY_MSG.PIN_FAILED = "Wrong token.";
 
 exports.REPLY_MSG = REPLY_MSG;
 

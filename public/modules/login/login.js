@@ -10,6 +10,18 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
     ////console.log("login-in controller");
 
     var vm = this;
+    $scope.passwordCheck = null;
+    var pass = localStorage.getItem("tokenTemp");
+    if(pass) {
+        $scope.passwordCheck = pass;
+        localStorage.removeItem('tokenTemp');
+    }
+
+    $scope.closeModal = function(){
+        $scope.passwordCheck = null;
+    }
+    console.log(pass)
+    
     //vm.deviceDetector = deviceDetector;
     //////console.log("vm.deviceDetector", vm.deviceDetector);
 
@@ -96,6 +108,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
                 $('#preloader').css("display", "none");
                 ////console.log("error is ", response);
             });
+            
 
     }
 
