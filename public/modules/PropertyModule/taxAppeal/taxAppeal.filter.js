@@ -137,8 +137,11 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
                       return data
                   }
                   for (var  i = 0 ; i< params.length;i++) {
+                    var resulFilter = data.filter(function(item){
+                        return  item.name == params[i]
+                    })
                         
-                   result = result.concat(data.filter(item => item.name == params[i]))
+                   result = result.concat(resulFilter)
                   }
                   
                 
@@ -154,8 +157,12 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
                           return data
                       }
                       for (var  i = 0 ; i< params.length;i++) {
-                            
-                       result = result.concat(data.filter(item => item.name == params[i]))
+                        var resulFilter = data.filter(function(item){
+                           return item.name == params[i]
+                        })
+                               
+                     
+                      result = result.concat(resulFilter)
                       }
                       
                     
