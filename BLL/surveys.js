@@ -1241,6 +1241,7 @@ BLL.prototype.getReports = function(req, res) {
             console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
+            //testS
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
