@@ -1028,14 +1028,19 @@ function parseAnswers(answer) {
 // getFormSubmissions
 //----------------------------------------------
 BLL.prototype.getFormSubmissions = function(req, res) {
+
+    console.log("DDDDDDDDDDDdd");
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
 
     var userId = req.user[0].userId;
+    var userRole = req.user[0].roles.name;
     
-    DAL.getFormSubmissions(userId, function(error, result) {
+    console.log(req.user[0]);
+    
+    DAL.getFormSubmissions(userId, userRole, function(error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
@@ -1240,6 +1245,7 @@ BLL.prototype.getReports = function(req, res) {
             return;
         } else{
             var report = [];
+            // res.send(result);
             sortFormData(result, function(sortedData){
                 sortedData.forEach(function(value){
                     var survey = {
