@@ -796,18 +796,25 @@ DAL.prototype.addAJRules = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getFormSubmissions = function(userId, cb) {
+DAL.prototype.getFormSubmissions = function(userId,userRole, cb) {
 	// var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
 	// with collect(a) as paths
 	// CALL apoc.convert.toTree(paths) yield value
     // RETURN value`;
-    var params = {
-        userId: userId
-    };
+    var params = {};
+    var temp = "";
+    if(userRole != "Admin"){
+        params = {
+            userId: userId
+        };
+        temp = " where submission.createdByUserId = {userId} ";
+
+    }
     
-    console.log(params);
+    
+    
     var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
-    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission) where submission.createdByUserId = {userId}
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission)`+temp+` 
     RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
 
     console.log(query);
@@ -837,8 +844,8 @@ DAL.prototype.addNewSubmission = function(data, cb) {
     CREATE(sub)-[:HAS]->(ans)
     RETURN DISTINCT id(sub) as submissionId`;
 
-    // console.log(query);
-    // console.log(params);
+    console.log(query);
+    console.log(params);
 	db.cypher({
         query: query,
         params: params
@@ -869,6 +876,8 @@ DAL.prototype.getSubmissionData = function(data, cb) {
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
+
+    // var query = ""
 
     console.log(query,params);
 	db.cypher({
@@ -1003,7 +1012,8 @@ DAL.prototype.getReports = function(cb) {
     // var params = {
     //     answerId: data.answerId
     // }
-    var query = `match path = (sub:surveySubmission)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(:answer)
+    var query = `MATCH(sub:surveySubmission)-[:HAS]->(ans:answer)
+    match path = (sub)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(ans)
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
