@@ -961,9 +961,11 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
         formName: data.formName,
         createdAt: (new Date()).getTime()
     }
-    var query = `MATCH(survey: surveyForm) where id(survey) = 9946540
+    // console.log(params);
+    
+    var query = `MATCH(survey: surveyForm)
                 MATCH(survey)-[:version]->(prevForm: formVersion) SET prevForm.isActive = false
-    MERGE(survey)-[:version]->(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive = true})\n`;
+    MERGE(survey)-[:version]->(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive: true})\n`;
     for(var i = 0; i < data.questions.length; i++){
         var question = JSON.parse(JSON.stringify(data.questions[i]));
         delete question.has;
@@ -981,6 +983,7 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
 
     // var query = ``;
     // console.log(params);
+    // console.log(query);
 	db.cypher({
         query: query,
         params: params
