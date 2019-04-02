@@ -45,6 +45,9 @@ REPLY_MSG.PROPERTY_ASSIGNED_SUCCESS = "Property successfully assigned to agent."
 REPLY_MSG.PROPERTY_ASSIGNED_FAIL = "Failed to assign property to agent.";
 REPLY_MSG.PIN_SUCCESS = "Token matched successfully.";
 REPLY_MSG.PIN_FAILED = "Wrong token.";
+REPLY_MSG.FORM_ADDITION_SUCCESS = "Form added successfully.";
+REPLY_MSG.FORM_ADDITION_FAIL = "Unable to add form.";
+
 
 exports.REPLY_MSG = REPLY_MSG;
 

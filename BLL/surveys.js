@@ -1194,10 +1194,10 @@ BLL.prototype.addNewForm = function(req, res) {
             console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            Response.sendResponse(false, Response.REPLY_MSG.FORM_ADDITION_FAIL, null, res);
             return;
         } else{
-            Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
+            Response.sendResponse(true, Response.REPLY_MSG.FORM_ADDITION_SUCCESS, result, res);
         }
     });
 }
