@@ -963,9 +963,13 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
     }
     // console.log(params);
     
-    var query = `MATCH(survey: surveyForm)
-                MATCH(survey)-[:version]->(prevForm: formVersion) SET prevForm.isActive = false
-    MERGE(survey)-[:version]->(form:formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive: true})\n`;
+    var query = `
+    MATCH(survey: surveyForm)
+    CREATE (form: formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive: true})\n
+    CREATE(survey)-[:version]->(form)
+    with *
+    MATCH (prevForm: formVersion) where id(prevForm) <> id(form) SET prevForm.isActive = false `;
+    
     for(var i = 0; i < data.questions.length; i++){
         var question = JSON.parse(JSON.stringify(data.questions[i]));
         delete question.has;
