@@ -160,4 +160,9 @@ router.get('/getStates', function(req, res, next) {
     BLL.getStates(req, res);
 });
 
+router.post('/surveyJsonToRules', function(req, res, next) {
+    // console.log("here");
+    BLL.surveyJsonToRules(req, res);
+});
+
 module.exports = router;
