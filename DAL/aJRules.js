@@ -163,7 +163,7 @@ DAL.prototype.addAJRules = function(aJRules, cb) {
 //         }
 //     }, function(err, count) {
 //         if(err){
-//             // console.log(count);
+//             // //console.log(count);
 //             cb(err, count);
 //             return;
 //         } else if(count[0] === undefined){
@@ -192,13 +192,13 @@ DAL.prototype.addAJRules = function(aJRules, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.updateJurisdictionRules = function(data, cb) {
-	// console.log("here it is00")
+	// //console.log("here it is00")
     // var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)<-[*]-(user:user)-[:appealForm]->(form)
     // 			 where id(n) = 115386 return DISTINCT(form), publicProperty.landArea as landArea,
 	//             publicProperty.buildingArea as buildingArea`;
 	var params = {};
 	var query = "";
-	// console.log(JSON.stringify(data));
+	// //console.log(JSON.stringify(data));
 	for(var i = 0; i < data.length; i++){
 		var jurisdictionName = data[i].jurisdictionName;
 		params["jurisdictionName" + i] = jurisdictionName;
@@ -218,8 +218,8 @@ DAL.prototype.updateJurisdictionRules = function(data, cb) {
     // var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)-[*]-(user:user)-[:appealForm]->(form:appealForm)
     //  where id(n) = 115386 return form`;
 
-	// console.log(JSON.stringify(params));
-	console.log(query);
+	// //console.log(JSON.stringify(params));
+	//console.log(query);
      db.cypher({
 		query: query,
 		params: params

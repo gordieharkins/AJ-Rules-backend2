@@ -28,7 +28,7 @@ require('../../bower_components/angular-datetime-range/dist/datetime-range.min.c
 var __env = {};
 if (window) {
     Object.assign(__env, window.__env);
-    console.log(window.__env)
+    //console.log(window.__env)
 }
 /**************************************************************************
  * Define Angular application

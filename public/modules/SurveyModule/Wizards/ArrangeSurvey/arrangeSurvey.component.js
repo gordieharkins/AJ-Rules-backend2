@@ -65,7 +65,7 @@ var _arrangeSurveyComponent = {
                     closeOnBlur: true
                 };
                 $scope.killDropDown = function () {
-                    console.log('aaaaaaaaaaaa')
+                    //console.log('aaaaaaaaaaaa')
                     $(".dropdown ul").remove();
 
                     // $('#dropOut').dropdown("toggle");
@@ -79,13 +79,13 @@ var _arrangeSurveyComponent = {
                 $scope.loadings = false;
                 // $scope.addDiv=function(){
                 //     $scope.sectionName.push($scope.name);
-                //     console.log($scope.sectionName);
+                //     //console.log($scope.sectionName);
                 // };
 
 
                 $scope.enableListFunction = function () {
 
-                    console.log($scope.enableList)
+                    //console.log($scope.enableList)
                     if ($scope.enableList == true) {
                         $scope.enableList = false;
                     }
@@ -110,7 +110,7 @@ var _arrangeSurveyComponent = {
                                 if (serverData) {
                                     vm.sections = serverData.result;
                                     //startAgain();
-                                    console.log(vm.sections);
+                                    //console.log(vm.sections);
                                     for (var i = 0; i < vm.sections.length; ++i) {
 
                                         $scope.example1data[i] = ({ id: vm.sections[i].section, label: vm.sections[i].section, sectionId: vm.sections[i].sectionId })
@@ -121,7 +121,7 @@ var _arrangeSurveyComponent = {
                             }
                         }, function (err) {
                             //some error
-                            console.log("Error: ", err);
+                            //console.log("Error: ", err);
                             $("#preloader").css("display", "none");
                         })
                 }
@@ -137,13 +137,13 @@ var _arrangeSurveyComponent = {
 
                 $scope.init = function () {
 
-                    console.log(CreateSurveyService.questions)
+                    //console.log(CreateSurveyService.questions)
 
                     if (CreateSurveyService.questions) {
 
                         vm.data = CreateSurveyService.questions;
                         $scope.models2.lists.B = CreateSurveyService.questions;
-                        console.log("question")
+                        //console.log("question")
 
                     }
                     else {
@@ -271,7 +271,7 @@ var _arrangeSurveyComponent = {
                                             break;
                                         }
                                     }
-                                    console.log(extractKey + data[k].id)
+                                    //console.log(extractKey + data[k].id)
                                     if (extractKey == data[k].id) {
 
                                         check = 1;
@@ -333,7 +333,7 @@ var _arrangeSurveyComponent = {
 
                                         }
                                     }
-                                    console.log(deleteKey + extractKey)
+                                    //console.log(deleteKey + extractKey)
                                     if (deleteKey === extractKey || found) {
 
 
@@ -392,7 +392,7 @@ var _arrangeSurveyComponent = {
                             var replacable = $scope.models.restoreList;
                             if (checkExist == 0) {
                                 for (var i = 0; i < data.length; i++) {
-                                    console.log('in-------')
+                                    //console.log('in-------')
 
 
                                     if (!$scope.models.lists[i]) {
@@ -414,7 +414,7 @@ var _arrangeSurveyComponent = {
                     $scope.logListEvent('dragged over', index, external, type);
                     // Invoke callback to origin for container types.
                     if (type == 'container' && !external) {
-                        console.log('Container being dragged contains ' + callback() + ' items');
+                        //console.log('Container being dragged contains ' + callback() + ' items');
                     }
                     return index < 10; // Disallow dropping in the third row.
                 };
@@ -427,7 +427,7 @@ var _arrangeSurveyComponent = {
                 };
 
                 $scope.logEvent = function (message) {
-                    console.log(message);
+                    //console.log(message);
                 };
 
                 $scope.logListEvent = function (action, index, external, type) {
@@ -445,7 +445,7 @@ var _arrangeSurveyComponent = {
 
 
                 $scope.$on('my-sorted', function (ev, val) {
-                    console.log(val.from + " " + val.to)
+                    //console.log(val.from + " " + val.to)
                     var temp = [];
                     $scope.myObj = $scope.models.lists;
                     $scope.model3 = []
@@ -471,20 +471,20 @@ var _arrangeSurveyComponent = {
 
 
                 $scope.addSection = function (data) {
-                    console.log('sss')
+                    //console.log('sss')
                     ArrangeSurveyService.addSection(data).then(function (result) {
                         var serverData = result.data;
-                        console.log(serverData)
+                        //console.log(serverData)
                         if (serverData.success) {
                             if (serverData) {
-                                console.log('sss')
+                                //console.log('sss')
                                 getAllSections();
 
                             }
                         }
                     }, function (err) {
                         //some error
-                        console.log("Error: ", err);
+                        //console.log("Error: ", err);
                         $("#preloader").css("display", "none");
                     })
 

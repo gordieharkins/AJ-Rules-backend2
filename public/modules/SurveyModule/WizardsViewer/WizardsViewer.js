@@ -6,7 +6,7 @@ module.exports = _WizardsViewerCtrl;
 //angular.module('AOTC').controller('WizardsViewerCtrl', _WizardsViewerCtrl
 //    );
 function _WizardsViewerCtrl($scope, $location, $state) {
-    console.log("WizardsViewerCtrl controller");
+    //console.log("WizardsViewerCtrl controller");
     var vm = this;
     vm.isActive = isActive;
     vm.arrangeQuestions = arrangeQuestions;
@@ -47,7 +47,7 @@ function _WizardsViewerCtrl($scope, $location, $state) {
 
     function arrangeQuestions() {
         //$state.go('Survey.ArrangeSurvey');
-        console.log('ss')
+        //console.log('ss')
         $scope.createSurveyRoute=false;
         $scope.viewSurveyRoute=false;
         $scope.arrangeQuestionsRoute=true;

@@ -6,7 +6,7 @@ module.exports = _viewIERR;
 //angular.module('AOTC').controller('viewIERR', _viewIERR
 //    );
 function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("ViewIERR controller", $stateParams);
+    //////console.log("ViewIERR controller", $stateParams);
     var vm = this;
 
     vm.IERRProperty = {};
@@ -32,7 +32,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
         vm.hideTabs = true;
     }
 
-    ////console.log(vm.IERRProperty);
+    //////console.log(vm.IERRProperty);
 
     // vm.propertyId = $stateParams.property.prop._id;
 
@@ -46,7 +46,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
     
 
     function isActive(viewLocation) {
-        // ////console.log("viewLocation",viewLocation);
+        // //////console.log("viewLocation",viewLocation);
         return viewLocation === $location.path();
     }
 
@@ -63,7 +63,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
         $state.go('viewIERR.propertyDetailsTab');
         // $window.location.reload();
 
-        // ////console.log('showAnalytics clickd in homejs');
+        // //////console.log('showAnalytics clickd in homejs');
     }
 
     function showIncomeExpense() {
@@ -71,14 +71,14 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
         $state.go('viewIERR.income_expense');
         // $window.location.reload();
 
-        // ////console.log('showAnalytics clickd in homejs');
+        // //////console.log('showAnalytics clickd in homejs');
     }
     function showPublicProperty() {
         // $window.location.href = '#/detail/analytics';    
         $state.go('viewIERR.public_property_tab');
         // $window.location.reload();
 
-        // ////console.log('showAnalytics clickd in homejs');
+        // //////console.log('showAnalytics clickd in homejs');
     }
 
     function showRentRole() {
@@ -87,7 +87,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
         $state.go('viewIERR.rent_role');
 
         // $window.location.href = '#/detail/logs';    
-        // ////console.log('showLogs clickd in homejs');
+        // //////console.log('showLogs clickd in homejs');
     }
 
     function showOtherFiles() {
@@ -95,7 +95,7 @@ function _viewIERR($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
     }
 
     function showTaxBills() {
-        ////console.log("showTaxBills Called");
+        //////console.log("showTaxBills Called");
         $state.go('viewIERR.tax_bills');
     }
 }

@@ -95,21 +95,21 @@ function _PublicPropertyCtrl(User_Config, PublicPropertyService, $http, $timeout
             return item.id;
         },
         onGridReady: function (params) {
-            // ////console.log('grid is ready')
+            // //////console.log('grid is ready')
             params.api.sizeColumnsToFit();
             // params.api.angularCompileRows = true;
 
         },
         onSelectionChanged: function (event) {
-            // ////console.log('onSelectionChanged event', event);
+            // //////console.log('onSelectionChanged event', event);
             var selectedProps = gridOptions.api.getSelectedRows();
-            ////console.log('selectedProps', selectedProps);
-            ////console.log('server in progress', serverInProgress);
+            //////console.log('selectedProps', selectedProps);
+            //////console.log('server in progress', serverInProgress);
             if (serverInProgress == 1) {
                 // gridOptions.api.deselectAll();
             }
             if (selectedProps.length > 0) {
-                ////console.log('active delete button')
+                //////console.log('active delete button')
                 vm.showDeleteButton = true;
                 decideToShowMultiAccountMultiPart(selectedProps);
                 $scope.$apply();
@@ -208,7 +208,7 @@ function _PublicPropertyCtrl(User_Config, PublicPropertyService, $http, $timeout
 
 
             this.viewEventListener = function (event) {
-                ////console.log('viewEventListener was clicked!!', this.value);
+                //////console.log('viewEventListener was clicked!!', this.value);
                 var property = getPropertyObjectFromList(this.value);
 
                 if (property) {

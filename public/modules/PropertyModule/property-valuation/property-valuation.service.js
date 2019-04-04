@@ -9,7 +9,7 @@ module.exports = _ValuationService;
 function _ValuationService($http, $q) {
 
     function getDataFromServer(apiUrl) {
-        // ////console.log(apiUrl);
+        // //////console.log(apiUrl);
         var token = localStorage.getItem('token');
 
         var req = $http({
@@ -28,7 +28,7 @@ function _ValuationService($http, $q) {
     }
 
     function getValuationForms(url, formData) {
-        ////console.log(url);
+        //////console.log(url);
         var token = localStorage.getItem('token');
 
         var req = $http({
@@ -136,7 +136,7 @@ function _ValuationService($http, $q) {
     }
 
     function uploadFiles(uploadUrl, files) {
-        // ////console.log(jsonForm);
+        // //////console.log(jsonForm);
 
         var token = localStorage.getItem('token');
 
@@ -169,7 +169,7 @@ function _ValuationService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -185,7 +185,7 @@ function _ValuationService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ///console.log(result);
+                /////console.log(result);
             });
         return deferred.promise;
     }
@@ -194,20 +194,20 @@ function _ValuationService($http, $q) {
 
         var serverData = {};
         var url = '/valuation/get-modal';
-        ////console.log(url);
+        //////console.log(url);
         var deferred = $q.defer();
         var _data = {
             id: localStorage.getItem('formId'),
             propId: parseInt(localStorage.getItem('propertyId'))
         };
-        // ////console.log("This: ",url);
+        // //////console.log("This: ",url);
 
         postDataToServer(url, _data)
             .then(function (result) {
                 deferred.resolve(result);
 
             }, function (result) {
-                ////console.log(result);
+                //////console.log(result);
                 deferred.reject(result);
             });
         return deferred.promise;
@@ -218,20 +218,20 @@ function _ValuationService($http, $q) {
 
 
         var url = 'valuation/get-forms-by-formId';
-        ////console.log(url);
+        //////console.log(url);
         var deferred = $q.defer();
         var _data = {
             formId: localStorage.getItem('formId'),
             propId:parseInt(localStorage.getItem('propertyId'))
         };
-        // ////console.log("This: ",url);
+        // //////console.log("This: ",url);
 
         postDataToServer(url, _data)
             .then(function (result) {
                 deferred.resolve(result);
 
             }, function (result) {
-                ////console.log(result);
+                //////console.log(result);
                 deferred.reject(result);
             });
         return deferred.promise;

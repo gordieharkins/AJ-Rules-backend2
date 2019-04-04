@@ -16,7 +16,7 @@ function DAL() {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.saveSettings = function(data, userId, cb) {
-    // console.log("here it is00")
+    // //console.log("here it is00")
     var query = `MATCH (n:user) where id(n) = {userId}
                 MERGE(n)-[:settings]->(s:userSettings)
                 ON MATCH SET s = {settings}
@@ -40,7 +40,7 @@ DAL.prototype.saveSettings = function(data, userId, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getSettings = function(userId, cb) {
-	// console.log("here it is00")
+	// //console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 Return properties(s) as settings, id(s) as id`;
 
@@ -85,7 +85,7 @@ DAL.prototype.saveEmailCode = function(userId, data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.savePhoneCode = function(userId, data, cb) {
-	// console.log("here it is00")
+	// //console.log("here it is00")
     var query = `MATCH (n:user)-[:settings]->(s:userSettings) where id(n) = {userId}
                 MERGE (s)-[:phoneVerificationCode]->(e:phoneCode{phoneNumber: {phoneNumber}})
                 ON MATCH SET e.code = {code}, e.createdDate = {date}
@@ -182,7 +182,7 @@ DAL.prototype.addAlert = function(alert, userId, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getAlert = function(cb) {
-    // console.log("here it is00")
+    // //console.log("here it is00")
     // var startTime = new Date
     var date = new Date();
     // var startTime = date.getTime() - (15*60000);
@@ -193,7 +193,7 @@ DAL.prototype.getAlert = function(cb) {
         {endTime} > toInteger(alert.sendingTimeLong) OR alert.dateTimeLong = alert.sendingTimeLong
         RETURN alert`;
 
-    console.log(query);
+    //console.log(query);
      db.cypher({
         query: query,
         params: {

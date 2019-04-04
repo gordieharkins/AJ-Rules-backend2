@@ -20,9 +20,9 @@ function _appealHome(UtilService, $stateParams, $anchorScroll, $state, DTOptions
         //},
         templateUrl: 'modules/PropertyModule/taxAppeal/components/home/home.html',
         link: function (scope, elem, attr) {
-            console.log($location.path())
+            //console.log($location.path())
             scope.value = ''
-            console.log(scope.data)
+            //console.log(scope.data)
             
             scope.name= function() {
                 scope.value = '123'

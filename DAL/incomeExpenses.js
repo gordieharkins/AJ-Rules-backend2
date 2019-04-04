@@ -16,12 +16,12 @@ function DAL() {
 // Single IE adding against a propertyId
 // ---------------------------------------------
 DAL.prototype.addPropertyIE = function(propertyIE, propertyId, userId, cb) {
-    // console.log("propertyIE: ",propertyIE);
-    // console.log("propertyId: ",propertyId);
-    // console.log("userId: ",userId);
-    // console.log("*********************************************************");
-    // console.log(propertyIE);
-    console.log("here is tafkasf");
+    // //console.log("propertyIE: ",propertyIE);
+    // //console.log("propertyId: ",propertyId);
+    // //console.log("userId: ",userId);
+    // //console.log("*********************************************************");
+    // //console.log(propertyIE);
+    //console.log("here is tafkasf");
     userId = parseInt(userId);
     var params = {
         propertyId:parseInt(propertyId)
@@ -36,13 +36,13 @@ DAL.prototype.addPropertyIE = function(propertyIE, propertyId, userId, cb) {
         propertyIE[i].isDeleted = false;
 
         params['IE'+i] = propertyIE[i];
-        // console.log("params: ",params[IE0]);
+        // //console.log("params: ",params[IE0]);
         query += "\nCREATE (IE" + i + ":IE{IE" + i + "})" +
             "\nCREATE (IE" + i + ")-[rel" + i + ":OF{IEYear:\"" + propertyIE[i].IEYear + "\"}]->(prop)";
-            // console.log("test query: ",query);
+            // //console.log("test query: ",query);
         
     }
-    // console.log("query: ",query);
+    // //console.log("query: ",query);
     db.cypher({
         query: query,
         params:params
@@ -165,7 +165,7 @@ DAL.prototype.getPropertyIEDataReduction = function(data, cb) {
     // propertyIds = parseInt(propertyIds);
     var query = "MATCH (prop:property)<-[rel:OF]-(ie:IE) where id(prop) = " +data.propId+" AND toInt(ie.IEYear[1]) <= "+data.year+" AND ie.isDeleted = false return ie as IE,ie.IEYear[1] as year ORDER BY ie.IEYear[1] DESC";
     // res.send(query)
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         // params:{
@@ -269,11 +269,11 @@ DAL.prototype.deleteIEById = function(data, userId, cb) {
 // Unparsed IE adding against a propertyId
 // ---------------------------------------------
 DAL.prototype.addUnparsedPropertyIE = function(propertyIE, propertyId, userId, cb) {
-    // console.log("propertyIE: ",propertyIE);
-    // console.log("propertyId: ",propertyId);
-    // console.log("userId: ",userId);
-    // console.log("*************************TEST********************************");
-    // console.log(propertyIE);
+    // //console.log("propertyIE: ",propertyIE);
+    // //console.log("propertyId: ",propertyId);
+    // //console.log("userId: ",userId);
+    // //console.log("*************************TEST********************************");
+    // //console.log(propertyIE);
     userId = parseInt(userId);
     var params = {
         propertyId:parseInt(propertyId)
@@ -289,14 +289,14 @@ DAL.prototype.addUnparsedPropertyIE = function(propertyIE, propertyId, userId, c
         propertyIE[i].isDeleted = false;
 
         params['IE'+i] = propertyIE[i];
-        // console.log("params: ",propertyIE[i]);
+        // //console.log("params: ",propertyIE[i]);
         query += "\nCREATE (IE" + i + ":IE{IE" + i + "})" +
             "\nCREATE (IE" + i + ")-[rel" + i + ":OF{IEYear:\"" + propertyIE[i].IEYear + "\"}]->(prop)";
-        // console.log("query: ",query);
+        // //console.log("query: ",query);
     }
-    // console.log("params: ",params);
+    // //console.log("params: ",params);
 
-    // console.log("query: ",query);
+    // //console.log("query: ",query);
     db.cypher({
         query: query,
         params:params

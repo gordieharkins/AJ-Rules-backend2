@@ -7,7 +7,7 @@ module.exports = _income_expense;
 //angular.module('AOTC').controller('income_expense', _income_expense
 //    );
 function _income_expense($stateParams, $location, $scope, $http, __env, $log, AOTCService, UtilService, $timeout) {
-    ////console.log("income_expense  controller", $stateParams);
+    //////console.log("income_expense  controller", $stateParams);
 
     var vm = this;
     // $scope.user = {
@@ -42,7 +42,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
     }, 200);
 
 
-    // ////console.log(vm.IERRProperty)
+    // //////console.log(vm.IERRProperty)
 
     vm.toggleActiveClass = toggleActiveClass;
 
@@ -76,19 +76,19 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
     function getPropertyIE() {
         var url = '/incomeExpenses/getPropertyIE';
         //var url = '/properties/getPropertyIE?id=36';
-        ////console.log(url)
+        //////console.log(url)
         var _data = {"propId": vm.propertyId};
         $("#preloader").css("display", "block");
 
         AOTCService.postDataToServer(url, _data)
             .then(function (result) {
                 var serverData = result.data;
-                ////console.log('getPropertyIE server data', result);
+                //////console.log('getPropertyIE server data', result);
 
                 if (serverData.success) {
 
                     vm.tableData = serverData.result;
-                    ////console.log(vm.tableData)
+                    //////console.log(vm.tableData)
 
                     if (vm.tableData.length == 0) {
                         vm.hideYardiTable = true;
@@ -121,7 +121,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
 
             }, function (result) {
                 //some error
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css("display", "none");
 
             });
@@ -135,7 +135,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
 
         var url = '/incomeExpenses/dataReductionIE';
         //var url = '/properties/getPropertyIE?id=36';
-        // ////console.log(url)
+        // //////console.log(url)
         $("#preloader").css("display", "block");
         var metaData = {
             propId: vm.propertyId,
@@ -144,7 +144,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
 
         AOTCService.postDataToServer(url, metaData)
             .then(function (result) {
-                ////console.log('dataReductionIE server data:', result);
+                //////console.log('dataReductionIE server data:', result);
                 if (result.data.success) {
                     var serverData = result.data;
                     vm.yardiIEData = serverData.result.yardiIEData;
@@ -162,7 +162,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
 
 
             }, function (result) {
-                ////console.log(result);
+                //////console.log(result);
             });
     }
 
@@ -186,7 +186,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
     }
 
     function deleteIncomeExpense(incomeExpense) {
-        ////console.log("here it is")
+        //////console.log("here it is")
 
         vm.modelMessage.title = 'Delete ' + incomeExpense.IE.properties.fileName;
         vm.modelMessage.message = 'Are you sure to delete file from this property?';
@@ -219,7 +219,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);
@@ -249,7 +249,7 @@ function _income_expense($stateParams, $location, $scope, $http, __env, $log, AO
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);

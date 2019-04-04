@@ -16,7 +16,7 @@ function DAL() {
 DAL.prototype.getFieldValues = function(data,cb) {
 
     var query = `match(n:`+data+`) return n`;
-    // console.log(query);
+    // //console.log(query);
 
      db.cypher({
         query: query,

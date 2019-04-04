@@ -27,13 +27,13 @@ function YardiIE17() {
 }
 
 YardiIE17.prototype.getHeaders = function (yardiType,callback) {
-    // console.log("in getting headers DAL");
+    // //console.log("in getting headers DAL");
     DAL.getFieldValues(yardiType, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             ErrorLogDAL.addErrorLog(error);
         } else {
-            // console.log("get field values result: ", result);
+            // //console.log("get field values result: ", result);
             callback(result);
         }
     }
@@ -47,12 +47,12 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
     // incomeExpense.IEYear = null;
     // incomeExpense.propertytaxes = null;
 
-    // console.log("testing");
-    // console.log("result::: ",JSON.stringify(result));
-            // console.log(JSON.stringify(result[0]));
-            //console.log("result::: ",JSON.stringify(result));
-            // console.log("in array test: ",result[0].n.properties.columnHeaders.indexOf("Total Administrative Expenses"));
-            // console.log("Row Headers: ",result[0].n.properties.rowHeaders[0].toLowerCase());
+    // //console.log("testing");
+    // //console.log("result::: ",JSON.stringify(result));
+            // //console.log(JSON.stringify(result[0]));
+            ////console.log("result::: ",JSON.stringify(result));
+            // //console.log("in array test: ",result[0].n.properties.columnHeaders.indexOf("Total Administrative Expenses"));
+            // //console.log("Row Headers: ",result[0].n.properties.rowHeaders[0].toLowerCase());
             result[0].n.properties.columnHeaders = result[0].n.properties.columnHeaders.map(function (e) { 
                 return e.toLowerCase()
             });
@@ -84,12 +84,12 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                             var valueCell = cells[cellIndex].toLowerCase().trim();
                             if (result[0].n.properties.columnHeaders.indexOf(valueCell)>-1)
                             {
-                                // console.log("heading: ",valueCell);
-                                // console.log("col values: ",cells[actualColumnIndex]);
+                                // //console.log("heading: ",valueCell);
+                                // //console.log("col values: ",cells[actualColumnIndex]);
 
                                 a = valueCell.toLowerCase().replace(/\s/g, '');
                                 a = a.replace(/[^a-zA-Z ]/g, "");
-                                // console.log("found!!: ",a);
+                                // //console.log("found!!: ",a);
                                 incomeExpense[a]=[];
                                 incomeExpense[a][0] = result[0].n.properties.columnHeaders[result[0].n.properties.columnHeaders.indexOf(valueCell)];
                                     
@@ -108,7 +108,7 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                                 // incomeExpense[a][1] = cells[actualColumnIndex];
                                 incomeExpense[a][2] = (count++).toString();
                                 incomeExpense[a][3] = Common.DATA_TYPE.CURRENCY;
-                                // console.log(incomeExpense[a]);
+                                // //console.log(incomeExpense[a]);
                             }
                             // if (valueCell === taxesrealestate.toLowerCase()) {
                             //     var realEstateTaxes = [];
@@ -117,7 +117,7 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                             //     tempIncomeExpense.realEstateTaxes = realEstateTaxes;
                             // }
                         }
-                        // console.log("IE:::::::",JSON.stringify(incomeExpense));
+                        // //console.log("IE:::::::",JSON.stringify(incomeExpense));
                         //result2[0] = incomeExpense.taxesrealestate;
                     }
                 }
@@ -187,7 +187,7 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                         if (yardiType == "MULTIPLE_SHEETS"){
                             
                             addressIndex = cells.indexOf("statement of operations (cash)");
-                            // console.log("address Index: ",addressIndex);
+                            // //console.log("address Index: ",addressIndex);
                             if (addressIndex > -1) {
                                 var address = [];
                                 address[0] = ADDRESS_LABEL;
@@ -212,9 +212,9 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                         if (!isAddressFound) {
                             for(cellIndex = 0; cellIndex < cells.length; cellIndex++){
                                 var cellValue = cells[cellIndex].toLowerCase().trim();
-                                // console.log("address: ",cellValue+" "+cellValue.indexOf("income"));
+                                // //console.log("address: ",cellValue+" "+cellValue.indexOf("income"));
                                 if(cellValue.indexOf("period") > -1){
-                                    // console.log("found income, moving up");
+                                    // //console.log("found income, moving up");
                                     var address = [];
                                     address[0] = ADDRESS_LABEL;
                                     address[0] = rows[index - 2].split("|")[cellIndex];
@@ -230,9 +230,9 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                         if (!isDateFound) {
                             for(cellIndex = 0; cellIndex < cells.length; cellIndex++){
                                 var cellValue = cells[cellIndex].toLowerCase().trim();
-                                // console.log("IEYear: ",cellValue+" index of period: "+cellValue.indexOf("period"));
+                                // //console.log("IEYear: ",cellValue+" index of period: "+cellValue.indexOf("period"));
                                 if(cellValue.indexOf("period") > -1){
-                                    // console.log("found period, date found");
+                                    // //console.log("found period, date found");
                                     var date = [];
                                     date[0] = DATE_LABEL;
                                     date[1] = cellValue;
@@ -240,7 +240,7 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                                     date[1] = date[1][date[1].length - 1];
                                     date[2] = '20';
                                     incomeExpense.IEYear = date;
-                                    // console.log("extracted date: ",incomeExpense.IEYear);
+                                    // //console.log("extracted date: ",incomeExpense.IEYear);
                                     isDateFound = true;
                                     break;
                                 }
@@ -250,9 +250,9 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                         if (!actualColumnsFound) {
                             for (cellIndex = 0; cellIndex < cells.length; cellIndex++) {
                                 var cellValue = cells[cellIndex];
-                                // console.log("mytesting: ",JSON.stringify(result));
+                                // //console.log("mytesting: ",JSON.stringify(result));
                                 if (cellValue.toLowerCase().trim() === result[0].n.properties.rowHeaders[0].toLowerCase()) {
-                                    // console.log("headers found!!",cellIndex);
+                                    // //console.log("headers found!!",cellIndex);
                                     actualColumnIndex = cellIndex;
                                     actualColumnsFound = true;
                                     break;
@@ -263,20 +263,20 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                         if (!actualColumnsFound) {
                             continue;
                         }
-                        // console.log("*checks*:actual,date,address ",actualColumnsFound+":"+isDateFound+":"+isAddressFound)
-                        // console.log("date check: ",incomeExpense.IEYear);
-                        // console.log("check address: ",incomeExpense.address);
+                        // //console.log("*checks*:actual,date,address ",actualColumnsFound+":"+isDateFound+":"+isAddressFound)
+                        // //console.log("date check: ",incomeExpense.IEYear);
+                        // //console.log("check address: ",incomeExpense.address);
                         for(var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
                             var valueCell = cells[cellIndex].trim();
                            
                             if (result[0].n.properties.columnHeaders.indexOf(valueCell)>-1)
                             {
-                                // console.log("heading: ",valueCell);
-                                // console.log("col values: ",cells[actualColumnIndex]);
+                                // //console.log("heading: ",valueCell);
+                                // //console.log("col values: ",cells[actualColumnIndex]);
 
                                 var a = valueCell.toLowerCase().replace(/\s/g, '');
                                 a = a.replace(/[^a-zA-Z ]/g, "");
-                                // console.log("found!!: ",a);
+                                // //console.log("found!!: ",a);
                                 incomeExpense[a]=[];
                                 incomeExpense[a][0] = result[0].n.properties.columnHeaders[result[0].n.properties.columnHeaders.indexOf(valueCell)];
                                     
@@ -303,47 +303,47 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                 }
             }
                 if(yardiType == "YardiIE17" && incomeExpense.propertytaxes !== null){
-                    // console.log(yardiType);
-                    // console.log("in not null if 001");
-                    // console.log("incomeExpense.totalrealestatetaxes[1]",incomeExpense.totalrealestatetaxes[1]);
-                    // console.log("incomeExpense.propertytaxes[1]",incomeExpense.propertytaxes[1]);
-                    // console.log("incomeExpense.totalpropertyexpenses[1]",incomeExpense.totalpropertyexpenses[1]);
-                    // console.log("incomeExpense.netincome[1]",incomeExpense.netincome[1]);
+                    // //console.log(yardiType);
+                    // //console.log("in not null if 001");
+                    // //console.log("incomeExpense.totalrealestatetaxes[1]",incomeExpense.totalrealestatetaxes[1]);
+                    // //console.log("incomeExpense.propertytaxes[1]",incomeExpense.propertytaxes[1]);
+                    // //console.log("incomeExpense.totalpropertyexpenses[1]",incomeExpense.totalpropertyexpenses[1]);
+                    // //console.log("incomeExpense.netincome[1]",incomeExpense.netincome[1]);
                     try{
                         incomeExpense.totalrealestatetaxes[1] = (parseFloat(incomeExpense.totalrealestatetaxes[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                         incomeExpense.totalpropertyexpenses[1] = (parseFloat(incomeExpense.totalpropertyexpenses[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                         incomeExpense.netincome[1] = (parseFloat(incomeExpense.netincome[1]) + parseFloat(incomeExpense.propertytaxes[1])).toString();
                     } catch(err){
-                        console.log("Error: ", err);
+                        //console.log("Error: ", err);
                     }
                 }
 
                 else if(yardiType == "YardiIE16" && incomeExpense.totaltaxesfees !== null){
-                    // console.log(yardiType);
-                    // console.log(incomeExpense.totaltaxesfees);
-                    // console.log("in not null if 002");
+                    // //console.log(yardiType);
+                    // //console.log(incomeExpense.totaltaxesfees);
+                    // //console.log("in not null if 002");
                     incomeExpense.totalotherincomeexp[1] = (parseFloat(incomeExpense.totalotherincomeexp[1]) - parseFloat(incomeExpense.totaltaxesfees[1])).toString();
                     incomeExpense.totaltenantoperatingexpense[1] = (parseFloat(incomeExpense.totaltenantoperatingexpense[1]) - parseFloat(incomeExpense.totaltaxesfees[1])).toString();
                     incomeExpense.netincome[1] = (parseFloat(incomeExpense.netincome[1]) + parseFloat(incomeExpense.totaltaxesfees[1])).toString();
                 }
                 else if(yardiType == "YARDI_B_COMPARISON_17" && incomeExpense.propertytaxes !== null){
-                    // console.log(yardiType);
-                    // console.log("myarr: ",incomeExpense);
+                    // //console.log(yardiType);
+                    // //console.log("myarr: ",incomeExpense);
                     incomeExpense.realestateothertaxes[1] = (parseFloat(incomeExpense.realestateothertaxes[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                     incomeExpense.totalexpenses[1] = (parseFloat(incomeExpense.totalexpenses[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                     incomeExpense.noinol[1] = (parseFloat(incomeExpense.noinol[1]) + parseFloat(incomeExpense.propertytaxes[1])).toString();
                 }
                 else if(yardiType == "YARDI_B_COMPARISON_12_13_14" && incomeExpense.propertytaxes !== null){
-                    // console.log(yardiType);
+                    // //console.log(yardiType);
                     incomeExpense.totalrealestatetaxes[1] = (parseFloat(incomeExpense.totalrealestatetaxes[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                     incomeExpense.totalpropertyexpenses[1] = (parseFloat(incomeExpense.totalpropertyexpenses[1]) - parseFloat(incomeExpense.propertytaxes[1])).toString();
                     incomeExpense.propertynetoperatingincome[1] = (parseFloat(incomeExpense.propertynetoperatingincome[1]) + parseFloat(incomeExpense.propertynetoperatingincome[1])).toString();
                 }
                 
                 else{
-                    // console.log("in else off 002");
-                    // console.log(yardiType);
-                    // console.log(incomeExpense.totaltaxesfees);
+                    // //console.log("in else off 002");
+                    // //console.log(yardiType);
+                    // //console.log(incomeExpense.totaltaxesfees);
                 }
         
                 /**************************
@@ -359,11 +359,11 @@ YardiIE17.prototype.parseFile = function (fileBuffer, fileName, originalFileName
                     try{
                         incomeExpense.IEYear[2] = (count++).toString();
                     } catch(err){
-                        console.log("IE YEAR not found");
+                        //console.log("IE YEAR not found");
                     }
                     result2.push(incomeExpense);
                 }
             });
-            // console.log("umar here 001: ",JSON.stringify(result2));
+            // //console.log("umar here 001: ",JSON.stringify(result2));
             cb(result2);
 }

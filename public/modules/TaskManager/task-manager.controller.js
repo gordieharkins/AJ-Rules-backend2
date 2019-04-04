@@ -7,7 +7,7 @@ module.exports = _TaskManagerCtrl;
 //    );
 
 function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, taskService, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log('task manager controller', $stateParams);
+    //////console.log('task manager controller', $stateParams);
     $timeout(function() {
         if ($stateParams.messageFrom) {
             $scope.$emit('success', $stateParams.message)
@@ -21,7 +21,7 @@ function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, ta
         // The friendService returns a promise.
         taskService.getTasks().then(
             function(tasks) {
-                ////console.log(tasks);
+                //////console.log(tasks);
                 applyRemoteData(tasks);
             });
     }
@@ -48,7 +48,7 @@ function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, ta
     // I apply the remote data to the local scope.
 
     $scope.gotoProperties = function(task) {
-        ////console.log('i clicked')
+        //////console.log('i clicked')
         $("#preloader").css('display', 'block');
         
         localStorage.setItem('propertyId', task.propertyId);
@@ -56,7 +56,7 @@ function _TaskManagerCtrl($stateParams, $state, $location, $scope, $interval, ta
         var propertyId = localStorage.getItem("propertyId");
         taskService.getPropertyDetails().then(
             function(props) {
-                ////console.log('----->'+props)
+                //////console.log('----->'+props)
 
                 $("#preloader").css('display', 'none');
 

@@ -177,14 +177,14 @@ BLL.prototype.uploadContracts = function(data, res) {
         if(files.length <= 0) {
             Response.sendResponse(false, Response.REPLY_MSG.NO_FILE_UPLOADED, null, res);
         } else {
-            // console.log("here for parsing");
+            // //console.log("here for parsing");
             addFiles(files,fileNames, function (contracts) {
-                // console.log(contracts);
-            // console.log("here 2");
+                // //console.log(contracts);
+            // //console.log("here 2");
                 DAL.uploadContracts(contracts, userId, function(error, result){
-                // console.log("here 3");
+                // //console.log("here 3");
                     if (error) {
-                        console.log(error)
+                        //console.log(error)
                         error.userName = loginUserName;
                         ErrorLogDAL.addErrorLog(error);
                         Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
@@ -207,7 +207,7 @@ function addFiles(files, fileNames ,callback){
             fileName : "",
             body: ""
         }
-        // console.log(files[i]);
+        // //console.log(files[i]);
         contract.fileName = fileNames[i];
         mammoth.convertToHtml({path: files[i]})
             .then(function(result){
@@ -238,7 +238,7 @@ BLL.prototype.getContracts = function(data,res,next){
 }
 
 BLL.prototype.addContractTemplate = function(data,res,next){
-    // console.log(data);
+    // //console.log(data);
     var userId = data.user[0].userId;
     DAL.addContractTemplate(data.body, userId, function(error, result){
         if (error) {
@@ -260,12 +260,12 @@ BLL.prototype.getContractTerms = function(data,res,next){
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else {
-            // console.log(result);
+            // //console.log(result);
             // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             if(result[0].contractTerms.length > 0){
                 result = result[0].contractTerms;
                 var columns = JSON.parse(result[0].columns);
-                // console.log(result[0].columns);
+                // //console.log(result[0].columns);
                 for(var i = 0; i < result.length; i++){
                     if(result[i].hasLevels){
                         result[i].value = JSON.parse(result[i].value);
@@ -294,7 +294,7 @@ BLL.prototype.addContractTerms = function(data,res,next){
 BLL.prototype.updateContractTerms = function(data,res,next){
     DAL.updateContractTerms(data, function(error, result){
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
@@ -351,7 +351,7 @@ BLL.prototype.getContractsById = function(data,res,next){              //need to
             return;
         } else {
             // dadsd
-            console.log(result)
+            //console.log(result)
             var finalResult = {
                 contract: result[0].contract,
                 financialTerms: [],
@@ -374,7 +374,7 @@ BLL.prototype.getContractsById = function(data,res,next){              //need to
                 for(var i = 0;i < result[0].financialTerms.length; i++){
                     propertyData.propIds.push(result[0].financialTerms[i].propertyId);
                 }
-                // console.log(propertyData);
+                // //console.log(propertyData);
                 DAL.getDataforSampleCalculations(propertyData, function(error, result1){
                     if (error) {
                         error.userName = loginUserName;
@@ -391,7 +391,7 @@ BLL.prototype.getContractsById = function(data,res,next){              //need to
 
                             finalResult.financialTerms.push(financialTerm);
                         }
-                        // console.log(result);
+                        // //console.log(result);
                         Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, finalResult, res);
                     }
                 });
@@ -430,7 +430,7 @@ BLL.prototype.getDataforSampleCalculations = function(data,res,next){       //us
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else {
-            // console.log(result);
+            // //console.log(result);
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -450,7 +450,7 @@ BLL.prototype.getInvoiceByContractId = function(data,res,next){
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
             return;
         } else {
-            // console.log(result);
+            // //console.log(result);
             var masterInvoice = {
                 totalProperties: 0,
                 totalFee:0,

@@ -111,7 +111,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _pZipCodeFilter(){
   return function(items, params) {
             var result = []
-            console.log(items)
+            //console.log(items)
             if(params.length==0) {
                 return items
             }
@@ -132,7 +132,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
     function _ownerInputFilter(){
         return function(data, params) {
                   var result = []
-                  console.log(data)
+                  //console.log(data)
                   if(params.length==0) {
                       return data
                   }
@@ -152,7 +152,7 @@ module.exports = {JurisdictionFilter: _JurisDictionFilter, AppealFilter: _Appeal
          function _zipCodeInputFilter(){
             return function(data, params) {
                       var result = []
-                      console.log(data)
+                      //console.log(data)
                       if(params.length==0) {
                           return data
                       }

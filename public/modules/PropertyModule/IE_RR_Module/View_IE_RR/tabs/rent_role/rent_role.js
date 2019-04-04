@@ -7,7 +7,7 @@ module.exports = _rent_role;
 //    );
 
 function _rent_role($scope, AOTCService, UtilService, $timeout) {
-    ////console.log("rent_role controller");
+    //////console.log("rent_role controller");
     var vm = this;
     // Variables Declaration
     vm.propertiesCount = localStorage.getItem('propertiesCount');
@@ -86,17 +86,17 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
     function getPropertyRR() {
         var url = '/rentRolls/getPropertyRR';
         //var url = '/properties/getPropertyRR?id=36';
-        // ////console.log(url);
+        // //////console.log(url);
         var _data = {"propId": vm.propertyId};
         $("#preloader").css("display", "block");
 
         AOTCService.postDataToServer(url, _data)
             .then(function (result) {
-                ////console.log("getPropertyRR Server result: ", result);
+                //////console.log("getPropertyRR Server result: ", result);
                 var serverData = result.data;
                 if (serverData.success) {
                     vm.tableData = serverData.result;
-                    // ////console.log(vm.tableData);
+                    // //////console.log(vm.tableData);
                     //without timeout ng-grid donot render as DOM is rendered after some time
                     $timeout(function () {
 
@@ -110,11 +110,11 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
                             for (var k = 0; k < tenant.length; k++) {
                                 var obj = tenant[k];
                                 var key = Object.keys(obj)[0];
-                                // ////console.log('------keys--------', key);
+                                // //////console.log('------keys--------', key);
                                 var objValueArray = obj[key];
-                                // ////console.log('------Field value is--------', objValueArray);
+                                // //////console.log('------Field value is--------', objValueArray);
 
-                                // ////console.log(objValueArray);
+                                // //////console.log(objValueArray);
                                 var myColumns = {
                                     headerName: obj[key][0],
                                     comparator: '',
@@ -193,15 +193,15 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
                 }
             }, function (result) {
                 //some error
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css("display", "none");
 
             });
     }
 
     function autoSizeAll(gridOptions, columnDefs) {
-        ////console.log('grid options', gridOptions);
-        ////console.log('columnDefs', columnDefs);
+        //////console.log('grid options', gridOptions);
+        //////console.log('columnDefs', columnDefs);
         var allColumnIds = [];
         columnDefs.forEach(function (columnDef) {
             allColumnIds.push(columnDef.field);
@@ -245,7 +245,7 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            /////console.log(result);
+            ///////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);
@@ -274,7 +274,7 @@ function _rent_role($scope, AOTCService, UtilService, $timeout) {
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);

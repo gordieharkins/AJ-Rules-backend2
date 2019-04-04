@@ -5,7 +5,7 @@ module.exports = _Inventory;
 
 
 function _Inventory($state, $scope, $location, AOTCService) {
-    //////console.log("UserRegistration controller");
+    ////////console.log("UserRegistration controller");
     var vm = this;
     vm.properties = null
     vm.year ='2012'
@@ -24,9 +24,9 @@ function _Inventory($state, $scope, $location, AOTCService) {
                 var serverData = response.data;
                 if (serverData.success) {
                     vm.properties = serverData.result
-                    console.log( vm.properties)
+                    //console.log( vm.properties)
                     angular.forEach(vm.properties, function(value,key){
-                        console.log(value,key)
+                        //console.log(value,key)
                     })
 
                 } else {

@@ -11,11 +11,11 @@ var jwt = require('jsonwebtoken');
 // Setup work and export for the JWT passport strategy
 module.exports = function(passport) {
     var opts = {};
-    // console.log("=========================PASSPORT JwtStrategy=============================================");
+    // //console.log("=========================PASSPORT JwtStrategy=============================================");
 
     opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
     opts.secretOrKey = auth.secret;
-    // console.log("opts:",opts);
+    // //console.log("opts:",opts);
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
         var credentials = jwt_payload;
         var query = `MATCH (user:user)
@@ -38,5 +38,5 @@ module.exports = function(passport) {
 
     }));
 
-    // console.log("=============================================================================================");
+    // //console.log("=============================================================================================");
 };

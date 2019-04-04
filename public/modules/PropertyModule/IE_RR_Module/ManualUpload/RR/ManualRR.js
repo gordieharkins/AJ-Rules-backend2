@@ -8,7 +8,7 @@ module.exports = _manualRR;
 //    );
 
 function _manualRR($rootScope, $stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("manualRR Controller");
+    ////////console.log("manualRR Controller");
 
     var vm = this;
     // $('#myModalquestion').modal('toggle');
@@ -28,7 +28,7 @@ function _manualRR($rootScope, $stateParams, $anchorScroll, $state, DTOptionsBui
     } else {
         vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
     }
-    // ////console.log("vm.property in RRmanual: ", vm.property);
+    // //////console.log("vm.property in RRmanual: ", vm.property);
 
     vm.addNewTenant = addNewTenant;
     vm.removeTenant = removeTenant;
@@ -87,12 +87,12 @@ function _manualRR($rootScope, $stateParams, $anchorScroll, $state, DTOptionsBui
 
         vm.formData.tenants = attachValidTenants();
 
-        ////console.log('submitted form : func=> submitRRForm', url);
-        ////console.log(vm.formData)
+        //////console.log('submitted form : func=> submitRRForm', url);
+        //////console.log(vm.formData)
 
         AOTCService.postDataToServer(url, vm.formData).then(function (result) {
-            ////console.log('Server Data  :');
-            ////console.log(result);
+            //////console.log('Server Data  :');
+            //////console.log(result);
 
             $scope.rentRollForm.$setPristine();
             $scope.rentRollForm.$setUntouched();

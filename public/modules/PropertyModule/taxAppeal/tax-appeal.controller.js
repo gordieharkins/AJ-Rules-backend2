@@ -43,7 +43,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
     AOTCService.postDataToServer(url, postData)
         .then(function (result) {
-              console.log(result.data)
+              //console.log(result.data)
               $scope.data = result.data.result
               $scope.data.jurisdictions = UtilService.removeAllNull($scope.data.jurisdictions);
               $scope.search.jurisdictions = UtilService.filterJurisdictions($scope.data.jurisdictions)
@@ -52,11 +52,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                getNotifications()
             }, function (result) {
             //some error
-            ////console.log(result);
+            //////console.log(result);
             $scope.config.error = 'Someting Went Wrong';
             $scope.config.errorFunction = $scope.getPropertyDetails;
     
-            console.log('error')
+            //console.log('error')
             $("#preloader").css("display", "none");
         });
     }
@@ -68,7 +68,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         var url = '/appeal/getNotification'
         AOTCService.getDataFromServer(url)
         .then(function (result) {
-              console.log(result.data)
+              //console.log(result.data)
               $scope.$emit('notifications',result.data.result)
              
               if(message) {
@@ -79,8 +79,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              
             }, function (result) {
             //some error
-            ////console.log(result);
-            console.log(result)
+            //////console.log(result);
+            //console.log(result)
             $("#preloader").css("display", "none");
         });
     }
@@ -137,7 +137,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     }
 
     $scope.staticTable = function(pindex){
-        console.log(pindex)
+        //console.log(pindex)
         $(document).ready(function() {
             $('.JStableOuter table').each(function(i,n){
                 $(n).scroll(function(e) {
@@ -207,7 +207,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
              }
         }
         postCheckList(toggleData)
-        // console.log(toggleData)
+        // //console.log(toggleData)
     }
 
     function postCheckList(data) {
@@ -215,12 +215,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         $("#preloader").css("display", "block");
        
 
-         console.log(data)
+         //console.log(data)
       
         
         AOTCService.postDataToServer(url, data)
             .then(function (result) {
-                  console.log(result.data)
+                  //console.log(result.data)
                  
                
                   setTimeout(function(){ UpdateData(4, 'Data updated successfully')}, 5000)
@@ -228,8 +228,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                  
                 }, function (result) {
                 //some error
-                ////console.log(result);
-                console.log(result)
+                //////console.log(result);
+                //console.log(result)
                 $("#preloader").css("display", "none");
             });
     }
@@ -250,7 +250,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             }
             
             
-            console.log(configSign)
+            //console.log(configSign)
            
             
     }
@@ -301,7 +301,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             postCheckList(toggleData)
     
         }
-         console.log(toggleData)
+         //console.log(toggleData)
          
 
         
@@ -323,11 +323,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         // data.push( configSign.data)
         var postData = {"pin":pin, "data": data}
         $("#preloader").css("display", "block");
-        console.log(postData)
+        //console.log(postData)
         
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
-                  console.log(result.data)
+                  //console.log(result.data)
                   if(result.data.success==true) {
                      $scope.resetSign.pin = null
                       setTimeout(function(){ UpdateData(2, 'Data updated successfully')}, 5000)
@@ -342,8 +342,8 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                  
                 }, function (result) {
                 //some error
-                ////console.log(result);
-                console.log(result)
+                //////console.log(result);
+                //console.log(result)
                 $("#preloader").css("display", "none");
             });
          
@@ -399,11 +399,11 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         configId.event =    prop.eventId;
         configData.data = prop;
         configData.subEventIndex = subEventIndex;
-        console.log(configData)
+        //console.log(configData)
         if(data.buttonText=='Details') {
             $scope.showModal = true;
             $scope.modalData = {data: data, additionalItems: prop.additionalItems};
-            console.log($scope.modalData)
+            //console.log($scope.modalData)
         }else if (data.buttonText=='View Checklist' ) {
             $scope.configModal.data={data: subEvent, additionalItems: prop.additionalItems};
           
@@ -439,7 +439,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
             configSign.data.push(prop.subEvents[subEventIndex])
          }
         
-        console.log(data)
+        //console.log(data)
     }
 
     $scope.signModal = function(type){
@@ -461,7 +461,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     // }
 
     $scope.saveCheckList = function(data){
-        console.log(data)
+        //console.log(data)
         $("#preloader").css("display", "block");
         var postData = []
         postData.push(data.data)
@@ -469,7 +469,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     
          AOTCService.postDataToServer(url, postData)
          .then(function (result) {
-               console.log(result)
+               //console.log(result)
                setTimeout(function(){ UpdateData(3,result.data.message)
              }, 5000)
                        
@@ -478,7 +478,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
          }, function (result) {
              $("#preloader").css("display", "none");
              $scope.$emit('error', 'Unable to save')
-             ////console.log(result);
+             //////console.log(result);
          });
     }
 
@@ -486,7 +486,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 
     $scope.uplaodFile = function(file) {
-          console.log(file.files)
+          //console.log(file.files)
           sendFile = null;
           var files = file.files;
           $scope.fileName = files[0].name
@@ -500,7 +500,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
     $scope.switchMode = function(){
         $scope.subData = null;
         $scope.show =  true;
-        console.log('show class')
+        //console.log('show class')
         $scope.headerFilters = []
     }
 
@@ -590,10 +590,10 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 subEvents: subEvents,propertyId  : jProperty[i].id, eventId:  eventId,additionalItems: jProperty[i].events[column].additionalItems, 
                 info: subEventsDetect, propertyIndex: index, eventIndex: column})
        }
-       console.log(extractSubEvents)
+       //console.log(extractSubEvents)
 
        $scope.subData = {data: $scope.data, prop: extractSubEvents,jName: jName,eName: eName};
-       console.log($scope.subData)
+       //console.log($scope.subData)
        
        $scope.show =  false;
        // $scope.staticTable(0);
@@ -609,12 +609,12 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {
               
-                  console.log(result.data)
+                  //console.log(result.data)
                   $scope.data = result.data.result
                   $scope.staticTable(1);
                   $scope.changeComp(subEventsDetect.event,subEventsDetect.cloumn,subEventsDetect.pColumn,subEventsDetect.eName)
                   if(type==1){
-                      console.log('updating modal data')
+                      //console.log('updating modal data')
                   $scope.modalData.data = $scope.data.jurisdictions[subEventsDetect.pColumn]
                   .properties[configData.data.propertyIndex].events[configData.data.eventIndex].subEvents[configData.subEventIndex].properties
                   $scope.modalData.additionalItems = $scope.data.jurisdictions[subEventsDetect.pColumn].properties[configData.data.propertyIndex]
@@ -628,13 +628,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                     .events[configData.data.eventIndex].additionalItems;
 
                   }
-                  console.log($scope.modalData)
+                  //console.log($scope.modalData)
                   $scope.uploadModal = false
                   $scope.openSign = false;
                   getNotifications(message)
                 }, function (result) {
                 //some error
-        //         ////console.log(result);
+        //         //////console.log(result);
                 $("#preloader").css("display", "none");
                 $scope.$emit('error', 'Unable to update data')
 
@@ -650,13 +650,13 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
 
 
     $scope.sendData = function(radio){
-        console.log(radio)
+        //console.log(radio)
         if(!sendFile) {
             return;
         }
       
            $("#preloader").css("display", "block");
-           console.log(radio)
+           //console.log(radio)
            if(radio==1) {
             var url = '/incomeExpenses/addPropertyIE?propId=' + configId.property  +'&tId='+ configId.event;// backend push
 
@@ -668,7 +668,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
            }
             AOTCService.uploadFiles(url, sendFile)
                 .then(function (result) {
-                      console.log(result)
+                      //console.log(result)
                       setTimeout(function(){ UpdateData(1, 'Data updated successfully')
                     }, 7000)
                     
@@ -677,7 +677,7 @@ function _taxAppeal(UtilService, $stateParams, $anchorScroll, $state, DTOptionsB
                 }, function (result) {
                     $("#preloader").css("display", "none");
                     $scope.$emit('error', 'File Upload Failed')
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         
     }

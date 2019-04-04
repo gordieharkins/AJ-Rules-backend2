@@ -59,7 +59,7 @@ function _assignedUsersListCtrl($stateParams, $state, $location, $scope, AOTCSer
             .then(function successCallback(response) {
                 $('#preloader').css("display", "none");
 
-                ////console.log("result is ", response);
+                //////console.log("result is ", response);
                 var serverData = response.data;
                 //set token
                 if (serverData.success) {
@@ -89,7 +89,7 @@ function _assignedUsersListCtrl($stateParams, $state, $location, $scope, AOTCSer
             .then(function successCallback(response) {
                 $('#preloader').css("display", "none");
 
-                ////console.log("result is ", response);
+                //////console.log("result is ", response);
                 var serverData = response.data;
                 //set token
                 if (serverData.success) {

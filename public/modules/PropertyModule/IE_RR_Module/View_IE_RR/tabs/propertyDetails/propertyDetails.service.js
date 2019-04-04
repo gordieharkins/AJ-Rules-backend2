@@ -30,7 +30,7 @@ function _PropertyDetailsTabService($http, AOTCService, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -49,7 +49,7 @@ function _PropertyDetailsTabService($http, AOTCService, $q) {
                 deferred.resolve(result);
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -69,7 +69,7 @@ function _PropertyDetailsTabService($http, AOTCService, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -89,7 +89,7 @@ function _PropertyDetailsTabService($http, AOTCService, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }

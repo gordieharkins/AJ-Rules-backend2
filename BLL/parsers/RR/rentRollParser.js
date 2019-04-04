@@ -33,15 +33,15 @@ function RentRollParser() {
 }
 
 RentRollParser.prototype.parseRentRollFile = function (fileBuffer, fileName, originalFileName) {
-	// console.log("parsing rent roll files");
+	// //console.log("parsing rent roll files");
 	var rentRolls = null;
 	var fileType = getFileType(fileBuffer);
-	console.log("fileType & name",fileType+":::"+fileName);
+	//console.log("fileType & name",fileType+":::"+fileName);
 	switch (fileType) {
 
 		case UNKNOWN_FILE_TYPE:
-			console.log("unknown file type");
-			// console.log("rentRollsParser.js" , rentRolls);
+			//console.log("unknown file type");
+			// //console.log("rentRollsParser.js" , rentRolls);
 			// rentRolls = [{"asOfDate":["As of Date","unknown","1","4"],"fileName":["File Name",fileName]}]
 			// throw new InvalidFileFormat(Response.REPLY_MSG.FIELDS_NOT_FOUND_SHEET);
 			break;
@@ -59,42 +59,42 @@ RentRollParser.prototype.parseRentRollFile = function (fileBuffer, fileName, ori
 			break;
 		
 		case yardi121417_RR_1_16_18_FILE_TYPE:
-			console.log("in suspect filetype");
+			//console.log("in suspect filetype");
 			rentRolls = yardi121417_RR_1_16_18.parseFile(fileBuffer, fileName, originalFileName);
-			// console.log("here asdf: ",rentRolls);
+			// //console.log("here asdf: ",rentRolls);
 			break;
 	}
-	// console.log("check check");
-	// console.log("rentRollsParser.js" , rentRolls);
+	// //console.log("check check");
+	// //console.log("rentRollsParser.js" , rentRolls);
 	if(rentRolls !== null && rentRolls.length > 0) {
 		// Check whether required fields found.
 		for(var i=0; i<rentRolls.length; i++) {
 			var rentRoll = rentRolls[i];
-			// console.log("in loop: ",rentRoll);
+			// //console.log("in loop: ",rentRoll);
 			if(rentRoll.propertyName === null || rentRoll.address === null || rentRoll.asOfDate === null) {
-				// console.log("in null");
-				// console.log("rent rolls: ",rentRolls);
+				// //console.log("in null");
+				// //console.log("rent rolls: ",rentRolls);
 				
 				rentRoll["asOfDate"] = ["As of Date","unknown","1","4"];
 				rentRoll.parsed[1] = "false";
 				
-				// console.log(rentRolls);
+				// //console.log(rentRolls);
 				// throw new InvalidFileFormat(Response.REPLY_MSG.FIELDS_NOT_FOUND_SHEET + rentRoll.sheetName + "'.");
 			}else{
 				// rentRolls.asOfDate = ["As of Date","unknown","1","4"]
 				// rentRolls.fileName = ["File Name",fileName]
-				// console.log("success");
+				// //console.log("success");
 				// rentRolls.parsed[1] = "true";
 			}
 		}
 	} else {
-		// console.log("not check and unknown");
-		// console.log("rent rolls: ",rentRolls);
+		// //console.log("not check and unknown");
+		// //console.log("rent rolls: ",rentRolls);
 		rentRolls = [{"asOfDate":["As of Date","unknown","1","4"],"fileName":["File Name",fileName],"parsed":["Parse Status","false"]}]
 		// throw new InvalidFileFormat(Response.REPLY_MSG.FIELDS_NOT_FOUND);
 	}
-	// console.log("returning");
-	// console.log("RentRolls: ",JSON.stringify(rentRolls));
+	// //console.log("returning");
+	// //console.log("RentRolls: ",JSON.stringify(rentRolls));
 	return rentRolls;
 }
 

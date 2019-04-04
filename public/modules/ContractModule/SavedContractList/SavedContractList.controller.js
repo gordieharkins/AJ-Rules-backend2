@@ -9,11 +9,11 @@ agGrid.initialiseAgGridWithAngular1(angular);
 //    );
 
 function _SavedContractList($scope, $location, $state, SavedContractListService, $timeout, newContractService, $compile) {
-    ////console.log("SavedContractList");
+    //////console.log("SavedContractList");
     $scope.contractList = [];
     $scope.searchText = '';
     $scope.viewInvoices = function (contract) {
-        //console.log(contract)
+        ////console.log(contract)
         $state.go(
             'InvoiceList', { id: contract.id }
         );
@@ -111,7 +111,7 @@ function _SavedContractList($scope, $location, $state, SavedContractListService,
                 });
 
             }, function (err) {
-                //console.log(err);
+                ////console.log(err);
             });
     };
 

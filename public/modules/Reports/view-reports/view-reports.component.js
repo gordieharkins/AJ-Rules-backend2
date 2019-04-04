@@ -49,7 +49,7 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
                 } else {
                     $scope.data = result.data;
                     initGrid(angular.copy($scope.data.result));
-                    //console.log($scope.data)
+                    ////console.log($scope.data)
                 }
 
             });
@@ -160,7 +160,7 @@ function _ViewReportsCtrl(SurveylistService, $scope, Excel, $timeout, ReportServ
        // }
     };
     function formattingFunction(params) {
-        //console.log(params)
+        ////console.log(params)
         if ((params.column.getColId().indexOf('jur') != -1 || params.column.getColId() == 'options')  && params.value) {
             var _temppp = '';
             for (var i = 0; i < params.value.length; i++)

@@ -22,7 +22,7 @@ function MRI1617() {
 }
 
 MRI1617.prototype.parseFile = function (fileBuffer, fileName, originalFileName, type,result,cb) {
-	// console.log("result::: ",JSON.stringify(result));
+	// //console.log("result::: ",JSON.stringify(result));
 	var count = 0;
 	// var yardiType = type;
 	// var baseRentColumnName = "Base Rent";
@@ -177,8 +177,8 @@ MRI1617.prototype.parseFile = function (fileBuffer, fileName, originalFileName, 
 					}
 
 					if(actualColumnsFound) {
-						// console.log("actualColumnsFound: ",actual1Index);
-						// console.log("actual2Index: ",actual2Index);
+						// //console.log("actualColumnsFound: ",actual1Index);
+						// //console.log("actual2Index: ",actual2Index);
 						var actual1IndexDifference = yearToDateColumnIndex - actual1Index;
 						var actual2IndexDifference = yearToDateColumnIndex - actual2Index;
 						if(actual1IndexDifference < actual2IndexDifference) {
@@ -195,17 +195,17 @@ MRI1617.prototype.parseFile = function (fileBuffer, fileName, originalFileName, 
 
 				for(var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
 					var valueCell = cells[cellIndex].trim();
-					// console.log("heading: ",valueCell);
-					// console.log("col values: ",cells[actualColumnIndex]);
+					// //console.log("heading: ",valueCell);
+					// //console.log("col values: ",cells[actualColumnIndex]);
 				   
 					if (result[0].n.properties.columnHeaders.indexOf(valueCell)>-1)
 					{
-						// console.log("heading: ",valueCell);
-						// console.log("col values: ",cells[actualColumnIndex]);
+						// //console.log("heading: ",valueCell);
+						// //console.log("col values: ",cells[actualColumnIndex]);
 
 						var a = valueCell.toLowerCase().replace(/\s/g, '');
 						a = a.replace(/[^a-zA-Z ]/g, "");
-						// console.log("found!!: ",a);
+						// //console.log("found!!: ",a);
 						incomeExpense[a]=[];
 						incomeExpense[a][0] = result[0].n.properties.columnHeaders[result[0].n.properties.columnHeaders.indexOf(valueCell)];
 							
@@ -354,6 +354,6 @@ MRI1617.prototype.parseFile = function (fileBuffer, fileName, originalFileName, 
 	});
 
 	// return result2;
-	// console.log("umar here 001: ",JSON.stringify(result2));
+	// //console.log("umar here 001: ",JSON.stringify(result2));
 	cb(result2)
 }

@@ -6,7 +6,7 @@ module.exports = _PublicPropertyDetailsTab;
 //angular.module('AOTC').controller('PublicPropertyDetailsTab', _PublicPropertyDetailsTab
 //    );
 function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env, $log, AOTCService, PropertyDetailsTabService, $timeout) {
-    ////console.log("PublicPropertyDetailsTab");
+    //////console.log("PublicPropertyDetailsTab");
 
     var vm = this;
 
@@ -91,19 +91,19 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
                 var _serverData = response.data.result[0];
                 var someTemp = {};
                 angular.forEach(_serverData.details, function(_value, _key){
-					console.log(_value)
+					//console.log(_value)
                     angular.extend(someTemp, _value);
                 });
 				var verify = {};
 				angular.forEach(someTemp, function(_value, _key){
 					var check = VerifyJSon(_value[1])
-					console.log(check)
+					//console.log(check)
 					if(check != false && check!=null) {
 				      _value[1] = check
 
 					}
                 });
-				console.log(someTemp)
+				//console.log(someTemp)
                  vm.allPropertyDetails =  someTemp;
 
             } else {

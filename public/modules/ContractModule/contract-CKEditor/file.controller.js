@@ -11,10 +11,10 @@ module.exports = { ContractTest: _ContractTest, ckEditor: _ckEditor };
 //    );
 
 function _ContractTest($scope, $location, $state, UtilService) {
-    ////console.log("ContractTest");
+    //////console.log("ContractTest");
 
     $scope.checkValues = function () {
-        ////console.log(
+        //////console.log(
          //   $scope.content
        // );
     }
@@ -46,7 +46,7 @@ function _ContractTest($scope, $location, $state, UtilService) {
     };
 
     $scope.onReady = function () {
-        ////console.log('done I am ready')
+        //////console.log('done I am ready')
 
     };
 
@@ -62,8 +62,8 @@ function _ContractTest($scope, $location, $state, UtilService) {
             });
         }
 
-        ////console.log($scope.FileNames)
-        ////console.log($scope.fileData)
+        //////console.log($scope.FileNames)
+        //////console.log($scope.fileData)
 
         // Parsing is done. Update UI.
         $scope.$apply();
@@ -72,8 +72,8 @@ function _ContractTest($scope, $location, $state, UtilService) {
 
     $scope.uploadSelectedFiles = function () {
 
-        ////console.log($scope.FileNames)
-        ////console.log($scope.fileData)
+        //////console.log($scope.FileNames)
+        //////console.log($scope.fileData)
 
     }
 
@@ -111,7 +111,7 @@ function _ckEditor() {
             if (!ngModel) return;
 
             CKEDITOR.on('instanceReady', function () {
-                ////console.log('instanceReady')
+                //////console.log('instanceReady')
 
                 ck.setData(ngModel.$viewValue);
 
@@ -122,8 +122,8 @@ function _ckEditor() {
                     CKEDITOR.plugins.clipboard.initDragDataTransfer(evt);
 
                     var dataTransfer = evt.data.dataTransfer;
-                    // ////console.log('data is => ', target.data('contact'))
-                    // ////console.log('data is => ', CONTACTS[target.data('contact')])
+                    // //////console.log('data is => ', target.data('contact'))
+                    // //////console.log('data is => ', CONTACTS[target.data('contact')])
 
                     // dataTransfer.setData('contact', CONTACTS[target.data('contact')]);
                     dataTransfer.setData('text/html', target.getText());
@@ -138,8 +138,8 @@ function _ckEditor() {
                     CKEDITOR.plugins.clipboard.initDragDataTransfer(evt);
 
                     var dataTransfer = evt.data.dataTransfer;
-                    // ////console.log('data is => ', target.data('contact'))
-                    // ////console.log('data is => ', CONTACTS[target.data('contact')])
+                    // //////console.log('data is => ', target.data('contact'))
+                    // //////console.log('data is => ', CONTACTS[target.data('contact')])
 
                     dataTransfer.setData('contact', CONTACTS[target.data('contact')]);
                     dataTransfer.setData('text/html', target.getText());
@@ -150,7 +150,7 @@ function _ckEditor() {
             });
 
             ngModel.$render = function () {
-                ////console.log("render");
+                //////console.log("render");
 
                 ck.setData(ngModel.$viewValue);
             };
@@ -160,21 +160,21 @@ function _ckEditor() {
             ck.on('dataReady', updateModel);
 
             ck.on('dragstart', function (evt) {
-                ////console.log("dragstart");
+                //////console.log("dragstart");
             });
 
             ck.on('dragenter', function (evt) {
-                ////console.log("dragenter");
+                //////console.log("dragenter");
             });
 
             ck.on('dragover', function (evt) {
-                ////console.log("dragover");
+                //////console.log("dragover");
             });
 
 
 
             function updateModel() {
-                ////console.log('updateModel')
+                //////console.log('updateModel')
                 scope.$apply(function () {
                     ngModel.$setViewValue(ck.getData());
                 });
@@ -200,7 +200,7 @@ function _ckEditor() {
                 requires: 'widget',
 
                 init: function (editor) {
-                    ////console.log('init editor');
+                    //////console.log('init editor');
 
                     editor.widgets.add('hcard', {
                         allowedContent: 'span(!h-card); a[href](!u-email,!p-name); span(!p-tel)',
@@ -218,7 +218,7 @@ function _ckEditor() {
                     // Handle dropping a contact by transforming the contact object into HTML.
                     // Note: All pasted and dropped content is handled in one event - editor#paste.
                     editor.on('paste', function (evt) {
-                        ////console.log('paste');
+                        //////console.log('paste');
                         var contact = evt.data.dataTransfer.getData('contact');
                         if (!contact) {
                             return;

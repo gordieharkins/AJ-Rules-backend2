@@ -10,7 +10,7 @@ module.exports = _ComparableProperties;
 
 function _ComparableProperties(ComparablePropService, User_Config, $timeout, $scope, $state) {
 
-    ////console.log("ComparableProperties controller");
+    //////console.log("ComparableProperties controller");
     var vm = this;
 
     var propertyDetails = JSON.parse(localStorage.getItem('propertyDetails'));
@@ -37,7 +37,7 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
                     $timeout(function () {
                         initializeCards();
                     }, 200);
-                    ////console.log("vm.zillowData.comparables", vm.zillowData.comparables);
+                    //////console.log("vm.zillowData.comparables", vm.zillowData.comparables);
 
                     // set property Images crawling from Zillow and get from db if exists
                     setPropertyImages(vm.zillowData.comparables);
@@ -46,10 +46,10 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
                 }
             },
                 function (err) {
-                    ////console.log(err);
+                    //////console.log(err);
                 });
     } else {
-        ////console.log("Commercial User");
+        //////console.log("Commercial User");
     }
 
     function initializeCards() {
@@ -78,7 +78,7 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
         var arr = vm.zillowData.comparables;
         arr = sortByKey(arr, 'selection');
         vm.zillowData.comparables = arr;
-        // ////console.log(arr);
+        // //////console.log(arr);
 
         $timeout(function () {
             for (var i = 0; i < vm.zillowData.comparables.length; i++) {
@@ -101,7 +101,7 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
         }
 
         if (selectedComparables.length > 0) {
-            ////console.log("selectedComparables", selectedComparables);
+            //////console.log("selectedComparables", selectedComparables);
             var jsonData = {
                 principal: vm.zillowData.principal[0],
                 comparables: selectedComparables
@@ -125,7 +125,7 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
 
                 getZillowPropImage(comp.linksHomeDetails, i);
             } else {
-                ////console.log("Nothing");
+                //////console.log("Nothing");
             }
         }
     }
@@ -137,12 +137,12 @@ function _ComparableProperties(ComparablePropService, User_Config, $timeout, $sc
                 var serverData = result.data;
                 if (serverData.success) {
                     vm.zillowData.comparables[index].imageFileName = serverData.result.mainImage;
-                    ////console.log(serverData.result.mainImage)
+                    //////console.log(serverData.result.mainImage)
                     $('#mydiv').hide();
                 }
             },
                 function (err) {
-                    ////console.log(err);
+                    //////console.log(err);
                 });
     }
 

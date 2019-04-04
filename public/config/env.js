@@ -8,7 +8,7 @@
     window.__env = window.__env || {};
 
     window.__env = window.__env || {};
-    console.log(window.__env)
+    //console.log(window.__env)
     window.__env.enableDebug = false;
     //
     // Base url

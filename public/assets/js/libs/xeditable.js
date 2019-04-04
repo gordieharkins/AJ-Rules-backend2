@@ -1307,7 +1307,7 @@ function ($parse, $compile, editableThemes, $rootScope, $document, editableContr
 
                 // this variable indicates is element is bound to some existing form,
                 // or it's single element who's form will be generated automatically
-                // By default consider single element without any linked form.ß
+                // By default consider single element without any linked form.ï¿½
                 var hasForm = false;
 
                 // element wrapped by form
@@ -1509,7 +1509,7 @@ angular.module('xeditable').factory('editableFormController',
 
       var base = {
           $addEditable: function (editable) {
-              //console.log('add editable', editable.elem, editable.elem.bind);
+              ////console.log('add editable', editable.elem, editable.elem.bind);
               this.$editables.push(editable);
 
               //'on' is not supported in angular 1.0.8

@@ -37,7 +37,8 @@ var appeal = require('./routes/appeal');
 var alerts = require('./BLL/alerts/alerts-routes');
 var alertsCronJobFile = require('./BLL/alerts/alerts-BLL');
 var appealCronJobFile = require('./BLL/appeal');
-var calendarInvites = require('./routes/calendar_invites')
+var calendarInvites = require('./routes/calendar_invites');
+var surveysOpenAPI = require('./routes/surveysOpenAPI');
 
 
 var alertsCronJob = new alertsCronJobFile();
@@ -115,7 +116,7 @@ app.use('/unlinkedFiles', passport.authenticate('jwt', { session: false }), unli
 app.use('/zillow', passport.authenticate('jwt', { session: false }),zillow);
 app.use('/salesComps', passport.authenticate('jwt', { session: false }),salesComps);
 app.use('/propertyImages', passport.authenticate('jwt', { session: false }), propertyImages);
-app.use('/surveys', passport.authenticate('jwt', { session: false }),surveys);
+app.use('/surveys', passport.authenticate('jwt', { session: false }), surveys);
 app.use('/contracts', passport.authenticate('jwt', { session: false }), contracts);
 app.use('/newsFeed', passport.authenticate('jwt', { session: false }),newsFeed);
 app.use('/timeline', passport.authenticate('jwt', { session: false }), timeline);
@@ -123,6 +124,7 @@ app.use('/properties', passport.authenticate('jwt', { session: false }), propert
 app.use('/incomeExpenses', passport.authenticate('jwt', { session: false }), incomeExpenses);
 app.use('/alerts', passport.authenticate('jwt', { session: false }), alerts);
 app.use('/calendarInvites', calendarInvites);
+app.use('/surveysOpenAPI', surveysOpenAPI);
 
 // app.use('/', routes);
 // app.use('/users', users);
@@ -178,18 +180,18 @@ app.use(function(err, req, res, next) {
 connection(function(err,status)
   {
     if(err){
-      console.log("Error in SQL connection.")
+      //console.log("Error in SQL connection.")
     }
     else{
-      console.log("Successful SQL connection.")
+      //console.log("Successful SQL connection.")
     }
 });
 
 // exec('unoconv', function(err, stdout, stderr){
 //   if(err){
-//     console.log("error1: ", err);
+//     //console.log("error1: ", err);
 //     exec('sudo apt-get install unoconv', function(err2, stdout2, stderr2){
-//       console.log("Error 2", err2);
+//       //console.log("Error 2", err2);
 //     });
 //   }
 // });
@@ -202,7 +204,7 @@ var appEnv = cfenv.getAppEnv();
 
 var server = app.listen(4100, '0.0.0.0', function() {
  // app.listen(appEnv.port, '0.0.0.0', function() {
-  console.log("Server starting on " + server.address().port);
+  //console.log("Server starting on " + server.address().port);
 });
 // server.timeout = 100000;
 //

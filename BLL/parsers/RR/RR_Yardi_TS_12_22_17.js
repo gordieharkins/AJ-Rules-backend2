@@ -309,27 +309,27 @@ yardi121417_TS.prototype.parseFile = function (fileBuffer, fileName, originalFil
         
 /*
         
-        console.log("propertyColumnNumber ",propertyColumnNumber);
-        console.log("unitsColumnNumber ",unitsColumnNumber);
-        console.log("leaseColumnNumber ",leaseColumnNumber);
-        console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
-        console.log("areaColumnNumber ",areaColumnNumber);
-        console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
-        console.log("leaseToColumnNumber ",leaseToColumnNumber);
-        console.log("termColumnNumber ", termColumnNumber);
-        console.log("tenancyYearsColumnNumber ", tenancyYearsColumnNumber);
-        console.log(" monthlyRentColumnNumber ",monthlyRentColumnNumber);
-        console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
-        console.log("annualRentColumnNumber: ",annualRentColumnNumber);
-        console.log("annualRentAreaColumnNumber: ",annualRentAreaColumnNumber);
-        console.log("annualRecAreaColumnNumber: ",annualRecAreaColumnNumber);
-        console.log("annualMiscAreaColumnNumber: ",annualMiscAreaColumnNumber);
-        console.log("securityDepositReceivedColumnNumber: ",securityDepositReceivedColumnNumber);
-        console.log("LocAmountBankGuaranteeColumnNumber: ",LocAmountBankGuaranteeColumnNumber);
+        //console.log("propertyColumnNumber ",propertyColumnNumber);
+        //console.log("unitsColumnNumber ",unitsColumnNumber);
+        //console.log("leaseColumnNumber ",leaseColumnNumber);
+        //console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
+        //console.log("areaColumnNumber ",areaColumnNumber);
+        //console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
+        //console.log("leaseToColumnNumber ",leaseToColumnNumber);
+        //console.log("termColumnNumber ", termColumnNumber);
+        //console.log("tenancyYearsColumnNumber ", tenancyYearsColumnNumber);
+        //console.log(" monthlyRentColumnNumber ",monthlyRentColumnNumber);
+        //console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
+        //console.log("annualRentColumnNumber: ",annualRentColumnNumber);
+        //console.log("annualRentAreaColumnNumber: ",annualRentAreaColumnNumber);
+        //console.log("annualRecAreaColumnNumber: ",annualRecAreaColumnNumber);
+        //console.log("annualMiscAreaColumnNumber: ",annualMiscAreaColumnNumber);
+        //console.log("securityDepositReceivedColumnNumber: ",securityDepositReceivedColumnNumber);
+        //console.log("LocAmountBankGuaranteeColumnNumber: ",LocAmountBankGuaranteeColumnNumber);
 */
-        //console.log("final: ",JSON.stringify(rentRoll));
+        ////console.log("final: ",JSON.stringify(rentRoll));
 		rentRollsList.push(rentRoll);
 	});
-	// console.log("final: ",JSON.stringify(rentRollsList));
+	// //console.log("final: ",JSON.stringify(rentRollsList));
 	return rentRollsList;
 };

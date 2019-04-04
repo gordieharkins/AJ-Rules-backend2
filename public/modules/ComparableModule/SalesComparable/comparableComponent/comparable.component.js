@@ -20,8 +20,8 @@ var _comparableComponent = {
 
 
 
-            ////console.log('comparable----checin')
-            ////console.log("comparableComponent controller");
+            //////console.log('comparable----checin')
+            //////console.log("comparableComponent controller");
             var vm = this;
             $("#preloader").css("display", "block");
 
@@ -36,7 +36,7 @@ var _comparableComponent = {
             // set property Images crawling from Zillow and get from db if exists
 
             function initializeCards() {
-                ////console.log($scope.savedComaprables.length)
+                //////console.log($scope.savedComaprables.length)
 
                 $timeout(function () {
                     for (var i = 0; i < $scope.savedComaprables.length; i++) {
@@ -70,13 +70,13 @@ var _comparableComponent = {
             $('#preloader').css('display', 'none');
             vm.submitManualData = submitManualData;
             vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
-            ////console.log("vm.property in manualIE: ", vm.property)
+            //////console.log("vm.property in manualIE: ", vm.property)
 
             vm.formData = {
 
             };
             vm.PrinciplePropData = JSON.parse(localStorage.getItem('principalForm'));
-            ////console.log("key" + vm.PrinciplePropData);
+            //////console.log("key" + vm.PrinciplePropData);
 
             vm.modalYesbutton = modalYesbutton;
             vm.gotoPropertyDetails = gotoPropertyDetails;
@@ -96,7 +96,7 @@ var _comparableComponent = {
             }
 
             function modalYesbutton() {
-                ////console.log('reset form');
+                //////console.log('reset form');
                 vm.formData = {};
 
                 $scope.manualForm.$setPristine();
@@ -110,7 +110,7 @@ var _comparableComponent = {
             function submitManualData() {
 
                 $("#preloader").css("display", "block");
-                ////console.log('appeal')
+                //////console.log('appeal')
 
                 vm.formData.compScore = vm.formData.compScore;
                 vm.formData.taxAssessment = vm.formData.taxAssessment.toString();
@@ -144,11 +144,11 @@ var _comparableComponent = {
                 data.principal.push(vm.PrinciplePropData);
                 data.comps = ($scope.savedComaprables);
                 data.propId = localStorage.getItem("propertyId");
-                ////console.log(data);
+                //////console.log(data);
                 var url = 'salesComps/addCompsToPropManual';
                 AOTCService.postDataToServer(url, data)
                     .then(function (result) {
-                        ////console.log("CompForm: ", result);
+                        //////console.log("CompForm: ", result);
                         if (result.data.success) {
                             $scope.$emit('success', result.data.message);
                             $scope.manualForm.$setPristine();
@@ -163,7 +163,7 @@ var _comparableComponent = {
                         $("#preloader").css("display", "none");
 
                     }, function (result) {
-                        //////console.log(result);
+                        ////////console.log(result);
                         $("#preloader").css("display", "none");
                     });
                 //call to server
@@ -186,14 +186,14 @@ var _comparableComponent = {
             $scope.getSavedComparables = function () {
                 $("#preloader").css("display", "block");
 
-                ////console.log('I am goingin')
+                //////console.log('I am goingin')
 
                 //getSavedCom parables if exists saved comparable then redirect to comparison
                 ComparableSelectionService.getSavedComparables().
                 then(function (result) {
-                    ////console.log('getSavedComparables : ', result);
+                    //////console.log('getSavedComparables : ', result);
                     var serverData = result.data;
-                    ////console.log(serverData.res)
+                    //////console.log(serverData.res)
                     $("#preloader").css("display", "none");
 
                     if (serverData.success) {
@@ -207,7 +207,7 @@ var _comparableComponent = {
                     }
                 }, function (err) {
                     $("#preloader").css("display", "none");
-                    ////console.log('err : ', err);
+                    //////console.log('err : ', err);
                 })
             }
 
@@ -242,11 +242,11 @@ var _comparableComponent = {
                 }
             });
             $scope.uploadImage = function (file) {
-                ////console.log('submit' + file)
+                //////console.log('submit' + file)
 
-                ////console.log(file)
+                //////console.log(file)
                 if (file) {
-                    ////console.log('submit' + file)
+                    //////console.log('submit' + file)
                     file.upload = Upload.upload({
                         url: 'salesComps/addCompsImageManual',
                         data: {file: file },
@@ -258,7 +258,7 @@ var _comparableComponent = {
                             $scope.isSubmitting = true;
                             $scope.imagePath = file.result;
                             submitManualData();
-                            ////console.log(file.result)
+                            //////console.log(file.result)
                         });
                     }, function (response) {
                         if (response.status > 0)
@@ -307,7 +307,7 @@ function _fileinput() {
                 var reader = new FileReader();
                 reader.onload = function (loadEvent) {
                     scope.$apply(function () {
-                        ////console.log(scope.fileinput)
+                        //////console.log(scope.fileinput)
 
 
                         scope.filepreview = loadEvent.target.result;

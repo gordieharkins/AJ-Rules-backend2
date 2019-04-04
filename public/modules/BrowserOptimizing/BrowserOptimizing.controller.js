@@ -7,7 +7,7 @@ module.exports = _BrowserOptimizing;
 //    .controller('BrowserOptimizing', _BrowserOptimizing);
 
 function _BrowserOptimizing(BrowserOptimizingService, deviceDetector, $scope, $state) {
-    ////console.log("BrowserOptimizing controller");
+    //////console.log("BrowserOptimizing controller");
 
     var vm = this;
 

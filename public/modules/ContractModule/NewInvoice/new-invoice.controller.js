@@ -8,7 +8,7 @@ agGrid.initialiseAgGridWithAngular1(angular);
 //angular.module('AOTC').controller('NewInvoice', _NewInvoice
 //    );
 function _NewInvoice($scope, $stateParams, $state, NewInvoiceService, $uibModal, $timeout, $filter) {
-    //////console.log("NewInvoice");
+    ////////console.log("NewInvoice");
 
     //Local Variables
     var $ctrl = this;
@@ -176,8 +176,8 @@ function _NewInvoice($scope, $stateParams, $state, NewInvoiceService, $uibModal,
 
     //$scope.saveInvoice = function () {
 
-    //    //console.log('before');
-    //    //console.log($scope.invoiceSpreadsheet);
+    //    ////console.log('before');
+    //    ////console.log($scope.invoiceSpreadsheet);
 
     //    $scope.invoiceSpreadsheet.original_value = parseFloat($scope.invoiceSpreadsheet.original_value.toString().match(/\d/g).join(""));
     //    $scope.invoiceSpreadsheet.preappeal_value = parseFloat($scope.invoiceSpreadsheet.preappeal_value.toString().match(/\d/g).join(""));
@@ -205,19 +205,19 @@ function _NewInvoice($scope, $stateParams, $state, NewInvoiceService, $uibModal,
     //    $scope.invoiceSpreadsheet.water_quality = parseFloat($scope.netBill.water_quality.toString().match(/\d/g).join(""));
     //    $scope.invoiceSpreadsheet.net_bill = parseFloat($scope.netBill.net_bill.toString().match(/\d/g).join(""));
     //    $scope.invoiceSpreadsheet.contractId = parseFloat($stateParams.id);
-    //    //console.log($scope.invoiceSpreadsheet);
+    //    ////console.log($scope.invoiceSpreadsheet);
     //    $('#preloader').css('display', 'block');
 
     //    NewInvoiceService.saveInvoice($scope.invoiceSpreadsheet)
     //        .then(function (response) {
-    //            //console.log(response);
+    //            ////console.log(response);
     //            $('#preloader').css('display', 'none');
 
 
     //        }, function (err) {
     //            $('#preloader').css('display', 'none');
 
-    //            //console.log(err);
+    //            ////console.log(err);
 
     //        });
 
@@ -235,7 +235,7 @@ function _NewInvoice($scope, $stateParams, $state, NewInvoiceService, $uibModal,
     //    $scope.invoiceSpreadsheet.tax_savings_level1 = '$' + parseFloat($scope.invoiceSpreadsheet.tax_savings_level1).toFixed(2);
     //    $scope.invoiceSpreadsheet.tax_savings_level2 = '$' + parseFloat($scope.invoiceSpreadsheet.tax_savings_level2).toFixed(2);
     //    $scope.invoiceSpreadsheet.fee_owed = '$' + parseFloat($scope.invoiceSpreadsheet.fee_owed).toFixed(2);
-    //    //console.log(calculatedValues);
+    //    ////console.log(calculatedValues);
     //}
 
     //function calculateSheet(invoiceSpreadsheet) {

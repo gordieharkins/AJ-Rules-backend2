@@ -10,7 +10,7 @@ module.exports = _ComparableSelectionService;
 function _ComparableSelectionService($http, $q, AOTCService) {
 
     // function getDataFromServer(apiUrl) {
-    //     // ////console.log(apiUrl);
+    //     // //////console.log(apiUrl);
     //     var token = localStorage.getItem('token');
 
     //     var req = $http({
@@ -77,7 +77,7 @@ function _ComparableSelectionService($http, $q, AOTCService) {
 
         var url = '/salesComps/GetDeepSearchResults';
         var deferred = $q.defer();
-        ////console.log(url);
+        //////console.log(url);
 
 
         AOTCService.postDataToServer(url, postData)
@@ -86,7 +86,7 @@ function _ComparableSelectionService($http, $q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -97,14 +97,14 @@ function _ComparableSelectionService($http, $q, AOTCService) {
         var url = '/salesComps/getSavedComps';
         var _data = {propId: propId};
         var deferred = $q.defer();
-        console.log(url);
+        //console.log(url);
         AOTCService.postDataToServer(url, _data)
             .then(function (result) {
                 deferred.resolve(result);
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }

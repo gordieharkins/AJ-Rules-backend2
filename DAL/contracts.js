@@ -21,7 +21,7 @@ DAL.prototype.getContracts = function(userId, cb) {
         userId: parseInt(userId)
     }
 
-    console.log(userId);
+    //console.log(userId);
     var query = `MATCH (user:user) where id(user) = {userId}
         MATCH (user)-[rl:contractsRel]->(contracts:contracts)
         MATCH (contracts)-[rl2:contract]->(contract:contract)
@@ -194,10 +194,10 @@ DAL.prototype.updateContractTerms = function(data, cb) {
 //     sqlRequest = sqlRequest.input("userId", SQL.Int(), data);
 
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
@@ -247,23 +247,23 @@ DAL.prototype.updateContractTerms = function(data, cb) {
 //     sqlRequest = sqlRequest.input("modifiedBy", SQL.Int(), modifiedBy);
 
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
 
 DAL.prototype.addContractTemplate = function(data, userId, cb) {
-    console.log(data);
+    //console.log(data);
     var contract = data.contract;
-    // console.log(contract);
+    // //console.log(contract);
     var fct = data.fct;
-    // console.log(fct);
+    // //console.log(fct);
 
     var nfct = data.nfct;
-    // console.log(nfct);
+    // //console.log(nfct);
 
     var createdDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
     var modifiedDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
@@ -281,10 +281,10 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
     // sqlRequest = sqlRequest.input("modifiedBy", SQL.Int(), modifiedBy);
     //
     // sqlRequest.query(query).then(function(result) {
-    //     console.log("result : "+result);
+    //     //console.log("result : "+result);
     //     cb(null, result);
     // }).catch(function(err) {
-    //     console.log("Error : "+err);
+    //     //console.log("Error : "+err);
     //     cb(err, null);
     // });
 
@@ -300,13 +300,13 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
         modifiedBy : contract.userId
     }
 
-    // console.log(contractTemp);
+    // //console.log(contractTemp);
     var params = {
         contract: contractTemp,
         userId: userId
     }
 
-    // console.log(params);
+    // //console.log(params);
     var query = `MATCH (user) where id(user) = {userId}
                 CREATE (contract:contract {contract})
                 CREATE (user)-[rel:Has]->(contract)\n`;
@@ -318,7 +318,7 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
             params['financial'+count] = fct[i][j];
             query += `CREATE(financialTerm`+count+`: financialTerm{financial`+count+`})
                       CREATE(contract)-[fct`+count+`:fct]->(financialTerm`+count+`)\n`;
-            // console.log(query);
+            // //console.log(query);
         }
     }
 
@@ -329,14 +329,14 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
                    CREATE(contract)-[nfct`+i+`:nfct]->(nonFinancialTerm`+i+`)\n`;
     }
 
-    console.log(query);
+    //console.log(query);
     // cb(query, null);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log(err);
-        console.log(results);
+        //console.log(err);
+        //console.log(results);
         cb(err, results);
     });
 }
@@ -345,10 +345,10 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
 //     var sqlRequest = new SQL.Request();
 //     var query = `SELECT * FROM contract_terms;`;
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
@@ -364,10 +364,10 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
 //     sqlRequest = sqlRequest.input("levels", SQL.Bit(), data.hasLevels);
 
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
@@ -384,17 +384,17 @@ DAL.prototype.addContractTemplate = function(data, userId, cb) {
 //     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
 
 DAL.prototype.addContract = function(data, userId, cb) {
 
-    // console.log(data);
+    // //console.log(data);
     var sqlRequest = new SQL.Request();
     var query = `DECLARE @contractId INTEGER
                 INSERT INTO PO_contracts(name, body, propertyId, userId) VALUES (@contractName, @body, @propertyId, @userId)
@@ -415,10 +415,10 @@ DAL.prototype.addContract = function(data, userId, cb) {
     sqlRequest = sqlRequest.input("userId", SQL.Int, userId);
 
     sqlRequest.query(query).then(function(result) {
-        console.log("result : "+result);
+        //console.log("result : "+result);
         cb(null, result);
     }).catch(function(err) {
-        console.log("Error : "+err);
+        //console.log("Error : "+err);
         cb(err, null);
     });
 }
@@ -450,10 +450,10 @@ DAL.prototype.getContractsByUserId = function(data, userId, cb) {
 //
 //     sqlRequest = sqlRequest.input("userId", SQL.Int, data.userId);
 //     sqlRequest.query(query).then(function(result) {
-//         console.log("result : "+result);
+//         //console.log("result : "+result);
 //         cb(null, result);
 //     }).catch(function(err) {
-//         console.log("Error : "+err);
+//         //console.log("Error : "+err);
 //         cb(err, null);
 //     });
 // }
@@ -482,10 +482,10 @@ DAL.prototype.getContractsById = function(data, cb) {
     //
     // sqlRequest = sqlRequest.input("contractId", SQL.Int, data.contractId);
     // sqlRequest.query(query).then(function(result) {
-    //     console.log("result : "+result);
+    //     //console.log("result : "+result);
     //     cb(null, result);
     // }).catch(function(err) {
-    //     console.log("Error : "+err);
+    //     //console.log("Error : "+err);
     //     cb(err, null);
     // });
 
@@ -501,7 +501,7 @@ DAL.prototype.getContractsById = function(data, cb) {
             contractId: data.contractId
         }
     }, function(err, results) {
-        console.log(results);
+        //console.log(results);
         cb(err, results);
     });
 }
@@ -537,22 +537,22 @@ DAL.prototype.saveInvoice = function(data, cb) {
     sqlRequest = sqlRequest.input("net_bill", SQL.VarChar, data.net_bill);
     sqlRequest = sqlRequest.input("contractId", SQL.Int, data.contractId);
     sqlRequest.query(query).then(function(result) {
-        console.log("result : "+result);
+        //console.log("result : "+result);
         cb(null, result);
     }).catch(function(err) {
-        console.log("Error : "+err);
+        //console.log("Error : "+err);
         cb(err, null);
     });
 }
 
 DAL.prototype.getInvoiceByContractId = function(data, cb) {
     // var sqlRequest = new SQL.Request();
-    console.log(data.propertyIds)
+    //console.log(data.propertyIds)
 
     var query = `Match (prop:property)<-[year:OF_Year]-(assessment:Assessment) where id(prop) IN {propertyIds} AND year.year = {year}
                 Match(contract:contract)-[:Fee]->(fee) where id(contract) = {contractId}
                 return assessment, fee, id(prop) as propertyId`;
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params:{
@@ -561,18 +561,18 @@ DAL.prototype.getInvoiceByContractId = function(data, cb) {
             contractId: data.contractId
         }
     }, function(err, results) {
-        console.log(results);
+        //console.log(results);
         cb(err, results);
     });
 }
 
 DAL.prototype.getDataforSampleCalculations = function(data, cb) {
     // var sqlRequest = new SQL.Request();
-    // console.log(data.propertyIds)
+    // //console.log(data.propertyIds)
 
     var query = `Match (prop:property)<-[year:OF_Year]-(assessment:Assessment) where id(prop) IN {propertyIds} AND year.year = {year}
                 return properties(assessment) as assessment, id(prop) as propertyId, prop.propertyName as propertyName, year.year as year`;
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params:{
@@ -581,7 +581,7 @@ DAL.prototype.getDataforSampleCalculations = function(data, cb) {
             contractId: data.contractId
         }
     }, function(err, results) {
-        // console.log(results);
+        // //console.log(results);
         cb(err, results);
     });
 }

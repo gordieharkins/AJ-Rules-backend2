@@ -51,8 +51,8 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
     });
 
     $scope.openContractModel = function () {
-        //console.log(SampleCalculationService.fct);
-        //console.log(SampleCalculationService.feeType);
+        ////console.log(SampleCalculationService.fct);
+        ////console.log(SampleCalculationService.feeType);
         fct = ArrangeFinancialContracts();
         if (selectedPropertyList) {
 
@@ -75,7 +75,7 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
     };
 
     $scope.saveContract = function (name, agenttName) {
-        //console.log('saved')
+        ////console.log('saved')
         saveNewContract(name, agenttName);
     }
 
@@ -93,10 +93,10 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
 
         var nfct = arrangeNfct();
         var postData = { contract: newContract, fct: fct, nfct: nfct };
-        //console.log(postData)
+        ////console.log(postData)
         newContractService.addContractTemplate(postData) //addContract
             .then(function (response) {
-                //console.log(response);
+                ////console.log(response);
                 $('#preloader').css('display', 'none');
                 $('#newFormat').modal('toggle');
 
@@ -109,7 +109,7 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
                 $state.go('SavedContractList');
             }, function (err) {
                 $('#preloader').css('display', 'none');
-                //console.log(err);
+                ////console.log(err);
             });
 
     }
@@ -125,12 +125,12 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
         if (feeType != 'one') {
             angular.forEach(calaculatedData, function (value, key) {
                 validateData = 1;
-                //console.log(value)
+                ////console.log(value)
                 if (value.feeType === 3) {
                     percentageData.push({ 'feeType': 'percentage', 'fee': (value.assessment.feePercent * 100).toFixed(2), 'propertyId': value.propertyId, "meritLevel": value.meritLevel });
                 }
                 else if (value.feeType === 4) {
-                    //console.log(value.meritLevel)
+                    ////console.log(value.meritLevel)
                     fp.push({ 'feeType': 'fp', 'fixedRate': value.assessment.fixedRate, "meritLevel": value.meritLevel, 'propertyId': value.propertyId })
                 }
                 else {
@@ -148,7 +148,7 @@ function _Contract($state, $scope, __env, newContractService, $stateParams, Samp
         else {
             var postJson = [fixedFee];
         }
-        //console.log(postJson)
+        ////console.log(postJson)
         return postJson;
     };
 

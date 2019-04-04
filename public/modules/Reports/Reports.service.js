@@ -44,8 +44,8 @@ function _Excel($window){
             var table=$(tableId),
                 ctx={worksheet:worksheetName,table:table.html()},
                 href=uri+base64(format(template,ctx));
-            //console.log(ctx)
-            //console.log(template)
+            ////console.log(ctx)
+            ////console.log(template)
 
             return href;
         }

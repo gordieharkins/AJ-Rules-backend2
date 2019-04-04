@@ -61,7 +61,7 @@ BLL.prototype.getPropertyIE = function(data, res) {             // user role to 
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    // console.log(data.body);
+    // //console.log(data.body);
     PropertiesDAL.getPropertySlavesID(data.body.propId, function(error, result) {
         if (error) {
             error.userName = loginUserName;
@@ -70,7 +70,7 @@ BLL.prototype.getPropertyIE = function(data, res) {             // user role to 
         } else {
             var ids = result[0].IDs;
             ids.push(parseInt(data.body.propId));
-            // console.log(ids);
+            // //console.log(ids);
             IEDAL.getPropertyIE(ids, function(error, propertyIE) {
                 if (error) {
                     error.userName = loginUserName;
@@ -96,8 +96,8 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
     data.pipe(busboy);
     var userId = data.user[0].userId;
     var propertyId = data.query.propId;
-    console.log(propertyId);
-    console.log(data.query);
+    //console.log(propertyId);
+    //console.log(data.query);
     try{
         var timelineDataid = data.query.tId;
     } catch(error){ 
@@ -114,7 +114,7 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
             // this is where you would remove data from wherever you were
             // storing it up until this point.
             // e.g. if you were writing to disk, remove the temporary file
-            console.log("limit reached");
+            //console.log("limit reached");
           });
     
         try {
@@ -125,13 +125,13 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
             var fileBuffer = new Buffer('');
 
             file.on('data', function(data) {
-                console.log("on data",data);
+                //console.log("on data",data);
                 fileBuffer = Buffer.concat([fileBuffer, data]);
             });
 
             file.on('end', function() {
                 // File details
-                console.log("on end");
+                //console.log("on end");
                 var details = {
                     name: uniqueName,
                     data: fileBuffer,
@@ -150,7 +150,7 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
     });
 
     busboy.on('finish', function() {
-        console.log("on finish");
+        //console.log("on finish");
         if(files.length <= 0) {
             Response.sendResponse(false, Response.REPLY_MSG.NO_FILE_UPLOADED, null, res);
         } else {
@@ -176,7 +176,7 @@ BLL.prototype.addPropertyIE = function(data, res) {           // user role to ad
                         addFiles(files, propertyId, userId, null);
                         Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
                     } else {
-                        console.log("here is tafkasf44444444444444444444");
+                        //console.log("here is tafkasf44444444444444444444");
                         addFiles(files, propertyId, userId, res);
                     }
                     
@@ -546,7 +546,7 @@ BLL.prototype.dataReductionIE = function(data, res, next) {
                         }
 
                         if(finalResult.mriIEData[i].realestatetaxes !== null){
-                            // console.log("show me the json: ",JSON.stringify(finalResult.mriIEData[i]));
+                            // //console.log("show me the json: ",JSON.stringify(finalResult.mriIEData[i]));
                             finalResult.mriIEData[i].totaltaxesandinsurance[1] = finalResult.mriIEData[i].totaltaxesandinsurance[1] - finalResult.mriIEData[i].realestatetaxes[1];
                             finalResult.mriIEData[i].totalexpenses[1] -= finalResult.mriIEData[i].realestatetaxes[1];
                             finalResult.mriIEData[i].cashflownetincome[1] += finalResult.mriIEData[i].realestatetaxes[1];
@@ -763,7 +763,7 @@ function addFiles(files, propertyId, userId, res) {
 
         // Destroy the task as we are done
         if(res != null){
-            console.log("here is tafkasf44444444====================444444444444");
+            //console.log("here is tafkasf44444444====================444444444444");
             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
         }
         task.destroy();
@@ -803,7 +803,7 @@ function parseFiles(files, propertyId, userId) {
             function(callback) {
                 try {
                     IncomeExpenseParser.parseIncomeExpenseFile(file.fileData, file.uniqueName, file.fileName, function(incomeExpense){
-                        // console.log("result sdfaf:::::: ",incomeExpense);
+                        // //console.log("result sdfaf:::::: ",incomeExpense);
                         // if (incomeExpense == "invalid file"){
                         //     message = Response.REPLY_MSG.FIELDS_NOT_FOUND;
                         //     var unParsedFile = {
@@ -832,13 +832,13 @@ function parseFiles(files, propertyId, userId) {
                         // }else 
                         if(incomeExpense && incomeExpense[0].parsed[1] == "false"){
                             incomeExpenses = incomeExpense;
-                            // console.log("propertyId: ",propertyId);
+                            // //console.log("propertyId: ",propertyId);
                             IEDAL.addUnparsedPropertyIE(incomeExpenses, propertyId, userId, function(error, result) {
                                 if (error) {
                                     error.userName = loginUserName;
                                     ErrorLogDAL.addErrorLog(error);
                                 }else{
-                                    // console.log("updating fields not found message");
+                                    // //console.log("updating fields not found message");
                                     message = Response.REPLY_MSG.FIELDS_NOT_FOUND;
                                     var unParsedFile = {
                                         fileName: file.fileName,
@@ -866,7 +866,7 @@ function parseFiles(files, propertyId, userId) {
                         }else{
                         //
                         incomeExpenses = incomeExpense;
-                        // console.log(" in BLL IE",incomeExpense);
+                        // //console.log(" in BLL IE",incomeExpense);
                         // callback(null, incomeExpense);
                         try {
                             if(incomeExpenses != null && incomeExpenses.length > 0) {
@@ -1026,13 +1026,13 @@ function parseFiles(files, propertyId, userId) {
 //                 try {
 //                     IncomeExpenseParser.parseIncomeExpenseFile(file.fileData, file.uniqueName, file.fileName, function(incomeExpense){
 //                         if(incomeExpense && incomeExpense[0].parsed[1] == "false"){
-//                             console.log("propertyId: ",propertyId);
+//                             //console.log("propertyId: ",propertyId);
 //                             IEDAL.addUnparsedPropertyIE(incomeExpense, propertyId, userId, function(error, result) {
 //                                 if (error) {
 //                                     error.userName = loginUserName;
 //                                     ErrorLogDAL.addErrorLog(error);
 //                                 }else{
-//                                     console.log("updating fields not found message");
+//                                     //console.log("updating fields not found message");
 //                                     message = Response.REPLY_MSG.FIELDS_NOT_FOUND;
 //                                     var unParsedFile = {
 //                                         fileName: file.fileName,
@@ -1060,7 +1060,7 @@ function parseFiles(files, propertyId, userId) {
 //                         }else{
 //                         //
 //                         incomeExpenses = incomeExpense;
-//                         // console.log(" in BLL IE",incomeExpense);
+//                         // //console.log(" in BLL IE",incomeExpense);
 //                         // callback(null, incomeExpense);
 //                         try {
 //                             if(incomeExpenses != null && incomeExpenses.length > 0) {
@@ -1099,9 +1099,9 @@ function parseFiles(files, propertyId, userId) {
 //                     }
 //                         callback();
 //                         callbackMain();
-//                         // console.log("result",incomeExpense);
+//                         // //console.log("result",incomeExpense);
 //                         // incomeExpenses = incomeExpense;
-//                         // // console.log(" in BLL IE",incomeExpense);
+//                         // // //console.log(" in BLL IE",incomeExpense);
 //                         // // callback(null, incomeExpense);
 //                         // try {
 //                         //     if(incomeExpenses != null && incomeExpenses.length > 0) {
@@ -1273,9 +1273,9 @@ function parseBulkFiles(files, userId) {
             function(callback) {
                 try {
                     IncomeExpenseParser.parseIncomeExpenseFile(file.fileData, file.uniqueName, file.fileName, function(incomeExpense){
-                        // console.log("result",incomeExpense);
+                        // //console.log("result",incomeExpense);
                         incomeExpenses = incomeExpense;
-                        // console.log(" in BLL IE",incomeExpense);
+                        // //console.log(" in BLL IE",incomeExpense);
                         // callback(null, incomeExpense);
                         try {
                             if(incomeExpenses != null && incomeExpenses.length > 0) {
@@ -1473,7 +1473,7 @@ BLL.prototype.deleteIEById = function(data, res, next){
     var userId = data.user[0].userId;
     IEDAL.deleteIEById(data.body, userId, function(error, result){
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.DELETE_FAIL, null, res);

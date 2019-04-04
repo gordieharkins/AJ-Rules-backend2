@@ -8,19 +8,19 @@ module.exports = _CreateComparablesForm;
 //    );
 
 function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("updateIERR CreateComparablesForm", $stateParams);
+    //////console.log("updateIERR CreateComparablesForm", $stateParams);
     var vm = this;
     // $('#successModal').modal('close');
     $('#preloader').css('display', 'none');
     vm.submitManualData = submitManualData;
     vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
-    ////console.log("vm.property in manualIE: ", vm.property)
+    //////console.log("vm.property in manualIE: ", vm.property)
 
     vm.formData = {
 
     };
     vm.PrinciplePropData = JSON.parse(localStorage.getItem('principalForm'));
-    ////console.log("key" + vm.PrinciplePropData);
+    //////console.log("key" + vm.PrinciplePropData);
 
     vm.modalYesbutton = modalYesbutton;
     vm.gotoPropertyDetails = gotoPropertyDetails;
@@ -39,7 +39,7 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
     }
 
     function modalYesbutton() {
-        ////console.log('reset form');
+        //////console.log('reset form');
         vm.formData = {};
 
         $scope.compForm.$setPristine();
@@ -53,7 +53,7 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
     function submitManualData() {
 
         $("#preloader").css("display", "block");
-        ////console.log('appeal')
+        //////console.log('appeal')
 
         vm.formData.compScore = vm.formData.compScore;
         vm.formData.taxAssessment = vm.formData.taxAssessment.toString();
@@ -89,11 +89,11 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
         data.principal.push(vm.PrinciplePropData)
         data.comps.push(vm.formData)
         data.propId = localStorage.getItem("propertyId");
-        ////console.log(data);
+        //////console.log(data);
         var url = 'salesComps/addCompsToPropManual';
         AOTCService.postDataToServer(url, data)
             .then(function (result) {
-                ////console.log("CompForm: ", result);
+                //////console.log("CompForm: ", result);
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
                     $scope.compForm.$setPristine();
@@ -106,7 +106,7 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
                 $("#preloader").css("display", "none");
 
             }, function (result) {
-                //////console.log(result);
+                ////////console.log(result);
                 $("#preloader").css("display", "none");
             });
 
@@ -114,12 +114,12 @@ function _CreateComparablesForm($stateParams, $anchorScroll, sharedService, $sta
         /* var url2 = 'salesComps/addCompsImageManual';
          AOTCService.postDataToServer(url,image)
              .then(function(result) {
-                 ////console.log("Po: ",result);
+                 //////console.log("Po: ",result);
  
                      // $state.go('TaskManager');
  
              }, function(result) {
-                 //////console.log(result);
+                 ////////console.log(result);
  
              });
  

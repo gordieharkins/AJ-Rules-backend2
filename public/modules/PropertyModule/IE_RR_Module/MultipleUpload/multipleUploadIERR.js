@@ -6,7 +6,7 @@ module.exports = _multipleUploadIERR;
 //angular.module('AOTC').controller('multipleUploadIERR', _multipleUploadIERR
 //    );
 function _multipleUploadIERR(UtilService, $stateParams, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("multipleUploadIERR controller");
+    ////////console.log("multipleUploadIERR controller");
 
     var vm = this;
 
@@ -61,7 +61,7 @@ function _multipleUploadIERR(UtilService, $stateParams, $state, DTOptionsBuilder
 
                 $("#preloader").css("display", "none");
 
-                ////console.log("addBulkPropertyRR result: ", result);
+                //////console.log("addBulkPropertyRR result: ", result);
                 var serverData = result.data;
 
                 if (serverData.success) {
@@ -98,7 +98,7 @@ function _multipleUploadIERR(UtilService, $stateParams, $state, DTOptionsBuilder
             .then(function (result) {
                 $("#preloader").css("display", "none");
 
-                ////console.log("addBulkPropertyIE result: ", result);
+                //////console.log("addBulkPropertyIE result: ", result);
                 var serverData = result.data;
 
                 if (serverData.success) {
@@ -160,12 +160,12 @@ function _multipleUploadIERR(UtilService, $stateParams, $state, DTOptionsBuilder
     function uploadSelectedFiles() {
         if (vm.selected == 0) {
             sendIEData(function () {
-                ////console.log("sendIEData");
+                //////console.log("sendIEData");
             });
 
         } else if (vm.selected == 1) {
             sendRRData(function () {
-                ////console.log("sendRRData");
+                //////console.log("sendRRData");
             });
         }
     }

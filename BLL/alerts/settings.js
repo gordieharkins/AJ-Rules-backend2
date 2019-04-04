@@ -18,7 +18,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
 
    if (type=='immediate') {
             result = immediateAlert(settings.settings,alert.dateTime.split('Z')[0])
-            // console.log('sadasadasd',result)
+            // //console.log('sadasadasd',result)
             if(!result) {
                 result = {};
                 result['sendingTimeDate'] =  moment(alert.dateTime.split('Z')[0])
@@ -38,11 +38,11 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
                 result['sendingTimeLong'] =  result['sendingTimeDate'].format('x')
                
             } else {
-            // console.log('sssssss',result)
+            // //console.log('sssssss',result)
             sendingTime = caclculateSendingTime(result.intervals.endTime,result.index,'futrue',alert.dateTime,result.found);
             result['sendingTimeDate'] = sendingTime
             result['sendingTimeLong'] = sendingTime.format('x')
-            // console.log(result)
+            // //console.log(result)
             }
     }
     result['dateTime'] = alert['dateTime'] 
@@ -57,7 +57,7 @@ AlertsSettings.prototype.configureAlert = function(alert,settings, cb) {
     if(settings.email.flag=='true') {
         alert['email'] =  settings.email.details
         }
-//    console.log(alert)
+//    //console.log(alert)
         cb(alert);
 }
 
@@ -112,7 +112,7 @@ function immediateAlert(activeWindow,time) {
             var time = date+ " " +activeListSorted[i].intervals[s].startTime
             var curStartTime = moment(date+ " " +activeListSorted[i].intervals[s].startTime).seconds(0).millisecond(0).add(i, 'days')
             var curEndTime =   moment(date+ " " +  activeListSorted[i].intervals[s].endTime).seconds(0).millisecond(0).add(i, 'days')
-            // console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
+            // //console.log('curent',dateTime,'start',curStartTime,'end',curEndTime)
 
             if(dateTime.isSameOrAfter(curStartTime) && dateTime.isSameOrBefore(curEndTime)) {
                 
@@ -144,7 +144,7 @@ function immediateAlert(activeWindow,time) {
         } else {
             time =  SortArray(extractMinWindowNegative)
         }
-        // console.log('free time',time[0])
+        // //console.log('free time',time[0])
         return time[0] 
     }
 }
@@ -232,7 +232,7 @@ function caclculateSendingTime(time,days,type,dateTime,found) {
     var date = moment(dateTime).format('MM/DD/YYYY');
     
     if(type=='immediate') {
-        console.log(found==0)
+        //console.log(found==0)
         if(found==0) {
             sendingTime = moment(date + ' '+time).seconds(0).millisecond(0).add(days, 'days')
           

@@ -12,7 +12,7 @@ module.exports = _SelectedComparable;
 function _SelectedComparable(ComparableService, $scope, User_Config, $state, $timeout, AOTCService, $filter) {
 
 
-    //console.log("SelectedComparables controller");
+    ////console.log("SelectedComparables controller");
     var vm = this;
     $(document).on('click', '.col-select .dropdown-menu', function (e) {
         e.stopPropagation();
@@ -166,11 +166,11 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
 
         //var _JurisdictionData = vm.JurisdictionCopy;
         $('#preloader').css('display', 'block');
-        //console.log("saveComparables", jsonFormat)
+        ////console.log("saveComparables", jsonFormat)
         ComparableService.saveSubjectPropertyUpdatedData(_JurisdictionData)
             .then(function (result) {
                 $('#preloader').css('display', 'none');
-                //console.log('Server Data : saveComparablesToProperties', result);
+                ////console.log('Server Data : saveComparablesToProperties', result);
 
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
@@ -178,7 +178,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                     $scope.$emit('error', result.data.message);
                 }
             }, function (err) {
-                //console.log('error has occurred', err);
+                ////console.log('error has occurred', err);
                 $('#preloader').css('display', 'none');
             });
 
@@ -490,14 +490,14 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
             "propId": propId,
             "compIds": vm.selectedcomparablesFromTable
         };
-        //console.log("saveComparables", jsonFormat)
+        ////console.log("saveComparables", jsonFormat)
         ComparableService.saveComparablesToProperties(jsonFormat)
             .then(function (result) {
                 vm.selectedcomparablesFromTable = [];
                 $('#preloader').css('display', 'none');
 
                 getSavedComps();
-                //console.log('Server Data : saveComparablesToProperties', result);
+                ////console.log('Server Data : saveComparablesToProperties', result);
 
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
@@ -505,7 +505,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                     $scope.$emit('error', result.data.message);
                 }
             }, function (err) {
-                //console.log('error has occurred', err);
+                ////console.log('error has occurred', err);
                 $('#preloader').css('display', 'none');
             });
     };
@@ -517,7 +517,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
             "propId": propId,
             "compIds": vm.selectedcomparablesFromTable
         };
-        //console.log("saveComparables", jsonFormat)
+        ////console.log("saveComparables", jsonFormat)
         ComparableService.deleteCompsFromProperty(jsonFormat)
             .then(function (result) {
                 $('#preloader').css('display', 'none');
@@ -526,7 +526,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                 getSavedComps();
                 vm.selectedcomparablesFromTable = [];
 
-                //console.log('Server Data : saveComparablesToProperties', result);
+                ////console.log('Server Data : saveComparablesToProperties', result);
 
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
@@ -534,7 +534,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                     $scope.$emit('error', result.data.message);
                 }
             }, function (err) {
-                //console.log('error has occurred', err);
+                ////console.log('error has occurred', err);
                 $('#preloader').css('display', 'none');
             });
     }
@@ -651,7 +651,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                 $('#preloader').css('display', 'none');
             }
         }, function (err) {
-            console.log('err : ', err);
+            //console.log('err : ', err);
             $('#preloader').css('display', 'none');
         })
 
@@ -755,7 +755,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
                 $('#preloader').css('display', 'none');
             }
         }, function (err) {
-            console.log('err : ', err);
+            //console.log('err : ', err);
             $('#preloader').css('display', 'none');
         })
 
@@ -870,13 +870,13 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
     };
 
     function createComparables() {
-        //console.log('v')
+        ////console.log('v')
         $state.go('createPrincipalForm')
 
 
     }
     function deleteConfirmation(comparable) {
-        //console.log('comparable is ', comparable);
+        ////console.log('comparable is ', comparable);
         vm.modelMessage.title = 'Delete Comparable';
         vm.modelMessage.message = 'Are you sure you want to delete this comparable from this property?';
         vm.comparableDelete = comparable;
@@ -892,7 +892,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
     function setMainImg() {
         var propertyDetails = JSON.parse(localStorage.getItem('propertyDetails'));
         vm.mainImage = propertyDetails.imageFileName;
-        //console.log('mainImage' + vm.mainImage)
+        ////console.log('mainImage' + vm.mainImage)
 
         if (vm.mainImage == undefined || vm.mainImage == null) {
             vm.mainImage = "assets/img/noImageAvailable.jpg";
@@ -915,11 +915,11 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
             //delete from server and 
             ComparableService.deleteCompsFromProperty(comparable.id)
                 .then(function (result) {
-                    //console.log('deleteComparables result is: ', result);
+                    ////console.log('deleteComparables result is: ', result);
                     $('#preloader').css('display', 'none');
 
                 }, function (err) {
-                    //console.log('err is ', err);
+                    ////console.log('err is ', err);
                     $('#preloader').css('display', 'none');
 
                 })
@@ -946,11 +946,11 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
     //        principal: vm.PrinciplePropData,
     //        comps: vm.selectedComparables
     //    };
-    //    //console.log("saveComparables", jsonFormat)
+    //    ////console.log("saveComparables", jsonFormat)
     //    ComparableService.saveComparablesToProperties(jsonFormat)
     //        .then(function (result) {
     //            $('#preloader').css('display', 'none');
-    //            //console.log('Server Data : saveComparablesToProperties', result);
+    //            ////console.log('Server Data : saveComparablesToProperties', result);
 
     //            if (result.data.success) {
     //                $scope.$emit('success', result.data.message);
@@ -958,7 +958,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
     //                $scope.$emit('error', result.data.message);
     //            }
     //        }, function (err) {
-    //            //console.log('error has occurred', err);
+    //            ////console.log('error has occurred', err);
     //            $('#preloader').css('display', 'none');
     //        });
     //}
@@ -1092,14 +1092,14 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
         //$("#preloader").css("display", "block");
         var url = '/valuation/get-evidence-files';
         var _data = {propId: propId};
-        console.log(url)
+        //console.log(url)
 
         AOTCService.postDataToServer(url, _data)
             .then(function (result) {
 
                 var serverData = result.data;
-                console.log('All Evidences Receieved Server Data');
-                console.log(serverData);
+                //console.log('All Evidences Receieved Server Data');
+                //console.log(serverData);
 
                 if (serverData.success) {
 
@@ -1132,7 +1132,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
 
             }, function (result) {
                 //some error
-                console.log(result);
+                //console.log(result);
                 // $("#preloader").css("display", "none");
 
             });
@@ -1149,7 +1149,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
         if (searchItem.length > 0) {
 
         } else {
-            // console.log('return all evidence\n', vm.allEvidenceFiles);
+            // //console.log('return all evidence\n', vm.allEvidenceFiles);
             return vm.allEvidenceFiles;
 
         }
@@ -1161,8 +1161,8 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
 
         if (searchItem.length > 0) {
         } else {
-            // console.log('----------------------------already selectedEvidences');
-            // console.log(vm.selectedEvidences);
+            // //console.log('----------------------------already selectedEvidences');
+            // //console.log(vm.selectedEvidences);
             return vm.selectedEvidences;
         }
     }
@@ -1244,7 +1244,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
             var allEvidence = vm.currentPropSelected.evidenceId[i]
 
             if (allEvidence == evidence) {
-                //console.log('true')
+                ////console.log('true')
                 vm.currentPropSelected.evidenceId.splice(i, 1);
                 vm.allEvidenceFiles.push({ _id: evidence });
             }
@@ -1296,7 +1296,7 @@ function _SelectedComparable(ComparableService, $scope, User_Config, $state, $ti
 
     //function checkBoxSelection(value) {
 
-    //    //console.log('checkbox' + value)
+    //    ////console.log('checkbox' + value)
     //    var checkboxModel = $scope.checkboxModel;
     //    var count = 0;
     //    for (var element in checkboxModel) {

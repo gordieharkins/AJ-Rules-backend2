@@ -8,7 +8,7 @@ module.exports = _ComparableSelection;
 //    );
 
 function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
-    ////console.log("ComparableSelection controller");
+    //////console.log("ComparableSelection controller");
     var vm = this;
 
     vm.showResidentialProps = true;
@@ -37,7 +37,7 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
 
         //ComparableService.getComparables(1).
         //then(function (result) {
-        //    //console.log('getSavedComparables : ', result);
+        //    ////console.log('getSavedComparables : ', result);
         //    var serverData = result.data;
 
         //    if (serverData.success) {
@@ -94,13 +94,13 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
         //        }
         //    }
         //}, function (err) {
-        //    console.log('err : ', err);
+        //    //console.log('err : ', err);
         //    $('#preloader').css('display', 'none');
         //})
 
         //ComparableSelectionService.getSavedComparables().
         //then(function (result) {
-        //    console.log('getSavedComparables : ', result);
+        //    //console.log('getSavedComparables : ', result);
         //    var serverData = result.data;
 
         //    if (serverData.success) {
@@ -118,12 +118,12 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
         //        }
         //    }
         //}, function (err) {
-        //    console.log('err : ', err);
+        //    //console.log('err : ', err);
         //})
 
         //ComparableSelectionService.getSavedComparables().
         //then(function (result) {
-        //    console.log('getSavedComparables : ', result);
+        //    //console.log('getSavedComparables : ', result);
         //    var serverData = result.data;
 
         //    if (serverData.success) {
@@ -141,7 +141,7 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
         //        }
         //    }
         //}, function (err) {
-        //    console.log('err : ', err);
+        //    //console.log('err : ', err);
         //})
 
     }
@@ -158,7 +158,7 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
     function getDeepSearchResult() {
         ComparableSelectionService.getDeepSearchResult().
         then(function (result) {
-            console.log(result);
+            //console.log(result);
             var serverData = result.data;
 
             if (serverData.success) {
@@ -172,7 +172,7 @@ function _ComparableSelection(ComparableSelectionService, User_Config, $state) {
             }
             $("#preloader").css('display', 'none');
         }, function (err) {
-            console.log('err : ', err);
+            //console.log('err : ', err);
         })
     }
     vm.gotoCreateComprables = gotoCreateComprables;

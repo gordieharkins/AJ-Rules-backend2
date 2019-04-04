@@ -56,7 +56,7 @@ function _AOTCService($http, $rootScope) {
 
 
     function uploadFiles(uploadUrl, files) {
-        // console.log(jsonForm);
+        // //console.log(jsonForm);
         var token = localStorage.getItem('token');
         var fd = new FormData();
 

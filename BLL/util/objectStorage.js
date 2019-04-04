@@ -85,7 +85,7 @@ ObjectStorage.prototype.downloadFile = function (fileName, containerName, output
     // });
 
     // readStream.on('success', function(file) {
-    //     console.log("here");
+    //     //console.log("here");
     //     cb(null, output);
     // });   
 

@@ -20,7 +20,7 @@ function DAL() {
 
 // 	var query = `MATCH (prop:property)<-[year:OF]-(ie:IE) 
 // 				WHERE year.year =~ '.*`+data.year+`.*' AND id(prop) = {propertyId} return rr.totalSF`;
-// 	console.log(data);
+// 	//console.log(data);
 // 	// var query = `MATCH (prop:property)<-[year:AS_OF]-(rr:RR) 
 // 	//  			WHERE year.year =~ '.*`+data.year+`.*' AND id(prop) = `+data.propertyId+` return rr.totalSF`;
 // 	// res.send(query)
@@ -47,7 +47,7 @@ DAL.prototype.getValuationRRData = function(propertyId, yearNow, yearNext, res, 
         //     propertyId: propertyId
         // }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -104,7 +104,7 @@ DAL.prototype.replaceValuationForm = function(data, userId, cb){
     data.valuationData.createdBy = userId;
     data.valuationData.modifiedBy = userId;
     data.valuationData.isDeleted = "false";
-    // console.log(data);
+    // //console.log(data);
     var query = `Match (prop:property)-[rel:OF]-(valuation:valuationNode)-[rel2:FormName]-(valuationForm:valuationForm) 
                 WHERE id(prop) = {propertyId}  
                 AND rel.valuationYear = {valuationYear}
@@ -120,7 +120,7 @@ DAL.prototype.replaceValuationForm = function(data, userId, cb){
             formName: data.name
         }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 
@@ -136,7 +136,7 @@ DAL.prototype.getModalData = function(data,cb){
             formId: formId
         }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -156,7 +156,7 @@ DAL.prototype.getEvidenceFiles = function(propId, cb){
             propertyId: propId
         }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -170,7 +170,7 @@ DAL.prototype.getEvidenceFilesById = function(fileIds,cb){
             fileIds:fileIds
         }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -188,7 +188,7 @@ DAL.prototype.getFormsByPropertyId = function(data,cb){
             valuationYear: data.valuationYear
         }
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -290,7 +290,7 @@ DAL.prototype.replaceWorkSpace = function(data,cb){
         query: query,
         params: params
     }, function(err, results) {
-        console.log(err);
+        //console.log(err);
         cb(err, results);
     });
 };
@@ -366,7 +366,7 @@ DAL.prototype.saveWorkSpace = function(data, userId,cb){
                     ON CREATE SET BaseCapRate`+ i +` = {BaseCapRate`+ i +`}
                     ON MATCH SET BaseCapRate`+ i +` = {BaseCapRate`+ i +`}`;
     }
-    // console.log(query);
+    // //console.log(query);
 
     db.cypher({
         query: query1,
@@ -376,10 +376,10 @@ DAL.prototype.saveWorkSpace = function(data, userId,cb){
             query: query,
             params: params
         }, function(err, results) {
-            console.log(err);
+            //console.log(err);
             cb(err, results);
         });
-        console.log(err);
+        //console.log(err);
         // cb(err, results);
     });
 
@@ -462,11 +462,11 @@ DAL.prototype.getEvidenceFilesPathById = function(fileIds, cb){
 
 
 DAL.prototype.getIEERRAppealPackage = function(data, cb){
-    // console.log(fileIds);
+    // //console.log(fileIds);
     var rrMaxTime = new Date((data.year)+1).getTime();
     var rrMinTime = new Date(parseInt(data.year)-2).getTime();
-    console.log(rrMaxTime);
-    console.log(rrMinTime);
+    //console.log(rrMaxTime);
+    //console.log(rrMinTime);
     // var query = `MATCH(prop:property) where id(prop) = {propId}
     //             MATCH(prop)<-[rel:OF]-(ie:IE)
     //             where ie.isDeleted = false

@@ -40,7 +40,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     $scope.min_date = moment().startOf('day').subtract(1, 'seconds');
 
     $scope.max_date = moment().endOf('day');
-    // console.log($scope.min_date, $scope.min_date.tz("America/Los_Aneles").format())
+    // //console.log($scope.min_date, $scope.min_date.tz("America/Los_Aneles").format())
     $scope.time_data = {};
 
     $scope.time_data.intervals = [{ startTime: moment().startOf('day'), endTime: moment().startOf('day').add(8, 'hours') }]
@@ -53,11 +53,11 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
         AOTCService.postDataToServer("/alerts/saveEmailCode", { email: $scope.data.email.details })
             .then(
                 function successCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.sending_email_code = false;
                 },
                 function errorCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.sending_email_code = false;
                 })
     }
@@ -67,7 +67,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
     $scope.verify_email_code = function (code_email_form) {
 
-        console.log(code_email_form.$invalid)
+        //console.log(code_email_form.$invalid)
         if (code_email_form.$invalid) {
             return
         }
@@ -77,7 +77,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
         AOTCService.postDataToServer("/alerts/verifyEmailCode", { email: $scope.data.email.details, code: code })
             .then(
                 function successCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.verifying_email = false;
                     setTimeout(function () {
                         $('#emailverifyModal').modal('hide');
@@ -85,7 +85,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     }, 500)
                 },
                 function errorCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.verifying_email = false;
                 })
     }
@@ -103,7 +103,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
         AOTCService.postDataToServer("/alerts/verifyPhoneCode", { phone: $scope.data.sms.details, code: code })
             .then(
                 function successCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.verifying_sms = false;
                     setTimeout(function () {
                         $('#smsverifyModal').modal('hide');
@@ -111,7 +111,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                     }, 500)
                 },
                 function errorCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.verifying_sms = false;
                 })
     }
@@ -124,11 +124,11 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
         AOTCService.postDataToServer("/alerts/savePhoneCode", { email: $scope.data.sms.details })
             .then(
                 function successCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.sending_sms_code = false;
                 },
                 function errorCallback(response) {
-                    console.log(response)
+                    //console.log(response)
                     $scope.sending_sms_code = false;
                 })
     }
@@ -188,9 +188,9 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
     $scope.toggle_input = function (index) {
         $scope.data.blackouts[index].checked = !$scope.data.blackouts[index].checked;
-        // console.log("Working", d)
+        // //console.log("Working", d)
         // d.checked = !d.checked;
-        console.log("Working", $scope.data)
+        //console.log("Working", $scope.data)
 
     }
 
@@ -213,7 +213,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
                 return
             } else {
-                console.log("Called")
+                //console.log("Called")
 
 
 
@@ -288,7 +288,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 var check = false;
                 var value = 0;
                 for (var i = 0; i < $scope.timezones.length; i++) {
-                    console.log($scope.timezones);
+                    //console.log($scope.timezones);
                     if ($scope.timezones[i].name == $scope.data.timezone) {
                         check = true;
                         value = $scope.timezones[i].value;
@@ -303,14 +303,14 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
                 for (var i = 0; i < data.blackouts.length; i++) {
 
-                    // console.log($scope.data.blackouts[i].checked);
+                    // //console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < data.blackouts[i].intervals.length; j++) {
-                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // //console.log(JSON.stringify(data.blackouts[i].intervals[j]))
                         data.blackouts[i].intervals[j].startTime = moment(data.blackouts[i].intervals[j].startTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].startTime.add(value, 'hours')
                         data.blackouts[i].intervals[j].endTime = moment(data.blackouts[i].intervals[j].endTime).add(value, 'hours');
                         // data.blackouts[i].intervals[j].endTime.add(value, 'hours')
-                        // console.log(JSON.stringify(data.blackouts[i].intervals[j]))
+                        // //console.log(JSON.stringify(data.blackouts[i].intervals[j]))
 
                     }
                     // if($scope.data.blackouts[i])
@@ -321,7 +321,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 AOTCService.postDataToServer("/alerts/saveSettings", data)
                     .then(
                         function successCallback(response) {
-                            console.log(response)
+                            //console.log(response)
                             intialize();
                             $scope.saving = false;
                             $scope.successMessage = "Settings saved succesfully";
@@ -329,7 +329,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                             $("#head_success").fadeIn(1500).delay(500).fadeOut(500);
                         },
                         function errorCallback(response) {
-                            console.log(response)
+                            //console.log(response)
                             $scope.saving = false;
                             $scope.errorMessage = "Unable to save settings. Please try again";
                             // $scope.$apply();
@@ -340,7 +340,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
         } else {
             $scope.email_sms_error = true;
         }
-        // console.log($scope.data)
+        // //console.log($scope.data)
     }
 
     $scope.ischecked = function (d) {
@@ -519,7 +519,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 a_check = true;
             }
 
-            console.log($.inArray("Sunday", elem.days))
+            //console.log($.inArray("Sunday", elem.days))
             if ($.inArray("Sunday", elem.days) > -1) {
                 $scope.time_data.sun = true;
             } else {
@@ -530,7 +530,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                 $scope.time_data.all = true;
             }
 
-            console.log(elem)
+            //console.log(elem)
         }
     }
 
@@ -543,16 +543,16 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     }
 
     $scope.changed = function () {
-        console.log('changed start or end datetime objects');
+        //console.log('changed start or end datetime objects');
     };
     $scope.changedStart = function () {
-        console.log('changed start datetime object');
+        //console.log('changed start datetime object');
     };
     $scope.changedEnd = function () {
-        console.log('changed end datetime object');
+        //console.log('changed end datetime object');
     };
     $scope.closed = function () {
-        console.log('edit popover closed');
+        //console.log('edit popover closed');
     };
 
 
@@ -581,7 +581,7 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
     function intialize() {
         AOTCService.getDataFromServer('/alerts/getSettings')
             .then(function (result) {
-                // console.log(result.data.result.settings)
+                // //console.log(result.data.result.settings)
                 if (!result.data.result.settings) {
                     return
                 }
@@ -688,14 +688,14 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
                         $scope.data.blackouts[i].all = true;
                     }
 
-                    // console.log($scope.data.blackouts[i].checked);
+                    // //console.log($scope.data.blackouts[i].checked);
                     for (var j = 0; j < $scope.data.blackouts[i].intervals.length; j++) {
-                        // console.log($scope.data.blackouts[i].intervals[j])
+                        // //console.log($scope.data.blackouts[i].intervals[j])
                         $scope.data.blackouts[i].intervals[j].startTime = new Date($scope.data.blackouts[i].intervals[j].startTime);
                         $scope.data.blackouts[i].intervals[j].startTime.subtractHours(value)
                         $scope.data.blackouts[i].intervals[j].endTime = new Date($scope.data.blackouts[i].intervals[j].endTime);
                         $scope.data.blackouts[i].intervals[j].endTime.subtractHours(value)
-                        // console.log($scope.data.blackouts[i].intervals[j])
+                        // //console.log($scope.data.blackouts[i].intervals[j])
 
                     }
                     // if($scope.data.blackouts[i])
@@ -704,8 +704,8 @@ function settings_tabular(UtilService, $stateParams, $scope, AOTCService) {
 
 
             }, function (result) {
-                ////console.log(result);
-                console.log("error", result)
+                //////console.log(result);
+                //console.log("error", result)
 
                 $scope.errorMessage = "Unable to get settings. Please Reload";
                 // $scope.$apply();

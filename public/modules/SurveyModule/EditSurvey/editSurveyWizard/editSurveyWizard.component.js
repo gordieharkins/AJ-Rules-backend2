@@ -6,7 +6,7 @@ module.exports = _editSurveyCtrl;
 //    .controller('editSurveyCtrl', _editSurveyCtrl
 //    );
 function _editSurveyCtrl($scope, CreateSurveyService) {
-    console.log('editSurvey')
+    //console.log('editSurvey')
     localStorage.removeItem("section")
     // CreateSurveyService.validateQuestions=[{}];
     // CreateSurveyService.editQuestions=[{}];
@@ -49,7 +49,7 @@ function _editSurveyCtrl($scope, CreateSurveyService) {
 
     $scope.arrangeQuestions = function () {
         //$state.go('Survey.ArrangeSurvey');
-        console.log('ss')
+        //console.log('ss')
         $scope.createSurveyRoute = false;
         $scope.viewSurveyRoute = false;
         $scope.arrangeQuestionsRoute = true;

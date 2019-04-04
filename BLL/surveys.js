@@ -182,17 +182,17 @@ function AJruleToCypher(json) {
     let appealPackageSubmittalFormatValue = ""
     let appealPackageSubmittalFormatDeadline = ""
     let daysFromNotice = null
-    console.log(jurisdiction)
+    //console.log(jurisdiction)
     for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
         let question = json.value.hassubmission[0].has[i]
         if (question.ajRule == "Appeal Deadline Format") {
-            console.log(question.hasanswer[0].value.length)
+            //console.log(question.hasanswer[0].value.length)
             if (question.hasanswer[0].value.length == 1) {
                 appealDateType = question.hasanswer[0].value[0]
             } else {
                 appealDateType = question.hasanswer[0].value
             }
-            console.log(appealDateType)
+            //console.log(appealDateType)
 
             for (let j = 0; j < question.has.length; j++) {
                 if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
@@ -207,7 +207,7 @@ function AJruleToCypher(json) {
                         daysFromNotice = question.has[j].hasanswer[0].value[0]
                     }
 
-                    console.log(appealDeadline)
+                    //console.log(appealDeadline)
                     // break
                 }
             }
@@ -215,23 +215,23 @@ function AJruleToCypher(json) {
 
         if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
             let myans = question.hasanswer[0].value[0]
-            console.log("temp", myans)
+            //console.log("temp", myans)
             for (let k = 0; k < question.has.length; k++) {
                 if (question.has[k].enabled == myans) {
                     let tempappealDeadline = question.has[k].hasanswer[0].value[0]
-                    console.log("temp", tempappealDeadline)
+                    //console.log("temp", tempappealDeadline)
                     var tdate = new Date(tempappealDeadline);
                     var newdate = new Date(tdate);
                     newdate.setDate(newdate.getDate() + daysFromNotice);
                     appealDeadline = newdate
-                    console.log("temp1, ", newdate)
+                    //console.log("temp1, ", newdate)
 
 
                 }
             }
 
 
-            console.log(isAppealForm)
+            //console.log(isAppealForm)
         }
 
         if (question.ajRule == "Appeal Form") {
@@ -243,25 +243,25 @@ function AJruleToCypher(json) {
             for (let k = 0; k < question.has.length; k++) {
                 if (question.has[k].ajRule == "Appeal Form Signature Requirements") {
                     appealFromSignatureRequirements = question.has[k].hasanswer[0].value
-                    console.log(appealFromSignatureRequirements)
+                    //console.log(appealFromSignatureRequirements)
                 }
             }
 
 
-            console.log(isAppealForm)
+            //console.log(isAppealForm)
         }
 
         if (question.ajRule == "Appeal Form Submittal Format") {
             appealFormSubmittalFormat = question.hasanswer[0].value
-            console.log(appealFormSubmittalFormat)
+            //console.log(appealFormSubmittalFormat)
         }
         if (question.ajRule == "Event when evidence is due") {
             appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
-            console.log(appealEvidenceSubmissionValue)
+            //console.log(appealEvidenceSubmissionValue)
             if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
                 // appealEvidenceSubmissionValue = question.hasanswer[0].value
                 appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-                console.log(appealEvidenceSubmissionDays)
+                //console.log(appealEvidenceSubmissionDays)
             } else {
                 appealEvidenceSubmissionDays = ""
             }
@@ -276,13 +276,13 @@ function AJruleToCypher(json) {
             } else {
                 appealPackageItems = question.hasanswer[0].value
             }
-            console.log(appealPackageItems)
-            console.log(appealPackageItems.length)
+            //console.log(appealPackageItems)
+            //console.log(appealPackageItems.length)
         }
 
         if (question.ajRule == "Appeal Package Submittal Format") {
             appealPackageSubmittalFormatValue = question.hasanswer[0].value
-            console.log(appealPackageSubmittalFormatValue)
+            //console.log(appealPackageSubmittalFormatValue)
         }
         if (question.ajRule == "Appeal Deadline Format") {
 
@@ -324,7 +324,7 @@ function AJruleToCypher(json) {
     // create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
 
     // // db.executeQuery(query, params);
-    // console.log(query)
+    // //console.log(query)
 }
 // ---------------------------------------------
 
@@ -367,7 +367,7 @@ BLL.prototype.submitSurvey = function (data, res) {
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
             return;
         } else {
-            console.log("*******************")
+            //console.log("*******************")
             var newResult = AJruleToCypher(data, result)
             Response.sendResponse(true, Response.REPLY_MSG.SAVE_SUCCESS, { "addAJRules": newResult, "addSurvey": result }, res);
             // Response.sendResponse(true, Response.REPLY_MSG.SAVE_SUCCESS, result, res);
@@ -823,7 +823,7 @@ BLL.prototype.getSurveyReport = function (data, res) {
                     questions.push(question);
                 }
 
-                // console.log(questions);
+                // //console.log(questions);
 
                 var tempJurisdiction = {
                     jurisdiction: "",
@@ -843,12 +843,12 @@ BLL.prototype.getSurveyReport = function (data, res) {
                 }
 
                 if (jurisdictionFlag) {
-                    // console.log("jere")
+                    // //console.log("jere")
                     try {
                         tempJurisdictions[jurisdictionIndex].questionIds.push(result[i].questionId);
                         tempJurisdictions[jurisdictionIndex].questions.push(result[i]);
                     } catch (err) {
-                        console.log(err);
+                        //console.log(err);
                     }
 
                 } else {
@@ -1029,7 +1029,7 @@ function parseAnswers(answer) {
 //----------------------------------------------
 BLL.prototype.getFormSubmissions = function(req, res) {
 
-    console.log("DDDDDDDDDDDdd");
+    //console.log("DDDDDDDDDDDdd");
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
@@ -1038,13 +1038,13 @@ BLL.prototype.getFormSubmissions = function(req, res) {
     var userId = req.user[0].userId;
     var userRole = req.user[0].roles.name;
     
-    console.log(req.user[0]);
+    //console.log(req.user[0]);
     
     DAL.getFormSubmissions(userId, userRole, function(error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
-            console.log(error);
+            //console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
@@ -1067,11 +1067,11 @@ BLL.prototype.addNewSubmission = function(req, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    // console.log(req.user[0]);
+    // //console.log(req.user[0]);
     var userId = req.user[0].userId;
     var userName = req.user[0].userName;
     var time = (new Date()).getTime();
-    // console.log(req.body)
+    // //console.log(req.body)
     var data = JSON.parse(JSON.stringify(req.body));
     data.updatedByUserId = userId;
     data.createdAt = time;
@@ -1084,7 +1084,7 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.filled = 0;    
     // var formId = req.body.formId;
     
-    // console.log(data);rs
+    // //console.log(data);rs
     DAL.addNewSubmission(data, function(error, result) {
         if (error) {
             error.userName = loginUserName;
@@ -1143,7 +1143,7 @@ BLL.prototype.updateSubmissionData = function(req, res) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
-            console.log(error);
+            //console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
@@ -1191,7 +1191,7 @@ BLL.prototype.addNewForm = function(req, res) {
     var data = req.body;
     DAL.addNewForm(data, userData, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.FORM_ADDITION_FAIL, null, res);
@@ -1215,7 +1215,7 @@ BLL.prototype.getHistory = function(req, res) {
     var data = req.body;
     DAL.getHistory(data, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1238,7 +1238,7 @@ BLL.prototype.getReports = function(req, res) {
 
     DAL.getReports(function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             //testS
@@ -1310,7 +1310,7 @@ BLL.prototype.autoSave = function(req, res) {
     var data = req.body;
     DAL.autoSave(data, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
@@ -1334,7 +1334,7 @@ BLL.prototype.getStates = function(req, res) {
     // var data = req.body;
     DAL.getStates(function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1346,12 +1346,12 @@ BLL.prototype.getStates = function(req, res) {
 }
 // ---------------------END---------------------
 function sortFormData(data, cb){
-    // console.log(formData.value.hassubmission[0].has);
-    // console.log(data);
+    // //console.log(formData.value.hassubmission[0].has);
+    // //console.log(data);
     data.forEach(function(formData){
         formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
         formData.value.hassubmission[0].has.forEach(function(question){
-            // console.log(has);
+            // //console.log(has);
             if(question.has != undefined){
                 question.has.sort(function(a, b){ return a.order - b.order});
             }
@@ -1362,13 +1362,13 @@ function sortFormData(data, cb){
 }
 
 function sortFormQuestions(data, cb){
-    // console.log(formData.value.hassubmission[0].has);
-    // console.log(data);
+    // //console.log(formData.value.hassubmission[0].has);
+    // //console.log(data);
    
     data.forEach(function(formData){
         formData.value.has.sort(function(a,b){ return a.order - b.order});
         formData.value.has.forEach(function(question){
-            // console.log(has);
+            // //console.log(has);
             if(question.has != undefined){
                 question.has.sort(function(a, b){ return a.order - b.order});
             }
@@ -1417,7 +1417,7 @@ BLL.prototype.surveysToAJrules = function(req, res) {
 
 
 function AJruleToCypher(json) {
-    console.log(JSON.stringify(json))
+    //console.log(JSON.stringify(json))
     let jurisdiction = json.value.jurisdiction
     let appealDeadline = ""
     let appealDateType = ""
@@ -1430,17 +1430,17 @@ function AJruleToCypher(json) {
     let appealPackageSubmittalFormatValue = ""
     let appealPackageSubmittalFormatDeadline = ""
     let daysFromNotice = null
-    console.log(jurisdiction)
+    //console.log(jurisdiction)
     for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
         let question = json.value.hassubmission[0].has[i]
         if (question.ajRule == "Appeal Deadline Format") {
-            console.log(question.hasanswer[0].value.length)
+            //console.log(question.hasanswer[0].value.length)
             if (question.hasanswer[0].value.length == 1) {
                 appealDateType = question.hasanswer[0].value[0]
             } else {
                 appealDateType = question.hasanswer[0].value
             }
-            console.log(appealDateType)
+            //console.log(appealDateType)
 
             for (let j = 0; j < question.has.length; j++) {
                 if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
@@ -1455,7 +1455,7 @@ function AJruleToCypher(json) {
                         daysFromNotice = question.has[j].hasanswer[0].value[0]
                     }
 
-                    console.log(appealDeadline)
+                    //console.log(appealDeadline)
                     break
                 }
             }
@@ -1463,23 +1463,23 @@ function AJruleToCypher(json) {
 
         if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
             let myans = question.hasanswer[0].value[0]
-            console.log("temp", myans)
+            //console.log("temp", myans)
             for (let k = 0; k < question.has.length; k++) {
                 if (question.has[k].enabled == myans) {
                     let tempappealDeadline = question.has[k].hasanswer[0].value[0]
-                    console.log("temp", tempappealDeadline)
+                    //console.log("temp", tempappealDeadline)
                     var tdate = new Date(tempappealDeadline);
                     var newdate = new Date(tdate);
                     newdate.setDate(newdate.getDate() + daysFromNotice);
                     appealDeadline = newdate
-                    console.log("temp1, ", newdate)
+                    //console.log("temp1, ", newdate)
 
 
                 }
             }
 
 
-            console.log(isAppealForm)
+            //console.log(isAppealForm)
         }
 
         if (question.ajRule == "Appeal Form") {
@@ -1491,25 +1491,25 @@ function AJruleToCypher(json) {
             for (let k = 0; k < question.has.length; k++) {
                 if (question.has[k].ajRule == "Appeal Form Signature Requirements") {
                     appealFromSignatureRequirements = question.has[k].hasanswer[0].value
-                    console.log(appealFromSignatureRequirements)
+                    //console.log(appealFromSignatureRequirements)
                 }
             }
 
 
-            console.log(isAppealForm)
+            //console.log(isAppealForm)
         }
 
         if (question.ajRule == "Appeal Form Submittal Format") {
             appealFormSubmittalFormat = question.hasanswer[0].value
-            console.log(appealFormSubmittalFormat)
+            //console.log(appealFormSubmittalFormat)
         }
         if (question.ajRule == "Event when evidence is due") {
             appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
-            console.log(appealEvidenceSubmissionValue)
+            //console.log(appealEvidenceSubmissionValue)
             if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
                 // appealEvidenceSubmissionValue = question.hasanswer[0].value
                 appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-                console.log(appealEvidenceSubmissionDays)
+                //console.log(appealEvidenceSubmissionDays)
             } else {
                 appealEvidenceSubmissionDays = ""
             }
@@ -1524,13 +1524,13 @@ function AJruleToCypher(json) {
             } else {
                 appealPackageItems = question.hasanswer[0].value
             }
-            console.log(appealPackageItems)
-            console.log(appealPackageItems.length)
+            //console.log(appealPackageItems)
+            //console.log(appealPackageItems.length)
         }
 
         if (question.ajRule == "Appeal Package Submittal Format") {
             appealPackageSubmittalFormatValue = question.hasanswer[0].value
-            console.log(appealPackageSubmittalFormatValue)
+            //console.log(appealPackageSubmittalFormatValue)
         }
         if (question.ajRule == "Appeal Deadline Format") {
 
@@ -1562,7 +1562,7 @@ function AJruleToCypher(json) {
     // create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
 
     // // db.executeQuery(query, params);
-    // console.log(query)
+    // //console.log(query)
 }
 
 
@@ -1574,8 +1574,8 @@ BLL.prototype.surveyJsonToRules = function(req, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-
-    var data = req.body;
+    var surveyId = req.query.id;
+    var data = {"submissionId": parseInt(surveyId)};
     DAL.getSubmissionData(data, function(error, result) {
         if (error) {
             error.userName = loginUserName;
@@ -1697,7 +1697,7 @@ function parseSurveyToRules(survey){
 }
 
 function extractAssessor1Data(json) {
-    console.log(JSON.stringify(json));
+    //console.log(JSON.stringify(json));
 	let jurisdiction = json.value.jurisdiction
 	let appealDeadline = ""
 	let appealDateType = ""
@@ -1806,7 +1806,7 @@ function extractAssessor1Data(json) {
 			// } else {
 			// 	appealPackageItems = question.hasanswer[0].value
 			// }
-			// console.log(appealPackageItems)
+			// //console.log(appealPackageItems)
 		}
 
 		if (question.ajRule == "Appeal Package Submittal Format") {

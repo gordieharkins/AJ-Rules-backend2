@@ -13,7 +13,7 @@ var _editViewSurveyComponent = {
                         $scope.viewQuestions = [];
                         $scope.viewQuestions = ArrangeSurveyService.selectQuestions
                         $scope.sectionData = CreateSurveyService.editQuestions
-                        console.log($scope.sectionData)
+                        //console.log($scope.sectionData)
                         $scope.surveyName = ''
                         $scope.noticesNumber = 0;
                         $scope.noticesDates = [];
@@ -59,7 +59,7 @@ var _editViewSurveyComponent = {
                             var count = 0;
 
                             for (var i in temp) {
-                                console.log(temp[i])
+                                //console.log(temp[i])
                                 for (var j = 0; j < temp[i].length; j++) {
 
 
@@ -74,12 +74,12 @@ var _editViewSurveyComponent = {
 
                             var postData = { 'surveyId': $stateParams.id, 'surveyName': $scope.surveyName, 'modifiedBy': user, link: 'link', sectionOrder: sectionOrder, surveyItems: surveyItems, updateSubmissions: _updateSubmissions };
                             $scope.postData(postData)
-                            console.log(postData)
+                            //console.log(postData)
                         }
 
                         $scope.setActive = function (data, options) {
 
-                            console.log(options)
+                            //console.log(options)
                             options.forEach(function (b) {
                                 if (b.id == 1 || b.id == 3 || b.id == 4 || b.id == 5)
                                     b.answer.state = data === b;
@@ -107,7 +107,7 @@ var _editViewSurveyComponent = {
 
 
                         $scope.dateValidation = function (data) {
-                            console.log(data)
+                            //console.log(data)
                         }
                         $scope.postData = function (postData) {
 
@@ -115,7 +115,7 @@ var _editViewSurveyComponent = {
                             AOTCService.postDataToServer(url, postData)
                                 .then(function (result) {
                                     $("#preloader").css("display", "none");
-                                    console.log("Survwey: ", result);
+                                    //console.log("Survwey: ", result);
                                     $scope.surveyName = ''
                                     localStorage.removeItem("section")
 

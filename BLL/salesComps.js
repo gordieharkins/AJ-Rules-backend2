@@ -101,7 +101,7 @@ BLL.prototype.addCompsToProp = function(data, res) {
     var userId = data.user[0].userId;
     DAL.addCompsToProp(data.body, userId, function(error, propertyImages) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
@@ -174,7 +174,7 @@ BLL.prototype.getZillowPropImage = function(data, res) {
         var match = body.match(/<img[^>]+src=\\"(https:\/\/[^">]+)"/g);
 
             var mainImage = match[0].match(/https(.*?)(jpg|png)/g);
-        // console.log(mainImage);
+        // //console.log(mainImage);
             result.mainImage = mainImage[0]
 
 
@@ -406,7 +406,7 @@ function savePropertyImages(propertyImages, userId){
                     callbackAsync();
                 }
             }, function() {
-                // console.log('All images saved.')
+                // //console.log('All images saved.')
             });
         } catch(error){
             error.userName = loginUserName;
@@ -440,7 +440,7 @@ BLL.prototype.getSavedComps = function(data, res) {
             }
 
             finalResult.subjectProperty = createSubjectPropertyObject(results);
-            // console.log(finalResult.subjectProperty);
+            // //console.log(finalResult.subjectProperty);
 
             DAL.getSavedComps(data.body, function(error, result) {
                 if (error) {
@@ -460,7 +460,7 @@ BLL.prototype.getSavedComps = function(data, res) {
                         };
                         zillow.get('GetDeepSearchResults', parameters1st)
                             .then(function(zillowResults) {
-                                // console.log(zillowResults.response.results.result[0].address[0].street, zillowResults.response.results.result[0].bathrooms, zillowResults.response.results.result[0].bedrooms);
+                                // //console.log(zillowResults.response.results.result[0].address[0].street, zillowResults.response.results.result[0].bathrooms, zillowResults.response.results.result[0].bedrooms);
                                 if(zillowResults.response != undefined){
                                     var zillowData = zillowResults.response.results.result[0];
                                     property.properties["bathrooms"] = zillowData.bathrooms !== undefined ? zillowData.bathrooms[0] : "";
@@ -544,12 +544,12 @@ BLL.prototype.getComparables = function(data, res) {
                                             }
                                             callback();
                                         } catch (error) {
-                                            console.log(error);
+                                            //console.log(error);
                                             callback();
                                         }
                                      });
                                 } catch (error) {
-                                    console.log(error);
+                                    //console.log(error);
                                     callback();
                                 }
                             });
@@ -690,7 +690,7 @@ BLL.prototype.saveSubjectPropertyUpdatedData = function(data, res) {
     data.userId = parseInt(data.userId);
     DAL.saveSubjectPropertyUpdatedData(data, function(error, propertyImages) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
@@ -722,7 +722,7 @@ function createSubjectPropertyObject(results){
         var zillowResult = {};
         zillow.get('GetDeepSearchResults', parameters1st)
             .then(function(zillowResults) {
-                // console.log(zillowResults.response.results.result);
+                // //console.log(zillowResults.response.results.result);
                 if(zillowResults.message.code == 0){
                     zillowResult = zillowResults.response.results.result;
                     subjectProperty.zillowData["yearBuilt"] = zillowResult[0].yearBuilt !== undefined ? zillowResult[0].yearBuilt[0] : "";
@@ -738,7 +738,7 @@ function createSubjectPropertyObject(results){
                 }
             });
         }
-        // console.log(results[0]);
+        // //console.log(results[0]);
         var zillowObject = {}
         subjectProperty.jurisdictionData["yearBuilt"] =results[0].properties.yearBuilt;
         subjectProperty.jurisdictionData["buildingArea"] = results[0].properties.buildingArea;

@@ -7,7 +7,7 @@ module.exports = _main;
 //    );
 
 function _main(User_Config, $state, $rootScope, mainService, $location, $scope, $http, __env, $log, AOTCService, $timeout, DTOptionsBuilder, DTColumnDefBuilder) { //, DTOptionsBuilder, DTColumnDefBuilder
-    ////console.log("main controller");
+    //////console.log("main controller");
 
 
     var vm = this;
@@ -157,12 +157,12 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 //vm.newssources = [{ id: 0, label: "All" }];
             }, function (result) {
                 //some error
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css('display', 'none');
             });
     };
 
-    // ////console.log(User_Config);
+    // //////console.log(User_Config);
     $('#preloader').css('display', 'block');
 
     // handle not to show main before login
@@ -342,7 +342,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     vm.uniqueTableData = propsData;
     // vm.propertyData = getPropertyData();
     vm.propertyData = propsData;
-    ////console.log("abc==>", vm.propertyData)
+    //////console.log("abc==>", vm.propertyData)
     vm.findProperty = findProperty;
     // vm.showAdvanceModal             = showAdvanceModal;
     vm.filteredAppealData = [];
@@ -424,7 +424,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             vm.locations.push(marker);
             // $scope.$apply();
         }
-        ////console.log(vm.locations.length);
+        //////console.log(vm.locations.length);
     });
 
     function goToPropDetails(propertyId) {
@@ -432,9 +432,9 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         mainService.getPropertyDetialsById(propertyId).
         then(function (result) {
-            // ////console.log('getPropertyDetialsById: ', result);
+            // //////console.log('getPropertyDetialsById: ', result);
             var serverData = result.data;
-            ////console.log('getPropertyDetialsById: ', serverData.result[0]);
+            //////console.log('getPropertyDetialsById: ', serverData.result[0]);
 
             if (serverData.success) {
 
@@ -448,7 +448,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             }
         }, function (err) {
             //some error
-            ////console.log("Error: ", err);
+            //////console.log("Error: ", err);
             $("#preloader").css("display", "none");
         })
     }
@@ -457,7 +457,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         ///$scope.newProps = newProps.result;
         vm.propertyData = newProps.result.data;
-        // ////console.log("=========>>>", vm.propertyData.length);
+        // //////console.log("=========>>>", vm.propertyData.length);
         // vm.propertyData = getPropertyData(newProps.result.data);
         propsData = newProps.result.data;
     }
@@ -484,8 +484,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
         vm.selectedFilters = [];
         vm.markerWindowShow = false;
 
-        // ////console.log('findProperty');
-        // ////console.log(vm.searchProperty);
+        // //////console.log('findProperty');
+        // //////console.log(vm.searchProperty);
         //vm.vm.uniqueTableData//find on filtered Data;
         var accNoMatch = [];
         var addressMatch = [];
@@ -499,8 +499,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
             for (var i = 0; i < vm.propertyData.length; i++) {
                 var prop = vm.propertyData[i];
-                ////console.log('index of')
-                // ////console.log(prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()))
+                //////console.log('index of')
+                // //////console.log(prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()))
 
                 if (prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()) > -1) {
                     accNoMatch.push(prop);
@@ -545,7 +545,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
         vm.uniqueTableData = [];
         vm.uniqueTableData = nameMatch;
 
-        // ////console.log('total data\n', vm.uniqueTableData);
+        // //////console.log('total data\n', vm.uniqueTableData);
         setTimeout(function () {
             vm.searchProperty = {
                 accNo: '',
@@ -558,7 +558,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     }
 
     function closeMarkerWindow() {
-        ////console.log('close window');
+        //////console.log('close window');
         vm.markerWindowShow = false;
     }
 
@@ -572,7 +572,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
     function removeFilter(filter) {
 
-        ////console.log(filter);
+        //////console.log(filter);
 
         switchFilterState(vm.meritFilter, filter);
         switchFilterState(vm.designeeFilter, filter);
@@ -608,8 +608,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             }
         }
 
-        ////console.log('\n==>all filters ');
-        ////console.log(vm.selectedFilters);
+        //////console.log('\n==>all filters ');
+        //////console.log(vm.selectedFilters);
 
         if (vm.selectedFilters.length == 0) {
             $('#myModal').modal('toggle');
@@ -632,8 +632,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         // attribute= angular.toJson(attribute);
 
-        ////console.log('select Filters type ' + attribute);
-        ////console.log(filter);
+        //////console.log('select Filters type ' + attribute);
+        //////console.log(filter);
         filter.state = +!filter.state
 
         if (filter.state) {
@@ -655,8 +655,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         }
 
-        ////console.log('\n==>all filters ');
-        ////console.log(vm.selectedFilters);
+        //////console.log('\n==>all filters ');
+        //////console.log(vm.selectedFilters);
 
         filterData();
     }
@@ -664,7 +664,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
     ////////////////////////////////////         methods for Filters                             ///////////////////////////////
     function selectAllFilters(filterArray, attribute) {
 
-        ////console.log('select all', filterArray);
+        //////console.log('select all', filterArray);
         filterArray.state = +!filterArray.state;
 
         if (filterArray.state) {
@@ -681,8 +681,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                     });
                 }
             }
-            ////console.log('all filters ');
-            ////console.log(vm.selectedFilters);
+            //////console.log('all filters ');
+            //////console.log(vm.selectedFilters);
         } else {
             for (var i = 0; i < filterArray.filters.length; i++) {
 
@@ -697,8 +697,8 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 }
             }
 
-            ////console.log('all filters ');
-            ////console.log(vm.selectedFilters);
+            //////console.log('all filters ');
+            //////console.log(vm.selectedFilters);
         }
 
 
@@ -765,16 +765,16 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         }
 
-        ////console.log("desig == " + designee);
-        ////console.log("status == " + status);
-        ////console.log("state == " + state);
-        ////console.log("meritToAppeal == " + meritToAppeal);
+        //////console.log("desig == " + designee);
+        //////console.log("status == " + status);
+        //////console.log("state == " + state);
+        //////console.log("meritToAppeal == " + meritToAppeal);
 
 
         vm.filteredMeritToAppealProperty = [];
         // No designe.
         if (meritToAppeal.length == 0) {
-            ////console.log();
+            //////console.log();
             vm.filteredMeritToAppealProperty = vm.propertyData;
 
         } else {
@@ -834,7 +834,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
 
         vm.filteredStatusData = [];
-        ////console.log("filter: ", filter);
+        //////console.log("filter: ", filter);
 
         if (filter !== undefined && filter.name == null) {
 
@@ -853,7 +853,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             }
 
         } else {
-            ////console.log("alert");
+            //////console.log("alert");
             if (state.length == 0) {
 
                 vm.filteredStatusData = vm.filteredDesigneeData;
@@ -876,26 +876,26 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             }
         }
 
-        ////console.log("vm.filteredStatusData==>", vm.filteredStatusData);
+        //////console.log("vm.filteredStatusData==>", vm.filteredStatusData);
 
         // vm.filteredAssessmentData = [];
         // for (var k = 0; k < vm.filteredStatusData.length; k++) {
 
         //     var property = vm.filteredStatusData[k];
 
-        //     // ////console.log("assessment" + property.jurisdiction.laws);
+        //     // //////console.log("assessment" + property.jurisdiction.laws);
 
         //     var propertyAssesmentDate = new Date(property.lastAssessment);
 
         //     var startDate = new Date(vm.assesmentSlider.minValue);
         //     var endDate = new Date(vm.assesmentSlider.maxValue);
 
-        //     // ////console.log('start date', startDate)
-        //     // ////console.log('endDate date', endDate)
-        //     // ////console.log('propertyAssesmentDate date', propertyAssesmentDate)
+        //     // //////console.log('start date', startDate)
+        //     // //////console.log('endDate date', endDate)
+        //     // //////console.log('propertyAssesmentDate date', propertyAssesmentDate)
 
         //     if (propertyAssesmentDate >= startDate && propertyAssesmentDate <= endDate) {
-        //         // ////console.log('assessment match', propertyAssesmentDate)
+        //         // //////console.log('assessment match', propertyAssesmentDate)
         //         vm.filteredAssessmentData.push(property);
 
         //     }
@@ -911,30 +911,30 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
         //     var property = vm.filteredAssessmentData[k];
 
-        //     // ////console.log("assessment" + property.jurisdiction.laws);
+        //     // //////console.log("assessment" + property.jurisdiction.laws);
 
         //     var propertyAssesmentDate = new Date(property.nextAppealDate);
 
         //     var startDate = new Date(vm.appealSlider.minValue);
         //     var endDate = new Date(vm.appealSlider.maxValue);
 
-        //     // ////console.log('start date', startDate)
-        //     // ////console.log('endDate date', endDate)
-        //     // ////console.log('propertyAssesmentDate date', propertyAssesmentDate)
+        //     // //////console.log('start date', startDate)
+        //     // //////console.log('endDate date', endDate)
+        //     // //////console.log('propertyAssesmentDate date', propertyAssesmentDate)
 
         //     if (propertyAssesmentDate >= startDate && propertyAssesmentDate <= endDate) {
-        //         // ////console.log('assessment match', propertyAssesmentDate)
+        //         // //////console.log('assessment match', propertyAssesmentDate)
         //         vm.filteredAppealData.push(property);
 
         //     }
 
         // }
 
-        ////console.log('\nfiltered propertyData filteredStatus', vm.filteredAppealData);
+        //////console.log('\nfiltered propertyData filteredStatus', vm.filteredAppealData);
         //vm.uniqueTableData = [];
         // vm.uniqueTableData = vm.filteredAppealData;
         vm.uniqueTableData = vm.filteredStatusData;
-        ////console.log(" vm.uniqueTableData::", vm.uniqueTableData);
+        //////console.log(" vm.uniqueTableData::", vm.uniqueTableData);
 
         showSelectedMarkers();
     }
@@ -972,7 +972,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
 
     function checkToggle(event) {
 
-        ////console.log('checked toggle')
+        //////console.log('checked toggle')
         if ($(event.target).children().is(':checked')) {
             $(event.target).children().prop('checked', false);
 
@@ -1094,7 +1094,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
                 var index = states.findIndex(function (item, i) {
                     return item.state === val
                 });
-                // ////console.log("index",index);
+                // //////console.log("index",index);
                 if (index > -1) {
                     if (propsData[i].county !== null && (states[index].county.indexOf(propsData[i].county)) === -1) {
                         states[index].county.push(propsData[i].county);
@@ -1121,7 +1121,7 @@ function _main(User_Config, $state, $rootScope, mainService, $location, $scope, 
             });
         }
 
-        ////console.log("filters=======>", filters);
+        //////console.log("filters=======>", filters);
 
         vm.jurisdictionFilter = {
             name: 'JURISDICTIONs',

@@ -21,7 +21,7 @@ function _sectionSettingsService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
 
@@ -38,7 +38,7 @@ function _sectionSettingsService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -54,7 +54,7 @@ function _sectionSettingsService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }

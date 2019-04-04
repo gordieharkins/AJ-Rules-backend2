@@ -441,7 +441,7 @@ SingleColumn.prototype.parseFile = function (fileBuffer, fileName, originalFileN
             				break;
 						}
                     }
-                    // console.log(incomeExpense.IEYear);
+                    // //console.log(incomeExpense.IEYear);
                     continue;
                 }
 

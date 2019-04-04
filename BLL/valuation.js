@@ -1,5 +1,5 @@
 var os = require('os');
-console.log(os.platform());
+//console.log(os.platform());
 var path = require('path');
 var fs = require('fs');
 var _ = require('lodash');
@@ -39,12 +39,12 @@ var FormData = require('form-data');
 
 // var poi = require("poi-converter-node");
 
-// console.log("******************",projectPath);
+// //console.log("******************",projectPath);
 // var listener = unoconv.listen({ port: 2002 });
 // msopdf(null, function(error, res) { 
  
 //     if (error) { 
-//       	console.log("Init failed", error);
+//       	//console.log("Init failed", error);
 //       	return;
 //   	} else {
 //   		office = res;
@@ -84,7 +84,7 @@ BLL.prototype.getValuationData = function(data, res) {
 		"differentData":false,
 		"data":{}
 	}
-	// console.log(yearIE);
+	// //console.log(yearIE);
 	//    while(true){
 	//     DAL.getValuationIEData(propertyId, yearIE, res,function(error, valuationData) {
 	//         if (error) {
@@ -107,12 +107,12 @@ BLL.prototype.getValuationData = function(data, res) {
 			return valuationRRData.foundData === false;
 		},
 		function (callback) {
-			// console.log(yearRR);
+			// //console.log(yearRR);
 
 			var dateNow = new Date(yearRR.toString()).getTime();
 			var dateAfter = new Date((yearRR+1).toString()).getTime();
-			// console.log(dateNow);
-			// console.log(dateAfter);
+			// //console.log(dateNow);
+			// //console.log(dateAfter);
 
 			if(yearRR < 2011) {
 				Response.sendResponse(false, Response.REPLY_MSG.No_DATA_FOUND, null, res);
@@ -140,7 +140,7 @@ BLL.prototype.getValuationData = function(data, res) {
 			}
 		},
 		function () {
-			console.log("1");
+			//console.log("1");
 		}
 	);
 }
@@ -192,7 +192,7 @@ BLL.prototype.replaceValuationForm = function(req, res) {
 	var userId = req.user[0].userId;
 	DAL.replaceValuationForm(req.body, userId, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 			Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
@@ -526,11 +526,11 @@ BLL.prototype.createAppealPackage = function(req, res) {
 
     busboy.on('finish', function() {
         if(files.length <= 0) {
-        	console.log("Error: No file found!");
+        	//console.log("Error: No file found!");
             Response.sendResponse(false, Response.REPLY_MSG.NO_FILE_UPLOADED, null, res);
         } else {
             DAL.getFormsByFormId(req.query, function(error, result) {
-				// console.log("Form: ", JSON.stringify(result));
+				// //console.log("Form: ", JSON.stringify(result));
 		if (error) {
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
@@ -555,7 +555,7 @@ BLL.prototype.createAppealPackage = function(req, res) {
 				    function(callback) {
 				        DAL.getIEERRAppealPackage(req.query, function(error, result) {
 									if (error) {
-										console.log("error: ", error);
+										//console.log("error: ", error);
 										error.userName = loginUserName;
 										ErrorLogDAL.addErrorLog(error);
 										callback(error, null);
@@ -573,7 +573,7 @@ BLL.prototype.createAppealPackage = function(req, res) {
 										// 		outputFilePath = path.join(RRFilesPath, value);
 										// 	    objectStorage.downloadFile(value, RR_CONTAINER_NAME, outputFilePath, function(error, fileDetails) {
 							            //             if(error) {
-							            //             	console.log("error: ", error);
+							            //             	//console.log("error: ", error);
 							            //                 error.userName = loginUserName;
 							            //                 errorLogDAL.addErrorLog(error);
 							            //                 isError = true;
@@ -597,11 +597,11 @@ BLL.prototype.createAppealPackage = function(req, res) {
 								});	
 				    },
 				    function(callback) {
-						console.log("E",evidenceIds);
+						//console.log("E",evidenceIds);
 				        DAL.getEvidenceFilesPathById(evidenceIds, function(error, result) {
-							console.log("R",JSON.stringify(result));
+							//console.log("R",JSON.stringify(result));
 							if (error) {
-								console.log(error);
+								//console.log(error);
 								error.userName = loginUserName;
 								ErrorLogDAL.addErrorLog(error);
 								callback(error, null);
@@ -713,56 +713,56 @@ BLL.prototype.createAppealPackage = function(req, res) {
 }
 
 function remotePdfConverter(filePaths, userId, cb){
-	// console.log("here");
-	console.log(filePaths);
+	// //console.log("here");
+	//console.log(filePaths);
 	var form = new FormData();
-	console.log(filePaths.valuationFormFiles[0]);
+	//console.log(filePaths.valuationFormFiles[0]);
 	try{
 		form.append('valuationFormFiles', fs.createReadStream(filePaths.valuationFormFiles[0]));
 		delete filePaths.valuationFormFiles;
-		// console.log("here", filePaths);
+		// //console.log("here", filePaths);
 		for(var key in filePaths){
-			// console.log("herer2");
+			// //console.log("herer2");
 			// if(key == "rentRollFiles"){
 				for(var i = 0; i < filePaths[key].length; i++){
-					console.log(key,": ", filePaths[key][i]);
+					//console.log(key,": ", filePaths[key][i]);
 					form.append(key, filePaths[key][i]);		
 				}
 			// }
 		}
 		// form.append('filePaths', filePaths);
 	} catch(err){
-		console.log("Error: ",err);
+		//console.log("Error: ",err);
 	}
 	
 	// for(var key in filePaths){
 	// 	if(filePaths[key].length > 0){
 	// 		// form.append()
-	// 		console.log(key);
+	// 		//console.log(key);
 	// 		for(var i = 0; i < filePaths[key].length; i++){
 	// 			var filePath = filePaths[key][i];
 	// 			// filePath = filePath.replace("/home/vcap/app/",projectPath);
 	// 			try{
 	// 				form.append(key, fs.createReadStream(filePath));
 	// 			} catch(err){
-	// 				console.log(err);
+	// 				//console.log(err);
 	// 			}
 	// 		}
 
 	// 	}
-	// // console.log("jere");
+	// // //console.log("jere");
 		
 	// }
 	//
 	try{
-		console.log("here");
+		//console.log("here");
 	form.submit('http://172.19.44.41:4000/converter', function(err, response) {
 		// form.submit('http://202.69.61.244:4000/converter', function(err, response) {
 	// form.submit('http://localhost:3000/converter', function(err, response) {
 			
 			var str = [];
 			if(err){
-				// console.log(err);
+				// //console.log(err);
 				cb(err, null);
 			} else {
 				response.on('data', function(chunk){
@@ -776,7 +776,7 @@ function remotePdfConverter(filePaths, userId, cb){
 			}
 		});
 	} catch (error){
-		console.log("error: ",err);
+		//console.log("error: ",err);
 		cb(err, null);
 	}
 	
@@ -806,7 +806,7 @@ function remotePdfConverter(filePaths, userId, cb){
 
 // 	async.forEachOf(filePathsTemp, function (valueTemp, index, callbackMain) {
 // 		filePaths = _.uniq(filePathsTemp[index]);
-// 		console.log(filePaths);
+// 		//console.log(filePaths);
 // 		async.forEachOf(filePaths, function (value, key, callback) {
 // 			if(key == 0){
 // 				paths[index].push(AppealFilesPath+"/"+index+".pdf");
@@ -828,22 +828,22 @@ function remotePdfConverter(filePaths, userId, cb){
 // 				// 	msopdf(null, function(error, office) { 
 					 
 // 				// 	    if (error) { 
-// 				// 	      	console.log("Init failed", error);
+// 				// 	      	//console.log("Init failed", error);
 // 				// 	      	return;
 // 				// 	  	} else {
 // 				// 	  		office.excel({input: filePath, output: fileName}, function(error, pdf) { 
 // 				// 		      	if(error) { 
-// 				// 		           console.log("Woops", filePath, error);
+// 				// 		           //console.log("Woops", filePath, error);
 // 				// 		           callback(error);
 
 // 				// 			   	} else { 
 // 				// 		           paths[index].push(fileName+".pdf");
 // 				// 		           	office.close(null, function(error) { 
 // 				// 				       if(error) { 
-// 				// 				           console.log("Woops", "error onclosing", error);
+// 				// 				           //console.log("Woops", "error onclosing", error);
 // 				// 				           cb(error);
 // 				// 				       	} else { 
-// 				// 				           console.log("Finished & closed");
+// 				// 				           //console.log("Finished & closed");
 // 				// 				       	}
 // 				// 				   	});
 // 				// 		           callback();
@@ -855,21 +855,21 @@ function remotePdfConverter(filePaths, userId, cb){
 // 				// } else if(fileType == "docx"){
 // 				// 	msopdf(null, function(error, office) { 
 // 				// 		if(error){
-// 				// 	      	console.log("Init failed", error);
+// 				// 	      	//console.log("Init failed", error);
 // 				// 	      	return;
 // 				// 	  	} else {
 // 				// 	  		office.word({input: filePath, output: fileName}, function(error, pdf) { 
 // 				// 		      	if(error) { 
-// 				// 		           console.log("Woops", filePath, error);
+// 				// 		           //console.log("Woops", filePath, error);
 // 				// 		           callback(error);
 // 				// 			   	} else { 
 // 				// 		           paths[index].push(fileName+".pdf");
 // 				// 		           	office.close(null, function(error) { 
 // 				// 				       if(error) { 
-// 				// 				           console.log("Woops", "error onclosing", error);
+// 				// 				           //console.log("Woops", "error onclosing", error);
 // 				// 				           cb(error);
 // 				// 				       	} else { 
-// 				// 				           console.log("Finished & closed");
+// 				// 				           //console.log("Finished & closed");
 // 				// 				       	}
 // 				// 				   	});
 // 				// 		           callback();
@@ -880,21 +880,21 @@ function remotePdfConverter(filePaths, userId, cb){
 // 				// } else if(fileType == "pptx"){
 // 				// 	msopdf(null, function(error, office) { 
 // 				// 	    if (error) { 
-// 				// 	      	console.log("Init failed", error);
+// 				// 	      	//console.log("Init failed", error);
 // 				// 	      	return;
 // 				// 	  	} else {
 // 				// 	  		office.powerPoint({input: filePath, output: fileName}, function(error, pdf) { 
 // 				// 		      	if(error) { 
-// 				// 		           console.log("Woops", filePath, error);
+// 				// 		           //console.log("Woops", filePath, error);
 // 				// 		           callback(error);
 // 				// 			   	} else { 
 // 				// 		           paths[index].push(fileName+".pdf");
 // 				// 		           	office.close(null, function(error) { 
 // 				// 				       if(error) { 
-// 				// 				           console.log("Woops", "error onclosing", error);
+// 				// 				           //console.log("Woops", "error onclosing", error);
 // 				// 				           cb(error);
 // 				// 				       	} else { 
-// 				// 				           console.log("Finished & closed");
+// 				// 				           //console.log("Finished & closed");
 // 				// 				       	}
 // 				// 				   	});
 // 				// 		           callback();
@@ -906,11 +906,11 @@ function remotePdfConverter(filePaths, userId, cb){
 // 				// 	});
 
 // 				if(fileType == "xlsx" || fileType == "docx" || fileType == "pptx"){
-// 					console.log("work in progress...");
+// 					//console.log("work in progress...");
 // 					callback();
 // 					// unoconv.convert(filePath, 'pdf', false , function (err, result) { 
 // 				    //   	if(error) { 
-// 				    //        console.log("Woops", filePath, err);
+// 				    //        //console.log("Woops", filePath, err);
 // 				    //        callback(err);
 
 // 					//    	} else { 
@@ -919,7 +919,7 @@ function remotePdfConverter(filePaths, userId, cb){
 // 				    //        	callback();
 // 				    //    	}
 // 	   				// });
-// 	   				// console.log("filePath: ", filePath);
+// 	   				// //console.log("filePath: ", filePath);
 // 	   				// var wordBuffer = fs.readFileSync(filePath);
 // 					// toPdf(wordBuffer).then(
 // 					//   (pdfBuffer) => {
@@ -927,7 +927,7 @@ function remotePdfConverter(filePaths, userId, cb){
 // 					//     paths[index].push(fileName+".pdf");
 // 					//     callback();
 // 					//   }, (err) => {
-// 					//     console.log(err);
+// 					//     //console.log(err);
 // 					//     callback(err);
 // 					//   }
 // 					// );
@@ -935,24 +935,24 @@ function remotePdfConverter(filePaths, userId, cb){
 
 // 					// poi.to(filePath, fileName+".pdf", function(err, out, result){
 // 					// 	if(result.success){
-// 					// 		// console.log('Output File located at ' + result.outputFile);
-// 					// 		console.log("*********",result,err, "**************");
+// 					// 		// //console.log('Output File located at ' + result.outputFile);
+// 					// 		//console.log("*********",result,err, "**************");
 // 					//       	paths[index].push(fileName);
 // 					//       	callback();
 // 					// 	} else{
-// 					// 		console.log("EERRROORRR",err);
-// 					//     	console.log("REESSSSSULT",result);
+// 					// 		//console.log("EERRROORRR",err);
+// 					//     	//console.log("REESSSSSULT",result);
 // 					//     	callback();
 // 					// 	}
 // 					// });
 // 					// converter.generatePdf(filePath, function(err, result) {
 // 					//     // Process result if no error
 // 					//     if(err){
-// 					//     	console.log("EERRROORRR",err);
-// 					//     	console.log("REESSSSSULT",result);
+// 					//     	//console.log("EERRROORRR",err);
+// 					//     	//console.log("REESSSSSULT",result);
 // 					//     	callback();
 // 					//     } else if (result.status === 0) {
-// 					//       console.log('Output File located at ' + result.outputFile);
+// 					//       //console.log('Output File located at ' + result.outputFile);
 // 					//       paths[index].push(result.outputFile);
 // 					//       callback();
 // 					//     } else {
@@ -980,7 +980,7 @@ function remotePdfConverter(filePaths, userId, cb){
 			
 // 			}, function (err) {
 // 			    if (err){
-// 			    	console.log(err.message);	
+// 			    	//console.log(err.message);	
 // 			    }
 // 			    callbackMain();
 // 		});

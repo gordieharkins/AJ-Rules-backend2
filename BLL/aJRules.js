@@ -115,7 +115,7 @@ BLL.prototype.updateJurisdictionRules = function(req, res) {
     dir = AJRulesFilePath;
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
         // var saveTo = path.join('.', filename);
-        console.log('Uploading: ' + filename);
+        //console.log('Uploading: ' + filename);
         date = new Date();
 
         dir += date.getTime() + filename;
@@ -124,14 +124,14 @@ BLL.prototype.updateJurisdictionRules = function(req, res) {
     busboy.on('finish', function() {
         fs.stat(dir, function(err, stat) {
             if (err == null) {
-                console.log('File exists');
+                //console.log('File exists');
                 var workbook = xlsx.readFile(dir);
-                console.log(workbook.SheetNames);
+                //console.log(workbook.SheetNames);
 
                 finalResult = []
                 for (var sheet in workbook.SheetNames) {
                     var data = workbook.Sheets[workbook.SheetNames[sheet]];
-                    // console.log(data)
+                    // //console.log(data)
                     max_row_in_data = max_row(data);
                     if (max_row_in_data > 0 && workbook.SheetNames[sheet] != "default") {
                         current_json = { jurisdictionName: workbook.SheetNames[sheet], status: "Not Started", message: "", warning: "", order: 1 };
@@ -146,7 +146,7 @@ BLL.prototype.updateJurisdictionRules = function(req, res) {
                                 var_name = null
                             }
                             if (var_name) {
-                                // console.log(var_name)
+                                // //console.log(var_name)
                                 if (var_name != "requiredItemsList") {
                                     // if(data[])
                                     if(!is_type_date(var_name)){
@@ -202,18 +202,18 @@ BLL.prototype.updateJurisdictionRules = function(req, res) {
                     }
 
 
-                    console.log(finalResult);
+                    //console.log(finalResult);
                 }
 
                 fs.unlink(dir, function(err) {
                     if (err) {
-                        console.log("Err")
-                        console.log(err)
+                        //console.log("Err")
+                        //console.log(err)
                         Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                     } else {
                         DAL.updateJurisdictionRules(finalResult, function(error, properties) {
                             if (error) {
-                                console.log(error);
+                                //console.log(error);
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -228,10 +228,10 @@ BLL.prototype.updateJurisdictionRules = function(req, res) {
                 
 
             } else if (err.code == 'ENOENT') {
-                console.log("Error file not found");
+                //console.log("Error file not found");
                 Response.sendResponse(false, "Error file not found", null, res);
             } else {
-                console.log('Some other error: ', err.code);
+                //console.log('Some other error: ', err.code);
                 Response.sendResponse(false, 'Some other error: '+ err.code, null, res);
             }
 

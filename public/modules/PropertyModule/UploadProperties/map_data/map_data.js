@@ -7,7 +7,7 @@ module.exports = _Map;
 //    );
 
 function _Map($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("Data Mapping controller");
+    ////////console.log("Data Mapping controller");
     var vm = this;
     vm.fileName = localStorage.getItem("onlyFileName");
 
@@ -17,8 +17,8 @@ function _Map($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDef
     var targetDataFields = JSON.parse(localStorage.getItem("targetDataFields"));
     var mapping = JSON.parse(localStorage.getItem("mapData"));
 
-    // ////console.log("targetDataFields: ",targetDataFields);
-    // ////console.log("mapping: ",mapping);
+    // //////console.log("targetDataFields: ",targetDataFields);
+    // //////console.log("mapping: ",mapping);
 
     // Attributes
     vm.mappedData = mapping;
@@ -36,23 +36,23 @@ function _Map($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDef
             fileName: vm.fileName
         };
 
-        // ////console.log("formatedMapping: ",formatedMapping);
+        // //////console.log("formatedMapping: ",formatedMapping);
 
         AOTCService.postDataToServer(url, formatedMapping)
             .then(function (result) {
                 $("#preloader").css("display", "none");
-                ////console.log(result);
+                //////console.log(result);
 
                 if (result.data.success) {
                     //go to task manager
                     $state.go('TaskManager');
 
                 } else {
-                    ////console.log('show some error');
+                    //////console.log('show some error');
                 }
             }, function (result) {
                 $("#preloader").css("display", "none");
-                ////console.log(result);
+                //////console.log(result);
             }
         );
     }
@@ -74,7 +74,7 @@ function _Map($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDef
                 $(c.helper).add();
                 var key = event.target.getAttribute("id")
                 vm.mappedData[key] = inventor;
-                // ////console.log(vm.mappedData)
+                // //////console.log(vm.mappedData)
             }
         });
     }, 10);

@@ -6,7 +6,7 @@ module.exports = _PublicPropertyDetailsTab;
 //angular.module('AOTC').controller('PublicPropertyDetailsTab', _PublicPropertyDetailsTab
 //    );
 function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env, $log, AOTCService, PropertyDetailsTabService, $timeout) {
-    ////console.log("PublicPropertyDetailsTab");
+    //////console.log("PublicPropertyDetailsTab");
 
     var vm = this;
 
@@ -112,10 +112,10 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     // getAllImages
     // --------------------------------------------
     function getAllImages() {
-        ////console.log('images')
+        //////console.log('images')
         PropertyDetailsTabService.getAllImages().
         then(function (result) {
-            ////console.log('getAllImages: ', result);
+            //////console.log('getAllImages: ', result);
 
             var serverData = result.data;
 
@@ -128,7 +128,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
             }
         }, function (err) {
             //some error
-            ////console.log("Error: ", err);
+            //////console.log("Error: ", err);
             $("#preloader").css("display", "none");
         });
     }
@@ -150,7 +150,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
                     angular.extend(someTemp, _value);
                 });
                 vm.allPropertyDetails =  someTemp;
-                console.log(vm.allPropertyDetails)
+                //console.log(vm.allPropertyDetails)
 
     
             } else {
@@ -166,11 +166,11 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 
     function VerifyJSon(s){ try {
         JSON.parse(s);
-        console.log(s)
+        //console.log(s)
 
         return true;
     } catch (e) {
-        console.log(e)
+        //console.log(e)
         return false;
     }
     };
@@ -184,13 +184,13 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     // PropertyDetailsTabService.getProperty().
     // then(function(result) {
 
-    //         ////console.log(result);
-    //         // ////console.log(result.data.length);
+    //         //////console.log(result);
+    //         // //////console.log(result.data.length);
     //         var serverData = result.data;
     //         if (serverData.success) {
 
     //             vm.properties = serverData.result[0].prop;
-    //             // ////console.log(vm.properties);
+    //             // //////console.log(vm.properties);
     //             localStorage.setItem('propertiesCount', vm.properties.length);
 
     //             for (var i = 0; i < vm.properties.length; i++) {
@@ -210,7 +210,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     //         $("#preloader").css("display", "none");
     //     }, function(err) {
     //         //some error
-    //         ////console.log("Error: ", err);
+    //         //////console.log("Error: ", err);
     //         $("#preloader").css("display", "none");
     //     })
     // --------------------------------------------
@@ -232,7 +232,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 
         $scope._Index = ($scope._Index > 0) ? --$scope._Index : vm.images.length - 1;
 
-        ////console.log($scope._Index)
+        //////console.log($scope._Index)
         var offset = ($scope._Index) * 100
 
         $('#drag').animate({
@@ -283,12 +283,12 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     //     AOTCService.postDataToServer(url, _data)
     //         .then(function (result) {
 
-    //             ////console.log(result);
-    //             // ////console.log(result.data.length);
+    //             //////console.log(result);
+    //             // //////console.log(result.data.length);
     //             var serverData = result.data;
     //             if (serverData.success) {
     //                 vm.properties = serverData.result[0].prop;
-    //                 // ////console.log(vm.properties);
+    //                 // //////console.log(vm.properties);
     //                 localStorage.setItem('propertiesCount', vm.properties.length);
     //                 for (var i = 0; i < vm.properties.length; i++) {
     //                     var prop = vm.properties[i];
@@ -307,13 +307,13 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     //             $("#preloader").css("display", "none");
     //         }, function (result) {
     //             //some error
-    //             ////console.log(result);
+    //             //////console.log(result);
     //             $("#preloader").css("display", "none");
     //         });
     // }
 
     function deleteImageById(imageId, tag) {
-        // ////console.log("delete called", tag);
+        // //////console.log("delete called", tag);
         var len = (vm.images).length;
         var index = $scope._Index;
 
@@ -321,10 +321,10 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
             $scope.showPhoto(len - 2);
         }
 
-        // ////console.log("len----->", len);
+        // //////console.log("len----->", len);
         PropertyDetailsTabService.deleteImageById(imageId, tag)
             .then(function (result) {
-                ////console.log('Server result is ->' + result);
+                //////console.log('Server result is ->' + result);
                 if (result.data.success) {
                     getAllImages();
                     updateDrag(true);
@@ -336,7 +336,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 
                 }
             }, function (err) {
-                ////console.log('err is ', err);
+                //////console.log('err is ', err);
             })
     }
 
@@ -357,7 +357,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
     }
 
     function myModelCheck() {
-        ////console.log('----');
+        //////console.log('----');
         vm.isDeleting = true;
         if (vm.imageDeleteId != null) {
             deleteImageById(vm.imageDeleteId, vm.imageDeleteTag)
@@ -369,7 +369,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
         $timeout(function () {
             // var items = $(".nav li").length;
             var items = vm.images.length;
-            ////console.log('link')
+            //////console.log('link')
 
             // Flag is defined to load the previous image if the image delete is last one.
             // if(flag){
@@ -408,7 +408,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
 
         PropertyDetailsTabService.setMainImage(propertyId, imageId)
             .then(function (result) {
-                ////console.log('Server result is ', result);
+                //////console.log('Server result is ', result);
                 if (result.data.success) {
                     getAllImages();
                     updateDrag(false);
@@ -417,7 +417,7 @@ function _PublicPropertyDetailsTab($stateParams, $location, $scope, $http, __env
                     $scope.$emit('error', 'Main image set unsuccessfull');
                 }
             }, function (err) {
-                ////console.log('err is ', err);
+                //////console.log('err is ', err);
             })
     }
 

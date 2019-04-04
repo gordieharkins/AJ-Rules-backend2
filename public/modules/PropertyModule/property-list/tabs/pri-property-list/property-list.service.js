@@ -43,7 +43,7 @@ function _PrivatePropertyService($http, $q, $location) {
     function postDataToServer(url, postParams) {
         var token = localStorage.getItem('token');
 
-        ////console.log('in service post method')
+        //////console.log('in service post method')
 
         var request = $http({
             method: "POST",

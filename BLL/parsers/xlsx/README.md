@@ -705,15 +705,15 @@ produces CSV output.  The function takes an options argument:
 For the example sheet:
 
 ```js
-> console.log(XLSX.utils.sheet_to_csv(ws));
+> //console.log(XLSX.utils.sheet_to_csv(ws));
 S,h,e,e,t,J,S
 1,2,3,4,5,6,7
 2,3,4,5,6,7,8
-> console.log(XLSX.utils.sheet_to_csv(ws, {FS:"\t"}));
+> //console.log(XLSX.utils.sheet_to_csv(ws, {FS:"\t"}));
 S	h	e	e	t	J	S
 1	2	3	4	5	6	7
 2	3	4	5	6	7	8
-> console.log(X.utils.sheet_to_csv(_ws,{FS:":",RS:"|"}));
+> //console.log(X.utils.sheet_to_csv(_ws,{FS:":",RS:"|"}));
 S:h:e:e:t:J:S|1:2:3:4:5:6:7|2:3:4:5:6:7:8|
 ```
 
@@ -756,20 +756,20 @@ generate different types of JS objects.  The function takes an options argument:
 For the example sheet:
 
 ```js
-> console.log(X.utils.sheet_to_json(_ws));
+> //console.log(X.utils.sheet_to_json(_ws));
 [ { S: 1, h: 2, e: 3, e_1: 4, t: 5, J: 6, S_1: 7 },
   { S: 2, h: 3, e: 4, e_1: 5, t: 6, J: 7, S_1: 8 } ]
 
-> console.log(X.utils.sheet_to_json(_ws, {header:1}));
+> //console.log(X.utils.sheet_to_json(_ws, {header:1}));
 [ [ 'S', 'h', 'e', 'e', 't', 'J', 'S' ],
   [ 1, 2, 3, 4, 5, 6, 7 ],
   [ 2, 3, 4, 5, 6, 7, 8 ] ]
 
-> console.log(X.utils.sheet_to_json(_ws, {header:"A"}));
+> //console.log(X.utils.sheet_to_json(_ws, {header:"A"}));
 [ { A: 'S', B: 'h', C: 'e', D: 'e', E: 't', F: 'J', G: 'S' },
   { A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7 },
   { A: 2, B: 3, C: 4, D: 5, E: 6, F: 7, G: 8 } ]
-> console.log(X.utils.sheet_to_json(_ws, {header:["A","E","I","O","U","6","9"]}));
+> //console.log(X.utils.sheet_to_json(_ws, {header:["A","E","I","O","U","6","9"]}));
 [ { '6': 'J', '9': 'S', A: 'S', E: 'h', I: 'e', O: 'e', U: 't' },
   { '6': 6, '9': 7, A: 1, E: 2, I: 3, O: 4, U: 5 },
   { '6': 7, '9': 8, A: 2, E: 3, I: 4, O: 5, U: 6 } ]
@@ -779,11 +779,11 @@ Example showing the effect of `raw`:
 
 ```js
 > _ws['A2'].w = "1";                         // set A2 formatted string value
-> console.log(X.utils.sheet_to_json(_ws, {header:1}));
+> //console.log(X.utils.sheet_to_json(_ws, {header:1}));
 [ [ 'S', 'h', 'e', 'e', 't', 'J', 'S' ],
   [ '1', 2, 3, 4, 5, 6, 7 ],                 // <-- A2 uses the formatted string
   [ 2, 3, 4, 5, 6, 7, 8 ] ]
-> console.log(X.utils.sheet_to_json(_ws, {header:1, raw:true}));
+> //console.log(X.utils.sheet_to_json(_ws, {header:1, raw:true}));
 [ [ 'S', 'h', 'e', 'e', 't', 'J', 'S' ],
   [ 1, 2, 3, 4, 5, 6, 7 ],                   // <-- A2 uses the raw value
   [ 2, 3, 4, 5, 6, 7, 8 ] ]

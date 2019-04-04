@@ -42,7 +42,7 @@ function _UtilService($http, $filter) {
 
         // if(keyArr[3] == '4'){
         // }
-        console.log(keyArr)
+        //console.log(keyArr)
 
         if (keyArr[1] != 'null' && keyArr[1] != '' && keyArr[1] != null) {
             switch (keyArr[3]) {
@@ -110,7 +110,7 @@ function _UtilService($http, $filter) {
             value = '$(' + (roundedValue) + ')'
         } else
             value = value
-        // console.log(value);
+        // //console.log(value);
         return value;
     }
 
@@ -149,7 +149,7 @@ function _UtilService($http, $filter) {
         }
 
         var finalArray = newArr.sort(sortFunction);
-        console.log(finalArray);
+        //console.log(finalArray);
         return finalArray;
         // for(var i = 1;i<object.length;i++){
         //
@@ -167,7 +167,7 @@ function _UtilService($http, $filter) {
 
     function filterJurisdictions(data) {
         var jurisdictions = []
-        console.log(data)
+        //console.log(data)
         for (var i = 0 ; i < data.length; i++) {
              jurisdictions.push({name: data[i].name});
         }
@@ -178,7 +178,7 @@ function _UtilService($http, $filter) {
 
     function filterOwner(data) {
         var owner = []
-        console.log(data)
+        //console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
                 owner.push({ownerName: data[i].properties[s].ownerName, name: data[i].name});
@@ -192,7 +192,7 @@ function _UtilService($http, $filter) {
 
     function filterZipCode(data) {
         var zipCode = []
-        console.log(data)
+        //console.log(data)
         for (var i = 0 ; i < data.length; i++) {
             for (var s = 0 ;s < data[i].properties.length ; s++) {
                 zipCode.push({zipCode: data[i].properties[s].zipCode,name: data[i].name});

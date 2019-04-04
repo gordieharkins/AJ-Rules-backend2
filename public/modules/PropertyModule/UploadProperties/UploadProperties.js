@@ -35,7 +35,7 @@ function _upload($http) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                ////console.log(e.originalEvent.dataTransfer.files);
+                //////console.log(e.originalEvent.dataTransfer.files);
                 // if (e.originalEvent.dataTransfer) {
                 //     if (e.originalEvent.dataTransfer.files.length > 0) {
                 //         upload(e.originalEvent.dataTransfer.files);
@@ -63,7 +63,7 @@ function _upload($http) {
     };
 }
 function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, __env, $log, AOTCService, $timeout) {
-    // ////console.log("Properties controller", $stateParams);
+    // //////console.log("Properties controller", $stateParams);
     var vm = this;
 
     //=========Variables
@@ -107,7 +107,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 
         if ($stateParams.message == "from data mapping") {
 
-            // ////console.log($stateParams.mappedData);
+            // //////console.log($stateParams.mappedData);
             vm.showFileUploadFields = false;
             mapping = $stateParams.mappedData.mapping;
             result = $stateParams.mappedData.result;
@@ -121,9 +121,9 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
                 vm.showTableRelatedDivs = true;
                 vm.checkAll = 1;
 
-                // ////console.log(vm.fileName);
-                // ////console.log("==> updated propertiesToBeRegistered");
-                // ////console.log(vm.propertiesToBeRegistered);
+                // //////console.log(vm.fileName);
+                // //////console.log("==> updated propertiesToBeRegistered");
+                // //////console.log(vm.propertiesToBeRegistered);
             }, 100);
         }
     }
@@ -148,7 +148,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 
             AOTCService.uploadFiles(furl, myfiles)
                 .then(function(result) {
-                    // ////console.log(result);
+                    // //////console.log(result);
                     if (result.data.success) {
 
                         var receivedData = result.data.result;
@@ -174,7 +174,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
                               
                         } else {
 
-                            // ////console.log('redirect to mapp page=>>')
+                            // //////console.log('redirect to mapp page=>>')
                             localStorage.removeItem("mapData");
                             localStorage.setItem("propertyFileName", receivedData.fileName);
                             localStorage.setItem("mapData", angular.toJson(receivedData.mapping));
@@ -185,7 +185,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
                         UtilService.clearFile();
 
                     } else {
-                        // ////console.log('corrupt file')
+                        // //////console.log('corrupt file')
                         //show popoup that unable to upload 
                         // $("div.dangerr").fadeIn(1500).delay(500).fadeOut(500);
                         var msg = result.data.message;
@@ -196,7 +196,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
                 }, function(result) {
 
                     $("#preloader").css("display", "none");
-                    // ////console.log(result);
+                    // //////console.log(result);
                 });
 
         }
@@ -204,7 +204,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
     }
 
     vm.MapData = function() {
-        // ////console.log('MapData redirect to mapp page=>>')
+        // //////console.log('MapData redirect to mapp page=>>')
         localStorage.removeItem("mapData")
         localStorage.setItem("mapData", angular.toJson(mapping));
         $state.go("map_data");
@@ -221,7 +221,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 
         for (var i = 0; i < vm.propertiesToBeRegistered.length; i++) {
             var obj = vm.propertiesToBeRegistered[i];
-            // ////console.log(obj.state)
+            // //////console.log(obj.state)
             if (obj.state == 1) {
                 delete obj.state;
                 obj.orgFileName = vm.fileName;
@@ -235,20 +235,20 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
             mapping: mapping
         };
 
-        // ////console.log(payLoad);
+        // //////console.log(payLoad);
         var url = '/properties/addPropertiesList';
 
         AOTCService.postDataToServer(url, payLoad)
             .then(function(result) {
 
-                // ////console.log(result);
+                // //////console.log(result);
                 $("#preloader").css("display", "none");
                 // $state.go('Registered');
                 // $("div.success").fadeIn(1500).delay(500).fadeOut(500);
                 if (result.data.success) {
                     $state.go('PropertyList.private_property_list', { propertyListMessage: 'Data saved' });
                 } else {
-                    ////console.log(result)
+                    //////console.log(result)
                 }
 
 
@@ -256,7 +256,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
                 //some error
                 $("#preloader").css("display", "none");
 
-                ////console.log(result);
+                //////console.log(result);
             });
     }
 
@@ -273,7 +273,7 @@ function _Properties(UtilService, $anchorScroll, $stateParams, $state, DTOptions
 
             }
         }, 100);
-        // ////console.log(vm.checkAll);
+        // //////console.log(vm.checkAll);
     }
 
     function setDataState(users, state) {

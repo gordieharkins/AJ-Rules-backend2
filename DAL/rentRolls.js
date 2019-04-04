@@ -16,12 +16,12 @@ function DAL() {
 // Single RR adding against a propertyId
 // ---------------------------------------------
 DAL.prototype.addPropertyRR = function(rentRolls, propertyId, userId, cb) {
-    // console.log("in DAL");
-    // console.log("RR: ",rentRolls)
-    // console.log("propertyId: ", propertyId);
-    // console.log("userId: ", userId);
+    // //console.log("in DAL");
+    // //console.log("RR: ",rentRolls)
+    // //console.log("propertyId: ", propertyId);
+    // //console.log("userId: ", userId);
     propertyId = parseInt(propertyId);
-    // console.log("userId: ", userId);
+    // //console.log("userId: ", userId);
     var params = {
         propertyId:propertyId
     };
@@ -59,14 +59,14 @@ DAL.prototype.addPropertyRR = function(rentRolls, propertyId, userId, cb) {
                 "\nCREATE (rentRoll" + k + ")-[" + rel_t + ":OF]->(" + tenants + ")";
         }
     }
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params:params
     }, function(err, results) {
-        // console.log("errors: ",err);
-        // console.log("results: ",results);
-        // console.log("errors: ",err);
+        // //console.log("errors: ",err);
+        // //console.log("results: ",results);
+        // //console.log("errors: ",err);
         cb(err, results);
     });
 };
@@ -285,12 +285,12 @@ DAL.prototype.deleteRentRollsById = function(data, userId, cb) {
 // ---------------------END---------------------
 
 DAL.prototype.addUnparsedPropertyRR = function(rentRolls, propertyId, userId, cb) {
-    // console.log("in DAL unparsed");
-    // console.log("RR: ",rentRolls)
-    // console.log("propertyId: ", propertyId);
-    // console.log("userId: ", userId);
+    // //console.log("in DAL unparsed");
+    // //console.log("RR: ",rentRolls)
+    // //console.log("propertyId: ", propertyId);
+    // //console.log("userId: ", userId);
     propertyId = parseInt(propertyId);
-    // console.log("userId: ", userId);
+    // //console.log("userId: ", userId);
     var params = {
         propertyId:propertyId
     };
@@ -309,7 +309,7 @@ DAL.prototype.addUnparsedPropertyRR = function(rentRolls, propertyId, userId, cb
         delete tempData.tenants;
 
         params['RR'+k] = tempData;
-        // console.log("tempData.asOfDate umar: ",tempData.asOfDate);
+        // //console.log("tempData.asOfDate umar: ",tempData.asOfDate);
         query += "\nCREATE (rentRoll" + k + ":RR{RR"+k+"})" +
             "\nCREATE (rentRoll" + k + ")-[rel" + k + ":AS_OF{year:'" + "As of Date,unknown" + "'}]->(prop)";
 
@@ -322,22 +322,22 @@ DAL.prototype.addUnparsedPropertyRR = function(rentRolls, propertyId, userId, cb
             rentRolls[k].tenants[i].createdBy = userId;
             rentRolls[k].tenants[i].modifiedBy = userId;
             // rentRolls[k].asOfDate = ["As of Date","unknown","1","4"];
-            // console.log(rentRolls[k].tenants[i]);
+            // //console.log(rentRolls[k].tenants[i]);
             params['RR'+k+'Tenant'+i] = rentRolls[k].tenants[i];
             
             query += "\nCREATE (" + tenants + ":tenants{RR"+k+"Tenant"+i+"})" +
                 "\nCREATE (rentRoll" + k + ")-[" + rel_t + ":OF]->(" + tenants + ")";
         }
     }
-    // console.log("query: ",query);
-    // console.log("params: ",params);
+    // //console.log("query: ",query);
+    // //console.log("params: ",params);
     db.cypher({
         query: query,
         params:params
     }, function(err, results) {
-        // console.log("errors: ",err);
-        // console.log("results: ",results);
-        // console.log("errors: ",err);
+        // //console.log("errors: ",err);
+        // //console.log("results: ",results);
+        // //console.log("errors: ",err);
         cb(err, results);
     });
 };

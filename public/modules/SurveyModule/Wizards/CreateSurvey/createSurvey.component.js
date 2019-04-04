@@ -11,7 +11,7 @@ var _createSurveyComponent = {
     controller:
        ["$scope", "$state", "CreateSurveyService", "$timeout", "AddQuestionService",
            function ($scope, $state, CreateSurveyService, $timeout, AddQuestionService) {
-               console.log("Create Survey controller");
+               //console.log("Create Survey controller");
                var vm = this;
                getAllQuestions();
 
@@ -28,8 +28,8 @@ var _createSurveyComponent = {
                            if (serverData.success) {
                                if (serverData) {
                                    vm.data = serverData.result;
-                                   console.log(CreateSurveyService.questions)
-                                   console.log(vm.data)
+                                   //console.log(CreateSurveyService.questions)
+                                   //console.log(vm.data)
                                    if (CreateSurveyService.questions.length != 0) {
                                        if (CreateSurveyService.questions && CreateSurveyService.questions[0].question) {
                                            for (var i = 0; i < vm.data.length; i++) {
@@ -39,10 +39,10 @@ var _createSurveyComponent = {
                                                for (var j = 0; j < CreateSurveyService.questions.length; j++) {
 
                                                    if (CreateSurveyService.questions[j].id == vm.data[i].id) {
-                                                       console.log(i)
+                                                       //console.log(i)
                                                        found = 1;
                                                        break;
-                                                       // console.log(CreateSurveyService.questions[i].index);
+                                                       // //console.log(CreateSurveyService.questions[i].index);
                                                    }
                                                }
                                                if (found == 0) {
@@ -62,7 +62,7 @@ var _createSurveyComponent = {
 
                        }, function (err) {
                            //some error
-                           // console.log("Error: ", err);
+                           // //console.log("Error: ", err);
                            $("#preloader").css("display", "none");
                        });
                }
@@ -99,7 +99,7 @@ var _createSurveyComponent = {
 
                    }
                    else {
-                       console.log("untick")
+                       //console.log("untick")
 
                        for (var i = 0; i < q.length; i++) {
 
@@ -119,7 +119,7 @@ var _createSurveyComponent = {
                            }
                            temp.index = i;
                            vm.data[i].check = false;
-                           console.log(vm.data[i])
+                           //console.log(vm.data[i])
 
                            CreateSurveyService.questions.pop()
 
@@ -132,7 +132,7 @@ var _createSurveyComponent = {
 
                vm.selectedCheckbox = function (q, c, index) {
                    var dataCheck = CreateSurveyService.questions;
-                   console.log(q.id)
+                   //console.log(q.id)
                    if (c) {
                        var temp = {};
                        temp.question = q.questionText;
@@ -148,25 +148,25 @@ var _createSurveyComponent = {
                        }
                        temp.index = index;
                        CreateSurveyService.questions.splice(index, 0, temp)
-                       console.log("inserting:---" + temp.question + " " + index)
+                       //console.log("inserting:---" + temp.question + " " + index)
                    }
                    else {
-                       console.log(index)
+                       //console.log(index)
                        for (var i = 0; i < dataCheck.length; i++) {
                            if (q.id == dataCheck[i].id) {
-                               console.log(q)
-                               console.log(i)
+                               //console.log(q)
+                               //console.log(i)
 
                                CreateSurveyService.questions.splice(i, 1);
 
                            }
                        }
 
-                       // console.log( CreateSurveyService.questions);
+                       // //console.log( CreateSurveyService.questions);
 
 
                    }
-                   console.log(CreateSurveyService.questions);
+                   //console.log(CreateSurveyService.questions);
 
                }
 
@@ -174,7 +174,7 @@ var _createSurveyComponent = {
                    $("#preloader").css("display", "none");
                    CreateSurveyService.deleteQuestion(q)
                        .then(function (result) {
-                           console.log("result: ", result);
+                           //console.log("result: ", result);
 
                            if (!result.data.success) {
                                $scope.$emit('error', result.data.message);
@@ -184,7 +184,7 @@ var _createSurveyComponent = {
                            getAllQuestions()
                        },
                        function (err) {
-                           console.log("Error: ", err);
+                           //console.log("Error: ", err);
                            $("#preloader").css("display", "none");
                        });
 
