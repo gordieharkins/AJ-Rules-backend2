@@ -242,7 +242,11 @@ function extractAssessor1Data(json) {
 			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
 			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
 				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
+				appealEvidenceSubmissionValue = "Days Prior Hearing"
+			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
+				appealEvidenceSubmissionValue = "At Appeal"
+			} 
+			else {
 				appealEvidenceSubmissionDays = ""
 			}
 		}
@@ -370,7 +374,11 @@ function extractBoard2Data(json) {
 			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
 			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
 				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
+				appealEvidenceSubmissionValue = "Days Prior Hearing"
+			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
+				appealEvidenceSubmissionValue = "At Appeal"
+			} 
+			else {
 				appealEvidenceSubmissionDays = ""
 			}
 		}
@@ -490,7 +498,11 @@ function extractBoard3Data(json) {
 			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
 			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
 				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
+				appealEvidenceSubmissionValue = "Days Prior Hearing"
+			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
+				appealEvidenceSubmissionValue = "At Appeal"
+			} 
+			else {
 				appealEvidenceSubmissionDays = ""
 			}
 		}
