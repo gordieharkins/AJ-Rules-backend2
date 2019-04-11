@@ -83,16 +83,21 @@ function parseSurveyToRules(survey) {
 	let assessor1 = extractAssessor1Data(survey);
 	let board2 = extractBoard2Data(survey);
 	let board3 = extractBoard3Data(survey);
-
+	let bflag = true;
+	let b2flag = true;
 	if (board2 == 0) {
 		board2 = temp
+		bflag = false
 	}
 
 	if (board3 == 0) {
 		board3 = temp
+		b2flag = false
 	}
 
 	let rules = {
+		isBoardLevel: bflag,
+		isBoard2Level: b2flag,
 		jurisdiction: assessor1.jurisdiction,
 		appealDeadline1: {
 			deadline: assessor1.appealDeadline,
@@ -378,6 +383,7 @@ function extractBoard2Data(json) {
 			appealFormSubmittalFormat = question.hasanswer[0].value
 		}
 		if (question.ajRule == "Ascertain when Board Level Appeal Evidence deadline") {
+			// console.log("bleh",question.hasanswer[0].value[0])
 			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
 			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
 				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
