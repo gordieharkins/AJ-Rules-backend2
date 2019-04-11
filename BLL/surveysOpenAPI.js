@@ -18,51 +18,53 @@ function BLL() {
 
 }
 
-function sortFormData(data, cb){
-    // //console.log(formData.value.hassubmission[0].has);
-    // //console.log(data);
-    data.forEach(function(formData){
-        formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
-        formData.value.hassubmission[0].has.forEach(function(question){
-            // //console.log(has);
-            if(question.has != undefined){
-                question.has.sort(function(a, b){ return a.order - b.order});
-            }
-        });
-    });
-    
-    cb(data);
+function sortFormData(data, cb) {
+	// //console.log(formData.value.hassubmission[0].has);
+	// //console.log(data);
+	data.forEach(function (formData) {
+		if (formData && formData.value && formData.value.hassubmission && formData.value.hassubmission.length > 0 && formData.value.hassubmission[0].has) {
+			formData.value.hassubmission[0].has.sort(function (a, b) { return a.order - b.order });
+			formData.value.hassubmission[0].has.forEach(function (question) {
+				// //console.log(has);
+				if (question.has != undefined) {
+					question.has.sort(function (a, b) { return a.order - b.order });
+				}
+			});
+		}
+
+	});
+
+	cb(data);
 }
 
 
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.surveyJsonToRules = function(req, res) {
-    if (!req || req === null || req === undefined) {
-        Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
-        return;
-    }
-    var surveyId = req.query.id;
-    var data = {"submissionId": parseInt(surveyId)};
-    DAL.getSubmissionData(data, function(error, result) {
-        if (error) {
-            error.userName = loginUserName;
-            ErrorLogDAL.addErrorLog(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
-            return;
-        } else{
-            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
-                // console.log(sortedData[0]);
-                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, parseSurveyToRules(sortedData[0]), res);
-            });
-        }
-    });
+BLL.prototype.surveyJsonToRules = function (req, res) {
+	if (!req || req === null || req === undefined) {
+		Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
+		return;
+	}
+	var surveyId = req.query.id;
+	var data = { "submissionId": parseInt(surveyId) };
+	DAL.getSubmissionData(data, function (error, result) {
+		// console.log(result[0].value)
+		if (Object.keys(result[0].value).length === 0 && result[0].value.constructor === Object || error) {
+			Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+			return;
+		} else {
+			sortFormData(JSON.parse(JSON.stringify(result)), function (sortedData) {
+				// console.log(sortedData[0].value,sortedData.length);
+				Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, parseSurveyToRules(sortedData[0]), res);
+			});
+		}
+	});
 }
 // ---------------------END---------------------
 
-function parseSurveyToRules(survey){
-    let temp = {
+function parseSurveyToRules(survey) {
+	let temp = {
 		jurisdiction: null,
 		appealDeadline: null,
 		appealDateType: null,
@@ -161,12 +163,12 @@ function parseSurveyToRules(survey){
 		appealPackageItems3: {
 			value: board3.appealPackageItems
 		}
-    }
-    return rules;
+	}
+	return rules;
 }
 
 function extractAssessor1Data(json) {
-    //console.log(JSON.stringify(json));
+	//console.log(JSON.stringify(json));
 	let jurisdiction = json.value.jurisdiction
 	let appealDeadline = ""
 	let appealDateType = ""
@@ -198,8 +200,8 @@ function extractAssessor1Data(json) {
 						}
 						break
 					}
-					
-					
+
+
 				}
 			}
 		}
@@ -246,7 +248,7 @@ function extractAssessor1Data(json) {
 				appealEvidenceSubmissionValue = "Days Prior Hearing"
 			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
 				appealEvidenceSubmissionValue = "At Appeal"
-			} 
+			}
 			else {
 				appealEvidenceSubmissionDays = ""
 			}
@@ -255,10 +257,10 @@ function extractAssessor1Data(json) {
 			appealPackageItems = []
 
 			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
+				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
@@ -340,7 +342,7 @@ function extractBoard2Data(json) {
 			for (let j = 0; j < question.has.length; j++) {
 
 				if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
-					
+
 					if (question.has[j].enabled == appealDateType) {
 
 						if (question.has[j].hasanswer[0].value.length == 1) {
@@ -348,10 +350,10 @@ function extractBoard2Data(json) {
 						} else {
 							appealDeadline = question.has[j].hasanswer[0].value
 						}
-					break
+						break
 
 					}
-				
+
 				}
 			}
 		}
@@ -382,7 +384,7 @@ function extractBoard2Data(json) {
 				appealEvidenceSubmissionValue = "Days Prior Hearing"
 			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
 				appealEvidenceSubmissionValue = "At Appeal"
-			} 
+			}
 			else {
 				appealEvidenceSubmissionDays = ""
 			}
@@ -392,10 +394,10 @@ function extractBoard2Data(json) {
 			appealPackageItems = []
 
 			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
+				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
@@ -407,7 +409,7 @@ function extractBoard2Data(json) {
 
 			}
 
-		
+
 		}
 
 		if (question.ajRule == "Board Level Appeal Package Submission Method(s)") {
@@ -474,7 +476,7 @@ function extractBoard3Data(json) {
 						break
 					}
 
-					
+
 				}
 			}
 		}
@@ -498,7 +500,7 @@ function extractBoard3Data(json) {
 
 		if (question.ajRule == "Board Level (2) Form Submission Method(s)") {
 			appealFormSubmittalFormat = question.hasanswer[0].value
-			
+
 		}
 		if (question.ajRule == "Ascertain when Board Level (2) Appeal Evidence deadline") {
 			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
@@ -507,7 +509,7 @@ function extractBoard3Data(json) {
 				appealEvidenceSubmissionValue = "Days Prior Hearing"
 			} else if (question.hasanswer[0].value[0] == "At time of Appeal") {
 				appealEvidenceSubmissionValue = "At Appeal"
-			} 
+			}
 			else {
 				appealEvidenceSubmissionDays = ""
 			}
@@ -517,10 +519,10 @@ function extractBoard3Data(json) {
 			appealPackageItems = []
 
 			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
+				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
