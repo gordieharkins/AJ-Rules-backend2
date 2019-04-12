@@ -211,14 +211,15 @@ function extractAssessor1Data(json) {
 			}
 		}
 
-		if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
+		if (appealDateType == "Approx Deadline" && question.ajRule == "Assessment Notice Mail Format") {
 			let myans = question.hasanswer[0].value[0]
 			for (let k = 0; k < question.has.length; k++) {
 				if (question.has[k].enabled == myans) {
 					let tempappealDeadline = question.has[k].hasanswer[0].value[0]
+					
 					var tdate = new Date(tempappealDeadline);
 					var newdate = new Date(tdate);
-					newdate.setDate(newdate.getDate() + daysFromNotice);
+					newdate.setDate(newdate.getDate() + parseInt(appealDeadline));
 					appealDeadline = newdate
 
 
@@ -362,6 +363,7 @@ function extractBoard2Data(json) {
 				}
 			}
 		}
+
 
 
 		if (question.ajRule == "Ascertain Board Level Appeal Form") {
