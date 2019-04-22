@@ -19,7 +19,7 @@ function _FillSurveyService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
 
@@ -36,7 +36,7 @@ function _FillSurveyService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
 
@@ -54,7 +54,7 @@ function _FillSurveyService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
 

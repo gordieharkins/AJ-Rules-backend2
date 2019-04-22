@@ -9,7 +9,7 @@ module.exports = _UnlinkService;
 function _UnlinkService($http, $q) {
 
     function getDataFromServer(apiUrl) {
-        // ////console.log(apiUrl);
+        // //////console.log(apiUrl);
         var token = localStorage.getItem('token');
 
         var req = $http({
@@ -70,7 +70,7 @@ function _UnlinkService($http, $q) {
 
     function getUnlinkedFiles() {
         var url = '/unlinkedFiles/getUnlinkedFiles';
-        ////console.log(url);
+        //////console.log(url);
 
         var deferred = $q.defer();
 
@@ -80,7 +80,7 @@ function _UnlinkService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }

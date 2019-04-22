@@ -51,12 +51,12 @@ BLL.prototype.startCronJob = function() {
         
         DAL.getAlert(function(error, result) {
             if (error) {
-                console.log(error);
+                //console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
                 // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-                console.log("Here are the alerts: ", result);
+                //console.log("Here are the alerts: ", result);
                 executeJob(result);
                 // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
             }
@@ -75,7 +75,7 @@ function executeJob(data) {
      async.forEachOf(data, function (value, i, cb) {
         async.parallel([
             function(callback) {
-                console.log('sending sms')
+                //console.log('sending sms')
 
                 if(value.alert.properties.sms != "null"){
                     // if(value.alert.properties.sms== "null"){
@@ -89,7 +89,7 @@ function executeJob(data) {
                             } else {
                                 DAL.updateAlert(value.alert._id, function(error, result) {
                                     if (error) {
-                                        console.log(error);
+                                        //console.log(error);
                                         callback(error,null);
                                         error.userName = loginUserName;
                                         ErrorLogDAL.addErrorLog(error);
@@ -103,7 +103,7 @@ function executeJob(data) {
 
             },
             function(callback) {
-                console.log('sending email')
+                //console.log('sending email')
                  if (value.alert.properties.email != "null"){
                      var tempDate = new Date();
                      var sendingDate = monthNames[tempDate.getMonth()] + " " + tempDate.getDate() + ", "+ tempDate.getFullYear();                     
@@ -121,7 +121,7 @@ function executeJob(data) {
                     } else {
                         DAL.updateAlert(value.alert._id, function(error, result) {
                             if (error) {
-                                console.log(error);
+                                //console.log(error);
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                             }
@@ -138,9 +138,9 @@ function executeJob(data) {
             // the results array will equal ['one','two'] even though
             // the second function had a shorter timeout.
             if (err) {
-                console.log(err);
+                //console.log(err);
             }
-            console.log('done')
+            //console.log('done')
             results.push(results)
             cb()
         })
@@ -159,7 +159,7 @@ BLL.prototype.addAlert = function(alert, userId) {
     // var userId = req.user[0].userId;
     DAL.getSettings(userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             // cb(error);
@@ -173,11 +173,11 @@ BLL.prototype.addAlert = function(alert, userId) {
                 settings: getActiveTime(settingsJSON.blackouts)  
                 };
 
-                // console.log(JSON.stringify(settings.settings));
+                // //console.log(JSON.stringify(settings.settings));
                 alertSettings.configureAlert(alert, settings, function(finalAlert){
                     DAL.addAlert(finalAlert, userId, function(error, result) {
                         if (error) {
-                            console.log(error);
+                            //console.log(error);
                             error.userName = loginUserName;
                             ErrorLogDAL.addErrorLog(error);
                             // Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -225,7 +225,7 @@ BLL.prototype.saveSettings = function(req, res) {
 
     DAL.saveSettings(dbObject, userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -244,7 +244,7 @@ BLL.prototype.getSettings = function(req, res) {
 
     DAL.getSettings(userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -276,7 +276,7 @@ BLL.prototype.saveEmailCode = function(req, res) {
     data.code = generateCode();
     DAL.saveEmailCode(userId, data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -290,10 +290,10 @@ BLL.prototype.saveEmailCode = function(req, res) {
             };
 
             EmailService.send_email(emailOption, function(error, result) {
-                // console.log('sending',i,emailOption.to)
+                // //console.log('sending',i,emailOption.to)
                 // results.push(result)
                 // cb()
-                console.log("email sent");
+                //console.log("email sent");
             });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
@@ -313,7 +313,7 @@ BLL.prototype.savePhoneCode = function(req, res) {
     data.code = generateCode();
     DAL.savePhoneCode(userId, data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -325,9 +325,9 @@ BLL.prototype.savePhoneCode = function(req, res) {
             }
             smsService.sendSms(value.alert.properties, function(error, result) {
                 if(error){
-                    console.log("error");
+                    //console.log("error");
                 } else {
-                    console.log("success");
+                    //console.log("success");
                 }
             });
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
@@ -351,7 +351,7 @@ BLL.prototype.verifyEmailCode = function(req, res) {
     
     DAL.verifyEmailCode(userId, email, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -363,7 +363,7 @@ BLL.prototype.verifyEmailCode = function(req, res) {
                     if(result[0].e.properties.code == verificationCode){
                         DAL.getSettings(userId, function(error, settings) {
                             if (error) {
-                                console.log(error);
+                                //console.log(error);
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                                 Response.sendResponse(false, "Something went wrong.", null, res);
@@ -374,7 +374,7 @@ BLL.prototype.verifyEmailCode = function(req, res) {
                                     tempSettings.email[2] = "true";
                                     DAL.saveSettings(tempSettings, userId, function(error, result) {
                                         if (error) {
-                                            console.log(error);
+                                            //console.log(error);
                                             error.userName = loginUserName;
                                             ErrorLogDAL.addErrorLog(error);
                                             Response.sendResponse(false, "Something went wrong.", null, res);
@@ -411,7 +411,7 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
     
     DAL.verifyPhoneCode(userId, phone, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -423,7 +423,7 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
                     if(result[0].e.properties.code == verificationCode){
                         DAL.getSettings(userId, function(error, settings) {
                             if (error) {
-                                console.log(error);
+                                //console.log(error);
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                                 Response.sendResponse(false, "Something went wrong.", null, res);
@@ -434,7 +434,7 @@ BLL.prototype.verifyPhoneCode = function(req, res) {
                                     tempSettings.sms[2] = "true";
                                     DAL.saveSettings(tempSettings, userId, function(error, result) {
                                         if (error) {
-                                            console.log(error);
+                                            //console.log(error);
                                             error.userName = loginUserName;
                                             ErrorLogDAL.addErrorLog(error);
                                             Response.sendResponse(false, "Something went wrong.", null, res);

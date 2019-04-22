@@ -59,7 +59,7 @@ router.use(function (req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    console.log("TestSalesComps...");
+    //console.log("TestSalesComps...");
 });
 
 router.post('/getZDeepCompsProperties', function(req, res) {
@@ -104,7 +104,7 @@ router.post('/getSavedComps', function(req, res) {
 });
 
 router.post('/deleteCompsFromProperty', function(req, res) {
-        // console.log(req);
+        // //console.log(req);
     BLL.deleteCompsFromProperty(req, res);
 });
 
@@ -124,7 +124,7 @@ router.post('/saveSubjectPropertyUpdatedData', function(req, res) {
 });
 
 router.post('/addCompsToProp', function(req, res) {
-    // console.log("Dasdas");
+    // //console.log("Dasdas");
     BLL.addCompsToProp(req, res);
 });
 

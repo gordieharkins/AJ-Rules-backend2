@@ -8,7 +8,7 @@
 //     });
 
 // function controllerFunction($scope, newContractService, newContractTermsService, $timeout) {
-//     //console.log('contract-terms component');
+//     ////console.log('contract-terms component');
 
 //     $scope.financialAndNonFinancialTerms = [];
 //     $scope.financialTermsAdded = [];
@@ -30,7 +30,7 @@
 //         newContractTermsService.getContractTerms()
 //             .then(function(response) {
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(response);
+//                 ////console.log(response);
 //                 if (!response.success) {
 //                     return;
 //                 }
@@ -47,7 +47,7 @@
 
 //             }, function(err) {
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(err);
+//                 ////console.log(err);
 //             });
 //     }
 
@@ -116,9 +116,9 @@
 //             $scope.newTerm.columns = JSON.parse($scope.newTerm.columns);
 
 //         } catch (ex) {
-//             // //console.log('already parsed')
+//             // ////console.log('already parsed')
 //         }
-//         //console.log($scope.newTerm);
+//         ////console.log($scope.newTerm);
 //         $scope.numberOfLevels = 0;
 //         if ($scope.newTerm.hasLevels) {
 //             $scope.numberOfLevels = $scope.newTerm.value.length;
@@ -153,7 +153,7 @@
 //         newContractTermsService.updateContractTerms(newTerm)
 //             .then(function(response) {
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(response);
+//                 ////console.log(response);
 //                 if (!response.success) {
 //                     $scope.$emit('danger', response.message);
 //                     return;
@@ -166,7 +166,7 @@
 
 //             }, function(err) {
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(err);
+//                 ////console.log(err);
 //             });
 
 //     }
@@ -249,14 +249,14 @@
 //             newTerm.value = JSON.stringify(newTerm.value);
 
 
-//         // //console.log(newTerm)
+//         // ////console.log(newTerm)
 
 //         $('#preloader').css('display', 'block');
 //         newContractTermsService.addContractTerms(newTerm)
 //             .then(function(response) {
 
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(response);
+//                 ////console.log(response);
 //                 if (!response.success) {
 //                     $scope.$emit('danger', response.message);
 //                     return;
@@ -267,7 +267,7 @@
 
 //             }, function(err) {
 //                 $('#preloader').css('display', 'none');
-//                 //console.log(err);
+//                 ////console.log(err);
 //             });
 
 //     }
@@ -284,7 +284,7 @@
 //     }
 
 //     $scope.CalculateFee = function(financialTerm) {
-//         //console.log(financialTerm)
+//         ////console.log(financialTerm)
 
 //         if (financialTerm.hasLevels) {
 

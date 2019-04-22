@@ -7,10 +7,10 @@ module.exports = _updateIERR;
 //    .controller('updateIERR', _updateIERR
 //    );
 function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("updateIERR controller", $stateParams);
+    //////console.log("updateIERR controller", $stateParams);
     var vm = this;
     // if($stateParams.id) {
-    // console.log($stateParams.id)
+    // //console.log($stateParams.id)
     // }
     vm.property = {};
     vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
@@ -64,7 +64,7 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
     }
 
     function uploadData() {
-        ////console.log('uploadData');
+        //////console.log('uploadData');
         if (vm.selected == 0) { // IE
 
             sendIEData();
@@ -84,20 +84,20 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
         if (vm.IEData) {
             $("#preloader").css("display", "block");
             var url = '/incomeExpenses/addPropertyIE?propId=' + vm.propertyId;
-            ////console.log("==>", url);
-            ////console.log("vm.IEData==>", vm.IEData);
-            ////console.log("==>", url);
-            // ////console.log("vm.IEData==>", vm.IEData);
+            //////console.log("==>", url);
+            //////console.log("vm.IEData==>", vm.IEData);
+            //////console.log("==>", url);
+            // //////console.log("vm.IEData==>", vm.IEData);
 
             AOTCService.uploadFiles(url, vm.IEData)
                 .then(function (result) {
 
-                    ////console.log("addPropertyIE", result);
+                    //////console.log("addPropertyIE", result);
 
                     vm.IERR_Result.IEData = result.data;
                     $('#myModal').modal('toggle');
                     $timeout(function () {
-                        ////console.log('task manager');
+                        //////console.log('task manager');
                         $state.go('TaskManager');
 
                     }, 500)
@@ -105,7 +105,7 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
                     // checkResult();
                 }, function (result) {
                     $("#preloader").css("display", "none");
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         }
     }
@@ -115,32 +115,32 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
             $("#preloader").css("display", "block");
             var url = '/rentRolls/addPropertyRR?propId=' + vm.propertyId;;
             $("#preloader").css("display", "block");
-            ////console.log("==>", url);
-            // ////console.log("vm.RRData==>", vm.RRData);
+            //////console.log("==>", url);
+            // //////console.log("vm.RRData==>", vm.RRData);
 
             AOTCService.uploadFiles(url, vm.RRData)
                 .then(function (result) {
 
-                    ////console.log("addPropertyRR: ", result);
+                    //////console.log("addPropertyRR: ", result);
 
                     vm.IERR_Result.RRData = result.data;
                     $('#myModal').modal('toggle');
                     $timeout(function () {
-                        ////console.log('task manager');
+                        //////console.log('task manager');
                         $state.go('TaskManager');
                     }, 500);
 
                     // checkResult();
                 }, function (result) {
                     $("#preloader").css("display", "none");
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         }
     }
 
     function sendOthersData() {
-        ////console.log('sendOthersData');
-        ////console.log("vm.othersData==>", vm.othersData);
+        //////console.log('sendOthersData');
+        //////console.log("vm.othersData==>", vm.othersData);
 
         if (vm.othersData) {
             $("#preloader").css("display", "block");
@@ -159,10 +159,10 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
 
             AOTCService.uploadFilesWithDescription(url, vm.othersData, desc)
                 .then(function (result) {
-                    ////console.log(result);
+                    //////console.log(result);
 
                     var serverData = result.data;
-                    ////console.log(serverData);
+                    //////console.log(serverData);
 
                     if (serverData.success == true) {
                         $("#preloader").css("display", "none");
@@ -179,7 +179,7 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
                     }
                 }, function (result) {
                     $("#preloader").css("display", "none");
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         }
     }
@@ -199,14 +199,14 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
                     desc += vm.FileNames[i].description + ',';
                 }
             }
-            ////console.log(desc);
+            //////console.log(desc);
 
             AOTCService.uploadFilesWithDescription(url, vm.taxBill, desc)
                 .then(function (result) {
-                    ////console.log(result);
+                    //////console.log(result);
 
                     var serverData = result.data;
-                    ////console.log(serverData);
+                    //////console.log(serverData);
 
                     if (serverData.success == true) {
                         $("#preloader").css("display", "none");
@@ -221,7 +221,7 @@ function _updateIERR(UtilService, $stateParams, $anchorScroll, $state, DTOptions
                     }
                 }, function (result) {
                     $("#preloader").css("display", "none");
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         }
     }

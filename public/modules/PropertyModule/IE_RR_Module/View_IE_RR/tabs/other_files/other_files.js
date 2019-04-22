@@ -7,7 +7,7 @@ module.exports = _other_files;
 //    );
 
 function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("other_files controller");
+    //////console.log("other_files controller");
 
     var vm = this;
 
@@ -60,7 +60,7 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
 
         AOTCService.postDataToServer(url, _data).then(function (result) {
 
-            ////console.log("getOtherFiles: ", result);
+            //////console.log("getOtherFiles: ", result);
 
             var serverData = result.data;
 
@@ -76,7 +76,7 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
             }
         }, function (result) {
             //some error
-            ////console.log(result);
+            //////console.log(result);
             $("#preloader").css("display", "none");
         });
     }
@@ -94,7 +94,7 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);
@@ -123,7 +123,7 @@ function _other_files($location, $scope, $http, __env, $log, AOTCService, $timeo
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success', result.data.message);

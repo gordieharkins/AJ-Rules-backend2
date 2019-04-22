@@ -7,7 +7,7 @@ module.exports = _UserRegistration;
 //angular.module('AOTC').controller('UserRegistration', _UserRegistration
 //    );
 function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("UserRegistration controller");
+    ////////console.log("UserRegistration controller");
     var vm = this;
     //==========================Variables======================================//
     $scope.popup_custom_success = "";
@@ -41,12 +41,12 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
     vm.submitUserRegistrationData = submitUserRegistrationData;
 
     vm.upload = function (data) {
-        //////console.log(vm.myFile);
-        //////console.log(data);
+        ////////console.log(vm.myFile);
+        ////////console.log(data);
     }
 
     $scope.fileNameChanged = function () {
-        //////console.log('file used');
+        ////////console.log('file used');
         vm.usersToBeRegistered = [];
         var result = [];
         $scope.$digest();
@@ -58,10 +58,10 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
 
         AOTCService.uploadFiles(url, files)
             .then(function (result) {
-                ////console.log(result);
+                //////console.log(result);
 
                 if (result.data.success) {
-                    //////console.log('show mee')
+                    ////////console.log('show mee')
                     vm.showTableRelatedDivs = true;
                     vm.usersToBeRegistered = result.data.result;
                     // $scope.popup_custom_success= "File  successfully";
@@ -80,7 +80,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
 
             }, function (result) {
                 $("#preloader").css("display", "none");
-                //////console.log(file);
+                ////////console.log(file);
                 vm.fileName = file.name;
 
             });
@@ -90,7 +90,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
         $('#myModalinvite').modal("toggle");
         $("#preloader").css("display", "block");
 
-        // //////console.log(vm.usersToBeRegistered);
+        // ////////console.log(vm.usersToBeRegistered);
         var now = new Date;
 
         var utc_timestamp = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
@@ -121,13 +121,13 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
             emailSubject: vm.emailSubject
         };
 
-        //////console.log(toSend);
+        ////////console.log(toSend);
 
         var url = '/users/addBulkUsersRef';
 
         AOTCService.postDataToServer(url, toSend)
             .then(function (result) {
-                //////console.log(result);
+                ////////console.log(result);
 
                 if (result.data.success) {
 
@@ -142,7 +142,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
                 //some error
                 $("#preloader").css("display", "none");
 
-                //////console.log(result);
+                ////////console.log(result);
             });
 
     }
@@ -151,7 +151,7 @@ function _UserRegistration($anchorScroll, $state, DTOptionsBuilder, DTColumnDefB
     //-----------------------------------------------
 
     $scope.uploadFile = function (event) {
-        //////console.log(event);
+        ////////console.log(event);
 
     }
     //-----------------------------------------------

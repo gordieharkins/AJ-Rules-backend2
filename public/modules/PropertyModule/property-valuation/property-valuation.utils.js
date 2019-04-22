@@ -9,14 +9,14 @@ module.exports = _PetitionerFormulae;
 function _PetitionerFormulae() {
 
     var formula1 = function (val1) {
-        ////console.log(val1);
+        //////console.log(val1);
     };
 
     var Petitioner = {};
 
     Petitioner.expensesDolar = function (leaseableSqFt, expensePerSFPetitioner) {
         var expensesDolar = leaseableSqFt * expensePerSFPetitioner;
-        // ////console.log(leaseableSqFt, marketRent);
+        // //////console.log(leaseableSqFt, marketRent);
         return expensesDolar;
     };
 
@@ -28,7 +28,7 @@ function _PetitionerFormulae() {
 
     Petitioner.annualRent = function (leaseableSqFt, marketRent) {
         var annualRent = leaseableSqFt * marketRent;
-        ////console.log(leaseableSqFt, marketRent);
+        //////console.log(leaseableSqFt, marketRent);
         return annualRent;
     };
 

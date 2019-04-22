@@ -5,7 +5,7 @@ module.exports = _taxBill;
 
 //angular.module('AOTC').controller('taxBill', _taxBill);
 function _taxBill($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("taxBill controller", $stateParams);
+    ////////console.log("taxBill controller", $stateParams);
 
     var vm = this;
 
@@ -29,10 +29,10 @@ function _taxBill($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColum
 
         vm.formData.propId = vm.propertyId;
 
-        // ////console.log(vm.formData);
+        // //////console.log(vm.formData);
         AOTCService.postDataToServer(url, vm.formData)
             .then(function (result) {
-                ////console.log("updateTaxAccNo: ", result);
+                //////console.log("updateTaxAccNo: ", result);
 
                 if (result.data.success) {
                     $scope.accForm.$setPristine();

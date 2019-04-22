@@ -8,7 +8,7 @@ var async = require('async');
 //    )
 //    .controller('PropValuation',_PropValuation );
 function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService, $scope, ValuationService, UtilService, PetitionerFormulae) {
-    ////console.log("PropValuation controller", $stateParams);
+    //////console.log("PropValuation controller", $stateParams);
 
     var vm = this;
 
@@ -253,15 +253,15 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         ValuationService.getPetitionerModalsData()
             .then(function(result) {
-                // ////console.log(result);
+                // //////console.log(result);
                 vm.assessorModalData = result.data.result[0].models;
             }, function(err) {
-                ////console.log(err);
+                //////console.log(err);
             });
 
         //get yardi Mri Data
         getConsolidatedData(function(err, succ) {
-            ////console.log('getConsolidatedData Server Data : ')
+            //////console.log('getConsolidatedData Server Data : ')
         });
     }
 
@@ -275,7 +275,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     vm.selectedScenario = JSON.parse(localStorage.getItem('selectedScenario'));
 
     if (vm.selectedScenario) {
-        ////console.log('111111111111111111111111111111111');
+        //////console.log('111111111111111111111111111111111');
 
         vm.hideBeforeSelection = false;
         vm.createNew = false;
@@ -305,7 +305,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
 
     } else if ($stateParams.messageFrom == 'scenario') {
-        ////console.log('2222222222222222222222222222');
+        //////console.log('2222222222222222222222222222');
         vm.formName = localStorage.getItem('formName');
 
         vm.hideBeforeSelection = false;
@@ -313,19 +313,19 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         vm.formId = localStorage.getItem('formId');
         ValuationService.getFormById()
             .then(function(result) {
-                ////console.log(result.data);
+                //////console.log(result.data);
                 useForm(result.data.result[0], function(err, succ) {
-                    ////console.log('getFormById Server Data : ', result.data)
+                    //////console.log('getFormById Server Data : ', result.data)
                 })
             }, function(err) {
-                ////console.log(result);
+                //////console.log(result);
             });
 
         getModalsAndConsolidatedData();
 
 
     } else {
-        ////console.log('333333333');
+        //////console.log('333333333');
 
 
         vm.hideBeforeSelection = true;
@@ -346,14 +346,14 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         $("#preloader").css("display", "block");
         var url = '/valuation/get-evidence-files';
         var _data = {propId: parseInt(localStorage.getItem('propertyId'))};
-        ////console.log(url)
+        //////console.log(url)
 
         AOTCService.postDataToServer(url, _data)
             .then(function(result) {
 
                 var serverData = result.data;
-                ////console.log('All Evidences Receieved Server Data');
-                ////console.log(serverData);
+                //////console.log('All Evidences Receieved Server Data');
+                //////console.log(serverData);
 
                 if (serverData.success) {
 
@@ -386,7 +386,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
             }, function(result) {
                 //some error
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css("display", "none");
 
             });
@@ -394,8 +394,8 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     function getAllValuationForms() {
         vm.createNew = true;
-        // ////console.log(vm.propertyId);
-        // ////console.log(vm.valuationYear);
+        // //////console.log(vm.propertyId);
+        // //////console.log(vm.valuationYear);
         localStorage.setItem('valuationYear', vm.valuationYear);
         // localStorage.removeItem('formId');
         var formData = {
@@ -406,8 +406,8 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         var url = "/valuation/get-forms-by-propertyId";
         ValuationService.getValuationForms(url, formData)
             .then(function(result) {
-                ////console.log('getValuationForms serverData:');
-                ////console.log(result);
+                //////console.log('getValuationForms serverData:');
+                //////console.log(result);
                 vm.formsList = result.data.result;
                 // if (vm.formsList.length > 0) {
                 //     vm.forms = true;
@@ -426,14 +426,14 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     vm.appeal = function() {
         var url = "/valuation/appeal";
-        ////console.log(vm.formId);
+        //////console.log(vm.formId);
         var formData = {
             propId:parseInt(localStorage.getItem('propertyId')),
             formId: vm.formId
         };
         ValuationService.appeal(url, formData)
             .then(function(result) {
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css("display", "none");
                 $("#myAppealModal").modal('hide');
 
@@ -443,13 +443,13 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     vm.deleteForm = function() {
         vm.formId = vm.currentForm.valuationForm._id;
         var url = "/valuation/delete-valuation-form";
-        ////console.log(vm.formId);
+        //////console.log(vm.formId);
         var formData = {
             formId: vm.formId
         }
         ValuationService.deleteForm(url, formData)
             .then(function(result) {
-                ////console.log(result);
+                //////console.log(result);
                 vm.hideBeforeSelection = true;
                 $("#myDeleteModal").modal('hide');
                 vm.formStatus = false;
@@ -461,13 +461,13 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     vm.openDeleteModal = function(forms) {
         if(forms == "inside"){
-            ////console.log("inside");
+            //////console.log("inside");
             vm.currentForm = JSON.parse(localStorage.getItem('selectedValuationForm'));
         }
         else{
             vm.currentForm = forms;
         }
-        ////console.log('openModal')
+        //////console.log('openModal')
         $timeout(function() {
             $('#myDeleteModal').modal('toggle');
 
@@ -559,11 +559,11 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         };
 
         if (vm.isReplace === '1') {
-            ////console.log(jsonFormat);
+            //////console.log(jsonFormat);
             var url = '/valuation/replace-valuation-form';
             ValuationService.replaceValuationForm(url, jsonFormat)
                 .then(function(result) {
-                    ////console.log("Server Data : valuation/replace-form\n", result);
+                    //////console.log("Server Data : valuation/replace-form\n", result);
                     var serverData = result.data;
                     $("#preloader").css("display", "none");
 
@@ -584,21 +584,21 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                 }, function(error) {
                     $("#preloader").css("display", "none");
                     $("#error_linking").fadeIn(1500).delay(500).fadeOut(500);
-                    ////console.log(error);
+                    //////console.log(error);
                 });
         } else {
             var url = '/valuation/save-form';
             ValuationService.postDataToServer(url, jsonFormat)
                 .then(function(result) {
-                    ////console.log("Server Data : valuation/save-form\n", result);
+                    //////console.log("Server Data : valuation/save-form\n", result);
                     var serverData = result.data;
-                    ////console.log('save form response', serverData)
+                    //////console.log('save form response', serverData)
                     $("#preloader").css("display", "none");
 
                     if (serverData.success) {
                         localStorage.setItem('selectedValuationForm', angular.toJson(serverData.result[0]));
                         localStorage.setItem('formId', serverData.result[0].valuationForm._id);
-                        ////console.log("aaaaaaaaaaaaaaaaa", localStorage.getItem('formId'));
+                        //////console.log("aaaaaaaaaaaaaaaaa", localStorage.getItem('formId'));
                         vm.noFormsFound = false;
                         getAllValuationForms();
                         vm.hideBeforeSelection = true;
@@ -614,7 +614,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                 }, function(error) {
                     $("#preloader").css("display", "none");
                     $("#error_linking").fadeIn(1500).delay(500).fadeOut(500);
-                    ////console.log(error);
+                    //////console.log(error);
                 });
         }
     }
@@ -623,7 +623,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     vm.replaceForm = function() {
         $("#preloader").css("display", "block");
         localStorage.setItem('formName', vm.formName);
-        ////console.log("status", vm.formStatus);
+        //////console.log("status", vm.formStatus);
         var MRids = getEvidencePropertyIds(vm.MREvidences);
         var Vacids = getEvidencePropertyIds(vm.VacancyEvidences);
         var Expids = getEvidencePropertyIds(vm.ExpEvidences);
@@ -704,11 +704,11 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         };
 
         // if (vm.isReplace === '1') {
-        ////console.log(jsonFormat);
+        //////console.log(jsonFormat);
         var url = '/valuation/replace-valuation-form';
         ValuationService.replaceValuationForm(url, jsonFormat)
             .then(function(result) {
-                ////console.log("Server Data : valuation/replace-form\n", result);
+                //////console.log("Server Data : valuation/replace-form\n", result);
                 var serverData = result.data;
                 $("#preloader").css("display", "none");
 
@@ -731,7 +731,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             }, function(error) {
                 $("#preloader").css("display", "none");
                 $("#error_linking").fadeIn(1500).delay(500).fadeOut(500);
-                ////console.log(error);
+                //////console.log(error);
             });
         // }
     }
@@ -767,11 +767,11 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             propertyId: vm.propertyId,
             year: vm.valuationYear
         };
-        // ////console.log(metaData);
+        // //////console.log(metaData);
         ValuationService.getEvaluationData(metaData)
             .then(function(result) {
-                ////console.log('---------------------------Server Data : getValuationData----------------');
-                ////console.log(result);
+                //////console.log('---------------------------Server Data : getValuationData----------------');
+                //////console.log(result);
                 var serverData = result.data;
                 try{
                     if (serverData.success) {
@@ -814,7 +814,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
             }, function(error) {
                 callback();
-                ////console.log('getEvaluationData error', error);
+                //////console.log('getEvaluationData error', error);
             });
     }
 
@@ -827,11 +827,11 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             year: parseInt(localStorage.getItem('valuationYear')),
             propId: parseInt(localStorage.getItem('propertyId')),
         };
-        ////console.log(metaData);
+        //////console.log(metaData);
         ValuationService.getConsolidatedData(metaData)
             .then(function(result) {
-                ////console.log('---------------------------Server Data : getConsolidatedData----------------');
-                ////console.log(result);
+                //////console.log('---------------------------Server Data : getConsolidatedData----------------');
+                //////console.log(result);
 
                 if (result.data.success) {
                     var serverData = result.data;
@@ -853,16 +853,16 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                     }
                     
                 } else {
-                    ////console.log("dalse")
+                    //////console.log("dalse")
                     vm.mriShow = false;
                     vm.yardiShow = false;
                 }
-                // ////console.log(vm.yardiIEData);
-                // ////console.log(vm.mriIEData);
+                // //////console.log(vm.yardiIEData);
+                // //////console.log(vm.mriIEData);
                 callback();
             }, function(error) {
                 callback();
-                ////console.log('getConsolidatedData error', error);
+                //////console.log('getConsolidatedData error', error);
             });
     }
 
@@ -1006,7 +1006,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             propIds.push(property._id);
         }
 
-        ////console.log(propIds);
+        //////console.log(propIds);
         return propIds;
 
     }
@@ -1028,7 +1028,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     //save file call. after attached evidences against input field upload files callback
     vm.uploadEvidenceFile = function() {
-        ////console.log('uploadEvidenceFiles function');
+        //////console.log('uploadEvidenceFiles function');
 
         if (vm.evidenceFiles) {
             $("#preloader").css("display", "block");
@@ -1043,7 +1043,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             }
             AOTCService.uploadFilesWithDescription(url, vm.evidenceFiles, desc)
                 .then(function(result) {
-                    ////console.log(result);
+                    //////console.log(result);
                     var serverData = result.data;
                     if (serverData.success == true) {
                         $("#preloader").css("display", "none");
@@ -1056,7 +1056,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                     }
 
                 }, function(result) {
-                    ////console.log(result);
+                    //////console.log(result);
                     $("#preloader").css("display", "none");
                 });
         }
@@ -1096,7 +1096,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             return filtered;
 
         } else {
-            // ////console.log('return all evidence\n', vm.allEvidenceFiles);
+            // //////console.log('return all evidence\n', vm.allEvidenceFiles);
             return vm.allEvidenceFiles;
 
         }
@@ -1125,8 +1125,8 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             }
             return filtered;
         } else {
-            // ////console.log('----------------------------already selectedEvidences');
-            // ////console.log(vm.selectedEvidences);
+            // //////console.log('----------------------------already selectedEvidences');
+            // //////console.log(vm.selectedEvidences);
             return vm.selectedEvidences;
         }
     }
@@ -1138,8 +1138,8 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         restoreAllEvidence();
         vm.sortKey = sort;
-        // ////console.log(vm.sortKey);
-        ////console.log(vm.allEvidenceFiles);
+        // //////console.log(vm.sortKey);
+        //////console.log(vm.allEvidenceFiles);
 
         if (sort == 'fileName') {
             vm.allEvidenceFiles = PetitionerFormulae.sortArrayByKey(vm.allEvidenceFiles, vm.sortKey);
@@ -1158,8 +1158,8 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         // restoreAllEvidence();
         vm.sortKeySelected = sort;
 
-        ////console.log(vm.sortKeySelected);
-        ////console.log(vm.attachFileSelection);
+        //////console.log(vm.sortKeySelected);
+        //////console.log(vm.attachFileSelection);
 
         if (sort == 'fileName') {
             vm.selectedEvidences = PetitionerFormulae.sortArrayByKey(vm.selectedEvidences, vm.sortKeySelected);
@@ -1197,72 +1197,72 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         if (vm.attachFileSelection == 1) //MR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.MREvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 2) //Vac %
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.VacancyEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 3) //Exp %
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.ExpEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 4) //Exp per SF %
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.ExpPSFEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 5) //OI
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.OIEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 6) //BCR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.BCREvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 7) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.ETREvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 8) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.FreeRentEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 9) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.LeasingEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 10) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.TenantImprovementEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 11) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.LostRentEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 12) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.AddBackEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 13) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.CapexEvidences.push(evidence);
 
         } else if (vm.attachFileSelection == 14) //ETR
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.DeductionEvidences.push(evidence);
 
         }
@@ -1286,7 +1286,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
             var allEvidence = vm.selectedEvidences[i]
 
             if (allEvidence._id == evidence._id) {
-                ////console.log('true')
+                //////console.log('true')
                 vm.selectedEvidences.splice(i, 1);
                 vm.allEvidenceFiles.push(evidence);
             }
@@ -1302,13 +1302,13 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
         if (vm.attachFileSelection == 1) //MR
         {
-            ////console.log(vm.attachFileSelection);
-            // ////console.log(vm.MREvidences.length);
+            //////console.log(vm.attachFileSelection);
+            // //////console.log(vm.MREvidences.length);
             vm.selectedEvidences = vm.MREvidences;
 
         } else if (vm.attachFileSelection == 2) //Vac %
         {
-            ////console.log(vm.attachFileSelection);
+            //////console.log(vm.attachFileSelection);
             vm.selectedEvidences = vm.VacancyEvidences;
 
         } else if (vm.attachFileSelection == 3) //Exp %
@@ -1348,7 +1348,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         {
             vm.selectedEvidences = vm.DeductionEvidences;
         }
-        // ////console.log(vm.attachNotes);
+        // //////console.log(vm.attachNotes);
         var propEvidence = localStorage.getItem('evidenceFilesAtServer');
         vm.allEvidenceFiles = JSON.parse(propEvidence);
         //by default sort By date
@@ -1379,11 +1379,11 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     function getEvidencePropertyById(id) {
         var evidenceProp = {};
-        // ////console.log('finding id ', id);
+        // //////console.log('finding id ', id);
 
         for (var i = 0; i < vm.allEvidenceFiles.length; i++) {
             var property = vm.allEvidenceFiles[i];
-            // ////console.log('property id ', property);
+            // //////console.log('property id ', property);
             if (property._id == id) {
                 evidenceProp = property;
                 break;
@@ -1397,7 +1397,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     function retirieveSelectedEvidences() {
         var form = JSON.parse(localStorage.getItem('selectedValuationForm'));
 
-        // ////console.log('######################SELECTED FORM###############');
+        // //////console.log('######################SELECTED FORM###############');
         vm.selectedEvidences = [];
         restoreAllEvidence();
 
@@ -1416,9 +1416,9 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         vm.VacancyEvidences = [];
         vm.ExpEvidences = [];
 
-        // ////console.log(form);
-        // ////console.log(vm.selectedEvidences);
-        // ////console.log(vm.allEvidenceFiles);
+        // //////console.log(form);
+        // //////console.log(vm.selectedEvidences);
+        // //////console.log(vm.allEvidenceFiles);
 
 
 
@@ -1552,7 +1552,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
         vm.createNew = false;
         vm.formName = form.name;
         localStorage.setItem('formName', vm.formName);
-        // ////console.log(form);
+        // //////console.log(form);
         localStorage.getItem('selectedValuationForm');
         $("#preloader").css("display", "block");
 
@@ -1570,12 +1570,12 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                 vm.assessorModalData = [];
                 ValuationService.getPetitionerModalsData()
                     .then(function(result) {
-                        ////console.log('getPetitionerModalsData Server Data');
-                        ////console.log(result);
+                        //////console.log('getPetitionerModalsData Server Data');
+                        //////console.log(result);
                         vm.assessorModalData = result.data.result[0].models;
                         callback();
                     }, function(err) {
-                        ////console.log(err);
+                        //////console.log(err);
 
                     });
             }
@@ -1701,7 +1701,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     }
 
     vm.save = function() {
-        ////console.log("working");
+        //////console.log("working");
         vm.alreadyExists = false;
         vm.isReplace = false;
     }
@@ -1718,7 +1718,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
 
     vm.redirectToWorkspace = function(form) {
-        // ////console.log(form);
+        // //////console.log(form);
         localStorage.setItem('formId', form.valuationForm._id);
         localStorage.setItem('formName', form.name);
         localStorage.setItem('selectedValuationForm', angular.toJson(form));
@@ -1733,7 +1733,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
 
     function calculateMRPetitioner() {
-        // ////console.log(vm.modalPetitionerValues.MRPetitioner);
+        // //////console.log(vm.modalPetitionerValues.MRPetitioner);
         // vm.valuationPropertyData.SFLPetitioner;
         var annualRent = PetitionerFormulae.Petitioner.annualRent(
             vm.modalPetitionerValues.SFLPetitioner,
@@ -1749,7 +1749,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
 
     function calculateMRInput(valuationObject) {
 
-        // ////console.log(valuationObject.MRPetitioner);
+        // //////console.log(valuationObject.MRPetitioner);
         // vm.valuationPropertyData.SFLPetitioner;
         var annualRent = PetitionerFormulae.Petitioner.annualRent(
             valuationObject.SFLPetitioner,
@@ -1762,7 +1762,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     }
 
     function calculateERandVacInput(valuationObject) {
-        // ////console.log(valuationObject.VacancyPerPetitioner);
+        // //////console.log(valuationObject.VacancyPerPetitioner);
         var percentage = valuationObject.VacancyPerPetitioner / 100;
 
         // vm.valuationPropertyData.SFLPetitioner;
@@ -1782,10 +1782,10 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     }
 
     function calculateExpensesInput(valuationObject) {
-        // ////console.log('toggle');
+        // //////console.log('toggle');
 
-        // ////console.log(valuationObject.expensePerPetitioner);
-        // ////console.log(valuationObject.ERPetitioner);
+        // //////console.log(valuationObject.expensePerPetitioner);
+        // //////console.log(valuationObject.ERPetitioner);
 
         if (valuationObject.expensePerPetitioner) {
             //disable SF field
@@ -1804,15 +1804,15 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
                 expenses,
                 valuationObject.SFLPetitioner);
 
-            // ////console.log(expenses);
-            // ////console.log(expensesSF);
+            // //////console.log(expenses);
+            // //////console.log(expensesSF);
 
 
             valuationObject.expenseDolarPetitioner = expenses;
             valuationObject.expensePerSFPetitioner = parseFloat(expensesSF).toFixed(0);
             // vm.valuationPropertyData.expensePerSFPetitioner = 34;
         } else {
-            // ////console.log('enable all');
+            // //////console.log('enable all');
             vm.disableExpenseFieldsPer = false;
             vm.disableExpenseFieldsSF = false;
         }
@@ -1855,12 +1855,12 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     }
 
     function calculateBCRInput(valuationObject) {
-        // ////console.log(vm.valuationPropertyData.ETRPetitioner);
-        // ////console.log(vm.valuationPropertyData.ETRPetitioner.toString().length);
+        // //////console.log(vm.valuationPropertyData.ETRPetitioner);
+        // //////console.log(vm.valuationPropertyData.ETRPetitioner.toString().length);
         if (valuationObject.ETRPetitioner.toString().length > 0) {
 
-            // ////console.log(vm.valuationPropertyData.BCRPetitioner);
-            // ////console.log(vm.valuationPropertyData.ETRPetitioner);
+            // //////console.log(vm.valuationPropertyData.BCRPetitioner);
+            // //////console.log(vm.valuationPropertyData.ETRPetitioner);
 
             var OCR = PetitionerFormulae.Petitioner.overAllCapRate(
                 parseInt(valuationObject.BCRPetitioner),
@@ -2199,7 +2199,7 @@ function _PropValuation($state, $timeout, $rootScope, $stateParams, AOTCService,
     }
 
     vm.showHideAOTC = function() {
-        // ////console.log('showHideClick');
+        // //////console.log('showHideClick');
         $timeout(function() {
             vm.recomendationChecked = !vm.recomendationChecked;
         }, 100);

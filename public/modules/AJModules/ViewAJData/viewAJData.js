@@ -6,7 +6,7 @@ module.exports = _viewAJData;
 //angular.module('AOTC').controller('viewAJData', _viewAJData);
 
 function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("viewAJData controller", $stateParams);
+    //////console.log("viewAJData controller", $stateParams);
     var vm = this;
     vm.tableData = [];
     $scope.$emit('error', "unable to parse")
@@ -32,7 +32,7 @@ function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptions
 
     AOTCService.getDataFromServer('/aJRules/getAllSurveysMetaData')
         .then(function (result) {
-            ////console.log(result);
+            //////console.log(result);
             var ServerData = result.data;
             if (ServerData.success) {
                 vm.tableData = ServerData.result;
@@ -44,7 +44,7 @@ function _viewAJData(User_Config, $stateParams, $anchorScroll, $state, DTOptions
             $('#preloader').css('display', 'none');
 
         }, function (result) {
-            ////console.log(result);
+            //////console.log(result);
             $('#preloader').css('display', 'none');
 
 

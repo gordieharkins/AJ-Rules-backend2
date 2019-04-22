@@ -29,10 +29,10 @@ var _viewSampleCalculations = {
 
                 initScheduleFee();
                 vm.calaculatedData = newContractService.contractDataByUserId.financialTerms;
-                console.log(newContractService.contractDataByUserId);
+                //console.log(newContractService.contractDataByUserId);
                 if (vm.calaculatedData[0].fee.feeType != "fixed") {
                     for (var i = 0; i < vm.calaculatedData.length; i++) {
-                        console.log(i)
+                        //console.log(i)
                         data = vm.calaculatedData[i];
                         data.assessment.valueReduction1 = data.assessment.newAssessorValue[0] - data.assessment.postAppeal1[0];
                         data.assessment.valueReduction2 = data.assessment.postAppeal1[0] - data.assessment.postAppeal2[0];
@@ -47,7 +47,7 @@ var _viewSampleCalculations = {
                             data.assessment.fixedRate = data.fee.fee;
                         }
                         else if (data.fee.feeType === 'percentage') {
-                            console.log(data)
+                            //console.log(data)
                             var appealMerit1 = data.fee.meritLevel[0] / 100;
                             var appealMerit2 = data.fee.meritLevel[1] / 100;
                             var level1 = data.assessment.valueReduction1 * appealMerit1 * (data.assessment.taxRate[0] / 100);
@@ -55,7 +55,7 @@ var _viewSampleCalculations = {
                             data.assessment.feePercent = 0;
                             data.assessment.fee = level1 + level2;
                             data.assessment.feePercent = data.assessment.fee / (data.assessment.valueReduction * (data.assessment.taxRate[0] / 100));
-                            console.log(data.assessment.feePercent)
+                            //console.log(data.assessment.feePercent)
                             vm.totalAmount += data.assessment.fee;
                             data.assessment.fixedRate = 0;
                             vm.totaltaxSaving += data.assessment.valueReduction * (data.assessment.taxRate[0] / 100)
@@ -63,7 +63,7 @@ var _viewSampleCalculations = {
 
                         }
                         else if (data.fee.feeType === 'fp') {
-                            console.log(data)
+                            //console.log(data)
                             data.assessment.valueReduction1 = data.assessment.newAssessorValue[0] - data.assessment.postAppeal1[0];
                             data.assessment.valueReduction2 = data.assessment.postAppeal1[0] - data.assessment.postAppeal2[0];
                             data.assessment.valueReduction = data.assessment.newAssessorValue[0] - data.assessment.postAppeal2[0];
@@ -77,7 +77,7 @@ var _viewSampleCalculations = {
                             data.assessment.feePercent = (data.assessment.fee) / (data.assessment.valueReduction * (data.assessment.taxRate[0] / 100));
                             data.disabled = true;
                             data.feeType = 4;
-                            console.log(data.assessment.fixedRate);
+                            //console.log(data.assessment.fixedRate);
                             vm.totalAmount += data.assessment.fee;
                             vm.totaltaxSaving += data.assessment.valueReduction * (data.assessment.taxRate[0] / 100)
 
@@ -86,7 +86,7 @@ var _viewSampleCalculations = {
                 }
                 else {
                     vm.fixedFeeData = vm.calaculatedData[0].fee
-                    console.log(vm.fixedFeeData)
+                    //console.log(vm.fixedFeeData)
                 }
             });
 
@@ -203,7 +203,7 @@ var _viewSampleCalculations = {
                         $("#preloader").css("display", "none");
 
                     }, function (result) {
-                        console.log(result);
+                        //console.log(result);
                         $("#preloader").css("display", "none");
                     });
             }
@@ -234,7 +234,7 @@ var _viewSampleCalculations = {
                         value.assessment.valueReduction = value.assessment.newAssessorValue[0] - value.assessment.postAppeal2[0];
                         value.assessment.fee = value.assessment.fixedRate;
                         value.assessment.feePercent = value.assessment.fee / (value.assessment.valueReduction * (value.assessment.taxRate[0] / 100));
-                        console.log(value.assessment.feePercent)
+                        //console.log(value.assessment.feePercent)
                         value.disabled = true;
                         value.feeType = 2;
                         vm.totalAmount += value.assessment.fee;
@@ -242,7 +242,7 @@ var _viewSampleCalculations = {
                         vm.taxRate = value.assessment.taxRate[0];
                         vm.calaculatedData.push(value);
 
-                        console.log(vm.totaltaxSaving)
+                        //console.log(vm.totaltaxSaving)
                     }
                 });
             }
@@ -252,7 +252,7 @@ var _viewSampleCalculations = {
                     if (!value.disabled && value.check) {
                         validatedata = 1;
                         value.meritLevel = addMerit(value.assessment.appealMerit[0]);
-                        console.log(value.meritLevel)
+                        //console.log(value.meritLevel)
                         value.assessment.valueReduction1 = value.assessment.newAssessorValue[0] - value.assessment.postAppeal1[0];
                         value.assessment.valueReduction2 = value.assessment.postAppeal1[0] - value.assessment.postAppeal2[0];
                         value.assessment.valueReduction = value.assessment.newAssessorValue[0] - value.assessment.postAppeal2[0];
@@ -263,7 +263,7 @@ var _viewSampleCalculations = {
                         var level2 = value.assessment.valueReduction2 * appealMerit2 * (value.assessment.taxRate[0] / 100);
                         value.assessment.fee = level1 + level2;
                         value.assessment.feePercent = (value.assessment.fee) / (value.assessment.valueReduction * (value.assessment.taxRate[0] / 100));
-                        console.log(value.assessment.feePercent)
+                        //console.log(value.assessment.feePercent)
                         value.disabled = true;
                         value.feeType = 3;
                         vm.totalAmount += value.assessment.fee;
@@ -279,7 +279,7 @@ var _viewSampleCalculations = {
                         validatedata = 1;
 
                         value.meritLevel = addMerit(value.assessment.appealMerit[0]);
-                        console.log(value)
+                        //console.log(value)
                         value.assessment.valueReduction1 = value.assessment.newAssessorValue[0] - value.assessment.postAppeal1[0];
                         value.assessment.valueReduction2 = value.assessment.postAppeal1[0] - value.assessment.postAppeal2[0];
                         value.assessment.valueReduction = value.assessment.newAssessorValue[0] - value.assessment.postAppeal2[0];
@@ -293,7 +293,7 @@ var _viewSampleCalculations = {
                         value.assessment.feePercent = (value.assessment.fee) / (value.assessment.valueReduction * (value.assessment.taxRate[0] / 100));
                         value.disabled = true;
                         value.feeType = 4;
-                        console.log(value.assessment.fixedRate);
+                        //console.log(value.assessment.fixedRate);
                         vm.totalAmount += value.assessment.fee;
                         vm.totaltaxSaving += value.assessment.valueReduction * (value.assessment.taxRate[0] / 100);
                         vm.calaculatedData.push(value);
@@ -303,7 +303,7 @@ var _viewSampleCalculations = {
             }
 
             function addMerit(data) {
-                console.log(data)
+                //console.log(data)
                 if (data === 'poor') {
                     return [vm.scheduleFee.poor.level1, vm.scheduleFee.poor.level2, vm.scheduleFee.poor.level3]
                 }
@@ -344,13 +344,13 @@ var _viewSampleCalculations = {
                 newContractTermsService.getContractTerms()
                     .then(function (response) {
                         $('#preloader').css('display', 'none');
-                        console.log(response);
+                        //console.log(response);
                         if (!response.success) {
                             return;
                         }
                         var terms = response.result;
                         $scope.financialTerms = terms;
-                        console.log(terms)
+                        //console.log(terms)
                         for (var i = 0; i < terms.length; i++) {
 
                             if (terms[i].type == 'fc') {
@@ -360,7 +360,7 @@ var _viewSampleCalculations = {
 
                     }, function (err) {
                         $('#preloader').css('display', 'none');
-                        console.log(err);
+                        //console.log(err);
                     });
             }
 

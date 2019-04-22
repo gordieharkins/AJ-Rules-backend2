@@ -9,7 +9,7 @@ function _SubmissionList($stateParams, $scope, $state, SubmissionListService) {
 
 
     $scope.GotoSurveySubmission = function (data) {
-        console.log('212' + data.id)
+        //console.log('212' + data.id)
         $state.go('SurveySubmissions', { id: data.id, surveyId: $stateParams.id });
     }
 
@@ -46,7 +46,7 @@ function _SubmissionList($stateParams, $scope, $state, SubmissionListService) {
 
         SubmissionListService.getSubmissions($stateParams.id)
             .then(function (result) {
-                //console.log(result);
+                ////console.log(result);
 
                 if (!result.data.success) {
                     $scope.$emit('error', result.data.message);
@@ -57,7 +57,7 @@ function _SubmissionList($stateParams, $scope, $state, SubmissionListService) {
                 $("#preloader").css("display", "none");
 
             }, function (result) {
-                console.log(result);
+                //console.log(result);
                 $("#preloader").css("display", "none");
             });
     }

@@ -56,8 +56,8 @@ BLL.prototype.getPropertyRR = function(data, res) {
                     Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                 } else {
 
-                    // console.log("hi i am here: ",JSON.stringify(propertyRR));
-                    //console.log(propertyRR[propertyRR.length].tenants.length)
+                    // //console.log("hi i am here: ",JSON.stringify(propertyRR));
+                    ////console.log(propertyRR[propertyRR.length].tenants.length)
                     for(var i = 0;i < propertyRR.length;i++){
                         // handled on FE
                         // propertyRR[i].RR.properties.asOfDate[1] = dateConverter(propertyRR[0].RR.properties.asOfDate[1]);
@@ -65,21 +65,21 @@ BLL.prototype.getPropertyRR = function(data, res) {
 
                         for(var j = 0;j < propertyRR[i].tenants.length;j++){
                             var tenant = propertyRR[i].tenants[j];
-                            //console.log("end Date: ",tenant.endDate[1]);
+                            ////console.log("end Date: ",tenant.endDate[1]);
 
                             try{
                                 tenant.endDate[1] = util.longToDate(parseInt(tenant.endDate[1]));
-                                //console.log("done");
+                                ////console.log("done");
                              }catch(e){
                                 //tenant.endDate[1] = "";
-                                // console.log("YO",e)
+                                // //console.log("YO",e)
                              }
 
                              try{
                                 tenant.startDate[1] = util.longToDate(parseInt(tenant.startDate[1]));
                              }catch(e){
                                 //tenant.startDate[1]="";
-                                //console.log("YO1",j)
+                                ////console.log("YO1",j)
                              }
                             
                         }
@@ -101,7 +101,7 @@ BLL.prototype.addPropertyRR = function(data, res) {
     //     Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
     //     return;
     // }
-    // console.log("herere");
+    // //console.log("herere");
     try{
         var timelineDataid = data.query.tId;
     } catch(error){ 
@@ -113,9 +113,9 @@ BLL.prototype.addPropertyRR = function(data, res) {
     var busboy = new busBoy({ headers: data.headers });
 
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        // console.log("here2");
+        // //console.log("here2");
         try {
-            // console.log("here2gdfds");
+            // //console.log("here2gdfds");
             var name = path.basename(filename);
             var date = new Date();
             var uniqueName = userId + '_' + date.getTime() + '_' + name;
@@ -123,13 +123,13 @@ BLL.prototype.addPropertyRR = function(data, res) {
             var fileBuffer = new Buffer('');
 
             file.on('data', function(data) {
-                // console.log("here2hhghg");
+                // //console.log("here2hhghg");
                 //added this comment for a latest commit
                 fileBuffer = Buffer.concat([fileBuffer, data]);
             });
 
             file.on('end', function() {
-                // console.log("endddddd");
+                // //console.log("endddddd");
                 // File details
                 var details = {
                     name: uniqueName,
@@ -142,7 +142,7 @@ BLL.prototype.addPropertyRR = function(data, res) {
             });
         } catch (error) {
             // Log error and send response
-            // console.log("here2 error");
+            // //console.log("here2 error");
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
@@ -150,14 +150,14 @@ BLL.prototype.addPropertyRR = function(data, res) {
     });
 
     busboy.on('finish', function() {
-        // console.log("here2341");
+        // //console.log("here2341");
         if(files.length <= 0) {
             Response.sendResponse(false, Response.REPLY_MSG.NO_FILE_UPLOADED, null, res);
         } else {
             var isError = false;
             async.forEachOf(files, function(file, i, callback) {
                 if(!isError) {
-        // console.log("here1435676");
+        // //console.log("here1435676");
 
                     objectStorage.uploadFile(file.fileStream, file.name, CONTAINER_NAME, function(error, fileDetails) {
                         if(error) {
@@ -171,14 +171,14 @@ BLL.prototype.addPropertyRR = function(data, res) {
                 }
             }, function() {
                 if(isError) {
-                    console.log("upload fail");
+                    //console.log("upload fail");
                     Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
                 } else {
                     if(timelineDataid == null){
                         addFiles(files, propertyId, userId, null);
                         Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
                     } else {
-                        console.log("here is tafkasf44444444444444444444");
+                        //console.log("here is tafkasf44444444444444444444");
                         addFiles(files, propertyId, userId, res);
                     }
                 }
@@ -522,7 +522,7 @@ function addFiles(files, propertyId, userId, res) {
                 if(counter >= files.length) {
                     // All files added, now parse these files.
                     if(propertyId) {
-                        // console.log("calling parseFiles");
+                        // //console.log("calling parseFiles");
                         parseFiles(parsingFiles, propertyId, userId);
                     } else {
                         parseBulkFiles(parsingFiles, userId);
@@ -531,7 +531,7 @@ function addFiles(files, propertyId, userId, res) {
             });
         }
         if(res != null){
-            console.log("here is tafkasf44444444====================444444444444");
+            //console.log("here is tafkasf44444444====================444444444444");
             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);
         }
         // Destroy the task as we are done
@@ -553,7 +553,7 @@ function parseFiles(files, propertyId, userId) {
         async.series([
             function(callback) {
                 setTimeout(function() {
-                    // console.log('Testing + ' + (i + 1));
+                    // //console.log('Testing + ' + (i + 1));
                     callback();
                 }, 2500 * i);
             },
@@ -564,9 +564,9 @@ function parseFiles(files, propertyId, userId) {
             },
             function(callback) {
                 try {
-                    // console.log("calling parseRentRollFile");
+                    // //console.log("calling parseRentRollFile");
                     rentRolls = rentRollParser.parseRentRollFile(file.fileData, file.uniqueName, file.fileName);
-                    // console.log("in BLL: ",rentRolls)
+                    // //console.log("in BLL: ",rentRolls)
                 } catch (error) {
                     var message;
                     if (!(error instanceof InvalidFileFormat)) {
@@ -589,32 +589,32 @@ function parseFiles(files, propertyId, userId) {
 
                 try {
                     if(rentRolls != null && rentRolls.length > 0) {
-                        // console.log("in BLL: ",rentRolls)
-                        // console.log("in 2nd try");
+                        // //console.log("in BLL: ",rentRolls)
+                        // //console.log("in 2nd try");
                         if(rentRolls[0].address == null || rentRolls[0].asOfDate[1] === "unknown"){
-                            // console.log("in unknown");
+                            // //console.log("in unknown");
                             var isSuccess = 0;
                             async.series([
                                 function(callback) {
-                                    // console.log("RR: ",rentRolls)
-                                    // console.log("propertyId: ", propertyId);
-                                    // console.log("userId: ", userId);
+                                    // //console.log("RR: ",rentRolls)
+                                    // //console.log("propertyId: ", propertyId);
+                                    // //console.log("userId: ", userId);
                                     RRDAL.addUnparsedPropertyRR(rentRolls, propertyId, userId, function(error, result) {
                                         if (error) {
                                             error.userName = loginUserName;
                                             errorLogDAL.addErrorLog(error);
                                             isSuccess = 0;
-                                            // console.log("isSuccess1", isSuccess);
+                                            // //console.log("isSuccess1", isSuccess);
                                         } else {
                                             isSuccess = 0;
-                                            // console.log("isSuccess2", isSuccess);
+                                            // //console.log("isSuccess2", isSuccess);
                                         }
-                                        // console.log("isSuccess3", isSuccess);
+                                        // //console.log("isSuccess3", isSuccess);
                                         callback();
                                     });
                                 },
                                 function (callback) {
-                                    // console.log("isSuccess", isSuccess);
+                                    // //console.log("isSuccess", isSuccess);
                                     var message = (Response.REPLY_MSG.FIELDS_NOT_FOUND);
                                     updateFileStatus(file, 0, 1, isSuccess, message, propertyId);
                                     callback();
@@ -622,45 +622,45 @@ function parseFiles(files, propertyId, userId) {
                             ]);
 
 
-                            // console.log("unknown");
+                            // //console.log("unknown");
                             // RRDAL.addUnparsedPropertyRR(rentRolls, propertyId, userId, function(error, result) {
                             //     if (error) {
                             //         error.userName = loginUserName;
                             //         errorLogDAL.addErrorLog(error);
-                            //         // console.log("isSuccess1", isSuccess);
+                            //         // //console.log("isSuccess1", isSuccess);
                             //     } else {
-                            //         // console.log("isSuccess2", isSuccess);
+                            //         // //console.log("isSuccess2", isSuccess);
                             //     }
                             //     var message = ( Response.REPLY_MSG.FIELDS_NOT_FOUND);
-                            //     console.log("updated 0");
+                            //     //console.log("updated 0");
                             //     updateFileStatus(file, 0, 1, isSuccess, message, propertyId);
                             //     // throw new InvalidFileFormat(Response.REPLY_MSG.FIELDS_NOT_FOUND);
-                            //     console.log("updated");
+                            //     //console.log("updated");
                             //     // callback();
                             // });
                         }else{
                         var isSuccess = 0;
                         async.series([
                             function(callback) {
-                                // console.log("RR: ",rentRolls)
-                                // console.log("propertyId: ", propertyId);
-                                // console.log("userId: ", userId);
+                                // //console.log("RR: ",rentRolls)
+                                // //console.log("propertyId: ", propertyId);
+                                // //console.log("userId: ", userId);
                                 RRDAL.addPropertyRR(rentRolls, propertyId, userId, function(error, result) {
                                     if (error) {
                                         error.userName = loginUserName;
                                         errorLogDAL.addErrorLog(error);
                                         isSuccess = 0;
-                                        // console.log("isSuccess1", isSuccess);
+                                        // //console.log("isSuccess1", isSuccess);
                                     } else {
                                         isSuccess = 1;
-                                        // console.log("isSuccess2", isSuccess);
+                                        // //console.log("isSuccess2", isSuccess);
                                     }
-                                    // console.log("isSuccess3", isSuccess);
+                                    // //console.log("isSuccess3", isSuccess);
                                     callback();
                                 });
                             },
                             function (callback) {
-                                // console.log("isSuccess", isSuccess);
+                                // //console.log("isSuccess", isSuccess);
                                 var message = (isSuccess ? Response.REPLY_MSG.PARSED_SUCCESSFULLY : Response.REPLY_MSG.SAVE_FAIL);
                                 updateFileStatus(file, 0, 1, isSuccess, message, propertyId);
                                 callback();
@@ -703,7 +703,7 @@ function parseBulkFiles(files, userId) {
         async.series([
             function(callback) {
                 setTimeout(function() {
-                    // console.log('Testing + ' + (i + 1));
+                    // //console.log('Testing + ' + (i + 1));
                     callback();
                 }, 2500 * i);
             },

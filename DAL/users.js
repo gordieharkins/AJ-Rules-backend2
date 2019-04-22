@@ -68,7 +68,7 @@ DAL.prototype.getUserDataByToken = function(data, cb) {
 // addSingleUserNonRef
 // ---------------------------------------------
 DAL.prototype.addSingleUserNonRef = function(data, cb) {
-    // console.log("data:",data);
+    // //console.log("data:",data);
     data.createdDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     data.modifiedDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     data.createdBy = "";
@@ -114,7 +114,7 @@ DAL.prototype.addBulkUsersRef = function(data, cb) {
 // getUserByRole
 // ---------------------------------------------
 DAL.prototype.getUserByRole = function(data, cb) {
-    // console.log("data:",data);
+    // //console.log("data:",data);
     // data.createdDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     // data.modifiedDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     // data.createdBy = "";
@@ -167,7 +167,7 @@ DAL.prototype.getUSstates = function(data, cb) {
     sqlRequest.query(getStates).then(function(result) {
         cb(null, result);
     }).catch(function(err) {
-        // console.log("Error : "+err);
+        // //console.log("Error : "+err);
         cb(err, null);
     });
     // execute_query(deleteSection, function(error, result) {

@@ -6587,15 +6587,15 @@ var PtgBinOp = {
 	PtgSub: "-"
 };
 function stringify_formula(formula/*Array<any>*/, range, cell, supbooks, opts) {
-	//console.log(formula);
+	////console.log(formula);
 	var _range = /*range != null ? range :*/ {s:{c:0, r:0},e:{c:0, r:0}};
 	var stack = [], e1, e2, type, c, ixti=0, nameidx=0, r, sname="";
 	if(!formula[0] || !formula[0][0]) return "";
 	var last_sp = -1, sp = "";
-	//console.log("--",cell,formula[0])
+	////console.log("--",cell,formula[0])
 	for(var ff = 0, fflen = formula[0].length; ff < fflen; ++ff) {
 		var f = formula[0][ff];
-		//console.log("++",f, stack)
+		////console.log("++",f, stack)
 		switch(f[0]) {
 			/* 2.5.198.93 */
 			case 'PtgUminus': stack.push("-" + stack.pop()); break;
@@ -6678,7 +6678,7 @@ function stringify_formula(formula/*Array<any>*/, range, cell, supbooks, opts) {
 			case 'PtgFunc':
 			/* 2.5.198.63 */
 			case 'PtgFuncVar':
-				//console.log(f[1]);
+				////console.log(f[1]);
 				/* f[1] = [argc, func, type] */
 				var argc = f[1][0], func = f[1][1];
 				if(!argc) argc = 0;
@@ -6738,7 +6738,7 @@ function stringify_formula(formula/*Array<any>*/, range, cell, supbooks, opts) {
 				/* f[1] = type, ixti, nameindex */
 				var bookidx = (f[1][1]); nameidx = f[1][2]; var externbook;
 				/* TODO: Properly handle missing values */
-				//console.log(bookidx, supbooks);
+				////console.log(bookidx, supbooks);
 				if(opts.biff == 5) {
 					if(bookidx < 0) bookidx = -bookidx;
 					if(supbooks[bookidx]) externbook = supbooks[bookidx][nameidx];
@@ -6860,9 +6860,9 @@ function stringify_formula(formula/*Array<any>*/, range, cell, supbooks, opts) {
 			stack.push((_left ? sp : "") + stack.pop() + (_left ? "" : sp));
 			last_sp = -1;
 		}
-		//console.log("::",f, stack)
+		////console.log("::",f, stack)
 	}
-	//console.log("--",stack);
+	////console.log("--",stack);
 	if(stack.length > 1 && opts.WTF) throw new Error("bad formula stack");
 	return stack[0];
 }
@@ -10680,8 +10680,8 @@ function parse_workbook(blob, options) {
 		if(RecordType === 0 && last_Rn === 'EOF') break;
 		var length = (blob.l === blob.length ? 0 : blob.read_shift(2)), y;
 		var R = XLSRecordEnum[RecordType];
-		//console.log(RecordType.toString(16), RecordType, R, blob.l, length, blob.length);
-		//if(!R) console.log(blob.slice(blob.l, blob.l + length));
+		////console.log(RecordType.toString(16), RecordType, R, blob.l, length, blob.length);
+		//if(!R) //console.log(blob.slice(blob.l, blob.l + length));
 		if(R && R.f) {
 			if(options.bookSheets) {
 				if(last_Rn === 'BoundSheet8' && R.n !== 'BoundSheet8') break;
@@ -11024,7 +11024,7 @@ function parse_workbook(blob, options) {
 				case 'CRN': break;
 
 				case 'Scl': {
-					//console.log("Zoom Level:", val[0]/val[1],val);
+					////console.log("Zoom Level:", val[0]/val[1],val);
 				} break;
 				case 'SheetExt': {
 

@@ -130,7 +130,7 @@ DAL.prototype.addCompsToProp = function(data, userId, cb) {
 // addCompsToProp
 // ---------------------------------------------
 DAL.prototype.addCompsImage = function(data, cb) {
-    console.log("posting")
+    //console.log("posting")
     var filePath;
 
     var busboy = new Busboy({ headers: req.headers });
@@ -140,8 +140,8 @@ DAL.prototype.addCompsImage = function(data, cb) {
         uniqueName = req.params.id + '_' + date.getTime() + '_' + fieldname;
 
         var mainFile = path.join(propertyImagesPath, uniqueName);
-        console.log(propertyImagesPath);
-        console.log(mainFile)
+        //console.log(propertyImagesPath);
+        //console.log(mainFile)
         // filePath=mainFile
         filePath=mainFile
         file.pipe(fs.createWriteStream(mainFile));
@@ -149,7 +149,7 @@ DAL.prototype.addCompsImage = function(data, cb) {
     busboy.on('finish', function() {
         res.writeHead(200, { 'Connection': 'close' });
         var filePath2 = IMAGES_DIR_NAME + '/' + uniqueName;
-        console.log(filePath2);
+        //console.log(filePath2);
         res.end(filePath2);
     });
     return req.pipe(busboy);
@@ -304,7 +304,7 @@ DAL.prototype.getComparables = function(results, queryCriteria, cb) {
     }
 
     var query1 = query[0];
-    // console.log(query1);
+    // //console.log(query1);
     var params1 = {
         zipCode: results[0].properties.zipCode,
         revalYearMax: parseInt(results[0].properties.revalYear),
@@ -321,14 +321,14 @@ DAL.prototype.getComparables = function(results, queryCriteria, cb) {
         query: query1,
         params: params1
     }, function(err, results1) {
-        console.log("here");
+        //console.log("here");
         finalResult.highProperties = results1.reverse();
         var query2 = query[1];
         db.cypher({
             query: query2,
             params: params1
         }, function(err, results2) {
-        console.log("here1");
+        //console.log("here1");
 
             finalResult.lowProperties = results2;
             cb(err, finalResult);

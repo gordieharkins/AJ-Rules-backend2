@@ -12,7 +12,7 @@ function _SampleCalculationService($q, AOTCService) {
     var totalFee = 0;
 
     function getPropertyDetails(data) {
-        //console.log(data)
+        ////console.log(data)
         // var url = '/surveys/getSurveyById?id='+da;
         var url = '/contracts/getDataforSampleCalculations';
         var deferred = $q.defer();
@@ -23,7 +23,7 @@ function _SampleCalculationService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
 

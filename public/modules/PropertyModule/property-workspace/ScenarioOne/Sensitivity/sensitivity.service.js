@@ -16,7 +16,7 @@ function _SensitivityService($http, $q, AOTCService) {
     };
 
     function saveWorkSpace(workspace) {
-        ////console.log('workspace', workspace)
+        //////console.log('workspace', workspace)
 
         var url = '/valuation/save-work-space' ;
         var deferred = $q.defer();
@@ -41,7 +41,7 @@ function _SensitivityService($http, $q, AOTCService) {
 
         var url = '/valuation/get-work-space';
         var deferred = $q.defer();
-        ////console.log(postData);
+        //////console.log(postData);
 
         AOTCService.postDataToServer(url, postData)
             .then(function (result) {

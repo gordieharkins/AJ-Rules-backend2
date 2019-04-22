@@ -6,13 +6,13 @@ module.exports = _manualIE;
 //angular.module('AOTC').controller('manualIE', _manualIE
 //    );
 function _manualIE($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("updateIERR controller", $stateParams);
+    ////////console.log("updateIERR controller", $stateParams);
     var vm = this;
     // $('#successModal').modal('close');
 
     vm.submitManualData = submitManualData;
     vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
-    //////console.log("vm.property in manualIE: ", vm.property)
+    ////////console.log("vm.property in manualIE: ", vm.property)
 
     vm.formData = {
 
@@ -50,7 +50,7 @@ function _manualIE($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
     }
 
     function modalYesbutton() {
-        ////console.log('reset form');
+        //////console.log('reset form');
         vm.formData = {};
 
         $scope.manualForm.$setPristine();
@@ -83,11 +83,11 @@ function _manualIE($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
         vm.formData.totalTaxesAndInsurance = vm.formData.totalTaxesAndInsurance.toString();
         vm.formData.totalUtilities = vm.formData.totalUtilities.toString();
 
-        ////console.log(vm.formData);
+        //////console.log(vm.formData);
 
         AOTCService.postDataToServer(url, vm.formData)
             .then(function (result) {
-                ////console.log("addPropertyIEManual: ", result);
+                //////console.log("addPropertyIEManual: ", result);
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
                     $scope.manualForm.$setPristine();
@@ -101,7 +101,7 @@ function _manualIE($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColu
                 $("#preloader").css("display", "none");
 
             }, function (result) {
-                //////console.log(result);
+                ////////console.log(result);
                 $("#preloader").css("display", "none");
             });
 

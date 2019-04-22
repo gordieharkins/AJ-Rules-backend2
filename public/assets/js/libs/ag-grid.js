@@ -1451,7 +1451,7 @@
                     // why do we pass the type here? the type is in ColumnChangeEvent, so unless the
                     // type is not in other types of events???
                     EventService.prototype.dispatchEvent = function (event) {
-                        // console.log(`dispatching ${eventType}: ${event}`);
+                        // //console.log(`dispatching ${eventType}: ${event}`);
                         this.dispatchToListeners(event, true);
                         this.dispatchToListeners(event, false);
                     };
@@ -1602,7 +1602,7 @@
                     };
                     Logger.prototype.log = function (message) {
                         if (this.isLoggingFunc()) {
-                            console.log('ag-Grid.' + this.name + ': ' + message);
+                            //console.log('ag-Grid.' + this.name + ': ' + message);
                         }
                     };
                     return Logger;
@@ -1989,7 +1989,7 @@
                     }
                     Timer.prototype.print = function (msg) {
                         var duration = (new Date().getTime()) - this.timestamp;
-                        console.log(msg + " = " + duration);
+                        //console.log(msg + " = " + duration);
                         this.timestamp = new Date().getTime();
                     };
                     return Timer;
@@ -4059,7 +4059,7 @@
                             }
                         }
                         else {
-                            console.log('cannot call setRowData unless using normal row model');
+                            //console.log('cannot call setRowData unless using normal row model');
                         }
                     };
                     // DEPRECATED
@@ -4157,7 +4157,7 @@
                                 var endReflow = (new Date()).getTime();
                                 var durationProcessing = endProcessing - start;
                                 var durationReflow = endReflow - endProcessing;
-                                console.log('duration:  processing = ' + durationProcessing + 'ms, reflow = ' + durationReflow + 'ms');
+                                //console.log('duration:  processing = ' + durationProcessing + 'ms, reflow = ' + durationReflow + 'ms');
                                 iterationCount++;
                                 totalProcessing += durationProcessing;
                                 totalReflow += durationReflow;
@@ -4171,9 +4171,9 @@
                             }, 0);
                         }
                         function finish() {
-                            console.log('tests complete. iteration count = ' + iterationCount);
-                            console.log('average processing = ' + (totalProcessing / iterationCount) + 'ms');
-                            console.log('average reflow = ' + (totalReflow / iterationCount) + 'ms');
+                            //console.log('tests complete. iteration count = ' + iterationCount);
+                            //console.log('average processing = ' + (totalProcessing / iterationCount) + 'ms');
+                            //console.log('average reflow = ' + (totalReflow / iterationCount) + 'ms');
                         }
                     };
                     // *** deprecated
@@ -4188,7 +4188,7 @@
                     };
                     // *** deprecated
                     GridApi.prototype.rowDataChanged = function (rows) {
-                        console.log('ag-Grid: rowDataChanged is deprecated, either call refreshView() to refresh everything, or call rowNode.setRowData(newData) to set value on a particular node');
+                        //console.log('ag-Grid: rowDataChanged is deprecated, either call refreshView() to refresh everything, or call rowNode.setRowData(newData) to set value on a particular node');
                         this.redrawRows();
                     };
                     // *** deprecated
@@ -4223,10 +4223,10 @@
                     };
                     GridApi.prototype.onGroupExpandedOrCollapsed = function (deprecated_refreshFromIndex) {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('ag-Grid: cannot call onGroupExpandedOrCollapsed unless using normal row model');
+                            //console.log('ag-Grid: cannot call onGroupExpandedOrCollapsed unless using normal row model');
                         }
                         if (utils_1.Utils.exists(deprecated_refreshFromIndex)) {
-                            console.log('ag-Grid: api.onGroupExpandedOrCollapsed - refreshFromIndex parameter is not longer used, the grid will refresh all rows');
+                            //console.log('ag-Grid: api.onGroupExpandedOrCollapsed - refreshFromIndex parameter is not longer used, the grid will refresh all rows');
                         }
                         // we don't really want the user calling this if one one rowNode was expanded, instead they should be
                         // calling rowNode.setExpanded(boolean) - this way we do a 'keepRenderedRows=false' so that the whole
@@ -4236,7 +4236,7 @@
                     };
                     GridApi.prototype.refreshInMemoryRowModel = function (step) {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('cannot call refreshInMemoryRowModel unless using normal row model');
+                            //console.log('cannot call refreshInMemoryRowModel unless using normal row model');
                         }
                         var paramsStep = constants_1.Constants.STEP_EVERYTHING;
                         var stepsMapped = {
@@ -4285,13 +4285,13 @@
                     };
                     GridApi.prototype.addVirtualRowListener = function (eventName, rowIndex, callback) {
                         if (typeof eventName !== 'string') {
-                            console.log('ag-Grid: addVirtualRowListener is deprecated, please use addRenderedRowListener.');
+                            //console.log('ag-Grid: addVirtualRowListener is deprecated, please use addRenderedRowListener.');
                         }
                         this.addRenderedRowListener(eventName, rowIndex, callback);
                     };
                     GridApi.prototype.addRenderedRowListener = function (eventName, rowIndex, callback) {
                         if (eventName === 'virtualRowSelected') {
-                            console.log('ag-Grid: event virtualRowSelected is deprecated, to register for individual row ' +
+                            //console.log('ag-Grid: event virtualRowSelected is deprecated, to register for individual row ' +
                                 'selection events, add a listener directly to the row node.');
                         }
                         this.rowRenderer.addRenderedRowListener(eventName, rowIndex, callback);
@@ -4300,34 +4300,34 @@
                         this.filterManager.setQuickFilter(newFilter);
                     };
                     GridApi.prototype.selectIndex = function (index, tryMulti, suppressEvents) {
-                        console.log('ag-Grid: do not use api for selection, call node.setSelected(value) instead');
+                        //console.log('ag-Grid: do not use api for selection, call node.setSelected(value) instead');
                         if (suppressEvents) {
-                            console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
+                            //console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
                         }
                         this.selectionController.selectIndex(index, tryMulti);
                     };
                     GridApi.prototype.deselectIndex = function (index, suppressEvents) {
                         if (suppressEvents === void 0) { suppressEvents = false; }
-                        console.log('ag-Grid: do not use api for selection, call node.setSelected(value) instead');
+                        //console.log('ag-Grid: do not use api for selection, call node.setSelected(value) instead');
                         if (suppressEvents) {
-                            console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
+                            //console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
                         }
                         this.selectionController.deselectIndex(index);
                     };
                     GridApi.prototype.selectNode = function (node, tryMulti, suppressEvents) {
                         if (tryMulti === void 0) { tryMulti = false; }
                         if (suppressEvents === void 0) { suppressEvents = false; }
-                        console.log('ag-Grid: API for selection is deprecated, call node.setSelected(value) instead');
+                        //console.log('ag-Grid: API for selection is deprecated, call node.setSelected(value) instead');
                         if (suppressEvents) {
-                            console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
+                            //console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
                         }
                         node.setSelectedParams({ newValue: true, clearSelection: !tryMulti });
                     };
                     GridApi.prototype.deselectNode = function (node, suppressEvents) {
                         if (suppressEvents === void 0) { suppressEvents = false; }
-                        console.log('ag-Grid: API for selection is deprecated, call node.setSelected(value) instead');
+                        //console.log('ag-Grid: API for selection is deprecated, call node.setSelected(value) instead');
                         if (suppressEvents) {
-                            console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
+                            //console.log('ag-Grid: suppressEvents is no longer supported, stop listening for the event if you no longer want it');
                         }
                         node.setSelectedParams({ newValue: false });
                     };
@@ -4345,7 +4345,7 @@
                     };
                     GridApi.prototype.recomputeAggregates = function () {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('cannot call recomputeAggregates unless using normal row model');
+                            //console.log('cannot call recomputeAggregates unless using normal row model');
                         }
                         this.inMemoryRowModel.refreshModel({ step: constants_1.Constants.STEP_AGGREGATE });
                     };
@@ -4366,7 +4366,7 @@
                         this.gridPanel.hideOverlay();
                     };
                     GridApi.prototype.isNodeSelected = function (node) {
-                        console.log('ag-Grid: no need to call api.isNodeSelected(), just call node.isSelected() instead');
+                        //console.log('ag-Grid: no need to call api.isNodeSelected(), just call node.isSelected() instead');
                         return node.isSelected();
                     };
                     GridApi.prototype.getSelectedNodesById = function () {
@@ -4403,7 +4403,7 @@
                     };
                     GridApi.prototype.forEachLeafNode = function (callback) {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('cannot call forEachNode unless using normal row model');
+                            //console.log('cannot call forEachNode unless using normal row model');
                         }
                         this.inMemoryRowModel.forEachLeafNode(callback);
                     };
@@ -4412,13 +4412,13 @@
                     };
                     GridApi.prototype.forEachNodeAfterFilter = function (callback) {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('cannot call forEachNodeAfterFilter unless using normal row model');
+                            //console.log('cannot call forEachNodeAfterFilter unless using normal row model');
                         }
                         this.inMemoryRowModel.forEachNodeAfterFilter(callback);
                     };
                     GridApi.prototype.forEachNodeAfterFilterAndSort = function (callback) {
                         if (utils_1.Utils.missing(this.inMemoryRowModel)) {
-                            console.log('cannot call forEachNodeAfterFilterAndSort unless using normal row model');
+                            //console.log('cannot call forEachNodeAfterFilterAndSort unless using normal row model');
                         }
                         this.inMemoryRowModel.forEachNodeAfterFilterAndSort(callback);
                     };
@@ -4772,14 +4772,14 @@
                         this.gridPanel.setBodyAndHeaderHeights();
                     };
                     GridApi.prototype.getFirstRenderedRow = function () {
-                        console.log('in ag-Grid v12, getFirstRenderedRow() was renamed to getFirstDisplayedRow()');
+                        //console.log('in ag-Grid v12, getFirstRenderedRow() was renamed to getFirstDisplayedRow()');
                         return this.getFirstDisplayedRow();
                     };
                     GridApi.prototype.getFirstDisplayedRow = function () {
                         return this.rowRenderer.getFirstVirtualRenderedRow();
                     };
                     GridApi.prototype.getLastRenderedRow = function () {
-                        console.log('in ag-Grid v12, getLastRenderedRow() was renamed to getLastDisplayedRow()');
+                        //console.log('in ag-Grid v12, getLastRenderedRow() was renamed to getLastDisplayedRow()');
                         return this.getLastDisplayedRow();
                     };
                     GridApi.prototype.getLastDisplayedRow = function () {
@@ -5548,7 +5548,7 @@
                     ColumnApi.prototype.moveColumn = function (key, toIndex) {
                         if (typeof key === 'number') {
                             // moveColumn used to take indexes, so this is advising user who hasn't moved to new method name
-                            console.log('ag-Grid: you are using moveColumn(fromIndex, toIndex) - moveColumn takes a column key and a destination index, not two indexes, to move with indexes use moveColumnByIndex(from,to) instead');
+                            //console.log('ag-Grid: you are using moveColumn(fromIndex, toIndex) - moveColumn takes a column key and a destination index, not two indexes, to move with indexes use moveColumnByIndex(from,to) instead');
                             this._columnController.moveColumnByIndex(key, toIndex);
                         }
                         else {
@@ -6253,8 +6253,8 @@
                             if (spread > maxSpread) {
                                 rulesPass = false;
                             }
-                            // console.log(`maxIndex = ${maxIndex}, minIndex = ${minIndex}, spread = ${spread}, maxSpread = ${maxSpread}, fail = ${spread > (count-1)}`)
-                            // console.log(allColumnsCopy.map( col => col.getColDef().field).join(','));
+                            // //console.log(`maxIndex = ${maxIndex}, minIndex = ${minIndex}, spread = ${spread}, maxSpread = ${maxSpread}, fail = ${spread > (count-1)}`)
+                            // //console.log(allColumnsCopy.map( col => col.getColDef().field).join(','));
                         });
                         return rulesPass;
                     };
@@ -8153,7 +8153,7 @@
                         else {
                             this.pinned = null;
                         }
-                        // console.log(`setColumnsPinned ${this.getColId()} ${this.pinned}`);
+                        // //console.log(`setColumnsPinned ${this.getColId()} ${this.pinned}`);
                     };
                     Column.prototype.setFirstRightPinned = function (firstRightPinned) {
                         if (this.firstRightPinned !== firstRightPinned) {
@@ -8759,9 +8759,9 @@
                         catch (e) {
                             // the expression failed, which can happen, as it's the client that
                             // provides the expression. so print a nice message
-                            console.log('Processing of the expression failed');
-                            console.log('Expression = ' + expression);
-                            console.log('Exception = ' + e);
+                            //console.log('Processing of the expression failed');
+                            //console.log('Expression = ' + expression);
+                            //console.log('Exception = ' + e);
                             return null;
                         }
                     };
@@ -10958,7 +10958,7 @@
                                 }, 500);
                             }
                             else {
-                                console.log('ag-Grid: tried to call sizeColumnsToFit() but the grid is coming back with ' +
+                                //console.log('ag-Grid: tried to call sizeColumnsToFit() but the grid is coming back with ' +
                                     'zero width, maybe the grid is not visible yet on the screen?');
                             }
                         }
@@ -11938,7 +11938,7 @@
                             this.eOverlayWrapper.appendChild(overlay);
                         }
                         else {
-                            console.log('ag-Grid: unknown overlay');
+                            //console.log('ag-Grid: unknown overlay');
                             this.hideOverlay();
                         }
                     };
@@ -12185,7 +12185,7 @@
                         // let tapTarget = this.currentDragParams.eElement;
                         this.onUpCommon(touch);
                         // if tap, tell user
-                        // console.log(`${Math.random()} tap = ${tap}`);
+                        // //console.log(`${Math.random()} tap = ${tap}`);
                         // if (tap) {
                         //     tapTarget.click();
                         // }
@@ -13781,7 +13781,7 @@
                     CellComp.prototype.doIeFocusHack = function () {
                         if (utils_1._.isBrowserIE() || utils_1._.isBrowserEdge()) {
                             if (utils_1._.missing(document.activeElement) || document.activeElement === document.body) {
-                                // console.log('missing focus');
+                                // //console.log('missing focus');
                                 this.getGui().focus();
                             }
                         }
@@ -14389,7 +14389,7 @@
                             return 0;
                         }
                         if (this.rowPinned) {
-                            console.log('ag-Grid: cannot select pinned rows');
+                            //console.log('ag-Grid: cannot select pinned rows');
                             return 0;
                         }
                         // if we are a footer, we don't do selection, just pass the info
@@ -14676,7 +14676,7 @@
                         this.initialised = true;
                     };
                     ValueService.prototype.getValue = function (column, rowNode, ignoreAggData) {
-                        // console.log(`turnActive = ${this.turnActive}`);
+                        // //console.log(`turnActive = ${this.turnActive}`);
                         if (ignoreAggData === void 0) { ignoreAggData = false; }
                         // hack - the grid is getting refreshed before this bean gets initialised, race condition.
                         // really should have a way so they get initialised in the right order???
@@ -17839,7 +17839,7 @@
                         // part 1 - rowStyle
                         var rowStyle = this.beans.gridOptionsWrapper.getRowStyle();
                         if (rowStyle && typeof rowStyle === 'function') {
-                            console.log('ag-Grid: rowStyle should be an object of key/value styles, not be a function, use getRowStyle() instead');
+                            //console.log('ag-Grid: rowStyle should be an object of key/value styles, not be a function, use getRowStyle() instead');
                             return;
                         }
                         // part 1 - rowStyleFunc
@@ -17897,7 +17897,7 @@
                         var _this = this;
                         this.addDomData(eRow);
                         this.removeSecondPassFuncs.push(function () {
-                            // console.log(eRow);
+                            // //console.log(eRow);
                             rowContainerComp.removeRowElement(eRow);
                         });
                         this.removeFirstPassFuncs.push(function () {
@@ -23838,7 +23838,7 @@
                         var _this = this;
                         this.focusAfterAttached = params.cellStartedEdit;
                         if (utils_1.Utils.missing(params.values)) {
-                            console.log('ag-Grid: no values found for select cellEditor');
+                            //console.log('ag-Grid: no values found for select cellEditor');
                             return;
                         }
                         params.values.forEach(function (value) {
@@ -24872,7 +24872,7 @@
                                     }
                                     break;
                                 default:
-                                    console.log('ag-Grid: unknown key for navigation ' + key);
+                                    //console.log('ag-Grid: unknown key for navigation ' + key);
                                     pointer = null;
                                     break;
                             }
@@ -25584,7 +25584,7 @@
                             }
                             var horizontalFit = mouseEvent.clientX >= rect.left && mouseEvent.clientX <= rect.right;
                             var verticalFit = mouseEvent.clientY >= rect.top && mouseEvent.clientY <= rect.bottom;
-                            //console.log(`rect.width = ${rect.width} || rect.height = ${rect.height} ## verticalFit = ${verticalFit}, horizontalFit = ${horizontalFit}, `);
+                            ////console.log(`rect.width = ${rect.width} || rect.height = ${rect.height} ## verticalFit = ${verticalFit}, horizontalFit = ${horizontalFit}, `);
                             if (horizontalFit && verticalFit) {
                                 gotMatch = true;
                             }
@@ -27557,7 +27557,7 @@
                         var rowModelType = this.rowModel.getType();
                         var rowModelMatches = rowModelType === constants_1.Constants.ROW_MODEL_TYPE_IN_MEMORY;
                         if (!rowModelMatches) {
-                            console.log("ag-Grid: selectAllCheckbox is only available if using normal row model, you are using " + rowModelType);
+                            //console.log("ag-Grid: selectAllCheckbox is only available if using normal row model, you are using " + rowModelType);
                         }
                     };
                     SelectAllFeature.prototype.onCbSelectAll = function () {
@@ -28644,7 +28644,7 @@
                         var doingTreeData = this.gridOptionsWrapper.isTreeData();
                         var doingMultiAutoColumn = this.gridOptionsWrapper.isGroupMultiAutoColumn();
                         if (doingTreeData && doingMultiAutoColumn) {
-                            console.log('ag-Grid: you cannot mix groupMultiAutoColumn with treeData, only one column can be used to display groups when doing tree data');
+                            //console.log('ag-Grid: you cannot mix groupMultiAutoColumn with treeData, only one column can be used to display groups when doing tree data');
                             doingMultiAutoColumn = false;
                         }
                         // if doing groupMultiAutoColumn, then we call the method multiple times, once
@@ -29306,7 +29306,7 @@
                         this.setColumnsAndData();
                         this.dispatchGridReadyEvent(gridOptions);
                         if (gridOptions.debug) {
-                            console.log('ag-Grid -> initialised successfully, enterprise = ' + enterprise);
+                            //console.log('ag-Grid -> initialised successfully, enterprise = ' + enterprise);
                         }
                     }
                     Grid.setEnterpriseBeans = function (enterpriseBeans, rowModelClasses) {
@@ -31504,27 +31504,27 @@
                         // eg if STEP_FILTER, then all steps below this
                         // step get done
                         // let start: number;
-                        // console.log('======= start =======');
+                        // //console.log('======= start =======');
                         var changedPath = this.createChangePath(params.rowNodeTransaction);
                         switch (params.step) {
                             case constants_1.Constants.STEP_EVERYTHING:
                                 // start = new Date().getTime();
                                 this.doRowGrouping(params.groupState, params.rowNodeTransaction, params.rowNodeOrder, changedPath);
-                            // console.log('rowGrouping = ' + (new Date().getTime() - start));
+                            // //console.log('rowGrouping = ' + (new Date().getTime() - start));
                             case constants_1.Constants.STEP_FILTER:
                                 // start = new Date().getTime();
                                 this.doFilter();
-                            // console.log('filter = ' + (new Date().getTime() - start));
+                            // //console.log('filter = ' + (new Date().getTime() - start));
                             case constants_1.Constants.STEP_PIVOT:
                                 this.doPivot();
                             case constants_1.Constants.STEP_AGGREGATE:// depends on agg fields
                                 // start = new Date().getTime();
                                 this.doAggregate(changedPath);
-                            // console.log('aggregation = ' + (new Date().getTime() - start));
+                            // //console.log('aggregation = ' + (new Date().getTime() - start));
                             case constants_1.Constants.STEP_SORT:
                                 // start = new Date().getTime();
                                 this.doSort();
-                            // console.log('sort = ' + (new Date().getTime() - start));
+                            // //console.log('sort = ' + (new Date().getTime() - start));
                             case constants_1.Constants.STEP_MAP:
                                 // start = new Date().getTime();
                                 this.doRowsToDisplay();
@@ -34162,7 +34162,7 @@
                         _this.timerCount = 0;
                         _this.removeChildFuncs = [];
                         return _this;
-                        // console.log('MenuList->constructor() ' + this.instance);
+                        // //console.log('MenuList->constructor() ' + this.instance);
                     }
                     MenuList.prototype.clearActiveItem = function () {
                         this.removeActiveItem();
@@ -34178,7 +34178,7 @@
                                 _this.addSeparator();
                             }
                             else if (typeof menuItemOrString === 'string') {
-                                console.log("ag-Grid: unrecognised menu item " + menuItemOrString);
+                                //console.log("ag-Grid: unrecognised menu item " + menuItemOrString);
                             }
                             else {
                                 var menuItem = menuItemOrString;
@@ -34270,7 +34270,7 @@
                         this.removeChildFuncs = [];
                     };
                     MenuList.prototype.destroy = function () {
-                        // console.log('MenuList->destroy() ' + this.instance);
+                        // //console.log('MenuList->destroy() ' + this.instance);
                         this.removeChildPopup();
                         _super.prototype.destroy.call(this);
                     };
@@ -34343,7 +34343,7 @@
                                 this.queryForHtmlElement('#eIcon').innerHTML = this.params.icon;
                             }
                             else {
-                                console.log('ag-Grid: menu item icon must be DOM node or string');
+                                //console.log('ag-Grid: menu item icon must be DOM node or string');
                             }
                         }
                         else {
@@ -34401,7 +34401,7 @@
                         }
                     };
                     MenuItemComponent.prototype.destroy = function () {
-                        // console.log('MenuItemComponent->destroy() ' + this.instance);
+                        // //console.log('MenuItemComponent->destroy() ' + this.instance);
                         _super.prototype.destroy.call(this);
                     };
                     // private instance = Math.random();
@@ -34577,7 +34577,7 @@
                             };
                             case 'separator': return 'separator';
                             default:
-                                console.log("ag-Grid: unknown menu item type " + key);
+                                //console.log("ag-Grid: unknown menu item type " + key);
                                 return null;
                         }
                     };
@@ -35410,11 +35410,11 @@
                         var fromIndex = allColumns.indexOf(columnFrom);
                         var toIndex = allColumns.indexOf(columnTo);
                         if (fromIndex < 0) {
-                            console.log('ag-Grid: column ' + columnFrom.getId() + ' is not visible');
+                            //console.log('ag-Grid: column ' + columnFrom.getId() + ' is not visible');
                             return null;
                         }
                         if (toIndex < 0) {
-                            console.log('ag-Grid: column ' + columnTo.getId() + ' is not visible');
+                            //console.log('ag-Grid: column ' + columnTo.getId() + ' is not visible');
                             return null;
                         }
                         var firstIndex = Math.min(fromIndex, toIndex);
@@ -37822,7 +37822,7 @@
                         }
                         this.renderSelectedValue();
                         if (main_1.Utils.missing(params.values)) {
-                            console.log('ag-Grid: richSelectCellEditor requires values for it to work');
+                            //console.log('ag-Grid: richSelectCellEditor requires values for it to work');
                             return;
                         }
                         var values = params.values;
@@ -39043,7 +39043,7 @@
                         }
                     };
                     ViewportRowModel.prototype.isRowPresent = function (rowNode) {
-                        console.log('not yet supported');
+                        //console.log('not yet supported');
                         return false;
                     };
                     __decorate([

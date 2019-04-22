@@ -6,7 +6,7 @@ angular.module('AOTC').controller('notificationsCtrl', function (newContractServ
     $scope.contractList = [];
     $scope.searchText = '';
     //$scope.viewInvoices = function (contract) {
-    //    console.log(contract)
+    //    //console.log(contract)
     //    $state.go(
     //        'InvoiceList', { id: contract.id }
     //    );
@@ -72,7 +72,7 @@ angular.module('AOTC').controller('notificationsCtrl', function (newContractServ
         var url = 'timeline/getJurisdictions';
         AOTCService.getDataFromServer(url)
             .then(function (result) {
-                //console.log("CompForm: ", result);
+                ////console.log("CompForm: ", result);
                 if (result.data.success) {
                     var response = result.data;
                     var _array = [];
@@ -98,7 +98,7 @@ angular.module('AOTC').controller('notificationsCtrl', function (newContractServ
                 $("#preloader").css("display", "none");
 
             }, function (result) {
-                //console.log(result);
+                ////console.log(result);
                 $("#preloader").css("display", "none");
             });
 

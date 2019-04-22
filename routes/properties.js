@@ -83,8 +83,8 @@ router.get('/getAllProperties', function(req, res, next) {
 });
 
 router.post('/getAJPublicProperties', function(req, res, next) {
-    // console.log("pro")
-    // console.log(req.body);
+    // //console.log("pro")
+    // //console.log(req.body);
 	if (!req.user[0].roles.publicData)
     {
         Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
@@ -176,7 +176,7 @@ router.get('/getPropertyDetialsById', function(req, res, next) {
 });
 
 router.post('/assignPropertyToAgent', function(req, res, next) {
-    // console.log(req.body);
+    // //console.log(req.body);
     BLL.assignPropertyToAgent(req, res);
 });
 

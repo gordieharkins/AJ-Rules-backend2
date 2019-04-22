@@ -136,7 +136,7 @@ DAL.prototype.getPropertyDetialsById = function(propertyId, cb) {
 // get all properties Master and Slaves with pagination
 // ---------------------------------------------
 DAL.prototype.getMasterProperties = function(data, userId, relation, cb) {
-    // console.log(relation);
+    // //console.log(relation);
     var skip = data.startRow;
     var queryOrders = `id(master)`;
     var queryFilters = "";
@@ -324,7 +324,7 @@ DAL.prototype.getAllProperties = function(data, cb) {
         }
     }, function(err, count) {
         if(err){
-            // console.log(count);
+            // //console.log(count);
             cb(err, count);
             return;
         } else if(count[0] === undefined){
@@ -802,7 +802,7 @@ DAL.prototype.addProperty = function(properties, fileName, userId, cb) {
         query: query,
         params:params
     }, function(err, results) {
-        console.log(err);
+        //console.log(err);
         cb(err, results);
     });
 };
@@ -828,7 +828,7 @@ DAL.prototype.checkExistingProperties = function(checkParameters, cb) {
         query: query,
         params: checkParameters
     }, function(err, results) {
-        // console.log(results)
+        // //console.log(results)
         cb(err, results);
     });
 };
@@ -890,7 +890,7 @@ DAL.prototype.deletePropertiesByIds = function(propertyIds, userId, cb) {
 // assignPropertyToAgent
 // ---------------------------------------------
 DAL.prototype.assignPropertyToAgent = function(data, cb) {
-    // console.log(data);
+    // //console.log(data);
     var params = {
         propertyIds: data.propId,
         agentIds: data.agentId,
@@ -916,7 +916,7 @@ DAL.prototype.assignPropertyToAgent = function(data, cb) {
 // getAssignedUsers
 // ---------------------------------------------
 DAL.prototype.getAssignedUsers = function(data, cb) {
-    // console.log(data);
+    // //console.log(data);
     var params = {
         propertyIds: data.propId
     }
@@ -935,7 +935,7 @@ DAL.prototype.getAssignedUsers = function(data, cb) {
 // removeAssignedUser
 // ---------------------------------------------
 DAL.prototype.removeAssignedUser = function(data, cb) {
-    // console.log(data);
+    // //console.log(data);
     var params = {
         propertyIds: data.propId,
         agentId: data.agentId
@@ -957,7 +957,7 @@ DAL.prototype.removeAssignedUser = function(data, cb) {
 // getPublicPropertyDetailsById
 // ---------------------------------------------
 DAL.prototype.getPublicPropertyDetailsById = function(data, cb) {
-    //console.log(data);
+    ////console.log(data);
     var params = {
         propId: data.publicPropertyId
     }
@@ -1110,7 +1110,7 @@ DAL.prototype.getAJPublicProperties = function(data, cb) {
     //         });
     //     }
     // });
-    // console.log("data:", data);
+    // //console.log("data:", data);
     var skip = data.startRow;
     var paginationPageSize = data.paginationPageSize;
     var query = "";
@@ -1151,7 +1151,7 @@ DAL.prototype.getAJPublicProperties = function(data, cb) {
     // }
     
 
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params:params
@@ -1176,7 +1176,7 @@ DAL.prototype.getAJPublicProperties = function(data, cb) {
 // get all IE files and their status against all properties
 // ---------------------------------------------
 DAL.prototype.getFileStatusIE = function(userId, cb) {
-    // console.log("in DAL");
+    // //console.log("in DAL");
     userId = parseInt(userId);
 
     var query = `match(n:user) where id(n) = {userId}
@@ -1200,7 +1200,7 @@ DAL.prototype.getFileStatusIE = function(userId, cb) {
 // get all RR files and their status against all properties
 // ---------------------------------------------
 DAL.prototype.getFileStatusRR = function(userId, cb) {
-    // console.log("in DAL");
+    // //console.log("in DAL");
     userId = parseInt(userId);
 
     var query = `match(n:user) where id(n) = {userId}

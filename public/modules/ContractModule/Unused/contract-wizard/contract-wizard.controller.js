@@ -1,6 +1,6 @@
 'use strict';
 angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $location, $state, AOTCService) {
-        //console.log("ContractWizardCtrl")
+        ////console.log("ContractWizardCtrl")
         var userid = localStorage.getItem('userId');
         $scope.options = 'Select Options'
         $scope.templateData = [];
@@ -45,7 +45,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
             });
             $scope.addContractFlag = true;
 
-            //console.log($scope.models.lists);
+            ////console.log($scope.models.lists);
         }
 
         $scope.selectOptions = function(index, data) {
@@ -53,7 +53,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
         };
 
         $scope.saveSingleContract = function(index, data) {
-            //console.log(data)
+            ////console.log(data)
             var userid = localStorage.getItem('userId');
             data[index].editable = true;
             $scope.postContract = { contractId: contractId, userId: userid, sections: data };
@@ -74,7 +74,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
             post($scope.postContract)
             //$scope.models.lists=data;
 
-            //console.log("saving" + $scope.postContract);
+            ////console.log("saving" + $scope.postContract);
         }
 
         $scope.editContract = function(data) {
@@ -85,7 +85,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
         }
 
         $scope.saveAsTemplate = function(data) {
-            //console.log(data)
+            ////console.log(data)
             for (var i = 0; i < $scope.templateData.length; i++) {
                 if (!$scope.templateData[i]) {
                     $scope.templateData[i] = data
@@ -99,7 +99,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
         $scope.addNewContract = function(data) {
             $scope.contractList = !($scope.contractList);
             $scope.models.lists = [];
-            // //console.log(data)
+            // ////console.log(data)
             // for (var i = 0; i < $scope.templateData.length; i++) {
             //     if (!$scope.templateData[i]) {
             //         $scope.templateData[i] = data
@@ -120,7 +120,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
         })
 
         $scope.$on('my-created', function(ev, val) {
-            //console.log('draggable' + val.name)
+            ////console.log('draggable' + val.name)
 
             $scope.index = val.to
             $scope.models.lists.push(val.to, 0, JSON.parse(val.name));
@@ -130,15 +130,15 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
 
 
         function post(data) {
-            //console.log("posoting" + data)
+            ////console.log("posoting" + data)
             $("#preloader").css("display", "block");
 
             var url = 'contracts/addContracts';
             AOTCService.postDataToServer(url, data)
                 .then(function(repsonse) {
-                    //console.log("ContractWizard: ", repsonse);
+                    ////console.log("ContractWizard: ", repsonse);
                     if (repsonse.data.message) {
-                        //console.log(repsonse.data.result.contractId)
+                        ////console.log(repsonse.data.result.contractId)
 
                         contractId = repsonse.data.result.contractId;
                         $scope.models.lists = repsonse.data.result.sections;
@@ -151,7 +151,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
                     $("#preloader").css("display", "none");
 
                 }, function(result) {
-                    ////console.log(result);
+                    //////console.log(result);
                     $("#preloader").css("display", "none");
                 });
 
@@ -161,16 +161,16 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
             $("#preloader").css("display", "block");
 
             var url = 'contracts/getContracts';
-            //console.log(url);
+            ////console.log(url);
             AOTCService.getDataFromServer(url)
                 .then(function(response) {
-                    //console.log(response);
+                    ////console.log(response);
                     $scope.contracts = response.data.result;
-                    //console.log($scope.contracts);
+                    ////console.log($scope.contracts);
                     $("#preloader").css("display", "none");
 
                 }, function(result) {
-                    ////console.log(result);
+                    //////console.log(result);
                     $("#preloader").css("display", "none");
                 });
         }
@@ -185,7 +185,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
                     revert: true
                 });
                 el.disableSelection();
-                //console.log("p")
+                ////console.log("p")
 
                 el.on("sortdeactivate", function(event, ui) {
                     var from = angular.element(ui.item).scope().$index;
@@ -195,7 +195,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
                             if (from >= 0) {
                                 scope.$emit('my-sorted', { from: from, to: to });
                             } else {
-                                //console.log("data---" + from)
+                                ////console.log("data---" + from)
                                 scope.$emit('my-created', { to: to, "name": ui.item.text() });
                                 ui.item.remove();
                             }
@@ -210,7 +210,7 @@ angular.module('AOTC').controller('ContractWizardCtrl', function($scope, $locati
 
         return {
             link: function(scope, el, attrs) {
-                //console.log('draggable')
+                ////console.log('draggable')
                 el.draggable({
                     connectToSortable: attrs.myDraggable,
                     helper: "clone",

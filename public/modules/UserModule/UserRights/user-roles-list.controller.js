@@ -67,7 +67,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
             .then(function successCallback(response) {
                 $('#preloader').css("display", "none");
 
-                ////console.log("result is ", response);
+                //////console.log("result is ", response);
                 var serverData = response.data;
                 //set token
                 if (serverData.success) {
@@ -86,7 +86,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
     };
 
     $scope.uplaodFile = function(file) {
-        console.log(file.files)
+        //console.log(file.files)
         $("#preloader").css("display", "block");
         sendFile = null;
         var files = file.files;
@@ -110,7 +110,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
             $scope.$emit('error', result.data.message)
             sendFile = null;
             $scope.fileName = ''
-            ////console.log(result);
+            //////console.log(result);
         });
         
   }
@@ -125,7 +125,7 @@ function _userRolesListCtrl($stateParams, $state, $location, $scope, AOTCService
             .then(function successCallback(response) {
                 $('#preloader').css("display", "none");
 
-                ////console.log("result is ", response);
+                //////console.log("result is ", response);
                 var serverData = response.data;
                 //set token
                 if (serverData.success) {

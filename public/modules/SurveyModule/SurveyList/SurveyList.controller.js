@@ -6,7 +6,7 @@ module.exports = _SurveyList;
 //angular.module('AOTC').controller('SurveyList', _SurveyList
 //    );
 function _SurveyList($scope, $location, $state, SurveylistService) {
-    console.log("SurveyList controller");
+    //console.log("SurveyList controller");
     $scope.surveyData=[];
     $scope.searchText='';
 
@@ -18,7 +18,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
             $("#preloader").css("display", "none");
 
             var serverData = result.data;
-            console.log(serverData)
+            //console.log(serverData)
 
             if (serverData.success) {
                 if (serverData) {
@@ -28,7 +28,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
 
         }, function(err) {
             //some error
-            // console.log("Error: ", err);
+            // //console.log("Error: ", err);
             $("#preloader").css("display", "none");
         });
     }
@@ -69,7 +69,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
 
         }, function(err) {
             //some error
-            // console.log("Error: ", err);
+            // //console.log("Error: ", err);
             $("#preloader").css("display", "none");
         });
     }
@@ -86,7 +86,7 @@ function _SurveyList($scope, $location, $state, SurveylistService) {
     }
 
     $scope.GotoViewSubmission = function(data){
-        console.log(data)
+        //console.log(data)
         $state.go('SubmissionList',{id:data.id});
     }
 

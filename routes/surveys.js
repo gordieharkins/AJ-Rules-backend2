@@ -9,7 +9,7 @@ var BLL = new surveysBLLFile();
 router.use(function (req, res, next) {
     if (!req.user[0].roles.surveys)
     {
-        console.log(req.user[0]);
+        //console.log(req.user[0]);
         Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
         return;
     }
@@ -111,53 +111,58 @@ router.get('/getFormSubmissions', function(req, res, next) {
 });
 
 router.post('/addNewSubmission', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.addNewSubmission(req, res);
 });
 
 router.post('/getSubmissionData', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.getSubmissionData(req, res);
 });
 
 router.post('/surveysToAJrules', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.surveysToAJrules(req, res);
 });
 
 router.post('/updateSubmissionData', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.updateSubmissionData(req, res);
 });
 
 router.get('/getFormQuestions', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.getFormQuestions(req, res);
 });
 
 router.post('/addNewForm', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.addNewForm(req, res);
 });
 
 router.post('/getHistory', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.getHistory(req, res);
 });
 
 router.get('/getReports', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.getReports(req, res);
 });
 
 router.post('/autoSave', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.autoSave(req, res);
 });
 
 router.get('/getStates', function(req, res, next) {
-    // console.log("here");
+    // //console.log("here");
     BLL.getStates(req, res);
+});
+
+router.get('/surveyJsonToRules', function(req, res, next) {
+    // //console.log("here");
+    BLL.surveyJsonToRules(req, res);
 });
 
 module.exports = router;

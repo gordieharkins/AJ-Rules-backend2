@@ -44,7 +44,7 @@ function IncomeExpenseParser(){
 IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fileName, originalFileName1, mycb) {
 	var incomeExpense = {};
     var fileType = getFileType(fileBuffer);
-	// console.log("fileType: ****",fileType);
+	// //console.log("fileType: ****",fileType);
 
 	if (fileType == UNKNOWN_FILE_TYPE ){
 		incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
@@ -147,15 +147,15 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
 			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
 			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
+			// 	//console.log("IE parser.js" , incomeExpense);
 			// 	mycb(incomeExpense);
 			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -179,15 +179,15 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
 			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
 			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
+			// 	//console.log("IE parser.js" , incomeExpense);
 			// 	mycb(incomeExpense);
 			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -211,15 +211,15 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
 			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
 			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
+			// 	//console.log("IE parser.js" , incomeExpense);
 			// 	mycb(incomeExpense);
 			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -243,15 +243,15 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			var incomeExpense = results[1];
 			if(incomeExpense === null || incomeExpense[0].address === '' || incomeExpense[0].IEYear === null || incomeExpense[0].address === null) {
 				incomeExpense = [{IEYear:['Income Expense Statement of','unknown'],parsed:['Parsed Status','false'],originalFileName:["original filename",originalFileName1]}];
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				mycb(incomeExpense);
 			// }else if(incomeExpense[0].IEYear != null && incomeExpense[0].address != null){
 			// 	incomeExpense[0].parsed = ['Parsed Status','true'];
-			// 	console.log("IE parser.js" , incomeExpense);
+			// 	//console.log("IE parser.js" , incomeExpense);
 			// 	mycb(incomeExpense);
 			// }else{
 			}else{
-				// console.log("IE parser.js" , incomeExpense);
+				// //console.log("IE parser.js" , incomeExpense);
 				incomeExpense[0].parsed = ['Parsed Status','true'];				
 				mycb(incomeExpense);
 			}
@@ -272,7 +272,7 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 
         case YARDI_IE_17_FILE_TYPE:
 			incomeExpense = yardiIE17.parseFile(file,"YardiIE17");
-			console.log("IE",incomeExpense);
+			//console.log("IE",incomeExpense);
             break;
 
         case MULTIPLE_SHEETS_FILE_TYPE:
@@ -287,31 +287,31 @@ IncomeExpenseParser.prototype.parseIncomeExpenseFile = function (fileBuffer, fil
 			break;
 		case YARDI_IE_16_FILE_TYPE:
 			//incomeExpense = yardiIE16.parseFile(file);
-			console.log("I am here in yardi ie 16");
+			//console.log("I am here in yardi ie 16");
 
 			yardiIE17.getHeaders("YardiIE16",function(result){
-				console.log("result",result);
+				//console.log("result",result);
 				incomeExpense = yardiIE17.parseFile(file,"YardiIE16",result);
-				console.log("IE",incomeExpense);
+				//console.log("IE",incomeExpense);
 			break;
 				
 			});
 
 			// var headers = yardiIE17.getHeaders("YardiIE16");
-			// console.log(headers);
+			// //console.log(headers);
 			// yardiIE17.parseFile(file,"YardiIE16",headers);
-			// console.log("IE: ",incomeExpense);
+			// //console.log("IE: ",incomeExpense);
 			// break;
-			// console.log(result);
+			// //console.log(result);
 			// incomeExpense = yardiIE17.parseFile(file,"YardiIE16");
 			// yardiIE17.parseFile(file,"YardiIE16",function(incomeExpense){
-			// 	console.log("IE",incomeExpense);
+			// 	//console.log("IE",incomeExpense);
 				
 			// });
 			
 	}*/
 	// if(incomeExpense === null || incomeExpense[0].address === null || incomeExpense[0].IEYear === null) {
-	// 	console.log("in error 2");
+	// 	//console.log("in error 2");
 	// 	throw new InvalidFileFormat(Response.REPLY_MSG.FIELDS_NOT_FOUND);
 	// }
     // return incomeExpense;
@@ -326,7 +326,7 @@ function getFileType(fileBuffer) {
 		for(var index = 0; index < rows.length; index++) {
 			// Get cells
 			var cells=rows[index].split("|");
-			// console.log(cells);
+			// //console.log(cells);
 			if(workbook.SheetNames.length > 2 && workbook.SheetNames[0] == STMT_SHEET_NAME){
 				fileType = MULTIPLE_SHEETS_FILE_TYPE;
 				return fileType;
@@ -335,9 +335,9 @@ function getFileType(fileBuffer) {
 				for(cellIndex = 0; cellIndex < cells.length; cellIndex++){
 					var cellValue = cells[cellIndex];
 					// if(cellValue !== ''){
-					// // console.log("cell value in get file type: ",cellValue);
+					// // //console.log("cell value in get file type: ",cellValue);
 					// }
-					// console.log(cellValue.toLowerCase().trim(), cellIndex);
+					// //console.log(cellValue.toLowerCase().trim(), cellIndex);
 					if(cellValue.toLowerCase().trim() == YARDI_B_COMPARISON_COLUMN_NAME.toLowerCase()){
 						var yardiOtherformat = "Base Rent Income";
 						var yardi = "REVENUES";

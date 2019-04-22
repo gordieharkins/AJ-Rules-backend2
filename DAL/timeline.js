@@ -136,7 +136,7 @@ DAL.prototype.getNotifications = function(userId, cb) {
 }
 
 DAL.prototype.markAsRead = function(notId, cb) {
-    // console.log("noti id: ",notId);
+    // //console.log("noti id: ",notId);
     var query = `Match ()-[rel:notification]->(notification:notifications) where id(notification) = {notId} set rel.readFlag = 1 return notification`;
 
      db.cypher({
@@ -170,7 +170,7 @@ DAL.prototype.getUserIds = function(cb){
 // create (n: notifications{details})
 // create (user)-[:notification]->(n)`;
 DAL.prototype.sendNotifications = function(details,readFlag,daysLeft,userId,cb) {
-    // console.log(JSON.stringify(details));
+    // //console.log(JSON.stringify(details));
     // var query = `Match (user) where id(user) = {userId} 
     //             merge (n: notifications`+converter.cypherJsonConverter(details)+`)
     //             create unique(user)-[:notification]->(n)`;
@@ -270,7 +270,7 @@ DAL.prototype.linkInternalEvent = function(data, cb) {
 // // getTimelineForJurisdiction
 // //--------------------------------------------------------
 // DAL.prototype.linkInternalEvent = function(data, cb) {
-//     console.log(data);
+//     //console.log(data);
 //     var query = `MATCH (externalEvent) where id(externalEvent) = {externalId}
 //                 MATCH (internalEvents) where id(internalEvents) IN {internalIds}
 //                 CREATE (externalEvent)-[:HAS]->(internalEvents)

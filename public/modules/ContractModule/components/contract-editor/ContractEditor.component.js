@@ -76,7 +76,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
                     //newContractService.saveContractData(response.result);
                     //show ag-grid
                 }, function (err) {
-                    console.log(err);
+                    //console.log(err);
                 });
         };
 
@@ -96,7 +96,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
     getContractFiles();
 
     $scope.$on('updateDocument', function (evt, args) {
-        console.log(newContractService.getFinancialAndNonFinancialTerms());
+        //console.log(newContractService.getFinancialAndNonFinancialTerms());
         $scope.financialAndNonFinancialTerms = newContractService.getFinancialAndNonFinancialTerms();
         updateDocument();
     });
@@ -107,10 +107,10 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
         // $scope.content;
         for (var i = 0; i < $scope.financialAndNonFinancialTerms.length; i++) {
             var label = $scope.financialAndNonFinancialTerms[i].label;
-            console.log('label=>', label);
+            //console.log('label=>', label);
             var matchedLabelIndex = findIndeces(label, $scope.content);
             if (matchedLabelIndex.startIndex) {
-                console.log('data=>', matchedLabelIndex);
+                //console.log('data=>', matchedLabelIndex);
                 $scope.content =
                     $scope.content.substring(0, matchedLabelIndex.startIndex) +
                     $scope.financialAndNonFinancialTerms[i].value +
@@ -133,8 +133,8 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
         for (var i = 0; i < htmlContent.length; i++) {
 
             if (validSyntax && htmlContent[i] === "[" && htmlContent[i + 1] === "[") {
-                // console.log('found startIndex' , htmlContent[i] , htmlContent[i+1] , i , i+1)
-                // console.log('foundStartIndex' , foundStartIndex)
+                // //console.log('found startIndex' , htmlContent[i] , htmlContent[i+1] , i , i+1)
+                // //console.log('foundStartIndex' , foundStartIndex)
                 if (foundStartIndex) {
                     validSyntax = false;
                     break;
@@ -146,8 +146,8 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
             }
 
             if (validSyntax && htmlContent[i] === "]" && htmlContent[i + 1] === "]") {
-                // console.log('found endIndex' , htmlContent[i] , htmlContent[i+1] , i , i+1)
-                // console.log('foundStartIndex' , foundStartIndex)
+                // //console.log('found endIndex' , htmlContent[i] , htmlContent[i+1] , i , i+1)
+                // //console.log('foundStartIndex' , foundStartIndex)
 
                 if (!foundStartIndex) {
                     validSyntax = false;
@@ -164,7 +164,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
             }
 
         }
-        console.log('validSyntax = ', validSyntax);
+        //console.log('validSyntax = ', validSyntax);
         if (foundStartIndex) {
             validSyntax = false;
             return null;
@@ -227,7 +227,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
 
         newContractService.addContractTemplate(json) //addContract
             .then(function (response) {
-                console.log(response);
+                //console.log(response);
                 $('#preloader').css('display', 'none');
                 $('#newFormat').modal('toggle');
 
@@ -243,7 +243,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
 
             }, function (err) {
                 $('#preloader').css('display', 'none');
-                console.log(err);
+                //console.log(err);
             });
 
     }
@@ -273,7 +273,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
             .then(function (response) {
                 $('#preloader').css('display', 'none');
                 $('#newFormat').modal('toggle');
-                console.log(response);
+                //console.log(response);
 
                 if (!response.success) {
                     return;
@@ -285,7 +285,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
                 getContractFiles();
             }, function (err) {
                 $('#preloader').css('display', 'none');
-                console.log(err);
+                //console.log(err);
             });
 
     }
@@ -297,7 +297,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
             .then(function (response) {
                 $('#preloader').css('display', 'none');
 
-                console.log(response);
+                //console.log(response);
                 $scope.contractFiles = [];
 
                 if (!response.success) {
@@ -308,7 +308,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
 
             }, function (err) {
                 $('#preloader').css('display', 'none');
-                console.log(err);
+                //console.log(err);
             });
 
     }
@@ -324,7 +324,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
     };
 
     $scope.onReady = function () {
-        console.log('done I am ready')
+        //console.log('done I am ready')
     };
 
     $scope.fileUploaded = function () {
@@ -351,7 +351,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
 
             newContractService.uploadContractsFiles($scope.fileData).
             then(function (result) {
-                console.log(result);
+                //console.log(result);
                 $('#uploadedContracts').modal('toggle');
 
 
@@ -362,7 +362,7 @@ function controllerFunction($scope, $timeout, $location, $state, UtilService, ne
             }, function (err) {
 
                 $("#preloader").css("display", "none");
-                console.log(result);
+                //console.log(result);
 
             });
 
@@ -398,7 +398,7 @@ function directiveFunction($timeout) {
             if (!ngModel) return;
 
             CKEDITOR.on('instanceReady', function () {
-                console.log('instanceReady')
+                //console.log('instanceReady')
 
                 // ck.setData(ngModel.$viewValue);
 
@@ -409,8 +409,8 @@ function directiveFunction($timeout) {
                     CKEDITOR.plugins.clipboard.initDragDataTransfer(evt);
 
                     var dataTransfer = evt.data.dataTransfer;
-                    console.log('data is => ', target.data('contact'))
-                    // console.log('data is => ', CONTACTS[target.data('contact')])
+                    //console.log('data is => ', target.data('contact'))
+                    // //console.log('data is => ', CONTACTS[target.data('contact')])
                     // dataTransfer.setData('contact', CONTACTS[target.data('contact')]);
                     // dataTransfer.setData('text/html', target.getText());
 
@@ -434,7 +434,7 @@ function directiveFunction($timeout) {
             });
 
             ngModel.$render = function () {
-                console.log("render");
+                //console.log("render");
 
                 ck.setData(ngModel.$viewValue);
             };
@@ -444,19 +444,19 @@ function directiveFunction($timeout) {
             ck.on('dataReady', updateModel);
 
             ck.on('dragstart', function (evt) {
-                console.log("dragstart");
+                //console.log("dragstart");
             });
 
             ck.on('dragenter', function (evt) {
-                console.log("dragenter");
+                //console.log("dragenter");
             });
 
             ck.on('dragover', function (evt) {
-                console.log("dragover");
+                //console.log("dragover");
             });
 
             function updateModel() {
-                console.log('updateModel')
+                //console.log('updateModel')
                 $timeout(function () {
                     ngModel.$setViewValue(ck.getData());
                 }, 200);
@@ -471,7 +471,7 @@ function directiveFunction($timeout) {
             //     requires: 'widget',
             //
             //     init: function(editor) {
-            //         console.log('init editor');
+            //         //console.log('init editor');
             //
             //         editor.widgets.add('hcard', {
             //             allowedContent: 'span(!h-card); a[href](!u-email,!p-name); span(!p-tel)',
@@ -489,7 +489,7 @@ function directiveFunction($timeout) {
             //         // Handle dropping a contact by transforming the contact object into HTML.
             //         // Note: All pasted and dropped content is handled in one event - editor#paste.
             //         editor.on('paste', function(evt) {
-            //             console.log('paste');
+            //             //console.log('paste');
             //             var contact = evt.data.dataTransfer.getData('contact');
             //             if (!contact) {
             //                 return;

@@ -29,7 +29,7 @@ BLL.prototype.getNewsFeed = function(data,res,next){
 	if(data.region.length == 0 && data.sources.length == 0 && data.time == 60){
 		DAL.getNewsFeed(userId, function(error, result){
 	        if (error) {
-	        	console.log(error);
+	        	//console.log(error);
 	            error.userName = loginUserName;
 	            ErrorLogDAL.addErrorLog(error);
 	            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -85,7 +85,7 @@ function executeQuery(query, cb){
             filter: '',
             return: 'title, text, url, publication_date, main_image_url'
         }, function (err, response) {
-			console.log("response");
+			//console.log("response");
             cb(err, response);
         });
 }
@@ -136,7 +136,7 @@ function queryBuilder(concepts, enitity, sources, dayOld){
 	}
 
 	if(dayOld == "latest"){
-		console.log("nothing");
+		//console.log("nothing");
 	} else {
 		var timeValue = new Date();
         timeValue.setDate(timeValue.getDate()-dayOld);

@@ -19,7 +19,7 @@ var DAL = new AppealDAL();
 
 //Create notifications for users everyday
 // var task = cron.schedule('30 10 * * *', function() { //min hour
-//     console.log("notifications extracted");
+//     //console.log("notifications extracted");
 // 	extractNotifications(); //extract notifications and store them in the DB everyday
 // }, false);
 // task.start();
@@ -44,7 +44,7 @@ BLL.prototype.getTimelineForJurisdiction = function(data, res) {
 	
     DAL.getTimelineForJurisdiction(data.body, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -194,7 +194,7 @@ BLL.prototype.getJurisdictions = function(data, res) {
 
     DAL.getJurisdictions(data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -220,14 +220,14 @@ BLL.prototype.getAllPropertiesTimelineStatus = function(data, res) {
 	// 	var userId = data.userId;
 	// }
 	
-    // console.log(userId);
+    // //console.log(userId);
 
     var userId = data.user[0].userId;
-    //console.log(userId);
+    ////console.log(userId);
 
     DAL.getAllPropertiesTimelineStatus(data.body, userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -241,14 +241,14 @@ function getAllPropertiesTimelineStatus2(userId, role) {
 		//var userId = data.userId;
 	DAL.getAllPropertiesTimelineStatus(null, userId, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} else {
-			// console.log(role,result);
+			// //console.log(role,result);
 			
 			if (result.length > 0){
-				// console.log("timeline status: ", result);
+				// //console.log("timeline status: ", result);
 			var jurisdictions = [];
 			for(var i = 0; i < result.length; i++){
 				if (jurisdictions.indexOf(result[i].jurisdiction.trim()) === -1){
@@ -265,7 +265,7 @@ function getAllPropertiesTimelineStatus2(userId, role) {
 				getJurisdictionTimeline2(mydata);
 			}
 		}else{
-			// console.log("empty status");
+			// //console.log("empty status");
 		}
 
 		}
@@ -275,11 +275,11 @@ function getAllPropertiesTimelineStatus2(userId, role) {
 // function extractNotifications() {
 // 	DAL.getUserIds(function(error, result) {
 // 		if (error) {
-// 			console.log(error);
+// 			//console.log(error);
 // 			error.userName = loginUserName;
 // 			ErrorLogDAL.addErrorLog(error);
 // 		} else {
-// 			// console.log("user ids: ", result);
+// 			// //console.log("user ids: ", result);
 // 			for(var i = 0; i < result.length; i++){
 // 				getAllPropertiesTimelineStatus2(result[i].id, result[i].role);
 // 			}
@@ -293,12 +293,12 @@ BLL.prototype.markAsRead = function(data,res){
 	var notId = data.body.notId;
 	DAL.markAsRead(notId, function(error, result) {
         if (error) {
-        	// console.log(error);
+        	// //console.log(error);
             error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
-			console.log(error);
+			//console.log(error);
         } else {
-			// console.log(JSON.stringify(result));
+			// //console.log(JSON.stringify(result));
 			Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -310,12 +310,12 @@ BLL.prototype.getNotifications = function(data,res){
 	var userId = data.user[0].userId;
 	DAL.getNotifications(userId, function(error, result) {
         if (error) {
-        	// console.log(error);
+        	// //console.log(error);
             error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
-			console.log(error);
+			//console.log(error);
         } else {
-			// console.log(JSON.stringify(result));
+			// //console.log(JSON.stringify(result));
 			Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -337,14 +337,14 @@ BLL.prototype.getJurisdictionTimeline = function(data, res) {
 
     DAL.getJurisdictionTimeline(data.body, userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
         } else {
         	var finalResult = [];
         	for(var i = 0; i < result.length; i++){
-        		// console.log(result[i].events.properties.eventFor);
+        		// //console.log(result[i].events.properties.eventFor);
         		if(userRole == result[i].events.properties.eventFor){
         			var flag = false;
 	        		var event = {
@@ -390,7 +390,7 @@ BLL.prototype.getJurisdictionTimeline = function(data, res) {
 }
 // ---------------------END---------------------
 function getJurisdictionTimeline2 (data) {
-	// console.log(data);
+	// //console.log(data);
 	
 		var userId = data.userId;
 		var userRole = data.role;
@@ -402,14 +402,14 @@ function getJurisdictionTimeline2 (data) {
 		}
 		DAL.getJurisdictionTimeline(data, userId, function(error, result) {
 			if (error) {
-				console.log(error);
+				//console.log(error);
 				error.userName = loginUserName;
 				ErrorLogDAL.addErrorLog(error);
 				Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
 			} else {
 				if (result.length > 0){
-				// console.log("jurisdicion timeline: ", JSON.stringify(result));
-				// console.log("******************************************");
+				// //console.log("jurisdicion timeline: ", JSON.stringify(result));
+				// //console.log("******************************************");
 				var finalResult = [];
 				for(var i = 0; i < result.length; i++){
 					var flag = false;
@@ -440,7 +440,7 @@ function getJurisdictionTimeline2 (data) {
 				}
 
 				var result = finalResult;
-				// console.log("myResult: ",JSON.stringify(finalResult));
+				// //console.log("myResult: ",JSON.stringify(finalResult));
 				for(var i = 0; i < result.length;i++){
 					
 							var days = 300;
@@ -461,17 +461,17 @@ function getJurisdictionTimeline2 (data) {
 									var timeDiff1 = date_2.getTime() - date_1.getTime();
 									var diffDays1 = Math.ceil(timeDiff1 / (1000 * 3600 * 24));
 									if(result[i].internalEvents[j].event.properties.snooze && diffDays1 <= parseInt(result[i].internalEvents[j].event.properties.before) ){ //3 days /* parseInt(result[i].internalEvents[j].event.properties.before)*/
-										//console.log("Internal Event: Store it in the DB and Generate a Notification");
+										////console.log("Internal Event: Store it in the DB and Generate a Notification");
 										var readFlag = 0;
 										var daysLeft = diffDays1;
 										details = {"eventName": result[i].internalEvents[j].event.properties.event_name, "eventDetails": result[i].internalEvents[j].event.properties.description , "deadLine":internalDeadline, "before": result[i].internalEvents[j].event.properties.before,"eventType": "internal","propertyNames": JSON.stringify(result[i].internalEvents[j].propertyNames) };
 										DAL.sendNotifications(details,readFlag,daysLeft,userId, function(error, result) {
 											if (error) {
-												console.log("error");
-												//console.log("error: ",error);
+												//console.log("error");
+												////console.log("error: ",error);
 												
 											} else {
-												// console.log("result: ",result)
+												// //console.log("result: ",result)
 											}
 										});
 									}else{
@@ -481,15 +481,15 @@ function getJurisdictionTimeline2 (data) {
 											details = {"eventName": result[i].internalEvents[j].event.properties.event_name, "eventDetails": result[i].internalEvents[j].event.properties.description , "deadLine":internalDeadline, "before": result[i].internalEvents[j].event.properties.before,"eventType": "internal","propertyNames": JSON.stringify(result[i].internalEvents[j].propertyNames) };
 											DAL.sendNotifications(details,readFlag,daysLeft,userId, function(error, result) {
 												if (error) {
-													console.log("error");
-													//console.log("error: ",error);
+													//console.log("error");
+													////console.log("error: ",error);
 													
 												} else {
-													// console.log("result: ",result)
+													// //console.log("result: ",result)
 												}
 											});
 										}
-										//console.log("internal Event: Do nothing");
+										////console.log("internal Event: Do nothing");
 									}
 								
 								}
@@ -505,34 +505,34 @@ function getJurisdictionTimeline2 (data) {
 							
 							var timeDiff = date2.getTime() - date1.getTime();
 							var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-							// console.log(result[i].event.properties.eventFor);
+							// //console.log(result[i].event.properties.eventFor);
 							if(userRole == result[i].event.properties.eventFor){
-									// console.log("erere");
+									// //console.log("erere");
 
 								if(diffDays <= days){ //3 days
-									//console.log("Store it in the DB and Generate a Notification");
+									////console.log("Store it in the DB and Generate a Notification");
 									var readFlag = 0;
 									var daysLeft = diffDays;
 									details = {"eventName": result[i].event.properties.eventName , "eventDetails": result[i].event.properties.description , "startDate":startdate, "endDate": result[i].event.properties.deadlineEnd,"eventType": "external" };
 									DAL.sendNotifications(details,readFlag,daysLeft,userId, function(error, result) {
 										if (error) {
-											//console.log("error: ",error);
-											console.log("error");
+											////console.log("error: ",error);
+											//console.log("error");
 											
 										} else {
-											// console.log("result: ",result)
+											// //console.log("result: ",result)
 										}
 										
 									});
 								}else{
-									// console.log("Do nothing");
+									// //console.log("Do nothing");
 								}
 							}
 							
 					}
 				}
 				else{
-					// console.log("empty JD timeline")
+					// //console.log("empty JD timeline")
 				}
 			}
 		});
@@ -551,7 +551,7 @@ BLL.prototype.createNewInternalEvent = function(data, res) {
 
     DAL.createNewInternalEvent(data.body, userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -577,7 +577,7 @@ BLL.prototype.getInternalEvent = function(data, res) {
 
     DAL.getInternalEvent(data.query, userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -601,7 +601,7 @@ BLL.prototype.linkInternalEvent = function(data, res) {
 
     DAL.linkInternalEvent(data.body, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -624,7 +624,7 @@ BLL.prototype.getTimelineForProperty = function(data, res) {
 
     DAL.getTimelineForProperty(data.body, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -647,7 +647,7 @@ BLL.prototype.addJurisdictionTimeline = function(data, res) {
     
     DAL.addJurisdictionTimeline(data.body, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -691,8 +691,8 @@ BLL.prototype.addJurisdictionTimeline = function(data, res) {
 // 	var mypath = __dirname + '\\'+ eventObj.id + '.ics';
 
 // 	cal.saveSync(mypath);
-// 	// console.log("cal: ",cal);
-// 	console.log("event created and file saved at: ",mypath); 
+// 	// //console.log("cal: ",cal);
+// 	//console.log("event created and file saved at: ",mypath); 
 
 // 	//sending email
 
@@ -719,14 +719,14 @@ BLL.prototype.addJurisdictionTimeline = function(data, res) {
 // 	}
 // 	};
 
-// 	console.log('Sending Mail');
+// 	//console.log('Sending Mail');
 // 	transporter.sendMail(message, function (error, info) {
 // 	if (error) {
-// 		// console.log('Error occurred');
-// 		console.log(error.message);
+// 		// //console.log('Error occurred');
+// 		//console.log(error.message);
 // 		return;
 // 	}
-// 	console.log('Message sent successfully!');
-// 	// console.log('Server responded with "%s"', info.response);
+// 	//console.log('Message sent successfully!');
+// 	// //console.log('Server responded with "%s"', info.response);
 // 	});
 // }

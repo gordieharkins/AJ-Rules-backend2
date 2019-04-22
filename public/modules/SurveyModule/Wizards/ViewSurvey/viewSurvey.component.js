@@ -45,7 +45,7 @@ var _viewSurveyController = {
                     var count = 0;
 
                     for (var i in temp) {
-                        console.log(temp[i])
+                        //console.log(temp[i])
                         for (var j = 0; j < temp[i].length; j++) {
 
 
@@ -61,12 +61,12 @@ var _viewSurveyController = {
 
                     var postData = { 'surveyName': $scope.surveyName, 'createdBy': user, link: 'link', sectionOrder: sectionOrder, surveyItems: surveyItems }
                     $scope.postData(postData)
-                    console.log(postData)
+                    //console.log(postData)
                 }
 
                 $scope.setActive = function (data, options) {
 
-                    console.log(options)
+                    //console.log(options)
                     options.forEach(function (b) {
                         if (b.id == 1 || b.id == 3 || b.id == 4 || b.id == 5)
                             b.answer.state = data === b;
@@ -94,7 +94,7 @@ var _viewSurveyController = {
 
 
                 $scope.dateValidation = function (data) {
-                    console.log(data)
+                    //console.log(data)
                 }
                 $scope.postData = function (postData) {
 
@@ -102,7 +102,7 @@ var _viewSurveyController = {
                     AOTCService.postDataToServer(url, postData)
                         .then(function (result) {
                             $("#preloader").css("display", "none");
-                            console.log("Survwey: ", result);
+                            //console.log("Survwey: ", result);
                             $scope.surveyName = ''
 
                             if (result.data.success) {

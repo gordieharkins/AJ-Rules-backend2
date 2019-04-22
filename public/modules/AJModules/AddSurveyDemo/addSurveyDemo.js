@@ -7,7 +7,7 @@ module.exports = _addSurveyDemo;
 //angular.module('AOTC').controller('addSurveyDemo', _addSurveyDemo);
 
 function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, HackathonService, $timeout) {
-    ////console.log("addSurvey controller", $stateParams);
+    //////console.log("addSurvey controller", $stateParams);
     var vm = this;
     vm.assessorDetails = [];
     vm.boardDetails = [];
@@ -210,7 +210,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
         // $scope.$watch(vm.surveyData.questions[40].answer, debounce(function() {
         $scope.typed2 = $scope.typing2;
         vm.surveyData.questions[41].answer = $scope.typed2;
-        ////console.log($scope.typed2);
+        //////console.log($scope.typed2);
 
         $scope.boardContactDetails = [];
 
@@ -236,7 +236,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
         // $scope.$watch(vm.surveyData.questions[40].answer, debounce(function() {
         $scope.typed = $scope.typing;
         vm.surveyData.questions[40].answer = $scope.typed;
-        ////console.log($scope.typed);
+        //////console.log($scope.typed);
 
         $scope.contactDetails = [];
 
@@ -262,7 +262,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
     $scope.$watch('numberOfBills', debounce(function () {
         // $scope.$watch(vm.surveyData.questions[40].answer, debounce(function() {
         //vm.surveyData.questions[40].answer = $scope.numberOfBills;
-        ////console.log($scope.numberOfBills);
+        //////console.log($scope.numberOfBills);
 
         $scope.numberOfBillsHtmlFields = [];
 
@@ -308,12 +308,12 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
     vm.addAJSurvey = addAJSurvey;
 
     function addAJSurvey() {
-        // ////console.log(vm.assessorDetails);
+        // //////console.log(vm.assessorDetails);
         vm.surveyData.questions[40].contactDetails = vm.assessorDetails;
         vm.surveyData.questions[41].contactDetails = vm.boardDetails;
         vm.surveyData.questions[39].answer = vm.fiscalStartDate + '|' + vm.fiscalEndDate;
         vm.surveyData.questions[37].answer = JSON.stringify(vm.billDueDates);
-        ////console.log(vm.surveyData);
+        //////console.log(vm.surveyData);
 
         var url = '/aJRules/addAJRules';
 
@@ -321,7 +321,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
 
         HackathonService.postDataToServer(url, vm.surveyData)
             .then(function (result) {
-                ////console.log(result);
+                //////console.log(result);
                 $("#preloader").css("display", "none");
 
                 $("#popup_success").fadeIn(500).delay(1000).fadeOut(500, function () {
@@ -333,7 +333,7 @@ function _addSurveyDemo($stateParams, $anchorScroll, $state, DTOptionsBuilder, D
 
             }, function (result) {
                 //some error
-                ////console.log(result);
+                //////console.log(result);
             });
 
 

@@ -20,7 +20,7 @@ function _CreateSurveyService($q, AOTCService) {
 
             }, function(result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
     }
@@ -38,7 +38,7 @@ function _CreateSurveyService($q, AOTCService) {
 
             }, function(result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
     }

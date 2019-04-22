@@ -8,7 +8,7 @@ module.exports = _header;
 //    );
 function _header(User_Config, $state, $timeout) {
     var controller = ['$scope', '$location', 'AOTCService','AotcIp', '$rootScope', function ($scope, $location, AOTCService,AotcIp, $rootScope) {
-        ////console.log('head controller');
+        //////console.log('head controller');
         var head = this;
         $scope.successMessage = '';
         $scope.errorMessage = '';
@@ -72,14 +72,14 @@ function _header(User_Config, $state, $timeout) {
 
 
         $scope.$on('error', function (ev, ms) {
-            ////console.log('show error', ms);
+            //////console.log('show error', ms);
             $scope.errorMessage = ms;
             // $scope.$apply();
             $("#head_error").fadeIn(1500).delay(500).fadeOut(500);
         });
 
         $scope.$on('danger', function (ev, ms) {
-            ////console.log('show danger', ms);
+            //////console.log('show danger', ms);
             $scope.dangerMessage = ms;
             // $scope.$apply();
             $("#head_danger").fadeIn(1500).delay(500).fadeOut(500);
@@ -90,7 +90,7 @@ function _header(User_Config, $state, $timeout) {
 
         }
         $scope.$on('notifications', function(ev, data) {
-         console.log(data) 
+         //console.log(data) 
          $scope.allNotifications = data
         
         });
@@ -160,8 +160,8 @@ function _header(User_Config, $state, $timeout) {
         $scope.isActive = isActive;
 
         function isActive(route) {
-            ////console.log("route", route)
-            ////console.log("$location.path()", $location.path())
+            //////console.log("route", route)
+            //////console.log("$location.path()", $location.path())
             return route === $location.path();
         }
     }];

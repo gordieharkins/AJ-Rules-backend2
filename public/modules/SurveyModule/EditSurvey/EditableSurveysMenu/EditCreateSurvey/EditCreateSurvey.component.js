@@ -20,7 +20,7 @@ _editCreateSurveyComponent = {
                  $scope.editQuestion = false;
                  $scope.valid = false
                  $scope.questionText = '';
-                 console.log(CreateSurveyService.editQuestions)
+                 //console.log(CreateSurveyService.editQuestions)
                  CreateSurveyService.selectedSections = $scope.viewQuestions;
 
 
@@ -37,7 +37,7 @@ _editCreateSurveyComponent = {
 
                              $scope.viewQuestions = result.data.result;
                              CreateSurveyService.selectedSections = $scope.viewQuestions;
-                             console.log($scope.viewQuestions)
+                             //console.log($scope.viewQuestions)
 
                              if (CreateSurveyService.editQuestions.length != 0) {
 
@@ -45,7 +45,7 @@ _editCreateSurveyComponent = {
                                      for (var i = 0; i < CreateSurveyService.editQuestions.length; i++) {
                                          if (CreateSurveyService.editQuestions[i].id == $scope.data[k].id) {
                                              $scope.data[k].check = true;
-                                             // console.log(CreateSurveyService.editQuestions[i].index);
+                                             // //console.log(CreateSurveyService.editQuestions[i].index);
                                          }
                                      }
                                  }
@@ -67,7 +67,7 @@ _editCreateSurveyComponent = {
                      var data = $scope.data;
                      var localCheck = JSON.parse(localStorage.getItem("section"))
                      $scope.localHedge = localCheck
-                     console.log(localCheck)
+                     //console.log(localCheck)
                      if (!localStorage.getItem("section")) {
 
                          for (var i = 0; i < data.length; i++) {
@@ -100,7 +100,7 @@ _editCreateSurveyComponent = {
                              var found = 0;
                              for (var data in localCheck) {
 
-                                 console.log(localCheck[data])
+                                 //console.log(localCheck[data])
 
                                  for (var t = 0; t < localCheck[data].length; t++) {
 
@@ -120,7 +120,7 @@ _editCreateSurveyComponent = {
                              }
                              if (found == 0) {
                                  $scope.data[i].check = false
-                                 console.log(data[i])
+                                 //console.log(data[i])
 
                              }
                          }
@@ -128,8 +128,8 @@ _editCreateSurveyComponent = {
                              for (var i = 0; i < CreateSurveyService.editQuestions.length; i++) {
                                  if (CreateSurveyService.editQuestions[i].id == $scope.data[k].id) {
                                      $scope.data[k].check = true;
-                                     console.log($scope.data[k])
-                                     // console.log(CreateSurveyService.editQuestions[i].index);
+                                     //console.log($scope.data[k])
+                                     // //console.log(CreateSurveyService.editQuestions[i].index);
                                  }
                              }
                          }
@@ -137,7 +137,7 @@ _editCreateSurveyComponent = {
                              for (var i = 0; i < CreateSurveyService.validateQuestions.length; i++) {
                                  if (CreateSurveyService.validateQuestions[i].id == $scope.data[k].id) {
                                      $scope.data[k].check = false;
-                                     // console.log(CreateSurveyService.editQuestions[i].index);
+                                     // //console.log(CreateSurveyService.editQuestions[i].index);
                                  }
                              }
                          }
@@ -171,7 +171,7 @@ _editCreateSurveyComponent = {
                                                      if (CreateSurveyService.editQuestions[j].id == $scope.data[i].id) {
                                                          found = 1;
                                                          break;
-                                                         // console.log(CreateSurveyService.editQuestions[i].index);
+                                                         // //console.log(CreateSurveyService.editQuestions[i].index);
                                                      }
                                                  }
                                                  if (found == 0) {
@@ -193,7 +193,7 @@ _editCreateSurveyComponent = {
 
                          }, function (err) {
                              //some error
-                             // console.log("Error: ", err);
+                             // //console.log("Error: ", err);
                              $("#preloader").css("display", "none");
                          });
                  }
@@ -274,7 +274,7 @@ _editCreateSurveyComponent = {
 
                  $scope.selectedCheckbox = function (q, c, index) {
                      var dataCheck = CreateSurveyService.editQuestions;
-                     console.log(q.id)
+                     //console.log(q.id)
                      if (c) {
                          var temp = {};
                          temp.question = q.questionText;
@@ -320,9 +320,9 @@ _editCreateSurveyComponent = {
                          }
                          temp.index = index;
                          CreateSurveyService.validateQuestions.push(temp)
-                         // console.log( CreateSurveyService.editQuestions);
+                         // //console.log( CreateSurveyService.editQuestions);
                      }
-                     console.log(CreateSurveyService.editQuestions);
+                     //console.log(CreateSurveyService.editQuestions);
                  }
              }]
 };

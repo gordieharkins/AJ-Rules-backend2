@@ -6,7 +6,7 @@ module.exports = _FillSurvey;
 //angular.module('AOTC').controller('FillSurvey', _FillSurvey
 //);
 function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubmissionsService) {
-    console.log("SurveyAnswer controller", $stateParams.id);
+    //console.log("SurveyAnswer controller", $stateParams.id);
 
 
     $scope.viewQuestions = [];
@@ -30,12 +30,12 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
         SurveySubmissionsService.getUSstates()
             .then(function (result) {
                 $("#preloader").css("display", "none");
-                console.log(result.data.result);
+                //console.log(result.data.result);
                 $scope.states = result.data.result;
                 $scope.intervieweeInformation.state = $scope.states[0].States;
 
             }, function (result) {
-                console.log(result);
+                //console.log(result);
                 $("#preloader").css("display", "none");
             });
     }
@@ -45,7 +45,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
 
         FillSurveyService.getSurveyDetails($stateParams.id)
             .then(function (result) {
-                console.log(result);
+                //console.log(result);
 
                 var length = 0;
 
@@ -79,7 +79,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
 
     FillSurveyService.getSurveyDetails($stateParams.id)
         .then(function (result) {
-            console.log(result);
+            //console.log(result);
             $("#preloader").css("display", "none");
 
             if (!result.data.success) {
@@ -91,7 +91,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
             $scope.viewQuestions = result.data.result;
 
         }, function (result) {
-            console.log(result);
+            //console.log(result);
             $("#preloader").css("display", "none");
         });
 
@@ -115,13 +115,13 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
             sections: $scope.viewQuestions.sections,
             information: $scope.intervieweeInformation
         };
-        console.log(postJSON);
+        //console.log(postJSON);
 
         FillSurveyService.saveSubmission(postJSON)
             .then(function (result) {
                 $("#preloader").css("display", "none");
 
-                console.log(result);
+                //console.log(result);
 
                 if (!result.data.success) {
                     $scope.$emit('danger', result.data.message);
@@ -135,7 +135,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
                 }, 2000);
 
             }, function (result) {
-                console.log(result);
+                //console.log(result);
                 $("#preloader").css("display", "none");
             });
 
@@ -143,7 +143,7 @@ function _FillSurvey($state, $stateParams, $scope, FillSurveyService, SurveySubm
     $scope.dropDownClose = function (data, value) {
         $scope.intervieweeInformation.state = value;
         $('#menu').hide();
-        console.log(data)
+        //console.log(data)
 
     }
 

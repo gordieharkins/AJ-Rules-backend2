@@ -5,7 +5,7 @@ module.exports = _PropAssignment;
 //angular.module('AOTC')
 //    .controller('PropAssignment',_PropValuation );
 function _PropAssignment($state, $timeout, $rootScope, $stateParams, AOTCService, $scope, ValuationService, UtilService) {
-    ////console.log("PropValuation controller", $stateParams);
+    //////console.log("PropValuation controller", $stateParams);
 
     var $ctrl = this;
 
@@ -53,7 +53,7 @@ function _PropAssignment($state, $timeout, $rootScope, $stateParams, AOTCService
                 $("#preloader").css("display", "none");
 
                 //some error
-                ////console.log(result);
+                //////console.log(result);
             });
 
     };
@@ -93,7 +93,7 @@ function _PropAssignment($state, $timeout, $rootScope, $stateParams, AOTCService
                 $("#preloader").css("display", "none");
                 $scope.$emit('error', result.data.message);
                 //some error
-                ////console.log(result);
+                //////console.log(result);
             });
     };
 

@@ -13,7 +13,7 @@ function yardi121417_RR_1_16_18() {
 // Parses Yardi Tenancy Schedule 2017 files.
 yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, originalFileName) {
 	var workbook = XLSX.read(fileBuffer, {type: 'buffer'});
-    // console.log("Umar here in new parser");
+    // //console.log("Umar here in new parser");
     // Columns
 	var sheetHeader = "Rent Roll - Lease Charges";
     var asOfColumnName = "Date:";
@@ -98,7 +98,7 @@ yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, ori
             var rows = csv.split("\n");
             var orderCount = 0;
             for(var index = 0; index < rows.length; index++) { // rows loop ******************
-                // console.log("rows loop");
+                // //console.log("rows loop");
                 var leaseCharge = {};
 				var cells=rows[index].split("|");
 
@@ -108,7 +108,7 @@ yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, ori
                 if (unitsColumnNumber === -1 || leaseColumnNumber === -1 || leaseTypeColumnNumber === -1 || areaColumnNumber === -1 || leaseFromColumnNumber === -1 || leaseToColumnNumber === -1 || securityDepositColumnNumber === -1 || letterOfCreditAmountColumnNumber === -1 || amendmentTypeColumnNumber === -1 || areaLabelColumnNumber === -1 || termColumnNumber === -1 || amendmentFromColumnNumber === -1 || amendmentToColumnNumber === -1 ||chargeCodeColumnNumber === -1 || chargeFromColumnNumber === -1 || chargeToColumnNumber === -1 || monthlyAmountColumnNumber === -1 || mgmtFeeColumnNumber === -1 || grossAmountColumnNumber === -1 || amt_perAreaColumnNumber === -1 || annualizedGrossAmountColumnNumber ===-1 || amtPerAreaColumnNumber === -1)
                 { 
                     //Finding Headers
-                    // console.log("finding headers");
+                    // //console.log("finding headers");
                     for(var cellIndex = 0; cellIndex < cells.length; cellIndex++) { //columns loop ******************
                         var cellValue = cells[cellIndex];
                        
@@ -132,7 +132,7 @@ yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, ori
                                 var propertyNameIndex = cellValue.toLowerCase().indexOf("Property: ".toLowerCase());
                                 var test = cellValue.substring(propertyNameIndex + propertyNameIndex.length + 1);
                                 var test2 = test.split(" ");
-                                //console.log("test2: ",test2[1]);
+                                ////console.log("test2: ",test2[1]);
                                 rentRoll.propertyName = [];
                                 rentRoll.propertyName [0] = "Property Name";
                                 rentRoll.propertyName [1] = test2[1];
@@ -456,35 +456,35 @@ yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, ori
 
                         }
                 }
-        // console.log("unitsColumnNumber ",unitsColumnNumber);
-        // console.log("leaseColumnNumber ",leaseColumnNumber);
-        // console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
-        // console.log("areaColumnNumber ",areaColumnNumber);
-        // console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
-        // console.log("leaseToColumnNumber ",leaseToColumnNumber);
-        // console.log("termColumnNumber ", termColumnNumber);
-        // console.log("securityDepositColumnNumber ", securityDepositColumnNumber);
-        // console.log(" letterOfCreditAmountColumnNumber ",letterOfCreditAmountColumnNumber);
-        // console.log("amendmentTypeColumnNumber: ",amendmentTypeColumnNumber);
-        // console.log("areaLabelColumnNumber: ",areaLabelColumnNumber);
-        // // console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
-        // console.log("amendmentFromColumnNumber: ",amendmentFromColumnNumber);
-        // console.log("amendmentToColumnNumber: ",amendmentToColumnNumber);
-        // console.log("chargeFromColumnNumber: ",chargeFromColumnNumber);
-        // console.log("chargeCodeColumnNumber: ",chargeCodeColumnNumber);
-        // console.log("chargeToColumnNumber ",chargeToColumnNumber);
+        // //console.log("unitsColumnNumber ",unitsColumnNumber);
+        // //console.log("leaseColumnNumber ",leaseColumnNumber);
+        // //console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
+        // //console.log("areaColumnNumber ",areaColumnNumber);
+        // //console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
+        // //console.log("leaseToColumnNumber ",leaseToColumnNumber);
+        // //console.log("termColumnNumber ", termColumnNumber);
+        // //console.log("securityDepositColumnNumber ", securityDepositColumnNumber);
+        // //console.log(" letterOfCreditAmountColumnNumber ",letterOfCreditAmountColumnNumber);
+        // //console.log("amendmentTypeColumnNumber: ",amendmentTypeColumnNumber);
+        // //console.log("areaLabelColumnNumber: ",areaLabelColumnNumber);
+        // // //console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
+        // //console.log("amendmentFromColumnNumber: ",amendmentFromColumnNumber);
+        // //console.log("amendmentToColumnNumber: ",amendmentToColumnNumber);
+        // //console.log("chargeFromColumnNumber: ",chargeFromColumnNumber);
+        // //console.log("chargeCodeColumnNumber: ",chargeCodeColumnNumber);
+        // //console.log("chargeToColumnNumber ",chargeToColumnNumber);
 
-        // console.log("monthlyAmountColumnNumber ",monthlyAmountColumnNumber);
-        // console.log("mgmtFeeColumnNumber ",mgmtFeeColumnNumber);
-        // console.log("grossAmountColumnNumber ",grossAmountColumnNumber);
-        // console.log("amt_perAreaColumnNumber ",amt_perAreaColumnNumber);
+        // //console.log("monthlyAmountColumnNumber ",monthlyAmountColumnNumber);
+        // //console.log("mgmtFeeColumnNumber ",mgmtFeeColumnNumber);
+        // //console.log("grossAmountColumnNumber ",grossAmountColumnNumber);
+        // //console.log("amt_perAreaColumnNumber ",amt_perAreaColumnNumber);
 
-        // console.log("annualizedGrossAmountColumnNumber ",annualizedGrossAmountColumnNumber);
-        // console.log("amtPerAreaColumnNumber",amtPerAreaColumnNumber);
+        // //console.log("annualizedGrossAmountColumnNumber ",annualizedGrossAmountColumnNumber);
+        // //console.log("amtPerAreaColumnNumber",amtPerAreaColumnNumber);
                 
             }
 		}
-        // console.log("before logs");
+        // //console.log("before logs");
 		rentRoll.fileName = [];
 		rentRoll.fileName[0] = Common.LABEL.FILE_NAME;
 		rentRoll.fileName[1] = fileName;
@@ -506,36 +506,36 @@ yardi121417_RR_1_16_18.prototype.parseFile = function (fileBuffer, fileName, ori
 
         
         
-        // console.log("unitsColumnNumber ",unitsColumnNumber);
-        // console.log("leaseColumnNumber ",leaseColumnNumber);
-        // console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
-        // console.log("areaColumnNumber ",areaColumnNumber);
-        // console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
-        // console.log("leaseToColumnNumber ",leaseToColumnNumber);
-        // console.log("termColumnNumber ", termColumnNumber);
-        // console.log("securityDepositColumnNumber ", securityDepositColumnNumber);
-        // console.log(" letterOfCreditAmountColumnNumber ",letterOfCreditAmountColumnNumber);
-        // console.log("amendmentTypeColumnNumber: ",amendmentTypeColumnNumber);
-        // console.log("areaLabelColumnNumber: ",areaLabelColumnNumber);
-        // console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
-        // console.log("amendmentFromColumnNumber: ",amendmentFromColumnNumber);
-        // console.log("amendmentToColumnNumber: ",amendmentToColumnNumber);
-        // console.log("chargeFromColumnNumber: ",chargeFromColumnNumber);
-        // console.log("chargeCodeColumnNumber: ",chargeCodeColumnNumber);
-        // console.log("chargeToColumnNumber ",chargeToColumnNumber);
+        // //console.log("unitsColumnNumber ",unitsColumnNumber);
+        // //console.log("leaseColumnNumber ",leaseColumnNumber);
+        // //console.log("leaseTypeColumnNumber ",leaseTypeColumnNumber);
+        // //console.log("areaColumnNumber ",areaColumnNumber);
+        // //console.log("leaseFromColumnNumber ",leaseFromColumnNumber);
+        // //console.log("leaseToColumnNumber ",leaseToColumnNumber);
+        // //console.log("termColumnNumber ", termColumnNumber);
+        // //console.log("securityDepositColumnNumber ", securityDepositColumnNumber);
+        // //console.log(" letterOfCreditAmountColumnNumber ",letterOfCreditAmountColumnNumber);
+        // //console.log("amendmentTypeColumnNumber: ",amendmentTypeColumnNumber);
+        // //console.log("areaLabelColumnNumber: ",areaLabelColumnNumber);
+        // //console.log("monthlyRentAreaColumnNumber ", monthlyRentAreaColumnNumber);
+        // //console.log("amendmentFromColumnNumber: ",amendmentFromColumnNumber);
+        // //console.log("amendmentToColumnNumber: ",amendmentToColumnNumber);
+        // //console.log("chargeFromColumnNumber: ",chargeFromColumnNumber);
+        // //console.log("chargeCodeColumnNumber: ",chargeCodeColumnNumber);
+        // //console.log("chargeToColumnNumber ",chargeToColumnNumber);
 
-        // console.log("monthlyAmountColumnNumber ",monthlyAmountColumnNumber);
-        // console.log("mgmtFeeColumnNumber ",mgmtFeeColumnNumber);
-        // console.log("grossAmountColumnNumber ",grossAmountColumnNumber);
-        // console.log("amt_perAreaColumnNumber ",amt_perAreaColumnNumber);
+        // //console.log("monthlyAmountColumnNumber ",monthlyAmountColumnNumber);
+        // //console.log("mgmtFeeColumnNumber ",mgmtFeeColumnNumber);
+        // //console.log("grossAmountColumnNumber ",grossAmountColumnNumber);
+        // //console.log("amt_perAreaColumnNumber ",amt_perAreaColumnNumber);
 
-        // console.log("annualizedGrossAmountColumnNumber ",annualizedGrossAmountColumnNumber);
-        // console.log("amtPerAreaColumnNumber",amtPerAreaColumnNumber);
+        // //console.log("annualizedGrossAmountColumnNumber ",annualizedGrossAmountColumnNumber);
+        // //console.log("amtPerAreaColumnNumber",amtPerAreaColumnNumber);
         
-        // console.log("test");
-        // console.log("final: ",JSON.stringify(rentRoll));
+        // //console.log("test");
+        // //console.log("final: ",JSON.stringify(rentRoll));
 		rentRollsList.push(rentRoll);
 	});
-	// console.log("final: ",JSON.stringify(rentRollsList));
+	// //console.log("final: ",JSON.stringify(rentRollsList));
 	return rentRollsList;
 };

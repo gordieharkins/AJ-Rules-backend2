@@ -36,10 +36,10 @@ function _DataMappingService() {
     }
 
     factory.checkVariables = function () {
-        console.log(dictionary)
-        console.log(rows)
-        console.log(headers)
-        console.log(index)
+        //console.log(dictionary)
+        //console.log(rows)
+        //console.log(headers)
+        //console.log(index)
     }
 
     return factory;

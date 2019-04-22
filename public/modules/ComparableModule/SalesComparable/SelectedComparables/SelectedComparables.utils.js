@@ -10,7 +10,7 @@ module.exports = _ComparableUtil;
 function _ComparableUtil() {
 
     var formula1 = function (val1) {
-        ////console.log(val1);
+        //////console.log(val1);
     };
 
     var Util = {};

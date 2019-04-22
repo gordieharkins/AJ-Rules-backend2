@@ -7,7 +7,7 @@ module.exports = _login;
 //angular.module('AOTC').controller('login', _login
 //    );
 function _login($state, $location, $scope, $http, __env, $log, AOTCService, $timeout, AOTCAuth, AOTCPermissions) {
-    ////console.log("login-in controller");
+    //////console.log("login-in controller");
 
     var vm = this;
     $scope.passwordCheck = null;
@@ -20,14 +20,14 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
     $scope.closeModal = function(){
         $scope.passwordCheck = null;
     }
-    console.log(pass)
+    //console.log(pass)
     
     //vm.deviceDetector = deviceDetector;
-    //////console.log("vm.deviceDetector", vm.deviceDetector);
+    ////////console.log("vm.deviceDetector", vm.deviceDetector);
 
     //var browserNotification = localStorage.getItem('browserNotification');
 
-    //////console.log(browserNotification);
+    ////////console.log(browserNotification);
 
     //if (browserNotification == null) {
     //    if (vm.deviceDetector.browser != 'chrome' && vm.deviceDetector.browser != 'safari' && vm.deviceDetector.browser != 'internet explorer') {
@@ -58,7 +58,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
     }
 
     function loginUser() {
-        ////console.log("login: informations ", vm.credentials);
+        //////console.log("login: informations ", vm.credentials);
         var loginUserURL = '/users/userSignIn';
         $('#preloader').css("display", "block");
 
@@ -67,7 +67,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
             .then(function successCallback(response) {
                 $('#preloader').css("display", "none");
 
-                ////console.log("result is ", response);
+                //////console.log("result is ", response);
                 var serverData = response.data;
                 //set token
                 AOTCAuth.setToken(serverData.result.token);
@@ -88,7 +88,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
 
                     // var userData = serverData.result;
                     var userJson = serverData.result;
-                    /////console.log(userJson);
+                    ///////console.log(userJson);
                     localStorage.setItem('userJson', angular.toJson(userJson));
                     localStorage.setItem('userId', userJson.userId);
                     localStorage.setItem('token', userJson.token);
@@ -106,7 +106,7 @@ function _login($state, $location, $scope, $http, __env, $log, AOTCService, $tim
 
             }, function errorCallback(response) {
                 $('#preloader').css("display", "none");
-                ////console.log("error is ", response);
+                //////console.log("error is ", response);
             });
             
 

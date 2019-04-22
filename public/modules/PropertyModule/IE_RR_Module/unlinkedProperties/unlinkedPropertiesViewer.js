@@ -6,7 +6,7 @@ module.exports = _unlinkedProperties;
 //angular.module('AOTC').controller('unlinkedProperties', _unlinkedProperties
 //);
 function _unlinkedProperties($stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("unlinkedProperties controller", $stateParams);
+    //////console.log("unlinkedProperties controller", $stateParams);
 
     var vm = this;
 

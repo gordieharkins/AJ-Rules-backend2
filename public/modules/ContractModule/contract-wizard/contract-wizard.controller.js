@@ -12,7 +12,7 @@ module.exports = {ContractWizardCtrl: _ContractWizardCtrl, mySortable: _mySortab
 //    .directive('myDraggable', _myDraggable
 //    );
 function _ContractWizardCtrl($scope, $location, $state) {
-    ////console.log("ContractWizardCtrl")
+    //////console.log("ContractWizardCtrl")
 
     $scope.options = 'Select Options'
     $scope.templateData = []
@@ -34,7 +34,7 @@ function _ContractWizardCtrl($scope, $location, $state) {
             "type": "Section Type", "text": "Section Data",
         })
 
-        ////console.log($scope.models.lists);
+        //////console.log($scope.models.lists);
     }
 
     $scope.selectOptions = function (index, data) {
@@ -59,12 +59,12 @@ function _ContractWizardCtrl($scope, $location, $state) {
         var userid = localStorage.getItem('userId');
         for (var i = 0; i < data.length; i++) {
             data[i].editable = false;
-            ////console.log(data[i])
+            //////console.log(data[i])
         }
         $scope.postContract = { id: null, userId: userid, contracts: data };
         $scope.models.lists = data;
 
-        ////console.log("saving" + $scope.postContract);
+        //////console.log("saving" + $scope.postContract);
     }
 
     $scope.editContract = function (data) {
@@ -75,7 +75,7 @@ function _ContractWizardCtrl($scope, $location, $state) {
     }
 
     $scope.saveAsTemplate = function (data) {
-        ////console.log(data)
+        //////console.log(data)
         for (var i = 0; i < $scope.templateData.length; i++) {
             if (!$scope.templateData[i]) {
                 $scope.templateData[i] = data
@@ -94,7 +94,7 @@ function _ContractWizardCtrl($scope, $location, $state) {
     })
 
     $scope.$on('my-created', function (ev, val) {
-        ////console.log('draggable' + val.name)
+        //////console.log('draggable' + val.name)
         $scope.index = val.to
         $scope.models.lists.splice(val.to, 0, val.name);
         JSON.parse($scope.models.lists[val.to])
@@ -106,7 +106,7 @@ function _myDraggable() {
 
     return {
         link: function (scope, el, attrs) {
-            ////console.log('draggable')
+            //////console.log('draggable')
             el.draggable({
                 connectToSortable: attrs.myDraggable,
                 helper: "clone",
@@ -124,7 +124,7 @@ function _mySortable() {
                 revert: true
             });
             el.disableSelection();
-            ////console.log("p")
+            //////console.log("p")
 
             el.on("sortdeactivate", function (event, ui) {
                 var from = angular.element(ui.item).scope().$index;
@@ -134,7 +134,7 @@ function _mySortable() {
                         if (from >= 0) {
                             scope.$emit('my-sorted', { from: from, to: to });
                         } else {
-                            ////console.log("data---" + from)
+                            //////console.log("data---" + from)
                             scope.$emit('my-created', { to: to, "name": ui.item.text() });
                             ui.item.remove();
                         }

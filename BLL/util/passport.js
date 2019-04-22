@@ -21,7 +21,7 @@ module.exports = function(passport) {
         var query = `MATCH (user:user)
                     WHERE user.email1= {email} AND id(user) = {userId}
                     OPTIONAL Match(role:UserRole) where role.name = user.role
-                    RETURN id(user) AS userId, properties(role) as roles, user.name as userName`;
+                    RETURN id(user) AS userId, properties(role) as roles, user.username as userName`;
         db.cypher({
             query: query,
             params:{

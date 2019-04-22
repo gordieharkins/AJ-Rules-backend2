@@ -53,7 +53,7 @@ _editArrangeSurveyComponent = {
 
         function ($scope, sharedService, ArrangeSurveyService, CreateSurveyService, $state, FillSurveyService, $stateParams) {
             var vm = this;
-            console.log($scope.tempSelections)
+            //console.log($scope.tempSelections)
             $scope.tempSelections = null
             var globalSet = null
             $scope.models = {
@@ -80,11 +80,11 @@ _editArrangeSurveyComponent = {
 
 
             if (localStorage.getItem("section")) {
-                console.log(localStorage.getItem("section"))
+                //console.log(localStorage.getItem("section"))
                 var temp = JSON.parse(localStorage.getItem("section"))
                 $scope.models.lists = temp
                 $scope.tempSelections = temp
-                console.log($scope.models.lists)
+                //console.log($scope.models.lists)
                 var temp = $scope.models.lists
 
                 for (var data in temp) {
@@ -93,7 +93,7 @@ _editArrangeSurveyComponent = {
                         for (var j = 0; j < CreateSurveyService.validateQuestions.length; j++) {
                             if (temp[data][i]) {
                                 if (temp[data][i].id == CreateSurveyService.validateQuestions[j].id) {
-                                    console.log(temp[data][i])
+                                    //console.log(temp[data][i])
                                     temp[data].splice(i, 1)
 
                                 }
@@ -116,7 +116,7 @@ _editArrangeSurveyComponent = {
 
                 FillSurveyService.getEditSurveyDetails($stateParams.id)
                     .then(function (result) {
-                        console.log(result);
+                        //console.log(result);
 
 
                         if (!result.data.success) {
@@ -124,7 +124,7 @@ _editArrangeSurveyComponent = {
                             return;
                         }
                         $("#preloader").css("display", "none");
-                        console.log(CreateSurveyService.selectQuestions)
+                        //console.log(CreateSurveyService.selectQuestions)
                         $scope.tempSelections = result.data.result;
                         $scope.models.lists = $scope.tempSelections
 
@@ -173,7 +173,7 @@ _editArrangeSurveyComponent = {
             $scope.loadings = false;
             // $scope.addDiv=function(){
             //     $scope.sectionName.push($scope.name);
-            //     console.log($scope.sectionName);
+            //     //console.log($scope.sectionName);
             // };
 
 
@@ -211,7 +211,7 @@ _editArrangeSurveyComponent = {
                         }
                     }, function (err) {
                         //some error
-                        console.log("Error: ", err);
+                        //console.log("Error: ", err);
                         $("#preloader").css("display", "none");
                     })
             }
@@ -238,7 +238,7 @@ _editArrangeSurveyComponent = {
                     $scope.error = 'You have not yet selected any question';
 
                 }
-                console.log($scope.service)
+                //console.log($scope.service)
 
             };
 
@@ -278,7 +278,7 @@ _editArrangeSurveyComponent = {
 
                 }
                 $scope.len = $scope.example1model.length
-                console.log($scope.len)
+                //console.log($scope.len)
             }
 
             function startAgain() {
@@ -304,7 +304,7 @@ _editArrangeSurveyComponent = {
 
                 var startCount = 0;
 
-                console.log($scope.len)
+                //console.log($scope.len)
 
                 if (data.length < $scope.len) {
 
@@ -509,7 +509,7 @@ _editArrangeSurveyComponent = {
                 $scope.logListEvent('dragged over', index, external, type);
                 // Invoke callback to origin for container types.
                 if (type == 'container' && !external) {
-                    console.log('Container being dragged contains ' + callback() + ' items');
+                    //console.log('Container being dragged contains ' + callback() + ' items');
                 }
                 return index < 10; // Disallow dropping in the third row.
             };
@@ -521,7 +521,7 @@ _editArrangeSurveyComponent = {
             };
 
             $scope.logEvent = function (message) {
-                console.log(message);
+                //console.log(message);
             };
 
             $scope.logListEvent = function (action, index, external, type) {
@@ -539,7 +539,7 @@ _editArrangeSurveyComponent = {
 
 
             $scope.$on('my-sorted', function (ev, val) {
-                console.log(val.from + " " + val.to)
+                //console.log(val.from + " " + val.to)
                 var temp = [];
                 $scope.myObj = $scope.models.lists;
                 $scope.model3 = []
@@ -576,7 +576,7 @@ _editArrangeSurveyComponent = {
                     }
                 }, function (err) {
                     //some error
-                    console.log("Error: ", err);
+                    //console.log("Error: ", err);
                     $("#preloader").css("display", "none");
                 })
 

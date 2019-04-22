@@ -73,7 +73,7 @@ function _taskService($http, $q, $location) {
     }
 
     function handleSuccessPropertyData( response ) {
-        ////console.log('****** response is',response)
+        //////console.log('****** response is',response)
         return( response);
     }
 }

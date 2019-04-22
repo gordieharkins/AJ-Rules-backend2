@@ -182,13 +182,13 @@ BLL.prototype.getMasterProperties = function(data, res) {
 
     DAL.getMasterProperties(data.body,data.user[0].userId, relation, function(error, properties) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         }
-        // console.log("properties: ",JSON.stringify(properties));
+        // //console.log("properties: ",JSON.stringify(properties));
         var propsIds = [];
         for(var i = 0;i < properties.data.length;i++){
             propsIds.push(properties.data[i]._id);
@@ -417,7 +417,7 @@ function parseFiles(file,  mapping, userId) {
 
         function(callback) {    // Sample Time
             setTimeout(function() {
-                // console.log('Testing + 1'); // to be removed after finalizing
+                // //console.log('Testing + 1'); // to be removed after finalizing
                 callback();
             }, 2500 * 1);
         },
@@ -445,7 +445,7 @@ function parseFiles(file,  mapping, userId) {
                 else {
                     userRole = result[0].role;
                 }
-                // console.log(userRole);
+                // //console.log(userRole);
                 callback();
             });
         },
@@ -453,8 +453,8 @@ function parseFiles(file,  mapping, userId) {
             try {
 
                 // file.fileName = "abc.xlsx"; // for testing
-                // console.log("fileName",file.fileName);   // to be removed after finalizing
-                // console.log("mapping",mapping);  // to be removed after finalizing
+                // //console.log("fileName",file.fileName);   // to be removed after finalizing
+                // //console.log("mapping",mapping);  // to be removed after finalizing
 
                 parsedProperties = PropertiesParser.mapAndParsePropertiesFile(file.fileName, mapping);
                 if(parsedProperties.length > 0){
@@ -620,7 +620,7 @@ function parseFiles(file,  mapping, userId) {
                             },
                             function(callback) {    // Check for AJ (public) existing properties based on formatted address and lt, lng
                                 if(userRole !== "Assessing Authority"){
-                                    // console.log("linking");
+                                    // //console.log("linking");
 
                                     async.forEachOf(propertyArr, function(property, k, callbackSub2) {
 
@@ -691,7 +691,7 @@ function parseFiles(file,  mapping, userId) {
                         // Save un-parsed files in db
                         var message = '';
                         var isSuccess = 0;
-                        // console.log("successPropsCount",successPropsCount);
+                        // //console.log("successPropsCount",successPropsCount);
                         if(successPropsCount === totalProps){
                             isSuccess = 1;
                             message = Response.REPLY_MSG.PARSED_SUCCESSFULLY;
@@ -901,7 +901,7 @@ BLL.prototype.deletePropertiesByIds = function(data, res, userId) {
     var userId = data.user[0].userId;
     DAL.deletePropertiesByIds(propertyIds, userId, function(error, slaveProperties) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.DELETE_FAIL, null, res);
@@ -956,7 +956,7 @@ function batchGeoCode(address, callback) {
             if(result[0].value !== null && result[0].value.length > 0){
                 ltLngFoundCounter ++;
 
-                // console.log("ltLngFoundCounter",ltLngFoundCounter);
+                // //console.log("ltLngFoundCounter",ltLngFoundCounter);
 
                 allAddresses[addressIndex].latitude = result[0].value[0].latitude;
                 allAddresses[addressIndex].longitude = result[0].value[0].longitude;
@@ -975,8 +975,8 @@ function batchGeoCode(address, callback) {
 
         addressIndex++;
         // Console to be removed after final testing
-        // console.log("allAddresses.length==>",allAddresses.length);
-        // console.log("addressIndex==>",addressIndex);
+        // //console.log("allAddresses.length==>",allAddresses.length);
+        // //console.log("addressIndex==>",addressIndex);
         if(allAddresses.length > addressIndex) {
 
             batchGeoCode([allAddresses[addressIndex].streetAddress], callback);
@@ -1000,7 +1000,7 @@ BLL.prototype.assignPropertyToAgent = function(data, res) {
 
     DAL.assignPropertyToAgent(data.body, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.PROPERTY_ASSIGNED_FAIL, null, res);
@@ -1024,7 +1024,7 @@ BLL.prototype.getAssignedUsers = function(data, res) {
 
     DAL.getAssignedUsers(data.body, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1048,7 +1048,7 @@ BLL.prototype.removeAssignedUser = function(data, res) {
 
     DAL.removeAssignedUser(data.body, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.RREPLY_MSG.DELETE_FAIL, null, res);
@@ -1072,7 +1072,7 @@ BLL.prototype.getPublicPropertyDetailsById = function(data, res) {
 
     DAL.getPublicPropertyDetailsById(data.body, function(error, result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1096,24 +1096,24 @@ BLL.prototype.getAJPublicProperties = function(data, res) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
-    // console.log(data.body);
+    // //console.log(data.body);
     var userId = data.user[0].userId;
-    // console.log(userId);
+    // //console.log(userId);
     if(data.body.state == null){
         DAL.getUsersJurisdictions(userId, function(error, jurisdictions) {
             if (error) {
-                console.log(error);
+                //console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                 return;
             } else{
-                // console.log(JSON.stringify(jurisdictions));
+                // //console.log(JSON.stringify(jurisdictions));
                 data.body.state = jurisdictions[0].jurisdictions;
-                console.log(data.body);
+                //console.log(data.body);
                 DAL.getAJPublicProperties(data.body, function(error, properties) {
                     if (error) {
-                        // console.log(error);
+                        // //console.log(error);
                         error.userName = loginUserName;
                         ErrorLogDAL.addErrorLog(error);
                         Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1130,7 +1130,7 @@ BLL.prototype.getAJPublicProperties = function(data, res) {
     } else {
         DAL.getAJPublicProperties(data.body, function(error, properties) {
             if (error) {
-                console.log(error);
+                //console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1145,7 +1145,7 @@ BLL.prototype.getAJPublicProperties = function(data, res) {
 // ---------------------END---------------------
 
 BLL.prototype.getFileStatusIE = function(data, res) {
-    // console.log("in func",data.user[0].userId);
+    // //console.log("in func",data.user[0].userId);
     DAL.getFileStatusIE(data.user[0].userId, function(error, result) {
         if (error) {
             error.userName = loginUserName;
@@ -1153,7 +1153,7 @@ BLL.prototype.getFileStatusIE = function(data, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else{
-            // console.log("dadasd");
+            // //console.log("dadasd");
             var properties = [];
             var propertyNames = [];
             for(var i = 0;i < result.length; i++){
@@ -1177,7 +1177,7 @@ BLL.prototype.getFileStatusIE = function(data, res) {
                     properties.push(property);
                 }
             }
-            // console.log("before DAL: ",properties);
+            // //console.log("before DAL: ",properties);
             DAL.getFileStatusRR(data.user[0].userId, function(error, result2) {
                 if (error) {
                     error.userName = loginUserName;
@@ -1185,18 +1185,18 @@ BLL.prototype.getFileStatusIE = function(data, res) {
                     Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                     return;
                 } else{
-                    // console.log("result2: ",result2);
+                    // //console.log("result2: ",result2);
                     for(var i = 0;i < result2.length; i++){
                         var index = propertyNames.indexOf(result2[i].property);
                         if(index > -1){
                             var myYear = null;
-                            // console.log("index: ",i)
+                            // //console.log("index: ",i)
                             if(result2[i].year !== "unknown"){
                                 myYear = util.longToDate(result2[i].year).split("/")[2]
                             }else{
                                 myYear = result2[i].year
                             }
-                            // console.log("year: ",myYear)
+                            // //console.log("year: ",myYear)
                             if(properties[index]["rentRoll"][myYear] == undefined){
                                 properties[index]["rentRoll"][myYear] = [{fileName: result2[i].fileName, status: result2[i].status}];
                             } else {

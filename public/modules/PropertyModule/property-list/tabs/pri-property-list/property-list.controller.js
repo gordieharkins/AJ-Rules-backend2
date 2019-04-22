@@ -142,19 +142,19 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
         },
         onSelectionChanged: function (event) {
             var selectedProps = gridOptions.api.getSelectedRows();
-            ////console.log('selectedProps', selectedProps.length);
-            ////console.log('server in progress', selectedProps);
+            //////console.log('selectedProps', selectedProps.length);
+            //////console.log('server in progress', selectedProps);
             if (serverInProgress != 1) {
                 if (selectedProps.length > 0) {
                     vm.showContractButton = true;
                     $scope.$apply();
-                    ////console.log('server in progress', vm.showContractButton);
+                    //////console.log('server in progress', vm.showContractButton);
 
 
                 }
 
                 if (selectedProps.length > 1) {
-                    ////console.log('active delete button')
+                    //////console.log('active delete button')
                     vm.showDeleteButton = true;
                     decideToShowMultiAccountMultiPart(selectedProps);
                     if (!$scope.$$phase) {
@@ -185,20 +185,20 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
         var selectedProps = gridOptions.api.getSelectedRows();
         for (var i = 0; i < selectedProps.length; i++) {
             var property = selectedProps[i];
-            ////console.log(property)
+            //////console.log(property)
             propIdList.push(property._id);
         }
-        // ////console.log(propIdList);
+        // //////console.log(propIdList);
         return propIdList;
     }
 
 
     $scope.createContract = function () {
         var propIdList = getSelectedPropertiesId();
-        // //console.log('propIdList' , propIdList);
+        // ////console.log('propIdList' , propIdList);
         localStorage.setItem('selectedPopertiesId', angular.toJson(propIdList));
         PrivatePropertyService.selectedPropertyList = propIdList
-        console.log(PrivatePropertyService.selectedPropertyList)
+        //console.log(PrivatePropertyService.selectedPropertyList)
         $state.go('Contract');
     }
 
@@ -214,14 +214,14 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
         var jsonFormat = {
             propIds: propIdList
         };
-        ////console.log(jsonFormat);
+        //////console.log(jsonFormat);
         gridOptions.api.deselectAll();
         PrivatePropertyService.postDataToServer(url, jsonFormat)
             .then(function (result) {
                 serverInProgress = 0;
                 vm.showDeleteButton = false;
                 vm.showMultiPartAccount = false;
-                ////console.log(result);
+                //////console.log(result);
                 var serverData = result.data;
                 $("#preloader").css("display", "none");
 
@@ -236,7 +236,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 
             }, function (error) {
 
-                ////console.log(error);
+                //////console.log(error);
                 $("#preloader").css("display", "none");
                 // $scope.$emit('error',serverData.message);
             });
@@ -252,12 +252,12 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
             propIds: propIdList
         };
 
-        ////console.log(jsonFormat);
+        //////console.log(jsonFormat);
         gridOptions.api.deselectAll();
         PrivatePropertyService.postDataToServer(url, jsonFormat)
             .then(function (result) {
                 serverInProgress = 0;
-                ////console.log(result);
+                //////console.log(result);
                 var serverData = result.data;
                 vm.showDeleteButton = false;
                 vm.showMultiPartAccount = false;
@@ -273,7 +273,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 
             }, function (error) {
                 $("#preloader").css("display", "none");
-                ////console.log(error);
+                //////console.log(error);
             });
     }
 
@@ -293,7 +293,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
         PrivatePropertyService.deleteProperties(propIds)
             .then(function (serverData) {
                 serverInProgress = 0;
-                ////console.log(serverData);
+                //////console.log(serverData);
                 $("#preloader").css("display", "none");
                 if (serverData.success) {
                     setRowData([]);
@@ -306,10 +306,10 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                 }
             }, function (err) {
                 serverInProgress = 0;
-                ////console.log(err);
+                //////console.log(err);
                 $scope.$emit('error', err.message);
                 $("#preloader").css("display", "none");
-                ////console.log(error);
+                //////console.log(error);
             });
     }
 
@@ -349,8 +349,8 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
         var dataSource = {
             rowCount: null, // behave as infinite scroll
             getRows: function (params) {
-                ////console.log("\n\n***************GET ROWS ==> Params**********\n");
-                ////console.log(params);
+                //////console.log("\n\n***************GET ROWS ==> Params**********\n");
+                //////console.log(params);
                 serverInProgress = 1;
 
                 var myParams = {
@@ -364,7 +364,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                     .then(function (response) {
                         serverInProgress = 0;
                         var serverData = response.data;
-                        ////console.log('\n=> Server response\n', serverData);
+                        //////console.log('\n=> Server response\n', serverData);
                         if (serverData.success) {
                             vm.tableData = serverData.result.data;
                             allOfTheData = vm.tableData;
@@ -444,7 +444,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
     function getSelectedPropertyIdsList() {
         var propIdList = [];
         var selectedProps = gridOptions.api.getSelectedRows();
-        ////console.log(selectedProps);
+        //////console.log(selectedProps);
         for (var i = 0; i < selectedProps.length; i++) {
             propIdList.push(selectedProps[i]._id);
         }
@@ -454,15 +454,15 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 
 
     $scope.viewEvaluation = function () {
-        ////console.log('viewEvaluation');
-        ////console.log(property);
+        //////console.log('viewEvaluation');
+        //////console.log(property);
 
         localStorage.setItem('propertyDetails', angular.toJson(property.properties));
         localStorage.setItem('propertyId', angular.toJson(property._id));
 
 
         property.prop = property.masterProperty;
-        // ////console.log(property.prop._id);
+        // //////console.log(property.prop._id);
         $state.go('propertyValuation', { //uploadIERR updateIERR
             property: property
         });
@@ -544,7 +544,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
             if (vm.userRole != User_Config.AJ_USER) {
                 // add event listener to button
                 this.valuationEventListener = function (event) {
-                    // ////console.log('eventListener 1 button was clicked!!', this.value);
+                    // //////console.log('eventListener 1 button was clicked!!', this.value);
                     var property = getPropertyObjectFromList(this.value);
                     if (property) {
                         //set permissions
@@ -559,7 +559,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                 };
 
                 this.attachEventListener = function (event) {
-                    // ////console.log('eventListener 3 button was clicked!!', this.value);
+                    // //////console.log('eventListener 3 button was clicked!!', this.value);
                     var property = getPropertyObjectFromList(this.value);
                     if (property) {
                         //set permissions
@@ -574,7 +574,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
                 };
 
                 this.comparableEventListener = function (event) {
-                    // ////console.log('eventListener 4 button was clicked!!', this.value);
+                    // //////console.log('eventListener 4 button was clicked!!', this.value);
                     var property = getPropertyObjectFromList(this.value);
                     if (property) {
                         //set permissions
@@ -589,7 +589,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 
                 this.deleteEventListener = function (event) {
 
-                    ////console.log('eventListener 5 button was clicked!!', this.value);
+                    //////console.log('eventListener 5 button was clicked!!', this.value);
                     deletePropAlert();
                     $('#myModalquestion').modal('toggle');
 
@@ -620,7 +620,7 @@ function _PropertyListCtrl(AOTCPermissions, User_Config, $timeout, $compile, Pri
 
 
             this.viewEventListener = function (event) {
-                ////console.log('eventListener 2 button was clicked!!', this.value);
+                //////console.log('eventListener 2 button was clicked!!', this.value);
                 var property = getPropertyObjectFromList(this.value);
 
                 if (property) {

@@ -73,15 +73,15 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
-            console.log(error);
+            //console.log(error);
             return;
         }
     });
 
     busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
-      // console.log('Field [' + fieldname + ']: value: '+ val);
+      // //console.log('Field [' + fieldname + ']: value: '+ val);
       description = val.split("|");
-      // console.log("Description: ",description);
+      // //console.log("Description: ",description);
           });
 
     busboy.on('finish', function() {
@@ -105,7 +105,7 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
                 }, function() {
                     if(isError) {
                         Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
-                        console.log("!", error);
+                        //console.log("!", error);
                     } else {
                         // Delete the fileStream attribute as we don't need to save it in db.
                         for (var i = 0; i < files.length; i++) {
@@ -117,7 +117,7 @@ BLL.prototype.uploadOtherFiles = function(data, res) {
                                 error.userName = loginUserName;
                                 ErrorLogDAL.addErrorLog(error);
                                 Response.sendResponse(false, Response.REPLY_MSG.FILES_UPLOAD_FAIL, null, res);
-                                console.log("!!", error);
+                                //console.log("!!", error);
                                 return;
                             }
                             Response.sendResponse(true, Response.REPLY_MSG.FILES_UPLOAD_SUCCESS, null, res);

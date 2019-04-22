@@ -12,7 +12,7 @@ module.exports = {
 //    .controller('Signup', _Signup);
 
 function _Signup(AOTCService, $state, $q) {
-    ////console.log("Signup controller");
+    //////console.log("Signup controller");
     var vm = this;
 
 
@@ -101,12 +101,12 @@ function _Signup(AOTCService, $state, $q) {
         if (vm.signupData.password == vm.signupData.passwordConfirm) {
 
             delete vm.signupData.passwordConfirm;
-            ////console.log(vm.signupData);
+            //////console.log(vm.signupData);
 
             AOTCService.postDataToServer(url, vm.signupData)
                 .then(function (result) {
 
-                    console.log(result);
+                    //console.log(result);
                    
                     localStorage.setItem('tokenTemp', result.data.result);
                     vm.signupData = {
@@ -154,7 +154,7 @@ function _Signup(AOTCService, $state, $q) {
                     //some error
                     $("#preloader").css("display", "none");
 
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         }
 
@@ -175,9 +175,9 @@ function _pwCheck() {
             elem.add(firstPassword).on('keyup', function () {
                 scope.$apply(function () {
                     var v = elem.val() === $(firstPassword).val();
-                    ////console.log(v);
-                    ////console.log(elem.val());
-                    ////console.log(firstPassword);
+                    //////console.log(v);
+                    //////console.log(elem.val());
+                    //////console.log(firstPassword);
                     ctrl.$setValidity('pwmatch', v);
                 });
             });

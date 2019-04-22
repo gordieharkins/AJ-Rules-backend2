@@ -66,7 +66,7 @@ BLL.prototype.userSignIn = function(credentials, res) {
 
             //timeline.extractNotifications(data);
             //timeline.getNotifications(data,res);
-            // console.log("notifications extracted");
+            // //console.log("notifications extracted");
             // timeline.extractNotifications();
             
             // using SendGrid's v3 Node.js Library
@@ -96,7 +96,7 @@ BLL.prototype.userSignIn = function(credentials, res) {
 
 
 // var task = cron.schedule('39 15 * * *', function() { //min hour
-//     console.log("notifications extracted");
+//     //console.log("notifications extracted");
 //     timeline.extractNotifications(); //extract notifications and store them in the DB everyday
 // }, false);
 // task.start();
@@ -269,7 +269,7 @@ BLL.prototype.getUserByRole = function(data, res) {
     }
     DAL.getUserByRole(data.body, function(error,result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -287,7 +287,7 @@ BLL.prototype.getUserRoles = function(data, res) {
     }
     DAL.getUserRoles(function(error,result) {
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             errorLogDAL.addErrorLog(error);
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -326,6 +326,6 @@ BLL.prototype.downloadAppealPackage = function(req, res) {
     //      Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
     //      return;
     // }
-    // console.log(req.path);
+    // //console.log(req.path);
     res.download(req.query.path);
 }

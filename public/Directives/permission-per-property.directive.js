@@ -32,7 +32,7 @@ function _permissionPerProperty(AOTCPermissions) {
                     }
                 }
                 catch(_e){}
-                //console.log(value);
+                ////console.log(value);
 
             }
 

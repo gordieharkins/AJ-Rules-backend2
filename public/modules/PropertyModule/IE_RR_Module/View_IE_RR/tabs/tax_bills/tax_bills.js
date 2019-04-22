@@ -6,7 +6,7 @@ module.exports = _tax_bills;
 //angular.module('AOTC').controller('tax_bills', _tax_bills
 //    );
 function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("tax_bills controller");
+    //////console.log("tax_bills controller");
 
     var vm = this;
 
@@ -57,7 +57,7 @@ function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout
 
         AOTCService.postDataToServer(url, _data).then(function(result) {
 
-            ////console.log("getTaxBills: ", result);
+            //////console.log("getTaxBills: ", result);
 
             var serverData = result.data;
 
@@ -73,7 +73,7 @@ function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout
             }
         }, function(result) {
             //some error
-            ////console.log(result);
+            //////console.log(result);
             $("#preloader").css("display", "none");
         });
     }
@@ -91,7 +91,7 @@ function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function(result) {
-            ////console.log(result);
+            //////console.log(result);
 
             if (result.data.success) {
                 $scope.$emit('success',result.data.message);
@@ -120,7 +120,7 @@ function _tax_bills($location, $scope, $http, __env, $log, AOTCService, $timeout
         };
 
         AOTCService.postDataToServer(url, vm.data).then(function(result) {
-            ////console.log(result);
+            //////console.log(result);
             
             if (result.data.success) {
                 $scope.$emit('success',result.data.message);

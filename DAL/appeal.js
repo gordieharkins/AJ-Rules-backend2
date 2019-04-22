@@ -16,7 +16,7 @@ function DAL() {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getFormDataForJurisdiction = function(data, cb) {
-	// console.log("here it is00")
+	// //console.log("here it is00")
     var query = `MATCH(n:property)-[:publicRelation]->(publicProperty)<-[*]-(user:user)-[:appealForm]->(form)
     			 where id(n) = 115386 return DISTINCT(form), publicProperty.landArea as landArea,
                 publicProperty.buildingArea as buildingArea`;
@@ -38,11 +38,11 @@ DAL.prototype.getFormDataForJurisdiction = function(data, cb) {
 // getFormDataForJurisdiction
 //--------------------------------------------------------
 DAL.prototype.getIESurveyInformation = function(data, cb) {
-    // console.log("here it is00");
-    // console.log(data.revalYear);
+    // //console.log("here it is00");
+    // //console.log(data.revalYear);
     var revalYear = new Date(data.revalYear).getTime().toString();
-    // console.log(revalYear);
-    // console.log(data.propId);
+    // //console.log(revalYear);
+    // //console.log(data.propId);
     var query = `MATCH(n:property)-[:revalYear]->(revalNode: revalYear)<-[:OF]-(ie:IEsurvey)<-[:OF]-(data) 
                 where id(n) IN {propId} AND revalNode.year = {revalYear}
                 return ie, collect(data) as submodules, id(n) as propertyId`;
@@ -54,7 +54,7 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
             revalYear: revalYear
         }
     }, function(err, results) {
-        // console.log(results);
+        // //console.log(results);
         cb(err, results);
     });
 }
@@ -63,8 +63,8 @@ DAL.prototype.getIESurveyInformation = function(data, cb) {
 // updateIESurveyInformation
 //--------------------------------------------------------
 DAL.prototype.updateIESurveyInformation = function(data, cb) {
-    // console.log("here it is00");
-    // console.log(data.revalYear);
+    // //console.log("here it is00");
+    // //console.log(data.revalYear);
     params = {};
     var query = "";
     for(var i = 0; i < data.length; i++){
@@ -74,7 +74,7 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         query += `MATCH(n:{label`+i+`}) where id(n) = {id+`+i+`} 
                 SET n = {data`+i+`} `;
     }
-    // console.log(data.propId);
+    // //console.log(data.propId);
     // var query = `MATCH(n:property)-[:revalYear]->(revalNode: revalYear)<-[:OF]-(ie:IEsurvey)<-[:OF]-(data) 
     //             where id(n) IN {propId} AND revalNode.year = {revalYear}
     //             return ie, collect(data) as submodules, id(n) as propertyId`;
@@ -83,7 +83,7 @@ DAL.prototype.updateIESurveyInformation = function(data, cb) {
         query: query,
         params: params
     }, function(err, results) {
-        // console.log(results);
+        // //console.log(results);
         cb(err, results);
     });
 }
@@ -121,12 +121,12 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
         }
 
     }
-    // console.log(params);
+    // //console.log(params);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        // console.log(results);
+        // //console.log(results);
         cb(err, results);
     });
 }
@@ -136,7 +136,7 @@ DAL.prototype.addPropertyTimelineData = function(data, timeline, year, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
-    // console.log(userId);
+    // //console.log(userId);
     var query = `MATCH(n:user)-[:OWNS]->(prop:property) where id(n) = {userId} AND prop.isDeleted <> true
     OPTIONAL MATCH (prop)-[revalYear:revalYear]->(t:timeline)-[:Event]->(event:event)
     OPTIONAL MATCH (event)-[:subEvent]->(subevent:subEvent)
@@ -161,7 +161,7 @@ DAL.prototype.getPropertyTimelineData = function(userId, appealYear, cb) {
 // getPropertyTimelineData
 //--------------------------------------------------------
 DAL.prototype.updateData = function(data, id, cb) {
-    // console.log(JSON.stringify(data));
+    // //console.log(JSON.stringify(data));
     var params = {};
     var query = "";
     if(Array.isArray(data)){
@@ -221,7 +221,7 @@ DAL.prototype.getJurisdictionTimelineData = function(jurisdiction, cb) {
     var params = {
         jurisdiction: jurisdiction
     };
-    console.log(params);
+    //console.log(params);
     // delete notification.remainingDays;
     var query = `MATCH(n:ajRUles) where n.jurisdictionName = {jurisdiction} return properties(n) as rules`;
 
@@ -250,7 +250,7 @@ DAL.prototype.getNotification = function(userId, cb) {
         userId: userId
     };
 
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -268,7 +268,7 @@ DAL.prototype.executeSignature = function(userId, cb) {
         userId: userId
     };
 
-    // console.log(query);
+    // //console.log(query);
     db.cypher({
         query: query,
         params: params
@@ -305,7 +305,7 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
         sendingDate: sendingDate
     };
     // delete notification.remainingDays;
-    console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    //console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
     
     var query = `MATCH(users:user)-[]->(invite:calendarInvite)
                 WHERE invite.start = {sendingDate} AND id(users) IN {userIds} AND invite.sent = false           
@@ -315,15 +315,15 @@ DAL.prototype.getAlreadyCreadyInviteId = function(userIds, sendingDate, cb) {
                 WHERE cnt = otherCount AND usersCount = cnt
                 RETURN invite
                 `;
-    // console.log(query);
-    // console.log(params);
+    // //console.log(query);
+    // //console.log(params);
     // params.push("S");
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        console.log("DALUseridsqdasdasdasdasd",userIds,results);
-        // console.log("DALresults: ", );
+        //console.log("DALUseridsqdasdasdasdasd",userIds,results);
+        // //console.log("DALresults: ", );
         cb(err, results);
     });
 }
@@ -350,7 +350,7 @@ DAL.prototype.addCalendarInvite = function(ownerIds, agentsIds, calendarInvite, 
     };
 
 
-    // console.log(mainInvite);
+    // //console.log(mainInvite);
     // var organizer = calendarInvite.organizer
 
     // var alarmSettings = {
@@ -377,13 +377,13 @@ DAL.prototype.addCalendarInvite = function(ownerIds, agentsIds, calendarInvite, 
                 )
                 RETURN id(invite)`;
 
-    // console.log("aaaaaaaaaaa",ownerIds);
+    // //console.log("aaaaaaaaaaa",ownerIds);
     db.cypher({
         query: query,
         params: params
     }, function(err, results) {
-        // console.log("qaaaaaaaaaaaaaaaa", results);
-        // console.log("AAAAAAAAAAAAAAAAA", params);
+        // //console.log("qaaaaaaaaaaaaaaaa", results);
+        // //console.log("AAAAAAAAAAAAAAAAA", params);
         cb(err, results);
     });
 };

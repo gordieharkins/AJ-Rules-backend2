@@ -7,13 +7,13 @@ module.exports = _sectionSettingsCtrl;
 //    .controller('sectionSettingsCtrl', _sectionSettingsCtrl
 //    );
 function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyService, $state) {
-    console.log("sectionSettings controllersssssssssssssssssssssss");
+    //console.log("sectionSettings controllersssssssssssssssssssssss");
     $("#preloader").css("display", "block");
 
 
     $scope.getallSections =function () {
 
-        console.log('data')
+        //console.log('data')
 
         sectionSettingsService.getAllSections().
             then(function(result) {
@@ -21,7 +21,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
                 if (serverData.success) {
                     if(serverData) {
                         $scope.sections = serverData.result;
-                        console.log( $scope.sections)
+                        //console.log( $scope.sections)
 
                     }
 
@@ -30,7 +30,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 
             }, function(err) {
                 //some error
-                console.log("Error: ", err);
+                //console.log("Error: ", err);
                 $("#preloader").css("display", "none");
             })
 
@@ -43,16 +43,16 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 
     $scope.openModal=function (data) {
         $scope.postSection={id:null,sectionText:null}
-        console.log(data)
+        //console.log(data)
         $scope.postSection.id=data.sectionId;
         $scope.postSection.sectionText=data.section
-        console.log($scope.postSection)
+        //console.log($scope.postSection)
         $('#myModalquestion').modal('show');
     }
 
     $scope.editSection=function (data) {
         $("#preloader").css("display", "none");
-        console.log(data)
+        //console.log(data)
         sectionSettingsService.addSection(data).then(function (result) {
             var serverData = result.data;
             $('#myModalquestion').modal('toggle');
@@ -69,7 +69,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 
         }, function (err) {
             //some error
-            console.log("Error: ", err);
+            //console.log("Error: ", err);
             $("#preloader").css("display", "none");
         })
 
@@ -77,9 +77,9 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 
     $scope.removeSection=function (data) {
         postData={id:data.sectionId}
-        console.log("removing")
+        //console.log("removing")
         $("#preloader").css("display", "none");
-        console.log(data)
+        //console.log(data)
         sectionSettingsService.deleteSection(postData).then(function (result) {
             var serverData = result.data;
 
@@ -96,7 +96,7 @@ function _sectionSettingsCtrl($scope, sectionSettingsService, CreateSurveyServic
 
         }, function (err) {
             //some error
-            console.log("Error: ", err);
+            //console.log("Error: ", err);
             $("#preloader").css("display", "none");
         })
     }

@@ -6,7 +6,7 @@ module.exports = _viewAJForm;
 //angular.module('AOTC').controller('viewAJForm', _viewAJForm);
 
 function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("viewAJForm controller", $stateParams);
+    //////console.log("viewAJForm controller", $stateParams);
 
     var vm = this;
     vm.tableData = [];
@@ -35,16 +35,16 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
 
     if ($stateParams.AJData != null) {
 
-        ////console.log('if')
+        //////console.log('if')
         localStorage.setItem('AjData', angular.toJson($stateParams.AJData));
         vm.AJData = $stateParams.AJData
 
     } else {
-        ////console.log('else')
+        //////console.log('else')
         vm.AJData = JSON.parse(localStorage.getItem('AjData'));
     }
 
-    ////console.log(vm.AJData)
+    //////console.log(vm.AJData)
 
     // setTimeout(function() {
     //     var id = 1;
@@ -76,7 +76,7 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
                     if (question.id == 38) {
                         var answerJson = question.answer;
 
-                        ////console.log(JSON.parse(answerJson));
+                        //////console.log(JSON.parse(answerJson));
                         vm.numberOfBills = JSON.parse(answerJson);
 
 
@@ -87,9 +87,9 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
                         vm.fiscalYearStartDate = fiscalYearDates[0];
                         vm.fiscalYearEndDate = fiscalYearDates[1];
 
-                        // ////console.log(fiscalYearDates);
-                        // ////console.log(vm.fiscalYearStartDate);
-                        // ////console.log(vm.fiscalYearEndDate);
+                        // //////console.log(fiscalYearDates);
+                        // //////console.log(vm.fiscalYearStartDate);
+                        // //////console.log(vm.fiscalYearEndDate);
 
                         $('#40a').text(vm.fiscalYearStartDate)
                         $('#40b').text(vm.fiscalYearEndDate)
@@ -163,7 +163,7 @@ function _viewAJForm(User_Config, $stateParams, $anchorScroll, $state, DTOptions
             $('#preloader').css('display', 'none');
 
         }, function (result) {
-            ////console.log(result);
+            //////console.log(result);
             $('#preloader').css('display', 'none');
 
 

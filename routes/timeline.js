@@ -7,7 +7,7 @@ var Response = require(path.resolve(__dirname, '../BLL/util/response'));
 var BLL = new timelineBllFile();
 
 router.use(function (req, res, next) {
-    // console.log(req.user[0]);
+    // //console.log(req.user[0]);
     if (!req.user[0].roles.timeline)
     {
         Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
@@ -35,7 +35,7 @@ router.get('/getNotifications', function(req, res, next) {
 });
 
 // router.get('/getJurisdictions', function(req, res, next) {
-// 	console.log("here");
+// 	//console.log("here");
 //     BLL.getJurisdictions(req, res);
 // });
 

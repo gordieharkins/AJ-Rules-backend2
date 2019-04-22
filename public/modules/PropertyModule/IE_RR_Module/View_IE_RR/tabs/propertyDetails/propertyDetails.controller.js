@@ -28,7 +28,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 * https://github.com/nnattawat/flip
 * Copyright (c) 2016 Nattawat Nonsung; Licensed MIT */
 
-    ////console.log("PropertyDetailsTab");
+    //////console.log("PropertyDetailsTab");
 
     var vm = this;
     $scope.isArray = function(value){
@@ -163,7 +163,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 
         PropertyDetailsTabService.deleteImageById(imageId, tag)
             .then(function (result) {
-                ////console.log('Server result deleteImageById ->' + result);
+                //////console.log('Server result deleteImageById ->' + result);
                 if (result.data.success) {
                     $scope._Index = 0;
                     getAllImages(false);
@@ -174,7 +174,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
                     $scope.$emit('error', 'Record deleted unsuccessfull');
                 }
             }, function (err) {
-                ////console.log('err is ', err);
+                //////console.log('err is ', err);
             })
     }
 
@@ -239,7 +239,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 
         PropertyDetailsTabService.setMainImage(propertyId, imageId)
             .then(function (result) {
-                ////console.log('Server result setMainImage -->', result);
+                //////console.log('Server result setMainImage -->', result);
                 if (result.data.success) {
                     getAllImages(true);
                     updateDrag(false);
@@ -248,7 +248,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
                     $scope.$emit('error', 'Main picture set unsuccessfull');
                 }
             }, function (err) {
-                ////console.log('err is ', err);
+                //////console.log('err is ', err);
             })
     }
 
@@ -257,7 +257,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
         vm.images = [];
         PropertyDetailsTabService.getAllImages().
         then(function (result) {
-            ////console.log('getAllImages: ', result);
+            //////console.log('getAllImages: ', result);
 
             var serverData = result.data;
 
@@ -284,7 +284,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
             }
         }, function (err) {
             //some error
-            ////console.log("Error: ", err);
+            //////console.log("Error: ", err);
             $("#preloader").css("display", "none");
         })
     }
@@ -375,7 +375,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
                     getAllImages(false);
                 }, function (result) {
                     $("#preloader").css("display", "none");
-                    ////console.log(result);
+                    //////console.log(result);
                 });
         } else {
             $scpoe.$emit('error', 'Please upload a picture');
@@ -393,13 +393,13 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 
 //     AOTCService.getDataFromServer(url)
 //         .then(function(result) {
-//             ////console.log(result);
-//             // ////console.log(result.data.length);
+//             //////console.log(result);
+//             // //////console.log(result.data.length);
 //             var serverData = result.data;
 //             if (serverData.success) {
 
 //                 vm.properties = serverData.result[0].prop;
-//                 // ////console.log(vm.properties);
+//                 // //////console.log(vm.properties);
 //                 localStorage.setItem('propertiesCount', vm.properties.length);
 
 //                 for (var i = 0; i < vm.properties.length; i++) {
@@ -419,7 +419,7 @@ function _PropertyDetailsTab(User_Config, fileReader, UtilService, $stateParams,
 //             $("#preloader").css("display", "none");
 //         }, function(result) {
 //             //some error
-//             ////console.log(result);
+//             //////console.log(result);
 //             $("#preloader").css("display", "none");
 //         });
 // }

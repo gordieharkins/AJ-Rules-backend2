@@ -19,7 +19,7 @@ function _SubmissionListService($q, AOTCService) {
 
             }, function (result) {
                 deferred.reject(result);
-                console.log(result);
+                //console.log(result);
             });
         return deferred.promise;
 

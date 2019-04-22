@@ -4,6 +4,6 @@
 
 angular.module('AOTC')
     .controller('ViewSurveyCtrl', function _ViewSurveyCtrl() {
-        //////console.log("View Survey controller");
+        ////////console.log("View Survey controller");
 
     });

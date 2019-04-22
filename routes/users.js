@@ -9,7 +9,7 @@ var BLL = new bllFile();
 
 
 router.post('/', function(req, res, next) {
-	console.log("Body:", req.body);
+	//console.log("Body:", req.body);
 	res.send("Users");
 });
 /* GET users listing. */

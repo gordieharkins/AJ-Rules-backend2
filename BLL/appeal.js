@@ -39,7 +39,7 @@ var object = new BLL();
 BLL.prototype.getFormDataForJurisdiction = function(data, res) {
     DAL.getFormDataForJurisdiction(data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -84,7 +84,7 @@ BLL.prototype.getFormDataForJurisdiction = function(data, res) {
 BLL.prototype.getIESurveyInformation = function(data, res) {
     DAL.getIESurveyInformation(data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -111,7 +111,7 @@ BLL.prototype.getIESurveyInformation = function(data, res) {
 BLL.prototype.updateIESurveyInformation = function(data, res) {
     DAL.updateIESurveyInformation(data, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -134,7 +134,7 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 	var jurisdictionTimelineData = jurisdictionTimeline.jurisdictions[1];
 	DAL.getJurisdictionTimelineData(data[0].jurisdiction, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             cb(error);
@@ -150,7 +150,7 @@ BLL.prototype.addPropertyTimelineData = function(data, cb) {
 			var timeline = createTimelineWithJson(jurisdictionTimelineData);
 			DAL.addPropertyTimelineData(data, timeline, year, function(error, result) {
 				if (error) {
-					console.log(error);
+					//console.log(error);
 					error.userName = loginUserName;
 					ErrorLogDAL.addErrorLog(error);
 					cb(error);
@@ -171,7 +171,7 @@ BLL.prototype.getNotification = function(req, res) {
 	var userId = req.user[0].userId;
     DAL.getNotification(userId, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} else {
@@ -182,7 +182,7 @@ BLL.prototype.getNotification = function(req, res) {
 				if(result[i].notification != null){
 					var notificationIndex = notificationText.indexOf(result[i].notification.text);
 					if(notificationIndex > -1){
-						console.log("dummy console. will find something better soon. ");
+						//console.log("dummy console. will find something better soon. ");
 					} else {
 						notificationText.push(result[i].notification.text);
 						notifications.push(result[i].notification);
@@ -216,7 +216,7 @@ BLL.prototype.getNotification = function(req, res) {
 BLL.prototype.updateData = function(req, res) {
     DAL.updateData(req.body, null, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
@@ -249,7 +249,7 @@ BLL.prototype.updateRequiredItemsPaper = function(req, res) {
 	}
 	DAL.updateData(data[0].properties, data[0]._id, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
@@ -268,7 +268,7 @@ BLL.prototype.executeSignature = function(req, res) {
 	var userId = req.user[0].userId;
     DAL.executeSignature(userId, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -285,7 +285,7 @@ BLL.prototype.executeSignature = function(req, res) {
 
 				DAL.updateData(req.body.data, null, function(error, result) {
 					if (error) {
-						console.log(error);
+						//console.log(error);
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
 						Response.sendResponse(false, Response.REPLY_MSG.PIN_FAILED, null, res);
@@ -324,7 +324,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 	
     DAL.getPropertyTimelineData(userId, appealYear, function(error, result) {
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 			if(!alert){
@@ -340,13 +340,13 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 
 			var calendarInvitesArray = [];
 			// var calendarInviteFlag = false;
-			// console.log(result.length);
-			// console.log(JSON.stringify(result));
-			// console.log(userId);
+			// //console.log(result.length);
+			// //console.log(JSON.stringify(result));
+			// //console.log(userId);
 			// if(userId == 9933039){
-			// 	console.log(JSON.stringify(result));
+			// 	//console.log(JSON.stringify(result));
 			// }
-			// console.log(result.length);
+			// //console.log(result.length);
 			async.forEachOf(result, function (value, i, callbackMain) {
 				if(value.event == null){
 					callbackMain();
@@ -360,10 +360,10 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 							tempEvent[value.subEvent[k].properties.order - 1] = value.subEvent[k];
 						}
 						value.subEvent = tempEvent;
-						// console.log(userId);
-						// console.log(result.length);
-						// console.log(i);
-						// console.log("Index: ",i);
+						// //console.log(userId);
+						// //console.log(result.length);
+						// //console.log(i);
+						// //console.log("Index: ",i);
 						// if(value.event.properties.calendarInvite != true){
 							// var endDate = calculateRemainingDays(value.event.properties.deadline);
 							// if(endDate <= 7){
@@ -375,7 +375,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 
 						if(value.event.properties.status != "In Progress" && value.event.properties.status != "Done"){
 							var startDate = calculateRemainingDays(value.event.properties.startDate);
-							// console.log("StartDate: ", startDate);
+							// //console.log("StartDate: ", startDate);
 							if(startDate <= 0){
 								
 								calendarInviteFlag = true;
@@ -573,7 +573,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 												updateData(value.event.properties, value.event._id, null);
 											}
 										} catch (err){
-											console.log(err);
+											//console.log(err);
 										}
 										
 									} else if(value.event.properties.paradigm == "paper"){
@@ -612,7 +612,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 												updateData(value.event.properties, value.event._id, null);
 											}
 										} catch (err) {
-											console.log(err);
+											//console.log(err);
 										}
 										
 									}
@@ -631,11 +631,11 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				}
 			}, function (err) {
 				if (err) console.error(err.message);
-				// console.log(userId);
+				// //console.log(userId);
 				if(calendarInvitesArray.length > 0){
-					// console.log(userId);
-					// console.log(result.length);
-					// console.log(calendarInvitesArray);
+					// //console.log(userId);
+					// //console.log(result.length);
+					// //console.log(calendarInvitesArray);
 					async.forEachOfSeries(calendarInvitesArray, function (value, key, calendarInviteCallback) {
 						addCalendarInvite(value.propertyId, value.event.properties.deadline, function(){
 							calendarInviteCallback();
@@ -643,7 +643,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 					}, function (err) {
 						DAL.getCalendarInvite(function(error, result) {
 							if (error) {
-								console.log(error);
+								//console.log(error);
 								error.userName = loginUserName;
 								ErrorLogDAL.addErrorLog(error);
 							} else {
@@ -660,14 +660,14 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 									calendarInvite.organiser = {name: value.ownerName, email: value.ownerEmail};
 									INVITES.postCalendarInvites(calendarInvite, function(error, result){
 										if(error){
-											console.log("error occured!"); 
+											//console.log("error occured!"); 
 										} else {
 											var data = value.invites.properties;
 											data.sent = true;
 											var inviteId = value.invites._id;
 											DAL.updateCalendarInvite(inviteId, data, function(error, result) {
 												if (error) {
-													console.log(error);
+													//console.log(error);
 													error.userName = loginUserName;
 													ErrorLogDAL.addErrorLog(error);
 												}
@@ -677,15 +677,15 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 											
 										}
 									});
-									// console.log(calendarInvite);
+									// //console.log(calendarInvite);
 	
 								}, function (err) {
 									if (err) console.error(err.message);
 									// configs is now a map of JSON data
 									// doSomethingWith(configs);
 								});
-								// console.log(JSON.stringify(result));
-								console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+								// //console.log(JSON.stringify(result));
+								//console.log("+++++++++++++++++++++++++++++++++++++++++++++");
 							}
 							
 							
@@ -695,7 +695,7 @@ BLL.prototype.getPropertyTimelineData = function(req, res, userId) {
 				}
 				DAL.getNotification(userId, function(error, result) {
 					if (error) {
-						console.log(error);
+						//console.log(error);
 						error.userName = loginUserName;
 						ErrorLogDAL.addErrorLog(error);
 					} else {
@@ -751,7 +751,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 		function(callback) {
 			IEDAL.getPropertyIE(propertyId, function(error, result) {
 				if (error) {
-					console.log(error);
+					//console.log(error);
 					error.userName = loginUserName;
 					ErrorLogDAL.addErrorLog(error);
 					callback(error, null);
@@ -763,7 +763,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 		function(callback) {
 			RRDAL.getPropertyRR([propertyId], function(error, result) {
 				if (error) {
-					console.log(error);
+					//console.log(error);
 					error.userName = loginUserName;
 					ErrorLogDAL.addErrorLog(error);
 					callback(error, null);
@@ -777,7 +777,7 @@ function checkRequiredItems(subValue, propertyId, itemId, deadline, jurisdiction
 	function(error, results) {
 
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 			return requiredItems; 
@@ -964,7 +964,7 @@ function checkReivewStatus(requiredItemsStatus, subValue, id, propertyId, cb){
 		sendCalendarInvite("ie",id, "Cancel", propertyId);
 		updateData(reviewStatus, id, null);
 	} else if(reviewStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if(requiredItemsStatus == "Done" && reviewStatus.flag == false){
 		reviewStatus.flag = true;
 		// reviewStatus.status = "In Progress";
@@ -983,7 +983,7 @@ function checkSignatureStatus(requiredItemsStatus, reviewStatus, subValue, id, c
 		signatureStatus.message = "";
 		updateData(signatureStatus, id, null);
 	} else if(signatureStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if((requiredItemsStatus == "Done" && reviewStatus == true) && 
 		(signatureStatus.flag == false && signatureStatus.status != "In Progress")){
 		signatureStatus.flag = true;
@@ -1002,7 +1002,7 @@ function checkSubmissionStatus(signatureStatus, subValue, id, cb){
 		submissionStatus.message = "";
 		updateData(submissionStatus, id, null);
 	} else if(submissionStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if(signatureStatus == "Done" && submissionStatus.flag == false){
 		submissionStatus.flag = true;
 		submissionStatus.status = "In Progress";
@@ -1016,7 +1016,7 @@ function checkSubmissionStatus(signatureStatus, subValue, id, cb){
 function generateNotification(notification, id, cb){
 	DAL.generateNotification(notification, id, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} 
@@ -1163,7 +1163,7 @@ function checkReivewStatusPaper(ieForm, requiredItems, subValue, id, cb){
 		reviewStatus.toggle = false;
 		reviewStatus.toggleValue = false;
 	} else if (reviewStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if(requiredItems == "Done" && ieForm == "Done"){
 		reviewStatus.flag = true;
 		// reviewStatus.status = "In Progress";
@@ -1188,7 +1188,7 @@ signatureStatus, subValue, id, cb){
 		submissionStatus.toggleValue = false;
 		submissionStatus.message = "";
 	} else if(submissionStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if(reviewStatus != false && requiredItemsStatus == "Done" && ieForm == "Done" && signatureStatus == "Done"){
 		submissionStatus.flag = true;
 		submissionStatus.status = "In Progress",
@@ -1210,7 +1210,7 @@ function checkSignatureStatusPaper(reviewStatus, ieForm, requiredItemsStatus, su
 		signatureStatus.toggleValue = false;
 		signatureStatus.message = "";
 	} else if(signatureStatus.status == "Done"){
-		console.log("dummy console. will find something better soon. ");
+		//console.log("dummy console. will find something better soon. ");
 	} else if(reviewStatus != false && requiredItemsStatus == "Done" && ieForm == "Done"){
 		signatureStatus.flag = true;
 		signatureStatus.status = "In Progress",
@@ -1306,7 +1306,7 @@ function createEventsJson(value, finalResult, cb){
 function updateData(data, id, cb){
 	DAL.updateData(data, id, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		}
@@ -1384,7 +1384,7 @@ function createRequiredItemsJson(event, itemsList, paradigm){
 			try{
 				var temp = tempItem.split("||");
 			} catch (error){
-				console.log(error);
+				//console.log(error);
 			} 
 			
 			var item = ["item", temp[0], "false", temp[1], temp[2]];
@@ -1396,7 +1396,7 @@ function createRequiredItemsJson(event, itemsList, paradigm){
 			try{
 				var temp = tempItem.split("||");
 			} catch (error){
-				console.log(error);
+				//console.log(error);
 			} 
 			var item = ["item", temp[0], "false"];
 			event["item"+i] = item;
@@ -1437,7 +1437,7 @@ BLL.prototype.startCronJob = function() {
         
         USERDAL.getAllUsers(function(error, result) {
             if (error) {
-                console.log(error);
+                //console.log(error);
                 error.userName = loginUserName;
                 ErrorLogDAL.addErrorLog(error);
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
@@ -1459,7 +1459,7 @@ BLL.prototype.startCronJob = function() {
 function sendCalendarInvite(module, id, status, propertyId){
 	DAL.getUsersforProperty(propertyId, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		}
@@ -1467,13 +1467,13 @@ function sendCalendarInvite(module, id, status, propertyId){
 		if(result.length > 0){
 			DAL.getAlreadyCreadyInviteId(id, function(error, result) {
 				if (error) {
-					console.log(error);
+					//console.log(error);
 					error.userName = loginUserName;
 					ErrorLogDAL.addErrorLog(error);
 				}
 		
 				if(result.length > 0){	
-					console.log("Sending new calendar invite no previous invites found!");
+					//console.log("Sending new calendar invite no previous invites found!");
 				} else {
 					if(status.toLowerCase() != "cancel"){
 						var ownerName = result[0].owner.name + " " + result[0].owner.lastName;
@@ -1504,7 +1504,7 @@ function sendCalendarInvite(module, id, status, propertyId){
 						
 						DAL.addCalendarInvite(id, calendarInvite, function(error, result) {
 							if (error) {
-								console.log(error);
+								//console.log(error);
 								error.userName = loginUserName;
 								ErrorLogDAL.addErrorLog(error);
 							}
@@ -1513,16 +1513,16 @@ function sendCalendarInvite(module, id, status, propertyId){
 				}
 			});
 		} else {
-			console.log("No agents found!");
+			//console.log("No agents found!");
 		}
 	});
 }
 
 function addCalendarInvite(propertyId, deadline, cb){
-	// console.log("its here");
+	// //console.log("its here");
 	
 	var tempDate = new Date(deadline);
-	// console.log("8888888888",tempDate);
+	// //console.log("8888888888",tempDate);
 	var endingDate = calculateRemainingDays(deadline);
 	if(endingDate >= 8){
 		var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000)));
@@ -1530,23 +1530,23 @@ function addCalendarInvite(propertyId, deadline, cb){
 		var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (1*24*60*60*1000)));
 	}
 	// var sendingDate = new Date(tempDate.setTime(tempDate.getTime() - (7*24*60*60*1000)));
-	// console.log("9999999999999999",sendingDate);
+	// //console.log("9999999999999999",sendingDate);
 	DAL.getUsersforProperty(propertyId, function(error, result) {
 		if (error) {
-			console.log(error);
+			//console.log(error);
 			error.userName = loginUserName;
 			ErrorLogDAL.addErrorLog(error);
 		} else {
-			// console.log("its here: ", JSON.stringify(result));
+			// //console.log("its here: ", JSON.stringify(result));
 			// if(result[0].agent.length > 0){
-			// 	// console.log(result);
+			// 	// //console.log(result);
 			// }
 			var agentIds = result[0].agent.map((a) => {return a._id});
 			var ownerIds = result[0].owner.map((a) => {return a._id});
 			var ids = agentIds.concat(ownerIds);
 			var agents = result[0].agent.map(function(a) {return {name: a.properties.name, email: a.properties.company}});
 			var owner = result[0].owner.map(function(a) {return {name: a.properties.name, email: a.properties.company}});
-			// console.log(agents);
+			// //console.log(agents);
 			// agents = [
 			// {
 			// 	name: "Hamza",
@@ -1556,19 +1556,19 @@ function addCalendarInvite(propertyId, deadline, cb){
 			// 	name: "Noaman",
 			// 	email: "noaman.ilyas@spsnet.com"
 			// }]
-			// console.log(ids);
+			// //console.log(ids);
 			// var dateobjec = new Date(sendingDate);
 			DAL.getAlreadyCreadyInviteId(ids, sendingDate, function(error, result) {
 				if (error) {
-					console.log(error);
+					//console.log(error);
 					error.userName = loginUserName;
 					ErrorLogDAL.addErrorLog(error);
 				} else {
-					console.log(result);
+					//console.log(result);
 					if(result.length < 1){
 						var dateObject = new Date();
-						// console.log(sendingDate);
-						console.log("still here for adding new calendar invite");
+						// //console.log(sendingDate);
+						//console.log("still here for adding new calendar invite");
 						var calendarInvite = {};
 						calendarInvite.sent = false;
 						calendarInvite.start = JSON.parse(JSON.stringify(sendingDate));
@@ -1593,10 +1593,10 @@ function addCalendarInvite(propertyId, deadline, cb){
 						calendarInvite.status = "TENTATIVE";
 						calendarInvite.uid = dateObject.getTime();
 						calendarInvite.location = "USA";
-						// console.log(JSON.stringify(calendarInvite));
+						// //console.log(JSON.stringify(calendarInvite));
 						DAL.addCalendarInvite(ownerIds, agentIds, calendarInvite, function(error, result) {
 							if (error) {
-								console.log(error);
+								//console.log(error);
 								error.userName = loginUserName;
 								ErrorLogDAL.addErrorLog(error);
 							}
@@ -1609,7 +1609,7 @@ function addCalendarInvite(propertyId, deadline, cb){
 						var inviteId = result[0].invite._id;
 						DAL.updateCalendarInvite(inviteId, data, function(error, result) {
 							if (error) {
-								console.log(error);
+								//console.log(error);
 								error.userName = loginUserName;
 								ErrorLogDAL.addErrorLog(error);
 							}

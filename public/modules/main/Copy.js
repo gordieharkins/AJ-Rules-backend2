@@ -5,11 +5,11 @@
 
 angular.module('AOTC').controller('main',
     function _main(User_Config, $state, $rootScope, mainService, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-        ////console.log("main controller");
+        //////console.log("main controller");
 
         var vm = this;
         $scope.vm;
-        ////console.log(User_Config);
+        //////console.log(User_Config);
 
         $('#preloader').css('display', 'block');
         setTimeout(function () {
@@ -20,9 +20,9 @@ angular.module('AOTC').controller('main',
 
                 var userData = JSON.parse(localStorage.getItem('userJson'));
                 $rootScope.userId = $rootScope.userId;
-                ////console.log(userData);
+                //////console.log(userData);
                 localStorage.setItem("userId", userData.userId);
-                ////console.log('emit event')
+                //////console.log('emit event')
                 localStorage.setItem('role', userData.userData.role);
                 $scope.$emit('userRole', userData.userData.role);
 
@@ -41,7 +41,7 @@ angular.module('AOTC').controller('main',
 
             ///$scope.newProps = newProps.result;
             vm.propertyData = newProps.result.data;
-            ////console.log("=========>>>", vm.propertyData.length);
+            //////console.log("=========>>>", vm.propertyData.length);
             // vm.propertyData = getPropertyData(newProps.result.data);
             propsData = newProps.result.data;
         }
@@ -51,7 +51,7 @@ angular.module('AOTC').controller('main',
             mainService.getProps()
                 .then(
                     function (Props) {
-                        ////console.log("All geted Propertiess", Props);
+                        //////console.log("All geted Propertiess", Props);
                         applyRemoteData(Props);
 
                     }
@@ -230,7 +230,7 @@ angular.module('AOTC').controller('main',
         initializeFilters(vm);
         // vm.propertyData = getPropertyData();
         vm.propertyData = propsData;
-        ////console.log("abc==>", vm.propertyData)
+        //////console.log("abc==>", vm.propertyData)
         vm.findProperty = findProperty;
         // vm.showAdvanceModal             = showAdvanceModal;
         vm.filteredAppealData = [];
@@ -242,8 +242,8 @@ angular.module('AOTC').controller('main',
             vm.selectedFilters = [];
             vm.markerWindowShow = false;
 
-            // ////console.log('findProperty');
-            // ////console.log(vm.searchProperty);
+            // //////console.log('findProperty');
+            // //////console.log(vm.searchProperty);
             //vm.vm.uniqueTableData//find on filtered Data;
             var accNoMatch = [];
             var addressMatch = [];
@@ -260,8 +260,8 @@ angular.module('AOTC').controller('main',
 
                 for (var i = 0; i < vm.propertyData.length; i++) {
                     var prop = vm.propertyData[i];
-                    ////console.log('index of')
-                    // ////console.log(prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()))
+                    //////console.log('index of')
+                    // //////console.log(prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()))
 
                     if (prop.accNo.toLowerCase().indexOf(vm.searchProperty.accNo.toLowerCase()) > -1) {
                         accNoMatch.push(prop);
@@ -317,7 +317,7 @@ angular.module('AOTC').controller('main',
             vm.uniqueTableData = [];
             vm.uniqueTableData = nameMatch;
 
-            // ////console.log('total data\n', vm.uniqueTableData);
+            // //////console.log('total data\n', vm.uniqueTableData);
             setTimeout(function () {
                 vm.searchProperty = {
                     accNo: '',
@@ -347,9 +347,9 @@ angular.module('AOTC').controller('main',
         };
 
         //fetchin marker from .dummy data
-        ////console.log("marker===>", vm.propertyData);
+        //////console.log("marker===>", vm.propertyData);
         for (var i = 0; i < vm.propertyData.length; i++) {
-            // ////console.log(vm.propertyData[i]);
+            // //////console.log(vm.propertyData[i]);
             var infowWindowDetails = {
                 propertyName: vm.propertyData[i].propertyName,
                 appealStatus: vm.propertyData[i].appealStatus,
@@ -374,17 +374,17 @@ angular.module('AOTC').controller('main',
         //making
 
         function closeMarkerWindow() {
-            ////console.log('close window');
+            //////console.log('close window');
             vm.markerWindowShow = false;
 
         }
 
         function markerClick(marker) {
-            ////console.log('marker click method');
+            //////console.log('marker click method');
 
             vm.selectedMarker = {};
             vm.selectedMarker = marker.model;
-            ////console.log('selectedMarker ', vm.selectedMarker.coords);
+            //////console.log('selectedMarker ', vm.selectedMarker.coords);
 
             // vm.map.center.latitude  =       vm.selectedMarker.coords.latitude;
             // vm.map.center.longitude =       vm.selectedMarker.coords.longitude;
@@ -394,7 +394,7 @@ angular.module('AOTC').controller('main',
 
         function removeFilter(filter) {
 
-            ////console.log(filter);
+            //////console.log(filter);
 
             switchFilterState(vm.meritFilter, filter);
             switchFilterState(vm.designeeFilter, filter);
@@ -430,8 +430,8 @@ angular.module('AOTC').controller('main',
                 }
             }
 
-            ////console.log('\n==>all filters ');
-            ////console.log(vm.selectedFilters);
+            //////console.log('\n==>all filters ');
+            //////console.log(vm.selectedFilters);
 
             if (vm.selectedFilters.length == 0) {
                 $('#myModal').modal('toggle');
@@ -459,8 +459,8 @@ angular.module('AOTC').controller('main',
 
             // attribute= angular.toJson(attribute);
 
-            ////console.log('select Filters type ' + attribute);
-            ////console.log(filter);
+            //////console.log('select Filters type ' + attribute);
+            //////console.log(filter);
             filter.state = +!filter.state
 
             if (filter.state) {
@@ -482,8 +482,8 @@ angular.module('AOTC').controller('main',
 
             }
 
-            ////console.log('\n==>all filters ');
-            ////console.log(vm.selectedFilters);
+            //////console.log('\n==>all filters ');
+            //////console.log(vm.selectedFilters);
 
             filterData();
 
@@ -494,7 +494,7 @@ angular.module('AOTC').controller('main',
         ////////////////////////////////////         methods for Filters                             ///////////////////////////////
         function selectAllFilters(filterArray, attribute) {
 
-            ////console.log('select all', filterArray);
+            //////console.log('select all', filterArray);
             filterArray.state = +!filterArray.state;
 
             if (filterArray.state) {
@@ -516,8 +516,8 @@ angular.module('AOTC').controller('main',
 
 
 
-                ////console.log('all filters ');
-                ////console.log(vm.selectedFilters);
+                //////console.log('all filters ');
+                //////console.log(vm.selectedFilters);
 
             } else {
 
@@ -539,8 +539,8 @@ angular.module('AOTC').controller('main',
 
                 }
 
-                ////console.log('all filters ');
-                ////console.log(vm.selectedFilters);
+                //////console.log('all filters ');
+                //////console.log(vm.selectedFilters);
 
 
 
@@ -620,10 +620,10 @@ angular.module('AOTC').controller('main',
 
             }
 
-            ////console.log("desig == " + designee);
-            ////console.log("status == " + status);
-            ////console.log("state == " + state);
-            ////console.log("meritToAppeal == " + meritToAppeal);
+            //////console.log("desig == " + designee);
+            //////console.log("status == " + status);
+            //////console.log("state == " + state);
+            //////console.log("meritToAppeal == " + meritToAppeal);
 
 
             vm.filteredMeritToAppealProperty = [];
@@ -719,19 +719,19 @@ angular.module('AOTC').controller('main',
 
                 var property = vm.filteredStatusData[k];
 
-                // ////console.log("assessment" + property.jurisdiction.laws);
+                // //////console.log("assessment" + property.jurisdiction.laws);
 
                 var propertyAssesmentDate = new Date(property.lastAssessment);
 
                 var startDate = new Date(vm.assesmentSlider.minValue);
                 var endDate = new Date(vm.assesmentSlider.maxValue);
 
-                // ////console.log('start date', startDate)
-                // ////console.log('endDate date', endDate)
-                // ////console.log('propertyAssesmentDate date', propertyAssesmentDate)
+                // //////console.log('start date', startDate)
+                // //////console.log('endDate date', endDate)
+                // //////console.log('propertyAssesmentDate date', propertyAssesmentDate)
 
                 if (propertyAssesmentDate >= startDate && propertyAssesmentDate <= endDate) {
-                    // ////console.log('assessment match', propertyAssesmentDate)
+                    // //////console.log('assessment match', propertyAssesmentDate)
                     vm.filteredAssessmentData.push(property);
 
                 }
@@ -748,26 +748,26 @@ angular.module('AOTC').controller('main',
 
                 var property = vm.filteredAssessmentData[k];
 
-                // ////console.log("assessment" + property.jurisdiction.laws);
+                // //////console.log("assessment" + property.jurisdiction.laws);
 
                 var propertyAssesmentDate = new Date(property.nextAppealDate);
 
                 var startDate = new Date(vm.appealSlider.minValue);
                 var endDate = new Date(vm.appealSlider.maxValue);
 
-                // ////console.log('start date', startDate)
-                // ////console.log('endDate date', endDate)
-                // ////console.log('propertyAssesmentDate date', propertyAssesmentDate)
+                // //////console.log('start date', startDate)
+                // //////console.log('endDate date', endDate)
+                // //////console.log('propertyAssesmentDate date', propertyAssesmentDate)
 
                 if (propertyAssesmentDate >= startDate && propertyAssesmentDate <= endDate) {
-                    // ////console.log('assessment match', propertyAssesmentDate)
+                    // //////console.log('assessment match', propertyAssesmentDate)
                     vm.filteredAppealData.push(property);
 
                 }
 
             }
 
-            ////console.log('\nfiltered propertyData filteredStatus', vm.filteredAppealData);
+            //////console.log('\nfiltered propertyData filteredStatus', vm.filteredAppealData);
             vm.uniqueTableData = [];
             vm.uniqueTableData = vm.filteredAppealData;
             showSelectedMarkers();
@@ -821,7 +821,7 @@ angular.module('AOTC').controller('main',
 
         function checkToggle(event) {
 
-            ////console.log('checked toggle')
+            //////console.log('checked toggle')
             if ($(event.target).children().is(':checked')) {
                 $(event.target).children().prop('checked', false);
 
@@ -1250,7 +1250,7 @@ angular.module('AOTC').controller('main',
 
 // function selectFilter(filter) {
 
-//     ////console.log('select Filter ' + filter)
+//     //////console.log('select Filter ' + filter)
 //     filter.state = +!filter.state
 
 //     if (filter.state) {
@@ -1271,20 +1271,20 @@ angular.module('AOTC').controller('main',
 
 //     }
 
-//     ////console.log('all filters ');
-//     ////console.log(vm.selectedFilters);
+//     //////console.log('all filters ');
+//     //////console.log(vm.selectedFilters);
 
 
 
 // }
 
-// // ////console.log('done parsing');
+// // //////console.log('done parsing');
 // var myLatLng = new google.maps.LatLng(
 //     {
 //         latitude:parseFloat(vm.propertyData[i].lat),
 //         longitude:parseFloat(vm.propertyData[i].lng)
 //     });
-// ////console.log('set myLatLng', myLatLng);
+// //////console.log('set myLatLng', myLatLng);
 
 // bounds.extend(myLatLng);
 

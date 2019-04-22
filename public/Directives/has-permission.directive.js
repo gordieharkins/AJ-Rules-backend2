@@ -21,7 +21,7 @@ function _hasPermission(AOTCPermissions) {
             // }
 
             function toggleVisibilityBasedOnPermission() {
-                //console.log(value);
+                ////console.log(value);
                 try{
 
                     var hasPermission;

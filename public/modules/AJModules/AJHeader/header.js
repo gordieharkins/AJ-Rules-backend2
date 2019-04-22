@@ -9,7 +9,7 @@ module.exports = _ajheader;
 
 function _ajheader(User_Config, $state) {
     var controller = ['$scope', '$location', function ($scope, $location) {
-        ////console.log('AJhead controller');
+        //////console.log('AJhead controller');
         if (!localStorage.getItem('userJson')) {
             $state.go('login');
         } else {

@@ -12,7 +12,7 @@ function BLL(){}
 
 BLL.prototype.postCalendarInvites = function(data, cb) {
     // data =data.body
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     var eventObj = {
 		'start' : data.start,
 		'end' : data.end,
@@ -43,11 +43,11 @@ BLL.prototype.postCalendarInvites = function(data, cb) {
 		method: data.method
 	});
 	// event.status('CANCELLED');
-    // console.log('sending2',eventObj.id )
+    // //console.log('sending2',eventObj.id )
 	var mypath = __dirname + '\\'+ eventObj.id + '.ics';
 	cal.saveSync(mypath);
-	// console.log("cal: ",cal);
-	// console.log("event created and file saved at: ",mypath); 
+	// //console.log("cal: ",cal);
+	// //console.log("event created and file saved at: ",mypath); 
 
 	
 	

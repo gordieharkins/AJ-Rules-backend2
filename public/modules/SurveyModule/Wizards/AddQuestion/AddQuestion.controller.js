@@ -8,7 +8,7 @@ module.exports = _AddQuestionCtrl;
 //    .controller('AddQuestionCtrl', _AddQuestionCtrl
 //    );
 function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
-    console.log("AddQuestionCtrl controller");
+    //console.log("AddQuestionCtrl controller");
 
     $scope.dateFormat = User_Config.DATE_FORMAT;
     $scope.availableDateOptions = User_Config.AVAILABLE_DATE_OPTIONS;
@@ -22,7 +22,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
     vm.editQuestion = false;
 
     var question = AddQuestionService.getSelectedQuestion();
-    console.log(question);
+    //console.log(question);
 
     if (question) {
         vm.editQuestion = true;
@@ -33,13 +33,13 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
 
     $scope.SaveEditQuestion = function (newquestion) {
         $("#preloader").css("display", "block");
-        console.log(newquestion)
+        //console.log(newquestion)
 
         newquestion.options = JSON.stringify(vm.questionOptions);
         AddQuestionService.SaveEditedQuestion(newquestion)
             .then(function (result) {
                 $("#preloader").css("display", "none");
-                // console.log("result: ", result);
+                // //console.log("result: ", result);
 
                 if (!result.data.success) {
                     $scope.$emit('error', result.data.message);
@@ -63,7 +63,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
 
             },
             function (err) {
-                console.log("Error: ", err);
+                //console.log("Error: ", err);
                 $("#preloader").css("display", "none");
             });
 
@@ -85,7 +85,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
             $("#preloader").css("display", "block");
             AddQuestionService.addNewQuestion(newquestion)
                 .then(function (result) {
-                    console.log("result: ", result);
+                    //console.log("result: ", result);
                     $("#preloader").css("display", "none");
 
 
@@ -98,7 +98,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
                     vm.questionOptions = [];
                     setTimeout(function () {
                         var route = AddQuestionService.routeDecider
-                        console.log(route)
+                        //console.log(route)
                         if (route != "Surveys") {
                             $state.go($state.go('EditSurvey', { id: route }));
 
@@ -110,7 +110,7 @@ function _AddQuestionCtrl($scope, AddQuestionService, User_Config, $state) {
                     }, 2000);
                 },
                 function (err) {
-                    console.log("Error: ", err);
+                    //console.log("Error: ", err);
                     $("#preloader").css("display", "none");
                 });
         }

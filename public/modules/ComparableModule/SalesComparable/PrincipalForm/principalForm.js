@@ -15,10 +15,10 @@ function _CreatePrincipalForm($stateParams, $anchorScroll,sharedService, $state,
     $scope.isSubmitting = false
     $scope.showComps = false;
     $scope.uploadPic = function (file) {
-        ////console.log('submit' + file)
+        //////console.log('submit' + file)
 
-        ////console.log(file)
-        ////console.log('submit')
+        //////console.log(file)
+        //////console.log('submit')
         file.upload = Upload.upload({
             url: 'salesComps/addCompsImageManual',
             data: { file: file },
@@ -30,7 +30,7 @@ function _CreatePrincipalForm($stateParams, $anchorScroll,sharedService, $state,
                 $scope.isSubmitting = true;
                 $scope.imagePath = file.result;
                 submitManualData();
-                ////console.log(file.result)
+                //////console.log(file.result)
             });
         }, function (response) {
             if (response.status > 0)
@@ -42,13 +42,13 @@ function _CreatePrincipalForm($stateParams, $anchorScroll,sharedService, $state,
     }
 
 
-    ////console.log("updateIERR PrincipalForm", $stateParams);
+    //////console.log("updateIERR PrincipalForm", $stateParams);
     var vm = this;
     // $('#successModal').modal('close');
 
     vm.submitManualData = submitManualData;
     vm.property = JSON.parse(localStorage.getItem('propertyDetails'));
-    ////console.log("vm.property in manualIE: ", vm.property)
+    //////console.log("vm.property in manualIE: ", vm.property)
 
     vm.formData = {
 
@@ -71,7 +71,7 @@ function _CreatePrincipalForm($stateParams, $anchorScroll,sharedService, $state,
     }
 
     function modalYesbutton() {
-        ////console.log('reset form');
+        //////console.log('reset form');
         vm.formData = {};
 
         $scope.compForm.$setPristine();
@@ -91,8 +91,8 @@ function _CreatePrincipalForm($stateParams, $anchorScroll,sharedService, $state,
     function submitManualData() {
 
 
-        ////console.log('appeal')
-        ////console.log(vm.formData)
+        //////console.log('appeal')
+        //////console.log(vm.formData)
 
         vm.formData.rentAmount = vm.formData.rentEstimate.toString();
         vm.formData.amount = vm.formData.zEstimate.toString();
@@ -216,7 +216,7 @@ function _fileinput() {
                 var reader = new FileReader();
                 reader.onload = function (loadEvent) {
                     scope.$apply(function () {
-                        ////console.log(scope.fileinput)
+                        //////console.log(scope.fileinput)
 
 
                         scope.filepreview = loadEvent.target.result;

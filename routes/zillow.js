@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
     zillow.get('GetDeepSearchResults', parameters)
         .then(function(results) {
-            console.log('result');
+            //console.log('result');
             res.send(results);
         });
 
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetUpdatedPropertyDetails', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -51,7 +51,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetDeepComps', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         zillowToDB(results)
     //         res.send(results);
     //     });
@@ -63,7 +63,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetRegionChildren', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -74,7 +74,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetSearchResults', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -85,7 +85,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetZestimate', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -99,7 +99,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetChart', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -111,7 +111,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetComps', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -126,7 +126,7 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetRegionChart', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
@@ -134,19 +134,19 @@ router.get('/', function(req, res, next) {
 
     // zillow.get('GetZestimate', parameters)
     // .then(function(results) {
-    //     console.log('result');
+    //     //console.log('result');
     //     res.send(results);
     // });
 
     // zillow.get('GetSearchResults', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 
     // zillow.get('GetComps', parameters)
     //     .then(function(results) {
-    //         console.log('result');
+    //         //console.log('result');
     //         res.send(results);
     //     });
 });
@@ -177,11 +177,11 @@ function zillowToDB(data){
         // prop.zpid = props[i].zpid[0];
         // prop.compScore = props[0].$.score;
         finalProps.push(prop);
-    console.log(finalProps);
+    //console.log(finalProps);
 
     }
 
-    console.log(finalProps);
+    //console.log(finalProps);
     return;
     // var DBPropData = {
     //     "country": "United States",

@@ -6,7 +6,7 @@ module.exports = _SurveySubmissions;
 //angular.module('AOTC').controller('SurveySubmissions', _SurveySubmissions
 //);
 function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, SurveySubmissionsService, FillSurveyService) {
-    console.log('SurveySubmissions', $stateParams)
+    //console.log('SurveySubmissions', $stateParams)
     $scope.states = [];
     $scope.opened = false;
 
@@ -78,7 +78,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
             .then(function (data) {
 
                 $("#preloader").css("display", "none");
-                console.log(data);
+                //console.log(data);
                 var result = data[0];
                 if (!result.data.success) {
                     $scope.$emit('danger', result.data.message);
@@ -116,8 +116,8 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
     $scope.AddNewSurveyMetaData = function () {
 
 
-        console.log('AddMewSurveyMetaData');
-        console.log($scope.submissionData);
+        //console.log('AddMewSurveyMetaData');
+        //console.log($scope.submissionData);
 
         var postJSON = {
             surveyId: $scope.surveyId,
@@ -132,7 +132,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
         FillSurveyService.saveSubmission(postJSON)
             .then(function (result) {
                 $("#preloader").css("display", "none");
-                console.log(result);
+                //console.log(result);
 
                 if (!result.data.success) {
                     $scope.$emit('danger', result.data.message);
@@ -147,7 +147,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
                 }, 2000);
 
             }, function (result) {
-                console.log(result);
+                //console.log(result);
                 $("#preloader").css("display", "none");
             });
 
@@ -156,21 +156,21 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
 
 
     $scope.UpdateSurveyMetaData = function (infoForm) {
-        console.log('UpdateSurveyMetaData');
+        //console.log('UpdateSurveyMetaData');
 
 
         if (!infoForm.$valid) {
             angular.element("[name='" + infoForm.$name + "']").find('.ng-invalid:visible:first').focus();
             return false;
         }
-        console.log($scope.submissionData);
+        //console.log($scope.submissionData);
 
         $("#preloader").css("display", "block");
         SurveySubmissionsService.updateSubmittedForm($scope.submissionData)
             .then(function (result) {
                 $("#preloader").css("display", "none");
 
-                console.log(result);
+                //console.log(result);
                 if (!result.data.success) {
                     $scope.$emit('danger', result.data.message);
                 } else {
@@ -180,7 +180,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
                 }
 
             }, function (result) {
-                console.log(result);
+                //console.log(result);
                 $("#preloader").css("display", "none");
             });
     }
@@ -189,7 +189,7 @@ function _SurveySubmissions($state, User_Config, $q, $stateParams, $scope, Surve
     $scope.dropDownClose = function (data, value) {
         $scope.submissionData.information.state = value;
         $('#menu').hide();
-        console.log(data)
+        //console.log(data)
 
     }
 }

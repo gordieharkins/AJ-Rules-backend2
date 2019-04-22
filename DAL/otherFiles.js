@@ -16,7 +16,7 @@ function DAL() {
 // uploadOtherFiles
 // ---------------------------------------------
 DAL.prototype.uploadOtherFiles = function(otherFileDetails, propertyId, userId, description, timelineDataId, cb) {
-    console.log(otherFileDetails);
+    //console.log(otherFileDetails);
     propertyId = parseInt(propertyId);
     var params = {
         propertyId:propertyId,

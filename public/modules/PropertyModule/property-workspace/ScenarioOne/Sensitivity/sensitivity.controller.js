@@ -8,7 +8,7 @@ module.exports = _SensitivityOne;
 //    );
 
 function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, SensitivityService, ScenarioDataService) {
-    ////console.log("SensitivityOne controllersss");
+    //////console.log("SensitivityOne controllersss");
     var vm = this;
     vm.formId = parseInt(localStorage.getItem('formId'));
     vm.userId = parseInt(localStorage.getItem('userId'));
@@ -35,9 +35,9 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
 
     var scenarioDataService = ScenarioDataService.GetValues();
-    // ////console.log(scenarioDataService);
+    // //////console.log(scenarioDataService);
     $scope.apple = function () {
-        ////console.log('check dy dhupaay');
+        //////console.log('check dy dhupaay');
     }
     function regenerateValue(scenarioDataService) {
 
@@ -77,11 +77,11 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
         //===================================   get workspace ===================================//
         SensitivityService.getWorkspace()
             .then(function (result) {
-                ////console.log(result);
+                //////console.log(result);
 
                 if (result.data.result) {
                     var serverData = result.data.result[0];
-                    ////console.log(serverData);
+                    //////console.log(serverData);
                     vm.marketRentSets = serverData.marketPerSF;
                     vm.vacancySets = serverData.vacancyPercent;
                     vm.expenseSets = serverData.expensePerSF;
@@ -113,7 +113,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
 
             }, function (err) {
-                ////console.log(err);
+                //////console.log(err);
 
             });
 
@@ -122,20 +122,20 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
 
     $scope.showScenarioOne = function () {
-        ////console.log('showScenarioOne')
+        //////console.log('showScenarioOne')
         $scope.col = 3;
         vm.scenarioTwoActive = false;
 
     }
     $scope.showScenarioTwo = function () {
-        ////console.log('showScenarioTwo')
+        //////console.log('showScenarioTwo')
         $scope.col = 2;
         vm.scenarioTwoActive = true;
 
     }
 
     $scope.showScenarioThree = function () {
-        ////console.log('showScenarioTwo')
+        //////console.log('showScenarioTwo')
         $scope.col = 2;
         vm.scenarioTwoActive = true;
 
@@ -261,13 +261,13 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
         $("#preloader").css("display", "block");
 
-        ////console.log('--------------------------saveWorkSpace------------------------');
-        ////console.log(saveFormJson);
+        //////console.log('--------------------------saveWorkSpace------------------------');
+        //////console.log(saveFormJson);
 
         SensitivityService.saveWorkSpace(saveFormJson)
             .then(function (result) {
                 $("#preloader").css("display", "none");
-                ////console.log('result', result);
+                //////console.log('result', result);
                 if (result.data.success) {
                     $scope.$emit('success', result.data.message);
                     if (redirect) {
@@ -282,7 +282,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
             }, function (err) {
                 $("#preloader").css("display", "none");
-                ////console.log('err');
+                //////console.log('err');
             });
 
     }
@@ -293,7 +293,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
     function useInValuation(set) {
         // saveScenario();
-        ////console.log('use in valuations', set);
+        //////console.log('use in valuations', set);
         localStorage.setItem('selectedScenario', angular.toJson(set))
         saveScenario('propertyValuation')
 
@@ -334,7 +334,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
     }
 
     function useSetInScenario(value, scenarioSet, fieldName) {
-        ////console.log('useSetInScenario');
+        //////console.log('useSetInScenario');
 
         scenarioSet[fieldName] = value;
         calculateScenarioSet(scenarioSet, fieldName);
@@ -528,7 +528,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
     vm.pre = -1;
 
     function setColMd(colState) {
-        ////console.log('colState', colState);
+        //////console.log('colState', colState);
         // if(colState){
         //     counts++;
         // }
@@ -536,12 +536,12 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
         //     counts--;
         // }
 
-        // ////console.log('counts' , counts);
+        // //////console.log('counts' , counts);
 
         // if(counts != 0 )
         //     $scope.col  =  12 / counts;
 
-        // ////console.log(' $scope.col' ,  $scope.col);
+        // //////console.log(' $scope.col' ,  $scope.col);
 
     }
 
@@ -561,19 +561,19 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
     }
 
     vm.calculateMarketRentSet = function (set) {
-        ////console.log('aaaaaaaaaaasssssss', set.marketRentSF);
+        //////console.log('aaaaaaaaaaasssssss', set.marketRentSF);
 
         if (!set.marketRentSF || !$.isNumeric(set.marketRentSF)) {
             set.marketRentSF = 0;
             vm.pre = 0;
         }
         if (set.marketRentSF == 0 && set.marketRentSF[1] != '.') {
-            ////console.log('aaaaaaaaaaasssssss00');
+            //////console.log('aaaaaaaaaaasssssss00');
 
             set.marketRentSF = 0;
             vm.pre = 0;
         }
-        ////console.log('aaaaaaaaaaasssssss00' + vm.pre);
+        //////console.log('aaaaaaaaaaasssssss00' + vm.pre);
 
 
         if (vm.pre == 0 && set.marketRentSF >= 1) {
@@ -590,7 +590,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
         }
 
 
-        ////console.log('after', set.marketRentSF);
+        //////console.log('after', set.marketRentSF);
 
         var annualRent = PetitionerFormulae.Petitioner.annualRent(set.petitionerLeasableSF, set.marketRentSF);
         var GPR = annualRent;
@@ -636,7 +636,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
         set.petitionerVDC = VDC;
         set.petitionerValueSF = ValueSQFT;
         set.petitionerNOIBySF = NOI / set.petitionerLeasableSF;
-        ////console.log(set);
+        //////console.log(set);
 
 
     }
@@ -678,20 +678,20 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
             var parseVacLen = parseVac.split(".")[1].length;
             if (parseVacLen > 2) {
-                ////console.log('founded')
+                //////console.log('founded')
                 set.vacancyPercentage = Math.round(set.vacancyPercentage * 100) / 1000
                 if (set.vacancyPercentage == 0) {
                     set.vacancyPercentage = 0.00
                 }
             }
         }
-        ////console.log(set.expensePercentage + '---' + parseExp.indexOf('.'))
+        //////console.log(set.expensePercentage + '---' + parseExp.indexOf('.'))
 
         if (parseExp.indexOf('.') >= 0) {
 
             var parseExpLen = (parseExp.split(".")[1].length);
             if (parseExpLen > 2) {
-                ////console.log('founded' + parseExp)
+                //////console.log('founded' + parseExp)
 
                 set.expensePercentage = Math.round(set.expensePercentage * 100) / 1000
                 if (set.expensePercentage == 0) {
@@ -832,7 +832,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
 
         if (vm.expenseInputActive) {
-            ////console.log('expenseInputActive', vm.expenseInputActive);
+            //////console.log('expenseInputActive', vm.expenseInputActive);
 
             if (!set.expenseSF || !$.isNumeric(set.expenseSF)) {
                 set.expenseSF = 0;
@@ -859,7 +859,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
 
 
         } else {
-            ////console.log('expenseInputActive', vm.expenseInputActive);
+            //////console.log('expenseInputActive', vm.expenseInputActive);
 
             if (!set.expensePercentage || !$.isNumeric(set.expensePercentage)) {
                 set.expensePercentage = 0;
@@ -912,7 +912,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
         // set.vacancyPercentage = vacancyPercentage;
         //if expenseSF is active donot update
         if (!vm.expenseInputActive) {
-            ////console.log('expenseInset.set.expenseSF', set.expenseSF);
+            //////console.log('expenseInset.set.expenseSF', set.expenseSF);
 
             set.expenseSF = expenseSF;
             // set.expensePercentage = expensePercentage;
@@ -998,7 +998,7 @@ function _SensitivityOne($timeout, PetitionerFormulae, $state, $scope, Sensitivi
     vm.BCRSets.push(getNewSet(BCRSetsCount));
 
     function toggleBaseCapeRate() {
-        ////console.log('toggleBaseCapeRate');
+        //////console.log('toggleBaseCapeRate');
         vm.baseCapeRateActive = !vm.baseCapeRateActive;
         setColMd(vm.baseCapeRateActive);
     }

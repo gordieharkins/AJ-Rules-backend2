@@ -40,9 +40,9 @@ program
 	.option('-q, --quiet', 'quiet mode');
 
 program.on('--help', function() {
-	console.log('  Default output format is CSV');
-	console.log('  Support email: dev@sheetjs.com');
-	console.log('  Web Demo: http://oss.sheetjs.com/js-'+n+'/');
+	//console.log('  Default output format is CSV');
+	//console.log('  Support email: dev@sheetjs.com');
+	//console.log('  Web Demo: http://oss.sheetjs.com/js-'+n+'/');
 });
 
 /* output formats, update list with full option name */
@@ -124,7 +124,7 @@ if(program.read) process.exit(0);
 
 /*::   if(wb) { */
 if(program.listSheets) {
-	console.log((wb.SheetNames||[]).join("\n"));
+	//console.log((wb.SheetNames||[]).join("\n"));
 	process.exit(0);
 }
 
@@ -176,6 +176,6 @@ else if(program.arrays) oo = JSON.stringify(X.utils.sheet_to_row_object_array(ws
 else oo = X.utils.make_csv(ws, {FS:program.fieldSep, RS:program.rowSep});
 
 if(program.output) fs.writeFileSync(program.output, oo);
-else console.log(oo);
+else //console.log(oo);
 /*::   } */
 /*:: } */

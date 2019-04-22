@@ -30,7 +30,7 @@ DAL.prototype.addErrorLog = function(error) {
         }
     }, function(err, results) {
         if(err) {
-            console.log(err);
+            //console.log(err);
         }
     });
 };

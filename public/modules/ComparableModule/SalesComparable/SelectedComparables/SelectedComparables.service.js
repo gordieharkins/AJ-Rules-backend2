@@ -9,7 +9,7 @@ module.exports = _ComparableService;
 function _ComparableService($http, $q) {
 
     function getDataFromServer(apiUrl) {
-        // ////console.log(apiUrl);
+        // //////console.log(apiUrl);
         var token = localStorage.getItem('token');
 
         var req = $http({
@@ -68,7 +68,7 @@ function _ComparableService($http, $q) {
         //    principal: [comparables.principal]
         //};
 
-        ////console.log(jsonFormat)
+        //////console.log(jsonFormat)
 
 
         var url = '/salesComps/addCompsToProp';
@@ -80,7 +80,7 @@ function _ComparableService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                ////console.log(result);
+                //////console.log(result);
             });
         return deferred.promise;
     }
@@ -89,7 +89,7 @@ function _ComparableService($http, $q) {
         var jsonFormat = {
             salesComps: [id]
         };
-        ////console.log(jsonFormat);
+        //////console.log(jsonFormat);
         var url = '/salesComps/deleteCompsFromProperty';
 
         var deferred = $q.defer();
@@ -100,7 +100,7 @@ function _ComparableService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
     }
@@ -122,7 +122,7 @@ function _ComparableService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
     };
@@ -136,14 +136,14 @@ function _ComparableService($http, $q) {
         };
         var deferred = $q.defer();
         var url = '/salesComps/getSavedComps';
-        console.log("here is url: ",url);
+        //console.log("here is url: ",url);
         postDataToServer(url, _dataobj)
             .then(function (result) {
                 deferred.resolve(result);
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
     };
@@ -163,7 +163,7 @@ function _ComparableService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
     };
@@ -184,7 +184,7 @@ function _ComparableService($http, $q) {
 
             }, function (result) {
                 deferred.reject(result);
-                //console.log(result);
+                ////console.log(result);
             });
         return deferred.promise;
     };

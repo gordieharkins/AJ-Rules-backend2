@@ -27,7 +27,7 @@ DAL.prototype.getAllUserRoles = function(cb) {
 }
 
 DAL.prototype.updateUserRole = function(data, cb) {
-    console.log(data);
+    //console.log(data);
     var query = `MATCH(role:UserRole) where id(role) = {roleId} SET role = {role}`;
 
      db.cypher({

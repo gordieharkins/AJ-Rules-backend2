@@ -31,7 +31,7 @@ BLL.prototype.getAllUserRoles = function(data,res,next){
 BLL.prototype.updateUserRole = function(data,res,next){
     DAL.updateUserRole(data.body, function(error, result){
         if (error) {
-        	console.log(error);
+        	//console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);
@@ -46,7 +46,7 @@ BLL.prototype.updateUserRole = function(data,res,next){
 BLL.prototype.addNewRole = function(data,res,next){
     DAL.addNewRole(data.body, function(error, result){
         if (error) {
-            console.log(error);
+            //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.SAVE_FAIL, null, res);

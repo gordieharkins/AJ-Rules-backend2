@@ -5,7 +5,7 @@ module.exports = _TabsViewerCtrl;
 //angular.module('AOTC').controller('TabsViewerCtrl', _TabsViewerCtrl
 //    );
 function _TabsViewerCtrl(User_Config, $stateParams, $anchorScroll, $state, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    //////console.log("TabsViewerCtrl controller", $stateParams);
+    ////////console.log("TabsViewerCtrl controller", $stateParams);
     var vm = this;
 
 
@@ -18,7 +18,7 @@ function _TabsViewerCtrl(User_Config, $stateParams, $anchorScroll, $state, $loca
     localStorage.removeItem('selectedScenario');
 
     var user = JSON.parse(localStorage.getItem('userJson'));
-    ////console.log(user.userData.role);
+    //////console.log(user.userData.role);
 
     // user.userData.role = User_Config.AJ_USER;
 
@@ -42,7 +42,7 @@ function _TabsViewerCtrl(User_Config, $stateParams, $anchorScroll, $state, $loca
     function showPriPropertylist() {
         // $window.location.href = '#/detail/analytics';    
         $state.go('PropertyList.private_property_list');
-        // ////console.log('showAnalytics clickd in homejs');
+        // //////console.log('showAnalytics clickd in homejs');
     }
 
     function showPubPropertylist() {
@@ -50,7 +50,7 @@ function _TabsViewerCtrl(User_Config, $stateParams, $anchorScroll, $state, $loca
         $state.go('PropertyList.pub_property_list');
         // $window.location.reload();
 
-        // ////console.log('showAnalytics clickd in homejs');
+        // //////console.log('showAnalytics clickd in homejs');
     }
 
 }

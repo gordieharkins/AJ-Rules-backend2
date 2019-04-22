@@ -6,7 +6,7 @@ module.exports = _Registered;
 //angular.module('AOTC').controller('Registered', _Registered
 //    );
 function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuilder, $location, $scope, $http, __env, $log, AOTCService, $timeout) {
-    ////console.log("Registered controller", $stateParams);
+    //////console.log("Registered controller", $stateParams);
     var vm = this;
 
     if ($stateParams.messageFrom == "bulkUserRegistration") {
@@ -49,14 +49,14 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
 
     function getUsers() {
         var url = '/users/getAllInvitedUsers?adminId=' + userId;
-        ////console.log(url);
+        //////console.log(url);
         $("#preloader").css("display", "block");
 
         AOTCService.getDataFromServer(url)
             .then(function (result) {
 
-                ////console.log('----------Serverdata : getAllInvitedUsers--------------');
-                ////console.log(result);
+                //////console.log('----------Serverdata : getAllInvitedUsers--------------');
+                //////console.log(result);
 
                 if (result.data.success) {
                     vm.tableData = result.data.result;
@@ -73,7 +73,7 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
 
             }, function (result) {
                 //some error
-                //////console.log(result);
+                ////////console.log(result);
             });
     }
 
@@ -100,7 +100,7 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
 
         AOTCService.postDataToServer(url, toSend)
             .then(function (result) {
-                ////console.log(result);
+                //////console.log(result);
                 if (result.data.success) {
 
                     $("#preloader").css("display", "none");
@@ -130,7 +130,7 @@ function _Registered($stateParams, $rootScope, DTOptionsBuilder, DTColumnDefBuil
                 }
 
             }, function (result) {
-                //////console.log(result);
+                ////////console.log(result);
                 $("#preloader").css("display", "none");
             });
 

@@ -10,10 +10,10 @@ module.exports = function(callBack)
 {
     SQL.connect(connectionString).then(function() {
         // Query
-        console.log("Connected to SQL database.");
+        //console.log("Connected to SQL database.");
         callBack(null,"connect")
     }).catch(function(err) {
-        console.log("Connection error in SQL DB-" + err);
+        //console.log("Connection error in SQL DB-" + err);
         callBack(err,null);
     });
 }
