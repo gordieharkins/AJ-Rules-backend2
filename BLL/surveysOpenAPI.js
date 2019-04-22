@@ -370,7 +370,6 @@ function extractBoard2Data(json) {
 						myflag = true
 
 						if (question.has[j].ajRule == "Ascertain Board Level Appeal Triggering Event") {
-							// console.log(question.has[j].ajRule, question.has[j].hasanswer[0].value[0])
 							if (question.has[j].hasanswer[0].value[0] == "The date on the written decision made by the Assessor") {
 								event = "days after assessor decision"
 							} else {
