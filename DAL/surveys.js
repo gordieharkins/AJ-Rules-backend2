@@ -921,7 +921,7 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
         WITH *
         MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`}, a`+index+`.comment = {comment`+index+`} \n
         CREATE(history`+index+`:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
-            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}})
+            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}, comment: {comment`+index+`}})
         CREATE(a`+index+`)-[:hasHistory]->(history`+index+`)\n`;
     });
 	db.cypher({
