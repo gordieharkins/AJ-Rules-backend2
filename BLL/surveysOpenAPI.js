@@ -377,7 +377,7 @@ function extractBoard2Data(json) {
 							}
 
 						}
-						if(question.has[j].ajRule == "Calculate Board Level Appeal Deadline"){
+						if(question.has[j].ajRule == "Board Level Appeal Deadline Approx (calculated date = date of decision received date + number of days)"){
 							days = question.has[j].hasanswer[0].value[0]
 						}
 					}
