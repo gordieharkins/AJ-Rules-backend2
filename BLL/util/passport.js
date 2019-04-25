@@ -18,7 +18,7 @@ module.exports = function(passport) {
     // console.log("opts:",opts);
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
         var credentials = jwt_payload;
-        var query = `MATCH (user:user)
+        var query = `MATCH (user:ajRulesUser)
                     WHERE user.email1= {email} AND id(user) = {userId}
                     OPTIONAL Match(role:UserRole) where role.name = user.role
                     RETURN id(user) AS userId, properties(role) as roles, user.username as userName`;

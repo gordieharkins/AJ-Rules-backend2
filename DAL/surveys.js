@@ -1064,7 +1064,7 @@ DAL.prototype.autoSave = function(data, cb) {
 // getStates
 //--------------------------------------------------------
 DAL.prototype.getStates = function(cb) {
-    var query  = 'MATCH(n:State) OPTIONAL MATCH(n)-[]->(m:Jurisdiction) Return n.State as state, collect(m.Jurisdiction) as jurisdiction';
+    var query  = 'MATCH(n:state) OPTIONAL MATCH(n)-[]->(m:jurisdiction) Return n.name as state, collect(m.name) as jurisdiction';
     db.cypher({
         query: query,
     }, function(err, results) {

@@ -19,7 +19,7 @@
     "angular-moment-timezone": "^1.7.1",
     "async": "^2.4.0",
     "body-parser": "~1.15.2",
-    "bower": "^1.8.0",
+    "bower": "^1.8.8",
     "busboy": "^0.2.14",
     "cfenv": "1.0.x",
     "cookie-parser": "~1.4.3",
@@ -67,6 +67,10 @@
     "zingchart": "^2.6.1"
   },
   "devDependencies": {
+    "ag-grid": "^13.3.1",
+    "ag-grid-angular": "^13.0.0",
+    "angular-datatables": "^4.2.0",
+    "angular-datatables-zz": "^0.5.4",
     "angular-ckeditor": "^0.3.1",
     "angular-mask": "^1.4.0",
     "ckeditor": "^4.7.1",

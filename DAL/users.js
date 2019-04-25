@@ -17,7 +17,7 @@ function DAL() {
 // userSignIn
 // ---------------------------------------------
 DAL.prototype.userSignIn = function(data, cb) {
-    var query = `MATCH (user:user)
+    var query = `MATCH (user:ajRulesUser)
         WHERE user.email1= {email} AND user.password =  {password}
         MATCH (role:UserRole) WHERE role.name=user.role
         RETURN id(user) AS userId, properties(user) AS userData, properties(role) as roles`;
@@ -67,13 +67,27 @@ DAL.prototype.getUserDataByToken = function(data, cb) {
 // ---------------------------------------------
 // addSingleUserNonRef
 // ---------------------------------------------
+// DAL.prototype.addSingleUserNonRef = function(data, cb) {
+//     // //console.log("data:",data);
+//     data.createdDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
+//     data.modifiedDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
+//     data.createdBy = "";
+//     data.modifiedBy = "";
+//     var query = "CREATE (user:user " + converter.cypherJsonConverter(data) + ") RETURN id(user) AS userId ";
+//     db.cypher({
+//         query: query
+//     }, function(err, results) {
+//         cb(err);
+//     });
+// };
+
 DAL.prototype.addSingleUserNonRef = function(data, cb) {
     // //console.log("data:",data);
     data.createdDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     data.modifiedDate = moment.tz(Date.now(), config.timezone_str).format('MM-DD-YYYY HH:mm:ss');
     data.createdBy = "";
     data.modifiedBy = "";
-    var query = "CREATE (user:user " + converter.cypherJsonConverter(data) + ") RETURN id(user) AS userId ";
+    var query = "CREATE (user:ajRulesUser " + converter.cypherJsonConverter(data) + ") RETURN id(user) AS userId ";
     db.cypher({
         query: query
     }, function(err, results) {
