@@ -125,7 +125,9 @@ function parseSurveyToRules(survey) {
 		appealDeadline2: {
 			deadline: board2.appealDeadline,
 			is_appeal_form: board2.is_appeal_form,
-			type: board2.appealDateType
+			type: board2.appealDateType,
+			event: board2.event,
+			days: board2.days
 		},
 		appealFormSubmittalFormat2: {
 			value: board2.appealFormSubmittalFormat
@@ -148,7 +150,9 @@ function parseSurveyToRules(survey) {
 		appealDeadline3: {
 			deadline: board3.appealDeadline,
 			is_appeal_form: board3.is_appeal_form,
-			type: board3.appealDateType
+			type: board3.appealDateType,
+			event: board3.event,
+			days: board3.days
 		},
 		appealFormSubmittalFormat3: {
 			value: board3.appealFormSubmittalFormat
@@ -333,6 +337,10 @@ function extractBoard2Data(json) {
 	let appealPackageSubmittalFormatValue = ""
 	let appealPackageSubmittalFormatDeadline = ""
 	let daysFromNotice = null
+	let event = null
+	let days = null
+
+	
 	for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
 		let question = json.value.hassubmission[0].has[i]
 		if (question.ajRule == "Ascertain Board Level Appeal" && question.hasanswer[0].value == "No") {
@@ -344,12 +352,12 @@ function extractBoard2Data(json) {
 			} else {
 				appealDateType = question.hasanswer[0].value
 			}
-
+			let myflag = false
 			for (let j = 0; j < question.has.length; j++) {
 
 				if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
 
-					if (question.has[j].enabled == appealDateType) {
+					if (appealDateType == "A Firm Date" && question.has[j].enabled == appealDateType) {
 
 						if (question.has[j].hasanswer[0].value.length == 1) {
 							appealDeadline = question.has[j].hasanswer[0].value[0]
@@ -358,9 +366,26 @@ function extractBoard2Data(json) {
 						}
 						break
 
+					}else if(appealDateType == "Relative to an event" && question.has[j].enabled == appealDateType){
+						myflag = true
+
+						if (question.has[j].ajRule == "Ascertain Board Level Appeal Triggering Event") {
+							if (question.has[j].hasanswer[0].value[0] == "The date on the written decision made by the Assessor") {
+								event = "days after assessor decision"
+							} else {
+								event = "not implemented yet"
+							}
+
+						}
+						if(question.has[j].ajRule == "Board Level Appeal Deadline Approx (calculated date = date of decision received date + number of days)"){
+							days = question.has[j].hasanswer[0].value[0]
+						}
 					}
 
 				}
+			}
+			if(myflag){
+				appealDateType = "Approx Deadline"
 			}
 		}
 
@@ -440,7 +465,9 @@ function extractBoard2Data(json) {
 		appealPackageItems,
 		appealPackageSubmittalFormatValue,
 		appealPackageSubmittalFormatDeadline,
-		daysFromNotice
+		daysFromNotice,
+		days,
+		event
 	};
 
 
