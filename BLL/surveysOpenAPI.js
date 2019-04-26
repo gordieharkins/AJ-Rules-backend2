@@ -270,7 +270,9 @@ function extractAssessor1Data(json) {
 				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+			
+
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the\ncurrent year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
@@ -425,12 +427,12 @@ function extractBoard2Data(json) {
 		if (question.ajRule == "Board Level Submission Required Items") {
 
 			appealPackageItems = []
-
+			
 			if (question.hasanswer[0].value.length > 0) {
 				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the\ncurrent year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
@@ -557,7 +559,7 @@ function extractBoard3Data(json) {
 				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
 					appealPackageItems.push("IE||3")
 				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the\ncurrent year and rent roll as of January 1 for the previous year")) {
 					appealPackageItems.push("RR||2")
 				}
 				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
