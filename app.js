@@ -169,6 +169,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
+console.log("DASDASDSAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -204,7 +205,7 @@ var appEnv = cfenv.getAppEnv();
 
 var server = app.listen(4100, '0.0.0.0', function() {
  // app.listen(appEnv.port, '0.0.0.0', function() {
-  //console.log("Server starting on " + server.address().port);
+  console.log("Server starting on " + server.address().port);
 });
 // server.timeout = 100000;
 //
