@@ -169,7 +169,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-console.log("DASDASDSAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+// console.log("DASDASDSAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
