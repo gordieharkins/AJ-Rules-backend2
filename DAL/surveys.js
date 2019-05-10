@@ -1063,7 +1063,7 @@ DAL.prototype.autoSave = function(data, cb) {
 //comment
 
 //--------------------------------------------------------
-// getStates
+// getStatesdasdsdsa
 //--------------------------------------------------------
 DAL.prototype.getStates = function(cb) {
     var query  = 'MATCH(n:state) OPTIONAL MATCH(n)-[]->(m:jurisdiction) Return n.name as state, collect(m.name) as jurisdiction';
