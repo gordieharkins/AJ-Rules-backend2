@@ -21,6 +21,8 @@ DAL.prototype.userSignIn = function(data, cb) {
         WHERE user.email1= {email} AND user.password =  {password}
         MATCH (role:UserRole) WHERE role.name=user.role
         RETURN id(user) AS userId, properties(user) AS userData, properties(role) as roles`;
+
+        // console.log(data.email, data.password, query);
     db.cypher({
         query: query,
         params:{
