@@ -1117,13 +1117,13 @@ BLL.prototype.getSubmissionData = function(req, res) {
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
         } else {
-            console.log("ASASASAS ---- ", result);
-            if(!result[0].value.hassubmission == undefined){
+            // console.log("ASASASAS ---- ", result[0].value.hassubmission);
+            if(result[0].value.hassubmission == undefined){
+                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            } else {
                 sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
                     Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
                 });
-            } else {
-                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             }
         }
     });
