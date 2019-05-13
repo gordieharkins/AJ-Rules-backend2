@@ -116,6 +116,7 @@ app.use('/unlinkedFiles', passport.authenticate('jwt', { session: false }), unli
 app.use('/zillow', passport.authenticate('jwt', { session: false }),zillow);
 app.use('/salesComps', passport.authenticate('jwt', { session: false }),salesComps);
 app.use('/propertyImages', passport.authenticate('jwt', { session: false }), propertyImages);
+// app.use('/surveys', surveys);
 app.use('/surveys', passport.authenticate('jwt', { session: false }), surveys);
 app.use('/contracts', passport.authenticate('jwt', { session: false }), contracts);
 app.use('/newsFeed', passport.authenticate('jwt', { session: false }),newsFeed);

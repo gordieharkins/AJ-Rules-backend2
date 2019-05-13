@@ -1144,7 +1144,7 @@ BLL.prototype.updateSubmissionData = function(req, res) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             //console.log(error);
-            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, error, res);
             return;
         } else{
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
