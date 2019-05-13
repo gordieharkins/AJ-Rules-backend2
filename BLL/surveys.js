@@ -1116,10 +1116,15 @@ BLL.prototype.getSubmissionData = function(req, res) {
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
-                Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
-            });
+        } else {
+            console.log("ASASASAS ---- ", result);
+            if(!result[0].value.hassubmission == undefined){
+                sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                    Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
+                });
+            } else {
+                Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
+            }
         }
     });
 }
