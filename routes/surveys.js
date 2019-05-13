@@ -7,13 +7,17 @@ var Response = require(path.resolve(__dirname, '../BLL/util/response'));
 var BLL = new surveysBLLFile();
 
 router.use(function (req, res, next) {
-    if (!req.user[0].roles.surveys)
-    {
-        //console.log(req.user[0]);
-        Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
-        return;
+    try{
+        if (!req.user[0].roles.surveys) {
+                //console.log(req.user[0]);
+                Response.sendResponse(false, Response.REPLY_MSG.NO_ACCESS, null, res);
+                return;
+        }  
+        next();
+    } catch(error) {
+        console.log("this is the error: ", error)
+        next();
     }
-    next();
 });
 
 router.get('/', function(req, res, next) {
