@@ -7,9 +7,9 @@ var Response = require(path.resolve(__dirname, '../BLL/util/response'));
 var BLL = new surveysBLLFile();
 
 router.use(function (req, res, next) {
-    console.log("========================================================");
-    console.log(req.user[0].roles);
-    console.log("========================================================");
+    // console.log("========================================================");
+    // console.log(req.user[0].roles);
+    // console.log("========================================================");
     try{
         if (!req.user[0].roles.surveys) {
                 //console.log(req.user[0]);
