@@ -814,7 +814,7 @@ DAL.prototype.getFormSubmissions = function(userId,userRole, cb) {
     
     
     var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
-    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission)`+temp+` 
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission{is_deleted:false})`+temp+` 
     RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
 
     //console.log(query);
@@ -871,7 +871,7 @@ DAL.prototype.getSubmissionData = function(data, cb) {
 
     // //console.log("params: ",params);
 
-    var query = `MATCH(sub:surveySubmission)-[:HAS]->(ans:answer) where id(sub) = {submissionId}
+    var query = `MATCH(sub:surveySubmission{is_deleted:false})-[:HAS]->(ans:answer) where id(sub) = {submissionId}
     match path = (sub)<-[:hasSubmission]-(:formVersion)-[:HAS*]->(a)-[:hasAnswer]->(ans)
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value

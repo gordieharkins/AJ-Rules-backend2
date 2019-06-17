@@ -1081,7 +1081,8 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.contradict = false;
     data.status = "Not Started";
     data.total = 20;
-    data.filled = 0;    
+    data.filled = 0;  
+    data.is_deleted = false;  
     // var formId = req.body.formId;
     
     // //console.log(data);rs
