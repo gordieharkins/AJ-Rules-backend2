@@ -21,4 +21,9 @@ router.get('/surveyJsonToRules', function(req, res, next) {
     BLL.surveyJsonToRules(req, res);
 });
 
+router.post('/deleteSubmissions', function(req, res, next) {
+    // //console.log("here");
+    BLL.deleteSubmissions(req, res);
+});
+
 module.exports = router;

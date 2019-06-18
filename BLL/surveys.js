@@ -1027,7 +1027,7 @@ function parseAnswers(answer) {
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.getFormSubmissions = function(req, res) {
+BLL.prototype.getFormSubmissions = function (req, res) {
 
     //console.log("DDDDDDDDDDDdd");
     if (!req || req === null || req === undefined) {
@@ -1037,18 +1037,18 @@ BLL.prototype.getFormSubmissions = function(req, res) {
 
     var userId = req.user[0].userId;
     var userRole = req.user[0].roles.name;
-    
+
     //console.log(req.user[0]);
-    
-    DAL.getFormSubmissions(userId, userRole, function(error, result) {
+
+    DAL.getFormSubmissions(userId, userRole, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             //console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            if(result.length > 0){
+        } else {
+            if (result.length > 0) {
                 var result = JSON.parse(JSON.stringify(result[0]));
             } else {
                 var result = {};
@@ -1062,7 +1062,7 @@ BLL.prototype.getFormSubmissions = function(req, res) {
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.addNewSubmission = function(req, res) {
+BLL.prototype.addNewSubmission = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
@@ -1081,19 +1081,19 @@ BLL.prototype.addNewSubmission = function(req, res) {
     data.contradict = false;
     data.status = "Not Started";
     data.total = 20;
-    data.filled = 0;  
-    data.is_deleted = false;  
+    data.filled = 0;
+    data.is_deleted = false;
     // var formId = req.body.formId;
-    
+
     // //console.log(data);rs
-    DAL.addNewSubmission(data, function(error, result) {
+    DAL.addNewSubmission(data, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+        } else {
+            sortFormData(JSON.parse(JSON.stringify(result)), function (sortedData) {
                 Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
             });
         }
@@ -1101,17 +1101,18 @@ BLL.prototype.addNewSubmission = function(req, res) {
 }
 // ---------------------END---------------------
 
+
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.getSubmissionData = function(req, res) {
+BLL.prototype.getSubmissionData = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
 
     var data = req.body;
-    DAL.getSubmissionData(data, function(error, result) {
+    DAL.getSubmissionData(data, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
@@ -1119,10 +1120,10 @@ BLL.prototype.getSubmissionData = function(req, res) {
             return;
         } else {
             // console.log("ASASASAS ---- ", result[0].value.hassubmission);
-            if(result[0].value.hassubmission == undefined){
+            if (result[0].value.hassubmission == undefined) {
                 Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             } else {
-                sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+                sortFormData(JSON.parse(JSON.stringify(result)), function (sortedData) {
                     Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
                 });
             }
@@ -1134,7 +1135,7 @@ BLL.prototype.getSubmissionData = function(req, res) {
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.updateSubmissionData = function(req, res) {
+BLL.prototype.updateSubmissionData = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
@@ -1145,14 +1146,14 @@ BLL.prototype.updateSubmissionData = function(req, res) {
     var userName = req.user[0].userName;
     var data = req.body;
 
-    DAL.updateSubmissionData(data, userName, userId, function(error, result) {
+    DAL.updateSubmissionData(data, userName, userId, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             //console.log(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, error, res);
             return;
-        } else{
+        } else {
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -1163,21 +1164,21 @@ BLL.prototype.updateSubmissionData = function(req, res) {
 //----------------------------------------------
 // getFormQuestions
 //----------------------------------------------
-BLL.prototype.getFormQuestions = function(req, res) {
+BLL.prototype.getFormQuestions = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
 
     var data = req.body;
-    DAL.getFormQuestions(data, function(error, result) {
+    DAL.getFormQuestions(data, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            sortFormQuestions(JSON.parse(JSON.stringify(result)), function(sortedData){
+        } else {
+            sortFormQuestions(JSON.parse(JSON.stringify(result)), function (sortedData) {
                 Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData, res);
             });
         }
@@ -1188,21 +1189,21 @@ BLL.prototype.getFormQuestions = function(req, res) {
 //----------------------------------------------
 // getFormQuestions
 //----------------------------------------------
-BLL.prototype.addNewForm = function(req, res) {
+BLL.prototype.addNewForm = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
     var userData = req.user[0];
     var data = req.body;
-    DAL.addNewForm(data, userData, function(error, result) {
+    DAL.addNewForm(data, userData, function (error, result) {
         if (error) {
             //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.FORM_ADDITION_FAIL, null, res);
             return;
-        } else{
+        } else {
             Response.sendResponse(true, Response.REPLY_MSG.FORM_ADDITION_SUCCESS, result, res);
         }
     });
@@ -1212,21 +1213,21 @@ BLL.prototype.addNewForm = function(req, res) {
 //----------------------------------------------
 // getHistory
 //----------------------------------------------
-BLL.prototype.getHistory = function(req, res) {
+BLL.prototype.getHistory = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
     // var userData = req.user[0];
     var data = req.body;
-    DAL.getHistory(data, function(error, result) {
+    DAL.getHistory(data, function (error, result) {
         if (error) {
             //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
+        } else {
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
@@ -1236,13 +1237,13 @@ BLL.prototype.getHistory = function(req, res) {
 //----------------------------------------------
 // getHistory
 //----------------------------------------------
-BLL.prototype.getReports = function(req, res) {
+BLL.prototype.getReports = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
 
-    DAL.getReports(function(error, result) {
+    DAL.getReports(function (error, result) {
         if (error) {
             //console.log(error);
             error.userName = loginUserName;
@@ -1250,11 +1251,11 @@ BLL.prototype.getReports = function(req, res) {
             //testS
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
+        } else {
             var report = [];
             // res.send(result);
-            sortFormData(result, function(sortedData){
-                sortedData.forEach(function(value){
+            sortFormData(result, function (sortedData) {
+                sortedData.forEach(function (value) {
                     var survey = {
                         jurisdiction: value.value.jurisdiction,
                         id: value.value.jurisdiction,
@@ -1263,27 +1264,27 @@ BLL.prototype.getReports = function(req, res) {
                         questions: []
                     };
 
-                    value.value.hassubmission[0].has.forEach(function(parent){
+                    value.value.hassubmission[0].has.forEach(function (parent) {
                         var parentQuestion = {
                             ajrule: parent.ajRule,
                             answer: parent.hasanswer[0].value
                         };
-                        if(report.length > 0){
-                            var parentIndex = report[0].questions.findIndex(function(pq){
+                        if (report.length > 0) {
+                            var parentIndex = report[0].questions.findIndex(function (pq) {
                                 return pq.ajrule == parentQuestion.ajrule;
                             });
                             survey.questions[parentIndex] = parentQuestion;
                         } else {
                             survey.questions.push(parentQuestion);
                         }
-                        if(parent.has != undefined){
-                            parent.has.forEach(function(child){
+                        if (parent.has != undefined) {
+                            parent.has.forEach(function (child) {
                                 var childQuestion = {
                                     ajrule: child.ajRule,
                                     answer: child.hasanswer[0].value
                                 };
-                                if(report.length > 0){
-                                    var childIndex = report[0].questions.findIndex(function(cq){
+                                if (report.length > 0) {
+                                    var childIndex = report[0].questions.findIndex(function (cq) {
                                         return cq.ajrule == childQuestion.ajrule;
                                     });
                                     survey.questions[childIndex] = childQuestion;
@@ -1298,7 +1299,7 @@ BLL.prototype.getReports = function(req, res) {
                 Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, report, res);
             });
 
-            
+
         }
     });
 }
@@ -1307,21 +1308,21 @@ BLL.prototype.getReports = function(req, res) {
 //----------------------------------------------
 // autoSave
 //----------------------------------------------
-BLL.prototype.autoSave = function(req, res) {
+BLL.prototype.autoSave = function (req, res) {
     if (!req.body || req.body === null || req.body === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
     // var userData = req.user[0];
     var data = req.body;
-    DAL.autoSave(data, function(error, result) {
+    DAL.autoSave(data, function (error, result) {
         if (error) {
             //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
             return;
-        } else{
+        } else {
             Response.sendResponse(true, Response.REPLY_MSG.UPDATE_SUCCESS, result, res);
         }
     });
@@ -1331,87 +1332,87 @@ BLL.prototype.autoSave = function(req, res) {
 //----------------------------------------------
 // getStates
 //----------------------------------------------
-BLL.prototype.getStates = function(req, res) {
+BLL.prototype.getStates = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
     // var userData = req.user[0];
     // var data = req.body;
-    DAL.getStates(function(error, result) {
+    DAL.getStates(function (error, result) {
         if (error) {
             //console.log(error);
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
+        } else {
             Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, result, res);
         }
     });
 }
 // ---------------------END---------------------
-function sortFormData(data, cb){
+function sortFormData(data, cb) {
     // //console.log(formData.value.hassubmission[0].has);
     // //console.log(data);
-    data.forEach(function(formData){
-        formData.value.hassubmission[0].has.sort(function(a,b){ return a.order - b.order});
-        formData.value.hassubmission[0].has.forEach(function(question){
+    data.forEach(function (formData) {
+        formData.value.hassubmission[0].has.sort(function (a, b) { return a.order - b.order });
+        formData.value.hassubmission[0].has.forEach(function (question) {
             // //console.log(has);
-            if(question.has != undefined){
-                question.has.sort(function(a, b){ return a.order - b.order});
+            if (question.has != undefined) {
+                question.has.sort(function (a, b) { return a.order - b.order });
             }
         });
     });
-    
+
     cb(data);
 }
 
-function sortFormQuestions(data, cb){
+function sortFormQuestions(data, cb) {
     // //console.log(formData.value.hassubmission[0].has);
     // //console.log(data);
-   
-    data.forEach(function(formData){
-        formData.value.has.sort(function(a,b){ return a.order - b.order});
-        formData.value.has.forEach(function(question){
+
+    data.forEach(function (formData) {
+        formData.value.has.sort(function (a, b) { return a.order - b.order });
+        formData.value.has.forEach(function (question) {
             // //console.log(has);
-            if(question.has != undefined){
-                question.has.sort(function(a, b){ return a.order - b.order});
+            if (question.has != undefined) {
+                question.has.sort(function (a, b) { return a.order - b.order });
             }
         });
     });
-    
+
     cb(data);
 }
 
 //----------------------------------------------
 // surveysToAJrules
 //----------------------------------------------
-BLL.prototype.surveysToAJrules = function(req, res) {
+BLL.prototype.surveysToAJrules = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
 
     var data = req.body;
-    DAL.getSubmissionData(data, function(error, result) {
+    DAL.getSubmissionData(data, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+        } else {
+            sortFormData(JSON.parse(JSON.stringify(result)), function (sortedData) {
                 var myJson = sortedData[0]
                 var params = AJruleToCypher(myJson)
-                DAL.surveysToAJrules(params, function(error, result2) {
+                DAL.surveysToAJrules(params, function (error, result2) {
                     if (error) {
                         error.userName = loginUserName;
                         ErrorLogDAL.addErrorLog(error);
                         Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
                         return;
-                    } else{
-                        Response.sendResponse(true, Response.REPLY_MSG.SAVE_SUCCESS ,result2, res);
+                    } else {
+                        Response.sendResponse(true, Response.REPLY_MSG.SAVE_SUCCESS, result2, res);
                     }
                 });
                 // Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, sortedData[0], res);
@@ -1575,21 +1576,21 @@ function AJruleToCypher(json) {
 //----------------------------------------------
 // getFormSubmissions
 //----------------------------------------------
-BLL.prototype.surveyJsonToRules = function(req, res) {
+BLL.prototype.surveyJsonToRules = function (req, res) {
     if (!req || req === null || req === undefined) {
         Response.sendResponse(false, Response.REPLY_MSG.INVALID_DATA, null, res);
         return;
     }
     var surveyId = req.query.id;
-    var data = {"submissionId": parseInt(surveyId)};
-    DAL.getSubmissionData(data, function(error, result) {
+    var data = { "submissionId": parseInt(surveyId) };
+    DAL.getSubmissionData(data, function (error, result) {
         if (error) {
             error.userName = loginUserName;
             ErrorLogDAL.addErrorLog(error);
             Response.sendResponse(false, Response.REPLY_MSG.GET_DATA_FAIL, null, res);
             return;
-        } else{
-            sortFormData(JSON.parse(JSON.stringify(result)), function(sortedData){
+        } else {
+            sortFormData(JSON.parse(JSON.stringify(result)), function (sortedData) {
                 // parseSurveyToRules(sortedData[0]);
                 Response.sendResponse(true, Response.REPLY_MSG.GET_DATA_SUCCESS, parseSurveyToRules(sortedData[0]), res);
             });
@@ -1598,482 +1599,482 @@ BLL.prototype.surveyJsonToRules = function(req, res) {
 }
 // ---------------------END---------------------
 
-function parseSurveyToRules(survey){
+function parseSurveyToRules(survey) {
     let temp = {
-		jurisdiction: null,
-		appealDeadline: null,
-		appealDateType: null,
-		isAppealForm: null,
-		appealFormSubmittalFormat: null,
-		appealFromSignatureRequirements: null,
-		appealEvidenceSubmissionValue: null,
-		appealEvidenceSubmissionDays: null,
-		appealPackageItems: null,
-		appealPackageSubmittalFormatValue: null,
-		appealPackageSubmittalFormatDeadline: null,
-		daysFromNotice: null
-	};
+        jurisdiction: null,
+        appealDeadline: null,
+        appealDateType: null,
+        isAppealForm: null,
+        appealFormSubmittalFormat: null,
+        appealFromSignatureRequirements: null,
+        appealEvidenceSubmissionValue: null,
+        appealEvidenceSubmissionDays: null,
+        appealPackageItems: null,
+        appealPackageSubmittalFormatValue: null,
+        appealPackageSubmittalFormatDeadline: null,
+        daysFromNotice: null
+    };
 
 
-	let assessor1 = extractAssessor1Data(survey);
-	let board2 = extractBoard2Data(survey);
-	let board3 = extractBoard3Data(survey);
+    let assessor1 = extractAssessor1Data(survey);
+    let board2 = extractBoard2Data(survey);
+    let board3 = extractBoard3Data(survey);
 
-	if (board2 == 0) {
-		board2 = temp
-	}
+    if (board2 == 0) {
+        board2 = temp
+    }
 
-	if (board3 == 0) {
-		board3 = temp
-	}
+    if (board3 == 0) {
+        board3 = temp
+    }
 
-	let rules = {
-		jurisdiction: assessor1.jurisdiction,
-		appealDeadline1: {
-			deadline: assessor1.appealDeadline,
-			isAppealForm: assessor1.isAppealForm,
-			type: assessor1.appealDateType
-		},
-		appealFormSubmittalFormat1: {
-			value: assessor1.appealFormSubmittalFormat
+    let rules = {
+        jurisdiction: assessor1.jurisdiction,
+        appealDeadline1: {
+            deadline: assessor1.appealDeadline,
+            isAppealForm: assessor1.isAppealForm,
+            type: assessor1.appealDateType
+        },
+        appealFormSubmittalFormat1: {
+            value: assessor1.appealFormSubmittalFormat
 
-		},
-		appealFormSignatureRequirements1: {
-			value: assessor1.appealFromSignatureRequirements
-		},
-		appealPackageSubmittalFormat1: {
-			deadline: assessor1.appealPackageSubmittalFormatDeadline,
-			value: assessor1.appealPackageSubmittalFormatValue
-		},
-		appealEvidenceSubmission1: {
-			days: assessor1.appealEvidenceSubmissionDays,
-			value: assessor1.appealEvidenceSubmissionValue
-		},
-		appealPackageItems1: {
-			value: assessor1.appealPackageItems
-		},
-		appealDeadline2: {
-			deadline: board2.appealDeadline,
-			isAppealForm: board2.isAppealForm,
-			type: board2.appealDateType
-		},
-		appealFormSubmittalFormat2: {
-			value: board2.appealFormSubmittalFormat
+        },
+        appealFormSignatureRequirements1: {
+            value: assessor1.appealFromSignatureRequirements
+        },
+        appealPackageSubmittalFormat1: {
+            deadline: assessor1.appealPackageSubmittalFormatDeadline,
+            value: assessor1.appealPackageSubmittalFormatValue
+        },
+        appealEvidenceSubmission1: {
+            days: assessor1.appealEvidenceSubmissionDays,
+            value: assessor1.appealEvidenceSubmissionValue
+        },
+        appealPackageItems1: {
+            value: assessor1.appealPackageItems
+        },
+        appealDeadline2: {
+            deadline: board2.appealDeadline,
+            isAppealForm: board2.isAppealForm,
+            type: board2.appealDateType
+        },
+        appealFormSubmittalFormat2: {
+            value: board2.appealFormSubmittalFormat
 
-		},
-		appealFormSignatureRequirements2: {
-			value: board2.appealFromSignatureRequirements
-		},
-		appealPackageSubmittalFormat2: {
-			deadline: board2.appealPackageSubmittalFormatDeadline,
-			value: board2.appealPackageSubmittalFormatValue
-		},
-		appealEvidenceSubmission2: {
-			days: board2.appealEvidenceSubmissionDays,
-			value: board2.appealEvidenceSubmissionValue
-		},
-		appealPackageItems2: {
-			value: board2.appealPackageItems
-		},
-		appealDeadline3: {
-			deadline: board3.appealDeadline,
-			isAppealForm: board3.isAppealForm,
-			type: board3.appealDateType
-		},
-		appealFormSubmittalFormat3: {
-			value: board3.appealFormSubmittalFormat
+        },
+        appealFormSignatureRequirements2: {
+            value: board2.appealFromSignatureRequirements
+        },
+        appealPackageSubmittalFormat2: {
+            deadline: board2.appealPackageSubmittalFormatDeadline,
+            value: board2.appealPackageSubmittalFormatValue
+        },
+        appealEvidenceSubmission2: {
+            days: board2.appealEvidenceSubmissionDays,
+            value: board2.appealEvidenceSubmissionValue
+        },
+        appealPackageItems2: {
+            value: board2.appealPackageItems
+        },
+        appealDeadline3: {
+            deadline: board3.appealDeadline,
+            isAppealForm: board3.isAppealForm,
+            type: board3.appealDateType
+        },
+        appealFormSubmittalFormat3: {
+            value: board3.appealFormSubmittalFormat
 
-		},
-		appealFormSignatureRequirements3: {
-			value: board3.appealFromSignatureRequirements
-		},
-		appealPackageSubmittalFormat3: {
-			deadline: board3.appealPackageSubmittalFormatDeadline,
-			value: board3.appealPackageSubmittalFormatValue
-		},
-		appealEvidenceSubmission3: {
-			days: board3.appealEvidenceSubmissionDays,
-			value: board3.appealEvidenceSubmissionValue
-		},
-		appealPackageItems3: {
-			value: board3.appealPackageItems
-		}
+        },
+        appealFormSignatureRequirements3: {
+            value: board3.appealFromSignatureRequirements
+        },
+        appealPackageSubmittalFormat3: {
+            deadline: board3.appealPackageSubmittalFormatDeadline,
+            value: board3.appealPackageSubmittalFormatValue
+        },
+        appealEvidenceSubmission3: {
+            days: board3.appealEvidenceSubmissionDays,
+            value: board3.appealEvidenceSubmissionValue
+        },
+        appealPackageItems3: {
+            value: board3.appealPackageItems
+        }
     }
     return rules;
 }
 
 function extractAssessor1Data(json) {
     //console.log(JSON.stringify(json));
-	let jurisdiction = json.value.jurisdiction
-	let appealDeadline = ""
-	let appealDateType = ""
-	let isAppealForm = ""
-	let appealFormSubmittalFormat = ""
-	let appealFromSignatureRequirements = ""
-	let appealEvidenceSubmissionValue = ""
-	let appealEvidenceSubmissionDays = ""
-	let appealPackageItems = ""
-	let appealPackageSubmittalFormatValue = ""
-	let appealPackageSubmittalFormatDeadline = ""
-	let daysFromNotice = null
-	for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
-		let question = json.value.hassubmission[0].has[i]
-		if (question.ajRule == "Appeal Deadline Format") {
-			if (question.hasanswer[0].value.length == 1) {
-				appealDateType = question.hasanswer[0].value[0]
-			} else {
-				appealDateType = question.hasanswer[0].value
-			}
+    let jurisdiction = json.value.jurisdiction
+    let appealDeadline = ""
+    let appealDateType = ""
+    let isAppealForm = ""
+    let appealFormSubmittalFormat = ""
+    let appealFromSignatureRequirements = ""
+    let appealEvidenceSubmissionValue = ""
+    let appealEvidenceSubmissionDays = ""
+    let appealPackageItems = ""
+    let appealPackageSubmittalFormatValue = ""
+    let appealPackageSubmittalFormatDeadline = ""
+    let daysFromNotice = null
+    for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
+        let question = json.value.hassubmission[0].has[i]
+        if (question.ajRule == "Appeal Deadline Format") {
+            if (question.hasanswer[0].value.length == 1) {
+                appealDateType = question.hasanswer[0].value[0]
+            } else {
+                appealDateType = question.hasanswer[0].value
+            }
 
-			for (let j = 0; j < question.has.length; j++) {
-				if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
-					if (question.has[j].enabled == appealDateType) {
-						if (question.has[j].hasanswer[0].value.length == 1) {
-							appealDeadline = question.has[j].hasanswer[0].value[0]
-						} else {
-							appealDeadline = question.has[j].hasanswer[0].value
-						}
-					}
-					
-					break
-				}
-			}
-		}
+            for (let j = 0; j < question.has.length; j++) {
+                if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
+                    if (question.has[j].enabled == appealDateType) {
+                        if (question.has[j].hasanswer[0].value.length == 1) {
+                            appealDeadline = question.has[j].hasanswer[0].value[0]
+                        } else {
+                            appealDeadline = question.has[j].hasanswer[0].value
+                        }
+                    }
 
-		if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
-			let myans = question.hasanswer[0].value[0]
-			for (let k = 0; k < question.has.length; k++) {
-				if (question.has[k].enabled == myans) {
-					let tempappealDeadline = question.has[k].hasanswer[0].value[0]
-					var tdate = new Date(tempappealDeadline);
-					var newdate = new Date(tdate);
-					newdate.setDate(newdate.getDate() + daysFromNotice);
-					appealDeadline = newdate
+                    break
+                }
+            }
+        }
 
-
-				}
-			}
+        if (daysFromNotice && question.ajRule == "Assessment Notice Mail Format") {
+            let myans = question.hasanswer[0].value[0]
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].enabled == myans) {
+                    let tempappealDeadline = question.has[k].hasanswer[0].value[0]
+                    var tdate = new Date(tempappealDeadline);
+                    var newdate = new Date(tdate);
+                    newdate.setDate(newdate.getDate() + daysFromNotice);
+                    appealDeadline = newdate
 
 
-		}
-
-		if (question.ajRule == "Appeal Form") {
-			if (question.hasanswer[0].value == "Yes") {
-				isAppealForm = true
-			} else {
-				isAppealForm = false
-			}
-			for (let k = 0; k < question.has.length; k++) {
-				if (question.has[k].ajRule == "Appeal Form Signature Requirements") {
-					appealFromSignatureRequirements = question.has[k].hasanswer[0].value
-				}
-			}
+                }
+            }
 
 
-		}
+        }
 
-		if (question.ajRule == "Appeal Form Submittal Format") {
-			appealFormSubmittalFormat = question.hasanswer[0].value
-		}
-		if (question.ajRule == "Event when evidence is due") {
-			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
-			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
-				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
-				appealEvidenceSubmissionDays = ""
-			}
-		}
-		if (question.ajRule == "Appeal Package Items") {
-			appealPackageItems = []
-
-			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
-					appealPackageItems.push("IE||3")
-				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
-					appealPackageItems.push("RR||2")
-				}
-				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
-				// 	appealPackageItems.push("AAD||1")
-				// }
-				// if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
-				// 	appealPackageItems.push("LBD||1")
-				// }
-
-			}
+        if (question.ajRule == "Appeal Form") {
+            if (question.hasanswer[0].value == "Yes") {
+                isAppealForm = true
+            } else {
+                isAppealForm = false
+            }
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].ajRule == "Appeal Form Signature Requirements") {
+                    appealFromSignatureRequirements = question.has[k].hasanswer[0].value
+                }
+            }
 
 
-			// if (question.hasanswer[0].value.length == 2) {
-			// 	appealPackageItems = ["IE||3", "RR||2"]
-			// } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "RR 2017, RR 2018") {
-			// 	appealPackageItems = ["RR||2"]
-			// } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "IE 2018, IE 2019, IE 2017") {
-			// 	appealPackageItems = ["IE||3"]
-			// } else {
-			// 	appealPackageItems = question.hasanswer[0].value
-			// }
-			// //console.log(appealPackageItems)
-		}
+        }
 
-		if (question.ajRule == "Appeal Package Submittal Format") {
-			appealPackageSubmittalFormatValue = question.hasanswer[0].value
+        if (question.ajRule == "Appeal Form Submittal Format") {
+            appealFormSubmittalFormat = question.hasanswer[0].value
+        }
+        if (question.ajRule == "Event when evidence is due") {
+            appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
+            if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
+                appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
+            } else {
+                appealEvidenceSubmissionDays = ""
+            }
+        }
+        if (question.ajRule == "Appeal Package Items") {
+            appealPackageItems = []
 
-		}
-		if (question.ajRule == "Appeal Deadline Format") {
+            if (question.hasanswer[0].value.length > 0) {
+                if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
+                    appealPackageItems.push("IE||3")
+                }
+                if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+                    appealPackageItems.push("RR||2")
+                }
+                // if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
+                // 	appealPackageItems.push("AAD||1")
+                // }
+                // if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
+                // 	appealPackageItems.push("LBD||1")
+                // }
 
-		}
-	}
-
-	const extracted = {
-		jurisdiction,
-		appealDeadline,
-		appealDateType,
-		isAppealForm,
-		appealFormSubmittalFormat,
-		appealFromSignatureRequirements,
-		appealEvidenceSubmissionValue,
-		appealEvidenceSubmissionDays,
-		appealPackageItems,
-		appealPackageSubmittalFormatValue,
-		appealPackageSubmittalFormatDeadline,
-		daysFromNotice
-	};
+            }
 
 
-	return extracted
+            // if (question.hasanswer[0].value.length == 2) {
+            // 	appealPackageItems = ["IE||3", "RR||2"]
+            // } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "RR 2017, RR 2018") {
+            // 	appealPackageItems = ["RR||2"]
+            // } else if (question.hasanswer[0].value.length == 1 && question.hasanswer[0].value[0] == "IE 2018, IE 2019, IE 2017") {
+            // 	appealPackageItems = ["IE||3"]
+            // } else {
+            // 	appealPackageItems = question.hasanswer[0].value
+            // }
+            // //console.log(appealPackageItems)
+        }
+
+        if (question.ajRule == "Appeal Package Submittal Format") {
+            appealPackageSubmittalFormatValue = question.hasanswer[0].value
+
+        }
+        if (question.ajRule == "Appeal Deadline Format") {
+
+        }
+    }
+
+    const extracted = {
+        jurisdiction,
+        appealDeadline,
+        appealDateType,
+        isAppealForm,
+        appealFormSubmittalFormat,
+        appealFromSignatureRequirements,
+        appealEvidenceSubmissionValue,
+        appealEvidenceSubmissionDays,
+        appealPackageItems,
+        appealPackageSubmittalFormatValue,
+        appealPackageSubmittalFormatDeadline,
+        daysFromNotice
+    };
+
+
+    return extracted
 }
 
 function extractBoard2Data(json) {
-	let jurisdiction = json.value.jurisdiction
-	let appealDeadline = ""
-	let appealDateType = ""
-	let isAppealForm = ""
-	let appealFormSubmittalFormat = ""
-	let appealFromSignatureRequirements = ""
-	let appealEvidenceSubmissionValue = ""
-	let appealEvidenceSubmissionDays = ""
-	let appealPackageItems = ""
-	let appealPackageSubmittalFormatValue = ""
-	let appealPackageSubmittalFormatDeadline = ""
-	let daysFromNotice = null
-	for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
-		let question = json.value.hassubmission[0].has[i]
-		if (question.ajRule == "Ascertain Board Level Appeal" && question.hasanswer[0].value == "No") {
-			return 0;
-		}
-		if (question.ajRule == "Ascertain Board Level Appeal Deadline Format") {
-			if (question.hasanswer[0].value.length == 1) {
-				appealDateType = question.hasanswer[0].value[0]
-			} else {
-				appealDateType = question.hasanswer[0].value
-			}
+    let jurisdiction = json.value.jurisdiction
+    let appealDeadline = ""
+    let appealDateType = ""
+    let isAppealForm = ""
+    let appealFormSubmittalFormat = ""
+    let appealFromSignatureRequirements = ""
+    let appealEvidenceSubmissionValue = ""
+    let appealEvidenceSubmissionDays = ""
+    let appealPackageItems = ""
+    let appealPackageSubmittalFormatValue = ""
+    let appealPackageSubmittalFormatDeadline = ""
+    let daysFromNotice = null
+    for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
+        let question = json.value.hassubmission[0].has[i]
+        if (question.ajRule == "Ascertain Board Level Appeal" && question.hasanswer[0].value == "No") {
+            return 0;
+        }
+        if (question.ajRule == "Ascertain Board Level Appeal Deadline Format") {
+            if (question.hasanswer[0].value.length == 1) {
+                appealDateType = question.hasanswer[0].value[0]
+            } else {
+                appealDateType = question.hasanswer[0].value
+            }
 
-			for (let j = 0; j < question.has.length; j++) {
-				if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
-					if (question.has[j].enabled == appealDateType) {
+            for (let j = 0; j < question.has.length; j++) {
+                if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
+                    if (question.has[j].enabled == appealDateType) {
 
-						if (question.has[j].hasanswer[0].value.length == 1) {
-							appealDeadline = question.has[j].hasanswer[0].value[0]
-						} else {
-							appealDeadline = question.has[j].hasanswer[0].value
-						}
-					}
-				
-					break
-				}
-			}
-		}
+                        if (question.has[j].hasanswer[0].value.length == 1) {
+                            appealDeadline = question.has[j].hasanswer[0].value[0]
+                        } else {
+                            appealDeadline = question.has[j].hasanswer[0].value
+                        }
+                    }
 
-
-		if (question.ajRule == "Ascertain Board Level Appeal Form") {
-			if (question.hasanswer[0].value == "Yes") {
-				isAppealForm = true
-			} else {
-				isAppealForm = false
-			}
-			for (let k = 0; k < question.has.length; k++) {
-				if (question.has[k].ajRule == "Board Level Form Signature Requirement(s)") {
-					appealFromSignatureRequirements = question.has[k].hasanswer[0].value
-				}
-			}
+                    break
+                }
+            }
+        }
 
 
-		}
-
-		if (question.ajRule == "Board Level Form Submission Method(s)") {
-			appealFormSubmittalFormat = question.hasanswer[0].value
-		}
-		if (question.ajRule == "Ascertain when Board Level Appeal Evidence deadline") {
-			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
-			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
-				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
-				appealEvidenceSubmissionDays = ""
-			}
-		}
-		if (question.ajRule == "Board Level Submission Required Items") {
-
-			appealPackageItems = []
-
-			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
-					appealPackageItems.push("IE||3")
-				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
-					appealPackageItems.push("RR||2")
-				}
-				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
-				// 	appealPackageItems.push("AAD||1")
-				// }
-				// if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
-				// 	appealPackageItems.push("LBD||1")
-				// }
-
-			}
-
-		
-		}
-
-		if (question.ajRule == "Board Level Appeal Package Submission Method(s)") {
-			appealPackageSubmittalFormatValue = question.hasanswer[0].value
-		}
-		if (question.ajRule == "Ascertain Board Level Appeal Deadline Format") {
-
-		}
-	}
-
-	const extracted = {
-		jurisdiction,
-		appealDeadline,
-		appealDateType,
-		isAppealForm,
-		appealFormSubmittalFormat,
-		appealFromSignatureRequirements,
-		appealEvidenceSubmissionValue,
-		appealEvidenceSubmissionDays,
-		appealPackageItems,
-		appealPackageSubmittalFormatValue,
-		appealPackageSubmittalFormatDeadline,
-		daysFromNotice
-	};
+        if (question.ajRule == "Ascertain Board Level Appeal Form") {
+            if (question.hasanswer[0].value == "Yes") {
+                isAppealForm = true
+            } else {
+                isAppealForm = false
+            }
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].ajRule == "Board Level Form Signature Requirement(s)") {
+                    appealFromSignatureRequirements = question.has[k].hasanswer[0].value
+                }
+            }
 
 
-	return extracted
+        }
+
+        if (question.ajRule == "Board Level Form Submission Method(s)") {
+            appealFormSubmittalFormat = question.hasanswer[0].value
+        }
+        if (question.ajRule == "Ascertain when Board Level Appeal Evidence deadline") {
+            appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
+            if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
+                appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
+            } else {
+                appealEvidenceSubmissionDays = ""
+            }
+        }
+        if (question.ajRule == "Board Level Submission Required Items") {
+
+            appealPackageItems = []
+
+            if (question.hasanswer[0].value.length > 0) {
+                if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
+                    appealPackageItems.push("IE||3")
+                }
+                if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+                    appealPackageItems.push("RR||2")
+                }
+                // if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
+                // 	appealPackageItems.push("AAD||1")
+                // }
+                // if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
+                // 	appealPackageItems.push("LBD||1")
+                // }
+
+            }
+
+
+        }
+
+        if (question.ajRule == "Board Level Appeal Package Submission Method(s)") {
+            appealPackageSubmittalFormatValue = question.hasanswer[0].value
+        }
+        if (question.ajRule == "Ascertain Board Level Appeal Deadline Format") {
+
+        }
+    }
+
+    const extracted = {
+        jurisdiction,
+        appealDeadline,
+        appealDateType,
+        isAppealForm,
+        appealFormSubmittalFormat,
+        appealFromSignatureRequirements,
+        appealEvidenceSubmissionValue,
+        appealEvidenceSubmissionDays,
+        appealPackageItems,
+        appealPackageSubmittalFormatValue,
+        appealPackageSubmittalFormatDeadline,
+        daysFromNotice
+    };
+
+
+    return extracted
 }
 
 function extractBoard3Data(json) {
-	let jurisdiction = json.value.jurisdiction
-	let appealDeadline = ""
-	let appealDateType = ""
-	let isAppealForm = ""
-	let appealFormSubmittalFormat = ""
-	let appealFromSignatureRequirements = ""
-	let appealEvidenceSubmissionValue = ""
-	let appealEvidenceSubmissionDays = ""
-	let appealPackageItems = ""
-	let appealPackageSubmittalFormatValue = ""
-	let appealPackageSubmittalFormatDeadline = ""
-	let daysFromNotice = null
-	for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
-		let question = json.value.hassubmission[0].has[i]
-		if (question.ajRule == "Ascertain Board Level (2) Appeal" && question.hasanswer[0].value == "No") {
-			return 0;
-		}
-		if (question.ajRule == "Ascertain Board Level (2) Appeal Deadline Format") {
-			if (question.hasanswer[0].value.length == 1) {
-				appealDateType = question.hasanswer[0].value[0]
-			} else {
-				appealDateType = question.hasanswer[0].value
-			}
+    let jurisdiction = json.value.jurisdiction
+    let appealDeadline = ""
+    let appealDateType = ""
+    let isAppealForm = ""
+    let appealFormSubmittalFormat = ""
+    let appealFromSignatureRequirements = ""
+    let appealEvidenceSubmissionValue = ""
+    let appealEvidenceSubmissionDays = ""
+    let appealPackageItems = ""
+    let appealPackageSubmittalFormatValue = ""
+    let appealPackageSubmittalFormatDeadline = ""
+    let daysFromNotice = null
+    for (let i = 0; i < json.value.hassubmission[0].has.length; i++) {
+        let question = json.value.hassubmission[0].has[i]
+        if (question.ajRule == "Ascertain Board Level (2) Appeal" && question.hasanswer[0].value == "No") {
+            return 0;
+        }
+        if (question.ajRule == "Ascertain Board Level (2) Appeal Deadline Format") {
+            if (question.hasanswer[0].value.length == 1) {
+                appealDateType = question.hasanswer[0].value[0]
+            } else {
+                appealDateType = question.hasanswer[0].value
+            }
 
-			for (let j = 0; j < question.has.length; j++) {
-				if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
-					if (question.has[j].enabled == appealDateType) {
+            for (let j = 0; j < question.has.length; j++) {
+                if (question.has && question.has[j] && question.has[j].hasanswer && question.has[j].hasanswer[0].value) {
+                    if (question.has[j].enabled == appealDateType) {
 
-						if (question.has[j].hasanswer[0].value.length == 1) {
-							appealDeadline = question.has[j].hasanswer[0].value[0]
-						} else {
-							appealDeadline = question.has[j].hasanswer[0].value
-						}
-					}
+                        if (question.has[j].hasanswer[0].value.length == 1) {
+                            appealDeadline = question.has[j].hasanswer[0].value[0]
+                        } else {
+                            appealDeadline = question.has[j].hasanswer[0].value
+                        }
+                    }
 
-					break
-				}
-			}
-		}
-
-
-
-		if (question.ajRule == "Ascertain Board Level (2) Appeal Form") {
-			if (question.hasanswer[0].value == "Yes") {
-				isAppealForm = true
-			} else {
-				isAppealForm = false
-			}
-			for (let k = 0; k < question.has.length; k++) {
-				if (question.has[k].ajRule == "Board Level (2) Form Signature Requirement(s)") {
-					appealFromSignatureRequirements = question.has[k].hasanswer[0].value
-				}
-			}
+                    break
+                }
+            }
+        }
 
 
-		}
 
-		if (question.ajRule == "Board Level (2) Form Submission Method(s)") {
-			appealFormSubmittalFormat = question.hasanswer[0].value
-			
-		}
-		if (question.ajRule == "Ascertain when Board Level (2) Appeal Evidence deadline") {
-			appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
-			if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
-				appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
-			} else {
-				appealEvidenceSubmissionDays = ""
-			}
-		}
-		if (question.ajRule == "Board Level (2) Submission Required Items") {
-
-			appealPackageItems = []
-
-			if (question.hasanswer[0].value.length > 0) {
-				if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")){
-					appealPackageItems.push("IE||3")
-				}
-				if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")){
-					appealPackageItems.push("RR||2")
-				}
-				// if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
-				// 	appealPackageItems.push("AAD||1")
-				// }
-				// if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
-				// 	appealPackageItems.push("LBD||1")
-				// }
-
-			}
+        if (question.ajRule == "Ascertain Board Level (2) Appeal Form") {
+            if (question.hasanswer[0].value == "Yes") {
+                isAppealForm = true
+            } else {
+                isAppealForm = false
+            }
+            for (let k = 0; k < question.has.length; k++) {
+                if (question.has[k].ajRule == "Board Level (2) Form Signature Requirement(s)") {
+                    appealFromSignatureRequirements = question.has[k].hasanswer[0].value
+                }
+            }
 
 
-		}
+        }
 
-		if (question.ajRule == "Board Level (2) Appeal Package Submission Method(s)") {
-			appealPackageSubmittalFormatValue = question.hasanswer[0].value
-		}
-	}
+        if (question.ajRule == "Board Level (2) Form Submission Method(s)") {
+            appealFormSubmittalFormat = question.hasanswer[0].value
 
-	const extracted = {
-		jurisdiction,
-		appealDeadline,
-		appealDateType,
-		isAppealForm,
-		appealFormSubmittalFormat,
-		appealFromSignatureRequirements,
-		appealEvidenceSubmissionValue,
-		appealEvidenceSubmissionDays,
-		appealPackageItems,
-		appealPackageSubmittalFormatValue,
-		appealPackageSubmittalFormatDeadline,
-		daysFromNotice
-	};
+        }
+        if (question.ajRule == "Ascertain when Board Level (2) Appeal Evidence deadline") {
+            appealEvidenceSubmissionValue = question.hasanswer[0].value[0]
+            if (question.hasanswer[0].value[0] == "# of Days Before Hearing") {
+                appealEvidenceSubmissionDays = question.has[0].hasanswer[0].value[0]
+            } else {
+                appealEvidenceSubmissionDays = ""
+            }
+        }
+        if (question.ajRule == "Board Level (2) Submission Required Items") {
+
+            appealPackageItems = []
+
+            if (question.hasanswer[0].value.length > 0) {
+                if (question.hasanswer[0].value.includes("Income and expense statements for the current year and the previous 2 years")) {
+                    appealPackageItems.push("IE||3")
+                }
+                if (question.hasanswer[0].value.includes("Rent roll as of January 1 for the current year and rent roll as of January 1 for the previous year")) {
+                    appealPackageItems.push("RR||2")
+                }
+                // if (question.hasanswer[0].value.includes("Decision from Assessor Appeal")){
+                // 	appealPackageItems.push("AAD||1")
+                // }
+                // if (question.hasanswer[0].value.includes("Decision from local Board Appeal")){
+                // 	appealPackageItems.push("LBD||1")
+                // }
+
+            }
 
 
-	return extracted
+        }
+
+        if (question.ajRule == "Board Level (2) Appeal Package Submission Method(s)") {
+            appealPackageSubmittalFormatValue = question.hasanswer[0].value
+        }
+    }
+
+    const extracted = {
+        jurisdiction,
+        appealDeadline,
+        appealDateType,
+        isAppealForm,
+        appealFormSubmittalFormat,
+        appealFromSignatureRequirements,
+        appealEvidenceSubmissionValue,
+        appealEvidenceSubmissionDays,
+        appealPackageItems,
+        appealPackageSubmittalFormatValue,
+        appealPackageSubmittalFormatDeadline,
+        daysFromNotice
+    };
+
+
+    return extracted
 }

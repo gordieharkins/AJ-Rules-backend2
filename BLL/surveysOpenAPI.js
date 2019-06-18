@@ -62,6 +62,36 @@ BLL.prototype.surveyJsonToRules = function (req, res) {
 		}
 	});
 }
+
+
+// ---------------------------------------------
+// deleteSubmissions
+// ---------------------------------------------
+BLL.prototype.deleteSubmissions = function (req, res) {
+	let data = req.body.data;
+	if(!data){
+		return Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+	}
+    DAL.deleteSubmissions(data, function (error, result) {
+        if (error) {
+            Response.sendResponse(false, Response.REPLY_MSG.UPDATE_FAIL, null, res);
+            return;
+        } else {
+            let successIds = []
+
+            for (let i in result) {
+                for (let j in result[i])
+                    successIds.push(result[i][j])
+            }
+
+            Response.sendResponse(true, Response.REPLY_MSG.UPDATE_SUCCESS, { successIds: successIds }, res);
+        }
+    });
+}
+// ---------------------END---------------------
+
+
+
 // ---------------------END---------------------
 /**
  * 

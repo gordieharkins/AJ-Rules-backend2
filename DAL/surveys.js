@@ -14,7 +14,7 @@ var object = new DAL();
 // ---------------------------------------------
 // getSurvysList
 // ---------------------------------------------
-DAL.prototype.getSurveysList = function(cb) {
+DAL.prototype.getSurveysList = function (cb) {
 
     var getSurveysList = `SELECT
         dbo.surveyList.id AS id,
@@ -31,10 +31,10 @@ DAL.prototype.getSurveysList = function(cb) {
 
     var sqlRequest = new SQL.Request();
 
-    sqlRequest.query(getSurveysList).then(function(result) {
+    sqlRequest.query(getSurveysList).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         // //console.log("Error : "+err);
         cb(err, null);
     });
@@ -49,7 +49,7 @@ DAL.prototype.getSurveysList = function(cb) {
 // ---------------------------------------------
 // getSurvysList
 // ---------------------------------------------
-DAL.prototype.getSurveyNameById = function(data, cb) {
+DAL.prototype.getSurveyNameById = function (data, cb) {
 
     var getSurveysName = `SELECT
                         DISTINCT dbo.surveyList.surveyName,
@@ -61,9 +61,9 @@ DAL.prototype.getSurveyNameById = function(data, cb) {
                         dbo.surveySubmissions.id = @surveyId`;
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("surveyId", SQL.Int, data.id);
-    sqlRequest.query(getSurveysName).then(function(result) {
+    sqlRequest.query(getSurveysName).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -73,7 +73,7 @@ DAL.prototype.getSurveyNameById = function(data, cb) {
 // ---------------------------------------------
 // getSurveyById single instance of a survey
 // ---------------------------------------------
-DAL.prototype.getSurveyById = function(id, cb) {
+DAL.prototype.getSurveyById = function (id, cb) {
     id = parseInt(id);
     var getSections = `SELECT
         dbo.surveyList.surveyName,
@@ -114,25 +114,25 @@ DAL.prototype.getSurveyById = function(id, cb) {
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("surveyListId", SQL.Int, id);
 
-    sqlRequest.query(getSections).then(function(result) {
+    sqlRequest.query(getSections).then(function (result) {
 
         // Get Questions Query
         var sqlRequest = new SQL.Request();
         sqlRequest = sqlRequest.input("surveyListId", SQL.Int, id);
 
-        sqlRequest.query(getQuestions).then(function(result2) {
+        sqlRequest.query(getQuestions).then(function (result2) {
             var finalResult = {
                 sections: result,
                 questions: result2
             }
 
             cb(null, finalResult);
-        }).catch(function(err) {
+        }).catch(function (err) {
             //console.log("Error : "+err);
             cb(err, null);
         });
         // Get Questions Query END
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -143,7 +143,7 @@ DAL.prototype.getSurveyById = function(id, cb) {
 // addSurvey single instance of a survey
 // with predifined Question and Orders
 // ---------------------------------------------
-DAL.prototype.addSurvey = function(data, cb) {
+DAL.prototype.addSurvey = function (data, cb) {
     var sqlRequest = new SQL.Request();
     var createdDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
 
@@ -156,7 +156,7 @@ DAL.prototype.addSurvey = function(data, cb) {
 
     sqlRequest = sqlRequest.input("surveyName", SQL.VarChar, data.surveyName);
     sqlRequest = sqlRequest.input("createdBy", SQL.BigInt(), data.createdBy);
-    sqlRequest = sqlRequest.input("createdDate", SQL.DateTime2(),createdDate);
+    sqlRequest = sqlRequest.input("createdDate", SQL.DateTime2(), createdDate);
 
     var sectionOrderQuery = ``;
 
@@ -164,10 +164,10 @@ DAL.prototype.addSurvey = function(data, cb) {
         var section = data.sectionOrder[i];
         // //console.log(section);
         sectionOrderQuery += `INSERT INTO sectionOrder 
-            VALUES(@sectionId`+i+`, @SurveyID, @sectionOrder`+i+`);\n`;
+            VALUES(@sectionId`+ i + `, @SurveyID, @sectionOrder` + i + `);\n`;
 
-        sqlRequest = sqlRequest.input("sectionId"+i, SQL.Int, section.sectionId);
-        sqlRequest = sqlRequest.input("sectionOrder"+i, SQL.Int, section.sectionOrder);
+        sqlRequest = sqlRequest.input("sectionId" + i, SQL.Int, section.sectionId);
+        sqlRequest = sqlRequest.input("sectionOrder" + i, SQL.Int, section.sectionOrder);
     }
     // //console.log(sectionOrderQuery);
     addSurvey += sectionOrderQuery;
@@ -178,20 +178,20 @@ DAL.prototype.addSurvey = function(data, cb) {
         var survey = data.surveyItems[j];
 
         surveyItemQuery += `INSERT INTO surveyItem 
-            VALUES(@questionId`+j+`,@questionOrder`+j+`,@sectionsId`+j+`,@SurveyID, 0);\n`;
+            VALUES(@questionId`+ j + `,@questionOrder` + j + `,@sectionsId` + j + `,@SurveyID, 0);\n`;
 
-        sqlRequest = sqlRequest.input("sectionsId"+j, SQL.Int, survey.sectionId);
-        sqlRequest = sqlRequest.input("questionOrder"+j, SQL.Int, survey.questionOrder);
-        sqlRequest = sqlRequest.input("questionId"+j, SQL.Int, survey.questionId);
+        sqlRequest = sqlRequest.input("sectionsId" + j, SQL.Int, survey.sectionId);
+        sqlRequest = sqlRequest.input("questionOrder" + j, SQL.Int, survey.questionOrder);
+        sqlRequest = sqlRequest.input("questionId" + j, SQL.Int, survey.questionId);
 
     }
     addSurvey += surveyItemQuery;
     addSurvey += `\nEND`;
     // //console.log(addSurvey);
 
-    sqlRequest.query(addSurvey).then(function(result) {
+    sqlRequest.query(addSurvey).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -204,16 +204,16 @@ DAL.prototype.addSurvey = function(data, cb) {
 // ---------------------------------------------
 // deleteSurvey
 // ---------------------------------------------
-DAL.prototype.deleteSurvey = function(data, cb) {
+DAL.prototype.deleteSurvey = function (data, cb) {
     var deleteQuestion = `UPDATE surveyList
 		SET isDeleted = 1
 		WHERE id = @id;`;
 
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
-    sqlRequest.query(deleteQuestion).then(function(result) {
+    sqlRequest.query(deleteQuestion).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -226,13 +226,13 @@ DAL.prototype.deleteSurvey = function(data, cb) {
 // ---------------------------------------------
 // getSubmittedSurveys
 // ---------------------------------------------
-DAL.prototype.getSubmittedSurveys = function(data, cb) {
+DAL.prototype.getSubmittedSurveys = function (data, cb) {
     var getSubmittedSurveysQuery = `SELECT * FROM surveySubmissions Where surveyListId = @surveyId AND isDeleted = 0`;
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("surveyId", SQL.Int, data.id);
-    sqlRequest.query(getSubmittedSurveysQuery).then(function(result) {
+    sqlRequest.query(getSubmittedSurveysQuery).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -242,39 +242,39 @@ DAL.prototype.getSubmittedSurveys = function(data, cb) {
 // ---------------------------------------------
 // submitSurvey
 // ---------------------------------------------
-DAL.prototype.submitSurvey = function(data, cb) {
+DAL.prototype.submitSurvey = function (data, cb) {
     var submitSurveyQuery = `INSERT INTO surveySubmissions (interviewer, dateCalled, phoneNumberCalled,taxAssessorMainWebsite, state, assessingJurisdiction,interviewee,intervieweeOfficeAddress,surveyListId,email,isDeleted)
                             VALUES(@interviewer, @dateCalled,@phoneNumberCalled,@taxAssessorMainWebsite,@state,@assessingJurisdiction,@interviewee,@intervieweeOfficeAddress,@surveyId, @email, 0) 
                             DECLARE @submissionId INTEGER
                             SELECT @submissionId = SCOPE_IDENTITY();`;
 
     var sqlRequest = new SQL.Request();
-    for(var i = 0; i < data.sections.length; i++){
-        for(var j = 0; j < data.sections[i].questions.length;j++){
+    for (var i = 0; i < data.sections.length; i++) {
+        for (var j = 0; j < data.sections[i].questions.length; j++) {
             var options = JSON.stringify(data.sections[i].questions[j].options);
             submitSurveyQuery += `INSERT INTO responses(sectionId, questionId, value, surveySubmissionId) 
-                                   VALUES (@sectionId`+i+`,@questionId`+i+""+j+`,@answer`+i+""+j+`,@submissionId);`;
-            sqlRequest = sqlRequest.input("questionId"+i+""+j, SQL.Int, data.sections[i].questions[j].questionId);
-            sqlRequest = sqlRequest.input("answer"+i+""+j, SQL.Text, options);
+                                   VALUES (@sectionId`+ i + `,@questionId` + i + "" + j + `,@answer` + i + "" + j + `,@submissionId);`;
+            sqlRequest = sqlRequest.input("questionId" + i + "" + j, SQL.Int, data.sections[i].questions[j].questionId);
+            sqlRequest = sqlRequest.input("answer" + i + "" + j, SQL.Text, options);
         }
-        sqlRequest = sqlRequest.input("sectionId"+i, SQL.Int, data.sections[i].sectionId);
+        sqlRequest = sqlRequest.input("sectionId" + i, SQL.Int, data.sections[i].sectionId);
     }
     sqlRequest = sqlRequest.input("surveyId", SQL.Int, data.surveyId);
     sqlRequest = sqlRequest.input("interviewer", SQL.VarChar(), data.information.interviewer);
     sqlRequest = sqlRequest.input("taxAssessorMainWebsite", SQL.VarChar(), data.information.taxAssessorMainWebsite);
     sqlRequest = sqlRequest.input("phoneNumberCalled", SQL.VarChar(), data.information.phoneNumberCalled);
     sqlRequest = sqlRequest.input("state", SQL.VarChar(), data.information.state);
-    sqlRequest = sqlRequest.input("intervieweeOfficeAddress",SQL.VarChar(), data.information.intervieweeOfficeAddress);
-    sqlRequest = sqlRequest.input("assessingJurisdiction",SQL.VarChar(), data.information.assessingJurisdiction);
+    sqlRequest = sqlRequest.input("intervieweeOfficeAddress", SQL.VarChar(), data.information.intervieweeOfficeAddress);
+    sqlRequest = sqlRequest.input("assessingJurisdiction", SQL.VarChar(), data.information.assessingJurisdiction);
     sqlRequest = sqlRequest.input("interviewee", SQL.VarChar(), data.information.interviewee);
     sqlRequest = sqlRequest.input("email", SQL.VarChar(), data.information.email);
     sqlRequest = sqlRequest.input("dateCalled", SQL.VarChar(), data.information.dateCalled);
     // sqlRequest = sqlRequest.input("submissionName", SQL.VarChar(), data.information.submissionName);
 
 
-    sqlRequest.query(submitSurveyQuery).then(function(result) {
+    sqlRequest.query(submitSurveyQuery).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -284,7 +284,7 @@ DAL.prototype.submitSurvey = function(data, cb) {
 // ---------------------------------------------
 // submitSurvey
 // ---------------------------------------------q
-DAL.prototype.getSubmittedSurveyById = function(data, cb) {
+DAL.prototype.getSubmittedSurveyById = function (data, cb) {
     var submitSurveyQuery = `SELECT
                     dbo.responses.id,
                     dbo.sections.[section],
@@ -312,10 +312,10 @@ DAL.prototype.getSubmittedSurveyById = function(data, cb) {
     // //console.log(submitSurveyQuery);
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("submissionId", SQL.Int, data.id);
-    sqlRequest.query(submitSurveyQuery).then(function(result) {
+    sqlRequest.query(submitSurveyQuery).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -325,7 +325,7 @@ DAL.prototype.getSubmittedSurveyById = function(data, cb) {
 // ---------------------------------------------
 // getQuestions
 // ---------------------------------------------
-DAL.prototype.getQuestions = function(cb) {
+DAL.prototype.getQuestions = function (cb) {
     var getQuestions = `SELECT
 		questions.id AS id,
 		questions.ref_id as ref_id,
@@ -338,10 +338,10 @@ DAL.prototype.getQuestions = function(cb) {
 		ORDER BY ref_id`;
 
     var sqlRequest = new SQL.Request();
-    sqlRequest.query(getQuestions).then(function(result) {
+    sqlRequest.query(getQuestions).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -351,7 +351,7 @@ DAL.prototype.getQuestions = function(cb) {
 // ---------------------------------------------
 // addQuestion
 // ---------------------------------------------
-DAL.prototype.addQuestion = function(data, cb) {
+DAL.prototype.addQuestion = function (data, cb) {
 
     var addQuestion = `INSERT INTO questions(question, options, isDeleted, version)
 		VALUES ('${data.questionText}','${data.options}', 0, 1); DECLARE @id INTEGER
@@ -360,10 +360,10 @@ DAL.prototype.addQuestion = function(data, cb) {
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("question", SQL.Text, data.questionText);
     sqlRequest = sqlRequest.input("options", SQL.Text, data.options);
-    sqlRequest.query(addQuestion).then(function(result) {
+    sqlRequest.query(addQuestion).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -408,7 +408,7 @@ DAL.prototype.addQuestion = function(data, cb) {
 //     });
 // }
 
-DAL.prototype.updateQuestion = function(data, cb) {
+DAL.prototype.updateQuestion = function (data, cb) {
     var updateQuestionQuery = `BEGIN
                 IF EXISTS (SELECT id FROM responses WHERE questionId = @questionId)
                     BEGIN
@@ -434,9 +434,9 @@ DAL.prototype.updateQuestion = function(data, cb) {
 
     //console.log(data.options);
 
-    sqlRequest.query(updateQuestionQuery).then(function(result) {
+    sqlRequest.query(updateQuestionQuery).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -448,17 +448,17 @@ DAL.prototype.updateQuestion = function(data, cb) {
 // ---------------------------------------------
 // deleteQuestion
 // ---------------------------------------------
-DAL.prototype.deleteQuestion = function(data, cb) {
+DAL.prototype.deleteQuestion = function (data, cb) {
     var deleteQuestion = `UPDATE questions
 		SET questions.isDeleted = 1
 		WHERE questions.id = @id;`;
 
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
-    sqlRequest.query(deleteQuestion).then(function(result) {
+    sqlRequest.query(deleteQuestion).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -471,7 +471,7 @@ DAL.prototype.deleteQuestion = function(data, cb) {
 // ---------------------------------------------
 // getSections
 // ---------------------------------------------
-DAL.prototype.getSections = function(cb) {
+DAL.prototype.getSections = function (cb) {
     var getSections = `SELECT
 		sections.id AS sectionId,
 		sections.section AS section
@@ -479,10 +479,10 @@ DAL.prototype.getSections = function(cb) {
 		WHERE sections.isDeleted = 0`;
 
     var sqlRequest = new SQL.Request();
-    sqlRequest.query(getSections).then(function(result) {
+    sqlRequest.query(getSections).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -492,17 +492,17 @@ DAL.prototype.getSections = function(cb) {
 // ---------------------------------------------
 // addSection
 // ---------------------------------------------
-DAL.prototype.addSection = function(data, cb) {
+DAL.prototype.addSection = function (data, cb) {
     var addSection = `INSERT INTO sections
 		VALUES (@section,0);`;
 
 
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("section", SQL.VarChar, data.sectionText);
-    sqlRequest.query(addSection).then(function(result) {
+    sqlRequest.query(addSection).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -515,7 +515,7 @@ DAL.prototype.addSection = function(data, cb) {
 // ---------------------------------------------
 // updateSection
 // ---------------------------------------------
-DAL.prototype.updateSection = function(data, cb) {
+DAL.prototype.updateSection = function (data, cb) {
 
     var updateSection = `UPDATE sections
 		SET section = @section
@@ -525,10 +525,10 @@ DAL.prototype.updateSection = function(data, cb) {
     sqlRequest = sqlRequest.input("section", SQL.Text, data.sectionText);
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
-    sqlRequest.query(updateSection).then(function(result) {
+    sqlRequest.query(updateSection).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -541,7 +541,7 @@ DAL.prototype.updateSection = function(data, cb) {
 // ---------------------------------------------
 // deleteSection
 // ---------------------------------------------
-DAL.prototype.deleteSection = function(data, cb) {
+DAL.prototype.deleteSection = function (data, cb) {
     var deleteSection = `UPDATE sections
 		SET isDeleted = 1
 		WHERE sections.id = ` + data.id + `;`;
@@ -549,10 +549,10 @@ DAL.prototype.deleteSection = function(data, cb) {
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
-    sqlRequest.query(deleteSection).then(function(result) {
+    sqlRequest.query(deleteSection).then(function (result) {
         // //console.log("result : "+result);
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -565,15 +565,15 @@ DAL.prototype.deleteSection = function(data, cb) {
 // ---------------------------------------------
 // getUSstates
 // ---------------------------------------------
-DAL.prototype.getUSstates = function(data, cb) {
+DAL.prototype.getUSstates = function (data, cb) {
     var getStates = `SELECT (s.state_name+ ' '+ s.state_code) AS States FROM states s;`;
 
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
-    sqlRequest.query(getStates).then(function(result) {
+    sqlRequest.query(getStates).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -586,7 +586,7 @@ DAL.prototype.getUSstates = function(data, cb) {
 // ---------------------------------------------
 // updateSubmittedForm
 // ---------------------------------------------
-DAL.prototype.updateSubmittedForm = function(data, cb) {
+DAL.prototype.updateSubmittedForm = function (data, cb) {
     var updateSubmittedForm = `UPDATE surveySubmissions SET
                     interviewer = @interviewer,
                     dateCalled = @dateCalled,
@@ -604,32 +604,32 @@ DAL.prototype.updateSubmittedForm = function(data, cb) {
     sqlRequest = sqlRequest.input("taxAssessorMainWebsite", SQL.VarChar(), data.information.taxAssessorMainWebsite);
     sqlRequest = sqlRequest.input("phoneNumberCalled", SQL.VarChar(), data.information.phoneNumberCalled);
     sqlRequest = sqlRequest.input("state", SQL.VarChar(), data.information.state);
-    sqlRequest = sqlRequest.input("intervieweeOfficeAddress",SQL.VarChar(), data.information.intervieweeOfficeAddress);
-    sqlRequest = sqlRequest.input("assessingJurisdiction",SQL.VarChar(), data.information.assessingJurisdiction);
+    sqlRequest = sqlRequest.input("intervieweeOfficeAddress", SQL.VarChar(), data.information.intervieweeOfficeAddress);
+    sqlRequest = sqlRequest.input("assessingJurisdiction", SQL.VarChar(), data.information.assessingJurisdiction);
     sqlRequest = sqlRequest.input("interviewee", SQL.VarChar(), data.information.interviewee);
     sqlRequest = sqlRequest.input("email", SQL.VarChar(), data.information.email);
     sqlRequest = sqlRequest.input("dateCalled", SQL.DateTime2(), data.information.dateCalled);
     sqlRequest = sqlRequest.input("submissionId", SQL.Int, data.submissionId);
 
 
-    for(var i = 0;i < data.sections.length; i++){
+    for (var i = 0; i < data.sections.length; i++) {
 
-        for(var j = 0; j < data.sections[i].questions.length; j++ ){
+        for (var j = 0; j < data.sections[i].questions.length; j++) {
             var options = JSON.stringify(data.sections[i].questions[j].options);
             updateSubmittedForm += `UPDATE responses 
-                                    SET value = @options`+i+""+j+` 
-                                    WHERE sectionId = @sectionId`+i+
-                ` AND questionId = @questionId`+i+""+j+`
+                                    SET value = @options`+ i + "" + j + ` 
+                                    WHERE sectionId = @sectionId`+ i +
+                ` AND questionId = @questionId` + i + "" + j + `
                                      AND surveySubmissionId = @submissionId;`;
 
-            sqlRequest = sqlRequest.input("questionId"+i+""+j, SQL.Int, data.sections[i].questions[j].questionId);
-            sqlRequest = sqlRequest.input("options"+i+""+j, SQL.Text, options);
+            sqlRequest = sqlRequest.input("questionId" + i + "" + j, SQL.Int, data.sections[i].questions[j].questionId);
+            sqlRequest = sqlRequest.input("options" + i + "" + j, SQL.Text, options);
         }
-        sqlRequest = sqlRequest.input("sectionId"+i, SQL.Int, data.sections[i].sectionId);
+        sqlRequest = sqlRequest.input("sectionId" + i, SQL.Int, data.sections[i].sectionId);
     }
-    sqlRequest.query(updateSubmittedForm).then(function(result) {
+    sqlRequest.query(updateSubmittedForm).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -642,15 +642,15 @@ DAL.prototype.updateSubmittedForm = function(data, cb) {
 // ---------------------------------------------
 // getUSstates
 // ---------------------------------------------
-DAL.prototype.deleteSubmission = function(data, cb) {
+DAL.prototype.deleteSubmission = function (data, cb) {
     var getStates = `UPDATE surveySubmissions SET isDeleted = 1 WHERE id = @id;`;
 
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
-    sqlRequest.query(getStates).then(function(result) {
+    sqlRequest.query(getStates).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -663,7 +663,7 @@ DAL.prototype.deleteSubmission = function(data, cb) {
 // ---------------------------------------------
 // getUSstates
 // ---------------------------------------------
-DAL.prototype.updateSurvey = function(data, cb) {
+DAL.prototype.updateSurvey = function (data, cb) {
     var modifiedDate = moment.tz(Date.now(), config.timezone_str).format('YYYY-MM-DD HH:mm:ss');
 
     var updateSurvey = `UPDATE surveyList SET 
@@ -687,10 +687,10 @@ DAL.prototype.updateSurvey = function(data, cb) {
         var section = data.sectionOrder[i];
         // //console.log(section);
         sectionOrderQuery += `INSERT INTO sectionOrder 
-            VALUES(@sectionId`+i+`, @surveyId, @sectionOrder`+i+`);\n`;
+            VALUES(@sectionId`+ i + `, @surveyId, @sectionOrder` + i + `);\n`;
 
-        sqlRequest = sqlRequest.input("sectionId"+i, SQL.Int, section.sectionId);
-        sqlRequest = sqlRequest.input("sectionOrder"+i, SQL.Int, section.sectionOrder);
+        sqlRequest = sqlRequest.input("sectionId" + i, SQL.Int, section.sectionId);
+        sqlRequest = sqlRequest.input("sectionOrder" + i, SQL.Int, section.sectionOrder);
     }
     // //console.log(sectionOrderQuery);
     updateSurvey += sectionOrderQuery;
@@ -701,19 +701,19 @@ DAL.prototype.updateSurvey = function(data, cb) {
         var survey = data.surveyItems[j];
 
         surveyItemQuery += `INSERT INTO surveyItem 
-            VALUES(@questionId`+j+`,@questionOrder`+j+`,@sectionsId`+j+`,@surveyId, 0);\n`;
+            VALUES(@questionId`+ j + `,@questionOrder` + j + `,@sectionsId` + j + `,@surveyId, 0);\n`;
 
-        sqlRequest = sqlRequest.input("sectionsId"+j, SQL.Int, survey.sectionId);
-        sqlRequest = sqlRequest.input("questionOrder"+j, SQL.Int, survey.questionOrder);
-        sqlRequest = sqlRequest.input("questionId"+j, SQL.Int, survey.questionId);
+        sqlRequest = sqlRequest.input("sectionsId" + j, SQL.Int, survey.sectionId);
+        sqlRequest = sqlRequest.input("questionOrder" + j, SQL.Int, survey.questionOrder);
+        sqlRequest = sqlRequest.input("questionId" + j, SQL.Int, survey.questionId);
 
     }
     updateSurvey += surveyItemQuery;
 
 
-    sqlRequest.query(updateSurvey).then(function(result) {
+    sqlRequest.query(updateSurvey).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -726,7 +726,7 @@ DAL.prototype.updateSurvey = function(data, cb) {
 // ---------------------------------------------
 // getUSstates
 // ---------------------------------------------
-DAL.prototype.getSurveyReport = function(data, cb) {
+DAL.prototype.getSurveyReport = function (data, cb) {
     var getReport = `SELECT
                     dbo.surveyList.id,
                     dbo.surveySubmissions.surveyListId,
@@ -750,9 +750,9 @@ DAL.prototype.getSurveyReport = function(data, cb) {
     var sqlRequest = new SQL.Request();
     sqlRequest = sqlRequest.input("id", SQL.Int, data.id);
 
-    sqlRequest.query(getReport).then(function(result) {
+    sqlRequest.query(getReport).then(function (result) {
         cb(null, result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         //console.log("Error : "+err);
         cb(err, null);
     });
@@ -765,7 +765,7 @@ DAL.prototype.getSurveyReport = function(data, cb) {
 // ---------------------------------------------
 // Single RR adding against a propertyId
 // ---------------------------------------------
-DAL.prototype.addAJRules = function(data, cb) {
+DAL.prototype.addAJRules = function (data, cb) {
     var params = data;
 
     const query = 'create(jurisdiction1:jurisdictionRules{jurisdiction: {jurisdiction} }) \
@@ -779,8 +779,8 @@ DAL.prototype.addAJRules = function(data, cb) {
 
     db.cypher({
         query: query,
-        params:params
-    }, function(err, results) {
+        params: params
+    }, function (err, results) {
         cb(err, results);
     });
 };
@@ -796,40 +796,71 @@ DAL.prototype.addAJRules = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getFormSubmissions = function(userId,userRole, cb) {
-	// var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
-	// with collect(a) as paths
-	// CALL apoc.convert.toTree(paths) yield value
+DAL.prototype.getFormSubmissions = function (userId, userRole, cb) {
+    // var query = `MATCH a = (:surveyForm)-[:version]->(version:formVersion)-[:hasSubmission]-(:surveySubmission)
+    // with collect(a) as paths
+    // CALL apoc.convert.toTree(paths) yield value
     // RETURN value`;
     var params = {};
     var temp = "";
-    if(userRole != "Admin"){
+    if (userRole != "Admin") {
         params = {
             userId: userId
         };
         temp = " where submission.createdByUserId = {userId} ";
 
     }
-    
-    
-    
+
+
+
     var query = `MATCH (survey:surveyForm)-[:version]->(version:formVersion)
-    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission{is_deleted:false})`+temp+` 
+    OPTIONAL MATCH (version)-[:hasSubmission]-(submission:surveySubmission{is_deleted:false})`+ temp + ` 
     RETURN collect(DISTINCT version) as versions, collect(submission) as submissions, survey`
 
     //console.log(query);
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
 
+// ---------------------END---------------------
+
+
+// ---------------------------------------------
+// deleteSubmissions
+// ---------------------------------------------
+
+DAL.prototype.deleteSubmissions = function (list, cb) {
+    console.log(list)
+    let query = "";
+
+    let returnQuery = "";
+    for (let i in list) {
+        query += `
+        Match(survey_`+list[i].id+`:surveySubmission) 
+        Match(user_`+list[i].id+`:ajRulesUser) where ID(survey_`+list[i].id+`) = `+ list[i].id + ` AND ID(user_`+list[i].id+`) = survey_`+list[i].id+`.createdByUserId AND survey_`+list[i].id+`.jurisdiction = '` + list[i].jurisdiction + `' AND user_`+list[i].id+`.email1 = '` + list[i].email + `'
+        SET survey_`+list[i].id+`.is_deleted = true`
+
+        returnQuery += ` ID(survey_`+list[i].id+`) `
+    }
+
+    db.cypher({
+        query: query + " return " + returnQuery,
+        params: {
+        }
+    }, function (err, results) {
+        cb(null, results)
+    });
+}
+
+
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.addNewSubmission = function(data, cb) {
+DAL.prototype.addNewSubmission = function (data, cb) {
     var params = {
         data: data
     }
@@ -846,13 +877,13 @@ DAL.prototype.addNewSubmission = function(data, cb) {
 
     //console.log(query);
     //console.log(params);
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
-        if(results.length>0){
+    }, function (err, results) {
+        if (results.length > 0) {
             var data = results[0];
-            object.getSubmissionData(data, function(error, result){
+            object.getSubmissionData(data, function (error, result) {
                 cb(err, result);
             });
         } else {
@@ -864,7 +895,7 @@ DAL.prototype.addNewSubmission = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getSubmissionData = function(data, cb) {
+DAL.prototype.getSubmissionData = function (data, cb) {
     var params = {
         submissionId: data.submissionId,
     }
@@ -880,10 +911,10 @@ DAL.prototype.getSubmissionData = function(data, cb) {
     // var query = ""
 
     //console.log(query,params);
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -891,11 +922,11 @@ DAL.prototype.getSubmissionData = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
+DAL.prototype.updateSubmissionData = function (data, userName, userId, cb) {
     var time = (new Date()).getTime();
     var params = {
         submissionId: data.submissionId,
-        answers: data.answers, 
+        answers: data.answers,
         time: time,
         userName: userName,
         userId: userId,
@@ -911,23 +942,23 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
                 sub.updatedAt = {time}, sub.phone = {phone}, sub.contradict = {contradict},
                 sub.total = {total}, sub.filled = {filled}, sub.status = {status}\n`;
 
-    data.answers.forEach(function(answer, index){
-        params['answerId'+index] = answer._id;
-        params['answerValue'+index] = answer.value;
-        params['contradict'+index] = answer.contradict;
-        params['comment'+ index] = answer.comment;
+    data.answers.forEach(function (answer, index) {
+        params['answerId' + index] = answer._id;
+        params['answerValue' + index] = answer.value;
+        params['contradict' + index] = answer.contradict;
+        params['comment' + index] = answer.comment;
 
         query += `
         WITH *
-        MATCH(a`+index+`:answer) where id(a`+index+`) = {answerId`+index+`} SET a`+index+`.value = {answerValue`+index+`}, a`+index+`.contradict = {contradict`+index+`}, a`+index+`.comment = {comment`+index+`} \n
-        CREATE(history`+index+`:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
-            answer: {answerValue`+index+`}, surveyeeName: {surveyeeName}, comment: {comment`+index+`}})
-        CREATE(a`+index+`)-[:hasHistory]->(history`+index+`)\n`;
+        MATCH(a`+ index + `:answer) where id(a` + index + `) = {answerId` + index + `} SET a` + index + `.value = {answerValue` + index + `}, a` + index + `.contradict = {contradict` + index + `}, a` + index + `.comment = {comment` + index + `} \n
+        CREATE(history`+ index + `:history{updatedByUserId: {userId}, updatedByUserName: {userName}, updatedAT: {time}, 
+            answer: {answerValue`+ index + `}, surveyeeName: {surveyeeName}, comment: {comment` + index + `}})
+        CREATE(a`+ index + `)-[:hasHistory]->(history` + index + `)\n`;
     });
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -936,7 +967,7 @@ DAL.prototype.updateSubmissionData = function(data, userName, userId, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getFormQuestions = function(data, cb) {
+DAL.prototype.getFormQuestions = function (data, cb) {
     // var params = {
     //     submissionId: data.submissionId
     // }
@@ -944,9 +975,9 @@ DAL.prototype.getFormQuestions = function(data, cb) {
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
-	db.cypher({
+    db.cypher({
         query: query
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -955,7 +986,7 @@ DAL.prototype.getFormQuestions = function(data, cb) {
 //--------------------------------------------------------
 // addNewForm
 //--------------------------------------------------------
-DAL.prototype.addNewForm = function(data, userData, cb) {
+DAL.prototype.addNewForm = function (data, userData, cb) {
     var params = {
         userName: userData.userName,
         userId: userData.userId,
@@ -963,23 +994,23 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
         createdAt: (new Date()).getTime()
     }
     // //console.log(params);
-    
+
     var query = `
     MATCH(survey: surveyForm)
     CREATE (form: formVersion{formName: {formName}, created_at: {createdAt}, created_by_userId: {userId}, created_by_username: {userName}, isActive: true})\n
     CREATE(survey)-[:version]->(form)`;
-    
-    for(var i = 0; i < data.questions.length; i++){
+
+    for (var i = 0; i < data.questions.length; i++) {
         var question = JSON.parse(JSON.stringify(data.questions[i]));
         delete question.has;
-        params['question'+i] = question;
-        query += `CREATE(question`+i+`:surveyQuestion{question`+i+`})
-                CREATE(form)-[:HAS]->(question`+i+`)\n`;
-        if(data.questions[i].has != undefined){
-            for(var j = 0; j < data.questions[i].has.length; j++){
-                params['child'+i+""+j] = data.questions[i].has[j];
-                query += `CREATE(child`+i+""+j+`:childQuestion{child`+i+""+j+`})
-                CREATE(question`+i+`)-[:HAS]->(child`+i+""+j+`)\n`;
+        params['question' + i] = question;
+        query += `CREATE(question` + i + `:surveyQuestion{question` + i + `})
+                CREATE(form)-[:HAS]->(question`+ i + `)\n`;
+        if (data.questions[i].has != undefined) {
+            for (var j = 0; j < data.questions[i].has.length; j++) {
+                params['child' + i + "" + j] = data.questions[i].has[j];
+                query += `CREATE(child` + i + "" + j + `:childQuestion{child` + i + "" + j + `})
+                CREATE(question`+ i + `)-[:HAS]->(child` + i + "" + j + `)\n`;
             }
         }
     }
@@ -988,10 +1019,10 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
     MATCH (prevForm: formVersion) where id(prevForm) <> id(form) SET prevForm.isActive = false`;
     // //console.log(params);
     // //console.log(query);
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -999,15 +1030,15 @@ DAL.prototype.addNewForm = function(data, userData, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getHistory = function(data, cb) {
+DAL.prototype.getHistory = function (data, cb) {
     var params = {
         answerId: data.answerId
     }
     var query = `MATCH(answer)-[:hasHistory]->(history:history) where id(answer) = {answerId} return history ORDER BY history.updatedAt DESC`;
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -1015,7 +1046,7 @@ DAL.prototype.getHistory = function(data, cb) {
 //--------------------------------------------------------
 // getFormDataForJurisdiction
 //--------------------------------------------------------
-DAL.prototype.getReports = function(cb) {
+DAL.prototype.getReports = function (cb) {
     // var params = {
     //     answerId: data.answerId
     // }
@@ -1024,10 +1055,10 @@ DAL.prototype.getReports = function(cb) {
     with collect(path) as paths
     CALL apoc.convert.toTree(paths) yield value
     RETURN value`;
-	db.cypher({
+    db.cypher({
         query: query,
         // params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -1035,12 +1066,12 @@ DAL.prototype.getReports = function(cb) {
 //--------------------------------------------------------
 // autoSave
 //--------------------------------------------------------
-DAL.prototype.autoSave = function(data, cb) {
+DAL.prototype.autoSave = function (data, cb) {
     var params = {
         answerId: data._id,
         contradiction: data.contradict,
         answerValue: data.value,
-        comment: data.comment, 
+        comment: data.comment,
         submissionContradict: data.submissionContradict,
         submissionId: data.submissionId,
         status: data.status
@@ -1053,10 +1084,10 @@ DAL.prototype.autoSave = function(data, cb) {
 
     // //console.log(query);
     // //console.log(params);
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -1065,11 +1096,11 @@ DAL.prototype.autoSave = function(data, cb) {
 //--------------------------------------------------------
 // getStatesdasdsdsa
 //--------------------------------------------------------
-DAL.prototype.getStates = function(cb) {
-    var query  = 'MATCH(n:state) OPTIONAL MATCH(n)-[]->(m:jurisdiction) WITH n, m ORDER BY m.name WITH n, Collect(m.name) as jurisdiction Return n.name as state, jurisdiction ORDER BY n.name';
+DAL.prototype.getStates = function (cb) {
+    var query = 'MATCH(n:state) OPTIONAL MATCH(n)-[]->(m:jurisdiction) WITH n, m ORDER BY m.name WITH n, Collect(m.name) as jurisdiction Return n.name as state, jurisdiction ORDER BY n.name';
     db.cypher({
         query: query,
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
@@ -1080,7 +1111,7 @@ DAL.prototype.getStates = function(cb) {
 // surveysToAJrules
 //--------------------------------------------------------
 
-DAL.prototype.surveysToAJrules = function(data, cb) {
+DAL.prototype.surveysToAJrules = function (data, cb) {
     var params = data
 
     var query = 'create(jurisdiction1:jurisdictionRules{jurisdiction: {jurisdiction} }) \
@@ -1091,10 +1122,10 @@ DAL.prototype.surveysToAJrules = function(data, cb) {
     create(jurisdiction1)-[:rule]->(appealPackageItems:appealPackageItems{value: {appealPackageItems} }) \
     create(jurisdiction1)-[:rule]->(appealPackageSubmittalFormat:appealPackageSubmittalFormat{value: {appealPackageSubmittalFormatValue} })'
 
-	db.cypher({
+    db.cypher({
         query: query,
         params: params
-    }, function(err, results) {
+    }, function (err, results) {
         cb(err, results);
     });
 }
