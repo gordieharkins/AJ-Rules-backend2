@@ -834,21 +834,17 @@ DAL.prototype.getFormSubmissions = function (userId, userRole, cb) {
 // ---------------------------------------------
 
 DAL.prototype.deleteSubmissions = function (list, cb) {
-    console.log(list)
     let query = "";
 
-    let returnQuery = "";
-    for (let i in list) {
-        query += `
-        Match(survey_`+list[i].id+`:surveySubmission) 
-        Match(user_`+list[i].id+`:ajRulesUser) where ID(survey_`+list[i].id+`) = `+ list[i].id + ` AND ID(user_`+list[i].id+`) = survey_`+list[i].id+`.createdByUserId AND survey_`+list[i].id+`.jurisdiction = '` + list[i].jurisdiction + `' AND user_`+list[i].id+`.email1 = '` + list[i].email + `'
-        SET survey_`+list[i].id+`.is_deleted = true`
-
-        returnQuery += ` ID(survey_`+list[i].id+`) `
-    }
+    query += "WITH "+ JSON.stringify(list).replace(/\"([^(\")"]+)\":/g, "$1:")
+    query += " as elemList unwind elemList as elem"
+    query += `
+        Match(survey:surveySubmission)
+        Match(user:ajRulesUser) where ID(survey) = elem.id  AND ID(user) = survey.createdByUserId AND survey.jurisdiction = elem.jurisdiction AND user.email1 = elem.email
+        SET survey.is_deleted = true return ID(survey) `
 
     db.cypher({
-        query: query + " return " + returnQuery,
+        query: query,
         params: {
         }
     }, function (err, results) {
