@@ -9,7 +9,10 @@ function ipConfig(type) {
         return 'http://localhost:4300'
     }
     if(type=='server'){
-        return 'https://aj-rules.mybluemix.net/'
+        // return 'https://aj-rules.mybluemix.net/'
+        return 'https://aj-rules-frontend.mybluemix.net/'
+
+        
     }
     if(type=='pDev'){
         return 'http://115.186.56.78:4300'
