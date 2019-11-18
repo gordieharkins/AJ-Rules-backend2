@@ -10,7 +10,7 @@ function ipConfig(type) {
     }
     if(type=='server'){
         // return 'https://aj-rules.mybluemix.net/'
-        return 'https://aj-rules-frontend.mybluemix.net/'
+        return 'https://aj-rules-frontend.mybluemix.net/' // new url
 
         
     }
