@@ -3,6 +3,6 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: AOTC-Old
-  host: aotc-old
+  name: aj-rules-backend
+  host: aj-rules-backend
   disk_quota: 1024M
