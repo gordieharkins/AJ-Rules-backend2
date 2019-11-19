@@ -90,5 +90,8 @@
     "webpack": "^3.11.0",
     "webpack-closure-compiler": "^2.1.5",
     "webpack-merge": "^4.1.1"
-  }
+  },
+  "engines" : { 
+    "node" : "6.17.1" 
+  } 
 }
