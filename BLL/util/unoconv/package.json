@@ -49,7 +49,7 @@
     "url": "https://github.com/gfloyd/node-unoconv/issues"
   },
   "dependencies": {
-    "mime": "1.2.x",
+    "mime": "2.4.x",
     "underscore": "1.4.x"
   },
   "description": "Wrapper for converting documents with unoconv.",
