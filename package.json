@@ -8,9 +8,9 @@
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "async": "^2.4.0",
-    "body-parser": "~1.15.2",
+    "body-parser": "^1.19.0",
     "busboy": "^0.2.14",
-    "cfenv": "1.0.x",
+    "cfenv": "^1.2.3",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
     "date-diff": "^0.2.0",
@@ -18,7 +18,7 @@
     "debug": "~2.2.0",
     "docx-builder": "^1.0.4",
     "eslint": "^3.19.0",
-    "express": "~4.14.0",
+    "express": "^4.17.1",
     "express-session": "^1.14.2",
     "form-data": "^2.3.1",
     "formidable": "^1.1.1",
@@ -32,7 +32,7 @@
     "mammoth": "^1.4.2",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.13",
-    "morgan": "~1.7.0",
+    "morgan": "^1.10.0",
     "mssql": "^3.3.0",
     "neo4j": "^2.0.0-alpha5",
     "ng-file-upload": "^12.2.13",
@@ -47,7 +47,7 @@
     "passport-jwt": "^2.2.1",
     "pkgcloud-bluemix-objectstorage": "^2.0.0",
     "replaceall": "^0.1.6",
-    "serve-favicon": "~2.3.0",
+    "serve-favicon": "^2.5.0",
     "twilio": "^3.17.2",
     "underscore": "^1.8.3",
     "unoconv": "^0.1.2",
@@ -60,7 +60,7 @@
     "install": "^0.10.2",
     "npm": "^5.5.1"
   },
-  "engines" : { 
-    "node" : "6.17.1" 
-  } 
+  "engines": {
+    "node": "6.7.1"
+  }
 }

@@ -24,7 +24,8 @@ var neo4j = require('neo4j');
 // var test = 'https://10-0-1-234-36875.neo4jsandbox.com/';
 // var test = 'http://neo4j:Spring!2019@169.62.218.108:7474';
 // var test = 'http://neo4j:Spring!2019@169.62.218.110:7474';
-var test = 'http://neo4j:Yell0w*St0ne@169.47.231.181:7474' //CREyield env prod DB
+//var test = 'http://neo4j:Yell0w*St0ne@169.47.231.181:7474' //CREyield env prod DB
+var test = 'http://neo4j:Yell0w*St0ne@40.79.83.223:7474' //CREyield env prod DB in azure
 
 
 

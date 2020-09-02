@@ -1,0 +1,5 @@
+{
+    "appService.showBuildDuringDeployPrompt": false,
+    "appService.defaultWebAppToDeploy": "/subscriptions/8cd9d7f9-ed45-40be-a763-49ee80af59ce/resourceGroups/ResourceGroup_AJRules/providers/Microsoft.Web/sites/creyield-ajrules",
+    "appService.deploySubpath": "."
+}
