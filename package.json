@@ -15,7 +15,7 @@
     "cors": "^2.8.4",
     "date-diff": "^0.2.0",
     "dateformat": "^2.0.0",
-    "debug": "~2.2.0",
+    "debug": "~2.6.9",
     "docx-builder": "^1.0.4",
     "eslint": "^3.19.0",
     "express": "^4.17.1",
